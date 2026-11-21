@@ -3,7 +3,7 @@ s32 lookupItemSlotIndex(s32);
 s32 func_8002B000(void *, s32);
 s16 timerGetTotalSeconds(void *);
 s32 func_8002B2B0(void *, void *);
-s32 func_8002B2FC(void *, void *);
+unsigned short func_8002B2FC(void *, void *);
 s32 func_8002B3C0(void *, s32 *);
 s32 func_8002BC68(s32, s32);
 s32 func_80030C58();
@@ -39,18 +39,22 @@ inline static u8 *inline_fn2(u8 *arg0)
   return arg0;
 }
 
+inline static u8 *inline_fn23(s32 arg0, u8 *arg1)
+{
+  return arg0 + arg1;
+}
+
 void func_8001C6CC(void)
 {
   s16 temp_s0_4;
   s16 var_v0;
   s32 temp_s0;
-s32 __repair_phase_temp_s0;
+  s32 __repair_phase_temp_s0;
   s32 temp_s2;
   s32 temp_s5;
   s32 var_a0;
   s32 __repair_phase_var_s1;
   s32 var_s2;
-  
   u32 temp_s0_3;
   u16 temp_v0;
   void *temp_s0_2;
@@ -71,16 +75,16 @@ s32 __repair_phase_temp_s0;
     var_s2 = temp_s5;
     __repair_phase_var_s1 = temp_s5 & 0xFFFF;
     temp_s0 = __repair_phase_var_s1 * 0x18;
-    if (((timerGetTotalSeconds(temp_s0 + ((temp_v0 * 8) + (&D_80117428))) << 0x10) == 0) || (func_8002B2B0(temp_s0 + ((inline_fn(func_800316B8()) * 8) + (&D_80117428)), (&D_80102EE0) + 0x1C) & 0xFF))
+    if (((timerGetTotalSeconds(inline_fn23(temp_s0, (temp_v0 * 8) + (&D_80117428))) << 0x10) == 0) || (func_8002B2B0(temp_s0 + inline_fn23(inline_fn(func_800316B8()) * 8, &D_80117428), (&D_80102EE0) + 0x1C) & 0xFF))
     {
-      func_8002B3C0(temp_s0 + ((inline_fn(func_800316B8()) * 8) + inline_fn2(&D_80117428)), &D_80102EFC);
+      func_8002B3C0(inline_fn23(temp_s0, inline_fn23(inline_fn(func_800316B8()) * 8, inline_fn2(&D_80117428))), &D_80102EFC);
     }
     __repair_phase_temp_s0 = 0;
-    func_8002B000((inline_fn(func_800316B8()) * 8) + (&D_80117410), 0x1E);
+    func_8002B000(inline_fn23(inline_fn(func_800316B8()) * 8, &D_80117410), 0x1E);
     do
     {
-      temp_s0_2 = ((func_800316B8() & 0xFFFF) * 8) + (&D_80117410);
-      func_8002B2FC(temp_s0_2, ((__repair_phase_temp_s0 & 0xFFFF) * 0x18) + ((inline_fn(func_800316B8()) * 8) + ((&D_80117410) + 0x18)));
+      temp_s0_2 = inline_fn23((func_800316B8() & 0xFFFF) * 8, &D_80117410);
+      func_8002B2FC(temp_s0_2, ((__repair_phase_temp_s0 & 0xFFFF) * 0x18) + inline_fn23(inline_fn(func_800316B8()) * 8, (&D_80117410) + 0x18));
       __repair_phase_temp_s0 += 1;
     }
     while (((u32) (__repair_phase_temp_s0 & 0xFFFF)) < 0xEU);

@@ -108,8 +108,8 @@ void func_800770E4(void *arg0) {
         var_fv0 = M2C_FIELD(temp_v0_2, f32 *, 0x1A0);
         var_fv1_2 = M2C_FIELD(temp_v0_2, f32 *, 0x1A8);
         var_v1_2 = M2C_FIELD(temp_v0_2, u32 *, 0x18C);
-        var_s3 = 0;
         var_s2 = 0;
+        var_s3 = 0;
         M2C_FIELD(temp_v0_2, s32 *, 0xCC) = 0;
         var_v0 = 0x4D;
         goto block_8;

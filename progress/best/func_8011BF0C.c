@@ -76,9 +76,9 @@ void func_8011BF0C(void *arg0) {
             func_8002B150(temp_a0_2 + D_8011F140, (*(s32 *)(D_8011F140 + temp_a0_2) + 1) & 0xFF, 0);
             temp_v1 = temp_s4 & 0xFF;
             temp_s0_2 = temp_v1 * 4;
+            temp_v0_2 = (temp_v1 * 0xC) + D_8011F298;
             temp_a0_3 = temp_s0_2 + D_8011F2B0;
             temp_a2 = *temp_a0_3;
-            temp_v0_2 = (temp_v1 * 0xC) + D_8011F298;
             M2C_FIELD(temp_a2, __repair_words3 *, 0x24) = *(__repair_words3 *) ((s8 *) temp_v0_2 + 0x0);
             temp_v1_2 = *temp_a0_3;
             temp_a1 = M2C_FIELD(temp_v0_2, s32 *, 0);

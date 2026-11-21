@@ -68,8 +68,8 @@ void func_80035060(void *arg0) {
     (*(s32 *)((char *)(temp_s1) + 8)) = 0xFE000000;
     temp_s7 = (s32)left;
     temp_fp = (s32)top;
-    temp_s5 = (s32)(right - 1.0f);
     temp_s6 = (s32)(bottom - 1.0f);
+    temp_s5 = (s32)(right - 1.0f);
     phys = osVirtualToPhysical(framebuffer);
     framebuffer = (s32)&D_80109A54;
     temp_s0 = sDisplayListCursor;

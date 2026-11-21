@@ -1,31 +1,33 @@
-typedef struct {
-    u32 w0, w1;
+#define EMIT(a, b) { RenderCommand *cmd = D_80115328++; cmd->w0 = (a); cmd->w1 = (b); }
+typedef struct 
+{
+  u32 w0;
+  u32 w1;
 } RenderCommand;
-
-typedef struct {
-    u8 pad[0x20];
-    f32 height;
+typedef struct 
+{
+  u8 pad[0x20];
+  f32 height;
 } RenderDetail;
-
-typedef struct RenderNode {
-    u8 pad0[0x1C];
-    struct RenderNode *next;
-    u8 pad20[0x1C];
-    RenderDetail *detail;
-    u8 pad40[0x18];
-    u32 flags;
+typedef struct RenderNode
+{
+  u8 pad0[0x1C];
+  struct RenderNode *next;
+  u8 pad20[0x1C];
+  RenderDetail *detail;
+  u8 pad40[0x18];
+  u32 flags;
 } RenderNode;
-
-typedef struct {
-    u8 pad[0x100];
-    u32 flags;
+typedef struct 
+{
+  u8 pad[0x100];
+  u32 flags;
 } RenderView;
-
-typedef struct {
-    u8 pad[0x74C];
-    u32 matrices;
+typedef struct 
+{
+  u8 pad[0x74C];
+  u32 matrices;
 } RenderFrame;
-
 extern void buildQuadUvFrames(RenderNode *, RenderView *);
 extern void func_80032630(void *);
 extern void emitPrimColor(RenderNode *, RenderView *);
@@ -34,85 +36,102 @@ extern void emit_projection_viewport_commands(void);
 extern void guMtxF2L(f32 *, u32);
 extern void func_800A3940(f32 *, f32, f32, f32);
 extern void guMtxIdentF(f32 *);
-extern RenderCommand D_800B1A00[], D_800B1A78[], D_800B1B18[];
+extern RenderCommand D_800B1A00[];
+extern RenderCommand D_800B1A78[];
+extern RenderCommand D_800B1B18[];
 extern u32 sMatrixPoolLimit[3];
-extern s32 D_801032A0, D_8010A924, gRenderMode;
+extern s32 D_801032A0;
+extern s32 D_8010A924;
+extern s32 gRenderMode;
 extern RenderNode *gObjectListHead;
-extern u32 sMatrixPoolUsed, D_8010D538;
+extern u32 sMatrixPoolUsed;
+extern u32 D_8010D538;
 extern f32 D_80112F90[16];
 extern f32 D_80112FC4;
 extern RenderCommand *D_80115328;
 extern RenderFrame *sRenderState;
+void func_800362B4(RenderView *view)
+{
+  RenderNode *node = gObjectListHead;
+  RenderCommand *cmd;
+  if (D_801032A0 != 1)
+  {
+    D_801032A0 = 1;
+    if (view->flags & 3)
+    {
+      EMIT(0xFC40FE03, 0xFFFFF378);
+    }
+    else
+    {
+      EMIT(0xFC40FE03, 0xFF0FF37F);
+    }
+  }
+  if (gRenderMode)
+  {
+    gRenderMode = 0;
+    emit_projection_viewport_commands();
+  }
+  if (0 != D_8010A924)
+  {
+    D_8010A924 = 0;
+    if (view->flags & 3)
+    {
+      EMIT(0xDE000000, (u32) D_800B1A00);
+    }
+    else
+    {
+      EMIT(0xDE000000, (u32) D_800B1B18);
+    }
+  }
+  cmd = D_80115328;
+  cmd->w0 = 0xDA380003;
+  D_80115328++;
+  cmd->w1 = sRenderState->matrices - 0x80000000;
+  for (; node != NULL; node = node->next)
+  {
+    buildQuadUvFrames(node, view);
+    emitPrimColor(node, view);
+    func_80034630(node, view);
+    if (node->detail != NULL)
+    {
+      func_80032630(node->detail);
+    }
+  }
 
-#define EMIT(a, b) { RenderCommand *cmd = D_80115328++; cmd->w0 = (a); cmd->w1 = (b); }
-
-void func_800362B4(RenderView *view) {
-    RenderNode *node = gObjectListHead;
-    RenderCommand *cmd;
-
-    if (D_801032A0 != 1) {
-        D_801032A0 = 1;
-        if (view->flags & 3) {
-            EMIT(0xFC40FE03, 0xFFFFF378);
-        } else {
-            EMIT(0xFC40FE03, 0xFF0FF37F);
+  if (D_8010A924 != 3)
+  {
+    D_8010A924 = 3;
+    EMIT(0xDE000000, (u32) D_800B1A78);
+  }
+  node = gObjectListHead;
+  if (node != NULL)
+  {
+    f32 *matrix = D_80112F90;
+    f32 one = 1.0f;
+    f32 scale = 64.0f;
+    do
+    {
+      if ((node->flags >> 2) & 0x200)
+      {
+        f32 y = 2.0f * node->detail->height;
+        if (sMatrixPoolUsed >= sMatrixPoolLimit[0])
+        {
+          break;
         }
-    }
-    if (gRenderMode) {
-        gRenderMode = 0;
-        emit_projection_viewport_commands();
-    }
-    if (D_8010A924 != 0) {
-        D_8010A924 = 0;
-        if (view->flags & 3) {
-            EMIT(0xDE000000, (u32)D_800B1A00);
-        } else {
-            EMIT(0xDE000000, (u32)D_800B1B18);
-        }
-    }
-
-    cmd = D_80115328;
-    cmd->w0 = 0xDA380003;
-    D_80115328++;
-    cmd->w1 = sRenderState->matrices - 0x80000000;
-
-    for (; node != NULL; node = node->next) {
-        buildQuadUvFrames(node, view);
         emitPrimColor(node, view);
         func_80034630(node, view);
-        if (node->detail != NULL) {
-            func_80032630(node->detail);
-        }
+        D_8010D538 = sRenderState->matrices + ((++sMatrixPoolUsed) << 6);
+        guMtxIdentF(matrix);
+        func_800A3940(matrix, one, -1.0f, one);
+        D_80112FC4 = y * scale;
+        guMtxF2L(matrix, D_8010D538);
+        D_80115328->w0 = 0xDA380003;
+        D_80115328->w1 = D_8010D538 - 0x80000000;
+        D_80115328++;
+        func_80032630(node->detail);
+      }
     }
-    if (D_8010A924 != 3) {
-        D_8010A924 = 3;
-        EMIT(0xDE000000, (u32)D_800B1A78);
-    }
-
-    node = gObjectListHead;
-    if (node != NULL) {
-        f32 one = 1.0f;
-        f32 scale = 64.0f;
-        f32 *matrix = D_80112F90;
-        do {
-        if ((node->flags >> 2) & 0x200) {
-            f32 y = 2.0f * node->detail->height;
-            if (sMatrixPoolUsed >= sMatrixPoolLimit[0]) {
-                break;
-            }
-            emitPrimColor(node, view);
-            func_80034630(node, view);
-            D_8010D538 = sRenderState->matrices + (++sMatrixPoolUsed << 6);
-            guMtxIdentF(matrix);
-            func_800A3940(matrix, one, -1.0f, one);
-            D_80112FC4 = y * scale;
-            guMtxF2L(matrix, D_8010D538);
-            D_80115328->w0 = 0xDA380003;
-            D_80115328->w1 = D_8010D538 - 0x80000000;
-            D_80115328++;
-            func_80032630(node->detail);
-        }
-        } while ((node = node->next) != NULL);
-    }
+    while ((node = node->next) != NULL);
+  }
 }
 

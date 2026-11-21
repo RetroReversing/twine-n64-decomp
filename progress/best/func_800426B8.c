@@ -81,8 +81,8 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2) {
         sp44 = func_80083E24();
         temp_s1 = *(s32 *)((char *)D_800C0780 + temp_s2);
         temp_s0 = heapAllocTagged(0x30U, 0x17);
-        var_s7 = 0;
         var_fp = 0;
+        var_s7 = 0;
         sp56 = 0;
         func_800134C0();
         temp_v0 = heapAllocTagged(*(s32 *)((char *)D_800C078C + temp_s2) * 0x4C, 0xA);

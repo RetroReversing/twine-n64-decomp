@@ -79,9 +79,9 @@ block_10:
         (*(s32 *)((char *)(temp_a0) + 8)) = 0xFB000000;
         (*(s32 *)((char *)(temp_a0) + 0xC)) = 0xFF;
         (*(s32 *)((char *)(temp_a0) + 0x10)) = 0xDE000000;
-        listAddress = (*(s32 *)((char *)(sRenderState) + 0x1B68));
         temp_a1 = gRenderMode;
         sDisplayListCursor = temp_a0 + 8;
+        listAddress = (*(s32 *)((char *)(sRenderState) + 0x1B68));
         sDisplayListCursor = temp_a0 + 0x10;
         sDisplayListCursor = temp_a0 + 0x18;
         (*(s32 *)((char *)(temp_a0) + 0x14)) = listAddress;
@@ -96,9 +96,9 @@ block_10:
         (*(s32 *)((char *)(tail) + 0)) = 0xDF000000;
         (*(s32 *)((char *)(temp_a2) + 0)) = 0xDE000000;
         (*(s32 *)((char *)(temp_a2) + 4)) = (*(s32 *)((char *)(state) + 0x1C70));
-        temp_a1 = D_8010A4D8;
         D_8010A4B4 = tail + 8;
         sDisplayListCursor = temp_a2;
+        temp_a1 = D_8010A4D8;
         temp_a2 += 8;
         func_80034928(arg0, temp_a1);
     }
