@@ -12,7 +12,7 @@ typedef struct { u8 pad[0xB4]; ResultState *state; } ResultPlayer;
 extern ResultPlayer *D_80102CD0[];
 
 char *func_80023BD4(void) {
-    s32 i, best, player, message, score, count, idx;
+    s32 i, best, player, message, count, idx; s32 score;
     s16 *winner;
     union { ResultPlayer **players; s16 *scores; } table;
     ResultPlayer *entry;
@@ -67,11 +67,11 @@ draw:
     if (gSaveTotalSlots > 0) {
         table.scores = D_800E1068;
         do {
-            u16 slot = getSaveSlotIndex((u16)i);
-            score = table.scores[slot];
+            idx = (u16) getSaveSlotIndex((u16)i);
+            score = table.scores[idx];
             if (best < score) {
                 best = score;
-                player = slot;
+                player = idx;
             }
             i++;
         } while (i < gSaveTotalSlots);
@@ -83,9 +83,8 @@ draw:
         winner = &table.scores[player];
         do {
             idx = (u16)getSaveSlotIndex((u16)i);
-            score = table.scores[idx];
             i++;
-            best += *winner == score;
+            best += table.scores[idx] == *winner;
         } while (i < gSaveTotalSlots);
     }
 decided:
