@@ -215,7 +215,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
         D_80109BA0 = v0;
         e->b = s0->addr;
         e->a = 0x600;
-        e->c = s0->data;
+        *(s32 *)((u8 *)e + 0x8) = s0->data;
         s2 = (s2 - 0x600) + s1_2;
         D_80108F70 += 1;
         p[0] = s0->data + s1_2;

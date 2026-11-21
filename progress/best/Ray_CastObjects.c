@@ -218,9 +218,12 @@ s32 __repair_phase_var_a2;
                                                 if ((temp_v1_3 & sp146) && (temp_v1_3 & sp14E)) {
                                                     u32 firstVertex = *__repair_phase_storage.pointer;
                                                     temp_v1_4 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                                                    if ((var_fp(&work.scratch.object.trans.x, &work.scratch.object.direction.x, temp_v1_4 + (firstVertex * 0xC), temp_v1_4 + (M2C_FIELD(var_s2, u16 *, -2) * 0xC), temp_v1_4 + (M2C_FIELD(var_s2, u16 *, 0) * 0xC), sp154) & 0xFF) && (work.distance16 >= 0.0f) && (work.distance16 < var_fs1)) {
+                                                    if ((var_fp(&work.scratch.object.trans.x, &work.scratch.object.direction.x, temp_v1_4 + (firstVertex * 0xC), temp_v1_4 + (M2C_FIELD(var_s2, u16 *, -2) * 0xC), temp_v1_4 + (M2C_FIELD(var_s2, u16 *, 0) * 0xC), sp154) & 0xFF)) {
+                                                        temp_fv0 = 0.0f;
+                                                        if (work.distance16 >= temp_fv0 && work.distance16 < var_fs1) {
                                                         var_s6 = var_s4_3;
                                                         var_fs1 = work.distance16;
+                                                        }
                                                     }
                                                 }
                                                 var_s2 = (void *)((u8 *)var_s2 + 6);
@@ -238,9 +241,12 @@ s32 __repair_phase_var_a2;
                                                 if ((temp_v1_5 & sp146) && (temp_v1_5 & sp14E)) {
                                                     u32 firstVertex = *(u8 *)var_s4_2;
                                                     temp_v1_6 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                                                    if ((var_fp(&work.scratch.object.trans.x, &work.scratch.object.direction.x, temp_v1_6 + (firstVertex * 0xC), temp_v1_6 + (M2C_FIELD(var_s2_2, u8 *, -1) * 0xC), temp_v1_6 + (M2C_FIELD(var_s2_2, u8 *, 0) * 0xC), sp15C) & 0xFF) && (work.distance8 >= 0.0f) && (work.distance8 < var_fs1)) {
+                                                    if ((var_fp(&work.scratch.object.trans.x, &work.scratch.object.direction.x, temp_v1_6 + (firstVertex * 0xC), temp_v1_6 + (M2C_FIELD(var_s2_2, u8 *, -1) * 0xC), temp_v1_6 + (M2C_FIELD(var_s2_2, u8 *, 0) * 0xC), sp15C) & 0xFF)) {
+                                                        temp_fv0 = 0.0f;
+                                                        if (work.distance8 >= temp_fv0 && work.distance8 < var_fs1) {
                                                         var_s6 = __repair_phase_storage.value;
                                                         var_fs1 = work.distance8;
+                                                        }
                                                     }
                                                 }
                                                 var_s2_2 = (void *)((u8 *)var_s2_2 + 3);
@@ -436,4 +442,5 @@ s32 __repair_phase_var_a2;
     }
     return var_v0;
 }
+
 

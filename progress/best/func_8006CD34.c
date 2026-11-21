@@ -53,6 +53,7 @@ void func_8006CD34(void *arg0)
   void *temp_v0_4;
   void *temp_v1;
   void *var_v0;
+  void *var_v0_2;
   temp_s2 = *((void **) (((char *) arg0) + 0x6C));
   temp_s4 = *((s32 *) (((char *) arg0) + 0x20));
   temp_s3 = *((s8 *) (((char *) temp_s2) + 0x182));
@@ -67,8 +68,8 @@ void func_8006CD34(void *arg0)
       temp_v1 = *temp_s0;
       temp_v0 = *((void **) (((char *) temp_s2) + 0xBC));
       *((__repair_vec3 *) (((s8 *) temp_v1) + 0x10)) = *((__repair_vec3 *) (((s8 *) temp_v0) + 0x24));
-      var_v0 = *((void * volatile *) temp_s0);
-      var_fv0 = (f32) (((f64) (*((f32 *) (((char *) var_v0) + 0x14)))) + D_800D4628);
+      var_v0 = *temp_s0;
+      *((f32 *) (((char *) var_v0) + 0x14)) = (f32) (((f64) (*((f32 *) (((char *) var_v0) + 0x14)))) + D_800D4628);
     }
     else
     {
@@ -107,12 +108,11 @@ void func_8006CD34(void *arg0)
       temp_v1_2 = inline_fn(temp_s3, 4, D_80109688);
       temp_v0_4 = *temp_v1_2;
       *((f32 *) (((char *) temp_v0_4) + 0x14)) -= *((f32 *) (((char *) temp_v0_4) + 0x130));
-      var_v0 = *temp_v1_2;
-      var_fv1 = *((f32 *) (((char *) var_v0) + 0x14));
-      temp_ft0_2 = *((f32 *) (((char *) var_v0) + 0x2C));
-      var_fv0 = ((var_fv1 - temp_ft0_2) * 0.5f) + temp_ft0_2;
+      var_v0_2 = *temp_v1_2;
+      var_fv1 = *((f32 *) (((char *) var_v0_2) + 0x14));
+      temp_ft0_2 = *((f32 *) (((char *) var_v0_2) + 0x2C));
+      *((f32 *) (((char *) var_v0_2) + 0x14)) = ((var_fv1 - temp_ft0_2) * 0.5f) + temp_ft0_2;
     }
-    *((f32 *) (((char *) var_v0) + 0x14)) = var_fv0;
   }
   if ((*((u8 *) (((char *) temp_s2) + 0x184))) == 1)
   {

@@ -139,7 +139,7 @@ void func_80019F7C(void)
       {
         if (1)
         {
-          __repair_addr = (char *) (id + inline_fn2(decrementSlot, 0x115));
+          __repair_addr = (char *) ((unsigned) id + (unsigned) inline_fn2(decrementSlot, 0x115));
         }
         *((s8 *) (((char *) __repair_addr) + 0xB)) = inline_fn(temp_v1_2);
         *((u8 *) (((char *) gSaveMenuState) + 0x2D)) = 1U;
@@ -196,15 +196,18 @@ void func_80019F7C(void)
       {
         func_80019E28(temp_s4);
       }
-      slot = &gPickupSavedByte;
-      if (gSaveSlotCount < ((s32) (*slot)))
+      {
+      u8 *tailSlot = &gPickupSavedByte;
+      if (gSaveSlotCount < ((s32) (*tailSlot)))
       {
         if (1)
         {
-          formatTextEntry(findEntryById(*((s32 *) (((char *) gSaveMenuState) + 0x10)), 0x4004), D_800D2858, (*((u8 *) (((char *) (&D_800BF688)) + ((*((s32 *) (((char *) (&gSaveSlotInfo)) + ((*slot) * 0x18)))) * 0xC)))) * 5);
+          formatTextEntry(findEntryById(*((s32 *) (((char *) gSaveMenuState) + 0x10)), 0x4004), D_800D2858, (*((u8 *) (((char *) (&D_800BF688)) + ((*((s32 *) (((char *) (&gSaveSlotInfo)) + ((*tailSlot) * 0x18)))) * 0xC)))) * 5);
         }
+      }
       }
     }
   }
 }
+
 
