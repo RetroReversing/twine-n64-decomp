@@ -28,7 +28,7 @@ extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
 extern s32 bindMenuItemRecord;
 
-void func_80021214(void) {
+void pickupRefreshLabel(void) {
     s32 *__base_D_80102ED8;
     u8 *__base_D_801002AD;
     u8 *__repair_offset;
