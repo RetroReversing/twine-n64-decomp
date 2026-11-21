@@ -11,7 +11,7 @@ s32 func_8000C34C();
 s32 emit_projection_viewport_commands();
 s32 func_80038FA4();
 s32 func_80039068();
-s32 func_8006F974();
+s32 resolveBorderCollision();
 s32 rotateVec3ByMat3();
 s32 guPositionF(void *, s32, s32, f32, f32, f32, f32, f32);
 extern char D_800B1A50[];
@@ -140,7 +140,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
             (*(u8 *)((char *)(arg0) + 0x81)) = (u8) (temp_a1 + ((sp22 >> 1) - (temp_a1 >> 1)));
         }
     } else {
-        func_8006F974(arg1);
+        resolveBorderCollision(arg1);
         temp_s1 = (*(s32 *)((char *)(arg0) + 0x70));
         func_80008750(arg1, (*(u8 *)((char *)(arg0) + 0x7E)), arg3);
         temp_v1_3 = ((__repair_field_58 *)arg0)->value;

@@ -21,7 +21,7 @@ extern f32 D_800C7C98;
 extern s32 gBorderSkipActive;
 extern s32 gGameMode;
 
-void func_8006F974(void *arg0, void *arg1) {
+void resolveBorderCollision(void *arg0, void *arg1) {
     union { f32 f[3]; M2C_UNK32 w[3]; } in;
 #define sp28 in.w[0]
 #define sp2C in.f[1]
