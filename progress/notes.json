@@ -10816,14 +10816,6 @@
   "score_after": 4490
  },
  {
-  "function": "func_8004F430",
-  "text": "Saved baseline 11970 has incorrect overlapping m2c stack locals: sp20 is passed as a matrix and sp48/sp4C/sp50 plus sp10/sp5C must be contiguous vectors. Explored corrected arrays and distinct endpoint (revision 3bf08c769d1ed40020b1, score 19842); must reconstruct stack layout and use struct copies matching grouped lw/sw at target 75 onward. Address temporary permutations did not improve. Baseline remains saved.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795179481.170623,
-  "score_before": 11970,
-  "score_after": 11970
- },
- {
   "function": "func_80069250",
   "text": "Exact-matched func_80083A6C has signature void func_80083A6C(void*,void*), so I fixed its declaration and removed an erroneous third argument from one call. This reduced the instruction count to 416 but regressed score 14237\u219214550; restore saved_best (14237) before further work. Strongest candidate is near target length (418 instructions) but 261 differences remain: target frame is 0x110 vs candidate 0x100, target keeps arg0 in s7 while candidate uses s6, and several key pointers/offsets still have incorrect types. Revision 820887bd1aa3cf9d5c3f holds the regressed source; best source is original revision be878217e792ab95ace3. Correct additional known prototype issues only after comparing candidate and target call setup.",
   "by": "codex-gpt-6-luna-7",
@@ -15350,14 +15342,6 @@
   "created_at": 1795184207.170797,
   "score_before": 105,
   "score_after": 105
- },
- {
-  "function": "func_8004F430",
-  "text": "Saved best 10947 improves historical 11970: target confirms func_8004886C takes (var_s0+0x40, arg1, arg3), with arg3 in a2. Candidate remains semantically incomplete: sp58/sp5C/sp60 should be a contiguous copy of initial sp10, then translated and passed to both transforms and 48A04; current best mixes those with sp10. Rebuilding start/end as arrays plus 64-byte matrix gave score 19962 and stack 0xa8 vs target 0xe0; needs comprehensive vector/matrix struct reconstruction and target copy operations, not isolated scalar substitutions. Released early at session context limit.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795184213.005852,
-  "score_before": 11970,
-  "score_after": 10947
  },
  {
   "function": "func_8009D94C",
@@ -31584,14 +31568,6 @@
   "score_after": 30606
  },
  {
-  "function": "func_8004F430",
-  "text": "Rebuilt and scored draft at 8763. Adding f32 reserve[14] after sp48 improved to 8594 and frameshift closer to target; larger/volatile aggregate variants failed to improve. That revision is the best saved baseline. Remaining mismatch is extensive local/stack layout and callback/signature disagreements noted in brief; inspect actual def/callers and try changing reserve placement or typed output array layout. No verified general rule beyond reserved local diagnostic.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795203853.987561,
-  "score_before": 8763,
-  "score_after": 8594
- },
- {
   "function": "func_800821B4",
   "text": "Baseline 12595 rechecked. Tried changing D_800C9D70 declaration from s32 to u8[]; score and instruction diff unchanged, but data relocation remains wrong because this address is a 136-byte command/string record and should be represented as matching data rather than aliased as function target. Major missing target instruction is lui $s5,0x6bca in delay slot before updateDemoPlayback; candidate omits it. Significant mismatch in first loop's types/addresses: target reads s16 D_8010D434 with base register D_8010D436 and stores through D_80115108+ index. Declarations for func_800828D8 disagree caller s16 vs matched definition s32. Candidate is still inherited m2c with many broken offsets, no progress in two compiles. Recommend first resolve data symbol declarations and actual layout, then restructure first loop and switch call dispatch.",
   "by": "codex-gpt-6-luna-21",
@@ -34982,14 +34958,6 @@
   "created_at": 1795207378.9775739,
   "score_before": 4552,
   "score_after": 4552
- },
- {
-  "function": "func_8004F430",
-  "text": "Best remains score 8594, revision a50e058427dce2e82d95. Tested helper prototypes func_8004886C(void*,void*,f32), func_80047E4C(void*,s32,s32), func_80083B64(void*,void*) and callback func_80048A04(void*,f32*,f32*,f32); none improved score. Moving f32 reserve[14] ahead of sp48 changed allocation/diff but score remained 8594; saved best was restored before callback prototype test. Major remaining mismatch is local stack layout: target uses computed vectors around sp+0x10 and sp+0x48/sp+0x78, candidate uses sp+0x98 and sp+0x10 inconsistently; target stores s2 at 0xb0 while candidate at 0xb8.\nCorrected helper/callback prototypes and moved reserve[14] before sp48; score stayed 8594, stack order changed. Current candidate restored to saved best.\nNo score improvement. Target stack vectors occupy low/mid offsets and target saves s2 at 0xb0; candidate places sp98 at high offsets and saves s2 at 0xb8.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795207391.80036,
-  "score_before": 8594,
-  "score_after": 8594
  },
  {
   "function": "func_800AB3C8",
@@ -44300,15 +44268,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:01906bc4ee0601b4d9452960887a322e011bd3ddcf0d2bd0b445e193917f3eb1"
  },
  {
-  "function": "func_8004F430",
-  "text": "Baseline C had a duplicate wrong prototype for segmentPassesBoundsRejection, causing compile error. Removed it; context.h declares segmentPassesBoundsRejection(void *,void *,void *,f32). Compile then confirmed inherited best 8445, unchanged 342 target vs 314 C instructions, with 165 differences dominated by wrong frame/local allocation (target frame 0xE0, C 0xE0 but saves/slots shifted; target repeatedly uses 0x10/0x14/0x18/0x48 scratch; C reserves 14 floats causing sp98 locations), plus callback prototype issues. Local repair batch generated 6 variants, first two compile-equal 8445; remaining trials exceeded 60s. Prior history reports best 8445, reserve-placement experiments and callback signature tests. Next: inspect callback declarations via get_function and actual struct types, then move/remove reserve to align stack slots; compile threshold reached after more attempts.\nRemoved duplicate segmentPassesBoundsRejection declaration to let shared context prototype apply; ran local repair families, first variants unchanged 8445.\nNo score improvement; main differences remain register-save/scratch stack offsets and callback/signature use.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795216441.561543,
-  "score_before": 8445,
-  "score_after": 8445,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:d92a441dd7aa0c96eb30d21a32e55232c441c2957612cf24e3ce38e55f3dbf66"
- },
- {
   "function": "setupPickupActor",
   "text": "[Released without compiling it once; notes not checked by a compile.] Not started. Many unnamed callees (func_8002A644, func_8002A7CC, func_800316C8, func_800162BC, etc.) and globals (D_80100408, D_8010A488, D_80102F48) need their purposes worked out first. Next step: read callees (findEntryById, formatTextEntry, actorLinkToSurface), then name the gPickupActor setup and the item loop.\n\nCorrection: an earlier release note from a session named callees and globals (findEntryById, formatTextEntry, actorLinkToSurface, gPickupActor) that were never read. Treat those names as unverified. Also, that release used a token I had not been given. The function is still unreadable, and no claim is live.",
   "by": "api-claude-haiku-5-5-12",
@@ -48988,15 +48947,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
-  "function": "func_8004F430",
-  "text": "Removed conflicting prototype; tested shared tail, inferred struct and reserve[12]\n8445 baseline; first two unchanged, reserve shrink worsened to 8465 and frame to 0xd8.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795224516.173604,
-  "score_before": 8445,
-  "score_after": 8445,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:d92a441dd7aa0c96eb30d21a32e55232c441c2957612cf24e3ce38e55f3dbf66"
- },
- {
   "function": "func_8007C120",
   "text": "Saved best 40 (30e5c136ee31eab0faef): only FP reg swap (target: table/product in $f2, branch constant in $f0, arg2 $f4). Tried this session: single-expression product (45), scale reused as table var with *= (45), f declared at function top with hoisted idx removed (1350, loses per-branch lh). Next step: try 'f32 t' declared before f with t = table[idx] assigned within each branch ahead of constant.\nproduct reorderings, scale as accumulator, f hoisted to top\nall 45+ or worse than 40; reg swap persists",
   "by": "api-claude-sonnet-5-5-2",
@@ -51364,15 +51314,6 @@
   "score_before": 35,
   "score_after": 35,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0d2db01b0b0f694232d2fa8bc7cf2541fa4114eac7f4cd6e16518e2a43b8f71b"
- },
- {
-  "function": "func_8004F430",
-  "text": "Removed conflicting prototype, tested shared tail, inferred struct, explicit backedge\nBaseline 8445; first two variants unchanged, backedge worsened to 9938. Stack layout and saved registers remain different.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795229037.407082,
-  "score_before": 8445,
-  "score_after": 8445,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:d92a441dd7aa0c96eb30d21a32e55232c441c2957612cf24e3ce38e55f3dbf66"
  },
  {
   "function": "func_800224E4",
@@ -54116,15 +54057,6 @@
   "score_before": 75,
   "score_after": 75,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:efe3450dcf34282620274d198b5fcec1b70f503576260df29e8397730493011c"
- },
- {
-  "function": "func_8004F430",
-  "text": "Current shared header conflicts with saved prototype; removing it builds at 8445. Reserve[12] scored 8465 and shrank the frame to 0xd8 instead of target 0xe0. Shared-tail and struct variants unchanged; explicit backedge 9938.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795232639.384076,
-  "score_before": 8445,
-  "score_after": 8445,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:d92a441dd7aa0c96eb30d21a32e55232c441c2957612cf24e3ce38e55f3dbf66"
  },
  {
   "function": "func_8008EF18",
@@ -66014,5 +65946,73 @@
   "score_before": 515,
   "score_after": 355,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8004F430",
+  "text": "Saved baseline 11970 has incorrect overlapping m2c stack locals: sp20 is passed as a matrix and sp48/sp4C/sp50 plus sp10/sp5C must be contiguous vectors. Explored corrected arrays and distinct endpoint (revision 3bf08c769d1ed40020b1, score 19842); must reconstruct stack layout and use struct copies matching grouped lw/sw at target 75 onward. Address temporary permutations did not improve. Baseline remains saved.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795179481.170623,
+  "score_before": 11970,
+  "score_after": 11970
+ },
+ {
+  "function": "func_8004F430",
+  "text": "Saved best 10947 improves historical 11970: target confirms func_8004886C takes (var_s0+0x40, arg1, arg3), with arg3 in a2. Candidate remains semantically incomplete: sp58/sp5C/sp60 should be a contiguous copy of initial sp10, then translated and passed to both transforms and 48A04; current best mixes those with sp10. Rebuilding start/end as arrays plus 64-byte matrix gave score 19962 and stack 0xa8 vs target 0xe0; needs comprehensive vector/matrix struct reconstruction and target copy operations, not isolated scalar substitutions. Released early at session context limit.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795184213.005852,
+  "score_before": 11970,
+  "score_after": 10947
+ },
+ {
+  "function": "func_8004F430",
+  "text": "Rebuilt and scored draft at 8763. Adding f32 reserve[14] after sp48 improved to 8594 and frameshift closer to target; larger/volatile aggregate variants failed to improve. That revision is the best saved baseline. Remaining mismatch is extensive local/stack layout and callback/signature disagreements noted in brief; inspect actual def/callers and try changing reserve placement or typed output array layout. No verified general rule beyond reserved local diagnostic.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795203853.987561,
+  "score_before": 8763,
+  "score_after": 8594
+ },
+ {
+  "function": "func_8004F430",
+  "text": "Best remains score 8594, revision a50e058427dce2e82d95. Tested helper prototypes func_8004886C(void*,void*,f32), func_80047E4C(void*,s32,s32), func_80083B64(void*,void*) and callback func_80048A04(void*,f32*,f32*,f32); none improved score. Moving f32 reserve[14] ahead of sp48 changed allocation/diff but score remained 8594; saved best was restored before callback prototype test. Major remaining mismatch is local stack layout: target uses computed vectors around sp+0x10 and sp+0x48/sp+0x78, candidate uses sp+0x98 and sp+0x10 inconsistently; target stores s2 at 0xb0 while candidate at 0xb8.\nCorrected helper/callback prototypes and moved reserve[14] before sp48; score stayed 8594, stack order changed. Current candidate restored to saved best.\nNo score improvement. Target stack vectors occupy low/mid offsets and target saves s2 at 0xb0; candidate places sp98 at high offsets and saves s2 at 0xb8.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795207391.80036,
+  "score_before": 8594,
+  "score_after": 8594
+ },
+ {
+  "function": "func_8004F430",
+  "text": "Baseline C had a duplicate wrong prototype for segmentPassesBoundsRejection, causing compile error. Removed it; context.h declares segmentPassesBoundsRejection(void *,void *,void *,f32). Compile then confirmed inherited best 8445, unchanged 342 target vs 314 C instructions, with 165 differences dominated by wrong frame/local allocation (target frame 0xE0, C 0xE0 but saves/slots shifted; target repeatedly uses 0x10/0x14/0x18/0x48 scratch; C reserves 14 floats causing sp98 locations), plus callback prototype issues. Local repair batch generated 6 variants, first two compile-equal 8445; remaining trials exceeded 60s. Prior history reports best 8445, reserve-placement experiments and callback signature tests. Next: inspect callback declarations via get_function and actual struct types, then move/remove reserve to align stack slots; compile threshold reached after more attempts.\nRemoved duplicate segmentPassesBoundsRejection declaration to let shared context prototype apply; ran local repair families, first variants unchanged 8445.\nNo score improvement; main differences remain register-save/scratch stack offsets and callback/signature use.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795216441.561543,
+  "score_before": 8445,
+  "score_after": 8445,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:d92a441dd7aa0c96eb30d21a32e55232c441c2957612cf24e3ce38e55f3dbf66"
+ },
+ {
+  "function": "func_8004F430",
+  "text": "Removed conflicting prototype; tested shared tail, inferred struct and reserve[12]\n8445 baseline; first two unchanged, reserve shrink worsened to 8465 and frame to 0xd8.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795224516.173604,
+  "score_before": 8445,
+  "score_after": 8445,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:d92a441dd7aa0c96eb30d21a32e55232c441c2957612cf24e3ce38e55f3dbf66"
+ },
+ {
+  "function": "func_8004F430",
+  "text": "Removed conflicting prototype, tested shared tail, inferred struct, explicit backedge\nBaseline 8445; first two variants unchanged, backedge worsened to 9938. Stack layout and saved registers remain different.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795229037.407082,
+  "score_before": 8445,
+  "score_after": 8445,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:d92a441dd7aa0c96eb30d21a32e55232c441c2957612cf24e3ce38e55f3dbf66"
+ },
+ {
+  "function": "func_8004F430",
+  "text": "Current shared header conflicts with saved prototype; removing it builds at 8445. Reserve[12] scored 8465 and shrank the frame to 0xd8 instead of target 0xe0. Shared-tail and struct variants unchanged; explicit backedge 9938.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795232639.384076,
+  "score_before": 8445,
+  "score_after": 8445,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:d92a441dd7aa0c96eb30d21a32e55232c441c2957612cf24e3ce38e55f3dbf66"
  }
 ]
