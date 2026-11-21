@@ -17,7 +17,7 @@ f32 cosAngle(f32);                             /* extern */
 extern u8 D_800B1FE0[];
 extern s32 D_800B2230;
 extern s32 gBorderSkipFlag;
-extern void *D_8010968C;
+extern void *volatile D_8010968C;
 
 typedef struct { f32 w[3]; } __repair_words3;
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
@@ -84,11 +84,15 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
             func_80017E14(arg1, 0xC0, 0xA0, 0x40);
             break;
         }
+        {
+        u16 actorFlags;
+        actorFlags = (*(u16 *)((char *)(arg1) + 0x78));
         (*(s32 *)((char *)(temp_s0) + 0x28)) = 0;
         (*(s16 *)((char *)(temp_s0) + 0x34)) = arg0;
         (*(void **)((char *)(temp_s0) + 0x2C)) = arg2;
         (*(s32 *)((char *)(temp_s0) + 0x24)) = arg6;
-        (*(u16 *)((char *)(temp_s0) + 0x58)) = (u16) (*(u16 *)((char *)(arg1) + 0x78));
+        (*(u16 *)((char *)(temp_s0) + 0x58)) = actorFlags;
+        }
         if (randomIntBelow(0x32) >= 0x1AU) {
             (*(s32 *)((char *)(temp_s0) + 0x24)) = (s32) ((*(s32 *)((char *)(temp_s0) + 0x24)) & 0xFFF7FFFF);
         }
@@ -155,27 +159,33 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
                 (*(void **)((char *)(temp_s0) + 0x30)) = temp_v0_3;
                 (*(void **)((char *)(temp_v0_3) + 0x18)) = temp_v0;
                 if ((*(void **)((char *)(temp_s0) + 0x30)) != NULL) {
+                    void *link;
                     func_80047F50(temp_v0, D_8010968C);
-                    (*(s32 *)((char *)(D_8010968C) + 0x28)) = (s32) (*(s32 *)((char *)(D_8010968C) + 0x10));
-                    (*(s32 *)((char *)(D_8010968C) + 0x2C)) = (s32) (*(s32 *)((char *)(D_8010968C) + 0x14));
-                    (*(s32 *)((char *)(D_8010968C) + 0x30)) = (s32) (*(s32 *)((char *)(D_8010968C) + 0x18));
+                    link = D_8010968C;
+                    (*(s32 *)((char *)(link) + 0x28)) = (s32) (*(s32 *)((char *)(link) + 0x10));
+                    (*(s32 *)((char *)(link) + 0x2C)) = (s32) (*(s32 *)((char *)(link) + 0x14));
+                    (*(s32 *)((char *)(link) + 0x30)) = (s32) (*(s32 *)((char *)(link) + 0x18));
                     (*(s32 *)((char *)(D_8010968C) + 0xF4)) = (s32) (*(s32 *)((char *)(arg1) + 0x20));
                 }
             }
             (*(s16 *)((char *)(temp_v0) + 0x78)) = 7;
         }
         if ((*(u16 *)((char *)(arg2) + 0x52)) != 0) {
+            u16 index;
+            u8 value;
             (*(s8 *)((char *)(temp_s0) + 0x54)) = 0;
+            index = (*(u16 *)((char *)(arg2) + 0x52));
             (*(u8 *)((char *)(temp_s0) + 0x55)) = 0xFF;
             (*(s8 *)((char *)(temp_s0) + 0x52)) = 0;
-            (*(s8 *)((char *)(temp_s0) + 0x56)) = 1;
             (*(s8 *)((char *)(temp_s0) + 0x53)) = 0;
-            (*(u16 *)((char *)(temp_s0) + 0x50)) = (u16) (*(u16 *)((char *)(arg2) + 0x52));
-            (*(s32 *)((char *)(temp_s0) + 0x3C)) = -1;
+            (*(s8 *)((char *)(temp_s0) + 0x56)) = 1;
+            (*(u16 *)((char *)(temp_s0) + 0x50)) = index;
             (*(f32 *)((char *)(temp_s0) + 0x48)) = (f32) *(D_800B1FE0 + (*(u16 *)((char *)(arg2) + 0x52)));
+            value = *((u8 *)&D_800B2230 + (*(u16 *)((char *)(arg2) + 0x52)));
+            (*(s32 *)((char *)(temp_s0) + 0x3C)) = -1;
             (*(f32 *)((char *)(temp_s0) + 0x40)) = 1000.0f;
             (*(f32 *)((char *)(temp_s0) + 0x44)) = 1000.0f;
-            (*(f32 *)((char *)(temp_s0) + 0x4C)) = (f32) *((s32 *)((s8 *)&D_800B2230 + (*(u16 *)((char *)(arg2) + 0x52))));
+            (*(f32 *)((char *)(temp_s0) + 0x4C)) = (f32)value;
         }
         if ((*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 0x2C))) + 0x60)) & 0x1000) {
             (*(f32 *)((char *)(temp_s0) + 0x20)) = (*(f32 *)((char *)(arg2) + 0x1C)) * 0.25f;
