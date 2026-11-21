@@ -7256,14 +7256,6 @@
   "score_after": 6242
  },
  {
-  "function": "func_8002EBB8",
-  "text": "Recovered revision 99162b3c8437b7b55839; get_candidate rechecked its inherited best at score 2070. Tried try_local_repairs twice (first max_trials=6, then max_trials=1); both calls timed out after 180s without returning trial results or advancing the revision. Inspected entry assembly confirming the null check and byte-to-word D_80102EDE setup, but made no speculative source edit. Resume from the saved candidate; retry cached local repair stages, then tune the first mismatch using get_assembly(focus=\"mismatch:N\").",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795166260.680073,
-  "score_before": 1525,
-  "score_after": 1525
- },
- {
   "function": "func_8008B1C0",
   "text": "Baseline 200 with implicit f64-to-u32 conversion under the range's -fno-strength-reduce profile. Remaining entry schedule and literal relocation differ: target hoists D_800D6778 (2^31), compiler uses local .rodata. Hoisted count before guard scored 550; spelling out explicit conversion with extern constant scored 1520 and changed FP branches and integer store instructions. A C89-corrected trial to load table pointer/count inside the original guard timed out without a verdict. Next test keeping the implicit cast and inspect whether the judge can resolve the generated constant to D_800D6778.",
   "by": "codex-gpt-6.2-sol-2",
@@ -16832,14 +16824,6 @@
   "score_after": 220
  },
  {
-  "function": "func_8002EBB8",
-  "text": "Rechecked saved candidate at 2070 and tried byte-pointer casts for all five scratch argument offsets, plus local repair variants; none beat 2070. Explicit casts correct the scaled pointer expressions conceptually but did not change score. Most remaining early mismatch is register allocation (target saves initial allocation result in $s3; candidate uses $s5), with persistent global relocation/scratch offset differences around D_800BFDDC, D_800BFD94, D_800BFD04, D_800BFCE0 and D_800BFCBC. Avoid repeating byte-cast trials unless declarations/layout are revised. Local repair variants: constant local and explicit backedge equal; scalar reuse, struct layout, branch orientation, and cfg lifetimes worse. Current attempted C retained.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795184032.9107468,
-  "score_before": 1525,
-  "score_after": 1525
- },
- {
   "function": "func_80047B44",
   "text": "Best/current score is 1031 (94.6%), 196 emitted instructions vs 194 target. The saved candidate required adding f32 sp1C and sp20 locals to compile. Tried changing func_8004886C to its matched void* prototype, correcting func_8004DBD8 argument pointer types, using integer then pointer-typed temp_v0/temp_v1 locals with explicit casts, correcting func_80045764 to its matched void*/const void* declaration, plus local record-layout/lifetime repairs. These changes retained identical output/score. Target prologue allocates 0x80 bytes and saves s3-s5/s2-s0 plus fs1/fs0; candidate allocates 0x78 and shifts saved registers/locals. Main remaining issue is the frame/register allocation; target loops have `blez $v0` guards while candidate emits a0 null checks at different offsets. Check the true struct/prototype layouts and loop source shape before further register tuning.",
   "by": "codex-gpt-6-luna-9",
@@ -19190,14 +19174,6 @@
   "created_at": 1795185115.8124568,
   "score_before": 3017,
   "score_after": 3017
- },
- {
-  "function": "func_8002EBB8",
-  "text": "Recovered and verified a new best of 1695 (93.5%) by converting four scratch-global assignments into halfword stores through byte-addressed (char *)&D_x - 0x20 pointers. Main remaining differences: early allocation path uses $s5 instead of target $s3; target passes five pointers formed as base-0x20, with remaining raw address/register mismatches; loop backedge target differs by 4 bytes. Tried local repair variants (constant local, scalar reuse, explicit backedge, inferred layout, branch orientation, integer lifetimes) and got no improvement; one source experiment for narrowed temporary regressed to 2242. Released early because the inherited claim already had 29 attempts and the verified 1695 source is a clear improvement; restore saved_best before further tuning, and investigate pointer/scratch object layout and allocation-result register lifetime.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795185119.7790458,
-  "score_before": 1525,
-  "score_after": 1525
  },
  {
   "function": "func_8005C1D0",
@@ -34848,14 +34824,6 @@
   "score_after": 8503
  },
  {
-  "function": "func_8002EBB8",
-  "text": "Best candidate score 1085 rechecked. Tried three local repair variants (scalar reuse, loop backedge, inferred record) and pointer offset variants; none beat 1085. Initial field_78 zero worsened, so retained the saved best. Remaining discrepancies include global pointer bases around D_800BFD94/D_800BFD74 and multiple branches 8 bytes off from two extra instructions. Next: correct global record base pointer arithmetic and associated offsets.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795203706.7010539,
-  "score_before": 1085,
-  "score_after": 1085
- },
- {
   "function": "func_8008B25C",
   "text": "No implementation experiments completed. Restored the saved best candidate revision 6365ac12b94f9ba9a5c0 after an empty-source submission made the current candidate unusable. Saved best historically scored 4090 and had been freshly rechecked before the empty submission. Resume from this revision; inspect dispatcher and callback prototypes before allocation searches.",
   "by": "codex-gpt-6-luna-6",
@@ -39056,14 +39024,6 @@
   "score_after": 3566
  },
  {
-  "function": "func_8002EBB8",
-  "text": "Best candidate rechecked at 940, revision 40bf43f70f16302a47a2. Found and corrected signed-short pointer scaling for calls using global-derived addresses: casting __base_D_800BFCBC to char* before subtracting 0x20 improved 950\u2192940; similarly byte-wise pointer adjustment around D_800BFD94 avoids incorrect s16 scaling and improved the earlier best 1085\u2192960. Tested char* adjustments for D_800BFDDC and D_800BFD04, no score improvement; changed branch polarity around D_800BFD94 (worse 950); expressed indexed copy stride as *9*4 (tie). Restored saved_best. Remaining visible differences: target's global address construction often materializes symbol base and subtracts 0x20 separately, while candidate folds address into relocation; target copy loop has 264 instructions vs candidate 265, several conditional branches differ (beqz vs branch-likely), and loop/code tail jump is 4\u20138 bytes off. The repeated raw-address warnings must be interpreted against the subsequent addiu offset, since relocations fold base-minus-0x20 into aliases.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795207509.6610408,
-  "score_before": 950,
-  "score_after": 940
- },
- {
   "function": "func_800ABAB4",
   "text": "Current baseline 825 rechecked but is plainly wrong two-argument u64 multiply. Tested correct four-u32 signature with u64 product masked into high word and summed low terms: score 1985, 24 instructions. Struct return equivalent: score 2380, 26 instructions. Need match three unsigned multiply operations / multu and return lo/hi pair; target assembly order: multu a1,a2; mflo t0; two nops; multu a0,a3; mflo v1; addu t0,t0,v1; nop; multu a0,a2; mflo v1; mfhi v0; jr ra with addu v0,v0,t0 delay slot. likely 64-bit struct return prototype/layout influences ABI. Candidate reset to saved best before handoff.",
   "by": "codex-gpt-6-luna-18",
@@ -40262,14 +40222,6 @@
   "created_at": 1795208509.339799,
   "score_before": 1840,
   "score_after": 1840
- },
- {
-  "function": "func_8002EBB8",
-  "text": "Best remains 940 (rev 40bf43f70f16302a47a2). This session added one no-op-ish patch (duplicate var_a1 assignment after D_800BFD04) -> 940, no gain. Remaining diffs: target computes D_800BFDDC/D_800BFD94/D_800BFD04 addresses as lui $v0/addiu then sh via ($v0)/($a0) with -0x20 adjustments; candidate emits separate lui $at %lo(...) per store (extra address materializations) and a beql instead of beqz at the temp_a0 check. Next step: express the three global record writes via a single base pointer (e.g. char *p=(char*)&D_800BFDDC; p-0x20 pattern) so the address is reused, and check the rows loop ordering (target puts addiu a2 before the branch-back). Not c-blocked.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795208511.405466,
-  "score_before": 940,
-  "score_after": 940
  },
  {
   "function": "func_8008EF6C",
@@ -42814,14 +42766,6 @@
   "created_at": 1795210210.3325062,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_8002EBB8",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best score 940 (rev 40bf43f70f16302a47a2); not matched. Prior sessions ran ~30 local repair trials and many manual patches. Remaining diffs: target computes D_800BFDDC/D_800BFD94/D_800BFD04 addresses once via lui $v0 + addiu then reuses base with -0x20 offsets for sh stores; candidate re-materializes lui $at per store. Also a beql vs beqz at the temp_a0 memset check. The 16-byte block copy loop from D_800BFC92-indexed src to D_800BFD74 is structurally right. Untested idea: restructure the global address sharing (single base pointer for D_800BFDDC block, express stores as offsets from it) and check the memset guard as a plain if(temp_a0) form.\nPer-store address sharing via char* base adjustments for D_800BFDDC/D_800BFD94/D_800BFD04 (earlier sessions); local repairs.\nBest 940; no gain from additional char* base tweaks or duplicate assignment.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795210215.608563,
-  "score_before": 940,
-  "score_after": 940
  },
  {
   "function": "func_80082BD0",
@@ -49520,15 +49464,6 @@
   "score_before": 3600,
   "score_after": 3600,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:e9e1ca00a6dfbe0ac5807bd0493185169bc8ff4afade9e56ba6b0a97c6d3cad2"
- },
- {
-  "function": "func_8002EBB8",
-  "text": "Best rechecked score 945/264 insns. Store through cached var_a1 retained the improvement. Copy-loop rewrites tested were worse (scores 1635 and 1585); don't adopt them. Early-return inversion matched the 945 score. Next focus is target's a2/a3 copy loop, then beqz/beql at the later null check.\nPointer store through var_a1 improved 1160\u2192945. Direct copy expressions scored worse. Early-return inversion returned 945.\nRemaining mismatch centers on buffer-copy loop: target loads four words from 0/4/8/c($a2), stores to 0/4/8/c($a3), then increments both pointers. Candidate adds pointer temporaries and uses negative offsets. Target also branches beqz where candidate uses beql.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795216312.6009989,
-  "score_before": 1160,
-  "score_after": 945,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:fba7b63c19c870c1f0c63798dbdf77d3ab3af67285b9d94a8de8b9dfa2e7ea4b"
  },
  {
   "function": "func_8000C34C",
@@ -58266,5 +58201,70 @@
   "created_at": 1795198220.333079,
   "score_before": 2090,
   "score_after": 2090
+ },
+ {
+  "function": "func_8002EBB8",
+  "text": "Recovered revision 99162b3c8437b7b55839; get_candidate rechecked its inherited best at score 2070. Tried try_local_repairs twice (first max_trials=6, then max_trials=1); both calls timed out after 180s without returning trial results or advancing the revision. Inspected entry assembly confirming the null check and byte-to-word D_80102EDE setup, but made no speculative source edit. Resume from the saved candidate; retry cached local repair stages, then tune the first mismatch using get_assembly(focus=\"mismatch:N\").",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795166260.680073,
+  "score_before": 1525,
+  "score_after": 1525
+ },
+ {
+  "function": "func_8002EBB8",
+  "text": "Rechecked saved candidate at 2070 and tried byte-pointer casts for all five scratch argument offsets, plus local repair variants; none beat 2070. Explicit casts correct the scaled pointer expressions conceptually but did not change score. Most remaining early mismatch is register allocation (target saves initial allocation result in $s3; candidate uses $s5), with persistent global relocation/scratch offset differences around D_800BFDDC, D_800BFD94, D_800BFD04, D_800BFCE0 and D_800BFCBC. Avoid repeating byte-cast trials unless declarations/layout are revised. Local repair variants: constant local and explicit backedge equal; scalar reuse, struct layout, branch orientation, and cfg lifetimes worse. Current attempted C retained.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795184032.9107468,
+  "score_before": 1525,
+  "score_after": 1525
+ },
+ {
+  "function": "func_8002EBB8",
+  "text": "Recovered and verified a new best of 1695 (93.5%) by converting four scratch-global assignments into halfword stores through byte-addressed (char *)&D_x - 0x20 pointers. Main remaining differences: early allocation path uses $s5 instead of target $s3; target passes five pointers formed as base-0x20, with remaining raw address/register mismatches; loop backedge target differs by 4 bytes. Tried local repair variants (constant local, scalar reuse, explicit backedge, inferred layout, branch orientation, integer lifetimes) and got no improvement; one source experiment for narrowed temporary regressed to 2242. Released early because the inherited claim already had 29 attempts and the verified 1695 source is a clear improvement; restore saved_best before further tuning, and investigate pointer/scratch object layout and allocation-result register lifetime.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795185119.7790458,
+  "score_before": 1525,
+  "score_after": 1525
+ },
+ {
+  "function": "func_8002EBB8",
+  "text": "Best candidate score 1085 rechecked. Tried three local repair variants (scalar reuse, loop backedge, inferred record) and pointer offset variants; none beat 1085. Initial field_78 zero worsened, so retained the saved best. Remaining discrepancies include global pointer bases around D_800BFD94/D_800BFD74 and multiple branches 8 bytes off from two extra instructions. Next: correct global record base pointer arithmetic and associated offsets.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795203706.7010539,
+  "score_before": 1085,
+  "score_after": 1085
+ },
+ {
+  "function": "func_8002EBB8",
+  "text": "Best candidate rechecked at 940, revision 40bf43f70f16302a47a2. Found and corrected signed-short pointer scaling for calls using global-derived addresses: casting __base_D_800BFCBC to char* before subtracting 0x20 improved 950\u2192940; similarly byte-wise pointer adjustment around D_800BFD94 avoids incorrect s16 scaling and improved the earlier best 1085\u2192960. Tested char* adjustments for D_800BFDDC and D_800BFD04, no score improvement; changed branch polarity around D_800BFD94 (worse 950); expressed indexed copy stride as *9*4 (tie). Restored saved_best. Remaining visible differences: target's global address construction often materializes symbol base and subtracts 0x20 separately, while candidate folds address into relocation; target copy loop has 264 instructions vs candidate 265, several conditional branches differ (beqz vs branch-likely), and loop/code tail jump is 4\u20138 bytes off. The repeated raw-address warnings must be interpreted against the subsequent addiu offset, since relocations fold base-minus-0x20 into aliases.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795207509.6610408,
+  "score_before": 950,
+  "score_after": 940
+ },
+ {
+  "function": "func_8002EBB8",
+  "text": "Best remains 940 (rev 40bf43f70f16302a47a2). This session added one no-op-ish patch (duplicate var_a1 assignment after D_800BFD04) -> 940, no gain. Remaining diffs: target computes D_800BFDDC/D_800BFD94/D_800BFD04 addresses as lui $v0/addiu then sh via ($v0)/($a0) with -0x20 adjustments; candidate emits separate lui $at %lo(...) per store (extra address materializations) and a beql instead of beqz at the temp_a0 check. Next step: express the three global record writes via a single base pointer (e.g. char *p=(char*)&D_800BFDDC; p-0x20 pattern) so the address is reused, and check the rows loop ordering (target puts addiu a2 before the branch-back). Not c-blocked.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795208511.405466,
+  "score_before": 940,
+  "score_after": 940
+ },
+ {
+  "function": "func_8002EBB8",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best score 940 (rev 40bf43f70f16302a47a2); not matched. Prior sessions ran ~30 local repair trials and many manual patches. Remaining diffs: target computes D_800BFDDC/D_800BFD94/D_800BFD04 addresses once via lui $v0 + addiu then reuses base with -0x20 offsets for sh stores; candidate re-materializes lui $at per store. Also a beql vs beqz at the temp_a0 memset check. The 16-byte block copy loop from D_800BFC92-indexed src to D_800BFD74 is structurally right. Untested idea: restructure the global address sharing (single base pointer for D_800BFDDC block, express stores as offsets from it) and check the memset guard as a plain if(temp_a0) form.\nPer-store address sharing via char* base adjustments for D_800BFDDC/D_800BFD94/D_800BFD04 (earlier sessions); local repairs.\nBest 940; no gain from additional char* base tweaks or duplicate assignment.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795210215.608563,
+  "score_before": 940,
+  "score_after": 940
+ },
+ {
+  "function": "func_8002EBB8",
+  "text": "Best rechecked score 945/264 insns. Store through cached var_a1 retained the improvement. Copy-loop rewrites tested were worse (scores 1635 and 1585); don't adopt them. Early-return inversion matched the 945 score. Next focus is target's a2/a3 copy loop, then beqz/beql at the later null check.\nPointer store through var_a1 improved 1160\u2192945. Direct copy expressions scored worse. Early-return inversion returned 945.\nRemaining mismatch centers on buffer-copy loop: target loads four words from 0/4/8/c($a2), stores to 0/4/8/c($a3), then increments both pointers. Candidate adds pointer temporaries and uses negative offsets. Target also branches beqz where candidate uses beql.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795216312.6009989,
+  "score_before": 1160,
+  "score_after": 945,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:fba7b63c19c870c1f0c63798dbdf77d3ab3af67285b9d94a8de8b9dfa2e7ea4b"
  }
 ]

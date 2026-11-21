@@ -75,9 +75,11 @@ void *func_8002EBB8(s32 arg0) {
     (((__repair_record_temp_s1*)temp_s1)->field_42) = 0;
     (((__repair_record_temp_s1*)temp_s1)->field_38) = NULL;
     (((__repair_record_temp_s1*)temp_s1)->field_3C) = NULL;
-    var_a1 = (char *)&D_800BFDDC;
-    *(s16 *)var_a1 = arg0;
-    (((__repair_record_temp_s1*)temp_s1)->field_3C) = func_80015F74(var_a1 - 0x20);
+    {
+        s16 *mode = &D_800BFDDC;
+        *mode = arg0;
+        (((__repair_record_temp_s1*)temp_s1)->field_3C) = func_80015F74((char *)mode - 0x20);
+    }
     var_a3 = &D_800BFD74;
     D_800BFD70 = arg0;
     __base_D_800BFD08 = D_800BFD08;
@@ -97,10 +99,11 @@ void *func_8002EBB8(s32 arg0) {
         }
     }
     (((__repair_record_temp_s1*)temp_s1)->field_2C) = func_80015F74(var_a1);
-    __base_D_800BFD04 = &D_800BFD04;
-    var_a1 = (char *)__base_D_800BFD04;
-    (*__base_D_800BFD04) = arg0;
-    temp_v0_2 = func_80015F74(var_a1 - 0x20);
+    {
+        s16 *mode = &D_800BFD04;
+        *mode = arg0;
+        temp_v0_2 = func_80015F74((char *)mode - 0x20);
+    }
     (((__repair_record_temp_s1*)temp_s1)->field_34) = temp_v0_2;
     temp_a0 = (*(s32 *)((char *)(temp_v0_2) + 8));
     if (temp_a0 != 0) {
@@ -134,7 +137,7 @@ void *func_8002EBB8(s32 arg0) {
             temp_a1_3 = (void *) ((temp_v1_2) + (s32) temp_s1);
             (*(s16 *)((char *)((*(void **)((char *)(temp_a1_3) + 4))) + 0x1E)) = 0x40;
             (*(s16 *)((char *)((*(void **)((char *)(temp_a1_3) + 4))) + 0x20)) = 0xF0;
-            (*(s16 *)((char *)((*(void **)((char *)(temp_a1_3) + 4))) + 0x22)) = (s16) (((s32) (temp_v1_2 + var_a2_2) * 2) + 0x28);
+            (*(s16 *)((char *)((*(void **)((char *)(temp_a1_3) + 4))) + 0x22)) = (s16) (((s32) ((s32)var_a2_2 * 5) * 2) + 0x28);
             }
             func_8002E9D0((__repair_i * 0xC) + D_800E1590, 0xB, (s32) var_a2_2);
         }
@@ -159,9 +162,11 @@ void *func_8002EBB8(s32 arg0) {
         temp_s0 = arg0 & 0xFFFF;
         func_80064318((((__repair_record_temp_s1*)temp_s1)->field_30), temp_s0);
         objectListInsert((((__repair_record_temp_s1*)temp_s1)->field_30), (*(s32 *)((char *)(*(s32 *)(gTrackMarkerTable + (temp_s0 * 4))) + 0xF4)));
-        __base_D_800BFD04 = &D_800BFCE0;
-        (*__base_D_800BFD04) = arg0;
-        (((__repair_record_temp_s1*)temp_s1)->field_38) = func_80015F74((char *)__base_D_800BFD04 - 0x20);
+        {
+            s16 *mode = &D_800BFCE0;
+            *mode = arg0;
+            (((__repair_record_temp_s1*)temp_s1)->field_38) = func_80015F74((char *)mode - 0x20);
+        }
         func_8002B000(D_800E1584, 0x1E);
     }
     return temp_v0;
