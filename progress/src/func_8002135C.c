@@ -76,10 +76,10 @@ block_9:
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_28 = -0.0315f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_3C = 170.66667f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_40 = -113.77778f;
-                    (*(f32 *)((char *)(D_800B7CE8) + 0x44)) = -1877.3333740234375f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 & ~0x400);
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C = 0.5f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_54 = (f32) ((f64) ((one / ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_64) * 0.09f) * D_800D2A98);
+                    (*(f32 *)((char *)(D_800B7CE8) + 0x44)) = -1877.3333740234375f;
                 } else {
                     gBootState = 1;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 | 0x400);
