@@ -1,6 +1,6 @@
 /* adapted from similar verified C in func_800843CC in TWINE (matched), with its names changed by decompdecomp */
 s32 func_8000A8B4(s32, f32, s32);
-s32 func_8000AABC(s32, s32, s32, s32);
+s32 updateSfxPanFromMarker(s32, s32, s32, s32);
 u32 randomIntBelow(s32);
 f32 func_80084270(s32, s16 *);
 extern u16 D_800CE6E8[], D_800CE6F0[];
@@ -20,6 +20,6 @@ void func_80084CD8(s32 object, u32 variant) {
     
     result = func_8000A8B4(item, factor, 255);}
     entry = gTrackMarkerTable + (u16)index;
-    func_8000AABC(result, *entry, object, 0);
+    updateSfxPanFromMarker(result, *entry, object, 0);
 }
 

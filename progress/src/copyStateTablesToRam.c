@@ -9,13 +9,14 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 #endif
 typedef struct {char b[10];} Ten; typedef struct{s32 x[4];} Four;
 extern M2C_UNK D_800E1328,D_800E1368,D_800E14B0,D_800E1500,D_80100198,D_80102EB8,D_8010A4C0,D_80112F68,D_80115088; extern s32 D_801002EC,D_801002F0;
+/* Copies the saved state blocks into their RAM working tables, then copies four 10-byte records. */
 void copyStateTablesToRam(void) {
- M2C_UNK *end,*var_a2,*var_a2_2,*var_a2_3,*var_a3,*var_a3_3; s32 temp_v1,var_t0; void *temp_v0,*temp_v1_2,*var_a3_2;
- var_a3=&D_800E1328;var_a2=&D_8010A4C0;end=var_a2+0x10;do{*(Four *)var_a3=*(Four *)var_a2;var_a2+=4;var_a3+=4;}while(var_a2!=end);
+ M2C_UNK *end,*src,*src2,*src3,*dst,*dst3; s32 idx,i; void *srcRec,*dstRec,*dst2;
+ dst=&D_800E1328;src=&D_8010A4C0;end=src+0x10;do{*(Four *)dst=*(Four *)src;src+=4;dst+=4;}while(src!=end);
  {typedef struct {s32 x[2];} Two; *(Two *)&D_800E1368 = *(Two *)&D_801002EC;}
- var_a3_2=(void *)&D_800E1368;var_a3_2=(void *)((char *)var_a3_2+8);var_a2_2=&D_80100198;end=var_a2_2+0x50;
- do{*(Four *)var_a3_2=*(Four *)var_a2_2;var_a2_2+=4;var_a3_2+=0x10;}while(var_a2_2!=end);
- var_a3_3=&D_800E14B0;var_a2_3=&D_80102EB8;end=var_a2_3+0x14;do{*(Four *)var_a3_3=*(Four *)var_a2_3;var_a2_3+=4;var_a3_3+=4;}while(var_a2_3!=end);
+ dst2=(void *)&D_800E1368;dst2=(void *)((char *)dst2+8);src2=&D_80100198;end=src2+0x50;
+ do{*(Four *)dst2=*(Four *)src2;src2+=4;dst2+=0x10;}while(src2!=end);
+ dst3=&D_800E14B0;src3=&D_80102EB8;end=src3+0x14;do{*(Four *)dst3=*(Four *)src3;src3+=4;dst3+=4;}while(src3!=end);
  {typedef struct{s32 x[8];}Eight;*(Eight *)&D_800E1500=*(Eight *)&D_80112F68;}
- var_t0=0;do{temp_v1=var_t0&0xFFFF;temp_v1_2=(temp_v1*0xA)+((char *)&D_800E1500+0x20);temp_v0=(temp_v1*0xA0)+(char *)&D_80115088;*(Ten *)temp_v1_2=*(Ten *)temp_v0;var_t0++;}while((u32)(var_t0&0xFFFF)<4U);
+ i=0;do{idx=i&0xFFFF;dstRec=(idx*0xA)+((char *)&D_800E1500+0x20);srcRec=(idx*0xA0)+(char *)&D_80115088;*(Ten *)dstRec=*(Ten *)srcRec;i++;}while((u32)(i&0xFFFF)<4U);
 }

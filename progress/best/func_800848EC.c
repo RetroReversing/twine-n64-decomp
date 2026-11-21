@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8000A8B4(s32, f32, M2C_UNK);               /* extern */
-M2C_UNK func_8000AABC(s32, s32, void *, M2C_UNK);   /* extern */
+M2C_UNK updateSfxPanFromMarker(s32, s32, void *, M2C_UNK);   /* extern */
 s32 randomIntBelow(M2C_UNK);                         /* extern */
 f32 func_80084270(s32, u16 *);                      /* extern */
 extern u16 D_800CE644;
@@ -225,5 +225,5 @@ block_40:
         }
         break;
     }
-    func_8000AABC(func_8000A8B4(var_a0, temp_fs0, 0xFF), *(&gTrackMarkerTable + sp10), arg0 + 0x24, 0);
+    updateSfxPanFromMarker(func_8000A8B4(var_a0, temp_fs0, 0xFF), *(&gTrackMarkerTable + sp10), arg0 + 0x24, 0);
 }

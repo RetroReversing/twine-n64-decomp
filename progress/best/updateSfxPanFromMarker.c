@@ -19,7 +19,7 @@ M2C_UNK func_8009CA5C(s32, s32);
 M2C_UNK func_8009CAC0(s32, s32);
 extern s32 D_801002EC;
 extern u8 D_801002F2;
-void func_8000AABC(s32 arg0, void *arg1, M2C_UNK arg2, f32 arg3) {
+void updateSfxPanFromMarker(s32 arg0, void *arg1, M2C_UNK arg2, f32 arg3) {
     s32 sp10;
     u8 *flag = &D_801002F2;
     f32 temp_fv1;

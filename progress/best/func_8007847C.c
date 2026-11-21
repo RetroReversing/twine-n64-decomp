@@ -116,7 +116,7 @@ void *func_8007847C(void *arg0) {
                                     M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x2000);
                                 }
                                 __repair_phase_storage.value = var_s2 != NULL;
-                                if (__repair_phase_storage.value & (var_s3 ^ 1)) {
+                                if (__repair_phase_storage.value && (var_s3 ^ 1)) {
                                     do {
                                         { {
                                                                     if (M2C_FIELD(var_s2, u16 *, 0x26) & 0x2000) {
@@ -144,14 +144,14 @@ void *func_8007847C(void *arg0) {
                                                                                         }
                                                                                     }
                                                                                     var_s0 = M2C_FIELD(var_s0, void **, 0);
-                                                                                } while ((var_s0 != NULL) & (var_s3 ^ 1));
+                                                                                } while ((var_s0 != NULL) && (var_s3 ^ 1));
                                                                             }
                                                                         }
                                                                     }
                                                                     var_s2 = M2C_FIELD(var_s2, void **, 0);
                                                                 }
                                         }
-                                    } while ((var_s2 != NULL) & (var_s3 ^ 1));
+                                    } while ((var_s2 != NULL) && (var_s3 ^ 1));
                                 }
                             }
                         }

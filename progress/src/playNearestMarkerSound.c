@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8000A8B4(u16, f32, M2C_UNK);               /* extern */
-M2C_UNK func_8000AABC(s32, s32, void *, M2C_UNK);   /* extern */
+M2C_UNK updateSfxPanFromMarker(s32, s32, void *, M2C_UNK);   /* extern */
 s32 randomIntBelow(M2C_UNK);                         /* extern */
 f32 func_80084270(s32, u16 *);                      /* extern */
 extern M2C_UNK D_800CE5E0;
@@ -24,7 +24,7 @@ extern M2C_UNK D_800CE614;
 extern u32 D_80108F78;
 extern M2C_UNK gTrackMarkerTable;
 
-void func_8008447C(void *arg0) {
+void playNearestMarkerSound(void *arg0) {
     u16 sp10;
     f32 temp_fs0;
     s32 var_s0;
@@ -78,6 +78,6 @@ block_15:
         }
         break;
     }
-    func_8000AABC(var_s0, *((M2C_UNK *)((s8 *)&gTrackMarkerTable + (sp10 * 4))), arg0 + 0x24, 0);
+    updateSfxPanFromMarker(var_s0, *((M2C_UNK *)((s8 *)&gTrackMarkerTable + (sp10 * 4))), arg0 + 0x24, 0);
 }
 
