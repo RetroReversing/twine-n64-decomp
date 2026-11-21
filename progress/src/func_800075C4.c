@@ -93,7 +93,7 @@ void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
     cmd->w0 = 0xD7000002;
     cmd->w1 = 0x80008000;
     cmd = sDisplayListCursor++;
-    cmd->w0 = (0xF6000000 | ((var_s0 & 0x3FF) << 2)) | ((var_s1 & 0x3FF) << 14);
+    cmd->w0 = (0xF6000000 | ((var_s1 & 0x3FF) << 14)) | ((var_s0 & 0x3FF) << 2);
     cmd->w1 = (s32) (((var_s3 & 0x3FF) << 0xE) | ((var_s2 & 0x3FF) * 4));
 }
 
