@@ -55,13 +55,13 @@ u16 __repair_result_spA5C;
     u8 spA67;
     void *spA6C;
     s32 *spA74;
-    s32 spA7C;
     s32 spA84;
+    s32 spA7C;
     s32 spA8C;
     s32 spA94;
     s32 *spA9C;
     void *spAAC;
-    s32 *temp_s0;
+    
     s32 *temp_s1;
     
     char *var_a1;
@@ -85,7 +85,7 @@ s32 __repair_phase_var_s4;
     s32 var_v1_2;
     s8 temp_v1_2;
     
-    u16 var_v0_2;
+    s32 var_v0_2;
     u32 temp_v0_5;
     u32 temp_v1_4;
     u32 var_a0;
@@ -254,13 +254,19 @@ block_42:
                         M2C_FIELD(temp_s1, f32 *, 0x28) = sp20[1];
                         M2C_FIELD(temp_s1, f32 *, 0x2C) = sp20[2];
                         if (M2C_FIELD(arg0, s32 *, 0x58) & 0x40000) {
+s32 *temp_s0;
+
                             temp_s0 = func_8000DA08(arg0);
                         
                         MatMul3x3InPlace(temp_s0, temp_s1);} else {
+s32 *temp_s0;
+
                             temp_s0 = spA74;
                         
                         MatMul3x3InPlace(temp_s0, temp_s1);}
                     } else {
+s32 *temp_s0;
+
                         temp_s0 = (s32 *)((char *)spA9C + M2C_FIELD(var_a1, s16 *, 2) * 0x30);
                         func_800839F0(temp_s0, sp20, temp_s1 + 0x24);
                         M2C_FIELD(temp_s1, f32 *, 0x24) += M2C_FIELD(temp_s0, f32 *, 0x24);
