@@ -14,5 +14,5 @@ extern s32 D_80102EEC, D_8010A4E4;
 void hiscore_refresh_all(void);
 void func_80045130(s8 arg0) { hiscore_refresh_all(); D_80102EDF=arg0; D_80102EEC=1; D_8010A4E4=0; D_800CA310=0; }
 extern char D_80115092[];
-void func_80081BC4(s32,s32,s32);
-void func_80081CC0(s32 arg0) { s16 *p=(s16 *)(D_80115092+arg0*0xa0); s32 old=*p; *p=-1; func_80081BC4(arg0,old, -1); }
+void setBonusSlotState(s32,s32,s32);
+void func_80081CC0(s32 arg0) { s16 *p=(s16 *)(D_80115092+arg0*0xa0); s32 old=*p; *p=-1; setBonusSlotState(arg0,old, -1); }

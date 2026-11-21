@@ -48,7 +48,9 @@ void func_8001DE20(void) {
             menuSetItemLabelIndices(temp_s0, temp_s4, temp_s2, temp_s5 - 0x28, 0x1F, 1);
             temp_s2 = (*(void **)((char *)(gSaveMenuState) + 0x10));
             (*(s8 *)((char *)((*(void **)((char *)(gSaveMenuState) + 0x10))) + 4)) = findTableIndexById(temp_s2, 0x1F);
-        } else {
+            goto updateLabel;
+        }
+        {
             (*(s16 *)((char *)(var_s3) + -0x28)) = 0x1C;
             menuSetItemLabelIndices(var_s3 - 0x28, var_s3, temp_s1 - 0x28, temp_s4 - 0x28, 0x1C, 1);
             var_a0 = 0x1B3;
@@ -58,9 +60,11 @@ void func_8001DE20(void) {
             temp_s2 = (*(void **)((char *)(gSaveMenuState) + 0x10));
             (*(s8 *)((char *)((*(void **)((char *)(gSaveMenuState) + 0x10))) + 4)) = findTableIndexById(temp_s2, 0x20);
         }
+updateLabel:
         if (D_8010A4C0 == 0) var_a0_4 = lookupDataEntry(0x16);
         else if (D_8010A4C0 == 1) var_a0_4 = lookupDataEntry(0x17);
         else var_a0_4 = lookupDataEntry(0x16);
         do { formatTextEntry(temp_s4, sFmtEntryName, var_a0_4); } while (0);
     }
 }
+

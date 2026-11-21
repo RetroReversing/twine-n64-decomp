@@ -1,14 +1,15 @@
-typedef struct { u16 flags; u8 pad[0xE6]; } Ent;
-typedef struct { u8 pad[0xE]; s8 kind; s8 mode; } Sub;
-typedef struct { u8 pad[0x7A]; s16 t; } Tgt;
-typedef struct { u8 pad[0xA8]; Tgt *tgt; } Own;
-typedef struct { u8 pad[0x68]; Sub *sub; Own *own; } Obj;
+typedef struct { u16 flags; u8 pad[0xE6]; } EnemyDef;
+typedef struct { u8 pad[0xE]; s8 kind; s8 mode; } EnemySub;
+typedef struct { u8 pad[0x7A]; s16 timer; } EnemyTarget;
+typedef struct { u8 pad[0xA8]; EnemyTarget *tgt; } EnemyOwner;
+typedef struct { u8 pad[0x68]; EnemySub *sub; EnemyOwner *own; } EnemyObj;
 void func_80070CA4();
-extern Ent sEnemyDefTable[];
+extern EnemyDef sEnemyDefTable[];
 extern s32 gBorderSkipActive;
 
-void func_80067294(Obj *o, s32 arg1) {
-    Own *own = o->own;
+/* Picks the enemy's mode (0x21 when border skip is active, else 0x18) and applies it for its kind; some kinds first step down to a kind whose definition has flag 0x8000. */
+void applyEnemyKindMode(EnemyObj *o, s32 arg1) {
+    EnemyOwner *own = o->own;
     s32 mode;
 
     mode = 0x18;
@@ -28,7 +29,7 @@ void func_80067294(Obj *o, s32 arg1) {
         }
         o->sub->mode = mode;
         func_80070CA4(o);
-        own->tgt->t = 10;
+        own->tgt->timer = 10;
         break;
     case 0: case 33: case 34: case 35: case 36: case 37: case 38:
         break;

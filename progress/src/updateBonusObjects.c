@@ -7,7 +7,7 @@ s32 func_800643D8(s32);
 extern s32 gSaveSlotCount;
 extern u8 D_8010A4C0[];
 extern BonusObject *gBonusObjectTable[];
-extern BonusSlotEntry sBonusSlotEntries[];
+extern BonusSlotEntry sBonusSlots[];
 
 /* Updates each active bonus object: state 5 marks its slot entry, and state 7 runs the bonus handler and clears the object's control bytes. */
 void updateBonusObjects(void) {
@@ -20,7 +20,7 @@ void updateBonusObjects(void) {
         if (p != NULL) {
             s = p->sub;
             if (p->state == 5) {
-                sBonusSlotEntries[i].flag = 1;
+                sBonusSlots[i].flag = 1;
             }
             if (p->state == 7) {
                 func_800643D8(s->wA8);

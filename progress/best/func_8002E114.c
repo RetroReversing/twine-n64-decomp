@@ -38,7 +38,7 @@ extern s8 sOptionReady7;
 extern u8 D_80115088;
 extern u8 D_80115089;
 extern u8 D_8011508A;
-extern u8 sBonusSlotEntries;
+extern u8 sBonusSlots;
 extern u8 D_8011508C;
 extern u8 D_8011508D;
 extern u8 D_8011508E;
@@ -79,7 +79,7 @@ void func_8002E114(void) {
         func_8002E93C(&D_800E1310, *(&D_80115088 + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_80115089 + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_8011508A + temp_s0), 1, 1);
-        func_8002E93C(&D_800E1310, *(&sBonusSlotEntries + temp_s0), 1, 1);
+        func_8002E93C(&D_800E1310, *(&sBonusSlots + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_8011508C + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_8011508D + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_80115090 + temp_s0), 1, 1);

@@ -1,6 +1,6 @@
 s32 updateVideoMode();
 s32 func_8008173C();
-s32 func_80081BC4(s32, s32);
+s32 setBonusSlotState(s32, s32);
 extern s8 sDifficultyLevel;
 extern s8 D_8010A4C0;
 extern s8 gTrackMarkerActiveMask;
@@ -53,6 +53,6 @@ void resetDefaultGameSettings(void) {
     D_8010A4F8 = 0;
     updateVideoMode();
     for (slot = 0; slot < 4; slot++) {
-        func_80081BC4(slot, 2);
+        setBonusSlotState(slot, 2);
     }
 }

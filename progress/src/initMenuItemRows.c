@@ -52,8 +52,9 @@ void initMenuItemRows(void) {
             }
             M2C_FIELD(var_a0, M2C_UNK **, -8) = var_v1;
             temp_v1 = M2C_FIELD(var_a0, u16 *, 0);
-            var_v0 = temp_v1 | 1;
-            if (*(&gMenuRowEnabled + temp_a1) == 0) {
+            if (*(&gMenuRowEnabled + temp_a1) != 0) {
+                var_v0 = temp_v1 | 1;
+            } else {
                 var_v0 = temp_v1 | 5;
             }
             M2C_FIELD(var_a0, u16 *, 0) = var_v0;

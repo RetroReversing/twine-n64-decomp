@@ -17,7 +17,7 @@ s32 memset();
 extern char D_80115088[];
 extern char D_80115089[];
 extern char D_8011508A[];
-extern char sBonusSlotEntries[];
+extern char sBonusSlots[];
 extern char D_8011508C[];
 extern char D_8011508D[];
 extern char D_8011508E[];
@@ -34,7 +34,7 @@ void func_80081758(s32 arg0) {
     *(D_80115089 + temp_s0) = 1;
     *(D_8011508C + temp_s0) = 1;
     *(D_8011508A + temp_s0) = 0;
-    *(sBonusSlotEntries + temp_s0) = 0;
+    *(sBonusSlots + temp_s0) = 0;
     *(D_8011508D + temp_s0) = 1;
     *(D_80115090 + temp_s0) = 1;
     *(D_8011508F + temp_s0) = 1;
