@@ -19,42 +19,42 @@ void *func_80047B44(void *, void *, void *, M2C_UNK); /* extern */
 extern void cameraUpdateProjection(void *, f32);
 typedef struct { s32 x,y,z; } Pos483;
 
-/* Camera per-frame update: refreshes the tracked target, picks the camera's look-at point, sets look flags, and updates projection. */ void cameraTrackTarget(void *camera) {
-    void *target;
-    void *prevTarget;
-    void *foundTarget;
+void func_8004830C(void *arg0) {
+    void *temp_a1;
+    void *temp_s1;
+    void *temp_v0;
     void *temp_v0_2;
 
-    prevTarget = M2C_FIELD(camera, void **, 0xF4);
-    if (prevTarget == NULL) {
-        M2C_FIELD(camera, void **, 0xF4) = probeFindNearestObject(camera + 0x10);
+    temp_s1 = M2C_FIELD(arg0, void **, 0xF4);
+    if (temp_s1 == NULL) {
+        M2C_FIELD(arg0, void **, 0xF4) = probeFindNearestObject(arg0 + 0x10);
     } else {
-        foundTarget = func_80047B44(prevTarget, camera + 0x28, camera + 0x10, 0);
-        if (foundTarget != NULL) {
-            M2C_FIELD(camera, void **, 0xF4) = (void *) M2C_FIELD(foundTarget, void **, 8);
+        temp_v0 = func_80047B44(temp_s1, arg0 + 0x28, arg0 + 0x10, 0);
+        if (temp_v0 != NULL) {
+            M2C_FIELD(arg0, void **, 0xF4) = (void *) M2C_FIELD(temp_v0, void **, 8);
         }
     }
-    target = M2C_FIELD(camera, void **, 0xF4);
-    if ((target != NULL) && ((Probe_BoundsContainPoint(camera + 0x10, target) << 0x18) == 0)) {
-        M2C_FIELD(camera, Pos483 *, 0x10) = M2C_FIELD(camera, Pos483 *, 0x28);
+    temp_a1 = M2C_FIELD(arg0, void **, 0xF4);
+    if ((temp_a1 != NULL) && ((Probe_BoundsContainPoint(arg0 + 0x10, temp_a1) << 0x18) == 0)) {
+        M2C_FIELD(arg0, Pos483 *, 0x10) = M2C_FIELD(arg0, Pos483 *, 0x28);
     } else {
-        M2C_FIELD(camera, Pos483 *, 0x28) = M2C_FIELD(camera, Pos483 *, 0x10);
+        M2C_FIELD(arg0, Pos483 *, 0x28) = M2C_FIELD(arg0, Pos483 *, 0x10);
     }
-    temp_v0_2 = M2C_FIELD(camera, void **, 0xF4);
+    temp_v0_2 = M2C_FIELD(arg0, void **, 0xF4);
     if (temp_v0_2 != NULL) {
         void *body = temp_v0_2;
         if (((u32) M2C_FIELD(body, u32 *, 0x5C) >> 0x17) & 8) {
-            M2C_FIELD(camera, s32 *, 0x100) = M2C_FIELD(camera, s32 *, 0x100) | 0x20;
+            M2C_FIELD(arg0, s32 *, 0x100) = M2C_FIELD(arg0, s32 *, 0x100) | 0x20;
         } else {
-            M2C_FIELD(camera, s32 *, 0x100) = M2C_FIELD(camera, s32 *, 0x100) & ~0x20;
+            M2C_FIELD(arg0, s32 *, 0x100) = M2C_FIELD(arg0, s32 *, 0x100) & ~0x20;
         }
-        if (M2C_FIELD(M2C_FIELD(body, void **, 0x20), f32 *, 0x5C) >= M2C_FIELD(camera, f32 *, 0x14)) {
-            M2C_FIELD(camera, s32 *, 0x100) = M2C_FIELD(camera, s32 *, 0x100) | 8;
+        if (M2C_FIELD(M2C_FIELD(body, void **, 0x20), f32 *, 0x5C) >= M2C_FIELD(arg0, f32 *, 0x14)) {
+            M2C_FIELD(arg0, s32 *, 0x100) = M2C_FIELD(arg0, s32 *, 0x100) | 8;
         } else {
-            M2C_FIELD(camera, s32 *, 0x100) = M2C_FIELD(camera, s32 *, 0x100) & ~8;
+            M2C_FIELD(arg0, s32 *, 0x100) = M2C_FIELD(arg0, s32 *, 0x100) & ~8;
         }
-        cameraUpdateProjection(camera, M2C_FIELD(camera, f32 *, 0x84));
+        cameraUpdateProjection(arg0, M2C_FIELD(arg0, f32 *, 0x84));
         return;
     }
-    M2C_FIELD(camera, void **, 0xF4) = prevTarget;
+    M2C_FIELD(arg0, void **, 0xF4) = temp_s1;
 }

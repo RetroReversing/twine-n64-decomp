@@ -60480,6 +60480,33 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:69758c3cdf7a03d680cd143cd0020d2684aa1249979c80d7e6d18670e241917d"
  },
  {
+  "function": "func_8007B3B8",
+  "text": "Verified score 35, all 170 instructions present. Case 2 jumping directly to the call preserves the ROM jump-table entry and skips the multiply. Splitting pointer and boolean storage fixed integer registers. Remaining differences are exclusively swapped f20/f22.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795234240.2846348,
+  "score_before": 812,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:66137bdd970e9a0613c4bb0e844e07d2a3d489941cc757c7e31417b38fd4bc22"
+ },
+ {
+  "function": "func_80064630",
+  "text": "Best 965 = rev a80466e72e9bde00ff15 (struct Rec{pad[0x1BC];u16 w[32];Ent e[0x3B]} + rec->e[i].a/.d for entry stores, raw record+recOff pointer p for p[0x1FD..], p computed before the 0x8000 test so the conditional store is p[0x1FC]=0; func_800645A4(i++)). Loop structure now matches target; remaining: register allocation (target counter i in s2 (move s2,0 hoisted to prologue), entry ptr s1, recOff s4, record s5; ours i=s1,entry=s2,recOff=s5,record=s4); first loop flag via a1=&D_80112F6C hoisted (target uses `u8 *flag=&D_80112F6C` in loop 1; that gets lui/addiu hoisted but placed before lw s5 \u2014 target emits it after `lw $s5,0x6c($a0)`; it scored 1090 vs 965 though); dataOff+=0xE8 is in bnez delay slot in target. Tried: volatile flag (worse), Ent* e++ pointer (1921, worse), decl reorder (no effect).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795234247.7835178,
+  "score_before": 3430,
+  "score_after": 965,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
+ },
+ {
+  "function": "func_8011AA9C",
+  "text": "Saved candidate rechecked at 2603; prior 34 repairs cover most layout/signedness/declaration/address/branch/constant probes. Fresh bounded batch had inferred layout and base signedness tie; frame_pad[2] widened frame to 0x30 and scored 2611. Restored saved best. Target needs 0x20 frame, saves only s0-s2, reads global gSceneType with lbu (candidate emits lb), then dispatches scene branches. My u32 padding attempt worsened frame and was discarded. Next step: inspect get_context symbol typing for globals and live locals; test whether s3/temp declarations or known global signedness cause candidate's extra saved register/frame, focusing on first prologue instructions. Also examine gSceneType's unsigned byte declaration to recover lbu.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795234260.039659,
+  "score_before": 2603,
+  "score_after": 2603,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:3b2e3791d305a550b6b6568a02423f79eeeba2389e42ce893566774d551061d3"
+ },
+ {
   "function": "cameraTrackTarget",
   "text": "Rechecked best 1640. Local variants tested field layout, reversed float compare arms, address temporary, allocator call arity, checker call arity, assignment at use; none improved (batch interrupted on shared-file synchronization after two scored trials). Main mismatch starts with target saving arg0 in s0 and storing field F4 in s1; current source allocates different registers. Target's call sequence: existing field pointer loaded to s1, retained in a0 delay slot; on null calls func_8003D848(arg0+0x10), then writes result to F4; otherwise calls func_80047B44(field,arg0+0x28,arg0+0x10,0). Later target reloads F4 into a1, null-checks, calls func_8003D64C(arg0+0x10) while a1 persists. Rebuild with typed record and explicit saved base/pointer lifetimes.",
   "by": "codex-gpt-6-luna-7",
@@ -60551,32 +60578,5 @@
   "score_before": 1100,
   "score_after": 0,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:25c26ef88a8c634fbec8d3db4f1d2adb97f8e1ca7071327bf1f7f95d96de0312"
- },
- {
-  "function": "func_8007B3B8",
-  "text": "Verified score 35, all 170 instructions present. Case 2 jumping directly to the call preserves the ROM jump-table entry and skips the multiply. Splitting pointer and boolean storage fixed integer registers. Remaining differences are exclusively swapped f20/f22.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795234240.2846348,
-  "score_before": 812,
-  "score_after": 35,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:66137bdd970e9a0613c4bb0e844e07d2a3d489941cc757c7e31417b38fd4bc22"
- },
- {
-  "function": "func_80064630",
-  "text": "Best 965 = rev a80466e72e9bde00ff15 (struct Rec{pad[0x1BC];u16 w[32];Ent e[0x3B]} + rec->e[i].a/.d for entry stores, raw record+recOff pointer p for p[0x1FD..], p computed before the 0x8000 test so the conditional store is p[0x1FC]=0; func_800645A4(i++)). Loop structure now matches target; remaining: register allocation (target counter i in s2 (move s2,0 hoisted to prologue), entry ptr s1, recOff s4, record s5; ours i=s1,entry=s2,recOff=s5,record=s4); first loop flag via a1=&D_80112F6C hoisted (target uses `u8 *flag=&D_80112F6C` in loop 1; that gets lui/addiu hoisted but placed before lw s5 \u2014 target emits it after `lw $s5,0x6c($a0)`; it scored 1090 vs 965 though); dataOff+=0xE8 is in bnez delay slot in target. Tried: volatile flag (worse), Ent* e++ pointer (1921, worse), decl reorder (no effect).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795234247.7835178,
-  "score_before": 3430,
-  "score_after": 965,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
- },
- {
-  "function": "func_8011AA9C",
-  "text": "Saved candidate rechecked at 2603; prior 34 repairs cover most layout/signedness/declaration/address/branch/constant probes. Fresh bounded batch had inferred layout and base signedness tie; frame_pad[2] widened frame to 0x30 and scored 2611. Restored saved best. Target needs 0x20 frame, saves only s0-s2, reads global gSceneType with lbu (candidate emits lb), then dispatches scene branches. My u32 padding attempt worsened frame and was discarded. Next step: inspect get_context symbol typing for globals and live locals; test whether s3/temp declarations or known global signedness cause candidate's extra saved register/frame, focusing on first prologue instructions. Also examine gSceneType's unsigned byte declaration to recover lbu.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795234260.039659,
-  "score_before": 2603,
-  "score_after": 2603,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:3b2e3791d305a550b6b6568a02423f79eeeba2389e42ce893566774d551061d3"
  }
 ]
