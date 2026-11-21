@@ -252,11 +252,11 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                       var_s3 = *((u16 **) (((char *) temp_s4) + 0x3C));
                       if ((temp_s2 - 1) < (((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))) - 1))
                       {
-                        var_s0 = 0;
+                        var_s0_4 = 0;
                         var_s2 = ((u8 *) var_s3) + 4;
                         do
                         {
-                          temp_s5 = var_s0 & 0xFFFF;
+                          temp_s5 = var_s0_4 & 0xFFFF;
                           temp_v1_2 = inline_fn2(temp_s4, temp_s5);
                           if ((var_t3 & temp_v1_2) && (var_t2 & temp_v1_2))
                           {
@@ -273,9 +273,9 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           }
                           var_s2 = (void *) (((u8 *) var_s2) + 6);
                           var_s3 = (void *) (((u8 *) var_s3) + 6);
-                          var_s0 += 1;
+                          var_s0_4 += 1;
                         }
-                        while (((u32) (var_s0 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))));
+                        while (((u32) (var_s0_4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))));
                       }
                     }
                     else

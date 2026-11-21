@@ -171,8 +171,11 @@ void func_80042CFC(s32 arg0, s32 arg1) {
     temp_s6 = D_800CA338 != 0;
     
     locals.spD4 = heapAllocTagged(var_s7 * 0x44, 0x2D);
-    var_s4 = locals.spD4;
-    dmaRomToRamUnaligned(locals.spD4, (u8 *)&D_54D910 + M2C_FIELD(temp_fp, s32 *, 0), M2C_FIELD(temp_fp, s32 *, 4) * 0x44);
+    {
+        u16 *dmaDestination = locals.spD4;
+        var_s4 = locals.spD4;
+        dmaRomToRamUnaligned(dmaDestination, (u8 *)&D_54D910 + M2C_FIELD(temp_fp, s32 *, 0), M2C_FIELD(temp_fp, s32 *, 4) * 0x44);
+    }
     if (var_s7 > 0) {
         locals.spDC = &locals.spB8;
         var_s2 = var_s4 + 0x1E;

@@ -71,52 +71,32 @@ void func_8001BE64(void)
   D_801002F4 = func_80018BE0(D_801002C4);
   if (((((temp_fp != NULL) & (temp_s6 != NULL)) && ((temp_s4 != NULL) & (temp_s5 != NULL))) && ((var_s1 != NULL) & (temp_s3 != NULL))) && ((temp_s2 != NULL) & (temp_s7 != NULL)))
   {
-    switch (gSceneType)
-    {
-      case 5:
-
-      case 6:
-        do
-      {
-        var_v1 = (s32 *) (((u8 *) (&updateActorPartnerLink)) + 0x1C4); var_v0 = 0x19;
-        if (D_80102FD4 != var_v1)
-        {
-          {
-            long long phantom_wide = var_a0;
-          }
-          D_80117730 = 0;
-        }
-        break;
-      }
-      while (0);
-
-      case 2:
-
-      case 3:
-
-      case 4:
- do { var_v1 = &D_8011AC34; var_v0 = 0x14; if (D_80102FD4 != (&D_8011AC34)) { { long long phantom_wide2 = var_a0; } D_80117730 = 0; } break; } while (0);
-
-      case 7:
-        var_v1 = &D_8011AC94;
-        if (D_80102FD4 != (&D_8011AC94))
-      {
-        D_80117730 = 9;
-      }
-        var_v0 = 0xF;
-        break;
-
-      default:
-        var_v1 = (s32 *) (((u8 *) (&updateActorPartnerLink)) + 0x180);
-        var_v0 = 0xB;
-        if (D_80102FD4 != var_v1)
-      {
+    switch (gSceneType) {
+    case 5: case 6:
+      var_v1 = (s32 *)((u8 *)&updateActorPartnerLink + 0x1C4);
+      if (D_80102FD4 != var_v1)
         D_80117730 = 0;
-      }
-        break;
-
+      var_v0 = 0x19;
+      goto selected;
+    case 2: case 3: case 4:
+      var_v1 = &D_8011AC34;
+      if (D_80102FD4 != var_v1)
+        D_80117730 = 0;
+      var_v0 = 0x14;
+      goto selected;
+    case 7:
+      var_v1 = &D_8011AC94;
+      if (D_80102FD4 != var_v1)
+        D_80117730 = 9;
+      var_v0 = 0xF;
+      goto selected;
+    default:
+      var_v1 = (s32 *)((u8 *)&updateActorPartnerLink + 0x180);
+      if (D_80102FD4 != var_v1)
+        D_80117730 = 0;
+      var_v0 = 0xB;
     }
-
+selected:
     D_80102FD4 = var_v1;
     *((u32 *) (((char *) var_s1) + (-0x14))) = var_v0;
     var_v0_2 = 0xB1;

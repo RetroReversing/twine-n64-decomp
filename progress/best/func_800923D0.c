@@ -49,32 +49,31 @@ void func_800923D0(void)
   void *p;
   void *q;
   void *r;
+  s8 rv;
+  s32 t0;
   if (D_801002D8 != 0)
   {
-    j = 0; k = &D_800E6A84; f = 0;
+    j = 0;
     do
     {
-      if ((*((u8 *) k)) != 0)
+      if (((u8 *) &D_800E6A84)[j * 0xFF8] != 0)
       {
-        D_800EDA8C = f + D_800E5AC4; D_800EDA84 = j; D_800EDA88 = func_8008EF18(*(D_800E6A88 + f)); n = D_800EDA8C;
-        if (((*((s32 *) (((char *) n) + 0xF68))) != 0) && ((*((u32 *) (((char *) (*((void **) (((char *) n) + 0xF6C)))) + 0))) != (-1U)))
+        D_800EDA8C = j * 0xFF8 + D_800E5AC4; D_800EDA84 = j; rv = func_8008EF18(D_800E6A88[j * 0xFF8]); n = D_800EDA8C; t0 = *((s32 *) (((char *) n) + 0xF68)); D_800EDA88 = rv;
+        if (t0 != 0)
         {
-          s32 minus_one = -1;
-          loop:
-          m = *((void **) (((char *) n) + 0xF6C));
-
-          if (((u32) ((*((s32 *) (((char *) n) + 0xF74))) + (*((s32 *) (((char *) n) + 0x120))))) >= ((u32) (*((u32 *) (((char *) m) + 0)))))
+          while ((*((u32 *) (((char *) (*((void **) (((char *) n) + 0xF6C)))) + 0))) != (-1U))
           {
+            top: m = *((void **) (((char *) n) + 0xF6C));
+            if (((u32) ((*((s32 *) (((char *) n) + 0xF74))) + (*((s32 *) (((char *) n) + 0x120))))) < ((u32) (*((u32 *) (((char *) m) + 0)))))
+            {
+              break;
+            }
             a = *((s32 *) (((char *) m) + 4));
             ((T *) n)->value = a;
             func_8008CDC0(a, D_800EDA87);
             o = *((void **) (((char *) D_800EDA8C) + 0xF6C));
             *((void **) (((char *) D_800EDA8C) + 0xF6C)) = o + 8;
-            if ((*((s32 *) (((char *) o) + 8))) != minus_one)
-            {
-              n = D_800EDA8C;
-              goto loop;
-            }
+            n = D_800EDA8C;
           }
         }
         n = D_800EDA8C; g = (*((u16 *) (((char *) n) + 0xFC2))) * ((((u32) ((((T *) n)->value * 0xC00U) / 60)) * (((s32) (D_801002D8 << 16)) / ((s32) D_8010A514))) >> 3); e = *((s32 *) (((char *) n) + 0xF68)); i = g >> 24;
@@ -83,9 +82,8 @@ void func_800923D0(void)
         *((s32 *) (((char *) n) + 0x120)) = ((s32) i) >> 1;
         if (((unsigned) e) != 0)
         {
-          h = (*((s32 *) (((char *) n) + 0xF70))) + (*((s32 *) (((char *) n) + 0x118))); e = h & 0xFFFF;
+          h = (*((s32 *) (((char *) n) + 0xF70))) + (*((s32 *) (((char *) n) + 0x118))); e = h & 0xFFFF; *((s32 *) (((char *) n) + 0xF70)) = e;
           *((s32 *) (((char *) n) + 0xF74)) += (h >> 16) + (*((u32 *) (((char *) n) + 0x11C)));
-          *((s32 *) (((char *) n) + 0xF70)) = e;
         }
         d = func_80090464(); c = func_8008FB20();
         func_8009010C();
@@ -126,13 +124,11 @@ void func_800923D0(void)
         }
         if (((!(d & 0xFF)) & (!(c & 0xFF))) && (!(b & 0xFF)))
         {
-          *((u8 *) k) = 0;
-          *(D_800E6A85 + f) = 1;
+          ((u8 *) &D_800E6A84)[j * 0xFF8] = 0;
+          D_800E6A85[j * 0xFF8] = 1;
         }
       }
-      k += 0xFF8;
       j++;
-      f += 0xFF8;
     }
     while (8U > j);
   }
