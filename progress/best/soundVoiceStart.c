@@ -5,7 +5,7 @@ s32 func_8008E594();
 s32 func_8008E680();
 s32 func_8008E96C();
 
-void func_80093C40(void *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4, f32 arg5) {
+void soundVoiceStart(void *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4, f32 arg5) {
     u32 var_a1_3;
 u32 __repair_phase_var_a1_3;
     f32 temp_fv1_2;

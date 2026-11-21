@@ -1,8 +1,8 @@
-void *func_80016410(s32, void *, s32);
+void *spawnEffectObject(s32, void *, s32);
 s32 func_80017490(void *arg0, u16, u16, u16);
 s32 func_8001751C(s32, u8, void *, s32);
 s32 actorLinkToSurface(s32, void *, s32);
-s32 func_80044670(void *, s32, int);
+s32 objectSetAnimFrame(void *, s32, int);
 extern s16 D_800C4478;
 extern s16 D_800C447A;
 extern s16 D_800C4706;
@@ -27,7 +27,7 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5
     sp1E = arg4;
     func_8001751C(arg12, arg13, arg0, arg1);
     if ((func_80017490(arg0, arg7, arg8, arg9) << 24) != 0) {
-        temp_v0 = (void *) func_80016410(0x34, arg0, arg1);
+        temp_v0 = (void *) spawnEffectObject(0x34, arg0, arg1);
         if (temp_v0 != NULL) {
             temp_s0 = *(void **)((u8 *)temp_v0 + 0x6C);
             *(s16 *)((u8 *)temp_v0 + 0x78) = 0x24;
@@ -47,18 +47,18 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5
                 switch (arg4) {
                 case 0:
                     off = arg5 * 0xE8;
-                    func_80044670(temp_v0, *(s16 *)((u8 *)&D_800C4706 + off), *(s16 *)((u8 *)&D_800C4708 + off));
+                    objectSetAnimFrame(temp_v0, *(s16 *)((u8 *)&D_800C4706 + off), *(s16 *)((u8 *)&D_800C4708 + off));
                     break;
                 case 1:
                     off = arg5 * 0x10;
-                    func_80044670(temp_v0, *(s16 *)((u8 *)&D_800C4478 + off), *(s16 *)((u8 *)&D_800C447A + off));
+                    objectSetAnimFrame(temp_v0, *(s16 *)((u8 *)&D_800C4478 + off), *(s16 *)((u8 *)&D_800C447A + off));
                     break;
                 case 2:
-                    func_80044670(temp_v0, sp16, arg3 & 0xFFFF);
+                    objectSetAnimFrame(temp_v0, sp16, arg3 & 0xFFFF);
                     break;
                 }
             } else {
-                func_80044670(temp_v0, sp16, arg3 & 0xFFFF);
+                objectSetAnimFrame(temp_v0, sp16, arg3 & 0xFFFF);
             }
             ((__repair_record_temp_s0*)temp_s0)->field_26 = arg4;
             ((__repair_record_temp_s0*)temp_s0)->field_28 = arg5;

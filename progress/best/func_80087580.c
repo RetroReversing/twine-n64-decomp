@@ -1,5 +1,5 @@
-void *func_80016410();
-s32 func_80044670();
+void *spawnEffectObject();
+s32 objectSetAnimFrame();
 s32 func_80076340(void *, s32, f32);
 s32 func_80087380();
 extern u8 D_800B21CF;
@@ -9,7 +9,7 @@ typedef struct { s32 x,y,z; } Vec3;
 void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
     void *temp_s0; void *temp_v0; void *var_s2; s32 var_s4;
     void *temp_v0_2; void *temp_v0_3; void *temp_v0_4;
-    temp_v0 = func_80016410(0x4C, 0, 0);
+    temp_v0 = spawnEffectObject(0x4C, 0, 0);
     if (temp_v0 != NULL) {
         temp_s0 = (*(void **)((char *)(temp_v0) + 0x6C));
         (*(s8 *)((char *)(temp_s0) + 0x44)) = (s8) (*(u16 *)((char *)(arg2) + 0x2C));
@@ -41,18 +41,18 @@ void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
         var_s4 = 0;
         var_s2 = temp_s0;
-        func_80044670(temp_v0, (*(u16 *)((char *)(arg2) + 0)), *(*(s16 **)((char *)(arg2) + 0x28)));
+        objectSetAnimFrame(temp_v0, (*(u16 *)((char *)(arg2) + 0)), *(*(s16 **)((char *)(arg2) + 0x28)));
         (*(s16 *)((char *)(temp_v0) + 0x7C)) = 0;
         (*(s32 *)((char *)(temp_v0) + 0x5C)) |= 0x600;
         (*(s32 *)((char *)(temp_v0) + 0x58)) |= 0x20000;
         do {
-            temp_v0_4 = func_80016410(0, 0, 0);
+            temp_v0_4 = spawnEffectObject(0, 0, 0);
             (*(void **)((char *)(var_s2) + 0x2C)) = temp_v0_4;
             if (temp_v0_4 != NULL) {
                 (*(void **)((char *)(temp_v0_4) + 0x18)) = temp_v0;
                 (*(s16 *)((char *)(temp_v0_4) + 0x78)) = 0x30;
                 (*(s32 *)((char *)(temp_v0_4) + 0x5C)) |= 0x600;
-                func_80044670(temp_v0_4, 3U, *(*(s16 **)((char *)(arg2) + 0x28)));
+                objectSetAnimFrame(temp_v0_4, 3U, *(*(s16 **)((char *)(arg2) + 0x28)));
             }
             var_s4++;
             var_s2 += 4;

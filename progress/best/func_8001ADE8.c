@@ -5,7 +5,7 @@ s32 func_80002BD0();
 s32 func_80002D30();
 s32 func_800160FC();
 s32 func_800162BC();
-void *func_80016410();
+void *spawnEffectObject();
 s32 func_80018318();
 s32 func_80019E28();
 s32 func_80022A30();
@@ -238,7 +238,7 @@ s32 __repair_phase_var_a0;
             func_80025F78(temp_s5 - 0x28, 0);
             func_80025F78(temp_s5, 0);
         }
-        if ((gPickupActor != NULL) || (temp_v0_5 = func_80016410(0, 0, 0), gPickupActor = temp_v0_5, (temp_v0_5 != NULL))) {
+        if ((gPickupActor != NULL) || (temp_v0_5 = spawnEffectObject(0, 0, 0), gPickupActor = temp_v0_5, (temp_v0_5 != NULL))) {
             (*(s16 *)((char *)(gPickupActor) + 0x78)) = 0x1F;
             (*(s32 *)((char *)(gPickupActor) + 0x58)) |= 0x400;
             (*(s8 *)((char *)(gPickupActor) + 0x7E)) = 1;

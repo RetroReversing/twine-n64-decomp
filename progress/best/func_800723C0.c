@@ -1,6 +1,6 @@
 typedef union { s32 w[9]; f32 f[9]; } Vec9;
-void *func_80016410(s32, s32, s32);
-void func_80016990(void *, s32);
+void *spawnEffectObject(s32, s32, s32);
+void objectListInsert(void *, s32);
 void func_800328B8(void *, void *);
 void func_800336FC(void *, void *, void *, void *, s32, f32, s32, s32, s32, s32, s32);
 s32 func_8004493C(s32);
@@ -65,7 +65,7 @@ if (s != arg0 + 8) goto __repair_rows;
     } while (s != arg2 + 8);
     d[0] = s[0];
     D_800E1A68 += 1;
-    temp_v0 = func_80016410(0x24, 0, 0);
+    temp_v0 = spawnEffectObject(0x24, 0, 0);
     if (temp_v0 != NULL) {
         temp_v0_2 = *(void **) ((u8 *) temp_v0 + 0x6C); temp_s0=(void *)temp_v0_2;
         *(s16 *) ((u8 *) temp_v0 + 0x78) = 0x1C;
@@ -171,7 +171,7 @@ if (s != arg0 + 8) goto __repair_rows;
             *(s16 *)((u8 *)temp_v0 + 0x7A) = 0;
             *(f32 *)((u8 *)temp_v0 + 0x54) = 0.125f;
             *(f32 *)((u8 *)temp_v0 + 0x64) = 5.0f;
-            func_80016990(temp_v0, arg4);
+            objectListInsert(temp_v0, arg4);
             return temp_v0;
         }
 block_71:

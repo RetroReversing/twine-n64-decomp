@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8000237C(void *, s32, M2C_UNK, M2C_UNK); /* extern */
 s32 func_80006560();                                /* extern */
-void *func_80016410(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
+void *spawnEffectObject(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
 M2C_UNK func_80045278(void *);                      /* extern */
 M2C_UNK func_80064318(void *, s16);                 /* extern */
 
 void *func_800671E0(s32 arg0, s16 arg1) {
     void *temp_v0;
 
-    temp_v0 = func_80016410(0, 0, 0);
+    temp_v0 = spawnEffectObject(0, 0, 0);
     if (temp_v0 != NULL) {
         func_80045278(temp_v0 + 0x24);
         func_80045278(temp_v0 + 0x3C);

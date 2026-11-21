@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 markObjectsNearPos(s32, s32, s32, s32, f32, s32);
-s32 func_80044670();
+s32 objectSetAnimFrame();
 f32 approxDistance();
 s32 func_80059658();
 s32 func_80084338();
@@ -41,7 +41,7 @@ short __repair_constant = 0xFF;
     if (M2C_FIELD(temp_s1, u16 *, 0x3A) == 1) {
         temp_v1 = *(gTrackDoneFlags + M2C_FIELD(temp_s1, u16 *, 0x34));
         if (temp_v1 < 2U) {
-            func_80044670(arg0, M2C_FIELD(temp_s1, u16 *, 0x3C) + temp_v1, M2C_FIELD(temp_s1, u16 *, 0x3E));
+            objectSetAnimFrame(arg0, M2C_FIELD(temp_s1, u16 *, 0x3C) + temp_v1, M2C_FIELD(temp_s1, u16 *, 0x3E));
         }
     }
     if (M2C_FIELD(arg0, s32 *, 0x60) & 0x100000) {

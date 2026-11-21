@@ -24,14 +24,14 @@ typedef struct {
     u8 type;
 } SpawnObject;
 
-extern SpawnObject *func_80016410(s32 kind, s32 arg, SpawnParams *position);
+extern SpawnObject *spawnEffectObject(s32 kind, s32 arg, SpawnParams *position);
 extern void actorLinkToSurface(s32 arg, SpawnObject *object, s32 mode);
 extern s32 *gProbeObjectList;
 
 SpawnObject *func_8005AB98(s32 arg0, SpawnParams *position, SpawnOwner *owner,
                           u8 axes, s32 arg4, u8 mode)
 {
-    SpawnObject *object = func_80016410(0x10, arg0, position);
+    SpawnObject *object = spawnEffectObject(0x10, arg0, position);
     if (object != NULL) {
         SpawnParams *params = object->params;
         object->kind = 0xC;

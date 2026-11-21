@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80016410(M2C_UNK, s32, M2C_UNK);         /* extern */
+void *spawnEffectObject(M2C_UNK, s32, M2C_UNK);         /* extern */
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
 extern s32 *gProbeObjectList;
 extern s16 D_80109A58;
@@ -21,7 +21,7 @@ typedef struct { unsigned char pad_0[116]; float field_74; short field_78; unsig
 void *func_80062BC4(s32 arg0, u16 arg1) {
     void *temp_s0;
 
-    temp_s0 = func_80016410(0, arg0, 0);
+    temp_s0 = spawnEffectObject(0, arg0, 0);
     D_80109A58 = 0xFF;
     if (temp_s0 != NULL) {
         ((__repair_record_temp_s0*)temp_s0)->field_78 = 0x6C;

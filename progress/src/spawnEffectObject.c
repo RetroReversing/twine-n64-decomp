@@ -20,7 +20,7 @@ void *func_80083E90();
 extern s32 D_800B3928;
 extern char D_8010A400[];
 
-void *func_80016410(s32 arg0, s32 arg1, s32 arg2) {
+void *spawnEffectObject(s32 arg0, s32 arg1, s32 arg2) {
     void *temp_v0;
     void *r;
     void *p84;

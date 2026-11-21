@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80016718();
-s32 func_80016990();
+s32 objectListInsert();
 s32 markObjectsNearPos();
 s32 Probe_BoundsContainPoint();
 s32 actorLinkToSurface();
@@ -47,7 +47,7 @@ void func_80016A34(void *arg0) {
         }
         temp_s0 = M2C_FIELD(temp_v0, s32 *, 8);
         func_80016718(arg0);
-        func_80016990(arg0, temp_s0);
+        objectListInsert(arg0, temp_s0);
         M2C_FIELD(arg0, s32 *, 0x20) = temp_s0;
         M2C_FIELD(arg0, s32 *, 0x60) |= 0x400;
         goto block_36;
@@ -82,7 +82,7 @@ void func_80016A34(void *arg0) {
                     M2C_FIELD(arg0, s32 *, 0x40) = (s32) M2C_FIELD(arg0, s32 *, 0x4C);
                     M2C_FIELD(arg0, s32 *, 0x44) = (s32) M2C_FIELD(arg0, s32 *, 0x50);
 block_38:
-                    func_80016990(arg0, temp_s0_2);
+                    objectListInsert(arg0, temp_s0_2);
                 } else {
                     goto block_36;
                 }
@@ -100,7 +100,7 @@ block_38:
                 M2C_FIELD(arg0, s32 *, 0x44) = (s32) M2C_FIELD(arg0, s32 *, 0x50);
                 if ((Probe_BoundsContainPoint(arg0 + 0x24, temp_s0_2) << 0x18) != 0) {
                     {
-                    func_80016990(arg0, temp_s0_2);break;}
+                    objectListInsert(arg0, temp_s0_2);break;}
                 }
 block_39:
                 actorLinkToSurface(*gProbeObjectList, arg0, 0);
@@ -115,11 +115,11 @@ block_39:
                     M2C_FIELD(arg0, s32 *, 0x40) = (s32) M2C_FIELD(arg0, s32 *, 0x4C);
                     M2C_FIELD(arg0, s32 *, 0x44) = (s32) M2C_FIELD(arg0, s32 *, 0x50);
                     {
-                    do { func_80016990(arg0, temp_s0_2); } while (0);break;}
+                    do { objectListInsert(arg0, temp_s0_2); } while (0);break;}
                 }
 block_34:
                 if ((actorLinkToSurface(*gProbeObjectList, arg0, 0) << 0x18) == 0) {
-                    func_80016990(arg0, temp_s0_2);
+                    objectListInsert(arg0, temp_s0_2);
                 }
                 goto block_36;
             }

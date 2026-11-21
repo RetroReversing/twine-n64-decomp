@@ -3,7 +3,7 @@
 s32 actorLinkToSurface(s32, void *, s32);        /* extern */
 extern s32 *gProbeObjectList;
 
-void func_80016990(void *arg0, void *arg1) {
+void objectListInsert(void *arg0, void *arg1) {
     void *temp_v0;
 
     if (arg1 != NULL) {

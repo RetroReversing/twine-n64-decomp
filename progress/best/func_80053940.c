@@ -30,6 +30,7 @@ extern f64 D_800D3EC0;
 extern void *D_80108404;
 extern void *gPlayerActor;
 
+typedef struct { f32 __repair_v[3]; } __repair_vec3;
 s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, s32 *arg9, void **arg10, void **arg11) {
     f32 sp18[3];
     f32 sp28[3];
@@ -474,9 +475,7 @@ loop_77:
                                                 goto block_103;
                                             }
                                             if (((*(f32 *)sp98 * sp88[0]) + (*(f32 *)&sp9C * sp88[1]) + (spA0[0] * sp88[2]) + spA0[1]) > 0.0f) {
-                                                M2C_FIELD(arg3, f32 *, 0) = (f32) M2C_FIELD(spEC, f32 *, 0);
-                                                M2C_FIELD(arg3, f32 *, 4) = (f32) M2C_FIELD(spEC, f32 *, 4);
-                                                M2C_FIELD(arg3, f32 *, 8) = (f32) M2C_FIELD(spEC, f32 *, 8);
+                                                (*(__repair_vec3 *) ((s8 *) (arg3) + 0)) = (*(__repair_vec3 *) ((s8 *) (spEC) + 0));
                                                 return 1;
                                             }
                                             goto block_103;
@@ -555,9 +554,7 @@ loop_106:
                                             goto block_132;
                                         }
                                         if (((*(f32 *)sp98 * sp88[0]) + (*(f32 *)&sp9C * sp88[1]) + (spA0[0] * sp88[2]) + spA0[1]) > 0.0f) {
-                                            M2C_FIELD(arg3, f32 *, 0) = (f32) M2C_FIELD(spEC, f32 *, 0);
-                                            M2C_FIELD(arg3, f32 *, 4) = (f32) M2C_FIELD(spEC, f32 *, 4);
-                                            M2C_FIELD(arg3, f32 *, 8) = (f32) M2C_FIELD(spEC, f32 *, 8);
+                                            (*(__repair_vec3 *) ((s8 *) (arg3) + 0)) = (*(__repair_vec3 *) ((s8 *) (spEC) + 0));
                                             return 1;
                                         }
                                         goto block_132;

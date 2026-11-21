@@ -4,7 +4,7 @@ s32 func_8000237C();
 s32 func_80002BD0();
 s32 func_800160FC();
 s32 func_800162BC();
-void *func_80016410();
+void *spawnEffectObject();
 s32 func_80018318();
 s32 func_80022A30();
 s32 func_80022AD8();
@@ -58,7 +58,7 @@ extern char D_800D2864[];
     {
         void *volatile *pickup = &gPickupActor;
         if (*(void **)pickup == NULL) {
-            temp_v0 = func_80016410(0, 0, 0);
+            temp_v0 = spawnEffectObject(0, 0, 0);
             *(void **)pickup = temp_v0;
             if (temp_v0 == NULL) return;
         }

@@ -13,10 +13,10 @@ typedef struct {
 } OverlayObject;
 
 extern void func_8000A270(s32);
-extern OverlayObject *func_80016410(s32, OverlayPosition *, void *);
+extern OverlayObject *spawnEffectObject(s32, OverlayPosition *, void *);
 extern void func_8002B000(void *, s32);
 extern void actorLinkToSurface(s32, OverlayObject *, s32);
-extern void func_80044670(OverlayObject *, s32, s32);
+extern void objectSetAnimFrame(OverlayObject *, s32, s32);
 extern s32 *gProbeObjectList;
 extern u8 gSceneType;
 extern u32 D_8011F140[][2];
@@ -30,11 +30,11 @@ OverlayObject *func_8011C16C(register OverlayPosition *position, void *orientati
     register u8 *state = &gSceneType;
 
     if ((u32)(*state - 2) < 2U) {
-        OverlayObject *object = func_80016410(0, position, orientation);
+        OverlayObject *object = spawnEffectObject(0, position, orientation);
         if (object != NULL) {
             register u32 idx = (u16)index;
             register void *timer;
-            do { func_80044670(object, 6, 0xF4); } while (0);
+            do { objectSetAnimFrame(object, 6, 0xF4); } while (0);
             D_8011F298[idx] = *position;
             timer = D_8011F140[idx];
             object->kind = 0x45;

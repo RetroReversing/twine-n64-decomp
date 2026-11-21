@@ -12,15 +12,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80016410(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
-M2C_UNK func_80016990(void *, s32);                 /* extern */
-M2C_UNK func_80044670(void *, s32, s32);            /* extern */
+void *spawnEffectObject(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
+M2C_UNK objectListInsert(void *, s32);                 /* extern */
+M2C_UNK objectSetAnimFrame(void *, s32, s32);            /* extern */
 s32 randomIntBelow(M2C_UNK);                         /* extern */
 f32 randomFloatScaled(f32);                         /* extern */
 f32 randomFloatMinusOffset(f32, f32);                        /* extern */
 extern f64 D_800D4120;
 
-void func_8005CA00(void *arg0, M2C_UNK arg1, f32 arg2, u32 arg3, s32 arg4, s32 arg5) {
+void spawnSparkleBurst(void *arg0, M2C_UNK arg1, f32 arg2, u32 arg3, s32 arg4, s32 arg5) {
     f32 temp_fs2;
     f64 temp_fs1;
     f64 var_fv0;
@@ -37,7 +37,7 @@ void func_8005CA00(void *arg0, M2C_UNK arg1, f32 arg2, u32 arg3, s32 arg4, s32 a
     temp_fs2 = arg2 * 0.5f;
     for (var_s2 = 0; var_s2 < arg3; var_s2++) {
         {
-            temp_v0 = func_80016410(0x20, arg1, 0);
+            temp_v0 = spawnEffectObject(0x20, arg1, 0);
             if (temp_v0 != NULL) {
                 temp_s0 = M2C_FIELD(temp_v0, void **, 0x6C);
                 M2C_FIELD(temp_v0, s16 *, 0x78) = 0x21;
@@ -50,8 +50,8 @@ void func_8005CA00(void *arg0, M2C_UNK arg1, f32 arg2, u32 arg3, s32 arg4, s32 a
                 M2C_FIELD(temp_s0, f32 *, 0x14) = (u32) (randomIntBelow(0x100) - 0x80);
                 M2C_FIELD(temp_s0, f32 *, 0x18) = (u32) (randomIntBelow(0x100) - 0x80);
                 M2C_FIELD(temp_v0, s32 *, 0x58) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x58) | 0x10000);
-                func_80044670(temp_v0, arg4, arg5);
-                func_80016990(temp_v0, M2C_FIELD(arg0, s32 *, 0x20));
+                objectSetAnimFrame(temp_v0, arg4, arg5);
+                objectListInsert(temp_v0, M2C_FIELD(arg0, s32 *, 0x20));
             }
         }
     }

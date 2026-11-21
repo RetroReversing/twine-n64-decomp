@@ -1,8 +1,8 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-void *func_80016410();
+void *spawnEffectObject();
 s32 actorLinkToSurface();
-s32 func_80044670();
+s32 objectSetAnimFrame();
 s32 func_80076340();
 extern u8 D_800B1FE0[];
 extern u8 D_800B2230[];
@@ -15,7 +15,7 @@ void *func_8005AFE8(void *arg0, void *arg1, s32 arg2) {
     register void *temp_v0_3;
     register void *temp_v0_2;
 
-    temp_v0 = func_80016410(0x34, 0, 0);
+    temp_v0 = spawnEffectObject(0x34, 0, 0);
     if (temp_v0 != NULL) {
         temp_s0 = (*(void **)((char *)(temp_v0) + 0x6C));
         (*(s8 *)((char *)(temp_s0) + 0x30)) = (s8) (*(u16 *)((char *)(arg0) + 0x2C));
@@ -49,7 +49,7 @@ void *func_8005AFE8(void *arg0, void *arg1, s32 arg2) {
         (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x3F;
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
         (*(s16 *)((char *)(temp_v0) + 0x7C)) = 0;
-        func_80044670(temp_v0, (*(u16 *)((char *)(arg0) + 0)), *(*(s16 **)((char *)(arg0) + 0x28)));
+        objectSetAnimFrame(temp_v0, (*(u16 *)((char *)(arg0) + 0)), *(*(s16 **)((char *)(arg0) + 0x28)));
         temp_v0_2 = (*(void **)((char *)(temp_s0) + 0x1C));
         { typedef struct { s32 x, y, z; } Vec;
           *(Vec *)((char *)temp_v0 + 0x30) = *(Vec *)temp_v0_2;

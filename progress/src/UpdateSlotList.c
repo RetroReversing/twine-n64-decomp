@@ -15,10 +15,10 @@ typedef s32 M2C_UNK32;
 s32 func_8008E3EC(u16, M2C_UNK, M2C_UNK);           /* extern */
 M2C_UNK func_8008EA58(s32);                         /* extern */
 M2C_UNK func_800937D0(void *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
-M2C_UNK func_80093C40(void *, f32, s32, s32, f32, f32); /* extern */
+M2C_UNK soundVoiceStart(void *, f32, s32, s32, f32, f32); /* extern */
 M2C_UNK func_800949B4(void *, f32);                 /* extern */
 s32 soundQueueInsert(void *, f32, s32, s32, f32, f32); /* extern */
-M2C_UNK func_80094D3C();                            /* extern */
+M2C_UNK soundGroupsUpdateVoices();                            /* extern */
 s32 func_8009CCB0(s32);                             /* extern */
 extern s8 sSoundGroupCount;
 extern s8 sSoundQueueCount;
@@ -125,7 +125,7 @@ block_29:
                                     M2C_FIELD(slot, s32 *, 8) = (s32) (temp_v1_5 | 0x40000);
                                 }
                             } else {
-                                func_80093C40(slot, sp18, sp20, sp24, sp28, sp1C);
+                                soundVoiceStart(slot, sp18, sp20, sp24, sp28, sp1C);
                             }
                         }
                         if (M2C_FIELD(slot, s32 *, 8) & 0x100000) {
@@ -147,5 +147,5 @@ next:
             slot = next_slot;
         } while (slot != NULL);
     }
-    func_80094D3C();
+    soundGroupsUpdateVoices();
 }

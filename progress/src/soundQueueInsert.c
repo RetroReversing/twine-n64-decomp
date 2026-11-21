@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 
 extern s8 sSoundGroupKeys;
 extern s8 sSoundGroupQueueHeads;
-extern s8 sSoundGroupAux;
+extern s8 sSoundGroupAuxList;
 extern u8 sSoundGroupCount;
 extern s8 sSoundQueueNodes;
 extern s8 D_800EDE7C;
@@ -59,7 +59,7 @@ s32 soundQueueInsert(void *slot, f32 priority, f32 param2, f32 param3, f32 param
         if (groupIndex != 0x20) {
             groupOffset = groupIndex * 0xC;
             *((M2C_UNK * *)(&sSoundGroupQueueHeads + groupOffset)) = 0;
-            *((s32 *)(&sSoundGroupAux + groupOffset)) = 0;
+            *((s32 *)(&sSoundGroupAuxList + groupOffset)) = 0;
             {
                 s32 slotKey = M2C_FIELD(slot, s32 *, 0x38);
                 sSoundGroupCount += 1;

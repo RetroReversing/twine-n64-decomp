@@ -14,10 +14,10 @@ typedef s32 M2C_UNK32;
 
 typedef struct { f32 x, y, z; } Point3;
 
-void *func_80016410();
-s32 func_80016990();
+void *spawnEffectObject();
+s32 objectListInsert();
 s32 actorLinkToSurface();
-s32 func_80044670();
+s32 objectSetAnimFrame();
 s32 func_80045278();
 extern s32 *gProbeObjectList;
 
@@ -28,7 +28,7 @@ void *func_800617D8(s32 arg0, s32 arg1, s32 arg2, Point3 *arg3, f32 arg4, f32 ar
     if (arg0 == 0) {
         return NULL;
     }
-    temp_v0 = func_80016410(0x2C, arg1, arg2);
+    temp_v0 = spawnEffectObject(0x2C, arg1, arg2);
     if (temp_v0 != NULL) {
         temp_s1 = M2C_FIELD(temp_v0, Point3 **, 0x6C);
         if (arg3 == NULL) {
@@ -47,9 +47,9 @@ void *func_800617D8(s32 arg0, s32 arg1, s32 arg2, Point3 *arg3, f32 arg4, f32 ar
         M2C_FIELD(temp_s1, s8 *, 0x24) = (s8) ((arg10 >> 0x10) + 0x80);
         M2C_FIELD(temp_s1, s8 *, 0x25) = (s8) ((arg10 >> 8) + 0x80);
         M2C_FIELD(temp_s1, s8 *, 0x26) = (s8) arg10;
-        func_80044670(temp_v0, arg6, arg7);
+        objectSetAnimFrame(temp_v0, arg6, arg7);
         if (arg0 != 0) {
-            func_80016990(temp_v0, arg0);
+            objectListInsert(temp_v0, arg0);
             return temp_v0;
         }
         actorLinkToSurface(*gProbeObjectList, temp_v0, 1);

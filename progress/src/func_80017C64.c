@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80016410(M2C_UNK, s32, M2C_UNK);         /* extern */
+void *spawnEffectObject(M2C_UNK, s32, M2C_UNK);         /* extern */
 s32 func_80017490(u16, u16, u16);                   /* extern */
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
-M2C_UNK func_80044670(void *, u16, s16);            /* extern */
+M2C_UNK objectSetAnimFrame(void *, u16, s16);            /* extern */
 extern s32 *gProbeObjectList;
 
 void *func_80017C64(s32 arg0, M2C_UNK arg1, void *arg2) {
@@ -23,13 +23,13 @@ void *func_80017C64(s32 arg0, M2C_UNK arg1, void *arg2) {
 
     var_s0 = NULL;
     if ((func_80017490(M2C_FIELD(arg2, u16 *, 0x2C), M2C_FIELD(arg2, u16 *, 0x2E), M2C_FIELD(arg2, u16 *, 0x30)) << 0x18) != 0) {
-        var_s0 = func_80016410(0, arg0, arg1);
+        var_s0 = spawnEffectObject(0, arg0, arg1);
         if (var_s0 != NULL) {
             M2C_FIELD(var_s0, s16 *, 0x78) = 0x5A;
             M2C_FIELD(var_s0, s16 *, 0x7A) = 0;
             M2C_FIELD(var_s0, s16 *, 0x7C) = 0;
             M2C_FIELD(var_s0, s32 *, 0x5C) = (s32) (M2C_FIELD(var_s0, s32 *, 0x5C) | 0x600);
-            func_80044670(var_s0, M2C_FIELD(arg2, u16 *, 0), *M2C_FIELD(arg2, s16 **, 0x28));
+            objectSetAnimFrame(var_s0, M2C_FIELD(arg2, u16 *, 0), *M2C_FIELD(arg2, s16 **, 0x28));
             actorLinkToSurface(*gProbeObjectList, var_s0, 1);
         }
     }

@@ -13,7 +13,7 @@ extern u8 D_80115091[];
 extern u16 D_80115092[];
 extern void func_80007160(void);
 
-void func_8002CE18(void)
+void initSetupTables(void)
 {
     u16 i;
     __builtin_memcpy(D_8010A4C0, D_800E1328, 0x40);

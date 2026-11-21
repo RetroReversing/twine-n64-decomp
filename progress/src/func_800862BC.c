@@ -20,7 +20,7 @@ typedef struct {
     s16 type;
 } Actor862BC;
 
-extern Actor862BC *func_80016410(s32, s32, s32);
+extern Actor862BC *spawnEffectObject(s32, s32, s32);
 extern f64 D_800D63E8;
 
 Actor862BC *func_800862BC(s32 arg0, ActorInit862BC *arg1) {
@@ -28,7 +28,7 @@ Actor862BC *func_800862BC(s32 arg0, ActorInit862BC *arg1) {
     ActorData862BC *data;
     s16 type;
     u16 limit;
-    actor = func_80016410(0x1C, arg0, 0);
+    actor = spawnEffectObject(0x1C, arg0, 0);
     if (actor != NULL) {
         type = arg1->type;
         data = actor->data;

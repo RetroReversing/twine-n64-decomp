@@ -1,5 +1,5 @@
-void *func_80016410();
-void func_80016990();
+void *spawnEffectObject();
+void objectListInsert();
 extern u8 D_800B2022;
 extern u8 D_800B2272;
 typedef struct { s32 w[3]; } __repair_words3;
@@ -7,7 +7,7 @@ typedef struct { s32 w[3]; } __repair_words3;
 void func_800613AC(void *arg0, s32 arg1, void *arg2, s32 arg3) {
     void *temp_a2;
     void *temp_v0;
-    temp_v0 = func_80016410(0x48, arg1, 0);
+    temp_v0 = spawnEffectObject(0x48, arg1, 0);
     if (temp_v0 != NULL) {
         temp_a2 = *(void **)((s8 *)temp_v0 + 0x6C);
         *(s32 *)((s8 *)temp_a2 + 0x18) = 0;
@@ -28,6 +28,6 @@ void func_800613AC(void *arg0, s32 arg1, void *arg2, s32 arg3) {
         *(f32 *)((s8 *)temp_a2 + 0x30) = 1000.0f;
         *(f32 *)((s8 *)temp_a2 + 0x34) = 1000.0f;
         *(f32 *)((s8 *)temp_a2 + 0x3C) = (f32) arg1;
-        func_80016990(temp_v0, *(void **)((s8 *)arg0 + 0x20));
+        objectListInsert(temp_v0, *(void **)((s8 *)arg0 + 0x20));
     }
 }

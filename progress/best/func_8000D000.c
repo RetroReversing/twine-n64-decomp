@@ -40,7 +40,7 @@ extern s8 D_800B2715;
 extern void *D_800B2718;
 extern s8 D_800CA338;
 extern s16 D_800E0740;
-extern s8 D_800E0742;
+extern u8 D_800E0742;
 extern s8 D_800E0744;
 extern s8 D_800E0745;
 extern s8 D_800E0746;
@@ -75,7 +75,7 @@ s32 func_8000D000(void) {
     void *temp_v1_4;
 
     temp_s0 = D_80109E68;
-    temp_s1 = D_800E0742;
+    { s8 *p = (s8 *)&D_800E0742; temp_s1 = *p; }
     var_a0 = 0;
     if (D_80102EE0 == 0x24) {
         var_a0 = D_80102EDE != 0x1F;
@@ -96,7 +96,7 @@ s32 func_8000D000(void) {
     temp_v0_2 = func_80083E90(0x8000, 0x33);
     M2C_FIELD(D_800B2710, void **, 4) = temp_v0_2;
     M2C_FIELD(D_800B2710, void **, 0) = temp_v0_2;
-    func_8000B9B8(M2C_FIELD(D_800B2710, void **, 4), *(&D_800B2640 + (temp_s0 * 4)) + &D_54D910, 0x8000);
+    func_8000B9B8(M2C_FIELD(D_800B2710, void **, 4), (u8 *)&D_54D910 + *(&D_800B2640 + temp_s0), 0x8000);
     var_a2 = 0;
     var_a0_2 = 0;
     do {

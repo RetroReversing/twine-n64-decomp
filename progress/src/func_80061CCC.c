@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80017EC0(void *, f32, f32);
-s32 func_80044670();
+s32 objectSetAnimFrame();
 s32 randomIntBelow();
 s32 func_80061BE4();
 extern u8 gTrackDoneFlags[];
@@ -40,7 +40,7 @@ block_4:
     if ((u8) M2C_FIELD(temp_s0, u8 *, 7) < (u32) (temp_v0_2 & 0xFF)) {
         M2C_FIELD(temp_s0, u8 *, 6) = 0U;
     }
-    func_80044670(arg0, M2C_FIELD(temp_s0, u8 *, 6), (u32) M2C_FIELD(temp_s0, u32 *, 0) >> 0x14);
+    objectSetAnimFrame(arg0, M2C_FIELD(temp_s0, u8 *, 6), (u32) M2C_FIELD(temp_s0, u32 *, 0) >> 0x14);
     M2C_FIELD(arg0, s8 *, 0x7E) = 5;
     if ((M2C_FIELD(arg0, s32 *, 0x60) & 0x7000) && (M2C_FIELD(temp_s0, s8 *, 8) != 0) && (randomIntBelow(0x1E) == 0)) {
         func_80061BE4(arg0);

@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80016410();
-s32 func_80016990();
+void *spawnEffectObject();
+s32 objectListInsert();
 s32 applyNearbyActorImpact(s32, f32, f32);
 s32 actorLinkToSurface();
-s32 func_80044670();
+s32 objectSetAnimFrame();
 u16 randomIntBelow();
 s32 func_8007659C();
 s32 func_80085E30();
@@ -51,14 +51,14 @@ void actorUpdateStateMachine(void *actor) {
         return;
     case 1:
         if (M2C_FIELD(actor, s32 *, 0x60) & 0x7000) {
-            func_80044670(actor, M2C_FIELD(record, u16 *, 0x2C), D_800C2942);
+            objectSetAnimFrame(actor, M2C_FIELD(record, u16 *, 0x2C), D_800C2942);
             frameCounter = M2C_FIELD(record, u16 *, 0x2C) + 1;
             M2C_FIELD(record, u16 *, 0x2C) = frameCounter;
             if ((u32) (frameCounter & 0xFFFF) >= 0x1DU) {
                 M2C_FIELD(record, u16 *, 0x2C) = 0U;
             }
             if (!(M2C_FIELD(record, u16 *, 0x2C) & 7)) {
-                child = func_80016410(2, actor + 0x24, actor + 0x3C);
+                child = spawnEffectObject(2, actor + 0x24, actor + 0x3C);
                 if (child != NULL) {
                     childDataPtr = M2C_FIELD(child, u16 **, 0x6C);
                     *childDataPtr = randomIntBelow(0x1C);
@@ -68,8 +68,8 @@ void actorUpdateStateMachine(void *actor) {
                     M2C_FIELD(child, s8 *, 0x81) = 0;
                     M2C_FIELD(child, u8 *, 0x82) = 0xFF;
                     M2C_FIELD(child, f32 *, 0x54) = 0.5f;
-                    func_80044670(child, *childDataPtr, D_800C2942);
-                    func_80016990(child, M2C_FIELD(actor, s32 *, 0x20));
+                    objectSetAnimFrame(child, *childDataPtr, D_800C2942);
+                    objectListInsert(child, M2C_FIELD(actor, s32 *, 0x20));
                 }
             }
         }

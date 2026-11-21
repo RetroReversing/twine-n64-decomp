@@ -1,4 +1,4 @@
-s32 func_80044670();
+s32 objectSetAnimFrame();
 s32 randomIntBelow();
 s32 func_80045DB4(f32 *, f32, f32);
 s32 func_80055568();
@@ -19,7 +19,7 @@ void func_80062F34(Obj62F34 *arg0) {
             arg0->field_60 |= 1;
         }
     } else {
-        func_80044670(arg0, t >> 1, 0xFB);
+        objectSetAnimFrame(arg0, t >> 1, 0xFB);
     }
     if (gBorderSkipFlag == 0) {
         if (!(arg0->field_7A & 1) && arg0->field_7A < 0x16) {

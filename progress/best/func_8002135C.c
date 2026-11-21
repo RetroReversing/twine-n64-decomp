@@ -4,11 +4,11 @@ s32 func_8000237C(void *, int, s32, s32); /* extern */
 s32 func_80002D30(void *, u16);                 /* extern */
 s32 func_80002EF0(void *);                      /* extern */
 u8 func_80006560();                                 /* extern */
-void *func_80016410(s32, s32, s32);     /* extern */
+void *spawnEffectObject(s32, s32, s32);     /* extern */
 s32 func_80016718(void *);                      /* extern */
-s32 func_80016990(void *, s32);                 /* extern */
+s32 objectListInsert(void *, s32);                 /* extern */
 s32 func_8002A920(void *, s8);                      /* extern */
-s32 func_80044670(void *, int, u32);             /* extern */
+s32 objectSetAnimFrame(void *, int, u32);             /* extern */
 extern u16 gMenuMode;
 extern void *gMenuList;
 extern void *D_800B7CE8;
@@ -58,13 +58,13 @@ void func_8002135C(void) {
         } else {
 block_9:
             var_v0 = (int)var_s0 >> 0x1F;
-            if ((D_800B7CE8 != (unsigned)NULL) || ((gBootState = 1, temp_v0_3 = func_80016410(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
+            if ((D_800B7CE8 != (unsigned)NULL) || ((gBootState = 1, temp_v0_3 = spawnEffectObject(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
                 if ((var_v0 | ((u32) var_s1 >> 0x1F)) != 0) {
                     func_80016718(D_800B7CE8);
                     return;
                 }
                 if (gMenuMode == 1) {
-                    do { func_80044670(D_800B7CE8, var_s0, var_s1); } while (0);
+                    do { objectSetAnimFrame(D_800B7CE8, var_s0, var_s1); } while (0);
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_24 = 0.14f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_28 = -0.0315f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_3C = 170.66667f;
@@ -92,7 +92,7 @@ block_9:
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_78 = 0x1F;
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 | 0x1100);
                 func_80016718(D_800B7CE8);
-                func_80016990(D_800B7CE8, (*(s32 *)((char *)(D_80109698) + 0xF4)));
+                objectListInsert(D_800B7CE8, (*(s32 *)((char *)(D_80109698) + 0xF4)));
                 (*(s8 *)((char *)(gMenuState) + 0x30)) = 0xFF;
             }
         }

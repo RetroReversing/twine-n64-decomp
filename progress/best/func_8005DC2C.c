@@ -1,7 +1,7 @@
 s32 func_80015D40(s32);
-void *func_80016410(s32,s32,s32);
+void *spawnEffectObject(s32,s32,s32);
 s32 actorLinkToSurface(void *,void *,u8);
-void func_80044670(void *,s32,s32);
+void objectSetAnimFrame(void *,s32,s32);
 extern s32 *gProbeObjectList;
 extern f64 D_800D4170;
 extern u8 gTrackDoneFlags[19];
@@ -10,7 +10,7 @@ typedef struct { unsigned char pad0[36]; s32 x,y,z; unsigned char pad30[12]; f32
 void *func_8005DC2C(s32 arg0,s32 arg1,void *arg2,s32 arg3) {
     s8 *__base_D_80109B1E;
  s32 var_v0; s32 temp_v1,var_a1; s32 var_a2; u16 temp_v0_2; void *temp_s0,*temp_v0;
- temp_v0=func_80016410(0x50,arg0,arg1);
+ temp_v0=spawnEffectObject(0x50,arg0,arg1);
  if(temp_v0!=NULL) {
   temp_s0=((R*)temp_v0)->sub;
   (*(s32*)((char*)temp_s0+0x4C)) &= ~0x40;
@@ -32,7 +32,7 @@ case 0x90: D_80109B1E=1; ((R*)temp_v0)->t=0x60; break;
   *(s16*)((char*)temp_s0+0x42)=0;
   if(*(u16*)((char*)temp_s0+0x3A)==1) { var_a2=*(u16*)((char*)temp_s0+0x3E); var_a1=*(u16*)((char*)temp_s0+0x3C); var_a1+=gTrackDoneFlags[*(u16*)((char*)temp_s0+0x34)]; }
   else { var_a1=*(u16*)arg2; var_a2=**(s16**)((char*)arg2+0x28); }
-  func_80044670(temp_v0,var_a1,var_a2);
+  objectSetAnimFrame(temp_v0,var_a1,var_a2);
   if(*(u16*)((char*)arg2+0x40)==0) *(s32*)((char*)temp_s0+0x4C)|=0x80; else *(s32*)((char*)temp_s0+0x4C)&=~0x80;
   gTrackDoneFlags[*(u16*)((char*)temp_s0+0x34)]=(s8)*(u16*)((char*)arg2+0x32);
   *(void**)((char*)temp_s0+4)=arg3;

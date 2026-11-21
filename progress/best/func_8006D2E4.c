@@ -21,7 +21,7 @@ void *func_80015F0C();                              /* extern */
 M2C_UNK func_80016314(void *, void *);              /* extern */
 M2C_UNK func_800165E0(void *, s32);                 /* extern */
 s32 func_80022DBC(s32);                             /* extern */
-M2C_UNK func_80044670(void *, M2C_UNK, M2C_UNK);    /* extern */
+M2C_UNK objectSetAnimFrame(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_800448A4(void *, s32, M2C_UNK);        /* extern */
 M2C_UNK func_800452AC(M2C_UNK *, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_800452E0(void *, void *, M2C_UNK *);   /* extern */
@@ -492,7 +492,7 @@ block_153:
                     M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xC4), s32 *, 0x40) = 0;
                     M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xC4), s32 *, 0x44) = 0;
                     M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xC4), f32 *, 0x54) = 0.0f;
-                    func_80044670(M2C_FIELD(temp_s3, void **, 0xC4), 0xC, 0x1B);
+                    objectSetAnimFrame(M2C_FIELD(temp_s3, void **, 0xC4), 0xC, 0x1B);
                     var_fv0_2 = (M2C_FIELD(temp_s3, f32 *, 0xF0) - M2C_FIELD(temp_s3, f32 *, 0xFC)) - 0.4f;
                     if (var_fv0_2 < 0.4f) {
                         var_fv0_2 = 0.4f;

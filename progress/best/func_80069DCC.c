@@ -21,7 +21,7 @@ void *func_80015DAC(s8);
 M2C_UNK func_800179E8(void *, void *, s32, s32);
 M2C_UNK func_800452E0(void *, void *, f32 *);
 f32 func_8004572C(f32 *);
-M2C_UNK spherical_to_cartesian(f32 *, f32, f32, f32);
+
 M2C_UNK func_80047B14(void *, M2C_UNK, void *);
 M2C_UNK func_80047FB4(s32, s32);
 s32 func_8004BCC0(void *, void *, f32 *, M2C_UNK);
@@ -92,6 +92,7 @@ extern M2C_UNK gTrackMarkerTable;
 extern u8 D_8010A4C2;
 extern M2C_UNK D_8011508B;
 void func_80069DCC(void *arg0) {
+volatile s32 unused_stack[4];
 f32 sp20;
 f32 sp24;
 f32 sp28;

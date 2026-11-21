@@ -15,7 +15,7 @@ extern s8 D_80115319;
 void func_80016718(void *, void *);
 void func_80016740(void *);
 void func_800167B4(void *);
-void func_80016990(void *, s32);
+void objectListInsert(void *, s32);
 void func_80016A34(void *);
 void func_80016EE0(void);
 void func_80027260(void *);
@@ -144,7 +144,7 @@ L71:
                         v = *(s32 *)((u8 *)tgt + 0x20);
                         if (v != *(s32 *)((u8 *)node + 0x20)) {
                             func_80016718(node, tgt);
-                            func_80016990(node, v);
+                            objectListInsert(node, v);
                         }
                     }
                 }

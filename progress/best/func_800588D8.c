@@ -1,6 +1,6 @@
-extern void *func_80016410(s32, s32, s32);
+extern void *spawnEffectObject(s32, s32, s32);
 void *func_800588D8(void *arg0) {
-    void *obj = func_80016410(4, 0, 0);
+    void *obj = spawnEffectObject(4, 0, 0);
     if (obj) {
         void **slot = *(void ***)((u8 *)obj + 0x6C);
         *(s16 *)((u8 *)obj + 0x78) = 0x23;

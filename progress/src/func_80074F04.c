@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *func_80015F0C();                              /* extern */
-void *func_80016410(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
+void *spawnEffectObject(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
 M2C_UNK func_800165E0(void *, s32);                 /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
 s16 strlen(s32);                                    /* extern */
@@ -28,7 +28,7 @@ void func_80074F04(void) {
 
     if (D_8010A2B8 == 0) {
         D_8010A2B8 = 1;
-        temp_v0 = func_80016410(0x138, 0, 0);
+        temp_v0 = spawnEffectObject(0x138, 0, 0);
         if (temp_v0 != NULL) {
             temp_s2 = M2C_FIELD(temp_v0, void **, 0x6C);
             temp_v0_2 = func_80015F0C();

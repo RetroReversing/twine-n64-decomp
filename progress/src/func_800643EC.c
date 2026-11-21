@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80044670(void *, M2C_UNK, M2C_UNK);    /* extern */
+M2C_UNK objectSetAnimFrame(void *, M2C_UNK, M2C_UNK);    /* extern */
 
 void func_800643EC(void *arg0) {
     void *temp_s0;
@@ -22,7 +22,7 @@ void func_800643EC(void *arg0) {
     temp_v0 = M2C_FIELD(arg0, void **, 0x6C);
     temp_s1 = M2C_FIELD(temp_v0, void **, 0xAC);
     temp_s0 = M2C_FIELD(temp_v0, void **, 0xB0);
-    func_80044670(temp_s1, 9, 0x1B);
+    objectSetAnimFrame(temp_s1, 9, 0x1B);
     M2C_FIELD(temp_s1, s8 *, 0x7E) = 8;
-    func_80044670(temp_s0, 6, 0x1B);
+    objectSetAnimFrame(temp_s0, 6, 0x1B);
 }

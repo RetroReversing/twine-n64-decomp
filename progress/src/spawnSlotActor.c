@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80015F74(void *);
-void *func_80016410(M2C_UNK, s32, M2C_UNK, M2C_UNK);
+void *spawnEffectObject(M2C_UNK, s32, M2C_UNK, M2C_UNK);
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);
-M2C_UNK func_80044670(void *, M2C_UNK, M2C_UNK);
+M2C_UNK objectSetAnimFrame(void *, M2C_UNK, M2C_UNK);
 M2C_UNK func_800643C8(void *);
 extern s32 *gProbeObjectList;
 extern u8 gSceneType;
@@ -38,7 +38,7 @@ void *spawnSlotActor(s32 modelId, M2C_UNK unusedArg, u16 slot) {
 
     sceneTypePtr = &gSceneType;
     if ((u32) ((*sceneTypePtr) - 2) < 2U) {
-        actor = func_80016410(0, modelId, unusedArg, unusedArg);
+        actor = spawnEffectObject(0, modelId, unusedArg, unusedArg);
         slotCopy = slot;
         if (actor != NULL) {
             slotOffset = slotCopy;
@@ -55,13 +55,13 @@ void *spawnSlotActor(s32 modelId, M2C_UNK unusedArg, u16 slot) {
                 if (slotCopy == 0) {
                     animId = 7;
                 
-                func_80044670(actor, animId, 0xF4);} else {
+                objectSetAnimFrame(actor, animId, 0xF4);} else {
                     animId = 8;
                 
-                func_80044670(actor, animId, 0xF4);}
+                objectSetAnimFrame(actor, animId, 0xF4);}
             } else {
                 *(&D_8011ED08 + slotCopy * 0x9) = 0x14;
-                func_80044670(actor, 1, 0xF4);
+                objectSetAnimFrame(actor, 1, 0xF4);
                 {
                     u8 intensity = 0xB4;
                     if (slotCopy != 0) goto alternate;

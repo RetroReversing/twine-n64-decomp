@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80044670();
+s32 objectSetAnimFrame();
 s32 randomIntBelow();
 extern char gTrackDoneFlags[];
 
@@ -41,7 +41,7 @@ void func_8005AE38(void *arg0) {
                 *(gTrackDoneFlags + temp_v0) = 0;
             }
             temp_a2 = M2C_FIELD(temp_s0, u32 *, 0);
-            func_80044670(arg0, ((temp_a2 >> 4) & 0xFFFF) + 1, temp_a2 >> 0x14);
+            objectSetAnimFrame(arg0, ((temp_a2 >> 4) & 0xFFFF) + 1, temp_a2 >> 0x14);
             M2C_FIELD(arg0, s16 *, 0x7A) = 1;
         }
         return;
@@ -52,7 +52,7 @@ void func_8005AE38(void *arg0) {
                 *(gTrackDoneFlags + temp_v1_2) = 1;
             }
             temp_a2_2 = M2C_FIELD(temp_s0, u32 *, 0);
-            func_80044670(arg0, (temp_a2_2 >> 4) & 0xFFFF, temp_a2_2 >> 0x14);
+            objectSetAnimFrame(arg0, (temp_a2_2 >> 4) & 0xFFFF, temp_a2_2 >> 0x14);
             M2C_FIELD(arg0, s16 *, 0x7A) = 0;
             return;
         }
@@ -64,7 +64,7 @@ void func_8005AE38(void *arg0) {
                 *(gTrackDoneFlags + temp_v0_2) = 0;
             }
             temp_a2_3 = M2C_FIELD(temp_s0, u32 *, 0);
-            func_80044670(arg0, ((temp_a2_3 >> 4) & 0xFFFF) + 1, temp_a2_3 >> 0x14);
+            objectSetAnimFrame(arg0, ((temp_a2_3 >> 4) & 0xFFFF) + 1, temp_a2_3 >> 0x14);
             M2C_FIELD(arg0, s16 *, 0x7A) = 3;
         }
         if (randomIntBelow(5) == 0) {
@@ -78,7 +78,7 @@ void func_8005AE38(void *arg0) {
             *(gTrackDoneFlags + temp_v1_3) = 1;
         }
         temp_a2_4 = M2C_FIELD(temp_s0, u32 *, 0);
-        func_80044670(arg0, (temp_a2_4 >> 4) & 0xFFFF, temp_a2_4 >> 0x14);
+        objectSetAnimFrame(arg0, (temp_a2_4 >> 4) & 0xFFFF, temp_a2_4 >> 0x14);
         M2C_FIELD(arg0, s16 *, 0x7A) = 2;
         return;
     }

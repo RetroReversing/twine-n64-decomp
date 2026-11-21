@@ -18,7 +18,7 @@ void *func_80015DAC();
 void *func_80015F74();
 s32 func_80016314();
 s32 func_80016718();
-s32 func_80016990();
+s32 objectListInsert();
 s32 func_80031700();
 f32 func_80045590();
 extern s16 D_800C7EA0;
@@ -155,7 +155,7 @@ do {
             temp_s0 = M2C_FIELD(temp_a1, s32 *, 0x20);
             if (temp_s0 != M2C_FIELD(arg0, s32 *, 0x20)) {
                 func_80016718(arg0, temp_a1);
-                func_80016990(arg0, temp_s0);
+                objectListInsert(arg0, temp_s0);
             }
         }
         temp_v0_4 = M2C_FIELD(temp_s1, u16 *, 0x30) - 1;

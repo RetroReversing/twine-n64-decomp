@@ -3,7 +3,7 @@
 s32 func_8008C0D4();                            /* extern */
 s32 func_8008C11C();                            /* extern */
 s32 func_800937D0(s32 *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
-s32 func_80093C40(s32 *, f32, s32, s32, f32, f32); /* extern */
+s32 soundVoiceStart(s32 *, f32, s32, s32, f32, f32); /* extern */
 s32 func_8009CC3C(u16, s32, s32);           /* extern */
 extern u8 gWorkerActive;
 extern s32 gStaticSoundSlot;
@@ -44,7 +44,7 @@ typedef struct { s32 x, y, z; } V3_93FE8;
                 channel = func_8009CC3C((*(u16 *)((char *)(slot) + 0x3C)), 0x7F, 0x40);
                 (*(s32 *)((char *)(slot) + 0x34)) = channel;
                 if (channel != -1) {
-                    func_80093C40(slot, outA, outC, outD, outE, outB);
+                    soundVoiceStart(slot, outA, outC, outD, outE, outB);
                     func_8008C11C();
                     return (*(s32 *)((char *)(slot) + 0x34));
                 }

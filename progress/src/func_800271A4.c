@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80016410(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
+void *spawnEffectObject(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
 M2C_UNK func_80026F84(s32);                         /* extern */
 M2C_UNK hiscore_refresh_all();                      /* extern */
 extern u8 D_800BD68E;
@@ -28,7 +28,7 @@ void func_800271A4(u8 arg0) {
 
     hiscore_refresh_all();
     if (gMenuState == NULL) {
-        temp_v0 = func_80016410(0x34, 0, 0);
+        temp_v0 = spawnEffectObject(0x34, 0, 0);
         gMenuSlot = arg0;
         if (temp_v0 != NULL) {
             temp_s0 = M2C_FIELD(temp_v0, void **, 0x6C);

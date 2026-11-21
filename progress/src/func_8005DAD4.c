@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80044670();
+s32 objectSetAnimFrame();
 s32 func_80084338();
 extern char gTrackDoneFlags[];
 
@@ -29,7 +29,7 @@ void func_8005DAD4(void *arg0) {
     if (M2C_FIELD(temp_s0, u16 *, 0x3A) == 1) {
         temp_v1 = *(gTrackDoneFlags + M2C_FIELD(temp_s0, u16 *, 0x34));
         if (temp_v1 < 2U) {
-            func_80044670(arg0, M2C_FIELD(temp_s0, u16 *, 0x3C) + temp_v1, M2C_FIELD(temp_s0, u16 *, 0x3E));
+            objectSetAnimFrame(arg0, M2C_FIELD(temp_s0, u16 *, 0x3C) + temp_v1, M2C_FIELD(temp_s0, u16 *, 0x3E));
         }
     }
     if (M2C_FIELD(arg0, s32 *, 0x60) & 0x100000) {

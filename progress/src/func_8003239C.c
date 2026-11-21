@@ -12,18 +12,18 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80016410(M2C_UNK, s32, M2C_UNK);         /* extern */
+void *spawnEffectObject(M2C_UNK, s32, M2C_UNK);         /* extern */
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
-M2C_UNK func_80044670(void *, u16, s16);            /* extern */
+M2C_UNK objectSetAnimFrame(void *, u16, s16);            /* extern */
 extern s32 *gProbeObjectList;
 
 void *func_8003239C(s32 arg0, M2C_UNK arg1, void *arg2) {
     void *temp_v0;
 
-    temp_v0 = func_80016410(0, arg0, arg1);
+    temp_v0 = spawnEffectObject(0, arg0, arg1);
     if (temp_v0 != NULL) {
         M2C_FIELD(temp_v0, s16 *, 0x78) = 0x4F;
-        func_80044670(temp_v0, M2C_FIELD(arg2, u16 *, 0), *M2C_FIELD(arg2, s16 **, 0x28));
+        objectSetAnimFrame(temp_v0, M2C_FIELD(arg2, u16 *, 0), *M2C_FIELD(arg2, s16 **, 0x28));
         actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
     }
     return temp_v0;

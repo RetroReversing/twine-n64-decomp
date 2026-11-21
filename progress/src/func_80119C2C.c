@@ -3,9 +3,9 @@
 extern int D_8011F108;
 extern int D_8011F10C;
 extern int D_8011F110;
-void *func_80016410();
+void *spawnEffectObject();
 s32 actorLinkToSurface();
-s32 func_80044670();
+s32 objectSetAnimFrame();
 extern s32 *gProbeObjectList;
 extern u8 gSceneType;
 
@@ -18,10 +18,10 @@ void *func_80119C2C(void *arg0, s32 arg1, s32 arg2) {
     if ((u32) (gSceneType - 4) >= 2U) {
         return NULL;
     }
-    temp_v0 = func_80016410(0, arg0, arg1);
+    temp_v0 = spawnEffectObject(0, arg0, arg1);
     *(__repair_record_copy_3 *) &D_8011F108 = *(__repair_record_copy_3 *) arg0;
     if ((s32)temp_v0 != NULL) {
-        func_80044670(temp_v0, 0, 0xF4);
+        objectSetAnimFrame(temp_v0, 0, 0xF4);
         ((__repair_record_temp_v0*)temp_v0)->field_54 = (f32) (arg2 & 0xFFFF);
         ((__repair_record_temp_v0*)temp_v0)->field_78 = 0x29;
         ((__repair_record_temp_v0*)temp_v0)->field_7F = 0;

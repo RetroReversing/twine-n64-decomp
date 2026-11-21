@@ -4,11 +4,11 @@ s32 func_8000A310();
 s32 func_8000A5D0();
 void *func_80015F74();
 void *func_800162BC();
-void *func_80016410();
-s32 func_80016990();
+void *spawnEffectObject();
+s32 objectListInsert();
 s32 func_8002B000();
 s32 func_8002E9D0();
-s32 func_80044670();
+s32 objectSetAnimFrame();
 s32 func_80064318();
 s32 memset();
 extern u16 D_800BFC92;
@@ -55,7 +55,7 @@ void *func_8002EBB8(s32 arg0) {
     void *temp_v0_4;
     void *var_a2_2;
 
-    temp_v0 = func_80016410(0x48, 0, 0);
+    temp_v0 = spawnEffectObject(0x48, 0, 0);
     if (temp_v0 == NULL) {
         return NULL;
     }
@@ -152,7 +152,7 @@ void *func_8002EBB8(s32 arg0) {
     __base_D_800BFCBC = &D_800BFCBC;
     (*__base_D_800BFCBC) = (s32)arg0;
     (((__repair_record_temp_s1*)temp_s1)->field_0) = func_80015F74((char *)__base_D_800BFCBC - 0x20);
-    temp_v0_4 = func_80016410(0, 0, 0);
+    temp_v0_4 = spawnEffectObject(0, 0, 0);
     (((__repair_record_temp_s1*)temp_s1)->field_30) = temp_v0_4;
     if (temp_v0_4 != NULL) {
         (*(s16 *)((char *)(temp_v0_4) + 0x78)) = 0x1F;
@@ -165,10 +165,10 @@ void *func_8002EBB8(s32 arg0) {
         (*(s8 *)((char *)((((__repair_record_temp_s1*)temp_s1)->field_30)) + 0x80)) = 0;
         (*(s8 *)((char *)((((__repair_record_temp_s1*)temp_s1)->field_30)) + 0x81)) = 0;
         (*(f32 *)((char *)((((__repair_record_temp_s1*)temp_s1)->field_30)) + 0x54)) = 0.95f;
-        func_80044670((((__repair_record_temp_s1*)temp_s1)->field_30), 2, 0x24);
+        objectSetAnimFrame((((__repair_record_temp_s1*)temp_s1)->field_30), 2, 0x24);
         temp_s0 = arg0 & 0xFFFF;
         func_80064318((((__repair_record_temp_s1*)temp_s1)->field_30), temp_s0);
-        func_80016990((((__repair_record_temp_s1*)temp_s1)->field_30), (*(s32 *)((char *)(*(s32 *)(gTrackMarkerTable + (temp_s0 * 4))) + 0xF4)));
+        objectListInsert((((__repair_record_temp_s1*)temp_s1)->field_30), (*(s32 *)((char *)(*(s32 *)(gTrackMarkerTable + (temp_s0 * 4))) + 0xF4)));
         __base_D_800BFD04 = &D_800BFCE0;
         (*__base_D_800BFD04) = arg0;
         (((__repair_record_temp_s1*)temp_s1)->field_38) = func_80015F74((char *)__base_D_800BFD04 - 0x20);

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80016410(M2C_UNK, s32, M2C_UNK);         /* extern */
+void *spawnEffectObject(M2C_UNK, s32, M2C_UNK);         /* extern */
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
 extern s32 *gProbeObjectList;
 
@@ -22,7 +22,7 @@ void func_8005CF40(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {
     void *temp_v0;
     void *temp_v0_2;
 
-    temp_v0 = func_80016410(8, arg0, 0);
+    temp_v0 = spawnEffectObject(8, arg0, 0);
     if (temp_v0 != NULL) {
         temp_v0_2 = ((__repair_record_temp_v0*)temp_v0)->field_6C;
         ((__repair_record_temp_v0_2*)temp_v0_2)->field_0 = arg2;

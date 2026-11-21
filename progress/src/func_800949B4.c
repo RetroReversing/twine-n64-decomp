@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern char sSoundGroupKeys[];
 extern char sSoundGroupQueueHeads[];
-extern char sSoundGroupAux[];
+extern char sSoundGroupAuxList[];
 extern u8 sSoundGroupCount;
 extern char D_800EE1FC[];
 extern char D_800EE200[];
@@ -54,12 +54,12 @@ __repair_literal = 0;
     if (var_a1 == sSoundGroupCount) {
         temp_v0 = var_a1 * 0xC;
         *((s32 *)((s8 *)sSoundGroupQueueHeads + temp_v0)) = 0;
-        *((s32 *)((s8 *)sSoundGroupAux + temp_v0)) = 0;
+        *((s32 *)((s8 *)sSoundGroupAuxList + temp_v0)) = 0;
         sSoundGroupCount += 1;
         *((s32 *)((s8 *)sSoundGroupKeys + temp_v0)) = ((__repair_field_38 *)arg0)->value;
     }
     var_v0 = var_a1 * 2;
-    var_a2 = *((s32 *)((s8 *)sSoundGroupAux + ((var_v0 + var_a1) * 4)));
+    var_a2 = *((s32 *)((s8 *)sSoundGroupAuxList + ((var_v0 + var_a1) * 4)));
     var_a0 = 0;
     if (var_a2 != 0) {
 loop_7:
@@ -72,7 +72,7 @@ loop_7:
         }
     }
     if (var_a0 == NULL) {
-        *((s32 *)((s8 *)sSoundGroupAux + (var_a1 * 0xC))) = (D_800EE37C * 0xC) + D_800EE1FC;
+        *((s32 *)((s8 *)sSoundGroupAuxList + (var_a1 * 0xC))) = (D_800EE37C * 0xC) + D_800EE1FC;
     } else {
         *var_a0 = (D_800EE37C * 0xC) + D_800EE1FC;
     }

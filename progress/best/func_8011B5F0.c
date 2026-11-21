@@ -2,7 +2,7 @@ s32 func_8000A270();
 s32 func_8000A894();
 s32 func_80016624();
 s32 func_80016718();
-s32 func_80016990();
+s32 objectListInsert();
 s16 func_8002B278();
 f32 approxDistance();
 s32 func_80064370();
@@ -99,7 +99,7 @@ void func_8011B5F0(void *arg0) {
                 (*(f32 *)((char *)(arg0) + 0x40)) += 1024.0f;
             }
             func_80016718(arg0);
-            func_80016990(arg0, (*(s32 *)((char *)(*temp_s3) + 0x20)));
+            objectListInsert(arg0, (*(s32 *)((char *)(*temp_s3) + 0x20)));
         }
     } else {
         sp34 = temp_a0 + D_8011F290;
@@ -166,7 +166,7 @@ block_34:
                             func_8000A270(*temp_s0_5, temp_a1_2);
                             *temp_s0_5 = 0;
                             func_80016718(arg0);
-                            func_80016990(arg0, (*(s32 *)((char *)(*(D_8011F270 + temp_s1_2)) + 0x20)));
+                            objectListInsert(arg0, (*(s32 *)((char *)(*(D_8011F270 + temp_s1_2)) + 0x20)));
                             func_800643C8(*(D_8011F2B0 + temp_s1_2));
                         }
                         return;
@@ -201,7 +201,7 @@ block_34:
                 func_8000A270(*temp_s0_7, temp_a1_3);
                 *temp_s0_7 = 0;
                 func_80016718(arg0);
-                func_80016990(arg0, (*(s32 *)((char *)(*(D_8011F270 + temp_s1_3)) + 0x20)));
+                objectListInsert(arg0, (*(s32 *)((char *)(*(D_8011F270 + temp_s1_3)) + 0x20)));
                 (*(s32 *)((char *)(arg0) + 0x3C)) = 0;
                 (*(f32 *)((char *)(arg0) + 0x40)) = 0.0f;
                 (*(s32 *)((char *)(arg0) + 0x44)) = 0;

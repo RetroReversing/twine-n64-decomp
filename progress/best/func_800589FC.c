@@ -21,9 +21,9 @@ extern int D_800D3FFC;
 extern float D_800D4000;
 extern int D_800D4004;
 extern int D_800D4008;
-void *func_80016410();
-s32 func_80016990();
-s32 func_80044670();
+void *spawnEffectObject();
+s32 objectListInsert();
+s32 objectSetAnimFrame();
 s32 func_800452AC();
 f32 randomFloatScaled(f32);
 s32 func_80047AEC();
@@ -71,7 +71,7 @@ void func_800589FC(void *arg0, void *arg1) {
     void *temp_v0_2;
 
     spFC = arg0;
-    temp_v0 = func_80016410(0x20, 0, 0);
+    temp_v0 = spawnEffectObject(0x20, 0, 0);
     if (temp_v0 != NULL) {
         temp_s1 = M2C_FIELD(spFC, void **, 0x6C);
         temp_s7 = M2C_FIELD(temp_v0, void **, 0x6C);
@@ -171,11 +171,11 @@ void func_800589FC(void *arg0, void *arg1) {
         if (M2C_FIELD(sp104, u16 *, 2) == 0x14) {
             var_a1 = 0xE;
         
-        func_80044670(temp_v0, var_a1, 0x1B, sp104);} else {
+        objectSetAnimFrame(temp_v0, var_a1, 0x1B, sp104);} else {
             var_a1 = 0xD;
         
-        func_80044670(temp_v0, var_a1, 0x1B, sp104);}
-        func_80016990(temp_v0, M2C_FIELD(spFC, s32 *, 0x20));
+        objectSetAnimFrame(temp_v0, var_a1, 0x1B, sp104);}
+        objectListInsert(temp_v0, M2C_FIELD(spFC, s32 *, 0x20));
         M2C_FIELD(temp_v0, f32 *, 0x54) = 0.015625f;
         M2C_FIELD(temp_s7, s16 *, 0x1C) = 0x1E;
         M2C_FIELD(temp_s7, f32 *, 0) = (f32) (M2C_FIELD(spFC, f32 *, 0x28) - M2C_FIELD(M2C_FIELD(spFC, void **, 0x68), f32 *, 0x38));

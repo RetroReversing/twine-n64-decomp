@@ -8,7 +8,7 @@ extern char D_800BF5CC[];
 extern Def2B6BC *gTrackMarkerTable[];
 s32 *func_8002B400(f32, s32, char *);
 void func_80016718(void *);
-void func_80016990(void *, void *);
+void objectListInsert(void *, void *);
 void func_8002B7F8(void);
 
 void func_8002B6BC(s32 arg0) {
@@ -24,7 +24,7 @@ void func_8002B6BC(s32 arg0) {
         }
         v = (f32 *)func_8002B400(D_800BF5C4, 0xE, D_800BF5CC);
         func_80016718(*pp);
-        func_80016990(*pp, gTrackMarkerTable[D_800BF5CA]->fF4);
+        objectListInsert(*pp, gTrackMarkerTable[D_800BF5CA]->fF4);
         D_800BF5BC->flags |= 0x1000;
         do { D_800BF5BC->f54 = *v; } while (0);
         switch (D_800BF5C8) {

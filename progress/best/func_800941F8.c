@@ -4,7 +4,7 @@
 s32 func_8008C0D4();                            /* extern */
 s32 func_8008C11C();                            /* extern */
 s32 func_800937D0(s32 *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
-s32 func_80093C40(s32 *, f32, s32, s32, f32, f32); /* extern */
+s32 soundVoiceStart(s32 *, f32, s32, s32, f32, f32); /* extern */
 s32 func_8009CC3C(u16, s32, s32);           /* extern */
 extern u8 gWorkerActive;
 extern s32 gStaticSoundSlot;
@@ -45,7 +45,7 @@ s32 func_800941F8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg
                 temp_v0 = func_8009CC3C((*(u16 *)((char *)(var_s0) + 0x3C)), 0x7F, 0x40);
                 (*(s32 *)((char *)(var_s0) + 0x34)) = temp_v0;
                 if (temp_v0 != -1) {
-                    func_80093C40(var_s0, sp18, sp20, sp24, sp28, sp1C);
+                    soundVoiceStart(var_s0, sp18, sp20, sp24, sp28, sp1C);
                     func_8008C11C();
                     return (*(s32 *)((char *)(var_s0) + 0x34));
                 }
