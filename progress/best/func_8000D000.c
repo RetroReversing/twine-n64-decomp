@@ -116,7 +116,7 @@ s32 func_8000D000(void) {
         M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x78) = 255.0f;
         M2C_FIELD(__repair_phase_storage.pointer, s16 *, 0x90) = -1;
         temp_v1 = D_800B2710 + var_a0_2;
-        M2C_FIELD(temp_v1, s8 *, 0x99) = 0xFF;
+        M2C_FIELD(temp_v1, u8 *, 0x99) = 0xFF;
         M2C_FIELD(temp_v1, f32 *, 0x38) = 999.0f;
         temp_v0_4 = D_800B2710 + var_a0_2;
         M2C_FIELD(temp_v0_4, s8 *, 0x98) = 0xFF;

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80046EB8(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4, void *arg5) {
+void evalCatmullRomVec3(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4, void *arg5) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fa1_2;

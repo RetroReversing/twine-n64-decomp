@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795221362.233768,
- "revision": 16105,
+ "saved_at": 1795221430.179092,
+ "revision": 16117,
  "title": "TWINE",
  "platform": "n64",
  "game": {
@@ -1626,19 +1626,6 @@
     "-mfp32",
     "-O1"
    ]
-  },
-  "203224:2147683800": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "setEntryMode",
-   "vram": 2147683800
   }
  },
  "instructions": "",
@@ -1681,7 +1668,8 @@
   "For KMC GCC 2.7.2 matrix math, explicitly writing each scalar product and matrix output expression in the target's evaluation sequence can preserve instruction scheduling and reduce register-only mismatches versus precomputing/reordering grouped outputs.",
   "For KMC GCC 2.7.2, explicitly expressing an indexed float address as integer offset plus base can reverse the operands of the generated MIPS addu compared with ordinary pointer indexing.",
   "When the target reads three consecutive unaligned 32-bit words from a global byte table and copies them to a local stack buffer, model the source global as a three-u32 struct rather than u8[]: GCC 2.7.2 KMC can emit lwl/lwr pairs plus swl/swr copies matching the target.",
-  "For KMC GCC 2.7.2, assigning three consecutive words through a typed three-word struct can force integer lw/sw copies where equivalent float field assignments use lwc1/swc1. This can recover raw word copies when the target first copies a float vector to stack before modifying one float member; further local layout tuning may still be needed."
+  "For KMC GCC 2.7.2, assigning three consecutive words through a typed three-word struct can force integer lw/sw copies where equivalent float field assignments use lwc1/swc1. This can recover raw word copies when the target first copies a float vector to stack before modifying one float member; further local layout tuning may still be needed.",
+  "When a global address is used as a byte base plus an integer byte offset, cast the base to u8 * before addition (for example `(u8 *)&global_base + byte_offset`) to avoid MIPS GCC scaling the offset by the base pointee size. For 0xFF sentinels at byte fields, use u8 field types when the target forms a 255 immediate; s8 may produce the signed -1 form."
  ],
  "knowledge_evidence": {
   "For KMC GCC 2.7.2, use unsigned C division when the MIPS target uses an unsigned multiply-high sequence. For division by 10, a u32 numerator can produce multu with 0xCCCCCCCD followed by mfhi and a logical shift by 3. A signed numerator selects a different constant and sign correction.": {
@@ -2365,6 +2353,28 @@
     {
      "by": "codex-gpt-6.1-terra-5",
      "value": "func_8007BAF8: replacing three scalar float copies from arg1 to local pos with a typed three-word Vec3 assignment reduced current verified score 6446 to 5145 and reproduced raw word-copy shape."
+    }
+   ]
+  },
+  "When a global address is used as a byte base plus an integer byte offset, cast the base to u8 * before addition (for example `(u8 *)&global_base + byte_offset`) to avoid MIPS GCC scaling the offset by the base pointee size. For 0xFF sentinels at byte fields, use u8 field types when the target forms a 255 immediate; s8 may produce the signed -1 form.": {
+   "model": [
+    {
+     "by": "codex-gpt-6-luna-17",
+     "value": "gpt-6-luna"
+    },
+    {
+     "by": "codex-gpt-6.1-terra-4",
+     "value": "gpt-6.1-terra"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6-luna-17",
+     "value": "TWINE attempt on a global data offset reduced score 4800\u21924495 after casting base to u8*, removing an extra shift. Changing a sentinel field at offset 0x99 from s8* to u8* improved 4495\u21923865 and yielded addiu $t0,$zero,0xff. Exact match not reached."
+    },
+    {
+     "by": "codex-gpt-6.1-terra-4",
+     "value": "func_8000D000: changing 0x99 sentinel field from s8 to u8 generated target 255 immediate and improved score 4495 to 3865."
     }
    ]
   }
@@ -3243,8 +3253,7 @@
   "local_source_25769805767": "common_local_source_25769805767.h",
   "local_source_25769805768": "common_local_source_25769805768.h",
   "local_source_25769805772": "common_local_source_25769805772.h",
-  "local_source_25769805778": "common_local_source_25769805778.h",
-  "main": "common_main.h"
+  "local_source_25769805778": "common_local_source_25769805778.h"
  },
  "functions": {
   "main": {
@@ -4054,8 +4063,8 @@
   },
   "func_8000D000": {
    "vram": 2147536896,
-   "best_score": 4495,
-   "best_by": "codex-gpt-6-luna-17"
+   "best_score": 3865,
+   "best_by": "codex-gpt-6.1-terra-4"
   },
   "func_8000D3AC": {
    "vram": 2147537836,
@@ -6330,7 +6339,7 @@
   "setEntryMode": {
    "vram": 2147683800,
    "matched_by": "codex-gpt-6.2-sol-9",
-   "readable": false
+   "readable": true
   },
   "func_80030F88": {
    "vram": 2147684232,
@@ -7302,10 +7311,10 @@
    "matched_by": "codex-gpt-6.1-terra-6",
    "readable": false
   },
-  "func_80046EB8": {
+  "evalCatmullRomVec3": {
    "vram": 2147774136,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "func_80047068": {
    "vram": 2147774568,
@@ -12934,7 +12943,7 @@
   "func_80046424": "local_source_25769804744",
   "func_800464B8": "local_source_25769804745",
   "func_800467B0": "local_source_25769804748",
-  "func_80046EB8": "local_source_25769804753",
+  "evalCatmullRomVec3": "local_source_25769804753",
   "func_800472F4": "local_source_25769804755",
   "func_800476E0": "local_source_25769804757",
   "func_800477D0": "local_source_25769804758",
@@ -18265,7 +18274,7 @@
    "status": "open"
   },
   {
-   "name": "func_80046EB8",
+   "name": "evalCatmullRomVec3",
    "vram": 2147774136,
    "size": 432,
    "status": "open"
@@ -25320,6 +25329,12 @@
    "name": "quatSlerp",
    "address": 2147773396,
    "size": 492,
+   "kind": "func"
+  },
+  {
+   "name": "evalCatmullRomVec3",
+   "address": 2147774136,
+   "size": 432,
    "kind": "func"
   },
   {

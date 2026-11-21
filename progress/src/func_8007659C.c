@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80046EB8(s32, s32, s32, s32, f32, f32 *); /* extern */
+M2C_UNK evalCatmullRomVec3(s32, s32, s32, s32, f32, f32 *); /* extern */
 
 void func_8007659C(void *arg0, void *arg1) {
     union {
@@ -52,9 +52,9 @@ void func_8007659C(void *arg0, void *arg1) {
     temp_s1 = (temp_v1 & m1) * 24;
     temp_s0 = (temp_a2 & m2) * 24;
     temp_s3 = (temp_t0 & m3) * 24;
-    func_80046EB8(temp_a3 + temp_s2, temp_a3 + temp_s1, temp_a3 + temp_s0, temp_a3 + temp_s3, M2C_FIELD(arg1, f32 *, 4), arg0 + 0x24);
+    evalCatmullRomVec3(temp_a3 + temp_s2, temp_a3 + temp_s1, temp_a3 + temp_s0, temp_a3 + temp_s3, M2C_FIELD(arg1, f32 *, 4), arg0 + 0x24);
     temp_a3_2 = M2C_FIELD(arg1, s32 *, 0);
-    func_80046EB8(temp_a3_2 + temp_s2 + 0xC, temp_a3_2 + temp_s1 + 0xC, temp_a3_2 + temp_s0 + 0xC, temp_a3_2 + temp_s3 + 0xC, M2C_FIELD(arg1, f32 *, 4), &m2c_initial_frame.view_sp18.value);
+    evalCatmullRomVec3(temp_a3_2 + temp_s2 + 0xC, temp_a3_2 + temp_s1 + 0xC, temp_a3_2 + temp_s0 + 0xC, temp_a3_2 + temp_s3 + 0xC, M2C_FIELD(arg1, f32 *, 4), &m2c_initial_frame.view_sp18.value);
     M2C_FIELD(arg0, f32 *, 0x3C) = m2c_initial_frame.view_sp18.value;
     M2C_FIELD(arg0, f32 *, 0x40) = m2c_initial_frame.view_sp1C.value;
     M2C_FIELD(arg0, f32 *, 0x44) = m2c_initial_frame.view_sp20.value;
