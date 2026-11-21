@@ -51905,121 +51905,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:471ca409e0249f39a31a72c9ed3d80207a3302276f4ebe4d511cfc71bd0cd4ce"
  },
  {
-  "function": "setupSaveSlotMarkers",
-  "text": "Rechecked score 1590. Six local repairs for masked reuse, signedness, declaration order, branch orientation, loop shape and symbol byte offsets did not improve. Candidate has 51 differing rows, chiefly registers and loop control; inspect target table addressing and reconstruct loop variables/types. Byte-offset proposal changed all offsets at once and scored 1620, so individual symbol corrections remain to test.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795178874.7967098,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Improved 1532 to 1385 by reusing var_s1 for the masked outer index before var_v0 assignment; rechecked. Subsequent loop, branch, signedness and declaration variants did not improve. Inspect table types and byte-stride offsets: current M2C_UNK pointer arithmetic scales indices and pointer assignment warns; 42 diff rows remain.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795183063.3442209,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Compilation blocked: gcc-2.7.2-kmc is not installed. Both compile_patch and the prescribed signedness family failed before building. Restore compiler and verify baseline (historical score 1385) before further experiments.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795193862.108989,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Best current score 1185/99 instructions; one short. Rechecked baseline. Clean rewrites with explicit byte-array/object types scored 4548. Reverting to m2c candidate and recompiling preserved 1185. Changing D_801001A2 from M2C_UNK to u8 or byte-casting its address scored 1342 (worse). Remaining target differences begin around instruction 25: loop index masking/stride and pointer table address register lifetimes; target computes D_801001A2 + ((s3&0xffff)*6) via sll1/addu/sll3 and uses global relocation load, while candidate materializes base pointer. Compare target around rows 25-44 to candidate; investigate preserving row index in a0 and deriving byte address directly while retaining D symbol as word-sized declaration. Function behavior appears established; no exact match.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795200283.402304,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Rechecked 1185; six local variants tied or worsened. 41 rows remain, including control flow, registers and four missing instructions.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795202037.88784,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "The saved candidate contains its own declarations/prototypes; use that baseline. A separate attempt from an undeclared draft failed before generation, so it yielded no score. Current saved candidate revision a5d8501b1ac85dafef16 has historical score 1185, not freshly verified. Continue by compiling it, then try_local_repairs.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795204293.353756,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Rechecked saved score 1185. One whole-source compile retained 1185. Local repairs on revision 0805c38429d1a047360b: explicit_loop_backedge, global_value_address and branch_orientation worsened (1605,1782,3995); global_scalar_type, dead_copy_source and spill_declaration_order were unchanged (1185). A manual branch inversion reached 1385; restored saved_best. Main remaining discrepancy is byte-array indexing: target computes index with andi $a0,$s3,0xffff; sll $s4,$s2,2; loads via base relocation D_801001A2, while candidate scales by 6 and loads offset 3 via loop-carried base. Next explore field/array layout and corrected prototype evidence for func_800162BC (selected definition returns s32, caller candidate assumes pointer).",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795205568.384723,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Stalled, not matched. Recovered semantics from asm: i=s3 loops 0..D_801002C0 (signed slt); t=D_801001A2[i*24] (stride 24); zero path (t==0 or t==4 or t>=6): for j<3 *(D_8011F338 bytes + j*16 + i*4)=0; fill path (t in 1..3 or t==5): for j<3 p=func_800162BC(i); if p: func_800448A4(p,0x13,0xF4); p->0x10=D_800BD644; table[j][i]=p. Best local revision 49141d77dc31af865c41 scores 2860 (u16 i/j, condition written as !(t<4||t==5)); saved_best 1185 is still better (different structure, s32 indices). Remaining diff: register allocation (target keeps i in s3, lui/addiu base hoisted into s5, constant 5 in s6) and branch layout of the t-classification (target uses beqz t then slti; ours computes sltiu/xori/sltu/and). Prototype conflict: func_800162BC returns void* at callers vs s32 in matched definition.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795206638.203885,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 1185 (saved best, 105 attempts, 53 local repairs). No new compile this session; reviewed brief and asm. Semantics: i=s3 loops 0..D_801002C0; t=D_801001A2[i*24]; zero path for t==0/4/>=6 (t==5 goes to fill); fill path calls func_800162BC(i), func_800448A4(p,0x13,0xF4), p->0x10=D_800BD644. Main discrepancy is index computation for the byte-array/table access (andi $a0,$s3,0xFFFF reuse and s4 = i<<2 per-iteration). Prototype conflict: func_800162BC returns void* in caller but selected definition is s32(s32). Next step: fix the func_800162BC prototype jointly, then try a single-patch rewrite of the table index as ((i*4)+(j*0x10)+&D_8011F338) with j as u16.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795207681.1985338,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Stalled, not matched. Best remains saved_best 1185 (rev 0805c38429d1a047360b). This session: changing stride *6 to *24 (rev fefa670be08c9f1d21df) scored 1195 (target computes index as (i*3)<<3 ~ i*24, lbu via %lo(D_801001A2) absolute, not pointer arithmetic). Adding u8* cast on top of that (rev edad477bd4d3831d2a1f) worsened to 1332 (compiler then allocs extra stack 0x38 vs 0x30 and s7 for table base). Target frame is 0x30 with ra at 0x2c. Next idea: write the byte read as D_801001A2 indexed via a u8 array index expression (e.g. ((u8*)&D_801001A2)[i*24] is the cast variant already tried) or drop the separate var_s1/var_v0 temporaries; the fill-path loop should use (s32)(j*0x10) offsets in table base D_8011F338.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795209415.6986291,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at 1185 (saved best rev 0805c38429d1a047360b). Reviewed target asm: index is i*24 computed as ((i*3)<<3), lbu from %lo(D_801001A2) absolute. Control flow: t==0 -> zero path; t in 1..3 and t==5 -> fill path (s1=0); t==4 or t>=6 -> zero path with s1=i. Prior attempts (stride *6, *24, u8* cast) did not improve; the u8* cast worsened to 1332 by allocating extra stack. Remaining discrepancy is register/loop shape of the fill loop and the 3-iteration zero loop. Not verified by a fresh compile this session. Brief note: func_800162BC prototype conflict (caller void* vs matched s32) unresolved.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795210609.734818,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Explicit byte address and loop index placement; integer-address store expressions and u16 loop casts\nImproved 1185 to 605; store address changes and u16 cast left instruction diff unchanged. Target has two additional andi instructions and different stride lowering/registers.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795214733.3007429,
-  "score_before": 1935,
-  "score_after": 605,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Move-on budget reached. Corrected pointer scaling, score 605 to 555. Explicit byte offset scored 575 and shared clear/fill labels scored 640. Best lacks two instructions around kind==5 and keeps masked column in s2 instead of a0.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795220164.7278762,
-  "score_before": 605,
-  "score_after": 555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Improved verified score 555 to 525 by sharing the inner counter in both paths. Six follow-up variants tied or worsened. Two target instructions are still absent (outer-slot remask in the type-five comparison delay slot and a separate counter zero on its fallthrough); output-address addition order also differs.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795230105.070763,
-  "score_before": 525,
-  "score_after": 525,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
   "function": "func_8011ACAC",
   "text": "Saved best score 5 (rev b432c3af7625a239e748, uses 's32 id = s0' temp). Only diff: target `subu $a1,$s0,$a1` (and move a0,s0 earlier), ours `subu $a1,$a0,$a1` (gcc copy-propagates the arg temp). Tried: call with s0 directly (65, a0 move reordered), (s16)/(u16) casts, sub inside call args/stores (425+), asm barrier (125). Next step: make s0 first-class differently, e.g. compute id/arg via a second variable assigned inside switch arms (s0 and a duplicate), or restructure so the a0 copy is made before lhu.\narg temp, casts, inline sub, asm barrier\nbest stays 5; only one register differs (a0 vs s0 in subu)",
   "by": "api-claude-sonnet-5-5-1",
@@ -55571,15 +55456,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:def4773cc39b587730bff73adccf0051c6b9643a0ba20aeac6965a61929cccae"
  },
  {
-  "function": "setupSaveSlotMarkers",
-  "text": "Claim reset during compile. Draft baseline 1970; byte type for sMarkerTextArgs fixed 0x24/0x48 offsets (1950). Correcting both table pointer scaling expressions reached 1930, though claim reset may have lost candidate. Next step: use a typed 24-byte save-slot struct array and 4-wide pointer table to express indexing and test the loop register allocation.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795240357.421242,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
   "function": "func_800449A0",
   "text": "The claim attempt used wrong guessed helper/data names and failed to compile; subsequent rewrite compiled at 11055, with major errors from incorrect array aliases/addresses. Target shows gTrackMarkers and gBonusObjectTable directly, while D_8010A500-like alias resolved elsewhere and must not be guessed. Reset loops in target are nested pointer walks with stride 0x1C, and stores afterward are byte-sized (sb). Prior handoff around D_801032A4/0xFF store ordering is relevant. Next step: restore a prior viable source and compile once, then resolve exact symbols and types from the brief/assembly before continuing.",
   "by": "codex-gpt-6-luna-15",
@@ -55664,15 +55540,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:3b2e3791d305a550b6b6568a02423f79eeeba2389e42ce893566774d551061d3"
  },
  {
-  "function": "setupSaveSlotMarkers",
-  "text": "Candidate reset unexpectedly during sequential patches. Revision 0b06efa89ae4ee3dd11b scored 1940 with byte-based sSaveSlotInfo access and byte sMarkerTextArgs; draft scored 1950. Attempt to declare sSaveSlotMarkerTable as void *[3][4] needs both assignment expressions changed together; reset interrupted before second change. Next step: compile both indexed assignments together.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795240425.975659,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
   "function": "func_80022044",
   "text": "Rechecked candidate aa819a8b40e9609fd434: score 375; claim ended during compile. Target has andi $a0,$a0,0xffff in lookupDataEntry call delay slot, candidate omits it. Next step: inspect lookupDataEntry prototype and test u16 argument narrowing at the call.",
   "by": "codex-gpt-6.1-terra-2",
@@ -55680,15 +55547,6 @@
   "score_before": 0,
   "score_after": 0,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:dfa4f50deca474b881a539b8ca1a3d4e6ad37875757b51da90af53ac6b046cd5:115a0b4ea2035559c59fb7ab894dc9d63d4b389d69c0512224709f6a5e17f9b2"
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Typed void *[3][4] table with both indexed stores compiled at 2120 (worse than 1940 byte-base candidate). Local repair batch stopped because progress changed and claim disappeared. Candidate reset again; no reliable continuation.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795240468.43949,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
   "function": "pickupRefreshLabel",
@@ -55752,15 +55610,6 @@
   "score_before": 75,
   "score_after": 75,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:a2ea138cd1db8ceebbdb3ec8571f0ec5715c34496ae6e7436ec9a35ab368db50"
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Claim ended automatically. Trial with state read as ((u8 (*)[24])sSaveSlotInfo)[idx][0] and fresh (u16)slot in spawnTrackMarker scored 1310, with 98 vs 99 instructions and the right frame size. The slot info address was still hoisted; branch into spawn still short by one instruction. Next step: inspect the unverified score-20 predecessor in recorded history and recover that source before trying further rewrites.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795240652.072122,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
   "function": "func_8005C6F8",
@@ -55833,15 +55682,6 @@
   "score_before": 115,
   "score_after": 115,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Revision 0a5141367e9c9d8cb35b scored 1700: s32 state temporary restored signed slti; corrected text offsets and byte-base slot read, explicit clear-loop backedge, and byte-base clear store. Byte-base spawn store alone scored 2135. Claim ended automatically immediately after improvement. Next step: correct both marker table stores together using byte offsets and investigate slot-info address hoisting.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795240836.645333,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
   "function": "buildScaledTransform",
@@ -55978,24 +55818,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
-  "function": "setupSaveSlotMarkers",
-  "text": "Claim and candidate reset repeatedly between tool calls. Correct both text offsets and marker table byte stores, make state s32, use explicit clear-loop backedge and initialize var_a0=(u16)var_s3 after the count guard: scored 1560 (6c5cd84f13881a66fa57). Changing the state read to ((u8 (*)[24])&sSaveSlotInfo)[(u16)var_s3][0] measured 1235 (4d0c45b0e5cdf891b7a5) with 99/99 instructions, but judge reset it. Changed: setup still hoists sSaveSlotInfo and introduces an extra saved index; branch and saved-register allocation differ. Integer spelling of address was identical at 1560; -fno-loop-optimize profile did not compile. Next step: recover the 1235 source and express the state-5 arm as if (temp_v1 != 5) goto block_12; var_s1 = 0; falling through into spawn.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795241087.209669,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Revision 7a2560f3c9aaa84641c5 scored 1740 after correcting both text byte offsets and slot-info byte indexing; automatic claim end followed. Marker table stores still scale offsets incorrectly. Next step: cast the marker table base to u8 * for both stores, then investigate hoisted slot-info address.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795241109.346366,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
   "function": "spawnTrackMarkerBurst",
   "text": "Verified baseline 1761. Reworked both local values as 3-element arrays; one variant improved to 1490, then float-typed helper arguments improved further to 1304 (target 58 vs candidate 48 at first baseline; best variant mismatch remains early stack/register-save layout and call argument differences). Tried local repair batches: inferred-record layout/const-read did not help; float-zero-local improved to 1490; float_argument_bits best 1304; do-while and single-use inline were not improvements. Best candidate 1304 saved. Remaining work: inspect diff for best variant and match exact helper prototypes/array initialization plus target's saved $s2/$s1 and frame 0x60.",
   "by": "codex-gpt-6-luna-6",
@@ -56028,15 +55850,6 @@
   "score_before": 30,
   "score_after": 30,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:471ca409e0249f39a31a72c9ed3d80207a3302276f4ebe4d511cfc71bd0cd4ce"
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Claim reset during sequential work. Revision 3a8b6127b79779d195ed scored 1463 with byte-addressed stores, 24-byte slot array indexing; target frame 0x30 versus candidate 0x38 due to hoisted slot table base in s7. Changing slot read to byte base + a*24 scored 1627. Next: shorten table-base lifetime or change loop structure to prevent hoisting.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795241163.612469,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
   "function": "create_player_state_objects",
@@ -56117,15 +55930,6 @@
   "created_at": 1795241383.861415,
   "score_before": 855,
   "score_after": 855
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "Sequential tool calls reset claim and candidate to machine draft. Correcting byte offsets and using s32 temp_v1 scored 1925, but candidate reverted. Next: use a 24-byte slot-info struct array and byte-addressed marker stores, then inspect hoisted slot base.\n\nSession allowance exhausted. 24-byte struct array scored 1830; recomputing spawn index scored 1890 and u16 outer index scored 1830. Target uses an additional saved register and repeats masks.\nu16 outer index\nscore unchanged at 1830; 4 instructions missing and saved register allocation differs",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795241402.759042,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
   "function": "func_80028A7C",
@@ -56634,15 +56438,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:9c62adb7ee7bfd09c5e1cdc9425bb40347756aaf4991bba8a1a96e222202203b"
  },
  {
-  "function": "setupSaveSlotMarkers",
-  "text": "Claim state resets between tool invocations. Corrected symbol and byte addressing, with 24-byte slot records and signed local; see measured result. Prior agents found base hoisting remains.\nCorrected symbol, byte addressing, 24-byte records and signed status local\nSee latest measured compile; target still requires different loop/register allocation",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795242400.545845,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
   "function": "func_8002D960",
   "text": "Reconstructed compiling draft with byte globals, variadic s32 reader and corrected +1 halfword pointer; scored 10345. Target still materializes original base then increments by 2; candidate relocates directly to D_800E1114.",
   "by": "codex-gpt-6.1-terra-4",
@@ -56868,15 +56663,6 @@
   "score_before": 160,
   "score_after": 160,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8440243abad5a02799f2873268c07e96776eb3b5b2e87ddda9f6902d134c3943"
- },
- {
-  "function": "setupSaveSlotMarkers",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Claim and candidate reset after sequential trials. Reconstructed candidate reached 1900 using corrected byte offsets and explicit clear-loop backedge; target still differs in slot-base hoisting and register allocation. Next step: test a 24-byte record array with the explicit backedge.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795242950.729514,
-  "score_before": 0,
-  "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
   "function": "func_8008E7B8",
@@ -67220,5 +67006,435 @@
   "score_before": 2100,
   "score_after": 190,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:977bf39d118faea1219c78dda03036d0018d00dfb45f5d3a520ffad9a5524a84"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Rechecked score 1590. Six local repairs for masked reuse, signedness, declaration order, branch orientation, loop shape and symbol byte offsets did not improve. Candidate has 51 differing rows, chiefly registers and loop control; inspect target table addressing and reconstruct loop variables/types. Byte-offset proposal changed all offsets at once and scored 1620, so individual symbol corrections remain to test.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795178874.7967098,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Improved 1532 to 1385 by reusing var_s1 for the masked outer index before var_v0 assignment; rechecked. Subsequent loop, branch, signedness and declaration variants did not improve. Inspect table types and byte-stride offsets: current M2C_UNK pointer arithmetic scales indices and pointer assignment warns; 42 diff rows remain.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795183063.3442209,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Compilation blocked: gcc-2.7.2-kmc is not installed. Both compile_patch and the prescribed signedness family failed before building. Restore compiler and verify baseline (historical score 1385) before further experiments.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795193862.108989,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Best current score 1185/99 instructions; one short. Rechecked baseline. Clean rewrites with explicit byte-array/object types scored 4548. Reverting to m2c candidate and recompiling preserved 1185. Changing D_801001A2 from M2C_UNK to u8 or byte-casting its address scored 1342 (worse). Remaining target differences begin around instruction 25: loop index masking/stride and pointer table address register lifetimes; target computes D_801001A2 + ((s3&0xffff)*6) via sll1/addu/sll3 and uses global relocation load, while candidate materializes base pointer. Compare target around rows 25-44 to candidate; investigate preserving row index in a0 and deriving byte address directly while retaining D symbol as word-sized declaration. Function behavior appears established; no exact match.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795200283.402304,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Rechecked 1185; six local variants tied or worsened. 41 rows remain, including control flow, registers and four missing instructions.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795202037.88784,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "The saved candidate contains its own declarations/prototypes; use that baseline. A separate attempt from an undeclared draft failed before generation, so it yielded no score. Current saved candidate revision a5d8501b1ac85dafef16 has historical score 1185, not freshly verified. Continue by compiling it, then try_local_repairs.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795204293.353756,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Rechecked saved score 1185. One whole-source compile retained 1185. Local repairs on revision 0805c38429d1a047360b: explicit_loop_backedge, global_value_address and branch_orientation worsened (1605,1782,3995); global_scalar_type, dead_copy_source and spill_declaration_order were unchanged (1185). A manual branch inversion reached 1385; restored saved_best. Main remaining discrepancy is byte-array indexing: target computes index with andi $a0,$s3,0xffff; sll $s4,$s2,2; loads via base relocation D_801001A2, while candidate scales by 6 and loads offset 3 via loop-carried base. Next explore field/array layout and corrected prototype evidence for func_800162BC (selected definition returns s32, caller candidate assumes pointer).",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795205568.384723,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Stalled, not matched. Recovered semantics from asm: i=s3 loops 0..D_801002C0 (signed slt); t=D_801001A2[i*24] (stride 24); zero path (t==0 or t==4 or t>=6): for j<3 *(D_8011F338 bytes + j*16 + i*4)=0; fill path (t in 1..3 or t==5): for j<3 p=func_800162BC(i); if p: func_800448A4(p,0x13,0xF4); p->0x10=D_800BD644; table[j][i]=p. Best local revision 49141d77dc31af865c41 scores 2860 (u16 i/j, condition written as !(t<4||t==5)); saved_best 1185 is still better (different structure, s32 indices). Remaining diff: register allocation (target keeps i in s3, lui/addiu base hoisted into s5, constant 5 in s6) and branch layout of the t-classification (target uses beqz t then slti; ours computes sltiu/xori/sltu/and). Prototype conflict: func_800162BC returns void* at callers vs s32 in matched definition.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795206638.203885,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 1185 (saved best, 105 attempts, 53 local repairs). No new compile this session; reviewed brief and asm. Semantics: i=s3 loops 0..D_801002C0; t=D_801001A2[i*24]; zero path for t==0/4/>=6 (t==5 goes to fill); fill path calls func_800162BC(i), func_800448A4(p,0x13,0xF4), p->0x10=D_800BD644. Main discrepancy is index computation for the byte-array/table access (andi $a0,$s3,0xFFFF reuse and s4 = i<<2 per-iteration). Prototype conflict: func_800162BC returns void* in caller but selected definition is s32(s32). Next step: fix the func_800162BC prototype jointly, then try a single-patch rewrite of the table index as ((i*4)+(j*0x10)+&D_8011F338) with j as u16.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795207681.1985338,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Stalled, not matched. Best remains saved_best 1185 (rev 0805c38429d1a047360b). This session: changing stride *6 to *24 (rev fefa670be08c9f1d21df) scored 1195 (target computes index as (i*3)<<3 ~ i*24, lbu via %lo(D_801001A2) absolute, not pointer arithmetic). Adding u8* cast on top of that (rev edad477bd4d3831d2a1f) worsened to 1332 (compiler then allocs extra stack 0x38 vs 0x30 and s7 for table base). Target frame is 0x30 with ra at 0x2c. Next idea: write the byte read as D_801001A2 indexed via a u8 array index expression (e.g. ((u8*)&D_801001A2)[i*24] is the cast variant already tried) or drop the separate var_s1/var_v0 temporaries; the fill-path loop should use (s32)(j*0x10) offsets in table base D_8011F338.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795209415.6986291,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at 1185 (saved best rev 0805c38429d1a047360b). Reviewed target asm: index is i*24 computed as ((i*3)<<3), lbu from %lo(D_801001A2) absolute. Control flow: t==0 -> zero path; t in 1..3 and t==5 -> fill path (s1=0); t==4 or t>=6 -> zero path with s1=i. Prior attempts (stride *6, *24, u8* cast) did not improve; the u8* cast worsened to 1332 by allocating extra stack. Remaining discrepancy is register/loop shape of the fill loop and the 3-iteration zero loop. Not verified by a fresh compile this session. Brief note: func_800162BC prototype conflict (caller void* vs matched s32) unresolved.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795210609.734818,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Explicit byte address and loop index placement; integer-address store expressions and u16 loop casts\nImproved 1185 to 605; store address changes and u16 cast left instruction diff unchanged. Target has two additional andi instructions and different stride lowering/registers.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795214733.3007429,
+  "score_before": 1935,
+  "score_after": 605,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Move-on budget reached. Corrected pointer scaling, score 605 to 555. Explicit byte offset scored 575 and shared clear/fill labels scored 640. Best lacks two instructions around kind==5 and keeps masked column in s2 instead of a0.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795220164.7278762,
+  "score_before": 605,
+  "score_after": 555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Improved verified score 555 to 525 by sharing the inner counter in both paths. Six follow-up variants tied or worsened. Two target instructions are still absent (outer-slot remask in the type-five comparison delay slot and a separate counter zero on its fallthrough); output-address addition order also differs.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795230105.070763,
+  "score_before": 525,
+  "score_after": 525,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim reset during compile. Draft baseline 1970; byte type for sMarkerTextArgs fixed 0x24/0x48 offsets (1950). Correcting both table pointer scaling expressions reached 1930, though claim reset may have lost candidate. Next step: use a typed 24-byte save-slot struct array and 4-wide pointer table to express indexing and test the loop register allocation.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795240357.421242,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Candidate reset unexpectedly during sequential patches. Revision 0b06efa89ae4ee3dd11b scored 1940 with byte-based sSaveSlotInfo access and byte sMarkerTextArgs; draft scored 1950. Attempt to declare sSaveSlotMarkerTable as void *[3][4] needs both assignment expressions changed together; reset interrupted before second change. Next step: compile both indexed assignments together.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795240425.975659,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Typed void *[3][4] table with both indexed stores compiled at 2120 (worse than 1940 byte-base candidate). Local repair batch stopped because progress changed and claim disappeared. Candidate reset again; no reliable continuation.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795240468.43949,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim ended automatically. Trial with state read as ((u8 (*)[24])sSaveSlotInfo)[idx][0] and fresh (u16)slot in spawnTrackMarker scored 1310, with 98 vs 99 instructions and the right frame size. The slot info address was still hoisted; branch into spawn still short by one instruction. Next step: inspect the unverified score-20 predecessor in recorded history and recover that source before trying further rewrites.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795240652.072122,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Revision 0a5141367e9c9d8cb35b scored 1700: s32 state temporary restored signed slti; corrected text offsets and byte-base slot read, explicit clear-loop backedge, and byte-base clear store. Byte-base spawn store alone scored 2135. Claim ended automatically immediately after improvement. Next step: correct both marker table stores together using byte offsets and investigate slot-info address hoisting.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795240836.645333,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim and candidate reset repeatedly between tool calls. Correct both text offsets and marker table byte stores, make state s32, use explicit clear-loop backedge and initialize var_a0=(u16)var_s3 after the count guard: scored 1560 (6c5cd84f13881a66fa57). Changing the state read to ((u8 (*)[24])&sSaveSlotInfo)[(u16)var_s3][0] measured 1235 (4d0c45b0e5cdf891b7a5) with 99/99 instructions, but judge reset it. Changed: setup still hoists sSaveSlotInfo and introduces an extra saved index; branch and saved-register allocation differ. Integer spelling of address was identical at 1560; -fno-loop-optimize profile did not compile. Next step: recover the 1235 source and express the state-5 arm as if (temp_v1 != 5) goto block_12; var_s1 = 0; falling through into spawn.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795241087.209669,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Revision 7a2560f3c9aaa84641c5 scored 1740 after correcting both text byte offsets and slot-info byte indexing; automatic claim end followed. Marker table stores still scale offsets incorrectly. Next step: cast the marker table base to u8 * for both stores, then investigate hoisted slot-info address.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795241109.346366,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim reset during sequential work. Revision 3a8b6127b79779d195ed scored 1463 with byte-addressed stores, 24-byte slot array indexing; target frame 0x30 versus candidate 0x38 due to hoisted slot table base in s7. Changing slot read to byte base + a*24 scored 1627. Next: shorten table-base lifetime or change loop structure to prevent hoisting.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795241163.612469,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Sequential tool calls reset claim and candidate to machine draft. Correcting byte offsets and using s32 temp_v1 scored 1925, but candidate reverted. Next: use a 24-byte slot-info struct array and byte-addressed marker stores, then inspect hoisted slot base.\n\nSession allowance exhausted. 24-byte struct array scored 1830; recomputing spawn index scored 1890 and u16 outer index scored 1830. Target uses an additional saved register and repeats masks.\nu16 outer index\nscore unchanged at 1830; 4 instructions missing and saved register allocation differs",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795241402.759042,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim state resets between tool invocations. Corrected symbol and byte addressing, with 24-byte slot records and signed local; see measured result. Prior agents found base hoisting remains.\nCorrected symbol, byte addressing, 24-byte records and signed status local\nSee latest measured compile; target still requires different loop/register allocation",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242400.545845,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Claim and candidate reset after sequential trials. Reconstructed candidate reached 1900 using corrected byte offsets and explicit clear-loop backedge; target still differs in slot-base hoisting and register allocation. Next step: test a 24-byte record array with the explicit backedge.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242950.729514,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Current reconstructed candidate score 5714; historical saved candidate 1990 could not be recovered after an empty-source compile reset. Source reconstructed cleanly and compiles; structured loops differ from target in frame (-0x38 vs -0x30), base hoisting and loop/register allocation. Previous historical notes report a 1900 candidate with corrected byte offsets, explicit clear loop backedge and 24-byte records. My ordinary for-loop reconstruction emitted 80 instructions vs target 99. Next step: use get_function history for prior measured 1900 C / try clear-loop do-while with explicit table base pointer declared before loop, preserving 24-byte record offset.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795244018.867595,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim reset during local repairs. Candidate e270729606fd03fb182a scored 1920 after resolving sBonusMarkerNodes, text argument byte offsets, and marker table scaling. Byte-cast sSaveSlotInfo with stride 24 scored 1920 also. Next step: repair clear-loop index/control flow; local repair trials were interrupted before measurement.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795245191.454397,
+  "score_before": 1805,
+  "score_after": 1805,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Sequential candidate revisions repeatedly reset externally. Corrected symbol and byte offsets plus explicit clear-loop backedge scored 1900 before reset. The s32 local alone on machine draft scored 1980 and loaded a word; next test it with byte-addressed slot load and corrected symbols.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245238.431065,
+  "score_before": 1805,
+  "score_after": 1805,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Current candidate uses byte indexing and resolves marker nodes.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795245514.119991,
+  "score_before": 1805,
+  "score_after": 1805,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim was lost during repairs. Baseline 1990; u16 clear-loop counter variant scored 1625 (revision a78f5405373ee35a0bbe); corrected offset variant 1960 and local constant variant 1790. Next step: combine the counter with corrected symbol and byte offsets.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795246455.155786,
+  "score_before": 1805,
+  "score_after": 1625,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Prior claim reset unexpectedly after score 1830; resolved sBonusMarkerNodes and byte offsets. Candidate reset to draft. Correct both marker table stores using byte offsets together; individual spawn-store fix scored 2025.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795246585.591016,
+  "score_before": 1625,
+  "score_after": 1625,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Corrected first text node symbol and made byte-loaded selector s32; score improved from 2145 to 1925. Remaining differences include slot index arithmetic and loop register allocation; move on after measured objective.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795247583.8420422,
+  "score_before": 1625,
+  "score_after": 1625,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Service reset the claim after a failed intermediate declaration patch. Draft with s32 selector alone scored 1980 and still loaded a word because sSaveSlotInfo is declared s32. Next: change its access to a byte base plus var_a0 * 0x18, and change both declaration and use of first node to sBonusMarkerNodes together.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795247734.7263858,
+  "score_before": 1625,
+  "score_after": 1625,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Service reset the candidate and claim token during sequential patches. Byte-offset fixes for text arguments and sBonusMarkerNodes improved 1980 to 1940, but were overwritten; s32 selector on reset baseline scored 1780. Remaining slot arithmetic and register allocation differ.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795247818.384215,
+  "score_before": 1625,
+  "score_after": 1625,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim changed during trial. Rechecked baseline 1990; corrected byte offsets and sBonusMarkerNodes removed unresolved symbol and six mismatch sites but scored 2120 due to register allocation. Branch inversion 4485, loop backedge 2160. Next step: integrate symbol and byte offset fixes selectively into saved candidate.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795248970.560427,
+  "score_before": 1935,
+  "score_after": 1790,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 72 differing rows (3 opcode, 26 register, 18 stack, 7 branch target, 7 operand, 3 reordered, 3 inserted, 5 deleted; advisory).\nTarget: addiu $sp, $sp, -0x30\nCandidate: addiu $sp, $sp, -0x38\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x30 | C: addiu $sp, $sp, -0x38\ns T: sw $s0, 0x10($sp) | C: sw $s0, 0x18($sp)\n  = lui $s0, %hi(sMarkerTextArgs)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nClaim dropped during trials. Revision b81eb5512cb6c36fc33e scored 1810: corrected scaled offsets and reused var_a0 in zero loop, then explicit backedge. Branch inversion scored 4185; structured backedge 1825. Next step: resolve marker node symbols and table pointer types while preserving loop allocation.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795249099.962924,
+  "score_before": 1790,
+  "score_after": 1790,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Byte-casting only second marker argument scored 1980 and exposed remaining incorrect scaled offsets; candidate state reverted concurrently.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795249465.902644,
+  "score_before": 1790,
+  "score_after": 1790,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Sequential calls repeatedly lose claim and candidate state; score 1598 measured with corrected byte addresses, sBonusMarkerNodes, signed state local, but candidate reset before handoff.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795249623.357024,
+  "score_before": 1790,
+  "score_after": 1598,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Measured 1160 at revision d8cd91545dbe0fa99c0c using 24-byte struct array for sSaveSlotInfo and byte-correct marker table; claim disappeared on next patch. Target masks outer index in loop; candidate keeps masked index live. Next step: recompute masked outer index at each use and inspect resulting register allocation.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795249784.4297888,
+  "score_before": 1598,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim disappeared during patch, candidate reset. Measured 1845 using byte-correct text argument offsets, sBonusMarkerNodes[0] and 24-byte typed sSaveSlotInfo array indexed by var_a0. Marker table still uses incorrectly scaled pointer arithmetic. Next step: correct table to byte-addressed 16-byte row and 4-byte column, then recompute masked outer index at each use.\n\nClaim repeatedly resets during sequential patches, losing better candidate; cannot reliably build on previous 1845 or 1160. Both marker table accesses corrected in current 2175 candidate, but text and slot addresses need restoration.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795250090.914894,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim and candidate reset after sequential patch again. The re-created candidate reached 1845; earlier 1160 candidate remains unavailable. Correct both marker table stores to byte offsets and recompute masked outer index.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795250458.28293,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Service reset candidate and claim again during sequential edits. Correct byte-addressed first marker store and sBonusMarkerNodes declaration scored 2165, but continuation reverted to machine draft. Next step: restore those edits together with byte-correct text argument offsets, typed 24-byte save slots, and byte-addressed second table store.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795251137.0176058,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Service reset again after an explicit backedge improved the byte-correct candidate from 2125 to 2100 (revision 8f726cfd9fd97aa5874f). Candidate reverted to e80ec39611fd91349242 with incorrect scaled addresses. Restore byte-correct pointer offsets from prior handoff, then test narrow outer or inner loop counters.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795252364.4832141,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Service repeatedly reset claim and candidate. Byte-correct offsets and sBonusMarkerNodes plus s32 temp_v1 scored 1925 (revision 977758156d3f6a066cc6); signed temporary generates target slti. Candidate reverted to machine draft. Next step: restore those corrections together and test outer index lifetime.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795252370.8436139,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Service reset claim during work. Revision ed56829f3529b1988663 scored 1740: corrected sBonusMarkerNodes, both text argument byte offsets, and byte load of sSaveSlotInfo. Correcting only the marker table spawn store regressed to 1935 (2854a391697d1e145ca2); both table stores need byte addressing. Next step: restore 1740 revision and correct both table stores together, then investigate loop index lifetime.\n\nRepeated service resets disrupt continuity; both table stores byte-correct score 1925. Single corrected store scored 1935. Remaining mismatch includes loop control and register allocation.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795252579.295697,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim disappeared again after correcting both text argument byte offsets; latest verified score 1970. Next step: restore the previous 1740 candidate if available, correct both marker table stores using byte addressing together; then examine loop index lifetime.\n\n[Released without compiling it once; notes not checked by a compile.] Service repeatedly resets claim and candidate; previous corrected candidate cannot be recovered via saved_best. Rechecked draft 1990; prior corrected revision 1740. Restore byte-correct text and slot references and marker symbol before testing both table stores.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795252765.778396,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Restored saved_best and verified score 3355. Explicit s32 index,offset candidate retains current source; loop computes index*24 and destination index*0x40+j*0x10, while target uses separate byte offsets and 16-bit index masking. Tried signedness and basic source candidates; alternate candidate scored 3775. The saved best has 44 differing rows and 10 fewer target instructions; target loads save-slot type unsigned, branches through special type==5 test, and marker destination loops mask j to 16 bits and use offset arithmetic.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795256077.672592,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Loop-backedge variant improved score 3355 to 3251 but substantially changes allocation; further structural indexing reconstruction is needed.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795256407.039108,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Byte base types and word pointer stores corrected draft scaling; signed temporary recovered slti. Explicit clear-loop backedge improved to 1570. Volatile slot info worsened to 1710; direct masked spawn argument worsened to 1875.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795256562.457723,
+  "score_before": 1160,
+  "score_after": 1160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  }
 ]
