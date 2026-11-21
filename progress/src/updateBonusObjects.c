@@ -6,7 +6,7 @@ typedef struct { u8 flag; u8 pad[0x9F]; } BonusSlotEntry;
 s32 func_800643D8(s32);
 extern s32 gSaveSlotCount;
 extern u8 D_8010A4C0[];
-extern BonusObject *gBonusObjectTable[];
+extern BonusObject *sBonusObjectTable[];
 extern BonusSlotEntry sBonusSlots[];
 
 /* Updates each active bonus object: state 5 marks its slot entry, and state 7 runs the bonus handler and clears the object's control bytes. */
@@ -16,7 +16,7 @@ void updateBonusObjects(void) {
     BonusSub *s;
 
     for (i = 0; i < gSaveSlotCount; i++) {
-        p = gBonusObjectTable[i];
+        p = sBonusObjectTable[i];
         if (p != NULL) {
             s = p->sub;
             if (p->state == 5) {

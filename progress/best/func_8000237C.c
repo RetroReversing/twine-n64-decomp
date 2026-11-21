@@ -1,6 +1,6 @@
 #define FLD(p,t,o) (*(t *)((u8 *)(p)+(o)))
 extern s16 D_800C3CF4[]; extern s16 D_800C3928[]; extern s16 D_800C392A[]; extern s16 *D_800C3CF8[]; extern u8 *D_800C3CFC[]; extern f32 D_800AE4D8; extern s16 *D_800AE4DC[]; extern s16 D_800AE53C[]; extern u8 D_800CA338; extern s32 gBootState;
-void *func_80083E90(void*, s32); void *memset(void*,s32,s32); f32 func_80082908(f32); void func_800060B0(void*,s32,s32); void func_80084180(s32*,s32*,s32); void *func_8002BC4C(void); s16 *findOrLoadStreamSlot(s32); s32 func_8003FA78(s32); s32 func_80002098(void *a); s32 func_8004478C(s32,s32); s32 randomIntBelow(s32);
+void *heapAllocTagged(void*, s32); void *memset(void*,s32,s32); f32 func_80082908(f32); void func_800060B0(void*,s32,s32); void func_80084180(s32*,s32*,s32); void *func_8002BC4C(void); s16 *findOrLoadStreamSlot(s32); s32 func_8003FA78(s32); s32 func_80002098(void *a); s32 func_8004478C(s32,s32); s32 randomIntBelow(s32);
 s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
  u32 result=0, n, bytes, aligned, stride, size12, size4, i, j, val, id;
  s32 tmp, valid; void *base; void *obj; void *state; s16 *list;  f32 f;
@@ -16,7 +16,7 @@ s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
   else bytes=(bytes*3+bytes+2+bytes*4)*4;
   size4=n*4; size12=n*12;
   aligned=(bytes+7)&~7;
-  base=func_80083E90(a,aligned+0xB8+aligned+bytes+size4+size12+size12);
+  base=heapAllocTagged(a,aligned+0xB8+aligned+bytes+size4+size12+size12);
   if(!base) goto done;
   FLD(a,void*,0x68)=base;
   memset(base,0,0xB8);

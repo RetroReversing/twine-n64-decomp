@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-void *func_80083E90();
+void *heapAllocTagged();
 extern s32 D_80107ED0;
 extern char D_80109EA0[];
 extern s32 gGfxPtr;
@@ -13,7 +13,7 @@ void func_800326BC(void *arg0) {
 
     temp_s2 = (*(u16 *)((char *)(arg0) + 2)) + 1;
     temp_s1 = (*(u16 *)((char *)(arg0) + 4)) + 1;
-    temp_v0 = func_80083E90(0x10, 0x20);
+    temp_v0 = heapAllocTagged(0x10, 0x20);
     {
     s32 index = D_80107ED0;
     s32 base;

@@ -29,7 +29,7 @@ s32 func_80044D84();
 s32 func_80044FF0();
 s32 func_8004505C();
 s32 func_80048794();
-void *func_80083E90();
+void *heapAllocTagged();
 s32 memset();
 s32 updateTransitionState();
 extern char D_54D910[];
@@ -93,11 +93,11 @@ s32 func_8000D000(void) {
         func_8000A2B8();
         func_8000A2F4();
     }
-    temp_v0 = func_80083E90(0x2E74, 0x33);
+    temp_v0 = heapAllocTagged(0x2E74, 0x33);
     gObjectRecords = temp_v0;
     memset(temp_v0, 0, 0x2E74);
     M2C_FIELD(gObjectRecords, s16 *, 0x10) = (s16) temp_s0;
-    temp_v0_2 = func_80083E90(0x8000, 0x33);
+    temp_v0_2 = heapAllocTagged(0x8000, 0x33);
     temp_v1 = gObjectRecords;
     ((__repair_record_temp_v1_*)temp_v1)->field_4 = temp_v0_2;
     ((__repair_record_temp_v1_*)temp_v1)->field_0 = temp_v0_2;

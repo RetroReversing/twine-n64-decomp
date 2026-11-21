@@ -13,14 +13,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80083E90(M2C_UNK, M2C_UNK);                /* extern */
+s32 heapAllocTagged(M2C_UNK, M2C_UNK);                /* extern */
 M2C_UNK func_8003C710(s32);                         /* extern */
 
 /* Allocates a 12-byte node from pool 1 and clears it. */
 s32 func_8003C78C(void) {
     s32 node;
 
-    node = func_80083E90(332, 14);
+    node = heapAllocTagged(332, 14);
     func_8003C710(node);
     return node;
 }

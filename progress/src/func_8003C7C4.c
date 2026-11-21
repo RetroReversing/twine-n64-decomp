@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 *func_80083E90(M2C_UNK, M2C_UNK);               /* extern */
+s32 *heapAllocTagged(M2C_UNK, M2C_UNK);               /* extern */
 
 void func_8003C7C4(void) {
-    *func_80083E90(8, 0xF) = 0;
+    *heapAllocTagged(8, 0xF) = 0;
 }

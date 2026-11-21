@@ -35,7 +35,7 @@ extern M2C_UNK D_801093A8;
 extern M2C_UNK D_80109D28;
 extern M2C_UNK func_8001E898;
 extern M2C_UNK func_8001EAF0;
-extern M2C_UNK gBonusObjectTable;
+extern M2C_UNK sBonusObjectTable;
 extern M2C_UNK *gMenuList;
 extern s16 gMenuMode;
 extern u8 gMenuSlot;
@@ -60,7 +60,7 @@ extern u8 sMenuListKind;
     D_800B60EA = 1;
     gMenuList = &D_801003E0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    ownerObj = *(&gBonusObjectTable + gMenuSlot);
+    ownerObj = *(&sBonusObjectTable + gMenuSlot);
     selectedEntry = NULL;
     if (ownerObj != NULL) {
         ownerEntries = M2C_FIELD(ownerObj, void **, 0x6C);

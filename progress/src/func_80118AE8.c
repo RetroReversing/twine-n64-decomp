@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 f32 func_800461D4();
 s32 func_80117784();
-s32 func_80117AFC();
+s32 findNearestSearchEntry();
 s32 func_80117EC8();
 s32 func_80117ED0();
 
@@ -27,9 +27,9 @@ void func_80118AE8(void *arg0) {
 
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     temp_s3 = temp_s1 + 0x110;
-    temp_s0 = func_80117AFC();
+    temp_s0 = findNearestSearchEntry();
     temp_s0_2 = temp_s1 + 0x104;
-    func_80117784(temp_s0, func_80117AFC(M2C_FIELD(temp_s1, s32 *, 0xC0)), temp_s0_2, temp_s3);
+    func_80117784(temp_s0, findNearestSearchEntry(M2C_FIELD(temp_s1, s32 *, 0xC0)), temp_s0_2, temp_s3);
     M2C_FIELD(temp_s1, f32 *, 0x84) = func_800461D4(arg0 + 0x24, temp_s0_2);
     M2C_FIELD(temp_s1, f32 *, 0x88) = func_800461D4(temp_s0_2, temp_s3);
     if (M2C_FIELD(temp_s1, f32 *, 0x84) < 1.0f) {

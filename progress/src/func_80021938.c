@@ -13,21 +13,21 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80084048(void *, M2C_UNK);             /* extern */
-extern void *D_800B7CE4;
+extern void *sBonusObject;
 extern s8 gMenuCursorActive;
 extern s32 gBootState;
 
 void func_80021938(void) {
     void *temp_a0;
 
-    if (D_800B7CE4 != NULL) {
-        temp_a0 = M2C_FIELD(D_800B7CE4, void **, 0x20);
+    if (sBonusObject != NULL) {
+        temp_a0 = M2C_FIELD(sBonusObject, void **, 0x20);
         if (temp_a0 != NULL) {
             func_80084048(temp_a0, 1);
-            M2C_FIELD(D_800B7CE4, void **, 0x20) = NULL;
+            M2C_FIELD(sBonusObject, void **, 0x20) = NULL;
         }
-        func_80084048(D_800B7CE4, 0);
-        D_800B7CE4 = NULL;
+        func_80084048(sBonusObject, 0);
+        sBonusObject = NULL;
     }
     gBootState = 0;
     gMenuCursorActive = 0;

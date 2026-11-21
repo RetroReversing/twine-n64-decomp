@@ -13,27 +13,27 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8003C7E8(void *, M2C_UNK);             /* extern */
-void *func_80083E90(M2C_UNK, M2C_UNK);              /* extern */
-extern void *D_800B7CE4;
+void *heapAllocTagged(M2C_UNK, M2C_UNK);              /* extern */
+extern void *sBonusObject;
 extern s8 gMenuCursorActive;
 extern u8 gMenuSlot;
 extern void * volatile D_80109698;
 extern s32 gBootState;
-extern M2C_UNK gBonusObjectTable;
+extern M2C_UNK sBonusObjectTable;
 
-void func_800217F4(void) {
+void initBonusObjectIfActive(void) {
     void *temp_v0;
     void *temp_v0_2;
     void *p;
 
     gBootState = 1;
     gMenuCursorActive = 1;
-    if ((*(&gBonusObjectTable + gMenuSlot) != 0) && (D_800B7CE4 == NULL)) {
-        temp_v0 = func_80083E90(0x60, 0);
-        D_800B7CE4 = temp_v0;
-        if ((temp_v0 != NULL) && ((func_8003C7E8(temp_v0, 0), (M2C_FIELD(D_800B7CE4, void **, 0x20) != NULL)) || (temp_v0_2 = func_80083E90(0x68, 1), M2C_FIELD(D_800B7CE4, void **, 0x20) = temp_v0_2, (temp_v0_2 != NULL)))) {
-            M2C_FIELD(M2C_FIELD(D_800B7CE4, void **, 0x20), s32 *, 0x50) = 0;
-            M2C_FIELD(M2C_FIELD(D_800B7CE4, void **, 0x20), s32 *, 0x58) = 0;
+    if ((*(&sBonusObjectTable + gMenuSlot) != 0) && (sBonusObject == NULL)) {
+        temp_v0 = heapAllocTagged(0x60, 0);
+        sBonusObject = temp_v0;
+        if ((temp_v0 != NULL) && ((func_8003C7E8(temp_v0, 0), (M2C_FIELD(sBonusObject, void **, 0x20) != NULL)) || (temp_v0_2 = heapAllocTagged(0x68, 1), M2C_FIELD(sBonusObject, void **, 0x20) = temp_v0_2, (temp_v0_2 != NULL)))) {
+            M2C_FIELD(M2C_FIELD(sBonusObject, void **, 0x20), s32 *, 0x50) = 0;
+            M2C_FIELD(M2C_FIELD(sBonusObject, void **, 0x20), s32 *, 0x58) = 0;
             p = D_80109698;
             if (p != NULL) {
                 s32 *flags;
@@ -41,7 +41,7 @@ void func_800217F4(void) {
                 flags = (s32 *)((u8 *)D_80109698 + 0x100);
                 *flags |= 0x20;
                 p = D_80109698;
-                M2C_FIELD(p, void **, 0xF4) = D_800B7CE4;
+                M2C_FIELD(p, void **, 0xF4) = sBonusObject;
             }
         }
     }

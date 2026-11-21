@@ -1,5 +1,5 @@
 extern s32 gVisibleSaveSlotCount;
-extern TrackMarker *gBonusObjectTable[4];
+extern TrackMarker *sBonusObjectTable[4];
 typedef struct {
     u8 pad[0x20];
     u16 x, y;
@@ -12,7 +12,7 @@ void updateSaveSlotMarkers(void) {
     s32 i = 0;
     if (gVisibleSaveSlotCount > 0) {
         do {
-            TrackMarker *target = gBonusObjectTable[(u16)i];
+            TrackMarker *target = sBonusObjectTable[(u16)i];
             if (target && target->trigger) {
                 SaveSlotMarker *marker = sSaveSlotMarkerTable[(u16)i];
                 if (marker) {

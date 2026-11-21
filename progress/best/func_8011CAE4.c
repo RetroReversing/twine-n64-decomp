@@ -16,7 +16,7 @@ M2C_UNK actorSteerTowardTarget(void *, s32, void *, s32); /* extern */
 extern s32 D_800BD644;
 extern s32 D_800BD650;
 extern s32 D_800BD678;
-extern M2C_UNK gBonusObjectTable;
+extern M2C_UNK sBonusObjectTable;
 extern M2C_UNK D_8011F118;
 extern M2C_UNK D_8011F150;
 extern M2C_UNK sSaveSlotMarkerTable;
@@ -41,7 +41,7 @@ void func_8011CAE4(void) {
 loop_3:
             temp_s0 = *(void **)((s8 *)&sSaveSlotMarkerTable + temp_s4 + var_s1 * 0x10);
             if (temp_s0 != NULL) {
-                actorSteerTowardTarget(temp_s0, *(s32 *)((s8 *)&gBonusObjectTable + temp_s4), (s8 *)&D_8011F118 + var_s1 * 0xC, temp_s5);
+                actorSteerTowardTarget(temp_s0, *(s32 *)((s8 *)&sBonusObjectTable + temp_s4), (s8 *)&D_8011F118 + var_s1 * 0xC, temp_s5);
                 temp_v1 = M2C_FIELD(*(void **)((s8 *)&D_8011F150 + var_s1 * 4), s16 *, 0x7C);
                 switch (temp_v1) {                  /* irregular */
                 case 0:

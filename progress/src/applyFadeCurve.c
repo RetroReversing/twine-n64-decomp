@@ -13,29 +13,29 @@ typedef s32 M2C_UNK32;
 #endif
 
 f64 libmExp(f64);                             /* extern */
-f64 func_800AADA0(f64);                             /* extern */
-extern f64 D_800D2180;
+f64 libmLog(f64);                             /* extern */
+extern f64 kOneF64;
 
-f64 applyFadeCurve(f64 arg0, f64 arg1) {
-    s32 sign;
-    s32 i;
+/* Power function base^exponent for the color fade curve, with special cases for 0, 1 and negative bases (integer exponents only). */ f64 applyFadeCurve(f64 base, f64 exponent) {
+    s32 resultSign;
+    s32 intExponent;
 
-    sign = 1;
-    if ((arg0 == D_800D2180) | (arg1 == D_800D2180)) {
-        return arg0;
+    resultSign = 1;
+    if ((base == kOneF64) | (exponent == kOneF64)) {
+        return base;
     }
-    if (arg0 == 0.0) {
+    if (base == 0.0) {
         return 0.0;
     }
-    if (arg0 < 0.0) {
-        i = (s32) arg1;
-        if (arg1 != (f64) i) {
+    if (base < 0.0) {
+        intExponent = (s32) exponent;
+        if (exponent != (f64) intExponent) {
             return 0.0;
         }
-        if (i & 1) {
-            sign = -1;
+        if (intExponent & 1) {
+            resultSign = -1;
         }
-        arg0 = fabs(arg0);
+        base = fabs(base);
     }
-    return libmExp(func_800AADA0(arg0) * arg1) * (f64) sign;
+    return libmExp(libmLog(base) * exponent) * (f64) resultSign;
 }

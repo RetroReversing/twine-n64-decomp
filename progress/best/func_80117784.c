@@ -15,8 +15,8 @@ typedef s32 M2C_UNK32;
 f32 func_800461D4(s32, s32);                        /* extern */
 M2C_UNK func_80117740(s32 *, void *);               /* extern */
 M2C_UNK func_8011775C(void *);                      /* extern */
-extern void *D_8011F068;
-extern u32 D_8011F06C;
+extern void *sSearchEntries;
+extern u32 sSearchEntryCount;
 extern s32 D_8011F070;
 extern void *D_8011F074;
 extern s32 D_8011F0C8;
@@ -43,12 +43,12 @@ void func_80117784(s32 arg0, s32 arg1, void *arg2, void *arg3) {
     void *var_v0;
     void *var_v1;
 
-    count = D_8011F06C;
+    count = sSearchEntryCount;
     var_s6 = 0;
     var_s2 = 0;
     var_s1 = NULL;
     if (count != 0) {
-        var_v1 = D_8011F068;
+        var_v1 = sSearchEntries;
         do {
             M2C_FIELD(var_v1, s32 *, 0) = 0;
             M2C_FIELD(var_v1, s32 *, 4) = 0;
@@ -59,7 +59,7 @@ void func_80117784(s32 arg0, s32 arg1, void *arg2, void *arg3) {
         } while (var_s2 < count);
     }
     if (arg0 == arg1) {
-        temp_v0 = (arg0 * 0x58) + D_8011F068;
+        temp_v0 = (arg0 * 0x58) + sSearchEntries;
         M2C_FIELD(arg2, f32 *, 0) = M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x10), f32 *, 0);
         M2C_FIELD(arg2, f32 *, 4) = M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x10), f32 *, 4);
         M2C_FIELD(arg2, f32 *, 8) = M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x10), f32 *, 8);
@@ -70,7 +70,7 @@ void func_80117784(s32 arg0, s32 arg1, void *arg2, void *arg3) {
     }
     D_8011F0C8 = 1;
     D_8011F070 = 0;
-    temp_v1 = D_8011F068 + (arg0 * 0x58);
+    temp_v1 = sSearchEntries + (arg0 * 0x58);
     D_8011F074 = temp_v1;
     M2C_FIELD(temp_v1, s32 *, 0xC) = 0;
     if (0 == 0) {
@@ -92,7 +92,7 @@ void func_80117784(s32 arg0, s32 arg1, void *arg2, void *arg3) {
                 break;
             }
             var_s2_2 = 0;
-            if (var_s1 == (D_8011F068 + (arg1 * 0x58))) {
+            if (var_s1 == (sSearchEntries + (arg1 * 0x58))) {
                 var_s6 = 1;
             } else {
                 var_s0 = var_s1;
@@ -115,11 +115,11 @@ void func_80117784(s32 arg0, s32 arg1, void *arg2, void *arg3) {
             }
         }
         temp_v0_3 = arg0 * 0x58;
-        temp_v1_2 = M2C_FIELD((temp_v0_3 + D_8011F068), void **, 0x10);
+        temp_v1_2 = M2C_FIELD((temp_v0_3 + sSearchEntries), void **, 0x10);
         M2C_FIELD(arg2, f32 *, 0) = M2C_FIELD(temp_v1_2, f32 *, 0);
         M2C_FIELD(arg2, f32 *, 4) = M2C_FIELD(temp_v1_2, f32 *, 4);
         M2C_FIELD(arg2, f32 *, 8) = M2C_FIELD(temp_v1_2, f32 *, 8);
-        temp_v0_4 = M2C_FIELD((temp_v0_3 + D_8011F068), void **, 0x10);
+        temp_v0_4 = M2C_FIELD((temp_v0_3 + sSearchEntries), void **, 0x10);
         M2C_FIELD(arg3, f32 *, 0) = M2C_FIELD(temp_v0_4, f32 *, 0);
         M2C_FIELD(arg3, f32 *, 4) = M2C_FIELD(temp_v0_4, f32 *, 4);
         M2C_FIELD(arg3, f32 *, 8) = M2C_FIELD(temp_v0_4, f32 *, 8);
@@ -127,7 +127,7 @@ void func_80117784(s32 arg0, s32 arg1, void *arg2, void *arg3) {
     }
 block_22:
     var_a1 = M2C_FIELD(var_s1, void **, 0x10);
-    temp_v1_3 = D_8011F068 + (arg0 * 0x58);
+    temp_v1_3 = sSearchEntries + (arg0 * 0x58);
     var_a0 = var_a1;
     if (var_s1 != temp_v1_3) {
         do {

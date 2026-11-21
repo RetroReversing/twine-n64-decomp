@@ -1,6 +1,6 @@
-extern int gBonusObjectTable;
+extern int sBonusObjectTable;
 extern int playTrackMarkerCue();
-void func_80081614(void *p) { if (*(int *)((char *)p+0x60) & 0x1000) playTrackMarkerCue(p,gBonusObjectTable,0); }
+void func_80081614(void *p) { if (*(int *)((char *)p+0x60) & 0x1000) playTrackMarkerCue(p,sBonusObjectTable,0); }
 extern float gSinCosTable[];
 float cosTableLookup(float x) { return gSinCosTable[(int)(x * 651.8986f) & 0xfff]; }
 float sinTableLookup(float x) { return gSinCosTable[((int)(x * 651.8986f)-0x400) & 0xfff]; }

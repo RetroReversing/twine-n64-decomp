@@ -1,6 +1,6 @@
 typedef struct { u8 pad0[0x78C]; s32 w78C; s32 w790; } Ctx828C;
 
-s32 func_80083E90(s32, s32);
+s32 heapAllocTagged(s32, s32);
 extern s32 D_800B1D7C;
 extern s32 D_800B1D80;
 extern s32 sMatrixPoolLimit;
@@ -24,7 +24,7 @@ void func_8000828C(void) {
     }
     sMatrixPoolLimit = D_800B1D80 - 1;
     for (i = 0; i < D_8010A518; i++) {
-        D_8010A2BC[i]->w790 = func_80083E90(D_800B1D7C * 8, 0x31);
-        D_8010A2BC[i]->w78C = func_80083E90(D_800B1D80 << 6, 0x31);
+        D_8010A2BC[i]->w790 = heapAllocTagged(D_800B1D7C * 8, 0x31);
+        D_8010A2BC[i]->w78C = heapAllocTagged(D_800B1D80 << 6, 0x31);
     }
 }

@@ -16,7 +16,7 @@ s32 func_8001682C();
 s32 func_80016948();
 s32 func_80045278();
 s32 copyVec3Pair();
-void *func_80083E90();
+void *heapAllocTagged();
 extern s32 D_800B3928;
 extern char D_8010A400[];
 
@@ -25,7 +25,7 @@ void *func_800164F8(s32 arg0, s32 arg1, s32 arg2) {
     void *r;
     void *p84;
 
-    r = func_80083E90(arg0 + 0x84, 0xB);
+    r = heapAllocTagged(arg0 + 0x84, 0xB);
     if (r != NULL) {
         temp_v0 = r;
         p84 = temp_v0 + 0x84;

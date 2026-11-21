@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 getSaveSlotIndex();
 s32 func_8002B000();
-void *func_80083E90();
+void *heapAllocTagged();
 extern char D_801001A1[];
 extern u8 gSceneType;
 extern u8 gSaveKeyRelaxed;
@@ -24,7 +24,7 @@ extern s8 D_801002AE;
 void func_8011B278(void *arg0, u8 arg1) {
     void *temp_v0;
 
-    temp_v0 = func_80083E90(0x14, 0x2C);
+    temp_v0 = heapAllocTagged(0x14, 0x2C);
     M2C_FIELD(arg0, void **, 0xB4) = temp_v0;
     M2C_FIELD(temp_v0, s16 *, 0xC) = 0;
     func_8002B000(M2C_FIELD(arg0, void **, 0xB4), 0x1E);

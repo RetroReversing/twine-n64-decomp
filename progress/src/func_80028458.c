@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80011938(M2C_UNK, M2C_UNK);            /* extern */
-M2C_UNK func_800217F4();                            /* extern */
+M2C_UNK initBonusObjectIfActive();                            /* extern */
 M2C_UNK func_800269B4(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 extern s8 D_800BD690;
@@ -29,7 +29,7 @@ void func_80028458(void) {
         M2C_FIELD(D_80109688, f32 *, 0x12C) = 1.0f;
     }
     D_800BD690 = 0;
-    func_800217F4();
+    initBonusObjectIfActive();
     if (D_80102ED8 == 0) {
         M2C_FIELD(D_80109BB0, M2C_UNK **, 0xC) = &D_800BDB1C;
     } else {

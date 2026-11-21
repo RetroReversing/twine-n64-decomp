@@ -1,6 +1,6 @@
 s32 actorSteerTowardTarget(s32, s32, void *, s32);
 extern s32 gVisibleSaveSlotCount;
-extern s32 gBonusObjectTable;
+extern s32 sBonusObjectTable;
 extern s32 sSteerOriginTable;
 extern u8 sProbeOriginTable[];
 extern s32 sSaveSlotMarkerTable;
@@ -21,7 +21,7 @@ void steerSaveSlotActors(void) {
     for (row = 0; row < 4; row++) {
         { char *q = (row * 0x10) + (char *)&sSaveSlotMarkerTable; markerActor = *(s32 *)(slotOffset + (s32)q); }
         if (markerActor != 0) {
-        actorSteerTowardTarget(markerActor, (&gBonusObjectTable)[slot & 0xFFFF], (2U > row) ? (void *) ((&sSteerOriginTable)[row]) : (void *) ((row * 0xC) + sProbeOriginTable), slot & 0xFFFF);
+        actorSteerTowardTarget(markerActor, (&sBonusObjectTable)[slot & 0xFFFF], (2U > row) ? (void *) ((&sSteerOriginTable)[row]) : (void *) ((row * 0xC) + sProbeOriginTable), slot & 0xFFFF);
         }
     }
 }

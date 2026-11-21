@@ -13,14 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8003C7E8(void *, s32);                 /* extern */
-void *func_80083E90(M2C_UNK, M2C_UNK);              /* extern */
+void *heapAllocTagged(M2C_UNK, M2C_UNK);              /* extern */
 
 void *func_8003C860(s32 arg0, s32 arg1) {
     void *temp_v0;
     
 
     if (((u32)arg1 << 0x18) != 0) {
-        temp_v0 = func_80083E90(0xC8, 0);
+        temp_v0 = heapAllocTagged(0xC8, 0);
         func_8003C7E8(temp_v0, arg0);
         M2C_FIELD(temp_v0, void * volatile *, 0x20) = (void *) (temp_v0 + 0x60);
         M2C_FIELD(temp_v0, s32 *, 0xB0) = 0;
@@ -28,7 +28,7 @@ void *func_8003C860(s32 arg0, s32 arg1) {
         M2C_FIELD(M2C_FIELD(temp_v0, void * volatile *, 0x20), f32 *, 0x5C) = -500.0f;
         return temp_v0;
     } else {
-        temp_v0 = func_80083E90(0x60, 0);
+        temp_v0 = heapAllocTagged(0x60, 0);
         func_8003C7E8(temp_v0, arg0);
         return temp_v0;
     }

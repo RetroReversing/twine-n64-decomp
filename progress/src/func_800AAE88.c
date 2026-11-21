@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f64 func_800AADA0();                                /* extern */
+f64 libmLog();                                /* extern */
 extern f64 D_800D6F98;
 
 f64 func_800AAE88(void) {
-    return func_800AADA0() * D_800D6F98;
+    return libmLog() * D_800D6F98;
 }

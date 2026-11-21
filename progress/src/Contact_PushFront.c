@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80083E90(M2C_UNK, M2C_UNK);              /* extern */
+void *heapAllocTagged(M2C_UNK, M2C_UNK);              /* extern */
 
 void Contact_PushFront(s32 arg0) {
     void *temp_v0;
 
-    temp_v0 = func_80083E90(0x2C, 0x15);
+    temp_v0 = heapAllocTagged(0x2C, 0x15);
     M2C_FIELD(temp_v0, s32 *, 0) = arg0;
     M2C_FIELD(temp_v0, s32 *, 8) = 0;
     M2C_FIELD(temp_v0, s16 *, 0x26) = 0;

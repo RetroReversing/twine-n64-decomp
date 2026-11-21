@@ -16,7 +16,7 @@ s32 func_80041114();
 s32 func_80045278();
 s32 func_80045290();
 s32 vec3Add();
-s32 func_80083E90();
+s32 heapAllocTagged();
 extern char D_800C0784[];
 extern char D_800C0788[];
 extern f32 D_800E19E0;
@@ -227,7 +227,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                 (*(u16 *)((char *)(temp_s4) + 0x42)) = (u16) (*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4));
                 (*(u16 *)((char *)(temp_s4) + 0x40)) = (u16) sp3C;
                 (*(s8 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x45)) = 1;
-                ((__repair_field_34 *)temp_s4)->value = func_80083E90((*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)) * 0xC, 2);
+                ((__repair_field_34 *)temp_s4)->value = heapAllocTagged((*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)) * 0xC, 2);
                 if ((u32) (sp40 - 1) < 2U) {
                     var_a1 = 4;
                     var_a0 = (*(u16 *)((char *)(temp_s4) + 0x40)) * 6;
@@ -238,8 +238,8 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                     var_v0 = (*(u8 *)((char *)(temp_s4) + 0x48)) | 8;
                 }
                 (*(u8 *)((char *)(temp_s4) + 0x48)) = var_v0;
-                (*(s32 *)((char *)(temp_s4) + 0x3C)) = func_80083E90(var_a0, var_a1);
-                temp_v0_10 = func_80083E90((*(u16 *)((char *)(temp_s4) + 0x40)) * 2, 5);
+                (*(s32 *)((char *)(temp_s4) + 0x3C)) = heapAllocTagged(var_a0, var_a1);
+                temp_v0_10 = heapAllocTagged((*(u16 *)((char *)(temp_s4) + 0x40)) * 2, 5);
                 (*(s32 *)((char *)(temp_s4) + 0x38)) = temp_v0_10;
                 __repair_hoisted = ((__repair_field_24 *)arg1)->value;
                 var_s1 = 0;
@@ -281,7 +281,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                         sp44 = 0;
                         sp48 = 0;
                         func_800336FC((*(s32 *)((char *)(temp_a3_3) + 0x18)), (*(s32 *)((char *)(((temp_v1_4 * 0x4C) + temp_s7)) + 0x34)), (*(s32 *)((char *)(temp_a3_3) + 8)), (*(s32 *)((char *)(temp_a3_3) + 0x10)), sp30, var_fs1, temp_s1, temp_s2, 0, &sp44, &sp48);
-                        temp_v0_13 = func_80083E90((sp44 * 0x10) + (sp48 * 8), 0x2E);
+                        temp_v0_13 = heapAllocTagged((sp44 * 0x10) + (sp48 * 8), 0x2E);
                         *(s32 *)(((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7) = temp_v0_13;
                         func_800328B8(temp_v0_13 + (sp48 * 8), temp_v0_13);
                         (*(s32 *)((char *)(temp_s4) + 0)) = temp_v0_13;
@@ -402,7 +402,7 @@ block_37:
             temp_s4_2 = temp_s7 + ((*(u16 *)((char *)(arg1) + 0)) * 0x4C);
             temp_a2_3 = temp_s4_2 + 8;
             if (!var_s0_2) {
-                ((__repair_field_34 *)temp_s4_2)->value = func_80083E90((*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)) * 0xC, 2, temp_a2_3);
+                ((__repair_field_34 *)temp_s4_2)->value = heapAllocTagged((*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)) * 0xC, 2, temp_a2_3);
                 if ((u32) (sp40 - 1) < 2U) {
                     var_a1_2 = 4;
                     var_a0_2 = (*(u16 *)((char *)(temp_s4_2) + 0x40)) * 6;
@@ -413,8 +413,8 @@ block_37:
                     var_v0_2 = (*(u8 *)((char *)(temp_s4_2) + 0x48)) | 8;
                 }
                 (*(u8 *)((char *)(temp_s4_2) + 0x48)) = var_v0_2;
-                (*(s32 *)((char *)(temp_s4_2) + 0x3C)) = func_80083E90(var_a0_2, var_a1_2);
-                (*(s32 *)((char *)(temp_s4_2) + 0x38)) = func_80083E90((*(u16 *)((char *)(temp_s4_2) + 0x40)) * 2, 5);
+                (*(s32 *)((char *)(temp_s4_2) + 0x3C)) = heapAllocTagged(var_a0_2, var_a1_2);
+                (*(s32 *)((char *)(temp_s4_2) + 0x38)) = heapAllocTagged((*(u16 *)((char *)(temp_s4_2) + 0x40)) * 2, 5);
                 var_s1_2 = 0;
                 if ((s32) (*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)) > 0) {
                     var_s0_3 = 0;
@@ -445,7 +445,7 @@ block_37:
                     sp4C = 0;
                     sp50 = 0;
                     func_800336FC((*(s32 *)((char *)(temp_v1_7) + 0x18)), (*(s32 *)((char *)(temp_v1_7) + 0)), (*(s32 *)((char *)(temp_v1_7) + 8)), (*(s32 *)((char *)(temp_v1_7) + 0x10)), sp30, var_fs1, temp_s1_2, temp_s2_2, 0, &sp4C, &sp50);
-                    temp_v0_18 = func_80083E90((sp4C * 0x10) + (sp50 * 8), 0x2E);
+                    temp_v0_18 = heapAllocTagged((sp4C * 0x10) + (sp50 * 8), 0x2E);
                     func_800328B8(temp_v0_18 + (sp50 * 8), temp_v0_18);
                     *(s32 *)(((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7) = temp_v0_18;
                     temp_v1_8 = ((__repair_field_24 *)arg1)->value;
