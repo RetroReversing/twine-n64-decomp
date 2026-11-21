@@ -34,12 +34,11 @@ void func_800156F4(void) {
     u32 s0 = gSurfaceQueryStamp + 1;
     count = D_80109E1C;
     gSurfaceQueryStamp = s0;
-    stamp = s0;
     for (i = 0; i < D_80109E1C; i++) {
         entry = D_80102D68[i];
         b = &D_80103F10[i];
-        if (entry->data->stamp != (u16)stamp) {
-            entry->data->stamp = stamp;
+        if (entry->data->stamp != gSurfaceQueryStamp) {
+            entry->data->stamp = gSurfaceQueryStamp;
             entry->data->bounds.minX = b->minX;
             entry->data->bounds.minY = b->minY;
             entry->data->bounds.maxX = b->maxX;
@@ -54,17 +53,16 @@ void func_800156F4(void) {
         prev = NULL;
         cur = gObjectListHead;
         if (cur == NULL) {
-            gObjectListHead = entry;
-            entry->next = NULL;
-            continue;
+            entry->next = NULL; gObjectListHead = entry; continue;
         }
         do {
             if (entry->data->depth < cur->data->depth) {
-                entry->next = cur;
                 if (prev == NULL) {
+                    entry->next = cur;
                     gObjectListHead = entry;
                     goto next;
                 }
+                entry->next = cur;
                 prev->next = entry;
                 goto next;
             }
