@@ -251,7 +251,7 @@ void func_80070F34(void *arg0)
           var_fv1 = 2.0f * var_fs1;
         }
         temp_fv1_4 = var_fv1 - 48.0f;
-        *((s16 *) (((char *) (*((void **) (((char *) temp_v1) + 0x418)))) + 0x20)) = (s16) var_v1;
+        *((s16 *) (((char *) (*((void **) (((char *) ((void *) ((((int) var_s3) * 4) + ((s32) temp_s2)))) + 0x418)))) + 0x20)) = (s16) var_v1;
         temp_a0 = *((void **) (((char *) ((var_s3 * 4) + temp_s2)) + 0x418));
         *((s16 *) (((char *) temp_a0) + 0x22)) = (u16) ((u32) temp_fv1_4);
         temp_v1_2 = (void *) ((var_s3 * 4) + ((s32) temp_s2));

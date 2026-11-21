@@ -147,8 +147,8 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   u16 sp1C6;
   f32 *sp1CC;
   register s16 *sp1D4;
-  u16 sp1DE;
   u16 sp1E6;
+  u16 sp1DE;
   u16 *sp1EC;
   f32 *sp1F4;
   f32 *sp1FC;
@@ -359,7 +359,10 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
           {
             if ((((*((s32 *) (((char *) sp194) + 0x58))) & 0x400) && ((*((s32 *) (((char *) sp194) + 0x5C))) & 0x200)) && (absFloat((*((f32 *) (((char *) arg3) + 4))) - (*((f32 *) (((char *) var_s5) + 0x28)))) < 1.5f))
             {
-              temp_fs0 = func_80045590(var_s5 + 0x24, arg3);
+              {
+                const void *actorPosition = (const char *) var_s5 + 0x24;
+                temp_fs0 = func_80045590((void *) actorPosition, arg3);
+              }
               do
               {
                 var_fs1 = 2.0f * arg5;

@@ -315,7 +315,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
 
       saved_x = *((f32 *) (((char *) arg1) + 0x24));
       *((s16 *) (((char *) arg1) + 0x58)) = 0x46;
-      *((u32 *) (((char *) arg1) + 0x5C)) = (u32) ((temp_v0_13 & 0xFF81FFFF) | ((((temp_v0_13 >> 0x11) & 0x3F) | 4) << 0x11));
+      *((u32 *) (((char *) arg1) + 0x5C)) = (u32) (((*((u32 *) (((char *) arg1) + 0x5C))) & 0xFF81FFFF) | ((((temp_v0_13 >> 0x11) & 0x3F) | 4) << 0x11));
       goto save_vector_zero;
 
     case 0x22:
@@ -399,7 +399,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
     else
       if (temp_v1_6 == 0x84)
     {
-      if (arg1)
+      if (!(arg1))
       {
         ((StateFields *) arg1)->state |= 0x2000;
         var_v0_6 = 0x84;
