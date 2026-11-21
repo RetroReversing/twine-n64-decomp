@@ -1,0 +1,99 @@
+f32 func_80045590(void *, void *);
+f32 randomFloatScaled(f32);
+s32 buildRotationMatrixS16(void *, s16 *);
+s32 func_800839F0(s32 *, s32 *, s32);
+extern f64 D_800D66C0;
+typedef struct 
+{
+  unsigned char pad_0[60];
+  float field_3C;
+  float field_40;
+  float field_44;
+  unsigned char pad_48[36];
+  void *field_6C;
+} __repair_record_arg0;
+void func_80087380(void *arg0)
+{
+  u8 sp10[0x30];
+  s16 sp40[3];
+  struct 
+  {
+    s32 f48;
+    f32 f4C;
+    s32 f50;
+  } __repair_frame;
+  typeof(__repair_frame) *frame;
+  f32 loop_zero;
+  register s32 *var_s5;
+  f32 *var_s2;
+  f32 temp_fv0;
+  f32 var_fs0;
+  f32 var_fs1;
+  s32 temp_a0;
+  s32 temp_s0_2;
+  u32 var_s6;
+  register void *temp_s0;
+  register void *root;
+  register void *var_s4;
+  root = ((__repair_record_arg0 *) arg0)->field_6C;
+  sp40[0] = (s16) ((s32) ((__repair_record_arg0 *) arg0)->field_3C);
+  sp40[1] = (s16) ((s32) ((__repair_record_arg0 *) arg0)->field_40);
+  sp40[2] = (s16) ((s32) ((__repair_record_arg0 *) arg0)->field_44);
+  buildRotationMatrixS16(sp40, sp10);
+  temp_fv0 = func_80045590(arg0 + 0x24, arg0 + 0x30);
+  var_fs0 = 3.6442475f;
+  if (0.0f != temp_fv0)
+  {
+    f32 quotient = temp_fv0 / var_fs0;
+    var_fs1 = (f32) (((f64) temp_fv0) * D_800D66C0);
+    var_fs0 = quotient * 4096.0f;
+  }
+  else
+    if (D_800D66C0)
+  {
+    var_fs1 = (var_fs0 = 0.0f);
+  }
+  else
+  {
+    var_fs1 = (var_fs0 = 0.0f);
+  }
+  var_s6 = 0;
+  frame = &__repair_frame;
+  loop_zero = 0.0f;
+  var_s2 = &D_800CEE98;
+  var_s5 = &D_800CEE50;
+  var_s4 = root;
+  do
+  {
+    temp_s0 = *((void **) (((char *) var_s4) + 0x2C));
+    __repair_frame = *((typeof(__repair_frame) *) var_s5);
+    temp_a0 = __repair_frame.f50;
+    temp_s0_2 = temp_s0 + 0x24;
+    __repair_frame.f4C -= randomFloatScaled(var_fs1);
+    func_800839F0(sp10, frame, temp_s0_2);
+    do
+    {
+      vec3Add(arg0 + 0x24, temp_s0_2, temp_s0_2);
+    }
+    while (0);
+    *((s32 *) (((char *) temp_s0) + 0x30)) = (s32) (*((s32 *) (((char *) temp_s0) + 0x24)));
+    *((s32 *) (((char *) temp_s0) + 0x34)) = (s32) (*((s32 *) (((char *) temp_s0) + 0x28)));
+    *((s32 *) (((char *) temp_s0) + 0x38)) = (s32) (*((s32 *) (((char *) temp_s0) + 0x2C)));
+    *((f32 *) (((char *) temp_s0) + 0x40)) = (f32) (((__repair_record_arg0 *) arg0)->field_40 + (*var_s2));
+    if ((*var_s2) == loop_zero)
+    {
+      *((f32 *) (((char *) temp_s0) + 0x3C)) = (*((f32 *) (((char *) temp_s0) + 0x3C))) - var_fs0;
+    }
+    else
+    {
+      *((f32 *) (((char *) temp_s0) + 0x3C)) = (*((f32 *) (((char *) temp_s0) + 0x3C))) + var_fs0;
+    }
+    var_s2 += 1;
+    var_s5 += 3;
+    var_s4 += 4;
+    ++var_s6;
+    *((f32 *) (((char *) temp_s0) + 0x44)) = (f32) ((__repair_record_arg0 *) arg0)->field_44;
+  }
+  while (var_s6 < 6U);
+}
+

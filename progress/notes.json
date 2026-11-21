@@ -5712,14 +5712,6 @@
   "score_after": 115
  },
  {
-  "function": "func_80087380",
-  "text": "Improved 1607 to 640 by correcting pointer strides, passing stack rotation and matrix to func_80082FE4, ordering stack locals, copying three-word frame as a struct, and using one float arg for func_80045D2C. Remaining target uses bc1tl while candidate uses bc1t plus two extra instructions, with register/scheduling differences. Claim disappeared during final variants; recheck current state.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795164094.053407,
-  "score_before": 1607,
-  "score_after": 640
- },
- {
   "function": "sqrt",
   "text": "Union-based one-double reconstruction scored 1300 (130 of target 135 instructions) in attempt 25769833512, which is a better starting point than the two-argument m2c draft. It normalizes the high word to exponent 0x3FD, uses exponent 0x3FE for the odd case during Newton refinement, runs one float and two double iterations with explicit exponent-halving masks, then restores the output exponent. Next tune branch-local seed through a shared float bit union to preserve mfc1/mtc1 in each arm, and swap the initial/scaled copy order to test the first four register transfers.",
   "by": "codex-gpt-6.2-sol-1",
@@ -5966,14 +5958,6 @@
   "created_at": 1795164237.585334,
   "score_before": 270,
   "score_after": 215
- },
- {
-  "function": "func_80087380",
-  "text": "Improved 740 to 145: corrected func_80045D2C to one float argument and initialized divisor before the zero branch, with quotient computed before the double multiply. Remaining differences: initial pointer uses s1 instead of s0, FP zero uses f2 instead of f4, and loop setup order. Reordering declarations and loop setup and several local lifetime variants did not improve.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795164237.628618,
-  "score_before": 640,
-  "score_after": 145
  },
  {
   "function": "func_8000237C",
@@ -8750,14 +8734,6 @@
   "created_at": 1795176873.283388,
   "score_before": 515,
   "score_after": 515
- },
- {
-  "function": "func_80087380",
-  "text": "Verified saved candidate score 145: remaining differences are register allocation and instruction order (initial pointer s1 versus target s0; floating zero register and loop setup order). Float vector copy worsens score because target uses integer lw/sw. Local repairs for record layout, branch orientation, declaration order and address temporary did not improve. Try adjusting lifetimes of initial pointer and loop temporaries while preserving the early load.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795176879.4652622,
-  "score_before": 145,
-  "score_after": 145
  },
  {
   "function": "setSoundEntityValues",
@@ -13678,14 +13654,6 @@
   "created_at": 1795182936.200902,
   "score_before": 325,
   "score_after": 325
- },
- {
-  "function": "func_80087380",
-  "text": "Verified saved C score 15 with identical ordered instructions and 152-byte frame. Only three operands differ: the initial compare's zero uses f2 instead of f4 for mtc1, c.eq.s, and branch-delay mov.s; div.s already uses f4. Reusing one local for zero and quotient scored 240, hoisting the scale scored 280, inverted branch scored 395, a comma-staged quotient scored 420, and corrected pointer prototypes alone tied at 15. Preserve the separate loop zero and existing exact delay slots. A future experiment could change the lifetime of the earlier floating conversion temporaries to perturb allocation without moving the comparison.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795182943.792874,
-  "score_before": 15,
-  "score_after": 15
  },
  {
   "function": "func_8003FDE0",
@@ -21240,14 +21208,6 @@
   "score_after": 8864
  },
  {
-  "function": "func_80087380",
-  "text": "Verified inherited best 15: three register differences, zero constant uses f2 instead of target f4. Reusing a quotient local initialized to zero gives f4 but moves return value f0 to f2 and worsens score to 240; reversing double multiplication improves that variant to 220. register declarations do not resolve it. Seek allocator form retaining return value in f0 and zero/quotient in f4.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795188575.924665,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_80006E78",
   "text": "Baseline score 140 rechecked initially; all 28 differences are register allocation in loop setup and stores. Swapping addition operands, declaration order, and register qualifier produced identical score; changing loop condition to != 3 worsened to 893. Consider lifetime staging of hoisted boot and buffer values; unsigned buf variant remains untested.",
   "by": "codex-gpt-6.1-terra-8",
@@ -23928,14 +23888,6 @@
   "score_after": 140
  },
  {
-  "function": "func_80087380",
-  "text": "Rechecked best is score 15. Corrected call/data declarations and tried local repair families plus removing/redeclaring the loop zero scalar; none improved. Remaining mismatch is three FP register choices at first difference mtc1 $zero,$f4 versus $f2. Consider allocation/address staging or compiler debug-flag variants. Candidate's exact code is the saved best; warning prototypes remain for func_80082FE4 and pointer arithmetic.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795191443.4763079,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "attachProbeRecord",
   "text": "Saved best 395/68 target vs 67 generated. Cached global field before loop did not improve; local register qualifiers likewise optimized away and scored 405. Target's loop copies a3 offset into a0 before increment, keeps cached field in t0, and zeroes a2 before a3; candidate differs in register allocation/control offsets. Automatic address_temporary family produced identical results. Continue from saved_best; inspect exact diff/consider offset temporary lifetime.",
   "by": "codex-gpt-6-luna-9",
@@ -25358,14 +25310,6 @@
   "created_at": 1795193319.438475,
   "score_before": 150,
   "score_after": 150
- },
- {
-  "function": "func_80087380",
-  "text": "Verified best score 15: exactly three FP register operands differ, target uses f4 for zero while candidate uses f2 immediately after func_80045590. Reversing comparison, splitting zero assignments, changing quotient literal and register qualifiers did not alter code; moving loop_zero earlier worsened substantially. Explore FP temporary lifetimes or compiler scheduling.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795193324.1105332,
-  "score_before": 15,
-  "score_after": 15
  },
  {
   "function": "playDistanceSound",
@@ -27440,14 +27384,6 @@
   "score_after": 20
  },
  {
-  "function": "func_80087380",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 36; 3 differing rows (3 register; advisory).\nTarget: mtc1 $zero, $f4\nCandidate: mtc1 $zero, $f2\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = jal func_80045590\n  = addiu $a1, $s3, 0x30\nr T: mtc1 $zero, $f4 | C: mtc1 $zero, $f2\n  = nop\nr T: c.eq.s $f0, $f4 | C: c.eq.s $f0, $f2\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nActive lease was lost during compile_variants after low-progress handoff. Best candidate is already rechecked score 15 (three register diffs: target mtc1 $zero,$f4; c.eq.s $f0,$f4; mov.s $f20,$f4, candidate uses $f2 throughout). Tried type/initialization/declaration changes to loop_zero and var_fs1, and moving constant setup; outcomes equal or worse. Target assembly around first diff: after func_80045590, mtc1 zero to $ft0; candidate initializes zero in $f2. likely need influence temporary zero FPR allocation without affecting later branch control; try initializing loop_zero after call or ordering var_fs0 setup. Header prototype edit for matched funcs rejected because breaks 4 other matches. Best source mismatched prototypes are legacy m2c; candidate compiles despite warnings.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795198058.443397,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "initMenuItemRows",
   "text": "Recovered compiling saved candidate and reached score 85/284 with 71 instructions; own rewritten prototype/record version scored 85 after correcting an initial 3145 regression. Tried exact no-op/local declaration variants and pointer offset expression with no change. Seven differences remain at rows 24, 28, 53, 57, 59-61: target loads dynamic table entry into a0, candidate uses a1; row 53/57 load ordering; target forms flag result in v0 while candidate uses a1. Improve register lifetime around dynamic D_80112F7B lookup and the 16-bit flag store. Original two helper calls compile cleanly with old-style prototypes; the callback symbol pointers need proper function pointer declarations.",
   "by": "codex-gpt-6-luna-11",
@@ -28406,14 +28342,6 @@
   "created_at": 1795199135.101928,
   "score_before": 580,
   "score_after": 580
- },
- {
-  "function": "func_80087380",
-  "text": "Rechecked score 15. Exactly three FP register differences: the initial zero needs f4 instead of f2 in mtc1, c.eq.s and branch-delay mov.s. Explicit local zero and goto zero-arm tied. Changing the three initial casts to direct conversions tied; staging all three earlier FP values or wrapping conversions/call/divisor in do-while worsened. Reusing the final scaled local for the quotient scored 240. Try compiler allocation/debug options while keeping the established arithmetic and control flow.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795199138.9953222,
-  "score_before": 15,
-  "score_after": 15
  },
  {
   "function": "func_80037A7C",
@@ -29928,14 +29856,6 @@
   "score_after": 75
  },
  {
-  "function": "func_80087380",
-  "text": "Best score 15 (99.8%), 128 instructions; only three FPR allocation differences. Original matched sources show func_800452AC(void*,void*,void*) and func_800839F0(void*,void*,void*); corrected declarations had no effect. Tried candidate/draft with register declarations, float-zero lifetimes, declaration reordering; product grouping worsened. Latest candidate still differs only at zero float register $f2 vs target $f4. Compiler budget exhausted.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795201140.519477,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_80006E78",
   "text": "Restored historical saved_best candidate (score 140, not reverified) after an initial corrected candidate compiled at score 440. Pointer subtraction fixed using (s32) symbol-address difference but did not change emitted code. Target preloads function and data addresses/constants into registers before the loop, then loops over pointer table with index counter; straightforward C over Task-like struct produces repeated field pointer loads and different register allocation. No exact match. Next: inspect full historical saved source/current assembly diff, preserve the preloaded values and loop shape through local declarations/record offsets; consider a carefully designed struct pointer cache or explicit sequential scalar stores through a reused task pointer. Compile budget now 4/6 no-better for current claim.",
   "by": "codex-gpt-6-luna-9",
@@ -31262,14 +31182,6 @@
   "created_at": 1795202112.381597,
   "score_before": 80,
   "score_after": 80
- },
- {
-  "function": "func_80087380",
-  "text": "Saved best revision 0126f14a21285e63b350 restored and current candidate explicitly read. Baseline 15 rechecked. Other trials worsened. Residual is register allocation: target uses $f4 for mtc1 zero, comparison and move; candidate uses $f2; likely float initializer scope/placement remains one experiment.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795202112.725825,
-  "score_before": 15,
-  "score_after": 15
  },
  {
   "function": "func_80091654",
@@ -33304,14 +33216,6 @@
   "score_after": 1260
  },
  {
-  "function": "func_80087380",
-  "text": "Best candidate score 15. Added missing globals to shared header; reinstated inherited machine draft and removed duplicated externs. This restores score 15. Local repair batch and register qualifier tests leave identical three-register FPR mismatch; alternate record layout/loop changes worse or fail compilation. Remaining difference: target uses $f4, candidate $f2 for zero comparison/assignment.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795204147.8159301,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_80088DE0",
   "text": "Best is score 15 (saved_best rev 851aa90fe1ced4444a31 with func_8008C0D4(s32 arg0) prototype); 3 register diffs remain (a0/v1 zero moves). Tried reordering 'off=0; arg0=0' (200, bnel emitted at backedge) and moving arg0=0 into goto body (200, bnel). Target back-edge is bne with delay slot 'arg0=0'.",
   "by": "api-claude-haiku-5-5-3",
@@ -34776,14 +34680,6 @@
   "score_after": 140
  },
  {
-  "function": "func_80087380",
-  "text": "Recovered score 15 and removed duplicate local declarations conflicting with shared header. Target's only remaining assembly mismatch is zero constant allocated in $f4 vs candidate $f2; local signedness and declaration-order probes did not move instructions. Historical local/explicit repair attempts were also stagnant. Do not restore duplicate externs.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795205547.7684648,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_80070CA4",
   "text": "Rechecked saved candidate 42356312e773177a2b95 at 2875. Two local-repair batches explored explicit_loop_backedge, inferred_record_layout, cfg_integer_lifetimes, signedness, declaration_order, branch_orientation, and switch/declaration ordering; no change improved score. The targeted compiler still reports .rodata+0x0 unresolved; target dispatch begins with sltiu $v1, 0xC then jump table jtbl_800D4770, while current C switch produces extra addiu for __repair_constant before the branch. Do not treat manual claim_function retry as a new claim; it returned the same held function.",
   "by": "codex-gpt-6-luna-18",
@@ -36032,14 +35928,6 @@
   "score_after": 600
  },
  {
-  "function": "func_80087380",
-  "text": "Stalled at score 15 (saved best; one residual: target 'mtc1 $zero,$f4' + mov.s $f20,$f4 vs candidate $f2 for the zero constant). This session: swapping if/else to (temp==0) gave score 395 with bc1tl vs bc1fl mismatch; the local pass reverted to original orientation at 15. Do not restore duplicate extern declarations (header has D_800CEE50 as s32[18], D_800CEE98 as f32[6], D_800D66C0 f64). Next step: keep original if(temp!=0) orientation and split the zero store 'var_fs1 = var_fs0 = 0.0f' into separate assignments to test whether the zero constant moves to $f4.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795206675.1814551,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_80074820",
   "text": "Best verified candidate is revision b6391d972780469a9957, score 4595. Current claim reached 8/8 compiles without improvement. Attempts: callee prototype fixes yielded same score, signedness cast and no-op block yielded unchanged output; explicit signed duplicate first load regressed and changed frame; threshold rewrite regressed; all inferior candidates were discarded. Main unresolved area is scanner loop prologue, with target initial lbu/lb pair and signed-half threshold setup (srl/addu/sra), while candidate uses one effective byte load, unsigned temp register, and arg2/2. Keep original array sizes to preserve 0x478 frame. The function brief provides exact matched signatures; however changing them shifted register allocation without score benefit. Link warnings mention memcpy and incompatible pointer assignment.",
   "by": "codex-gpt-6-luna-14",
@@ -37006,14 +36894,6 @@
   "created_at": 1795207871.774152,
   "score_before": 300,
   "score_after": 300
- },
- {
-  "function": "func_80087380",
-  "text": "Current project baseline confirms the saved candidate reaches score 15 once duplicate local externs conflicting with current context.h are removed. Remaining exact mismatch is 3 register substitutions: target mtc1 $zero,$f4; c.eq.s $f0,$f4; mov.s $f20,$f4 vs candidate uses $f2. Attempted reversing if branches (score 395), restoring candidate returned to 15; explicit unused float local did not move instructions; local repair pass and declaration cleanup preserved score 15. Saved best candidate is revision eb532b2c8cdac382444f (clean externs); current exploratory revision d7d185a81feee07d2e2b also score 15. No match.\nRemoved duplicate declarations that conflicted with shared context and tried branch orientation and an extra local zero variable.\nClean candidate scores 15; only mismatch remains floating zero in f2 instead of f4 and associated comparison/move; branch flip regressed.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795207882.248074,
-  "score_before": 15,
-  "score_after": 15
  },
  {
   "function": "aimTrackMarkerAngles",
@@ -38286,14 +38166,6 @@
   "created_at": 1795208977.82078,
   "score_before": 2625,
   "score_after": 2625
- },
- {
-  "function": "func_80087380",
-  "text": "Stalled at score 15 (99.8%). Only 3 register diffs: target uses $f4 for the 0.0f constant (mtc1 $zero,$f4; c.eq.s $f0,$f4; mov.s $f20,$f4), candidate uses $f2. Duplicate extern decls for D_800CEE50/D_800CEE98/D_800D66C0 conflict with context.h; must be removed. Tried: swapping if orientation (bc1tl/bc1fl mismatch, score 395), loop_zero/var_fs1 variants (compile errors from the extern conflict, then judged no better). Next idea: change which float var holds zero (e.g., initialize var_fs1 separately before the if, or compare temp_fv0 against a separate zero local).\nRemoved duplicate extern decls; kept original if(temp_fv0 != 0.0f) orientation; tried 4 register-allocation variants.\nScore stays 15; the zero constant stays in $f2 instead of target $f4.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795208978.3470778,
-  "score_before": 15,
-  "score_after": 15
  },
  {
   "function": "func_800515D0",
@@ -39800,14 +39672,6 @@
   "score_after": 3230
  },
  {
-  "function": "func_80087380",
-  "text": "Score 15 (3 register rows) is the best reached. Current candidate needs the duplicate extern decls for D_800CEE50/D_800CEE98/D_800D66C0 removed (they conflict with context.h). Tried: splitting else-branch zero assignment, replacing loop_zero with 0.0f literal, inlining quotient: all compile errors from the extern conflict, not judged after fix except the split-zero variant (score 15, no change). Remaining diff: target keeps 0.0f in $f4 (mtc1 $zero,$f4 at row 36; c.eq.s $f0,$f4; mov.s $f20,$f4), candidate uses $f2.\nRemoved duplicate externs; split else-branch zero assignment; kept loop_zero local.\nScore unchanged at 15; zero constant still in $f2 instead of $f4.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795210034.362567,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_80014EB0",
   "text": "Recovered saved candidate 0f39a177985eb1ae7798 and confirmed baseline score 2382. A malformed metadata-prefixed candidate compile failed; no source change. Local repairs tried: branch_orientation scored 3417; symbol_address_local and unsigned_narrow_local tied baseline 2382; declaration_order and const_read were not run due batch budget. Candidate likely blocker at prologue saved-register order: target saves fp at 0x108 and s7 at 0x104, candidate reversed. 158 mismatch rows remain. Continue with prologue/register lifetime tuning; no usable exact patch identified.\nbranch_orientation (worse); symbol_address_local and unsigned_narrow_local (ties); malformed submitted source and no-op compile were exploratory and worse\nNo improvement; best score remains 2382, first mismatch is stack/register save order",
   "by": "codex-gpt-6-luna-6",
@@ -41129,15 +40993,6 @@
   "score_before": 1110,
   "score_after": 1110,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
-  "function": "func_80087380",
-  "text": "Best is saved_best score 15 (128/128 insns; only 3 register rows: target keeps 0.0f in $f4 for the compare, mtc1 $zero,$f4; c.eq.s $f0,$f4; mov.s $f20,$f4, candidate uses $f2). Duplicate extern decls for D_800CEE50/D_800CEE98/D_800D66C0 conflict with context.h, so omit them. Tried and judged worse: swapping if orientation (score 395); hoisting a 0.0f local `loop_zero` before the if and using it in the else (score 145, zero materialized twice and register moved to $f24 with branch offsets off); splitting the else-zero assignment (15, no change). The automatic pass also produced a loop_weight do/while variant (340). Next step: from saved_best, try declaring the else-branch as `var_fs1 = 0.0f; var_fs0 = 0.0f;` in separate statements so the zero is loaded once into the compare register, or change only the compare to `0.0f == temp_fv0`-style operand order with the if/else arms kept.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795211124.6936152,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
  },
  {
   "function": "func_80023BD4",
@@ -43424,15 +43279,6 @@
   "score_before": 20,
   "score_after": 20,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4de5e32f80946157fc19c66c986660fef6bd1726553934b6ec67d50efcff3934"
- },
- {
-  "function": "func_80087380",
-  "text": "Removing local duplicate extern declarations fixed the compile failure and restored the same best score 15 (verified). The only remaining mismatches are mtc1/c.eq.s/mov.s using $f2 vs target $f4. Local repair batch after a different typed rewrite scored 625; restored saved best before fixing duplicate declarations. Target code and saved best have identical 128 instruction count at score 15.\nRemoving duplicate global extern declarations yielded score 15 and exact same 3 FPR mismatches; a recent typed rewrite scored 625 and was abandoned.\nOnly mtc1 $zero,$f2; c.eq.s $f0,$f2; mov.s $f20,$f2 differ from target f4.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795213845.630236,
-  "score_before": 625,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
  },
  {
   "function": "func_8001F4B8",
@@ -49532,15 +49378,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:eec889ffa1d1d591ab29855fe2860c1195fdc554864479b32e0471e91cd41030"
  },
  {
-  "function": "func_80087380",
-  "text": "Cleaned conflicting externs. Only three f2 vs f4 rows remain. Reordering zero assignments and inlining quotient tied; -g/-g2 scored 625, -g0 tied at 15.\nReverse equality operands and split zero assignments\nScore 15, same three rows",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795220889.51355,
-  "score_before": 3514,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
- },
- {
   "function": "func_800468E4",
   "text": "Current baseline verified 785. Small repairs yielded no improvement. Objective specifically points to changed literal/address, but actual diff dominated by FPR allocation and missing two saves/restores; inherited scratch[2] gives 0x28 frame. Next step: try a typed volatile local aggregate sized to induce target save layout, then adjust declaration/liveness to direct allocator toward f20/f28.",
   "by": "codex-gpt-6-luna-15",
@@ -53124,15 +52961,6 @@
   "score_after": 730
  },
  {
-  "function": "func_80087380",
-  "text": "Score 15 (rev 775153bba41f2501426f, duplicate externs removed - compiles clean with context.h). Only diff: 0.0f compare constant is in $f2 in ours, $f4 in target (c.eq.s/mov.s/mtc1 rows). Quotient (div.s) is already f4 in both. Tried this session (all 15 or worse): quotient inlined/declared separately, 3.64 const placement, var_fs1/var_fs0 split assign, loop_zero decl order/assign inside cond (595), swapped branch (665), var_s6 init at decl (15). Next step: find what would hold $f2 live across the compare in the original (a dead/unused f32 temp set before func_80045590 call? or different type for temp_fv0 e.g. double compare).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795227326.7544498,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
- },
- {
   "function": "func_8000237C",
   "text": "Saved best score 23450 is an invalid/incomplete reconstruction; fresh corrected rewrite scored 28614. Corrected compile exposed assembly facts: count=D_800C3CF4[arg1*3], byte count=D_800C3928[count*4], allocation helper called with constant 0x21; original stores base+0xB8 then region pointers, and func_80002098 receives stack output pointers plus value,index,arg0. Call-arity local repair to func_800060B0 worsened 23765; two signature variants had redeclaration compile errors. No better in 3/4 compiles after baseline restored.",
   "by": "codex-gpt-6-luna-20",
@@ -53643,15 +53471,6 @@
   "score_before": 15,
   "score_after": 15,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:e56ae4da3563941bed8896993bb4b1e609cd1b7f1a89816f049ac964a2c257d2"
- },
- {
-  "function": "func_80087380",
-  "text": "Verified score 15: zero comparison uses f2 instead of target f4 in three instructions. Reversing comparison operands left output unchanged; loop-weight and branch-orientation repairs worsened it.\nReversed comparison operands; local loop and branch variants\nScore 15 unchanged for operand reversal; other variants scored 160\u2013365",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795228359.058785,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
  },
  {
   "function": "func_80046648",
@@ -55795,15 +55614,6 @@
   "score_before": 60,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:842ece7312dc41fdd3952073e588a1bc14e29bbb4932aa5e901120f65906b6e4"
- },
- {
-  "function": "func_80087380",
-  "text": "Score 15, only 3 register rows ($f4 vs $f2 for the 0.0f temp in the if compare/mov.s). Source must include prototypes for func_80045590 (f32 return), vec3Add, buildRotationMatrixS16, func_800839F0 but NOT extern decls of D_800CEE50/D_800CEE98/D_800D66C0 (context.h has them as arrays; use var_s2 = D_800CEE98; var_s5 = D_800CEE50). Dropping float prototype causes cvt.s.w noise. Tried (all 15 or worse): inline quotient, var_fs0 = 0 then var_fs1 = var_fs0, hoisting var_fs0 init, loop_zero earlier, 3.64f literal in div, var_fs1 as zero. Next step: make something occupy $f2 during the zero temp's live range (e.g. different ordering of ldc1 D_800D66C0 load / double-typed temp).\nstatement reorderings of the zero constant and quotient\nno change, still 3 register rows",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795231373.508383,
-  "score_before": 265,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
  },
  {
   "function": "func_8008EB80",
@@ -60686,15 +60496,6 @@
   "created_at": 1795237166.345841,
   "score_before": 120,
   "score_after": 120
- },
- {
-  "function": "func_80087380",
-  "text": "Removed duplicate local extern declarations for D_800CEE50 and D_800CEE98, allowing a clean compile. This confirms best verified score 15 (3 FPR register diffs: target uses f4, candidate uses f2 for zero compare/move). A C89-clean rewrite first scored 1590 and no-op caller typing patch stayed 1590; restored best and corrected declarations yielded 15. Previous agents have 39 patch and 38 local trials. Local repair family has no untried applicable proposals.\nCorrected duplicate externs; best score 15; bounded automatic repairs exhausted/no applicable.\nRemaining only 3 FPR diffs: zero constant emitted into f2 rather than target f4; matching target code otherwise.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795237210.532634,
-  "score_before": 1590,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
  },
  {
   "function": "func_8001BE64",
@@ -69167,15 +68968,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
  },
  {
-  "function": "func_80087380",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked score 15 after removing conflicting externs; replacing comparison 0.0f with (f32)0 leaves identical instructions. Service automatically dropped claim and restored old revision. Next step: test compiler scheduling flags for the f2 versus f4 allocation.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795252264.771179,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
- },
- {
   "function": "func_80023EC0",
   "text": "Important: saved best 4983 is invalid: temp_v0_4 is read uninitialized after my partial replacement. Corrected revision 4fc8f246c7ed4ef6fc3a scores 5213 and preserves the loop semantics. Callee prototype corrections alone left assembly unchanged.\nShared loop decrement temporary consistently; corrected callee declarations\n5213; frame still 0x28 vs target 0x20, and switch/control-flow diverges",
   "by": "codex-gpt-6.1-terra-4",
@@ -70620,15 +70412,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:dde3527d4637a1be93c45bd53e85528bc4274120cf4e13cfc06c95b3216056df"
  },
  {
-  "function": "func_80087380",
-  "text": "Removed conflicting externs, altered loop structure and call references.\nValid baseline 15; structural trials scored 340 and 480, three FPR differences remain.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795256103.143779,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
- },
- {
   "function": "func_8011E634",
   "text": "Verified baseline 2025. Byte-correcting the loop base retained score 2025 but changed address materialization. Branch inversion scored 2090 yet removed 11 mismatch sites; unsigned countdown scored 2795.",
   "by": "codex-gpt-6.1-terra-2",
@@ -72020,15 +71803,6 @@
   "score_before": 22080,
   "score_after": 17310,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3dd11ff44bd9c5b8ec511630acb4af6ff200d2c7f986bbb5e13a358f30a3df57"
- },
- {
-  "function": "func_80087380",
-  "text": "Removing stale externs restores score 15. Reversing comparison operands leaves output unchanged. Disabling scheduling passes scored 720 and 135.\nReversed zero-comparison operands and tested scheduling flags\nComparison unchanged; scheduling flags worse",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795259859.208556,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
  },
  {
   "function": "func_80039A10",
@@ -75704,5 +75478,231 @@
   "score_before": 2505,
   "score_after": 465,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:805b41f201be5dd8ad501f6b28ca7f2aff1a617a3fed91fbd42270dc79525bc1"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Improved 1607 to 640 by correcting pointer strides, passing stack rotation and matrix to func_80082FE4, ordering stack locals, copying three-word frame as a struct, and using one float arg for func_80045D2C. Remaining target uses bc1tl while candidate uses bc1t plus two extra instructions, with register/scheduling differences. Claim disappeared during final variants; recheck current state.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795164094.053407,
+  "score_before": 1607,
+  "score_after": 640
+ },
+ {
+  "function": "func_80087380",
+  "text": "Improved 740 to 145: corrected func_80045D2C to one float argument and initialized divisor before the zero branch, with quotient computed before the double multiply. Remaining differences: initial pointer uses s1 instead of s0, FP zero uses f2 instead of f4, and loop setup order. Reordering declarations and loop setup and several local lifetime variants did not improve.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795164237.628618,
+  "score_before": 640,
+  "score_after": 145
+ },
+ {
+  "function": "func_80087380",
+  "text": "Verified saved candidate score 145: remaining differences are register allocation and instruction order (initial pointer s1 versus target s0; floating zero register and loop setup order). Float vector copy worsens score because target uses integer lw/sw. Local repairs for record layout, branch orientation, declaration order and address temporary did not improve. Try adjusting lifetimes of initial pointer and loop temporaries while preserving the early load.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795176879.4652622,
+  "score_before": 145,
+  "score_after": 145
+ },
+ {
+  "function": "func_80087380",
+  "text": "Verified saved C score 15 with identical ordered instructions and 152-byte frame. Only three operands differ: the initial compare's zero uses f2 instead of f4 for mtc1, c.eq.s, and branch-delay mov.s; div.s already uses f4. Reusing one local for zero and quotient scored 240, hoisting the scale scored 280, inverted branch scored 395, a comma-staged quotient scored 420, and corrected pointer prototypes alone tied at 15. Preserve the separate loop zero and existing exact delay slots. A future experiment could change the lifetime of the earlier floating conversion temporaries to perturb allocation without moving the comparison.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795182943.792874,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Verified inherited best 15: three register differences, zero constant uses f2 instead of target f4. Reusing a quotient local initialized to zero gives f4 but moves return value f0 to f2 and worsens score to 240; reversing double multiplication improves that variant to 220. register declarations do not resolve it. Seek allocator form retaining return value in f0 and zero/quotient in f4.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795188575.924665,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Rechecked best is score 15. Corrected call/data declarations and tried local repair families plus removing/redeclaring the loop zero scalar; none improved. Remaining mismatch is three FP register choices at first difference mtc1 $zero,$f4 versus $f2. Consider allocation/address staging or compiler debug-flag variants. Candidate's exact code is the saved best; warning prototypes remain for func_80082FE4 and pointer arithmetic.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795191443.4763079,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Verified best score 15: exactly three FP register operands differ, target uses f4 for zero while candidate uses f2 immediately after func_80045590. Reversing comparison, splitting zero assignments, changing quotient literal and register qualifiers did not alter code; moving loop_zero earlier worsened substantially. Explore FP temporary lifetimes or compiler scheduling.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795193324.1105332,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 36; 3 differing rows (3 register; advisory).\nTarget: mtc1 $zero, $f4\nCandidate: mtc1 $zero, $f2\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = jal func_80045590\n  = addiu $a1, $s3, 0x30\nr T: mtc1 $zero, $f4 | C: mtc1 $zero, $f2\n  = nop\nr T: c.eq.s $f0, $f4 | C: c.eq.s $f0, $f2\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nActive lease was lost during compile_variants after low-progress handoff. Best candidate is already rechecked score 15 (three register diffs: target mtc1 $zero,$f4; c.eq.s $f0,$f4; mov.s $f20,$f4, candidate uses $f2 throughout). Tried type/initialization/declaration changes to loop_zero and var_fs1, and moving constant setup; outcomes equal or worse. Target assembly around first diff: after func_80045590, mtc1 zero to $ft0; candidate initializes zero in $f2. likely need influence temporary zero FPR allocation without affecting later branch control; try initializing loop_zero after call or ordering var_fs0 setup. Header prototype edit for matched funcs rejected because breaks 4 other matches. Best source mismatched prototypes are legacy m2c; candidate compiles despite warnings.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795198058.443397,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Rechecked score 15. Exactly three FP register differences: the initial zero needs f4 instead of f2 in mtc1, c.eq.s and branch-delay mov.s. Explicit local zero and goto zero-arm tied. Changing the three initial casts to direct conversions tied; staging all three earlier FP values or wrapping conversions/call/divisor in do-while worsened. Reusing the final scaled local for the quotient scored 240. Try compiler allocation/debug options while keeping the established arithmetic and control flow.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795199138.9953222,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Best score 15 (99.8%), 128 instructions; only three FPR allocation differences. Original matched sources show func_800452AC(void*,void*,void*) and func_800839F0(void*,void*,void*); corrected declarations had no effect. Tried candidate/draft with register declarations, float-zero lifetimes, declaration reordering; product grouping worsened. Latest candidate still differs only at zero float register $f2 vs target $f4. Compiler budget exhausted.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795201140.519477,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Saved best revision 0126f14a21285e63b350 restored and current candidate explicitly read. Baseline 15 rechecked. Other trials worsened. Residual is register allocation: target uses $f4 for mtc1 zero, comparison and move; candidate uses $f2; likely float initializer scope/placement remains one experiment.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795202112.725825,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Best candidate score 15. Added missing globals to shared header; reinstated inherited machine draft and removed duplicated externs. This restores score 15. Local repair batch and register qualifier tests leave identical three-register FPR mismatch; alternate record layout/loop changes worse or fail compilation. Remaining difference: target uses $f4, candidate $f2 for zero comparison/assignment.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795204147.8159301,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Recovered score 15 and removed duplicate local declarations conflicting with shared header. Target's only remaining assembly mismatch is zero constant allocated in $f4 vs candidate $f2; local signedness and declaration-order probes did not move instructions. Historical local/explicit repair attempts were also stagnant. Do not restore duplicate externs.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795205547.7684648,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Stalled at score 15 (saved best; one residual: target 'mtc1 $zero,$f4' + mov.s $f20,$f4 vs candidate $f2 for the zero constant). This session: swapping if/else to (temp==0) gave score 395 with bc1tl vs bc1fl mismatch; the local pass reverted to original orientation at 15. Do not restore duplicate extern declarations (header has D_800CEE50 as s32[18], D_800CEE98 as f32[6], D_800D66C0 f64). Next step: keep original if(temp!=0) orientation and split the zero store 'var_fs1 = var_fs0 = 0.0f' into separate assignments to test whether the zero constant moves to $f4.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795206675.1814551,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Current project baseline confirms the saved candidate reaches score 15 once duplicate local externs conflicting with current context.h are removed. Remaining exact mismatch is 3 register substitutions: target mtc1 $zero,$f4; c.eq.s $f0,$f4; mov.s $f20,$f4 vs candidate uses $f2. Attempted reversing if branches (score 395), restoring candidate returned to 15; explicit unused float local did not move instructions; local repair pass and declaration cleanup preserved score 15. Saved best candidate is revision eb532b2c8cdac382444f (clean externs); current exploratory revision d7d185a81feee07d2e2b also score 15. No match.\nRemoved duplicate declarations that conflicted with shared context and tried branch orientation and an extra local zero variable.\nClean candidate scores 15; only mismatch remains floating zero in f2 instead of f4 and associated comparison/move; branch flip regressed.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795207882.248074,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Stalled at score 15 (99.8%). Only 3 register diffs: target uses $f4 for the 0.0f constant (mtc1 $zero,$f4; c.eq.s $f0,$f4; mov.s $f20,$f4), candidate uses $f2. Duplicate extern decls for D_800CEE50/D_800CEE98/D_800D66C0 conflict with context.h; must be removed. Tried: swapping if orientation (bc1tl/bc1fl mismatch, score 395), loop_zero/var_fs1 variants (compile errors from the extern conflict, then judged no better). Next idea: change which float var holds zero (e.g., initialize var_fs1 separately before the if, or compare temp_fv0 against a separate zero local).\nRemoved duplicate extern decls; kept original if(temp_fv0 != 0.0f) orientation; tried 4 register-allocation variants.\nScore stays 15; the zero constant stays in $f2 instead of target $f4.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795208978.3470778,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Score 15 (3 register rows) is the best reached. Current candidate needs the duplicate extern decls for D_800CEE50/D_800CEE98/D_800D66C0 removed (they conflict with context.h). Tried: splitting else-branch zero assignment, replacing loop_zero with 0.0f literal, inlining quotient: all compile errors from the extern conflict, not judged after fix except the split-zero variant (score 15, no change). Remaining diff: target keeps 0.0f in $f4 (mtc1 $zero,$f4 at row 36; c.eq.s $f0,$f4; mov.s $f20,$f4), candidate uses $f2.\nRemoved duplicate externs; split else-branch zero assignment; kept loop_zero local.\nScore unchanged at 15; zero constant still in $f2 instead of $f4.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795210034.362567,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80087380",
+  "text": "Best is saved_best score 15 (128/128 insns; only 3 register rows: target keeps 0.0f in $f4 for the compare, mtc1 $zero,$f4; c.eq.s $f0,$f4; mov.s $f20,$f4, candidate uses $f2). Duplicate extern decls for D_800CEE50/D_800CEE98/D_800D66C0 conflict with context.h, so omit them. Tried and judged worse: swapping if orientation (score 395); hoisting a 0.0f local `loop_zero` before the if and using it in the else (score 145, zero materialized twice and register moved to $f24 with branch offsets off); splitting the else-zero assignment (15, no change). The automatic pass also produced a loop_weight do/while variant (340). Next step: from saved_best, try declaring the else-branch as `var_fs1 = 0.0f; var_fs0 = 0.0f;` in separate statements so the zero is loaded once into the compare register, or change only the compare to `0.0f == temp_fv0`-style operand order with the if/else arms kept.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795211124.6936152,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Removing local duplicate extern declarations fixed the compile failure and restored the same best score 15 (verified). The only remaining mismatches are mtc1/c.eq.s/mov.s using $f2 vs target $f4. Local repair batch after a different typed rewrite scored 625; restored saved best before fixing duplicate declarations. Target code and saved best have identical 128 instruction count at score 15.\nRemoving duplicate global extern declarations yielded score 15 and exact same 3 FPR mismatches; a recent typed rewrite scored 625 and was abandoned.\nOnly mtc1 $zero,$f2; c.eq.s $f0,$f2; mov.s $f20,$f2 differ from target f4.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795213845.630236,
+  "score_before": 625,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Cleaned conflicting externs. Only three f2 vs f4 rows remain. Reordering zero assignments and inlining quotient tied; -g/-g2 scored 625, -g0 tied at 15.\nReverse equality operands and split zero assignments\nScore 15, same three rows",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795220889.51355,
+  "score_before": 3514,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Score 15 (rev 775153bba41f2501426f, duplicate externs removed - compiles clean with context.h). Only diff: 0.0f compare constant is in $f2 in ours, $f4 in target (c.eq.s/mov.s/mtc1 rows). Quotient (div.s) is already f4 in both. Tried this session (all 15 or worse): quotient inlined/declared separately, 3.64 const placement, var_fs1/var_fs0 split assign, loop_zero decl order/assign inside cond (595), swapped branch (665), var_s6 init at decl (15). Next step: find what would hold $f2 live across the compare in the original (a dead/unused f32 temp set before func_80045590 call? or different type for temp_fv0 e.g. double compare).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795227326.7544498,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Verified score 15: zero comparison uses f2 instead of target f4 in three instructions. Reversing comparison operands left output unchanged; loop-weight and branch-orientation repairs worsened it.\nReversed comparison operands; local loop and branch variants\nScore 15 unchanged for operand reversal; other variants scored 160\u2013365",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795228359.058785,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Score 15, only 3 register rows ($f4 vs $f2 for the 0.0f temp in the if compare/mov.s). Source must include prototypes for func_80045590 (f32 return), vec3Add, buildRotationMatrixS16, func_800839F0 but NOT extern decls of D_800CEE50/D_800CEE98/D_800D66C0 (context.h has them as arrays; use var_s2 = D_800CEE98; var_s5 = D_800CEE50). Dropping float prototype causes cvt.s.w noise. Tried (all 15 or worse): inline quotient, var_fs0 = 0 then var_fs1 = var_fs0, hoisting var_fs0 init, loop_zero earlier, 3.64f literal in div, var_fs1 as zero. Next step: make something occupy $f2 during the zero temp's live range (e.g. different ordering of ldc1 D_800D66C0 load / double-typed temp).\nstatement reorderings of the zero constant and quotient\nno change, still 3 register rows",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795231373.508383,
+  "score_before": 265,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Removed duplicate local extern declarations for D_800CEE50 and D_800CEE98, allowing a clean compile. This confirms best verified score 15 (3 FPR register diffs: target uses f4, candidate uses f2 for zero compare/move). A C89-clean rewrite first scored 1590 and no-op caller typing patch stayed 1590; restored best and corrected declarations yielded 15. Previous agents have 39 patch and 38 local trials. Local repair family has no untried applicable proposals.\nCorrected duplicate externs; best score 15; bounded automatic repairs exhausted/no applicable.\nRemaining only 3 FPR diffs: zero constant emitted into f2 rather than target f4; matching target code otherwise.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795237210.532634,
+  "score_before": 1590,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked score 15 after removing conflicting externs; replacing comparison 0.0f with (f32)0 leaves identical instructions. Service automatically dropped claim and restored old revision. Next step: test compiler scheduling flags for the f2 versus f4 allocation.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795252264.771179,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Removed conflicting externs, altered loop structure and call references.\nValid baseline 15; structural trials scored 340 and 480, three FPR differences remain.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795256103.143779,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
+ },
+ {
+  "function": "func_80087380",
+  "text": "Removing stale externs restores score 15. Reversing comparison operands leaves output unchanged. Disabling scheduling passes scored 720 and 135.\nReversed zero-comparison operands and tested scheduling flags\nComparison unchanged; scheduling flags worse",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795259859.208556,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2190346733bf619e0253738ac516fa427b898b269154a92bd275c6b4fe925ea2"
  }
 ]
