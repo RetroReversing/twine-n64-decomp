@@ -2112,14 +2112,6 @@
   "score_after": null
  },
  {
-  "function": "func_8006E648",
-  "text": "Not attempted this session (no compile). 3344 bytes, large. The m2c draft is structurally broken: switch(arg1->0x7C) jump table with case labels placed inside an else-block, plus gotos into switch arms (block_34/35/98). Uses float vec math on sp50-sp68 and func_800452E0/func_8004572C. Needs a hand-restructured switch before any compile. Also references undeclared sp4C/sp74 in the draft.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056630.009026,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "Ray_CastObjects",
   "text": "Not attempted (no compile this session). 3404 bytes. m2c draft has undeclared spB4/spD4/spD8/spDC/sp4C-style temps, invalid unary * on pointer-typed args, and a function-pointer arg0 (spEC) called with 4 f32/s32 args. Structure is two nested candidate loops over a linked list (var_s3 via +0, var_s7 via +0x14) with two per-surface triangle-test branches (u16 vs u8 index tables, 6 vs 3 byte strides). Needs struct layouts for the object at +0x58/+0x5C/+0x70 before any compile.",
   "by": "permuter-25769805351",
@@ -2280,14 +2272,6 @@
   "score_after": null
  },
  {
-  "function": "func_8006E648",
-  "text": "Not attempted: 3344-byte function with a switch (jtbl_800D4668 on arg1->0x7C, cases 0,2,5-8 and others) plus many float paths. The m2c draft is not compilable as-is (case labels outside switch, sp4C/sp74 undeclared). Needs a full structured rewrite; too large for a quick pass. Start by reading get_assembly in pages and writing the switch carefully.",
-  "by": "permuter-25769805351",
-  "created_at": 1795057569.557258,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "Ray_CastObjects",
   "text": "Not attempted: 3404-byte collision/sweep routine; m2c draft has undeclared spB4/spD4/spD8/spDC and wrong pointer types (var_s3/temp_s1 casts). Needs a hand-written skeleton with a proper struct for arg1 (+0x20,+0x58,+0x5C,+0x70) and a func-ptr typedef for arg0. Too large for a quick pass.",
   "by": "permuter-25769805351",
@@ -2412,14 +2396,6 @@
   "text": "Not attempted in this session; no compile run. Large (2456 bytes) with many externs and a messy m2c draft (incomplete type D_801002E6, pointer/int assignments, func_800162BC called with extra args, goto-based loops labelled loop_14/loop_32/block_28/block_37/block_47). Start by fixing types (D_801002E6 as u32, func_800162BC(u8) only one arg) and checking the three D_800E0FC0/D_800E0FC4 pair-array loops (stride 0xC) before tuning registers.",
   "by": "permuter-25769805351",
   "created_at": 1795058586.0284128,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_8006E648",
-  "text": "Not attempted this session; no compile run. 3344 bytes with a jump table (switch on s16 at 0x7C, cases 0,2,5-8 and the default body) and many goto blocks. The m2c draft's switch is malformed (case labels outside switch); rewrite the switch body properly first. Needs many extern types resolved (D_800D4658 vec, D_800D4698/D_800D46A0 f64 constants, D_80108788/D_80108404 object pointers). Large; better tackled after smaller functions.",
-  "by": "permuter-25769805351",
-  "created_at": 1795058594.277227,
   "score_before": null,
   "score_after": null
  },
@@ -8800,14 +8776,6 @@
   "score_after": 595
  },
  {
-  "function": "func_8006E648",
-  "text": "Verified best score 70: 12 differences, argument 6/7 allocated to opposite saved registers and f0/f2 allocation around interpolation at target instructions 509-516. Register parameter qualifiers and reordering or combining interpolation expressions did not improve. Local repair discovery timed out before variants. Explore argument lifetime or expression register allocation while preserving instruction order.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795177195.438324,
-  "score_before": 70,
-  "score_after": 70
- },
- {
   "function": "func_80042CFC",
   "text": "Rechecked inherited m2c candidate; it still fails compilation at line 184, invalid operands to binary +. The expression M2C_FIELD(var_s2, u16 **, -0x18) + &D_54D910 adds two pointers; model the ROM offset as an integer and base as a byte address. Earlier warning at line 166 assigns an integer to temp_fp. No verified baseline; repair types and compile before tuning.",
   "by": "codex-gpt-6.1-terra-2",
@@ -11758,14 +11726,6 @@
   "created_at": 1795182085.816736,
   "score_before": 628,
   "score_after": 628
- },
- {
-  "function": "func_8006E648",
-  "text": "Rechecked cb77480e3a18c6135b2b at 70. All instruction forms and offsets agree except $fp/$s7 output pointer save/load ordering and final stores, and the $f0/$f2 roles through mul.s, sub.s, cvt.d.s, mul.d and the second conversion in the type-2 vertical interpolation. Six interpolation variants (old-velocity-first additions, reuse of each input float, scoped float and double temporaries) scored 100\u2013110 and baseline was retained. Future tests should preserve the current add.d operand order when changing float live ranges. Treat output pointer allocation independently by testing typed output fields/aliases that preserve parameter order and the existing order of memory writes.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795182086.017762,
-  "score_before": 70,
-  "score_after": 70
  },
  {
   "function": "func_80096F44",
@@ -38000,14 +37960,6 @@
   "score_after": 1
  },
  {
-  "function": "func_8006E648",
-  "text": "Best candidate 511c09942cffc3d1d4a4 at score 30 (verified this session). Local repairs this session (6 trials): inferred record layout/temp typedef (score 30, no change), s16->u16 temp_v1 (30), temp_v1_5 declaration reorder (30), branch reorder at func_8004BCC0 block (640, worse), address temporary for D field (no better). Remaining mismatch: f0/f2 register roles in the vertical interpolation around target insns 509-516 (mul.s $f2,$f2,$f0 vs candidate $f0; lwc1 $f0,0xcc($s2) vs $f2; sub.s operand order), plus $fp/$s7 output pointer save ordering. Prior notes: six interpolation variants scored 100-110 on the other revision. Untested next step: rewrite the type-2 interpolation expression as a single (f32) float chain with temporaries declared at block scope to force f2 as the product register.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795208863.9434712,
-  "score_before": 30,
-  "score_after": 30
- },
- {
   "function": "func_800740D0",
   "text": "Tried a clean rewrite (FLD(p,type,off) macro, globals used directly, no __base_ locals, u8 temp for the 0x32 call arg). It compiled at revision a79adf142261a3a4b402 but scored 6539 (frame 0x38 vs 0x40; saved s0-s5 set not reproduced; s3 used as temp_s3 is the wrong live-range). Fixing errors: FLD(temp,void*,8) must be (char*)temp+8 and u8 loads cannot be assigned to void*. Best remains saved 1765 (revision fa8908fd7c90db7cbe53). Next step: rebuild from saved_best keeping the 1765 structure, and separate temp_s3 (0x04 pointer) from the case-7 reuse so s3 stays live across calls; target needs 6 saved regs (s0-s5), so the struct pointer lives in s2 and temp_s1 in s1.",
   "by": "api-claude-haiku-5-5-7",
@@ -47305,15 +47257,6 @@
   "created_at": 1795218451.195742,
   "score_before": 0,
   "score_after": 0
- },
- {
-  "function": "func_8006E648",
-  "text": "Reached the no-improvement compile limit. Matching helper return prototype kept score 30; three arithmetic rewrites scored 50. Best candidate restored.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795218470.3810802,
-  "score_before": 30,
-  "score_after": 30,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:58d5d404c68929bcd42924a8caa19456a9d697002021e0b21571bd801291da08"
  },
  {
   "function": "func_8009846C",
@@ -74285,5 +74228,62 @@
   "score_before": 8575,
   "score_after": 1545,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24f388798c8c8c353b0d53229002d2ae86900d9aa980bdc846f383e8e88c8b2f"
+ },
+ {
+  "function": "func_8006E648",
+  "text": "Not attempted this session (no compile). 3344 bytes, large. The m2c draft is structurally broken: switch(arg1->0x7C) jump table with case labels placed inside an else-block, plus gotos into switch arms (block_34/35/98). Uses float vec math on sp50-sp68 and func_800452E0/func_8004572C. Needs a hand-restructured switch before any compile. Also references undeclared sp4C/sp74 in the draft.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056630.009026,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8006E648",
+  "text": "Not attempted: 3344-byte function with a switch (jtbl_800D4668 on arg1->0x7C, cases 0,2,5-8 and others) plus many float paths. The m2c draft is not compilable as-is (case labels outside switch, sp4C/sp74 undeclared). Needs a full structured rewrite; too large for a quick pass. Start by reading get_assembly in pages and writing the switch carefully.",
+  "by": "permuter-25769805351",
+  "created_at": 1795057569.557258,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8006E648",
+  "text": "Not attempted this session; no compile run. 3344 bytes with a jump table (switch on s16 at 0x7C, cases 0,2,5-8 and the default body) and many goto blocks. The m2c draft's switch is malformed (case labels outside switch); rewrite the switch body properly first. Needs many extern types resolved (D_800D4658 vec, D_800D4698/D_800D46A0 f64 constants, D_80108788/D_80108404 object pointers). Large; better tackled after smaller functions.",
+  "by": "permuter-25769805351",
+  "created_at": 1795058594.277227,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8006E648",
+  "text": "Verified best score 70: 12 differences, argument 6/7 allocated to opposite saved registers and f0/f2 allocation around interpolation at target instructions 509-516. Register parameter qualifiers and reordering or combining interpolation expressions did not improve. Local repair discovery timed out before variants. Explore argument lifetime or expression register allocation while preserving instruction order.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795177195.438324,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_8006E648",
+  "text": "Rechecked cb77480e3a18c6135b2b at 70. All instruction forms and offsets agree except $fp/$s7 output pointer save/load ordering and final stores, and the $f0/$f2 roles through mul.s, sub.s, cvt.d.s, mul.d and the second conversion in the type-2 vertical interpolation. Six interpolation variants (old-velocity-first additions, reuse of each input float, scoped float and double temporaries) scored 100\u2013110 and baseline was retained. Future tests should preserve the current add.d operand order when changing float live ranges. Treat output pointer allocation independently by testing typed output fields/aliases that preserve parameter order and the existing order of memory writes.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795182086.017762,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_8006E648",
+  "text": "Best candidate 511c09942cffc3d1d4a4 at score 30 (verified this session). Local repairs this session (6 trials): inferred record layout/temp typedef (score 30, no change), s16->u16 temp_v1 (30), temp_v1_5 declaration reorder (30), branch reorder at func_8004BCC0 block (640, worse), address temporary for D field (no better). Remaining mismatch: f0/f2 register roles in the vertical interpolation around target insns 509-516 (mul.s $f2,$f2,$f0 vs candidate $f0; lwc1 $f0,0xcc($s2) vs $f2; sub.s operand order), plus $fp/$s7 output pointer save ordering. Prior notes: six interpolation variants scored 100-110 on the other revision. Untested next step: rewrite the type-2 interpolation expression as a single (f32) float chain with temporaries declared at block scope to force f2 as the product register.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795208863.9434712,
+  "score_before": 30,
+  "score_after": 30
+ },
+ {
+  "function": "func_8006E648",
+  "text": "Reached the no-improvement compile limit. Matching helper return prototype kept score 30; three arithmetic rewrites scored 50. Best candidate restored.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795218470.3810802,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:58d5d404c68929bcd42924a8caa19456a9d697002021e0b21571bd801291da08"
  }
 ]
