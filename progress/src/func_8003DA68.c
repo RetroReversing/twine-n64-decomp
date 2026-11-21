@@ -1,5 +1,5 @@
-#define FLIP_VECTOR() do {     f32 x = -arg3->x, y = -arg3->y, z = -arg3->z;     arg3->x = x; arg3->y = y; arg3->z = z; } while (0)
-#define FLIP_RETURN() do { FLIP_VECTOR(); *arg4 = -*arg4; return 1; } while (0)
+#define FLIP_VECTOR() {     f32 x = -arg3->x, y = -arg3->y, z = -arg3->z;     arg3->x = x; arg3->y = y; arg3->z = z; }
+#define FLIP_RETURN() { FLIP_VECTOR(); *arg4 = -*arg4; return 1; }
 #define CELLVAL(p) ((((u32)*(u32 *)((u8 *)*(void **)((u8 *)(p) + 0x3C) + 0x30)) >> 4) & 0xFFFF)
 #define F8(o, a, b) (Ray_CastObjects(&Ray_TriangleIntersect, (o), (a), (b), &out, 256.0f, 0, 1, 0) << 24)
 typedef struct 
@@ -49,6 +49,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
   s32 cellB;
   s32 __repair_result_cellB;
   f32 d1;
+  f32 d2;
   s8 c1;
   s8 c2;
   b = *((void **) (((u8 *) arg0) + 0x3C));
@@ -107,7 +108,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
     {
       if (1)
       {
-        FLIP_RETURN();
+        do { FLIP_RETURN(); } while (0);
       }
     }
     goto E364;
@@ -123,9 +124,10 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
     d1 = sum.y - out.y;
     if (F8(arg2, &sum, &p1) != 0)
     {
-      if (d1 < (sum.y - inline_fn(out.y)))
+      d2 = sum.y - out.y;
+      if (d1 < d2)
       {
-        FLIP_RETURN();
+        do { FLIP_RETURN(); } while (0);
       }
       goto E364;
     }
@@ -135,7 +137,8 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
     d1 = sum.y - out.y;
     if (F8(arg2, &sum, &p2) != 0)
     {
-      if (d1 < (sum.y - out.y))
+      d2 = sum.y - out.y;
+      if (d1 < d2)
       {
         FLIP_RETURN();
       }
@@ -193,7 +196,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
   {
     FLIP_RETURN();
   }
-  if ((c2 != 0) & ((unsigned) (c1 != 0)))
+  if (((unsigned) (c1 != 0)) & (c2 != 0))
   {
     FLIP_VECTOR();
     *arg4 = -(*arg4);
@@ -202,11 +205,14 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
     sum.z = pos.z + arg3->z;
     c1 = Probe_BoundsContainPoint(&sum, arg1);
     c2 = Probe_BoundsContainPoint(&sum, arg2);
-    if ((c2 == 0) & (c1 != 0))
+    if ((c1 == 0) & (c2 == 0))
+    {
+    }
+    if ((c1 != 0) & (c2 == 0))
     {
       return 1;
     }
-    if ((c2 != 0) & (c1 == 0))
+    if ((c1 == 0) & (c2 != 0))
     {
       FLIP_RETURN();
     }
