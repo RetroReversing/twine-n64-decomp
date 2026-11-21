@@ -66,8 +66,8 @@ void func_8007092C(void *arg0, s8 arg1) {
             if (!(sEnemyDefTable[temp_a1].f0 & 0x8000)) {
                 continue;
             }
-            savedIndex = temp_a1;
-            temp_a2[0xF] = (u8)(temp_a1 + temp_s4[temp_a1 * 8 + 0x1FE]);
+            savedIndex = (s8)temp_a1;
+            temp_a2[0xF] = (u8)((u8)temp_a1 + temp_s4[temp_a1 * 8 + 0x1FE]);
             temp_s2 = temp_s4 + (s8)savedIndex * 8;
             if (temp_s2[0x1FC] == 0) {
                 continue;

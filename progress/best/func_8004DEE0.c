@@ -86,7 +86,9 @@ f32 __repair_operand;
         temp_ft0 = M2C_FIELD(temp_v0_3, f32 *, 0x18);
         if (temp_fv0 <= temp_ft0) {
             __repair_operand = M2C_FIELD(arg1, f32 *, 8);
-            temp_fv1_5 = ((__repair_operand)) + ((((temp_ft0 - temp_fv0) / sp0[0]) * sp0[2]));
+            temp_fv1_5 = sp0[0];
+            temp_fv1_5 = (temp_ft0 - temp_fv0) / temp_fv1_5;
+            temp_fv1_5 = __repair_operand + sp0[2] * temp_fv1_5;
             if ((M2C_FIELD(temp_v0_3, f32 *, 0x28) < temp_fv1_5) && (temp_fv1_5 < M2C_FIELD(temp_v0_3, f32 *, 0x2C))) {
                 var_v1 = 1;
                 M2C_FIELD(arg1, f32 *, 0) = temp_ft0;
@@ -104,12 +106,14 @@ f32 __repair_operand;
         }
     }
     var_v0 = var_v1;
-    if (sp0[2] != 0.0f) {
+    if ((temp_fv1_7 = sp0[2]) != 0.0f) {
         temp_v0_4 = M2C_FIELD(arg0, void **, 0x3C);
         temp_ft0_3 = M2C_FIELD(arg1, f32 *, 8);
         temp_fv0_2 = M2C_FIELD(temp_v0_4, f32 *, 0x28);
         if (temp_ft0_3 <= temp_fv0_2) {
-            temp_fv1_7 = M2C_FIELD(arg1, f32 *, 0) + (sp0[0] * ((temp_fv0_2 - temp_ft0_3) / sp0[2]));
+            temp_fv1_7 = sp0[2];
+            temp_fv1_7 = (temp_fv0_2 - temp_ft0_3) / temp_fv1_7;
+            temp_fv1_7 = M2C_FIELD(arg1, f32 *, 0) + sp0[0] * temp_fv1_7;
             if ((M2C_FIELD(temp_v0_4, f32 *, 0x18) < temp_fv1_7) && (temp_fv1_7 < M2C_FIELD(temp_v0_4, f32 *, 0x1C))) {
                 M2C_FIELD(arg1, f32 *, 0) = temp_fv1_7;
                 var_v1 = 1;
@@ -180,3 +184,4 @@ block_34:
     }
     return var_v1;
 }
+

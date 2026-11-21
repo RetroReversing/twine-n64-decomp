@@ -33,7 +33,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     f32 sp90[3];
     f32 spA8[3];
     f32 spB8[3];
-    f32 spC8[2];
+    f32 spC8[3];
     f32 spD0[3];
     f32 spE0;
     f32 spE4;

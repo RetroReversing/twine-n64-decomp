@@ -23,81 +23,55 @@ extern Entry156 *gObjectListHead;
 extern u32 D_80109E1C;
 
 void func_800156F4(void) {
-    u8 frame[8];
-    u32 count;
     u32 i;
+    u32 count;
     s32 stamp;
-    Bounds156 *bounds;
-    Entry156 **entries;
+    Bounds156 *b;
     Entry156 *entry;
-    Entry156 *current;
-    Entry156 *previous;
-    EntryData156 *data;
-    EntryData156 *minYData;
-    EntryData156 *maxXData;
-    EntryData156 *maxYData;
-    f32 value;
+    Entry156 *cur;
+    Entry156 *prev;
 
     stamp = gSurfaceQueryStamp + 1;
     gSurfaceQueryStamp = stamp;
     count = D_80109E1C;
-    i = 0;
-    if (count != 0) {
-        bounds = D_80103F10;
-        entries = D_80102D68;
+    for (i = 0; i < D_80109E1C; i++) {
+        entry = D_80102D68[i];
+        b = &D_80103F10[i];
+        if (entry->data->stamp != (u16)stamp) {
+            entry->data->stamp = stamp;
+            entry->data->bounds.minX = b->minX;
+            entry->data->bounds.minY = b->minY;
+            entry->data->bounds.maxX = b->maxX;
+            entry->data->bounds.maxY = b->maxY;
+        } else {
+            if (b->minX < entry->data->bounds.minX) entry->data->bounds.minX = b->minX;
+            if (b->minY < entry->data->bounds.minY) entry->data->bounds.minY = b->minY;
+            if (entry->data->bounds.maxX < b->maxX) entry->data->bounds.maxX = b->maxX;
+            if (entry->data->bounds.maxY < b->maxY) entry->data->bounds.maxY = b->maxY;
+            continue;
+        }
+        prev = NULL;
+        cur = gObjectListHead;
+        if (cur == NULL) {
+            entry->next = NULL;
+            gObjectListHead = entry;
+            continue;
+        }
         do {
-            entry = *entries;
-            data = entry->data;
-            if (data->stamp != (u16)stamp) {
-                data->stamp = stamp;
-                entry->data->bounds.minX = bounds->minX;
-                entry->data->bounds.minY = bounds->minY;
-                entry->data->bounds.maxX = bounds->maxX;
-                entry->data->bounds.maxY = bounds->maxY;
-            } else {
-                value = bounds->minX;
-                if (value < data->bounds.minX) data->bounds.minX = value;
-                minYData = entry->data;
-                value = bounds->minY;
-                if (value < minYData->bounds.minY) minYData->bounds.minY = value;
-                maxXData = entry->data;
-                value = bounds->maxX;
-                if (maxXData->bounds.maxX < value) maxXData->bounds.maxX = value;
-                maxYData = entry->data;
-                value = bounds->maxY;
-                if (maxYData->bounds.maxY < value) maxYData->bounds.maxY = value;
-                goto advance;
+            if (entry->data->depth < cur->data->depth) {
+                entry->next = cur;
+                if (prev == NULL) {
+                    gObjectListHead = entry;
+                } else {
+                    prev->next = entry;
+                }
+                goto next;
             }
-
-            current = gObjectListHead;
-            previous = NULL;
-            if (current == NULL) {
-                entry->next = NULL;
-                ++bounds;
-                gObjectListHead = entry;
-                goto nextEntry;
-            } else {
-                do {
-                    if (entry->data->depth < current->data->depth) {
-                        entry->next = current;
-                        if (previous == NULL) {
-                            gObjectListHead = entry;
-                            goto advance;
-                        }
-                        previous->next = entry;
-                        goto advance;
-                    }
-                    previous = current;
-                    current = previous->next;
-                } while (current != NULL);
-                previous->next = entry;
-                entry->next = NULL;
-            }
-advance:
-            ++bounds;
-nextEntry:
-            ++i;
-            ++entries;
-        } while (i < count);
+            prev = cur;
+            cur = prev->next;
+        } while (cur != NULL);
+        prev->next = entry;
+        entry->next = NULL;
+    next:;
     }
 }

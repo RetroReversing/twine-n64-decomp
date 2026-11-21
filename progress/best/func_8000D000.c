@@ -19,7 +19,7 @@ s32 func_8000A2F4();
 s32 func_8000A310();
 s32 func_8000B9B8();
 s32 func_8000CC38();
-s32 func_8000CD8C();
+s32 collectObjectRecordIds();
 s32 func_8000CF14();
 s32 func_8003C710();
 s32 func_80042CFC();
@@ -42,7 +42,7 @@ extern s8 D_800E0745;
 extern s32 D_800E0748;
 extern s32 D_800E074C;
 extern s8 D_800E0758;
-extern char D_80100B60[];
+extern char sObjectIdList[];
 extern u8 gPendingMenuCommand;
 extern u8 D_80102EE0;
 extern void *D_80109690;
@@ -134,16 +134,16 @@ s32 func_8000D000(void) {
     } while (var_a2 < 0x38);
     D_800E0748 = 0;
     D_800E074C = 0;
-    func_8000CD8C(var_a0_2, 1, var_a2, -1);
+    collectObjectRecordIds(var_a0_2, 1, var_a2, -1);
     D_800CA338 = 1;
     if (temp_s1 == 0) {
         func_80044D84(D_800E0740);
-        activateIdList(D_80100B60);
+        activateIdList(sObjectIdList);
         func_80044FF0();
         func_80042CFC(((__repair_record_gTrackMarkerTable*)gTrackMarkerTable)->field_8, D_800E0740);
         func_8004505C();
     } else {
-        activateIdList(D_80100B60);
+        activateIdList(sObjectIdList);
         func_8000CF14(0);
     }
     func_80048794(2, gProbeObjectList);

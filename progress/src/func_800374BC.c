@@ -90,10 +90,9 @@ void *temp_v0;
                     if ((temp_v0 != NULL) && ((*(u8 *)((char *)(temp_v0) + 0x45)) != 0xB) && !(((u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2) & 0xD)) {
                         delta = ((__repair_record_var_s0 *)var_s0)->field_28;
                         planeY = *(f32 *)((char *)(*(void **)((char *)var_s1 + 0x3C)) + 0x20);
-                        delta = delta - planeY;
-                        temp_fv0 = planeY - delta;
+                        delta = planeY - (delta - planeY);
                         if (sMatrixPoolUsed < (u32) sMatrixPoolLimit) {
-                            f32 y = temp_fv0 * scale;
+                            f32 y = delta * scale;
                             s32 base = *(s32 *)((char *)sRenderState + 0x74C);
                             #define x (((__repair_record_var_s0*)var_s0)->field_24 * scale)
                             #define z (((__repair_record_var_s0*)var_s0)->field_2C * scale)

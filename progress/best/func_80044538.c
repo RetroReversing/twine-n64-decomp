@@ -7,6 +7,7 @@ extern Slot_800C078C D_800C078C[];
 s32 func_80084048();
 void func_80044538(s32 arg0) {
     volatile u64 stack_pad;
+    register u32 *base;
     s32 flag;
     u32 i;
     u8 *p;
@@ -16,15 +17,14 @@ void func_80044538(s32 arg0) {
         tmp = (void *)D_800C0788[arg0].f0;
         i = 0;
         if (D_800C078C[arg0].f0 != 0) {
-            p = (u8 *)tmp;
             do {
+                p = (u8 *)tmp + i * 0x4C;
                 if (*(s32 *)p != 0) {
                     if (p[0x46] >= 5) {
                         p[0x46] = 4;
                     }
                     flag = 0;
                 }
-                p += 0x4C;
                 i++;
             } while (i < D_800C078C[arg0].f0);
         }

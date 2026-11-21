@@ -32,7 +32,7 @@ extern s32 func_80016718(void *,s32);
 extern s32 sprintf(char *,char *,...);
 struct Obj { u8 pad0[0x20]; s32 list; u8 pad24[0x20]; s32 mode; u8 pad48[0x20]; s32 flags; u8 pad6c[0xc]; f32 distance; u8 pad7c[4]; u16 type; u8 pad7e[0x0e]; void *trigger; u8 padb4[0xce]; u8 index; };
 void func_8011B5F0(struct Obj *arg0) {
- s32 i=0; s32 slot=arg0->index; s32 *flag=sProbeFlags[slot]; arg0->flags|=1;
- if(flag) { if(flag[0x74/4]>0.0f) { s32 *p=(s32*)flag[0x68/4]; s32 *q=(s32*)p[1]; arg0->pad0[0]=0; (void)q; actorUnlinkFromSurface(arg0); objectListInsert(arg0,flag[0x20/4]); } return; }
- while(i<4) { void *o=gBonusSceneHandle[i]; if(o && approxDistance((u8*)o+0x24,(u8*)arg0+0x24)<2.0f) { } i++; }
+ s32 i=0; s32 slot=*((u8 *)arg0+0x7b); s32 *flag=sProbeFlags[slot]; *(s32 *)((u8 *)arg0+0x58)|=1;
+ if(flag) { if(*(f32 *)((u8 *)flag+0x74)>0.0f) { s32 *p=(s32*)flag[0x68/4]; s32 *q=(s32*)p[1]; s32 *dst=(s32 *)arg0; dst[9]=q[0x9c/4]; dst[10]=q[0xa0/4]; dst[11]=q[0xa4/4]; dst[15]=flag[15]; dst[16]=flag[16]; dst[17]=flag[17]; if (gSceneType != 3) *(f32 *)((u8 *)arg0+0x40) += 1024.0f; actorUnlinkFromSurface(arg0); objectListInsert(arg0,flag[0x20/4]); } return; }
+ while(i<4) { void *o=gBonusSceneHandle[i]; if(o && *(u16 *)((u8 *)o+0x78)!=0x4d && *(u16 *)((u8 *)o+0x78)!=0x61 && approxDistance((u8*)o+0x24,(u8*)arg0+0x24)<2.0f) { void *p=*(void **)((u8 *)o+0x6c); if(p && *(u8 *)(*(u8 **)((u8 *)p+0xb4)+0x12)==slot && !sProbeActive[slot]) { s32 a=lookupDataEntry(slot ? 0x6f : 0x6e); s32 b=lookupDataEntry(0x28e); s32 c=lookupDataEntry(gSceneType==2 ? 0x28f : 0x290); sprintf((char *)D_8011F170,D_8011EFE0,slot ? 5 : 12,a,b,c); requestSound(0x219); func_80073AF8(0,D_8010969C,(char *)D_8011F170,-1,-1,1,0,0,6,0,60); } } i++; }
 }

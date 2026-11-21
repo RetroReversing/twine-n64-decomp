@@ -67,11 +67,11 @@ draw:
     if (gSaveTotalSlots > 0) {
         table.scores = D_800E1068;
         do {
-            idx = (u16)func_80022DBC((u16)i);
-            score = table.scores[idx];
+            u16 slot = func_80022DBC((u16)i);
+            score = table.scores[slot];
             if (best < score) {
                 best = score;
-                player = idx;
+                player = slot;
             }
             i++;
         } while (i < gSaveTotalSlots);
@@ -79,12 +79,13 @@ draw:
     best = -1;
     i = 0;
     if (gSaveTotalSlots > 0) {
-        winner = &D_800E1068[player];
+        table.scores = D_800E1068;
+        winner = &table.scores[player];
         do {
             idx = (u16)func_80022DBC((u16)i);
             score = table.scores[idx];
             i++;
-            best += score == *winner;
+            best += *winner == score;
         } while (i < gSaveTotalSlots);
     }
 decided:

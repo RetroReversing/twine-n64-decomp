@@ -6,7 +6,7 @@ s32 func_8008C160();                            /* extern */
 s32 func_8008C188();                            /* extern */
 s32 func_8008E374();                            /* extern */
 s32 func_800923D0();                            /* extern */
-s32 func_80093268();                            /* extern */
+s32 updateVoiceRingBuffers();                            /* extern */
 s32 func_80093410();                            /* extern */
 s32 UpdateSlotList();                            /* extern */
 s32 __osDisableInt();                                /* extern */
@@ -268,7 +268,7 @@ block_41:
         }
         D_800E41E6 ^= 1;
         if (gWorkerActive != 0) {
-            func_80093268();
+            updateVoiceRingBuffers();
         }
     } else {
         D_800E4268 = temp_s4;

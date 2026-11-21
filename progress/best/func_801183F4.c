@@ -27,7 +27,7 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
     s32 minframe, best1, best2;
     ObjCandidate *candidate;
     void *p, *best, *fallback, *selected;
-    f32 limit1, limit2, scale, tmp;
+    f32 limit1=65536.0f, limit2=65536.0f, scale, tmp;
     s32 state, pass, count, entry, v, j;
     volatile s32 __frame_pad[2];
     volatile s8 __saved_arg1 = (s8)arg1;
@@ -45,9 +45,8 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
         count=gSaveTotalSlots; i=0;
         while(i<count) {
             p=((void **)0x80102CD0)[i];
-            v=*(s32 *)((u8 *)p+0xb4);
-            if(v<best1) best1=(unsigned)v;
-            v=*(s16 *)((u8 *)v+0xc);
+            v=*(u16 *)((u8 *)*(void **)((u8 *)p+0xb4)+0xc);
+            if(v<best1) best1=v;
             i++;
         }
     }
@@ -58,22 +57,22 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
         p=*(void **)((u8 *)candidate+0x6c);
         if(*(u16 *)((u8 *)candidate+0x78)==0x4d || *(u16 *)((u8 *)candidate+0x78)==0x61) continue;
         v=*(u8 *)((u8 *)sub->field_b4+0x12);
-        if(v==2) approxDistance(arg0,(u8 *)candidate+0x24);
-        else if(v==*(u8 *)((u8 *)*(void **)((u8 *)p+0x6c)+0x12)) approxDistance(arg0,(u8 *)candidate+0x24);
-        tmp=candidate->dist*scale;
+        if(v!=2 && v==*(u8 *)((u8 *)*(void **)((u8 *)p+0xb4)+0x12)) continue;
+        tmp=approxDistance((u8 *)arg0+0x24,(u8 *)candidate+0x24);
         scale=*(f32 *)((u8 *)flags);
+        tmp=tmp*scale;
         state=*(u8 *)((u8 *)sub->field_b4+0x12);
         if(gSceneType>=2 && gSceneType<=3) {
             if(sProbeFlags[state] == gBonusSceneHandle[entry]) tmp*=0.33333334f;
         }
         if((unsigned)n&4) tmp=tmp*0.01f*(*(f32 *)((u8 *)gBonusSceneHandle[entry]+0x74));
         if(n&2) {
-            v=*(s16 *)((u8 *)((void **)D_80102CD0)[entry]+0xc);
+            v=*(u16 *)((u8 *)*(void **)((u8 *)D_80102CD0[entry]+0xb4)+0xc);
             if(v<=0) v=1;
             tmp=tmp/((f32)v/(f32)best1);
         }
-        if(n&8 && i==D_8011F100[*(s8 *)((u8 *)sub+0x182)]) tmp*=0.25f;
-        if(tmp<0.0f) { best1=*(s32 *)gBonusSceneHandle[entry]; fallback=gBonusSceneHandle[entry]; }
+        if(n&8 && entry==D_8011F100[*(s8 *)((u8 *)sub+0x182)]) tmp*=0.25f;
+        if(tmp<limit1) { limit1=tmp; fallback=gBonusSceneHandle[entry]; }
         if(tmp<100.0f) {
             if(tmp<6.0f) goto scan_select;
             if(!(n&1)) {
@@ -86,9 +85,7 @@ scan_select:
             v=((s32 *)0x80110000)[(v*4)/4-0x19de];
             j=func_800158A4((u8 *)v+0x10,(u8 *)candidate+0x24,*(void **)((u8 *)arg0+0x20),0,0,0x20000,0,1,0);
             if(j == 0) continue;
-            if(tmp<0.0f) continue;
-            best=candidate;
-            selected=candidate;
+            if(tmp<limit2) { limit2=tmp; best=candidate; }
         }
     }
     if (!(best)) {
