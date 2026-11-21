@@ -23,54 +23,53 @@ typedef struct {
 void func_800957A8(u32 *);
 void func_800957B8(u32 *, s32);
 
-/* Applies a packed audio control config (repeat, level, loop midpoint) and sample length to the voice state. */
-s32 audioApplyVoiceConfig(TwineAudioControlState *state, TwineAudioControl *config) {
-    u32 sampleLength;
-    u32 control, repeatByte;
-    s8 levelByte, repeatCount;
+s32 func_8009A39C(TwineAudioControlState *state, TwineAudioControl *config) {
+    u32 resource;
+    u32 control, repeatBits;
+    s8 levelBits, repeat;
 
     if (config->control.firstByte & 3) {
         state->flags |= 0x8000;
     } else {
         state->flags &= ~0x8000;
     }
-    sampleLength = config->resource.halfword;
+    resource = config->resource.halfword;
     if ((config->resource.word >> 8) & 1) {
-        func_800957A8(&sampleLength);
+        func_800957A8(&resource);
     } else {
-        func_800957B8(&sampleLength, (s32)state);
+        func_800957B8(&resource, (s32)state);
     }
-    if (sampleLength != 0) {
-        state->length = sampleLength;
+    if (resource != 0) {
+        state->length = resource;
         state->flags |= 0x4000;
         control = config->control.word;
-        repeatByte = control >> 8;
-        repeatCount = repeatByte;
-        levelByte = control >> 16;
-        if ((s8)repeatByte < 0) {
-            if (levelByte < 0) {
-                state->level = -levelByte;
+        repeatBits = control >> 8;
+        repeat = repeatBits;
+        levelBits = control >> 16;
+        if ((s8)repeatBits < 0) {
+            if (levelBits < 0) {
+                state->level = -levelBits;
             } else {
-                state->level = levelByte;
+                state->level = levelBits;
             }
-            state->repeat = -repeatCount;
+            state->repeat = -repeat;
             state->midpoint = state->length >> 1;
         } else {
-            if (levelByte < 0) {
-                if ((s8)repeatByte == 0) {
-                    state->level = -levelByte;
+            if (levelBits < 0) {
+                if ((s8)repeatBits == 0) {
+                    state->level = -levelBits;
                     state->midpoint = state->length >> 1;
                 } else {
-                    repeatCount--;
-                    state->level = 100 - levelByte;
+                    repeat--;
+                    state->level = 100 - levelBits;
                     goto clear_midpoint;
                 }
             } else {
-                state->level = levelByte;
+                state->level = levelBits;
             clear_midpoint:
                 state->midpoint = 0;
             }
-            state->repeat = repeatCount;
+            state->repeat = repeat;
         }
     } else {
         state->flags &= ~0x4000;
