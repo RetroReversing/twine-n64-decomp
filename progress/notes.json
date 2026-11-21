@@ -3992,14 +3992,6 @@
   "score_after": 656
  },
  {
-  "function": "func_80023EC0",
-  "text": "Verified score 20, same 121 instructions and branch targets as ROM. Only rows 13, 35, 43, 61 use s2 instead of s1 for the ori of 0x1000 before the loop. s1 holds the masked input until s1 is reused for the signed-halfword loop index, and s2 holds the copied mode. Keeping the case-3 NULL return followed by the shared invalid: label inside the switch gave the exact branch layout. Explicit `(u16)arg0` on `result = arg0` fixed the four register operands but scored 200 due to one actual instruction mismatch, so use this variant and inspect its sole difference for a combined repair. Reordering result/index declarations, making result u16, using u16 parameter, masking into result first, naming an early flagged local, and casting the immediate early return operands did not improve the 20.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795138797.083319,
-  "score_before": 4023,
-  "score_after": 20
- },
- {
   "function": "findNearestMatchingObject",
   "text": "Improved 1055 to 180 by checking identity before type in combined condition; only order of those checks differs. A nested type check before identity produced 210 with correct instruction order but one extra nop at loop entry, shifting branch offsets. Find source loop/condition structure that eliminates that nop. Explicit goto backedge and a for-loop variant worsened.",
   "by": "codex-gpt-6.1-terra-7",
@@ -8336,14 +8328,6 @@
   "score_after": 310
  },
  {
-  "function": "func_80023EC0",
-  "text": "Saved baseline rechecks at score 20, four differing rows, all register allocation. Tried six local repair variants: caller prototype, signedness, declaration order, local width, callee parameter width, switch layout. None improved; narrower result and switch case-zero harmed heavily. Remaining mismatch reported at ori v0,s1,0x1000 vs candidate s2, with surrounding pointer checks otherwise matching. Investigate local lifetime/register pressure in early null-check branch; preserve baseline.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795178506.102496,
-  "score_before": 20,
-  "score_after": 20
- },
- {
   "function": "guPerspectiveF",
   "text": "Verified saved baseline 455. Correcting __cosf prototype/call and changing inner stride to one float produced 469; target uses 4-byte inner stride. Remaining key difference is float register allocation and 0x50 versus 0x48 frame; target keeps arg6 in f26, arg4/f5 in f28/f30. A register local unused by expressions had no effect. Investigate lifetimes and loop structure.",
   "by": "codex-gpt-6.1-terra-5",
@@ -11054,14 +11038,6 @@
   "created_at": 1795182829.562505,
   "score_before": 2264,
   "score_after": 2264
- },
- {
-  "function": "func_80023EC0",
-  "text": "Rechecked baseline score 20; six local repairs did not improve it. Four register-only mismatches remain, first is ori v0,s1,0x1000 in target versus s2 in candidate. Investigate which of arg0/result should be used at each return and their lifetimes; preserve overall control flow.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795182830.418624,
-  "score_before": 20,
-  "score_after": 20
  },
  {
   "function": "func_80005868",
@@ -14398,14 +14374,6 @@
   "created_at": 1795185214.486698,
   "score_before": 10,
   "score_after": 10
- },
- {
-  "function": "func_80023EC0",
-  "text": "Rechecked score 20. Matching callee's s32 prototype for func_8001226C ties. Four differences are early failure returns using s2 rather than s1 (rows 13, 37, 44, 64); success and loop registers already agree. Tested sinking result assignment past the first null guard. Future work should focus on keeping masked input separately live until the early failures without moving the delay-slot copy after the guard.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795185214.725467,
-  "score_before": 20,
-  "score_after": 20
  },
  {
   "function": "func_8000A4F4",
@@ -20808,14 +20776,6 @@
   "score_after": 2625
  },
  {
-  "function": "func_80023EC0",
-  "text": "Best remains 20: four early ori use s2 instead of s1. Casting result to u16 fixes all four but changes target move s2,s1 into andi s2,s1,ffff (score 200). Casting or narrowing the masked argument, and repeating mask on result, did not eliminate the redundant andi. Seek a distinct lifetime expression preserving the unmasked copy while separating the early failure operand.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795193667.2087412,
-  "score_before": 20,
-  "score_after": 20
- },
- {
   "function": "spawnTrackMarkerEffect",
   "text": "Baseline 1520. Inverting first guard with goto or returning a conditional null did not recover target's beqz then jump; replacing mode switch by if worsened to 1850. Standard flag search and O1 with both scheduling passes did not improve. Investigate enclosing initialization body in success branch and shared return label, plus target's scheduling of repeated global pointer reloads.",
   "by": "codex-gpt-6.1-terra-5",
@@ -23320,14 +23280,6 @@
   "score_after": 175
  },
  {
-  "function": "func_80023EC0",
-  "text": "Verified current best remains score 20 with 4 register allocation mismatches: target uses $s1 where candidate uses $s2 in four ori returns. Reordering result assignment before the initial call worsened to 85; reverting and six local repairs gave no improvement (pointer reuse/declaration ordering tied, narrowing result to short worsened greatly). Candidate saved at revision 9ad35d14579b4bdb7cd5. Next attempt should preserve arg0/result register allocation while forcing one saved register mapping, perhaps alter result alias or liveness around early null checks.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795199686.236402,
-  "score_before": 20,
-  "score_after": 20
- },
- {
   "function": "spawnTrackMarkerEffect",
   "text": "Recompiled saved draft candidate at 3450 (122 target vs 120 candidate instructions), then tried six independent local repair variants; none improved. The callee_parameter_width (func_80064318 int) and unsigned_switch changes regressed. Target assembly shows mode switch loads 0.00078125f/0.0171875f into saved $fs0 before global object access; then it reloads D_800BF5BC repeatedly and stores fields at 0x24,0x28,0x2C. Diff flags raw address/constants around rows 82/89: target literals are 0x3CA3D70A and 0x3DCCCCCD; investigate floating-point local/register scheduling and ensure global-pointer type/reference is correct. Best source retained.",
   "by": "codex-gpt-6-luna-7",
@@ -24582,14 +24534,6 @@
   "created_at": 1795201688.2285938,
   "score_before": 140,
   "score_after": 140
- },
- {
-  "function": "func_80023EC0",
-  "text": "Verified 20. Four OR-immediate error returns use s2 (copy result) instead of s1 (masked arg0); every other instruction agrees. A u16 cast on error return is inert, |= changes control flow, and later result assignment changes switch lowering.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795201688.35021,
-  "score_before": 20,
-  "score_after": 20
  },
  {
   "function": "func_800184AC",
@@ -26056,14 +26000,6 @@
   "score_after": 75
  },
  {
-  "function": "func_80023EC0",
-  "text": "Baseline remains 20, four register operands. Local pointer reuse, switch, declaration and address families did not improve.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795202602.387419,
-  "score_before": 20,
-  "score_after": 20
- },
- {
   "function": "func_8008EB80",
   "text": "Oops, exploratory rewrite was incomplete and scored 21913; restored saved_best. This function's valid baseline is 7110 and target is 230 instructions, dominated by jump table dispatch and repeated updates to global records. No useful new candidate change; proceed from restored c5ccbc3d17bc9291e03e, inspect full assembly/data/jumptable and make narrow declaration/layout or switch-structure changes.",
   "by": "codex-gpt-6-luna-12",
@@ -27334,14 +27270,6 @@
   "created_at": 1795204710.747822,
   "score_before": 6623,
   "score_after": 6623
- },
- {
-  "function": "func_80023EC0",
-  "text": "Stalled at score 20 (prior 97 attempts). Mismatch: early 'header==NULL' return path (target ori $v0,$s1,0x1000) compiled to $s2 (result copy of arg0). Tried: func_8001226C(s32) prototype (no change, 20); s16->s32 loop index (710, worse); moving 'result = arg0' after entry/header/name checks (400, worse). Untested: route early returns through a separate masked local so arg0 stays in s1 and result in s2.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795204719.294296,
-  "score_before": 20,
-  "score_after": 20
  },
  {
   "function": "guMtxF2L",
@@ -39512,15 +39440,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
  },
  {
-  "function": "func_80023EC0",
-  "text": "Reached 6/6 without improvement. Separate masked local, u16 cast and remask tie at 20, assignment scores 185. Four early ORIs use s2 instead of s1.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795226510.800063,
-  "score_before": 20,
-  "score_after": 20,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
- },
- {
   "function": "func_8008892C",
   "text": "Revision 8b14be156c58a202bf9a (score 355, but only 2 insns missing vs target: this is structurally closest; score inflated by local .rodata for the 2^32 f64 constants vs target's D_800D66D8/E0). Form: arg0 reused as idx, u32 i + off+=0x1228 loop, goto found, (f32)(f64)u32 / (f32)(f64)u32, type test ==2. Remaining diffs: (1) not-found path target does `addiu a0,-1; move s0,a0` while mine emits `addiu s0,-1` directly; (2) target has `andi v0,v0,0xff` after lbu and loads constant 2 into v1 before andi (mine omits andi, swaps v0/v1). Tried &0xFF, (u8)(t+0), arg0=i=-1, conditional assign: no change. Next step: try making the loop a separate static inline find function or keep i live after found (e.g. use i in later expr).",
   "by": "api-claude-sonnet-5-5-2",
@@ -42684,15 +42603,6 @@
   "score_before": 1440,
   "score_after": 1440,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
- },
- {
-  "function": "func_80023EC0",
-  "text": "Still 20 (4 reg rows: ori $v0,$s1,0x1000 target vs $s2 ours at early returns). Tried: swapping arg0/result in all `|0x1000` returns (797, worse, also creates extra s3). Next step: try source where masked value is a separate local (e.g. u32 masked = arg0 & 0xEFFF) with the switch reading arg0-copy, or different original shape (return flag |0x1000 computed via a helper local `fail = result | 0x1000`).\nswap arg0/result use in early-return ORs\n797 worse",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795232889.27707,
-  "score_before": 20,
-  "score_after": 20,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
   "function": "func_800219A0",
@@ -49213,15 +49123,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0a2c6da483f556e2ddf451e6e7d42ec60409462bc1ca4f7a7e09a47e3f0fcc8c"
  },
  {
-  "function": "func_80023EC0",
-  "text": "Changing header-null return to goto invalid improved 20 to 15; three ori instructions use s2 rather than s1. First other return changed to goto invalid worsened to 550; result instead of arg0 tied.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795245875.155041,
-  "score_before": 20,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
- },
- {
   "function": "func_80031EF4",
   "text": "Direct unsigned casts, volatile signed width/height, remove padding, stage global flag loads, reuse paramSlot for optional call. Tried both CSE flags alone and combined, early exit, probe list staging and old parameter staging.\n4329 to 2633 with the first five changes. All listed flags and final three source variants unchanged. Frame now 0x50. Volatile width/height are a diagnostic that introduces stack traffic where target keeps them in s3/s6.",
   "by": "codex-gpt-6.2-sol-6",
@@ -49570,14 +49471,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
  },
  {
-  "function": "func_80023EC0",
-  "text": "The inherited C no longer matches: rechecked score 5808. Prototype evidence shows func_8002A980(void*) and func_8002A920(void*,s8) return integer/pointer-sized values; lookupDataEntry(s32) returns void*; func_800AB950 appears s8*(s8*,s8*). First rewrite failed at declaration line because M2C_UNK is local to the m2c draft, not shared context. A second attempt failed for the same missing typedef. No compiling attempt counted toward the six-compile stagnation threshold; release with explicit move_on per startup workflow. Next step: rerun the full candidate with declarations `extern s32 D_80107EA8;` or use shared s32 directly instead of M2C_UNK, then judge corrected callee types.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795246938.280534,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_8001E898",
   "text": "Current candidate b5319c1e431beac54d80 scored 4053; initial m2c scored 4483. Changing the table symbols to u16 improved to 4063, and removing the first index multiplier improved to 4053. Local field-width, literal and base-address probes were unchanged. Claim ended automatically. Next step: remove the remaining gMenuSlot multiplier for the second u16 table and judge, then address switch structure and frame.",
   "by": "codex-gpt-6.1-terra-5",
@@ -49783,15 +49676,6 @@
   "score_before": 1535,
   "score_after": 1535,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
- },
- {
-  "function": "func_80023EC0",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nCurrent recovered draft rechecked 5808, local reuse of decrement temporary scored 5633 (revision 7e650d995ecefbc38b33); claim ended at unchanged-output limit. Historical score 15 source unavailable. Next reconstruct historical candidate using prior attempt history and correct prototypes; target frame 0x20 vs draft 0x28.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795247481.534284,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
   "function": "func_8005C8C4",
@@ -50387,15 +50271,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
-  "function": "func_80023EC0",
-  "text": "Current machine draft scored 5633; replacing three TWINE literals with D_800D2AC0 improved to 5323. Local shared-tail, inline and signedness trials did not improve. Prior notes report a score-20 candidate but current saved candidate was the machine draft.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795249107.55789,
-  "score_before": 5633,
-  "score_after": 5323,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
- },
- {
   "function": "func_8011CAE4",
   "text": "Current machine draft baseline 1885 uses unresolved gBorderMode; replacing with observed gVisibleSaveSlotCount scored 1845 before the claim changed. Structured backedge scored 2045; signedness 2680; masked value reuse unchanged.",
   "by": "codex-gpt-6.1-terra-5",
@@ -50988,15 +50863,6 @@
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
  },
  {
-  "function": "func_80023EC0",
-  "text": "Claim reset after replacing TWINE literals with D_800D2AC0, improving machine draft 5808 to 5498. Historical near-match source unavailable in this claim. Next step: recover earlier candidate or reconstruct control flow from assembly to reduce saved-register usage.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795250819.105728,
-  "score_before": 5323,
-  "score_after": 5323,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
- },
- {
   "function": "func_8005C8C4",
   "text": "Reconstructed candidate scored 1827 after replacing unknown gTrackMarkerTable with sTrackMarkerTable and using s32 for the loaded u16 local, producing signed comparisons. Symbol-address temporary did not change output. Claim ended during local repairs; next test delay-slot duplicate variant to reduce saved-register lifetime.",
   "by": "codex-gpt-6.1-terra-2",
@@ -51094,24 +50960,6 @@
   "score_before": 9529,
   "score_after": 8729,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e1fb02b280173fbcbff035715b70fff66d13eda1668883c617acdc967f1d015c"
- },
- {
-  "function": "func_80023EC0",
-  "text": "Current candidate 578fd1997e96c3424f3c scored 5388. Changing loop temporaries from s8 to s16 improved 5498 to 5388; const void * comparison parameter did not change output. Local repair replacing the case-1 return with temp_s1 scored 5453 but is semantically wrong when comparison returns zero; issue reported. A later local lifetime variant scored 5213 but the service reverted the continuation to 578fd1997e96c3424f3c. Next step: reconstruct shared return control flow from assembly to reduce the extra saved register and 0x28 frame.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795251093.968058,
-  "score_before": 5323,
-  "score_after": 5213,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
- },
- {
-  "function": "func_80023EC0",
-  "text": "Current candidate 578fd1997e96c3424f3c scored 5388. Changing loop temporaries from s8 to s16 improved 5498 to 5388; const void * comparison parameter did not change output. Local repair replacing the case-1 return with temp_s1 scored 5453 but is semantically wrong when comparison returns zero; issue reported. A later local lifetime variant scored 5213 but the service reverted the continuation to 578fd1997e96c3424f3c. Next step: reconstruct shared return control flow from assembly to reduce the extra saved register and 0x28 frame.\n\nReplacing the first shared-tail goto with a direct return scored 5483 versus 5388 baseline; frame remains 0x28 rather than 0x20. Earlier lifetime repair scored 5213 but service reverted it. Next step: reconstruct shared return flow using target assembly.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795251093.968058,
-  "score_before": 5323,
-  "score_after": 5213,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
   "function": "func_80039A10",
@@ -51452,14 +51300,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
  },
  {
-  "function": "func_80023EC0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Previously investigated; existing handoff records findings. Service repeatedly reverts candidates and claims.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795252017.379581,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_8005EF84",
   "text": "Established a compiling baseline, resolved three relocations and improved to 3882. Four subsequent trials failed to beat it. Case 2 still hoists its stack buffer across calls and saves lookup results earlier than the target.",
   "by": "codex-gpt-6.2-sol-6",
@@ -51501,15 +51341,6 @@
   "created_at": 1795252146.8070772,
   "score_before": 1624,
   "score_after": 1624
- },
- {
-  "function": "func_80023EC0",
-  "text": "Automated repair changed case-1 return from var_v0 to temp_s1 and scored 4428, but this is semantically wrong when the first comparison returns zero. Service restored the correct baseline and reset the claim. Do not retain that automatic repair.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795252158.0678961,
-  "score_before": 5213,
-  "score_after": 4428,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
   "function": "func_8007CC78",
@@ -51564,15 +51395,6 @@
   "score_before": 230,
   "score_after": 230,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
- },
- {
-  "function": "func_80023EC0",
-  "text": "Important: saved best 4983 is invalid: temp_v0_4 is read uninitialized after my partial replacement. Corrected revision 4fc8f246c7ed4ef6fc3a scores 5213 and preserves the loop semantics. Callee prototype corrections alone left assembly unchanged.\nShared loop decrement temporary consistently; corrected callee declarations\n5213; frame still 0x28 vs target 0x20, and switch/control-flow diverges",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795252269.6738749,
-  "score_before": 4428,
-  "score_after": 4428,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
   "function": "func_8011DC18",
@@ -51690,15 +51512,6 @@
   "score_before": 230,
   "score_after": 230,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
- },
- {
-  "function": "func_80023EC0",
-  "text": "Rechecked corrected candidate at 5213. Shared-tail rewrite scored 5233, inline comparison unchanged. Automatic return substitution scored 4428 but is semantically wrong, so restored reported_corrected. Next step: restructure switch and shared return paths while preserving case 1's var_v0.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795252500.670143,
-  "score_before": 4428,
-  "score_after": 4428,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
   "function": "func_800067C8",
@@ -51833,15 +51646,6 @@
   "score_before": 170,
   "score_after": 170,
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
- },
- {
-  "function": "func_80023EC0",
-  "text": "Saved best 4428 is semantically wrong in case 1; use reported_corrected revision 4fc8f246c7ed4ef6fc3a (5213) as semantic baseline. Widening var_s1 scored 5028 but increased frame to 0x30; widening decrement too scored 5203. Correcting func_8002A920 return type did not change output.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795252982.956029,
-  "score_before": 4428,
-  "score_after": 4428,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
   "function": "func_800592D0",
@@ -52211,15 +52015,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
  },
  {
-  "function": "func_80023EC0",
-  "text": "Automatic saved best 4448 is semantically wrong; use corrected candidate 63d38d080f5308c2d17c. Signed comparison on s16 decrement improved corrected 5213 to 4973. Pointer return prototype correction did not change code.\nsigned decrement comparison and corrected pointer return\n4973, frame remains 0x28 vs target 0x20",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795254621.3157911,
-  "score_before": 4428,
-  "score_after": 4428,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
- },
- {
   "function": "beginSceneTransition",
   "text": "Cannot safely continue: claim and candidate reset repeatedly between sequential calls. Verified score 780 used s32 locals, conditional local address for D_80109690 and mask pointer; then claim was lost.",
   "by": "codex-gpt-6.1-terra-4",
@@ -52466,15 +52261,6 @@
   "score_before": 2565,
   "score_after": 2565,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
- },
- {
-  "function": "func_80023EC0",
-  "text": "Saved best 4188 is semantically wrong in case 1: it returns temp_s1 when func_800AB950 returns zero, but target returns temp_s1 | 0x1000. Corrected revision 63d38d080f5308c2d17c scores 4973. Separate early returns in case 1 scored 5513; pointer return prototype correction had unchanged output.\nSeparate case 1 early returns\nScore worsened to 5513; target frame remains 0x20 versus candidate 0x28.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795256040.2301068,
-  "score_before": 4428,
-  "score_after": 4188,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
   "function": "func_8005C24C",
@@ -76046,5 +75832,219 @@
   "score_before": 200,
   "score_after": 200,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Verified score 20, same 121 instructions and branch targets as ROM. Only rows 13, 35, 43, 61 use s2 instead of s1 for the ori of 0x1000 before the loop. s1 holds the masked input until s1 is reused for the signed-halfword loop index, and s2 holds the copied mode. Keeping the case-3 NULL return followed by the shared invalid: label inside the switch gave the exact branch layout. Explicit `(u16)arg0` on `result = arg0` fixed the four register operands but scored 200 due to one actual instruction mismatch, so use this variant and inspect its sole difference for a combined repair. Reordering result/index declarations, making result u16, using u16 parameter, masking into result first, naming an early flagged local, and casting the immediate early return operands did not improve the 20.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795138797.083319,
+  "score_before": 4023,
+  "score_after": 20
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Saved baseline rechecks at score 20, four differing rows, all register allocation. Tried six local repair variants: caller prototype, signedness, declaration order, local width, callee parameter width, switch layout. None improved; narrower result and switch case-zero harmed heavily. Remaining mismatch reported at ori v0,s1,0x1000 vs candidate s2, with surrounding pointer checks otherwise matching. Investigate local lifetime/register pressure in early null-check branch; preserve baseline.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795178506.102496,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Rechecked baseline score 20; six local repairs did not improve it. Four register-only mismatches remain, first is ori v0,s1,0x1000 in target versus s2 in candidate. Investigate which of arg0/result should be used at each return and their lifetimes; preserve overall control flow.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795182830.418624,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Rechecked score 20. Matching callee's s32 prototype for func_8001226C ties. Four differences are early failure returns using s2 rather than s1 (rows 13, 37, 44, 64); success and loop registers already agree. Tested sinking result assignment past the first null guard. Future work should focus on keeping masked input separately live until the early failures without moving the delay-slot copy after the guard.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795185214.725467,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Best remains 20: four early ori use s2 instead of s1. Casting result to u16 fixes all four but changes target move s2,s1 into andi s2,s1,ffff (score 200). Casting or narrowing the masked argument, and repeating mask on result, did not eliminate the redundant andi. Seek a distinct lifetime expression preserving the unmasked copy while separating the early failure operand.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795193667.2087412,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Verified current best remains score 20 with 4 register allocation mismatches: target uses $s1 where candidate uses $s2 in four ori returns. Reordering result assignment before the initial call worsened to 85; reverting and six local repairs gave no improvement (pointer reuse/declaration ordering tied, narrowing result to short worsened greatly). Candidate saved at revision 9ad35d14579b4bdb7cd5. Next attempt should preserve arg0/result register allocation while forcing one saved register mapping, perhaps alter result alias or liveness around early null checks.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795199686.236402,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Verified 20. Four OR-immediate error returns use s2 (copy result) instead of s1 (masked arg0); every other instruction agrees. A u16 cast on error return is inert, |= changes control flow, and later result assignment changes switch lowering.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795201688.35021,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Baseline remains 20, four register operands. Local pointer reuse, switch, declaration and address families did not improve.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795202602.387419,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Stalled at score 20 (prior 97 attempts). Mismatch: early 'header==NULL' return path (target ori $v0,$s1,0x1000) compiled to $s2 (result copy of arg0). Tried: func_8001226C(s32) prototype (no change, 20); s16->s32 loop index (710, worse); moving 'result = arg0' after entry/header/name checks (400, worse). Untested: route early returns through a separate masked local so arg0 stays in s1 and result in s2.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795204719.294296,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Reached 6/6 without improvement. Separate masked local, u16 cast and remask tie at 20, assignment scores 185. Four early ORIs use s2 instead of s1.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795226510.800063,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Still 20 (4 reg rows: ori $v0,$s1,0x1000 target vs $s2 ours at early returns). Tried: swapping arg0/result in all `|0x1000` returns (797, worse, also creates extra s3). Next step: try source where masked value is a separate local (e.g. u32 masked = arg0 & 0xEFFF) with the switch reading arg0-copy, or different original shape (return flag |0x1000 computed via a helper local `fail = result | 0x1000`).\nswap arg0/result use in early-return ORs\n797 worse",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795232889.27707,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Changing header-null return to goto invalid improved 20 to 15; three ori instructions use s2 rather than s1. First other return changed to goto invalid worsened to 550; result instead of arg0 tied.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245875.155041,
+  "score_before": 20,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "The inherited C no longer matches: rechecked score 5808. Prototype evidence shows func_8002A980(void*) and func_8002A920(void*,s8) return integer/pointer-sized values; lookupDataEntry(s32) returns void*; func_800AB950 appears s8*(s8*,s8*). First rewrite failed at declaration line because M2C_UNK is local to the m2c draft, not shared context. A second attempt failed for the same missing typedef. No compiling attempt counted toward the six-compile stagnation threshold; release with explicit move_on per startup workflow. Next step: rerun the full candidate with declarations `extern s32 D_80107EA8;` or use shared s32 directly instead of M2C_UNK, then judge corrected callee types.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795246938.280534,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nCurrent recovered draft rechecked 5808, local reuse of decrement temporary scored 5633 (revision 7e650d995ecefbc38b33); claim ended at unchanged-output limit. Historical score 15 source unavailable. Next reconstruct historical candidate using prior attempt history and correct prototypes; target frame 0x20 vs draft 0x28.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795247481.534284,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Current machine draft scored 5633; replacing three TWINE literals with D_800D2AC0 improved to 5323. Local shared-tail, inline and signedness trials did not improve. Prior notes report a score-20 candidate but current saved candidate was the machine draft.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795249107.55789,
+  "score_before": 5633,
+  "score_after": 5323,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Claim reset after replacing TWINE literals with D_800D2AC0, improving machine draft 5808 to 5498. Historical near-match source unavailable in this claim. Next step: recover earlier candidate or reconstruct control flow from assembly to reduce saved-register usage.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795250819.105728,
+  "score_before": 5323,
+  "score_after": 5323,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Current candidate 578fd1997e96c3424f3c scored 5388. Changing loop temporaries from s8 to s16 improved 5498 to 5388; const void * comparison parameter did not change output. Local repair replacing the case-1 return with temp_s1 scored 5453 but is semantically wrong when comparison returns zero; issue reported. A later local lifetime variant scored 5213 but the service reverted the continuation to 578fd1997e96c3424f3c. Next step: reconstruct shared return control flow from assembly to reduce the extra saved register and 0x28 frame.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795251093.968058,
+  "score_before": 5323,
+  "score_after": 5213,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Current candidate 578fd1997e96c3424f3c scored 5388. Changing loop temporaries from s8 to s16 improved 5498 to 5388; const void * comparison parameter did not change output. Local repair replacing the case-1 return with temp_s1 scored 5453 but is semantically wrong when comparison returns zero; issue reported. A later local lifetime variant scored 5213 but the service reverted the continuation to 578fd1997e96c3424f3c. Next step: reconstruct shared return control flow from assembly to reduce the extra saved register and 0x28 frame.\n\nReplacing the first shared-tail goto with a direct return scored 5483 versus 5388 baseline; frame remains 0x28 rather than 0x20. Earlier lifetime repair scored 5213 but service reverted it. Next step: reconstruct shared return flow using target assembly.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795251093.968058,
+  "score_before": 5323,
+  "score_after": 5213,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Previously investigated; existing handoff records findings. Service repeatedly reverts candidates and claims.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795252017.379581,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Automated repair changed case-1 return from var_v0 to temp_s1 and scored 4428, but this is semantically wrong when the first comparison returns zero. Service restored the correct baseline and reset the claim. Do not retain that automatic repair.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795252158.0678961,
+  "score_before": 5213,
+  "score_after": 4428,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Important: saved best 4983 is invalid: temp_v0_4 is read uninitialized after my partial replacement. Corrected revision 4fc8f246c7ed4ef6fc3a scores 5213 and preserves the loop semantics. Callee prototype corrections alone left assembly unchanged.\nShared loop decrement temporary consistently; corrected callee declarations\n5213; frame still 0x28 vs target 0x20, and switch/control-flow diverges",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795252269.6738749,
+  "score_before": 4428,
+  "score_after": 4428,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Rechecked corrected candidate at 5213. Shared-tail rewrite scored 5233, inline comparison unchanged. Automatic return substitution scored 4428 but is semantically wrong, so restored reported_corrected. Next step: restructure switch and shared return paths while preserving case 1's var_v0.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795252500.670143,
+  "score_before": 4428,
+  "score_after": 4428,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Saved best 4428 is semantically wrong in case 1; use reported_corrected revision 4fc8f246c7ed4ef6fc3a (5213) as semantic baseline. Widening var_s1 scored 5028 but increased frame to 0x30; widening decrement too scored 5203. Correcting func_8002A920 return type did not change output.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795252982.956029,
+  "score_before": 4428,
+  "score_after": 4428,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Automatic saved best 4448 is semantically wrong; use corrected candidate 63d38d080f5308c2d17c. Signed comparison on s16 decrement improved corrected 5213 to 4973. Pointer return prototype correction did not change code.\nsigned decrement comparison and corrected pointer return\n4973, frame remains 0x28 vs target 0x20",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795254621.3157911,
+  "score_before": 4428,
+  "score_after": 4428,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Saved best 4188 is semantically wrong in case 1: it returns temp_s1 when func_800AB950 returns zero, but target returns temp_s1 | 0x1000. Corrected revision 63d38d080f5308c2d17c scores 4973. Separate early returns in case 1 scored 5513; pointer return prototype correction had unchanged output.\nSeparate case 1 early returns\nScore worsened to 5513; target frame remains 0x20 versus candidate 0x28.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795256040.2301068,
+  "score_before": 4428,
+  "score_after": 4188,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  }
 ]
