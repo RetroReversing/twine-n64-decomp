@@ -50,7 +50,7 @@ extern u8 gPauseFlag;
 extern M2C_UNK gTrackMarkerTable;
 
 void func_80070F34(void *arg0) {
-    volatile s32 padding[2];
+
     void *sp1C;
     M2C_UNK *temp_s0;
     f32 temp_fs0;
@@ -218,10 +218,11 @@ block_10:
                     temp_fv1_2 = (2.0f * var_fs1) + (f32) *(&D_800C7E12 + var_s0);
                     if (!(temp_fv1_2 >= 2.1474836e9f)) {
                         var_a3 = (s32) temp_fv1_2;
-                    } else {
+                    
+                    func_80070ECC(M2C_FIELD(var_s1, void **, 0x418), temp_s2 + var_s5, var_a2 & 0xFFFF, var_a3 & 0xFFFF, (s32) *(&D_800C7E18 + var_s0), *(&D_800C7E14 + var_s0));} else {
                         var_a3 = (s32) (temp_fv1_2 - 2.1474836e9f) | 0x80000000;
-                    }
-                    func_80070ECC(M2C_FIELD(var_s1, void **, 0x418), temp_s2 + var_s5, var_a2 & 0xFFFF, var_a3 & 0xFFFF, (s32) *(&D_800C7E18 + var_s0), *(&D_800C7E14 + var_s0));
+                    
+                    func_80070ECC(M2C_FIELD(var_s1, void **, 0x418), temp_s2 + var_s5, var_a2 & 0xFFFF, var_a3 & 0xFFFF, (s32) *(&D_800C7E18 + var_s0), *(&D_800C7E14 + var_s0));}
                 }
             }
             var_s0 += 0xC;

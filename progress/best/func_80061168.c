@@ -1,4 +1,5 @@
-extern u32 D_800D4240[3];
+typedef struct { u32 x, y, z; } VecWords;
+extern VecWords D_800D4240;
 s32 func_8001751C(s32, u8, s32 *, f32 *);
 void applyNearbyActorImpact(void *, f32, f32);
 s32 randomIntBelow(s32);
@@ -24,9 +25,7 @@ void func_80061168(void *arg0) {
         s2 = *(void **)((char *)arg0 + 0x6C);
         switch (st) {
         case 0:
-            sp10[0] = D_800D4240[0];
-            sp10[1] = D_800D4240[1];
-            sp10[2] = D_800D4240[2];
+            *(VecWords *)sp10 = D_800D4240;
             sp50[0] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x3C));
             sp50[1] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x40));
             sp50[2] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x44));
@@ -41,15 +40,11 @@ void func_80061168(void *arg0) {
             t = *(u8 *)((char *)s2 + 0x22);
             if ((!t) || (gTrackDoneFlags[t] != 0)) {
                 if (randomIntBelow((*(s16 *)((char *)arg0 + 0x7C))) == 0) {
-                    sp58[0] = *(s32 *)((char *)arg0 + 0x24);
-                    sp58[1] = *(s32 *)((char *)arg0 + 0x28);
-                    sp58[2] = *(s32 *)((char *)arg0 + 0x2C);
-                    sp68[0] = *(s32 *)((char *)arg0 + 0x3C);
-                    sp68[1] = *(s32 *)((char *)arg0 + 0x40);
-                    sp68[2] = *(s32 *)((char *)arg0 + 0x44);
+                    *(VecWords *)sp58 = *(VecWords *)((char *)arg0 + 0x24);
+                    *(VecWords *)sp68 = *(VecWords *)((char *)arg0 + 0x3C);
                     func_8001751C(*(s32 *)((char *)s2 + 0x18), *(u8 *)((char *)s2 + 0x21), sp58, (f32 *)sp68);
                     func_80061578(arg0, sp58);
-                    applyNearbyActorImpact(arg0, 0.75f, 10.0f);
+                    applyNearbyActorImpact(arg0, 1.5f, 10.0f);
                     s0 = 0;
                     if ((s32)*(u16 *)((char *)arg0 + 0x78) >= 0x47) {
                         if ((s32)*(u16 *)((char *)arg0 + 0x78) >= 0x49) {

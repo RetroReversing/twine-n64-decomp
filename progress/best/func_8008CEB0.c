@@ -57,7 +57,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
                     temp_a3 = M2C_FIELD(var_s0, u8 *, 0x2B);
                     temp_s2 = var_s7 + &sVoiceTable;
                     temp_a2 = M2C_FIELD(var_s0, s8 *, 0x9C) << 0x10;
-                    temp_hi = MULT_HI(temp_a2, 0x51EB851F);
+                    temp_hi = (s32)(((s64)temp_a2 * 0x51EB851F) >> 32);
                     temp_a1 = M2C_FIELD(var_s0, u16 *, 0x2C);
                     var_s1 = var_s6;
                     M2C_FIELD(var_s0, s16 *, 0x2A) = temp_fp;
@@ -84,7 +84,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
             var_s7 += 0x1A0;
             var_s3 += 1;
             var_s0 += 0x1A0;
-            var_s6 += 0x1A0;
+            var_s6 = (M2C_UNK *) ((u8 *) var_s6 + 0x1A0);
         } while (var_s3 < (u8) sVoiceCount);
     }
     if (var_s4 != -1) {
