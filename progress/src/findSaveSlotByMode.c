@@ -1,40 +1,39 @@
 extern void ***func_8002A920(void *, s8);
 extern char *lookupDataEntry(s32);
 extern char *func_800AB950(char *, char *);
-extern s16 gSaveFoundSlot;
+extern s16 D_800BFC30;
 extern s32 D_80107EA8;
 extern char D_800D2AC0[];
-/* Scans the 16 save slot entries and returns a slot index chosen by mode (1 = found slot, 2/3 = name matching). */
-s32 findSaveSlotByMode(s32 mode) {
-    u8 slot = 0;
-    s32 searchMode = mode & 0xfff;
-    void ***entry;
-    void **info;
+s32 func_80024EF0(s32 arg0) {
+    u8 i = 0;
+    s32 mode = arg0 & 0xfff;
+    void ***p;
+    void **q;
     char *name;
     do {
-        entry = func_8002A920(&D_80107EA8, slot);
-        if (entry && (info = *entry) && *(char **)((char *)*info + 0x18)) {
-            switch (searchMode) {
+        p = func_8002A920(&D_80107EA8, i);
+        if (p && (q = *p) && *(char **)((char *)*q + 0x18)) {
+            switch (mode) {
             case 1:
-                if (gSaveFoundSlot != -1) return (u8)gSaveFoundSlot;
+                if (D_800BFC30 != -1) return (u8)D_800BFC30;
                 return 0;
             case 2:
                 name = lookupDataEntry(0x3004);
-                if (func_800AB950(*(char **)((char *)*info + 0x18), name)) return slot;
-                if (func_800AB950(*(char **)((char *)*info + 0x18), D_800D2AC0)) return slot;
+                if (func_800AB950(*(char **)((char *)*q + 0x18), name)) return i;
+                if (func_800AB950(*(char **)((char *)*q + 0x18), D_800D2AC0)) return i;
                 break;
             case 3:
                 name = lookupDataEntry(0x3004);
-                if (func_800AB950(*(char **)((char *)*info + 0x18), name)) {
-                    slot++;
+                if (func_800AB950(*(char **)((char *)*q + 0x18), name)) {
+                    i++;
                     goto check_next;
                 }
-                return slot;
+                return i;
             }
         }
-        slot++;
+        i++;
 check_next:
         ;
-    } while (slot < 16);
+    } while (i < 16);
     return 0;
 }
