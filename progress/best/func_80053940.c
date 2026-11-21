@@ -20,6 +20,7 @@ extern u16 gSurfaceQueryStamp;
 
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
 s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, s32 *arg9, void **arg10, void **arg11) {
+    u16 *__base_gSurfaceQueryStamp;
     f32 sp18Buf[3];
     f32 sp28Buf[3];
     s32 sp38[6];
@@ -152,10 +153,11 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     sp11C = &workspace.angles[0];
     var_fp = (*(void **)((char *)((*(void **)((char *)(var_s0) + 0x20))) + 0x58));
     sp124 = sp38;
-    gSurfaceQueryStamp += 1;
+    __base_gSurfaceQueryStamp = &gSurfaceQueryStamp;
+    (*__base_gSurfaceQueryStamp) += 1;
 loop_3:
     var_s2 = var_s0;
-    (*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x20))) + 0x60)) = (u16) gSurfaceQueryStamp;
+    (*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x20))) + 0x60)) = (u16) (*__base_gSurfaceQueryStamp);
     if (var_s0 != NULL) {
         var_s0_2 = (*(void **)((char *)(var_s0) + 0));
         if (var_s0_2 != NULL) {
@@ -599,7 +601,7 @@ block_137:
 loop_159:
 loop_160:
         var_s0 = (*(void **)((char *)(var_fp) + 8));
-        if ((*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x20))) + 0x60)) != gSurfaceQueryStamp) {
+        if ((*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x20))) + 0x60)) != (*__base_gSurfaceQueryStamp)) {
             if (var_fp != NULL) {
                 if ((Sphere_OverlapsPoint((*(s32 *)((char *)(var_fp) + 4)) + 0x40, arg3, arg5) << 0x18) != 0) {
                     var_fp = (*(void **)((char *)(var_fp) + 0));

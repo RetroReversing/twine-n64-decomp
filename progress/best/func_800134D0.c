@@ -214,8 +214,7 @@ void func_800134D0(void *arg0)
   spC = &D_80108970;
 
   var_s3 = 8;
-  __repair_phase_storage.value -= 1;
-  if (__repair_phase_storage.value != 0)
+  if (__repair_phase_storage.value-- != 0)
   {
     spC = &D_801032B0;
     var_s3 = 0xA;

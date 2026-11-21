@@ -220,6 +220,8 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
                     temp_t6 = var_t8 & 0xFFFF;
     temp_s4 = temp_t6;
                     temp_t6 = sp4C >> 0x10;
+                    {
+                    s32 packed_delta = (s32) ((var_s6 << 0x10) | (var_s5_2 & 0xFFFF));
                     do {
                         temp_t2 = ((__repair_record_arg2*)arg2)->field_20 + arg0 + (((__repair_record_arg2*)arg2)->field_26 * var_s2);
                         temp_t0 = ((__repair_record_arg2*)arg2)->field_22 + (((__repair_record_arg2*)arg2)->field_29 * var_t9);
@@ -275,7 +277,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
                             } else {
                                 var_a0_3 = sp54 << 0x10;
                             }
-                            if (!(((temp_t0 & 0xFFFF) + arg1) & 0x20000000)) {
+                            if (!((u32)(s16)((temp_t0 + arg1) * 4) >> 31)) {
                                 var_v0_5 = var_a0_3 | temp_s4;
                             } else {
                                 temp_v0_3 = temp_t0 + arg1;
@@ -292,14 +294,15 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
                         temp_v1_5 = D_80115328;
                         D_80115328 = temp_v1_5 + 8;
                         M2C_FIELD(temp_v1_5, s32 *, 0) = 0xF1000000;
-                        M2C_FIELD(temp_v1_5, s32 *, 4) = (s32) ((var_s6 << 0x10) | (var_s5_2 & 0xFFFF));
+                        M2C_FIELD(temp_v1_5, s32 *, 4) = packed_delta;
                         var_t9 += 1;
-                    } while ((var_t9 & 0xFFFF) < ((M2C_FIELD(arg2, u32 *, 0x28) >> 8) & 0xF));
+                    } while ((s32)(u16)var_t9 < (s32)((M2C_FIELD(arg2, u32 *, 0x28) >> 8) & 0xF));
+                    }
                 }
                 temp_a0_4 = M2C_FIELD(arg2, u32 *, 0x28);
                 var_s2 += 1;
                 var_v0_2 = temp_a0_4 >> 8;
-            } while ((var_s2 & 0xFFFF) < ((temp_a0_4 >> 0xC) & 0xF));
+            } while ((s32)(u16)var_s2 < (s32)((temp_a0_4 >> 0xC) & 0xF));
         }
         temp_v0_6 = D_80115328;
         D_80115328 = temp_v0_6 + 8;
