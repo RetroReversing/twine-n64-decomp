@@ -11,16 +11,16 @@ typedef struct {
 
 extern MenuSprite *D_800BD550;
 extern MenuSprite *D_800BD554;
-extern u16 D_800BD558;
-extern u8 D_800BD55A;
+extern u16 sSaveMenuAction;
+extern u8 sSaveMenuRefresh;
 
 void updatePairedSpriteState(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
     long var_a1;
     u32 temp_v1;
     MenuSprite *first;
 
-    if (D_800BD558 != (arg0 & (short)0xFFFF)) {
-        D_800BD558 = (arg0 & 0xFFFF);
+    if (sSaveMenuAction != (arg0 & (short)0xFFFF)) {
+        sSaveMenuAction = (arg0 & 0xFFFF);
     }
     if (((first = D_800BD550) != NULL) && (D_800BD554 != NULL)) {
         first->flags = (s32) ((first->flags & ~0xFC) | 0xC);
@@ -47,7 +47,7 @@ void updatePairedSpriteState(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
 block_11:
             func_800448A4(first, var_a1, 0x24);
         }
-        if (D_800BD55A) {
+        if (sSaveMenuRefresh) {
             if ((arg0 & 0xFFFF) & 0x1000) {
                 D_800BD554->flags = (s32) ((D_800BD554->flags & ~0xFC) | 0xC);
             }

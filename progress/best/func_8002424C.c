@@ -16,85 +16,72 @@ extern u16 D_800B81A8;
 extern u8 D_800B81AB;
 extern s32 D_800BD550;
 extern s32 D_800BD554;
-extern u16 D_800BD558;
-extern s8 D_800BD55A;
+extern u16 sSaveMenuAction;
+extern s8 sSaveMenuRefresh;
 extern char D_800BD5D0[];
 extern u8 gMenuParamC;
 extern s8 D_800BD690;
 extern char D_80107EA8[];
 extern void *gMenuState;
-extern char D_80109C18[];
 extern char D_80109C1C[];
 extern char D_8010D478[];
 extern s32 func_800240A4;
 extern s32 func_800241F8;
 
-typedef struct { short field_0; unsigned char pad_2[34]; short field_24; } __repair_record_temp_s2;
-void func_8002424C(void) {
-int __repair_constant;
+typedef struct { s32 first, second; } SavePair;
+typedef struct { u8 pad[0x14]; u16 mode; u8 pad2[0x16]; u8 refresh; } SaveState;
+extern SavePair D_80109C18[];
 
-    register s16 *temp_s3;
-    u32 temp_a0;
-    u32 temp_s0;
-    register s32 temp_v0;
-    register int var_s1;
-    s32 temp_v1;
-    s32 var_v0;
-    void *temp_s2;
+void func_8002424C(void) {
+    char *base, *config, *slot, *menu;
+    SavePair *pairs;
+    int i, offset, full, empty, action, param;
 
     func_8002CBD8();
     D_800BD690 = 0;
     func_8002A644(D_80107EA8, D_8010D478, 0xC0, 6, 0x58, 0xB2, 0x3C, 0x14, 1, &func_800240A4, &func_800241F8);
-    
-    temp_s2 = D_800BD5D0 - 0x4C;
-    temp_s3 = D_800BD5D0 - 0x34;
-    func_80022A30((var_s1 = 0, gMenuParamC), 0x20, 0x3C, 0xF8, 0x78);
-    D_800BD554 = func_80015F74(D_800BD5D0);
-    D_800BD550 = func_80015F74(D_800BD5D0 - 0x24);
+    i = 0;
+    base = D_800BD5D0;
+    config = base - 0x4C;
+    empty = 0xF;
+    full = 0x10;
+    slot = base - 0x34;
+    pairs = D_80109C18;
+    func_80022A30(gMenuParamC, 0x20, 0x3C, 0xF8, 0x78);
+    D_800BD554 = func_80015F74(base);
+    D_800BD550 = func_80015F74(base - 0x24);
     do {
-        temp_a0 = var_s1 & 0xFFFF;
-        ((__repair_record_temp_s2*)temp_s2)->field_0 = (s16) gMenuParamC;
-        ((__repair_record_temp_s2*)temp_s2)->field_24 = (s16) gMenuParamC;
-        temp_v0 = temp_a0 * 8;
-        *(s32 *)(D_80109C18 + temp_v0) = 0;
-        *(s32 *)(D_80109C1C + temp_v0) = 0;
-        if (!(func_8002D09C(temp_a0) & 0xFFFF)) {
-            (*(s32 *)((char *)(temp_s2) + -8)) = 0x10;
-        } else {
-            (*(s32 *)((char *)(temp_s2) + -8)) = 0xF;
-        }
-        *(s16 *)(D_800BD5D0 - 0x34) = var_s1 + 0x4000;
-        *(s32 *)(D_80109C18 + (temp_s0 = (var_s1 & 0xFFFF) * 8)) = func_80015F74((D_800BD5D0 - 0x34) - 0x14);
-        *(s32 *)(D_80109C1C + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x38);
-        func_8002A7CC(D_80107EA8, temp_s0 + D_80109C18, var_s1 & 0xFF, 1);
-        ++var_s1;
-    } while ((u32) (var_s1 & 0xFFFF) < 0x10U);
+        param = gMenuParamC;
+        *(s16 *)config = param;
+        *(s16 *)(config + 0x24) = param;
+        offset = (u16)i * 8;
+        *(s32 *)((u32)D_80109C18 + offset) = 0;
+        *(s32 *)((u32)D_80109C1C + offset) = 0;
+        if ((u16)func_8002D09C((u16)i))
+            *(s32 *)(config - 8) = empty;
+        else
+            *(s32 *)(config - 8) = full;
+        *(s16 *)slot = i + 0x4000;
+        *(s32 *)((u32)D_80109C18 + (offset = (u16)i * 8)) = func_80015F74(slot - 0x14);
+        *(s32 *)((u32)D_80109C1C + offset) = func_80015F74(slot - 0x38);
+        func_8002A7CC(D_80107EA8, (char *)pairs + offset, (u8)i, 1);
+        i++;
+    } while ((u16)i < 16);
     func_80024D78();
-    D_800BD55A = 0;
-    D_800BD558 = 1;
+    sSaveMenuRefresh = 0;
+    sSaveMenuAction = 1;
     func_80022AD8(gMenuParamC);
-    temp_v1 = (*(u16 *)((char *)(gMenuState) + 0x14));
-    if (temp_v1 != 0x1A) {
-        if ((s32) temp_v1 < 0x1B) {
-            var_v0 = __repair_constant;
-            if (temp_v1 != 0x19) {
-                var_v0 = 1;
-            }
-        } else {
-            var_v0 = 1;
-            if (temp_v1 == 0x1B) {
-                var_v0 = __repair_constant;
-            }
-        }
-    } else {
-        var_v0 = 2;
+    switch (((SaveState *)gMenuState)->mode) {
+    case 0x19: case 0x1B: action = 3; break;
+    case 0x1A: action = 2; break;
+    default: action = 1; break;
     }
-    D_800BD558 = var_v0;
-    do { func_8002A9A8(D_80107EA8, 0); } while (0);
-    updatePairedSpriteState(D_800BD558, D_800B81A8, D_800B81AB, 1);
-    func_8002AC04(D_80107EA8, 1);
-    if ((u32) ((*(u16 *)((char *)(gMenuState) + 0x14)) - 0x19) < 2U) {
-        func_8002A9A8(D_80107EA8, func_80024EF0(D_800BD558) & 0xFF);
-    }
-    (*(s8 *)((char *)(gMenuState) + 0x2C)) = 0;
+    sSaveMenuAction = action;
+    updatePairedSpriteState(sSaveMenuAction, D_800B81A8, D_800B81AB, 1);
+    menu = D_80107EA8;
+    func_8002A9A8(menu, 0);
+    func_8002AC04(menu, 1);
+    if ((u32)(((SaveState *)gMenuState)->mode - 0x19) < 2)
+        func_8002A9A8(menu, (u8)func_80024EF0(sSaveMenuAction));
+    ((SaveState *)gMenuState)->refresh = 0;
 }

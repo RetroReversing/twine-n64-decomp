@@ -80,17 +80,14 @@ void func_80016FCC(s8 arg0) {
                 switch (D_80108F78) {
                 case 25: s1 = 0; func_80118098(); break;
                 case 20: s1 = 0; func_801181B0(); break;
-                case 28: s1 = 0; func_80117740(); break;
+                case 28: case 33: case 40: case 41: s1 = 0; func_80117740(); break;
                 case 16: s1 = 0; func_801177B0(); break;
                 case 34: s1 = 0; func_801177AC(); break;
                 case 29: s1 = 0; func_80118110(); break;
-                case 33: s1 = 0; func_80117740(); break;
                 case 18: s1 = 0; func_80117B58(); break;
                 case 38: s1 = 0; func_80117A18(); break;
                 case 2: s1 = 0; func_80118228(); break;
                 case 11: s1 = 0; func_801177D4(); break;
-                case 41: s1 = 0; func_80117740(); break;
-                case 40: s1 = 0; func_80117740(); break;
                 }
             } else {
                 s1 = 0;
