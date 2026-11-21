@@ -313,6 +313,9 @@ block_31:
                 temp_v1_2 = M2C_FIELD(M2C_FIELD(var_s2, u16 **, -0x18), u8 *, 0x1E);
                 var_a3_2 = 0;
                 switch (temp_v1_2) {                /* switch 2; irregular */
+                case 0xB:                           /* switch 2 */
+                    var_a3_2 = 4;
+                    break;
                 case 0x9:                           /* switch 2 */
                     var_a3_2 = 1;
                     break;
@@ -321,9 +324,6 @@ block_31:
                     break;
                 case 0x70:                          /* switch 2 */
                     var_a3_2 = 7;
-                    break;
-                case 0xB:                           /* switch 2 */
-                    var_a3_2 = 4;
                     break;
                 }
                 var_s3 = spawnSurfaceLinkedEffect(&locals.sp40, &locals.sp50, temp_s5 + (*var_s4 * 0x4C), var_a3_2, (s32) M2C_FIELD(var_s2, u8 *, -0xF), (s32) M2C_FIELD(var_s2, u8 *, -0xD));
@@ -507,13 +507,13 @@ block_80:
             case 0x91:                              /* switch 1 */
             case 0x92:                              /* switch 1 */
                 var_a1 = M2C_FIELD(M2C_FIELD(var_s2, u16 **, -0x18), u8 *, 0x1E) + 0x6F;
-block_95:
                 func_80073634(var_s4, var_a1 & 0xFF);
                 break;
             case 0x93:                              /* switch 1 */
             case 0x94:                              /* switch 1 */
                 var_a1 = M2C_FIELD(M2C_FIELD(var_s2, u16 **, -0x18), u8 *, 0x1E) + 0x6D;
-                goto block_95;
+                func_80073634(var_s4, var_a1 & 0xFF);
+                break;
             case 0x69:                              /* switch 1 */
                 D_80100774 = (s8) M2C_FIELD(var_s2, u16 *, -0x10);
                 D_80100775 = (s8) M2C_FIELD(var_s2, u16 *, -0xE);

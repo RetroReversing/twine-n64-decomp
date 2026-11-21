@@ -33,7 +33,6 @@ void func_8005C24C(void) {
 
     var_a2 = 0;
     if (D_80108788 != NULL) {
-        temp_s0 = 0;
         if (M2C_FIELD(D_80108788, void **, 0x70) != NULL) {
             var_s1 = 0;
             var_s2 = &D_800C4450;
@@ -48,23 +47,25 @@ void func_8005C24C(void) {
                         var_a2 = 1;
                         M2C_FIELD(D_80108788, s32 *, 0x60) |= 0x08000000;
                     } else {
-                        func_80073AF8(0, D_80109688, func_80087100(*(u16 *)(D_800C446A + temp_s0), D_80108788, var_a2), -1, -1, 1, 0, 0, 3, 0, 0);
+                        func_80073AF8(0, D_80109688, func_80087100(*(u16 *)(D_800C446A + temp_s0)), -1, -1, 1, 0, 0, 3, 0, 0);
                         var_a2 = 1;
                         goto block_9;
                     }
                 } else {
 block_9:
-                    var_s2 += 4;
                 }
+                var_s2 += 4;
                 var_s1 += 1;
             } while (var_s1 < 2U);
             goto block_11;
         }
-    } else {
+    }
+    {
 block_11:
         temp_s0 = var_a2;
     }
-    if (temp_s0 == 0) {
+    if ((u8)temp_s0 == 0) {
         func_8005B5A8();
     }
 }
+

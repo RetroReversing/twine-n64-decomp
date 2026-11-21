@@ -60,7 +60,7 @@ void func_80036BBC(void *arg0) {
 
     var_s2 = gObjectListHead;
     D_801007BC = NULL;
-    if (gRenderMode != 0) {
+    if (gRenderMode) {
         gRenderMode = 0;
         emit_projection_viewport_commands();
     }
@@ -83,8 +83,8 @@ void func_80036BBC(void *arg0) {
         if (((__repair_field_100 *)arg0)->value & 3) {
             temp_v1_3 = D_80115328;
             D_80115328 = (s8 *) temp_v1_3 + 8;
-            ((__repair_field_0 *)temp_v1_3)->value = 0xFC40FE03;
             (*(s32 *)((char *)(temp_v1_3) + 4)) = -0xC88;
+            ((__repair_field_0 *)temp_v1_3)->value = 0xFC40FE03;
         } else {
             __repair_phase_storage.pointer = D_80115328;
             D_80115328 = (s8 *) __repair_phase_storage.pointer + 8;
@@ -124,7 +124,7 @@ block_26:
                 }
                 if (((u32) ((__repair_record_var_s0*)var_s0)->field_5C >> 0x17) & 3) {
                     temp_v1_7 = sMatrixPoolUsed;
-                    if (temp_v1_7 < (u32) sMatrixPoolLimit) {
+                    if (temp_v1_7 < sMatrixPoolLimit) {
                         sMatrixPoolUsed = ++temp_v1_7;
                         D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v1_7 << 6);
                         if (((u32) ((__repair_record_var_s0*)var_s0)->field_5C >> 0x17) & 2) {
@@ -201,8 +201,8 @@ emit_combine:
                             } else {
                                 var_v0_2 = D_80115328;
                                 D_80115328 = (s8 *) var_v0_2 + 8;
-                                var_v1_3 = &D_800B1B18;
                                 ((__repair_field_0 *)var_v0_2)->value = 0xDE000000;
+                                var_v1_3 = &D_800B1B18;
                             }
                             (*(s32 **)((char *)(var_v0_2) + 4)) = var_v1_3;
                         }
