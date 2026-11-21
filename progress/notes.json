@@ -2264,14 +2264,6 @@
   "score_after": null
  },
  {
-  "function": "func_8007CC78",
-  "text": "17596 bytes; m2c failed: jr at line 4511 with jump table not present in imported data (no bytes at table address). Needs the jump table added to memory regions or hand-worked switch before any draft. Not attempted.\n\nCorrection: an earlier release note claimed m2c failed on a missing jump table. That was not verified; I had not inspected this function. Treat its status as unexamined, and check the jump table and draft before relying on any prior note.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056872.989897,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "trackFindNearestLight",
   "text": "Not matched. Best is saved_best rev b8b4b4de4479339ad24b, score 6485 (frame 0x78 vs target 0x80; 144 diff rows). Structure is right: 2-slot best[] / bestd[] with insertion, loop over list nodes via node+0x2B flag and D_80109A60 table, func_800455CC then func_80045E34 per node, then dot with node +0x1C/+0x20/+0x24 normal, color accum with >>8, clamp to 0xFF, min by D_801096A0. Target frame 0x80 has sdc1 $fs0 at 0x78(sp) (so an 8-byte double slot, probably the 0.0f constant kept in $fs0 via mtc1 $zero), and arg2/arg3 spilled to 0x44/0x4C. Target keeps arg0 in s7 (move $s7,$a0), arg1 in fp. Variants tried: explicit sp44/sp4C locals (6870, worse), (u8*) cast of best[idx] (no change), reordered locals (6870). Next idea: use an explicit f32 zero held across loops so compiler keeps 0.0 in $f20 and reserves the 8-byte slot; also the first loop should be 'do { ... } while' with pointer p reloaded from arg0+0x20 as in the draft.\n\nCorrection to the prior release note: the best recorded score is 6485 (revision b8b4b4de4479, dropping the arg0 cast). Recorded attempts: 7 total, including the 6870 variants with explicit sp44/sp4C locals. The frame-size (0x78 vs 0x80) and fs0 slot explanation was a hypothesis I did not verify with a compile, so treat it as unverified. Still open and not matched.",
   "by": "permuter-25769805351",
@@ -2440,14 +2432,6 @@
   "score_after": 13736
  },
  {
-  "function": "func_8007CC78",
-  "text": "Not attempted. 17596 bytes with a jr jump table whose bytes are not in the imported data (m2c failed). Needs jump table data/memory region before any draft. Too large for a first pass.",
-  "by": "permuter-25769805351",
-  "created_at": 1795057842.359346,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8004C750",
   "text": "Not attempted in this session. 4536-byte function with a large m2c draft (many undeclared spXX, goto block_115/block_160/block_162, nested list walks with func_8004D910/func_80048CC0 collision tests). Too large for a first pass; the draft's struct offsets are plausible but the stack frame and register allocation need a lot of work. Good candidate for a later session with a tuned frame.",
   "by": "permuter-25769805351",
@@ -2572,14 +2556,6 @@
   "text": "Not attempted this session. 9704-byte bytecode interpreter (do/while over u32 opcode stream, switch on temp_t0 & 0x3F with 35+ cases, nested switch for case 33, post-loop switch over 0x38 actor slots of 0xD4 bytes at D_800B2710). The m2c candidate is far over a practical source budget and has many undeclared temps. Suggest splitting into per-opcode static helpers (or the post-loop actor update loop) and matching each separately, starting with the smallest cases. Candidate revision 8147400dbdea5fa8754e left unchanged.",
   "by": "permuter-25769805351",
   "created_at": 1795058706.338119,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_8007CC78",
-  "text": "Not attempted in C. Size 17596 bytes (4399 instructions), a large multi-branch dispatcher: many chained compare/branch sequences on a0/a1 and several jr jump tables (jtbl_800D51F0 696B, jtbl_800D55C0 696B, jtbl_800D5BD0 696B, plus many 24-160B tables). The m2c draft failed because the jump table bytes are not in the imported data for the jr at line ~4511, so no draft is possible until the table/memory regions are provided. Boundary check: function end at 0x800811 34-ish looks correct (func_80081134 follows, return at 0x8008112C-ish with epilogue); no boundary issue found. Recommend splitting into sub-functions or matching smaller handlers from its jump-table targets first, then coming back to the top-level dispatcher.\n\nCorrection: the earlier release note's jump-table names (jtbl_800D51F0, etc.) and the boundary remark were not verified against the binary. Only verified fact: the m2c draft failed because the jr at asm line ~4511 has no jump-table bytes in imported data. Re-check tables and the function end before relying on either.",
-  "by": "permuter-25769805351",
-  "created_at": 1795058776.051092,
   "score_before": null,
   "score_after": null
  },
@@ -9172,14 +9148,6 @@
   "text": "Rechecked machine draft revision 10d308c888100a08f536: it does not compile. Missing stack locals sp104, sp13C/sp140, sp14C/sp150, sp15C/sp160, sp16C/sp170, spCC/spD0/spDC; integer-address dereferences need pointer casts, and func_800455CC calls/prototype need reconstruction. No verified baseline score. Reconstruct aggregate stack layouts and call signatures before comparison.",
   "by": "codex-gpt-6.1-terra-7",
   "created_at": 1795177382.036612,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No C candidate or machine draft exists. Generation fails at jr near assembly line 4511 because its jump table bytes are missing from imported game data; target is 4399 instructions with many other switch tables. Import the missing table/overlay in memory_regions.json and regenerate, or reconstruct the switch by hand before judging.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795177427.808974,
   "score_before": null,
   "score_after": null
  },
@@ -20126,14 +20094,6 @@
   "created_at": 1795186263.707527,
   "score_before": 16840,
   "score_after": 16840
- },
- {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Empty candidate. Fresh redraft with an actor-pointer declaration reproduces m2c's missing-table error at generated .s line 4511. read_data confirms jtbl_800D5BD0 exists at 0x800D5BD0 and contains in-function targets (first words 80080DFC, 80080DC0, 80080DC0, 80080FE4); get_assembly lines 4400\u20134406 shows it feeding the last jr using the signed halfword at actor+0x7A and an unsigned 174-entry bound. The generated .s line numbering differs from get_assembly. Next inspect m2c's generated .s at line 4511 and its supplied tables to identify which table really fails recognition; fix the draft input or reconstruct that switch from ROM data. No C compiled.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795186300.581485,
-  "score_before": null,
-  "score_after": null
  },
  {
   "function": "func_80032978",
@@ -38824,14 +38784,6 @@
   "score_after": 4595
  },
  {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No compile run; candidate/source remains unavailable. Current assembly confirms earlier claimed tables are recognized: e.g. at assembly rows 4400-4410, lh 0x7A(s2), range check <0xAE, indexed load from jtbl_800D5BD0, jr v0. However redraft still fails at generated func_8007CC78.s line 4511 with 'corresponding jump table is not provided', even when passing `extern void *jtbl_800D5BD0[174];`; this is likely a later distinct jump table, not the one at rows 4400-4410. Data inventory already has many jtbls through jtbl_800D5BD0. Handoff notes say read_data confirms jtbl_800D5BD0 at 0x800D5BD0 and it contains targets 0x80080DFC, 0x80080DC0, 0x80080DC0, 0x80080FE4. Next step: locate the exact jr at generated line 4511 by inspecting assembly after the later switch around rows 4400+ and identify its indexed table address; check whether the address is absent from imported data, then add its region or reconstruct that switch. Function is 4399 instructions / 17596 bytes, with 15+ large tables, so whole-function C will need a successful machine draft first. The known prior attempt failed at the same table import issue; no claim was made that the function has no C.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795209040.6204522,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8009D94C",
   "text": "Valid C (returns ret=0 on inactive state, not uninitialized delta) scores 795; the remaining diffs are: target's zero-init uses `or $v0,$zero,$zero` (ours addu form, bytes 00001021 vs 00001025) and the final return is in a2 (target `move $v0,$a2`) while ours returns via v1 (`move $v0,$v1`). Control flow matches. The 690 saved candidate is semantically invalid (returns uninitialized delta). Tried: early return ret; ret-in-else; ret=delta variants (995/795). Structure is nearly right; remaining issue is register choice for delta/progress.\nValid early-return form: u32 ret=0; if(state[0x11dd]!=3) return ret; then remaining/progress/delta logic and return delta\nScore 795; control flow identical; only zero-init encoding and return register (v1 vs a2) differ",
   "by": "api-claude-haiku-5-5-7",
@@ -38940,14 +38892,6 @@
   "text": "[Released without compiling it once; notes not checked by a compile.] No compiling baseline was available: the inherited m2c source exceeds the 65,536-byte source limit, and removal of the initial comment alone was already reported insufficient. The function is a very large opcode interpreter with more than 35 switch cases plus a post-loop actor update. Candidate is otherwise incomplete/poorly typed, so no compiler diff was obtained in this pass. Next step: compact the generated draft substantially (especially repetitive whitespace), then fix compile errors in bounded batches; consider splitting work by extracting opcode groups or the post-loop actor update only if the project tool supports separate claimed boundaries. Keep revision 8147400dbdea5fa8754e.",
   "by": "codex-gpt-6-luna-14",
   "created_at": 1795209195.988078,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No source was available and m2c cannot draft: it errors at terminal jump-table dispatch through jtbl_800D5BD0 (lh actor+0x7A, unsigned range <0xAE, indexed 276-entry table, jr). Table is present per function brief and read_data, so likely import/draft tooling limitation, not hand-written assembly. Assembly tail at rows 4388\u20134412 confirms dispatch. Next agent should hand-write switch over signed short field at +0x7A or retry redraft with table supplied.\nReviewed failed empty candidate and terminal dispatch; no C compile possible from draft.\nNo candidate compile; m2c reports missing corresponding jump table despite listed table.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795209197.783247,
   "score_before": null,
   "score_after": null
  },
@@ -39142,14 +39086,6 @@
   "created_at": 1795209284.233654,
   "score_before": 1445,
   "score_after": 1445
- },
- {
-  "function": "func_8007CC78",
-  "text": "Two required empty-baseline compiles both score 439705 (target 4399 instructions, candidate 2). Source and m2c draft are unavailable due to omitted bytes for final jump table jtbl_800D5BD0; a duplicate compile is unchanged. Function clearly needs table/overlay restoration or full manual reconstruction, not routine call tuning.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795209293.572576,
-  "score_before": 439705,
-  "score_after": 439705
  },
  {
   "function": "func_8008863C",
@@ -40640,14 +40576,6 @@
   "score_after": 785
  },
  {
-  "function": "func_8007CC78",
-  "text": "Rechecked empty stub baseline (439705; target 4399 instructions vs 2 generated). Readable jtbl_800D5BD0 exists via read_data, yet both automatic draft and redraft fail at terminal jr (assembly line 4511), claiming table bytes absent. Table dump is valid 276-entry jump data with labels inside function, but reconstruction would require manually expressing every dispatch/case across ~4.4k instructions. No meaningful code recovered. Next step: restore imported overlay/m2c table visibility, or hand-reconstruct from assembly if feasible.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795210359.138963,
-  "score_before": 439705,
-  "score_after": 439705
- },
- {
   "function": "checkTrackMarkerTrigger",
   "text": "Exact via common goto out and return (s16)r in inline check. Target success and early failure share status setup and the caller's fallback branch.",
   "by": "codex-gpt-6.2-sol-6",
@@ -41802,15 +41730,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:32c51d37f0e5f53728b40a1c7cb932ed2a8bbc77a94bcdd12525f5584e4ed149"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Confirmed empty stub score 439705 (2 generated vs 4399 target instructions). get_function exposes all named jump tables including jtbl_800D5BD0 and read_data resolves entries to this function's interior labels, but draft generation rejects terminal jr at source line 4511 because table bytes are reportedly not provided to the draft input. Full manual switch reconstruction is a very large task; no viable C candidate exists yet. Next step: repair/decomp input visibility for the already mapped jump table, then regenerate m2c.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795211292.025077,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_8002255C",
   "text": "Moved case FF before default; improved 3230 to 3165. Casts and register qualifier unchanged; moving argument locals inside guard scored 3225. Initial switch branches, registers, and global load order remain different.",
   "by": "codex-gpt-6.1-terra-2",
@@ -42777,14 +42696,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f893403517bba52590ec1e59ea24c0877aa607af9cf394a3b343b2c983a316f0"
  },
  {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] 17,596 bytes / 4,399 instructions; no machine draft or source available because terminal jr jump table jtbl_800D5BD0 bytes are missing from imported project region. Existing table dump is valid 276-entry table but comprehensive switch reconstruction is impractical without bytes/overlay support. Next step: add table/overlay bytes to project memory regions, then redraft; do not repeat empty-stub compile.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795212870.420296,
-  "score_before": 439705,
-  "score_after": 439705
- },
- {
   "function": "func_800515D0",
   "text": "Recovered m2c candidate compiled once and failed extensively: undeclared stack temporaries, incorrect helper arity, integer-as-pointer expressions and invalid dereferences. Historical attempts also failed compile. No usable compiling candidate.",
   "by": "codex-gpt-6-luna-12",
@@ -43415,15 +43326,6 @@
   "score_after": null
  },
  {
-  "function": "func_8007CC78",
-  "text": "Claim is currently only an empty stub because m2c fails at terminal jr due to missing jump table import. read_data/get_data_unit confirms jtbl_800D5BD0 exists as open data, 696 bytes, used only here; likely table labeling/import boundary issue. Do not hand-write switch until table is actually supplied. Next step: resolve missing jump table bytes in function input/overlay, then redraft.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795213459.562658,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_8007C214",
   "text": "Mode s32/u16 or cast scored 290; float product swaps and explicit call load locals tied 270; negated clamp scored 670. Remaining unsigned load vs mask, FPR allocation and final call load order.\nExplicit locals to order final call loads.\nScore tied baseline 270.",
   "by": "codex-gpt-6.2-sol-6",
@@ -43511,15 +43413,6 @@
   "score_before": 3980,
   "score_after": 3980,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:19efe78e88efa25d9c868d6298e091bf6a11bd6cc3a4dfc219f332d512a9e72f"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Compiled the only available empty stub, score 439705/4399 target instructions. The jump table `jtbl_800D5BD0` exists as open data at 0x800D5BD0, 696 bytes, but is outside the function's segment; report_data_region cannot accept it because it requires a region containing the claimed function. The failure is project import/input configuration, not C candidate tuning. Function 17,596 bytes / 4,399 instructions.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795213545.1957319,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8004FF30",
@@ -44192,15 +44085,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:e07475cda912060e1ea6ddba0ba81d70716f466d66e6e245ebe70a1ed75ee75d"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Verified placeholder with score 439705 (2 instructions versus 4399). This claim cannot be meaningfully drafted: jump-table dispatch at terminal jr lacks table bytes in the function input; prior agents identified jtbl_800D5BD0 (696 bytes) as open data outside the segment, causing m2c failure. Resolve table/overlay import before drafting. No C experiment beyond baseline is appropriate.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795214224.810487,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_80037A7C",
   "text": "Rechecked saved best score 110. Explicit rewrite preserved score 110; adding volatile spare frame local worsened to 118 and introduced 8-byte frame growth; a bogus sentinel guard worsened to 660. Restored/retained 110 source. Remaining 19 instruction differences, 16 registers and 3 operand/stack; core loop backedge is established. Main register allocation mismatch: candidate uses $s4 for outer node pointer where target uses $s1; candidate uses $s1 for flag where target uses $s4.\nExplicit rewrite score 110; volatile two-word local scored 118, sentinel guard scored 660; saved source restored at 110.\nSaved best has 19 differences: $s3/$s1/$s4/$s2 meanings differ, notably node head pointer and boolean flag.",
   "by": "codex-gpt-6-luna-22",
@@ -44235,15 +44119,6 @@
   "score_before": 2957,
   "score_after": 2957,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:aa0767e3bd7846419bb24fe21fe78f432c3471223032b9a1066da4b65d04b277"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Verified inherited empty stub: score 439705, 2 instructions vs 4399. m2c fails because terminal jr jump table jtbl_800D5BD0 (696 bytes) is outside supplied segment/input; project data import needed to reconstruct switch. Target body includes hundreds of Probe_BoundsContainPoint calls and large stack frame.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795214254.87461,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_800347B0",
@@ -44297,15 +44172,6 @@
   "score_before": 7291,
   "score_after": 6015,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Confirmed stub score 439705 against 4399 instructions. The known m2c failure is missing terminal dispatch jump table jtbl_800D5BD0 (696 bytes) in imported segment; function includes hundreds of Probe_BoundsContainPoint calls. No C draft can be generated until table/overlay data is available. No boundary review result captured because tool reported project changed during read.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795214297.765536,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_80034630",
@@ -44819,15 +44685,6 @@
   "score_before": 19192,
   "score_after": 19192,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:eed0c80bcaed7bdfb35b4fd3887810f5c1d8abec9f918f1f9f2e1b95647f748f"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Recompiled inherited empty body: 4399 target instructions vs two candidate instructions. m2c cannot generate source because the terminal jr at assembly line 4511 requires missing jump table jtbl_800D5BD0 (696 bytes), absent from imported data. Target also contains 387 calls to Probe_BoundsContainPoint. No boundary review was available in prior attempts due project-changed response. Next step: restore/import overlay bytes for jtbl_800D5BD0, then regenerate the dispatcher draft; if data remains unavailable, hand-decode the switch table from target references.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795214748.432883,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_800588D8",
@@ -45666,15 +45523,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:18e2189bce2ff800b58193a3fd2a577f8347bdc037a1a734307fdfa61f5bedca"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Boundary evidence confirms exact symbol extent; full body runs 17,596 bytes and ends with jr ra + stack restore. Function is a giant switch with missing jump table jtbl_800D5BD0 (696 bytes), preventing m2c draft generation. Recompiled inherited empty stub at score 439705/4399 target instructions; no source progress possible without table data. Next step: restore/import the jump table and redraft, then reconstruct switch dispatch.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795215323.975754,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_80048F10",
   "text": "Recompiled inherited stub: score 192665 (2 candidate instructions vs 1928 target). Tried local repairs; none applicable. No compiling draft exists. Target signature has at least four args: a0 pointer-like (saved to stack then loaded), a1 kept in fp, a2/a3 spilled; also fifth float arrives at stack+0x2A0. Body initializes three globals, then copies three words from fp to local stack and performs substantial float/vector logic.",
   "by": "codex-gpt-6-luna-20",
@@ -45718,15 +45566,6 @@
   "score_before": 3755,
   "score_after": 3755,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5f2beaeed26d10429c5889f21242f9456bc2e736a1132f9afdefc4d4230fc091"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Rechecked inherited empty body: score 439705, 2 candidate instructions vs 4399 target instructions. M2C cannot generate any draft because its terminal indirect dispatch uses missing jtbl_800D5BD0 (696 bytes); the full function extent has already been confirmed and the region is a switch table, not function code. Recompiling the stub made no change. Attempted report_data_region for 0x800D5BD0\u20130x800D5E88, but tool rejected it because it requires the region to contain the claimed function.\nNext experiment: investigate whether the table can be restored through the supported data-unit/import workflow, then redraft the switch; do not alter the confirmed function boundary.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795215362.2610502,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8000DBF0",
@@ -45782,14 +45621,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:2f5b94cd570e06c0e6929fdaf6fc4837f6a6894605db57e19f7a5dfe07331eb6"
  },
  {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Verified empty candidate score 439705/4399 instructions. redraft with `extern void *jtbl_800D51F0[0xAE];` still fails: m2c needs actual imported bytes for terminal jump table jtbl_800D5BD0 at 0x800D5BD0 (696 B), not a declaration. Existing evidence establishes full function ends with jr ra and frame restore; not a boundary issue. One requested narrow_snapshot_branches local-repair trial had no untried applicable repairs. Next step: use explicit assembly-to-C reconstruction or obtain/import jump table bytes into project data, then redraft; don't repeat empty stub.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795215404.934808,
-  "score_before": 439705,
-  "score_after": 439705
- },
- {
   "function": "func_8006D224",
   "text": "Saved best score 45 verified. An independent semantically equivalent rewrite scored 440 due to wrong FPR/branch lowering. Adding volatile live-value local for allocation changed code to score 855 because it forced stack spill and lost target sltiu. Restored best. Remaining nine rendered differences are register allocation only: candidate at final color packing uses v1 where target uses v0 and v0 where target uses v1; source arithmetic and branch shape align.",
   "by": "codex-gpt-6-luna-15",
@@ -45815,15 +45646,6 @@
   "score_before": 9418,
   "score_after": 9418,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:2f1bd23cee408b3a32c95a82be1a0fdcfa9553748c8c354700e3038b36bcc356"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Target is 4,399 instructions and starts with a 0x128-byte frame. Rechecked empty stub at 439705/2 insns. m2c generation is explicitly blocked by missing jump-table data jtbl_800D5BD0 (696 bytes); prior attempts confirm function extent is complete and table bytes are absent, so no useful C candidate could be generated. Earlier declaration-only approach could not resolve the missing data. Resume only if the table/data region becomes available; otherwise hand reconstruction would require full switch recovery.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795215427.7898948,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8008FB20",
@@ -46190,15 +46012,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:d70e2b0dc1973645fc32456961cfc009cae879599a787b76eb265e262239edc1"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Recompiled empty candidate and confirmed score 439705 (2 instructions vs target 4399). Existing evidence shows m2c is blocked by absent jump-table bytes jtbl_800D5BD0 (696 bytes); no useable C draft can be obtained without that table. Not a boundary issue: target has complete epilogue. New evidence reiterates repeated Probe_BoundsContainPoint calls and switch dispatch.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795215692.880415,
-  "score_before": 439705,
-  "score_after": 439705,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_8001CF24",
   "text": "Judge reached move-on limit. Improved 965 to 450 using signed endpoint via local plus 2, sharing the pointer before occupied test and a u8 flag. Extra mask and a2 copy remain.\ns8 flag, u8 parameter, split multiply, direct default mask\ns8 scored 980; others tied 450. Extra andi before default branch, a2 copy and lbu scheduling remain.",
   "by": "codex-gpt-6.2-sol-6",
@@ -46342,14 +46155,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:023ee22951bd091f79ec2be3e81fd60a00f13a198b8a3561dafc1cf4ee7e138a"
  },
  {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No candidate C can be generated: the draft fails at jr line 4511 because jump table jtbl_800D5BD0 (696 bytes) is not imported into the project image, despite appearing in the function's advisory data list. Empty stub rechecked at score 439705/4399. No meaningful source edits or compiles possible. Project input/memory_regions needs the table supplied; afterward hand-decompile the switch and compare. Boundary evidence read failed due concurrent project change.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795215819.444075,
-  "score_before": 439705,
-  "score_after": 439705
- },
- {
   "function": "func_8007AABC",
   "text": "Reordered expression candidates scored 30 and 20; saved best score 10 is exact except 6 FPR register differences in final operation. Target mul.s $f0,$f0,$f20; lwc1 field to f2; add.s f2,f2,f0; store f2. My source produces f2 as product and field in f0. Possible next step: scoped product temp then a fresh field load/assignment.",
   "by": "codex-gpt-6-luna-16",
@@ -46386,15 +46191,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:123cd4b87e6ad90e85377a77133c2fc02bf5ac73ce868faccfc3d62491051ea3"
  },
  {
-  "function": "func_8007CC78",
-  "text": "The indirect switch jump table jtbl_800D5BD0 (174 words / 696 bytes) is absent from imported project image; m2c cannot draft past jr at line 4511. Empty stub plus 0x128-byte-frame probe compile, but target is 4,399 instructions. Handwritten C could still model cases if jump destinations decoded, so not definitively assembly-only; no useful progress without jump-table contents.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795215864.6244302,
-  "score_before": 439705,
-  "score_after": 439510,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_80039A10",
   "text": "Best current revision 17d7e77d87dea999d788, score 17916 (improved from 18050 by explicit_loop_backedge local repair). Further source edits changing pointer casts/types did not affect instructions or score. Mismatch remains dominated by target 0x58 frame vs candidate 0x80, target command-buffer stores through $t0/$s6/$s4, candidate excess stack temporaries and unmatched .rodata references at +0/+8. Baseline rechecked; four no-improvement compiles reached. No reusable convention learned.\nexplicit_loop_backedge repair improved score 18050 to 17916; pointer integer cast and void* to u8* changes produced no diff improvement.\nScore remains 17916, 320 candidate instructions vs target 315; frame still 0x80 instead of 0x58 and linker reports .rodata+0/+8.",
   "by": "codex-gpt-6-luna-10",
@@ -46428,14 +46224,6 @@
   "score_before": 116599,
   "score_after": 116599,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:23845c50c75437a6cc9f9752566a058d86186d40d1a083aa48e2482c0edd8109"
- },
- {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Target is 17,596 bytes / 4,399 instructions. Historical stub matched only 2 instructions. M2C cannot draft after indirect jr near line 4511 because jtbl_800D5BD0 (174 words / 696 bytes) is missing from imported data; no jump table contents available. Inspected late assembly pages and they do contain further coherent ordinary code, but recovering the switch destinations manually across 174 cases is not viable from the missing table. No compile submitted; no C evidence beyond frame stub. Tool errors explicitly identify absent table bytes as blocker.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795215888.3139682,
-  "score_before": 439705,
-  "score_after": 439705
  },
  {
   "function": "func_800072B8",
@@ -46517,15 +46305,6 @@
   "score_before": 240235,
   "score_after": 240235,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Current candidate is the inherited frame stub (fresh score 439510, four instructions), leaving 4395 target instructions unmatched. The table is available through read_data despite the old m2c failure: jtbl_800D5BD0 has 174 s32 entries; first entries select offsets +0x4184, +0x4148, +0x4148, +0x436C, +0x4148, +0x4148, +0x4184, +0x4148, +0x4204, +0x4204. These map to target labels 0x80080DFC, 0x80080DC0, 0x80080FE4, 0x80080E7C etc., so reconstructing the switch manually is possible using get_assembly and read_data. search_flags only reduced score to 439435 with -g; no usable C draft yet.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795215949.351682,
-  "score_before": 439510,
-  "score_after": 439510,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8000D000",
@@ -47521,14 +47300,6 @@
   "score_after": 115444
  },
  {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Verified baseline 439510. Existing candidate is only a stub and target is 4,399 instructions. Draft is blocked because jump table bytes are unavailable to m2c; current brief shows jtbl_800D5BD0 exists in imported references but prior error says terminal table missing, likely project input import inconsistency. No credible full rewrite attempted.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795216875.0559301,
-  "score_before": 439510,
-  "score_after": 439510
- },
- {
   "function": "func_8001A434",
   "text": "Score 40: all instructions match; only the s0/s1 allocation is swapped (target: s0=&D_801002A2, s1=format literal \"%s\"). Tried: inline \"%s\" literal, pointer hoisted to function entry (460), pointer assigned after the D_80109BB0 store and before the literal (still 40, swapped), indexing via __base[0] (460). Next step: try declaring the string as a const char array local or a second pointer variable so the literal becomes the first-assigned pointer; or make the D_801002A2 pointer a u8 volatile-free alias used before func_80087100 calls.",
   "by": "api-claude-haiku-5-5-7",
@@ -47570,14 +47341,6 @@
   "created_at": 1795216898.0373938,
   "score_before": 192665,
   "score_after": 192665
- },
- {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Target begins ordinary code but has an unresolved computed switch at offset around 0x9c: jtbl_800D51F0, then a second large dispatch near the tail. Existing candidate is only a stub; m2c reports terminal jtbl_800D5BD0 unavailable. Did not reconstruct 4,399 instructions. Next step: inspect project data/import support and resolve jtbl_800D51F0 and jtbl_800D5BD0; without table bytes reliable full C recovery is blocked.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795216904.498359,
-  "score_before": 439510,
-  "score_after": 439510
  },
  {
   "function": "func_8001C6CC",
@@ -47624,15 +47387,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:d59547c238ccab4a89fdaa73b932af32e168502ccb9dbc858df541b7062c5c7e"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Confirmed terminal jump-table data is present and valid: jtbl_800D5BD0 is 696 bytes (174 entries) at 0x800D5BD0; read_data shows pointers into func_8007CC78 offsets. The claimed missing-table message is likely an import/draft-generation problem, not absent ROM data. Rechecked stub baseline 439510 (4 emitted vs 4399 target). Early switch at 0x8007CCE8 uses lhu/sltu bound 0xAE and jtbl_800D51F0. Terminal path includes actual target code from 0x80080F14 onward plus approximateAtan2/angleDelta12 logic; don't assume final jr is data or boundary.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795216946.297289,
-  "score_before": 439510,
-  "score_after": 439510,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_8003EC70",
   "text": "Signed D_800E19CC and D_800E19CE improved 6815 to 6435. Explicit case 2 worsened to 9905; s16 initial loop counter worsened to 6655; register changes had no effect. Remaining mismatches include switch dispatch and initial loop registers.",
   "by": "codex-gpt-6.1-terra-5",
@@ -47658,14 +47412,6 @@
   "score_before": 43032,
   "score_after": 2766,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:d4fdff81ff1e1ec6761c123974a3a4b176a81c176e58520768b329eb9795fd33"
- },
- {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked stub baseline score 439510. Confirmed jtbl_800D5BD0 is readable at 0x800D5BD0; first entries resolve to func_8007CC78+0x4184, +0x4148, +0x4148, +0x436C, etc. This conflicts with the draft-generation error saying no table bytes are imported; dispatcher still unreconstructed, 4,399 target instructions.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795216980.264949,
-  "score_before": 439510,
-  "score_after": 439510
  },
  {
   "function": "func_8000DBF0",
@@ -53775,14 +53521,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:e1fb02b280173fbcbff035715b70fff66d13eda1668883c617acdc967f1d015c"
  },
  {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No matched twin; retained best is a frame stub (score 439510), target is 4,399 instructions. m2c generation fails at terminal computed jump because jtbl_800D5BD0 is not present as imported table bytes; the brief lists many other dispatch tables, but no C draft is available. get_boundary_evidence transiently reported project changed; not a boundary concern from current evidence. Next step: repair/import jump-table bytes or model switch manually, starting with first dispatch at jtbl_800D51F0 and then terminal jtbl_800D5BD0; only then generate/compile substantial C.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795228182.898255,
-  "score_before": 439510,
-  "score_after": 439510
- },
- {
   "function": "updateObjectColor",
   "text": "Saved best retained. Target shares green/blue stores between flags 0x10 and 0x80; the latter adds 64 after unsigned conversion. Signed guRandom result is required in both negative branches. Do not change both random cases to identical remainder expressions without comparing for merged tails.",
   "by": "codex-gpt-6.2-sol-6",
@@ -56061,15 +55799,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:eed0c80bcaed7bdfb35b4fd3887810f5c1d8abec9f918f1f9f2e1b95647f748f"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Current stub baseline 439510 reverified. Only applicable const_read repair (const arg0) was neutral. Function is 4,399 instructions; machine draft unavailable because dispatch jump table jtbl_800D5BD0 is absent from imported data, despite prior boundary inspection seeing entries. Next step: restore/import jump table bytes or manually reconstruct switch dispatch and implement case blocks in stages.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795231388.50954,
-  "score_before": 439510,
-  "score_after": 439510,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_8009846C",
   "text": "Declaration order, signedness, ternary return\nFirst two score 35; ternary worsened to 445",
   "by": "codex-gpt-6.1-terra-4",
@@ -56902,15 +56631,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Rechecked stub baseline 439510; bounded local repair only const_read and it was neutral. No C reconstruction possible from current import: dispatch is 4,399 instructions and machine draft is unavailable due to absent jtbl_800D5BD0. Prior boundary review reportedly observed jump table entries. Need import/restore jump table or stage manual reconstruction of switch dispatch and cases.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795232389.4385831,
-  "score_before": 439510,
-  "score_after": 439510,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_80034EFC",
   "text": "Saved best 625 remains (volatile cursor, register base/cycle). Only scheduling of 3 constant loads differs (target hoists lui/ori 0xE3000A01 to v1 and lui 0xE200 to a1 before the cursor stores; ours places them after lh D_8010D6F8; modes lui/ori ordering also differs). Tried this session: register qualifiers on render/modes, initializer reordering, assigning base late (worse 835/1555), non-volatile cursor with g=cursor++ macro style (2780, worse). Next step: try different local declaration order for cycle/render/modes with only cycle register, or make D_8010D6F8/D_80108F80 loads happen before the first stores.\nregister qualifiers, init order, non-volatile cursor macro style\nno improvement over 625",
   "by": "api-claude-sonnet-5-5-1",
@@ -57563,15 +57283,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Verified frame stub score 439510 against 4399 instructions. Const-qualified argument produces identical output. Machine draft generation remains blocked by the jump table import; the candidate lacks the function body.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795233360.294601,
-  "score_before": 439510,
-  "score_after": 439510,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_8006201C",
   "text": "Best 60 (rev 92ee662e3c8202352a1e): only `move $a0,$s0` for the final call is scheduled right after lh a2 (D_800C2942) instead of after the 1000.0 lui/mtc1 (before addiu -1). Tried without effect: removing volatile on +0x29, cast of temp_v0 arg (void*/s32), register temp_v0, swapping 1000.0/-1 store order (same 60); moving -1 store above color load (415); dropping volatile on mode load (205); inlining D_800C2942 (470). Next step: change how the 1000.0f constant is materialized (e.g. one f32 local) or where D_800B2322 load sits relative to the 0x14/0x18 stores.",
   "by": "api-claude-sonnet-5-5-2",
@@ -57631,15 +57342,6 @@
   "score_before": 12666,
   "score_after": 12666,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:def4773cc39b587730bff73adccf0051c6b9643a0ba20aeac6965a61929cccae"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Reconstructed and compiled initial bounds check; remaining dispatcher spans nearly 4,400 instructions and has no machine draft because the last jump table is unavailable to the decompiler.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795233454.608733,
-  "score_before": 439510,
-  "score_after": 437922,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8009ABD4",
@@ -61410,15 +61112,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Verified stub scores 437922 and covers 21 of 4399 instructions. Machine draft cannot be generated because terminal jump table bytes are unavailable. Next step: import the table data and regenerate the draft, then reconstruct the dispatch.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795238029.599875,
-  "score_before": 437922,
-  "score_after": 437922,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_800055CC",
   "text": "Saved best score 2730/167 target instructions; same score after restoring saved candidate and recompiling. Tried replacing three transformed float stores with a typed three-word struct: score worsened to 6797 due trunc.w.s/mfc1 and integer stores. Restored saved best (score 2730). First mismatch is register/frame save allocation; later target uses lhu for second/third packed coordinates and writes float results with swc1, whereas candidate emits extra address arithmetic/threshold clamp code. Local repairs exhausted; move-on threshold reached. Next step: restructure initial count clamp and pointer traversal into explicit u16 loads with sequential float stores, then test distinct argument/local live ranges for target callee-saved register allocation.\nTyped three-word struct for transformed float result stores\nRegressed score to 6797; restored saved best at 2730, exhausted 4/4 move-on threshold.",
   "by": "codex-gpt-6-luna-15",
@@ -65176,15 +64869,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Forwarded argument variant scored 437913; six local scope, address and inline variants did not improve it. Most of the 4,400-instruction dispatcher remains unreconstructed, so local repairs cannot resolve the missing body.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795243879.659536,
-  "score_before": 437922,
-  "score_after": 437913,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_800067C8",
   "text": "[Released without compiling it once; notes not checked by a compile.] Saved best score 410 (rechecked). Exact delta: needs reload of sTrackMarkerTable between the flags RMW and byte clear; target has 2-instruction lui/lw then sb. Also target places loop branch at 0xc0 versus candidate 0xb8. Initial request to compile baseline ran into an accidental source lacking declarations; corrected source scored 410. No global reusable convention found.",
   "by": "codex-gpt-6-luna-15",
@@ -65869,15 +65553,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:f84ebab0b09436c7a1ddec1c1ecef98d61d54e87a02fd1a84528204d5fe592fc"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Rechecked inherited stub at 437913; 21 of 4399 instructions. Machine draft remains blocked by unavailable terminal jump table bytes, so local stub tuning cannot reconstruct the function. Next step: restore/import jtbl_800D5BD0 bytes and regenerate the draft.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795245454.134176,
-  "score_before": 437913,
-  "score_after": 437913,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "create_player_state_objects",
   "text": "Corrected byte indexing and pointer scaling, score 1695. Current D_8011EE4C resolves to 0x8011F338; target address is 0x8011EE4C.",
   "by": "codex-gpt-6.1-terra-2",
@@ -66427,14 +66102,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked stub 437913. Missing jump table prevents machine draft; reconstructing 4399 instructions requires table data. Next step: import jtbl_800D5BD0 and regenerate.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795246601.150774,
-  "score_before": 437913,
-  "score_after": 437913
- },
- {
   "function": "func_801183F4",
   "text": "Rechecked saved_best: only stub remains, score 44305. Machine draft fails on unresolved jump table; historical partial candidate is unavailable. Recover prior partial source and jump-table targets before continuing.",
   "by": "codex-gpt-6.1-terra-2",
@@ -66940,15 +66607,6 @@
   "score_before": 1625,
   "score_after": 1625,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Cannot improve the stub meaningfully without reconstructing the 4399-instruction function; draft generation fails on missing jtbl_800D5BD0 bytes. Import the table or reconstruct the switch manually.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795247629.189793,
-  "score_before": 437913,
-  "score_after": 437913,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_80039A10",
@@ -67814,15 +67472,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f84ebab0b09436c7a1ddec1c1ecef98d61d54e87a02fd1a84528204d5fe592fc"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Further reconstruction is blocked by missing dispatch table data: machine draft fails at jtbl_800D5BD0, and 4,378 instructions remain. Initial flags clear and bounds check compiled at 437922. Next step: recover table bytes and regenerate draft.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795249311.80408,
-  "score_before": 439705,
-  "score_after": 437922,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_8008E680",
   "text": "Word loads at D_8010D784 and D_8010D748 and inline high argument computation improved the reconstructed candidate to 1185. Target still has repeated byte masks and different loop control. Address temporary worsened to 1754; call arity variants unchanged. Signed-to-unsigned next-link load scored 1185 but changes semantics.",
   "by": "codex-gpt-6.1-terra-5",
@@ -68224,15 +67873,6 @@
   "score_before": 5817,
   "score_after": 4091,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:01906bc4ee0601b4d9452960887a322e011bd3ddcf0d2bd0b445e193917f3eb1"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Missing dispatch table prevents machine draft; 21-instruction stub cannot support matching the 4399-instruction target. Probe s8 return scored 438092 and was reverted.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795250157.741599,
-  "score_before": 437922,
-  "score_after": 437922,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_801183F4",
@@ -68773,15 +68413,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Boundary review confirms this entry ends at 0x80080FE4, immediately before matched spawnProbeEffect; no extent change is indicated. Current blank compile rechecks at 439705 with only 2/4399 instructions. Prior local repairs and drafts are blocked by missing bytes for dispatch table jtbl_800D5BD0, so no switch draft is generated. Reconstruct by hand if table destinations can be mapped, or recover/add the table data before regenerating the draft.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795251276.1212008,
-  "score_before": 437922,
-  "score_after": 437922,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_80019A3C",
   "text": "Best remains 3540/62 instructions. Restored best after alternate rewrite increased score to 5510; adding an array dimension to sSaveSlotTable scored 3955 and was reverted. The best candidate compiles 58 instructions. Target setup reuses a base pointer to gSaveSlotCount, loads adjacent count at +4, and byte-reads sSaveSlotTable at index*24. Four compiles without improvement reached move-on.\nRestored best after alternate rewrite scored 5510; array declaration for sSaveSlotTable scored 3955 and was reverted.\nBest remains 3540/62 instructions. Treat gSaveSlotCount as adjacent s32 counts; keep scalar sSaveSlotTable declaration.",
   "by": "codex-gpt-6-luna-15",
@@ -69222,15 +68853,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
-  "function": "func_8007CC78",
-  "text": "The 4399-instruction function has no draft because jump table bytes are missing. Rechecked the opening bounds-check fragment: score 438092; the remaining dispatch and bodies are absent.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795252200.0709262,
-  "score_before": 437922,
-  "score_after": 437922,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "beginSceneTransition",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 27; 21 differing rows (7 register, 13 branch target, 1 deleted; advisory).\nTarget: lui $a0, %hi(gTrackMarkerActiveMask)\nCandidate: lui $a2, %hi(gTrackMarkerActiveMask)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = jal func_8000CF14\n  = addiu $a0, $zero, 1\nr T: lui $a0, %hi(gTrackMarkerActiveMask) | C: lui $a2, %hi(gTrackMarkerActiveMask)\nr T: addiu $a0, $a0, %lo(gTrackMarkerActiveMask) | C: addiu $a2, $a2, %lo(gTrackMarkerActiveMask)\nr T: lbu $v0, ($a0) | C: lbu $v0, ($a2)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
   "by": "codex-gpt-6.1-terra-5",
@@ -69554,15 +69176,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b19a15eec6acd316cb508fe31d14d08aa416c30aad6b1892ef8748a05e212dd1"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Cannot get closer from the fragment without reconstructing thousands of instructions: imported bytes for jtbl_800D5BD0 are absent, preventing m2c draft. Rechecked fragment at 438092. Next step: recover jump table data and regenerate draft.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795252752.937603,
-  "score_before": 437922,
-  "score_after": 437922,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "setupSaveSlotMarkers",
   "text": "Claim disappeared again after correcting both text argument byte offsets; latest verified score 1970. Next step: restore the previous 1740 candidate if available, correct both marker table stores using byte addressing together; then examine loop index lifetime.\n\n[Released without compiling it once; notes not checked by a compile.] Service repeatedly resets claim and candidate; previous corrected candidate cannot be recovered via saved_best. Rechecked draft 1990; prior corrected revision 1740. Restore byte-correct text and slot references and marker symbol before testing both table stores.",
   "by": "codex-gpt-6.1-terra-2",
@@ -69659,15 +69272,6 @@
   "created_at": 1795252932.3754518,
   "score_before": 240235,
   "score_after": 240235
- },
- {
-  "function": "func_8007CC78",
-  "text": "Cannot meaningfully compile the next step: it requires adding jump-table data to the m2c input, which is not exposed by the decomp tools. read_data can read jtbl_800D5BD0, but redraft still reports it absent. Baseline fragment rechecked at 438092; almost all 4399 instructions are absent.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795252942.2524421,
-  "score_before": 437922,
-  "score_after": 437922,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_800067C8",
@@ -69948,15 +69552,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:d4fdff81ff1e1ec6761c123974a3a4b176a81c176e58520768b329eb9795fd33"
  },
  {
-  "function": "func_8007CC78",
-  "text": "Target is a 4,657-instruction dispatcher, but generated/saved C contains only the prologue logic; jump table jtbl_800D51F0 bytes are unavailable, so full body cannot be drafted from tool output. Local repair variants were tried: call_one_shot_scope and address_temporary had no effect; forwarded-argument variant changed the opening code but worsened score 438092\u2192437903. First 200 assembly instructions show state/event processing and jump-table dispatch. No boundary concern indicated; do not report not_c.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795253662.616708,
-  "score_before": 437922,
-  "score_after": 437903,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "func_8007560C",
   "text": "Target has separate zero-offset GPRs and a 0x78 frame, plus seven more projection calls than candidate. Prototype from matched func_8004844C confirmed and produced identical score 20515. Explicit signed-double plus ternary correction at first call removed one anonymous rodata reference but worsened score to 21995. Local wrapper variants worsened score.",
   "by": "codex-gpt-6.2-sol-6",
@@ -69973,15 +69568,6 @@
   "score_before": 7784,
   "score_after": 1265,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2998426eed5baf6dc6e964e23186e768e44d10c5f41b1049c86ecbbe39fccbbe"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Rechecked stub at 437903; dispatcher remains absent and machine draft cannot recover missing jump-table bytes. Full reconstruction requires mapping the table destinations from project data.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795253698.688585,
-  "score_before": 437903,
-  "score_after": 437903,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8005FE20",
@@ -70009,15 +69595,6 @@
   "score_before": 170,
   "score_after": 170,
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Baseline 437903; nested condition and local scope/address variants unchanged; removing forwarded argument worsened to 438092. Main dispatcher remains absent; m2c lacks jump table.\nNested condition and call/local variants\nNo improvement to stub; 4378 target instructions absent",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795253783.944387,
-  "score_before": 437903,
-  "score_after": 437903,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8001BE64",
@@ -70489,14 +70066,6 @@
   "score_after": 0
  },
  {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No C candidate available because m2c reports unresolved jr jump table; data table absent from imported game data. Boundary evidence shows entry extent is plausible and no incomplete-end warning; body is genuine code with a large dispatcher and terminal return. Historical attempts were stub only (score 437903), no missing bytes translated. Next step: recover/import jump table data for this overlay, then redraft and map switch destinations.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795254837.3068721,
-  "score_before": 437903,
-  "score_after": 437903
- },
- {
   "function": "func_8011CAE4",
   "text": "Best score 1640 still has scaled offsets in call and pointer field. Fully corrected arithmetic revision 0d79b076b716bdf3f193 scored 1670; structured inner backedge scored 1850. Table base lifetimes and register allocation differ.",
   "by": "codex-gpt-6.1-terra-2",
@@ -70910,14 +70479,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
-  "function": "func_8007CC78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Confirmed target body has 4657 instructions and reaches substantial real code through 0x80081050. m2c cannot draft due jr jump table missing in imported data; no C candidate exists and prior attempts were stub only. Boundary evidence tool twice returned project-changed error; no boundary warning, current assembly page demonstrates internal dispatcher/body rather than an early end. Not viable under current missing table bytes.\nRead target assembly near final dispatcher; 4657 instruction body and normal continuation are present. Boundary evidence calls failed with changing project state.\nMissing jump table data prevents m2c and no saved C; only stub attempts exist. Full body is too large to reconstruct here; dispatcher cases can be hand-derived once jump table bytes are imported.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795256305.69604,
-  "score_before": 437903,
-  "score_after": 437903
- },
- {
   "function": "func_8000DBF0",
   "text": "Stub remains 33 of 2426 instructions, score 240235. Signed count worsened to 240425; switch default relocation worsened to 240420; unsigned switch and signed pc unchanged. Full dispatch handlers must be reconstructed.",
   "by": "codex-gpt-6.1-terra-4",
@@ -71123,15 +70684,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
  },
  {
-  "function": "func_8007CC78",
-  "text": "No usable C draft: m2c fails on an unavailable jump table in this 4399-instruction dispatcher. A diagnostic empty function compiled at 439705; reconstructing the dispatcher requires its missing table and substantial manual translation.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795256783.496002,
-  "score_before": 437903,
-  "score_after": 437903,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
   "function": "updateRandomMenuItem",
   "text": "Signed switch improved 3640 to 2600; shared decrement goto improved to 2530 but emits duplicated branches. Address adjustment sMenuRowEnabled-3 unchanged score. Target loads each flag then branches to one shared zero check. Remaining clamp differs too.\nSwitch with per-arm goto decrement\n2530, duplicated branch/decrement instructions",
   "by": "codex-gpt-6.1-terra-2",
@@ -71166,15 +70718,6 @@
   "score_before": 5600,
   "score_after": 650,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:7860cef1dc2879e945e4cbd46dc5ad400eddadd164fd31779f327da768c65c0b"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Partial opening only; score 438012. Target has 4399 instructions and m2c fails on missing imported jump-table data. The opening clears bit 0 at +0x58, checks the +0x20 pointer and calls Probe_BoundsContainPoint on +0x24; candidate implements that. Remaining dispatcher is absent.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795256843.0988631,
-  "score_before": 437903,
-  "score_after": 437903,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8004C750",
@@ -71310,15 +70853,6 @@
   "score_before": 6705,
   "score_after": 5940,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e9e1ca00a6dfbe0ac5807bd0493185169bc8ff4afade9e56ba6b0a97c6d3cad2"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Candidate's only ~63/4399 instructions. Target at +0x78 dispatches the signed state through bounds check `<0xAE` and jtbl_800D51F0; then default handles actor types. Replacing existing !=9 condition with >=0xAE made score worse by 140; restored saved best 434418. Existing candidates/local repairs exhaust superficial guard variants. The needed table bytes aren't in project, so map switch entries from assembly control-flow destinations manually before translating cases; six distinct target bodies weren't identified because table missing.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795257375.5551202,
-  "score_before": 434418,
-  "score_after": 434418,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_800371E0",
@@ -71498,15 +71032,6 @@
   "score_before": 8585,
   "score_after": 8575,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24f388798c8c8c353b0d53229002d2ae86900d9aa980bdc846f383e8e88c8b2f"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Four local variants failed to improve the 434338 baseline. The candidate covers only a small fraction of the dispatcher and the imported jump table is missing.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795257710.900428,
-  "score_before": 434418,
-  "score_after": 434338,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8000DBF0",
@@ -71692,15 +71217,6 @@
   "score_before": 7335,
   "score_after": 460,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:7f8fb7cb8df1d979f6a4b07030e3e3b0ede1e787c48e15241e8fc9188100fa62"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Candidate d4fbe5fe3f04f4fc643f rechecked at 434338/4399 insns, 68 emitted. Machine draft is unavailable because disassembler lacks jump-table data for 0x800D51F0 (696 bytes), though table symbols and partial prefixes are listed. A no-op compile_patch only rechecked baseline; no better C obtained. Substantially reconstructing switch dispatch requires mapping case destinations from assembly and table bytes; no boundary issue noted.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795258339.409269,
-  "score_before": 434338,
-  "score_after": 434338,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_80070CA4",
@@ -72277,15 +71793,6 @@
   "score_before": 240235,
   "score_after": 240235,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
-  "function": "func_8007CC78",
-  "text": "Inherited baseline 434338/4399 instructions, only 68 emitted; switch jump table jtbl_800D51F0 (0xAE entries, 696 bytes) absent from imported data and m2c cannot draft. One local signedness repair was unchanged; prior 31 repairs likewise failed. Callee Probe_BoundsContainPoint is matched: signature s32 Probe_BoundsContainPoint(void *point, void *object); target passes object+0x24 in a0 and field pointer in a1. Next step: reconstruct opcode cases from assembly/table destinations after obtaining table bytes or handle the missing table data.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795260191.431896,
-  "score_before": 434338,
-  "score_after": 434338,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
   "function": "func_8003C94C",
@@ -74213,5 +73720,498 @@
   "score_before": 64552,
   "score_after": 63977,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "17596 bytes; m2c failed: jr at line 4511 with jump table not present in imported data (no bytes at table address). Needs the jump table added to memory regions or hand-worked switch before any draft. Not attempted.\n\nCorrection: an earlier release note claimed m2c failed on a missing jump table. That was not verified; I had not inspected this function. Treat its status as unexamined, and check the jump table and draft before relying on any prior note.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056872.989897,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Not attempted. 17596 bytes with a jr jump table whose bytes are not in the imported data (m2c failed). Needs jump table data/memory region before any draft. Too large for a first pass.",
+  "by": "permuter-25769805351",
+  "created_at": 1795057842.359346,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Not attempted in C. Size 17596 bytes (4399 instructions), a large multi-branch dispatcher: many chained compare/branch sequences on a0/a1 and several jr jump tables (jtbl_800D51F0 696B, jtbl_800D55C0 696B, jtbl_800D5BD0 696B, plus many 24-160B tables). The m2c draft failed because the jump table bytes are not in the imported data for the jr at line ~4511, so no draft is possible until the table/memory regions are provided. Boundary check: function end at 0x800811 34-ish looks correct (func_80081134 follows, return at 0x8008112C-ish with epilogue); no boundary issue found. Recommend splitting into sub-functions or matching smaller handlers from its jump-table targets first, then coming back to the top-level dispatcher.\n\nCorrection: the earlier release note's jump-table names (jtbl_800D51F0, etc.) and the boundary remark were not verified against the binary. Only verified fact: the m2c draft failed because the jr at asm line ~4511 has no jump-table bytes in imported data. Re-check tables and the function end before relying on either.",
+  "by": "permuter-25769805351",
+  "created_at": 1795058776.051092,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No C candidate or machine draft exists. Generation fails at jr near assembly line 4511 because its jump table bytes are missing from imported game data; target is 4399 instructions with many other switch tables. Import the missing table/overlay in memory_regions.json and regenerate, or reconstruct the switch by hand before judging.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795177427.808974,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Empty candidate. Fresh redraft with an actor-pointer declaration reproduces m2c's missing-table error at generated .s line 4511. read_data confirms jtbl_800D5BD0 exists at 0x800D5BD0 and contains in-function targets (first words 80080DFC, 80080DC0, 80080DC0, 80080FE4); get_assembly lines 4400\u20134406 shows it feeding the last jr using the signed halfword at actor+0x7A and an unsigned 174-entry bound. The generated .s line numbering differs from get_assembly. Next inspect m2c's generated .s at line 4511 and its supplied tables to identify which table really fails recognition; fix the draft input or reconstruct that switch from ROM data. No C compiled.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795186300.581485,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No compile run; candidate/source remains unavailable. Current assembly confirms earlier claimed tables are recognized: e.g. at assembly rows 4400-4410, lh 0x7A(s2), range check <0xAE, indexed load from jtbl_800D5BD0, jr v0. However redraft still fails at generated func_8007CC78.s line 4511 with 'corresponding jump table is not provided', even when passing `extern void *jtbl_800D5BD0[174];`; this is likely a later distinct jump table, not the one at rows 4400-4410. Data inventory already has many jtbls through jtbl_800D5BD0. Handoff notes say read_data confirms jtbl_800D5BD0 at 0x800D5BD0 and it contains targets 0x80080DFC, 0x80080DC0, 0x80080DC0, 0x80080FE4. Next step: locate the exact jr at generated line 4511 by inspecting assembly after the later switch around rows 4400+ and identify its indexed table address; check whether the address is absent from imported data, then add its region or reconstruct that switch. Function is 4399 instructions / 17596 bytes, with 15+ large tables, so whole-function C will need a successful machine draft first. The known prior attempt failed at the same table import issue; no claim was made that the function has no C.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795209040.6204522,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No source was available and m2c cannot draft: it errors at terminal jump-table dispatch through jtbl_800D5BD0 (lh actor+0x7A, unsigned range <0xAE, indexed 276-entry table, jr). Table is present per function brief and read_data, so likely import/draft tooling limitation, not hand-written assembly. Assembly tail at rows 4388\u20134412 confirms dispatch. Next agent should hand-write switch over signed short field at +0x7A or retry redraft with table supplied.\nReviewed failed empty candidate and terminal dispatch; no C compile possible from draft.\nNo candidate compile; m2c reports missing corresponding jump table despite listed table.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795209197.783247,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Two required empty-baseline compiles both score 439705 (target 4399 instructions, candidate 2). Source and m2c draft are unavailable due to omitted bytes for final jump table jtbl_800D5BD0; a duplicate compile is unchanged. Function clearly needs table/overlay restoration or full manual reconstruction, not routine call tuning.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795209293.572576,
+  "score_before": 439705,
+  "score_after": 439705
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Rechecked empty stub baseline (439705; target 4399 instructions vs 2 generated). Readable jtbl_800D5BD0 exists via read_data, yet both automatic draft and redraft fail at terminal jr (assembly line 4511), claiming table bytes absent. Table dump is valid 276-entry jump data with labels inside function, but reconstruction would require manually expressing every dispatch/case across ~4.4k instructions. No meaningful code recovered. Next step: restore imported overlay/m2c table visibility, or hand-reconstruct from assembly if feasible.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795210359.138963,
+  "score_before": 439705,
+  "score_after": 439705
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Confirmed empty stub score 439705 (2 generated vs 4399 target instructions). get_function exposes all named jump tables including jtbl_800D5BD0 and read_data resolves entries to this function's interior labels, but draft generation rejects terminal jr at source line 4511 because table bytes are reportedly not provided to the draft input. Full manual switch reconstruction is a very large task; no viable C candidate exists yet. Next step: repair/decomp input visibility for the already mapped jump table, then regenerate m2c.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795211292.025077,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] 17,596 bytes / 4,399 instructions; no machine draft or source available because terminal jr jump table jtbl_800D5BD0 bytes are missing from imported project region. Existing table dump is valid 276-entry table but comprehensive switch reconstruction is impractical without bytes/overlay support. Next step: add table/overlay bytes to project memory regions, then redraft; do not repeat empty-stub compile.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795212870.420296,
+  "score_before": 439705,
+  "score_after": 439705
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Claim is currently only an empty stub because m2c fails at terminal jr due to missing jump table import. read_data/get_data_unit confirms jtbl_800D5BD0 exists as open data, 696 bytes, used only here; likely table labeling/import boundary issue. Do not hand-write switch until table is actually supplied. Next step: resolve missing jump table bytes in function input/overlay, then redraft.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795213459.562658,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Compiled the only available empty stub, score 439705/4399 target instructions. The jump table `jtbl_800D5BD0` exists as open data at 0x800D5BD0, 696 bytes, but is outside the function's segment; report_data_region cannot accept it because it requires a region containing the claimed function. The failure is project import/input configuration, not C candidate tuning. Function 17,596 bytes / 4,399 instructions.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795213545.1957319,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Verified placeholder with score 439705 (2 instructions versus 4399). This claim cannot be meaningfully drafted: jump-table dispatch at terminal jr lacks table bytes in the function input; prior agents identified jtbl_800D5BD0 (696 bytes) as open data outside the segment, causing m2c failure. Resolve table/overlay import before drafting. No C experiment beyond baseline is appropriate.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795214224.810487,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Verified inherited empty stub: score 439705, 2 instructions vs 4399. m2c fails because terminal jr jump table jtbl_800D5BD0 (696 bytes) is outside supplied segment/input; project data import needed to reconstruct switch. Target body includes hundreds of Probe_BoundsContainPoint calls and large stack frame.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795214254.87461,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Confirmed stub score 439705 against 4399 instructions. The known m2c failure is missing terminal dispatch jump table jtbl_800D5BD0 (696 bytes) in imported segment; function includes hundreds of Probe_BoundsContainPoint calls. No C draft can be generated until table/overlay data is available. No boundary review result captured because tool reported project changed during read.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795214297.765536,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Recompiled inherited empty body: 4399 target instructions vs two candidate instructions. m2c cannot generate source because the terminal jr at assembly line 4511 requires missing jump table jtbl_800D5BD0 (696 bytes), absent from imported data. Target also contains 387 calls to Probe_BoundsContainPoint. No boundary review was available in prior attempts due project-changed response. Next step: restore/import overlay bytes for jtbl_800D5BD0, then regenerate the dispatcher draft; if data remains unavailable, hand-decode the switch table from target references.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795214748.432883,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Boundary evidence confirms exact symbol extent; full body runs 17,596 bytes and ends with jr ra + stack restore. Function is a giant switch with missing jump table jtbl_800D5BD0 (696 bytes), preventing m2c draft generation. Recompiled inherited empty stub at score 439705/4399 target instructions; no source progress possible without table data. Next step: restore/import the jump table and redraft, then reconstruct switch dispatch.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795215323.975754,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Rechecked inherited empty body: score 439705, 2 candidate instructions vs 4399 target instructions. M2C cannot generate any draft because its terminal indirect dispatch uses missing jtbl_800D5BD0 (696 bytes); the full function extent has already been confirmed and the region is a switch table, not function code. Recompiling the stub made no change. Attempted report_data_region for 0x800D5BD0\u20130x800D5E88, but tool rejected it because it requires the region to contain the claimed function.\nNext experiment: investigate whether the table can be restored through the supported data-unit/import workflow, then redraft the switch; do not alter the confirmed function boundary.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795215362.2610502,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Verified empty candidate score 439705/4399 instructions. redraft with `extern void *jtbl_800D51F0[0xAE];` still fails: m2c needs actual imported bytes for terminal jump table jtbl_800D5BD0 at 0x800D5BD0 (696 B), not a declaration. Existing evidence establishes full function ends with jr ra and frame restore; not a boundary issue. One requested narrow_snapshot_branches local-repair trial had no untried applicable repairs. Next step: use explicit assembly-to-C reconstruction or obtain/import jump table bytes into project data, then redraft; don't repeat empty stub.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795215404.934808,
+  "score_before": 439705,
+  "score_after": 439705
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Target is 4,399 instructions and starts with a 0x128-byte frame. Rechecked empty stub at 439705/2 insns. m2c generation is explicitly blocked by missing jump-table data jtbl_800D5BD0 (696 bytes); prior attempts confirm function extent is complete and table bytes are absent, so no useful C candidate could be generated. Earlier declaration-only approach could not resolve the missing data. Resume only if the table/data region becomes available; otherwise hand reconstruction would require full switch recovery.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795215427.7898948,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Recompiled empty candidate and confirmed score 439705 (2 instructions vs target 4399). Existing evidence shows m2c is blocked by absent jump-table bytes jtbl_800D5BD0 (696 bytes); no useable C draft can be obtained without that table. Not a boundary issue: target has complete epilogue. New evidence reiterates repeated Probe_BoundsContainPoint calls and switch dispatch.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795215692.880415,
+  "score_before": 439705,
+  "score_after": 439705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No candidate C can be generated: the draft fails at jr line 4511 because jump table jtbl_800D5BD0 (696 bytes) is not imported into the project image, despite appearing in the function's advisory data list. Empty stub rechecked at score 439705/4399. No meaningful source edits or compiles possible. Project input/memory_regions needs the table supplied; afterward hand-decompile the switch and compare. Boundary evidence read failed due concurrent project change.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795215819.444075,
+  "score_before": 439705,
+  "score_after": 439705
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "The indirect switch jump table jtbl_800D5BD0 (174 words / 696 bytes) is absent from imported project image; m2c cannot draft past jr at line 4511. Empty stub plus 0x128-byte-frame probe compile, but target is 4,399 instructions. Handwritten C could still model cases if jump destinations decoded, so not definitively assembly-only; no useful progress without jump-table contents.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795215864.6244302,
+  "score_before": 439705,
+  "score_after": 439510,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Target is 17,596 bytes / 4,399 instructions. Historical stub matched only 2 instructions. M2C cannot draft after indirect jr near line 4511 because jtbl_800D5BD0 (174 words / 696 bytes) is missing from imported data; no jump table contents available. Inspected late assembly pages and they do contain further coherent ordinary code, but recovering the switch destinations manually across 174 cases is not viable from the missing table. No compile submitted; no C evidence beyond frame stub. Tool errors explicitly identify absent table bytes as blocker.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795215888.3139682,
+  "score_before": 439705,
+  "score_after": 439705
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Current candidate is the inherited frame stub (fresh score 439510, four instructions), leaving 4395 target instructions unmatched. The table is available through read_data despite the old m2c failure: jtbl_800D5BD0 has 174 s32 entries; first entries select offsets +0x4184, +0x4148, +0x4148, +0x436C, +0x4148, +0x4148, +0x4184, +0x4148, +0x4204, +0x4204. These map to target labels 0x80080DFC, 0x80080DC0, 0x80080FE4, 0x80080E7C etc., so reconstructing the switch manually is possible using get_assembly and read_data. search_flags only reduced score to 439435 with -g; no usable C draft yet.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795215949.351682,
+  "score_before": 439510,
+  "score_after": 439510,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Verified baseline 439510. Existing candidate is only a stub and target is 4,399 instructions. Draft is blocked because jump table bytes are unavailable to m2c; current brief shows jtbl_800D5BD0 exists in imported references but prior error says terminal table missing, likely project input import inconsistency. No credible full rewrite attempted.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795216875.0559301,
+  "score_before": 439510,
+  "score_after": 439510
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Target begins ordinary code but has an unresolved computed switch at offset around 0x9c: jtbl_800D51F0, then a second large dispatch near the tail. Existing candidate is only a stub; m2c reports terminal jtbl_800D5BD0 unavailable. Did not reconstruct 4,399 instructions. Next step: inspect project data/import support and resolve jtbl_800D51F0 and jtbl_800D5BD0; without table bytes reliable full C recovery is blocked.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795216904.498359,
+  "score_before": 439510,
+  "score_after": 439510
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Confirmed terminal jump-table data is present and valid: jtbl_800D5BD0 is 696 bytes (174 entries) at 0x800D5BD0; read_data shows pointers into func_8007CC78 offsets. The claimed missing-table message is likely an import/draft-generation problem, not absent ROM data. Rechecked stub baseline 439510 (4 emitted vs 4399 target). Early switch at 0x8007CCE8 uses lhu/sltu bound 0xAE and jtbl_800D51F0. Terminal path includes actual target code from 0x80080F14 onward plus approximateAtan2/angleDelta12 logic; don't assume final jr is data or boundary.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795216946.297289,
+  "score_before": 439510,
+  "score_after": 439510,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked stub baseline score 439510. Confirmed jtbl_800D5BD0 is readable at 0x800D5BD0; first entries resolve to func_8007CC78+0x4184, +0x4148, +0x4148, +0x436C, etc. This conflicts with the draft-generation error saying no table bytes are imported; dispatcher still unreconstructed, 4,399 target instructions.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795216980.264949,
+  "score_before": 439510,
+  "score_after": 439510
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No matched twin; retained best is a frame stub (score 439510), target is 4,399 instructions. m2c generation fails at terminal computed jump because jtbl_800D5BD0 is not present as imported table bytes; the brief lists many other dispatch tables, but no C draft is available. get_boundary_evidence transiently reported project changed; not a boundary concern from current evidence. Next step: repair/import jump-table bytes or model switch manually, starting with first dispatch at jtbl_800D51F0 and then terminal jtbl_800D5BD0; only then generate/compile substantial C.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795228182.898255,
+  "score_before": 439510,
+  "score_after": 439510
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Current stub baseline 439510 reverified. Only applicable const_read repair (const arg0) was neutral. Function is 4,399 instructions; machine draft unavailable because dispatch jump table jtbl_800D5BD0 is absent from imported data, despite prior boundary inspection seeing entries. Next step: restore/import jump table bytes or manually reconstruct switch dispatch and implement case blocks in stages.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795231388.50954,
+  "score_before": 439510,
+  "score_after": 439510,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Rechecked stub baseline 439510; bounded local repair only const_read and it was neutral. No C reconstruction possible from current import: dispatch is 4,399 instructions and machine draft is unavailable due to absent jtbl_800D5BD0. Prior boundary review reportedly observed jump table entries. Need import/restore jump table or stage manual reconstruction of switch dispatch and cases.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795232389.4385831,
+  "score_before": 439510,
+  "score_after": 439510,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Verified frame stub score 439510 against 4399 instructions. Const-qualified argument produces identical output. Machine draft generation remains blocked by the jump table import; the candidate lacks the function body.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795233360.294601,
+  "score_before": 439510,
+  "score_after": 439510,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Reconstructed and compiled initial bounds check; remaining dispatcher spans nearly 4,400 instructions and has no machine draft because the last jump table is unavailable to the decompiler.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795233454.608733,
+  "score_before": 439510,
+  "score_after": 437922,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Verified stub scores 437922 and covers 21 of 4399 instructions. Machine draft cannot be generated because terminal jump table bytes are unavailable. Next step: import the table data and regenerate the draft, then reconstruct the dispatch.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795238029.599875,
+  "score_before": 437922,
+  "score_after": 437922,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Forwarded argument variant scored 437913; six local scope, address and inline variants did not improve it. Most of the 4,400-instruction dispatcher remains unreconstructed, so local repairs cannot resolve the missing body.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795243879.659536,
+  "score_before": 437922,
+  "score_after": 437913,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Rechecked inherited stub at 437913; 21 of 4399 instructions. Machine draft remains blocked by unavailable terminal jump table bytes, so local stub tuning cannot reconstruct the function. Next step: restore/import jtbl_800D5BD0 bytes and regenerate the draft.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795245454.134176,
+  "score_before": 437913,
+  "score_after": 437913,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked stub 437913. Missing jump table prevents machine draft; reconstructing 4399 instructions requires table data. Next step: import jtbl_800D5BD0 and regenerate.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795246601.150774,
+  "score_before": 437913,
+  "score_after": 437913
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Cannot improve the stub meaningfully without reconstructing the 4399-instruction function; draft generation fails on missing jtbl_800D5BD0 bytes. Import the table or reconstruct the switch manually.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795247629.189793,
+  "score_before": 437913,
+  "score_after": 437913,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Further reconstruction is blocked by missing dispatch table data: machine draft fails at jtbl_800D5BD0, and 4,378 instructions remain. Initial flags clear and bounds check compiled at 437922. Next step: recover table bytes and regenerate draft.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795249311.80408,
+  "score_before": 439705,
+  "score_after": 437922,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Missing dispatch table prevents machine draft; 21-instruction stub cannot support matching the 4399-instruction target. Probe s8 return scored 438092 and was reverted.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795250157.741599,
+  "score_before": 437922,
+  "score_after": 437922,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Boundary review confirms this entry ends at 0x80080FE4, immediately before matched spawnProbeEffect; no extent change is indicated. Current blank compile rechecks at 439705 with only 2/4399 instructions. Prior local repairs and drafts are blocked by missing bytes for dispatch table jtbl_800D5BD0, so no switch draft is generated. Reconstruct by hand if table destinations can be mapped, or recover/add the table data before regenerating the draft.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795251276.1212008,
+  "score_before": 437922,
+  "score_after": 437922,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "The 4399-instruction function has no draft because jump table bytes are missing. Rechecked the opening bounds-check fragment: score 438092; the remaining dispatch and bodies are absent.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795252200.0709262,
+  "score_before": 437922,
+  "score_after": 437922,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Cannot get closer from the fragment without reconstructing thousands of instructions: imported bytes for jtbl_800D5BD0 are absent, preventing m2c draft. Rechecked fragment at 438092. Next step: recover jump table data and regenerate draft.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795252752.937603,
+  "score_before": 437922,
+  "score_after": 437922,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Cannot meaningfully compile the next step: it requires adding jump-table data to the m2c input, which is not exposed by the decomp tools. read_data can read jtbl_800D5BD0, but redraft still reports it absent. Baseline fragment rechecked at 438092; almost all 4399 instructions are absent.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795252942.2524421,
+  "score_before": 437922,
+  "score_after": 437922,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Target is a 4,657-instruction dispatcher, but generated/saved C contains only the prologue logic; jump table jtbl_800D51F0 bytes are unavailable, so full body cannot be drafted from tool output. Local repair variants were tried: call_one_shot_scope and address_temporary had no effect; forwarded-argument variant changed the opening code but worsened score 438092\u2192437903. First 200 assembly instructions show state/event processing and jump-table dispatch. No boundary concern indicated; do not report not_c.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795253662.616708,
+  "score_before": 437922,
+  "score_after": 437903,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Rechecked stub at 437903; dispatcher remains absent and machine draft cannot recover missing jump-table bytes. Full reconstruction requires mapping the table destinations from project data.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795253698.688585,
+  "score_before": 437903,
+  "score_after": 437903,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Baseline 437903; nested condition and local scope/address variants unchanged; removing forwarded argument worsened to 438092. Main dispatcher remains absent; m2c lacks jump table.\nNested condition and call/local variants\nNo improvement to stub; 4378 target instructions absent",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795253783.944387,
+  "score_before": 437903,
+  "score_after": 437903,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No C candidate available because m2c reports unresolved jr jump table; data table absent from imported game data. Boundary evidence shows entry extent is plausible and no incomplete-end warning; body is genuine code with a large dispatcher and terminal return. Historical attempts were stub only (score 437903), no missing bytes translated. Next step: recover/import jump table data for this overlay, then redraft and map switch destinations.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795254837.3068721,
+  "score_before": 437903,
+  "score_after": 437903
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Confirmed target body has 4657 instructions and reaches substantial real code through 0x80081050. m2c cannot draft due jr jump table missing in imported data; no C candidate exists and prior attempts were stub only. Boundary evidence tool twice returned project-changed error; no boundary warning, current assembly page demonstrates internal dispatcher/body rather than an early end. Not viable under current missing table bytes.\nRead target assembly near final dispatcher; 4657 instruction body and normal continuation are present. Boundary evidence calls failed with changing project state.\nMissing jump table data prevents m2c and no saved C; only stub attempts exist. Full body is too large to reconstruct here; dispatcher cases can be hand-derived once jump table bytes are imported.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795256305.69604,
+  "score_before": 437903,
+  "score_after": 437903
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "No usable C draft: m2c fails on an unavailable jump table in this 4399-instruction dispatcher. A diagnostic empty function compiled at 439705; reconstructing the dispatcher requires its missing table and substantial manual translation.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795256783.496002,
+  "score_before": 437903,
+  "score_after": 437903,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Partial opening only; score 438012. Target has 4399 instructions and m2c fails on missing imported jump-table data. The opening clears bit 0 at +0x58, checks the +0x20 pointer and calls Probe_BoundsContainPoint on +0x24; candidate implements that. Remaining dispatcher is absent.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795256843.0988631,
+  "score_before": 437903,
+  "score_after": 437903,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Candidate's only ~63/4399 instructions. Target at +0x78 dispatches the signed state through bounds check `<0xAE` and jtbl_800D51F0; then default handles actor types. Replacing existing !=9 condition with >=0xAE made score worse by 140; restored saved best 434418. Existing candidates/local repairs exhaust superficial guard variants. The needed table bytes aren't in project, so map switch entries from assembly control-flow destinations manually before translating cases; six distinct target bodies weren't identified because table missing.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795257375.5551202,
+  "score_before": 434418,
+  "score_after": 434418,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Four local variants failed to improve the 434338 baseline. The candidate covers only a small fraction of the dispatcher and the imported jump table is missing.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795257710.900428,
+  "score_before": 434418,
+  "score_after": 434338,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Candidate d4fbe5fe3f04f4fc643f rechecked at 434338/4399 insns, 68 emitted. Machine draft is unavailable because disassembler lacks jump-table data for 0x800D51F0 (696 bytes), though table symbols and partial prefixes are listed. A no-op compile_patch only rechecked baseline; no better C obtained. Substantially reconstructing switch dispatch requires mapping case destinations from assembly and table bytes; no boundary issue noted.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795258339.409269,
+  "score_before": 434338,
+  "score_after": 434338,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
+ },
+ {
+  "function": "func_8007CC78",
+  "text": "Inherited baseline 434338/4399 instructions, only 68 emitted; switch jump table jtbl_800D51F0 (0xAE entries, 696 bytes) absent from imported data and m2c cannot draft. One local signedness repair was unchanged; prior 31 repairs likewise failed. Callee Probe_BoundsContainPoint is matched: signature s32 Probe_BoundsContainPoint(void *point, void *object); target passes object+0x24 in a0 and field pointer in a1. Next step: reconstruct opcode cases from assembly/table destinations after obtaining table bytes or handle the missing table data.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795260191.431896,
+  "score_before": 434338,
+  "score_after": 434338,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  }
 ]
