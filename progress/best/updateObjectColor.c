@@ -83,7 +83,7 @@ void updateObjectColor(void *arg0)
         if (temp_v0 == (temp_a0_2 * 0x1E))
         {
           var_v0_2 = guRandom(); temp_a0_3 = var_v0_2;
-          if (((u32) temp_a0_3) < 0)
+          if (((u32) temp_a0_3) <= (0 - 1))
           {
             var_v0_2 = temp_a0_3 + 0x7F;
           }

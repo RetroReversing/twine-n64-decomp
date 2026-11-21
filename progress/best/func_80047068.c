@@ -7,13 +7,13 @@ void func_80047068(f32 *p0, f32 *p1, f32 *p2, f32 *p3, s32 n, void *out)
   f32 y;
   f32 z;
   f32 w;
-  f32 qx;
   f32 qy;
   f32 qz;
   f32 rx;
   f32 ry;
   f32 rz;
   f32 sx;
+  f32 qx;
   f32 sy;
   f32 sz;
   inv = 1.0f / ((f32) n);
@@ -28,7 +28,13 @@ void func_80047068(f32 *p0, f32 *p1, f32 *p2, f32 *p3, s32 n, void *out)
   *((f32 *) (((u8 *) out) + 12)) = 0.0f;
   *((f32 *) (((u8 *) out) + 16)) = qx;
   *((f32 *) (((u8 *) out) + 20)) = (((s32) ((((y - (qx * 2.5f)) + (ry * 2.0f)) - (sy * ((char) 0.5f))) * (inv * inv))) * inv2) * inv;
-  *((f32 *) (((u8 *) out) + 24)) = 0.0f;
+  *((f32 *) (((u8 *) out) + 24)) = inv2 * 0.0f;
   *((f32 *) (((u8 *) out) + 32)) = (((s32) ((((z - (qy * 2.5f)) + (rz * 2.0f)) - (sz * 0.5f)) * (inv * inv))) * (inv * inv)) * inv;
- do { *((f32 *) (((u8 *) out) + 36)) = 0.0f; *((f32 *) (((u8 *) out) + 28)) = qy; } while (0);
+  do
+  {
+    *((f32 *) (((u8 *) out) + 36)) = 0.0f;
+    *((f32 *) (((u8 *) out) + 28)) = qy;
+  }
+  while (0);
 }
+

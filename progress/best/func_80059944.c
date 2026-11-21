@@ -96,7 +96,7 @@ void func_80059944(void *arg0)
   s32 temp_v1_10;
   s32 temp_v1_11;
   s32 temp_v1_12;
-  volatile unsigned short temp_v1_13;
+  int temp_v1_13;
   s32 temp_v1_14;
   s32 temp_v1_15;
   s32 temp_v1_16;

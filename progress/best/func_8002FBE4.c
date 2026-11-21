@@ -40,7 +40,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
   s32 temp_v0_3;
   s32 temp_v0_4;
   s32 temp_v0_5;
-  s32 temp_v1_2;
+  unsigned short temp_v1_2;
   s32 temp_v1_3;
   s32 temp_v1_4;
   s32 temp_v1_5;
@@ -110,7 +110,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
           var_v0 = inline_fn234(var_a0_3 - 1, D_800E1570);
         }
         else
-          if (((D_800E1570 - 1) - 1) <= ((var_a0_3 - 1) - 1))
+          if ((((D_800E1570 - 1) - 1) + 1) <= (((var_a0_3 - 1) - 1) + 1))
         {
           var_v0 = inline_fn2(var_a0_3, 1);
         }

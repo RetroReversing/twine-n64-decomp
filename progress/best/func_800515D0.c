@@ -444,7 +444,109 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                             *((f32 *) (((char *) arg4) + 8)) = (f32) (sp30 - (temp_fs0_3 * spA8)); temp_a3 = *((s32 *) (((char *) temp_s7) + 0x34)); temp_s3 = temp_a3 + ((*sp1EC) * 0xC); temp_s1_2 = temp_a3 + ((*((u16 *) (((char *) var_fp) + (-2)))) * 0xC); temp_s2 = temp_a3 + ((*((u16 *) (((char *) var_fp) + 0))) * 0xC);
                             if ((triangleContainsPoint(arg4, temp_s3, temp_s1_2, temp_s2, sp1F4) << 0x18) != 0)
                             {
-                              temp_fs0_3 = arg5 - temp_fs0_3; temp_ft1 = temp_fs0_3 * spA0; temp_ft0 = temp_fs0_3 * spA4; temp_fv0 = temp_fs0_3 * spA8; sp18 = temp_ft1; sp1C = temp_ft0; sp20 = temp_fv0; sp28 += temp_ft1; sp2C += temp_ft0; sp30 += temp_fv0; rotateVec3ByMat3(&sp68, &sp18); *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + sp18); *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg3) + 4))) + sp1C); var_fv1 = (*((f32 *) (((char *) arg3) + 8))) + sp20; *__base_gPlayerActor = var_s5; sp1BC = var_s6; sp1AF = 1; goto block_73; } temp_fv1 = sp2C - arg6; if ((((((((!((*((f32 *) (((char *) temp_s3) + 4))) < temp_fv1)) || (!((*((f32 *) (((char *) temp_s1_2) + 4))) < temp_fv1))) || (!((*((f32 *) (((char *) temp_s2) + 4))) < temp_fv1))) && ((((temp_fv1_2 = sp2C + arg7, !(temp_fv1_2 < (*((f32 *) (((char *) temp_s3) + 4)))))) || (!(temp_fv1_2 < (*((f32 *) (((char *) temp_s1_2) + 4)))))) || (!(temp_fv1_2 < (*((f32 *) (((char *) temp_s2) + 4))))))) && ((((temp_fv1_3 = sp28 + arg5, !(temp_fv1_3 < (*((f32 *) (((char *) temp_s3) + 0)))))) || (!(temp_fv1_3 < (*((f32 *) (((char *) temp_s1_2) + 0)))))) || (!(temp_fv1_3 < (*((f32 *) (((char *) temp_s2) + 0))))))) && ((((temp_fv1_4 = sp28 - arg5, !((*((f32 *) (((char *) temp_s3) + 0))) < temp_fv1_4))) || (!((*((f32 *) (((char *) temp_s1_2) + 0))) < temp_fv1_4))) || (!((*((f32 *) (((char *) temp_s2) + 0))) < temp_fv1_4)))) && ((((temp_fv1_5 = sp30 + arg5, !(temp_fv1_5 < (*((f32 *) (((char *) temp_s3) + 8)))))) || (!(temp_fv1_5 < (*((f32 *) (((char *) temp_s1_2) + 8)))))) || (!(temp_fv1_5 < (*((f32 *) (((char *) temp_s2) + 8))))))) && ((((temp_fv1_6 = sp30 - arg5, !((*((f32 *) (((char *) temp_s3) + 8))) < temp_fv1_6))) || (!((*((f32 *) (((char *) temp_s1_2) + 8))) < temp_fv1_6))) || (!((*((f32 *) (((char *) temp_s2) + 8))) < temp_fv1_6)))) { segmentClosestPoint(sp1FC, temp_s3, temp_s1_2, sp1CC); temp_fs0_4 = func_80047AB0(sp1FC, sp1CC); segmentClosestPoint(&spF0, temp_s1_2, temp_s2, sp1CC); temp_fs1 = func_80047AB0(&spF0, sp1CC); segmentClosestPoint(&sp100, temp_s2, temp_s3, sp1CC); temp_fv0_2 = func_80047AB0(&sp100, sp1CC); var_fa0 = temp_fs0_4; *((Vec3Copy *) (&spD0)) = *((Vec3Copy *) (&spE0)); var_v0_3 = 1; if (!(temp_fs1 < var_fa0)) { var_v0_3 = 0; } var_v1_3 = 1; if (!(temp_fs1 < temp_fv0_2)) { var_v1_3 = 0; } if (var_v0_3 & var_v1_3) { *((Vec3Copy *) (&spD0)) = *((Vec3Copy *) (&spF0)); var_fa0 = temp_fs1; } else { var_v0_4 = 1; if (!(temp_fv0_2 < var_fa0)) { var_v0_4 = 0; } var_v1_4 = 1; if (!(temp_fv0_2 < temp_fs1)) { var_v1_4 = 0; } if (var_v0_4 & var_v1_4) { *((Vec3Copy *) (&spD0)) = *((Vec3Copy *) (&sp100)); var_fa0 = temp_fv0_2; } } if (var_fa0 < temp_fs4) { temp_fa0_2 = (f32) (D_800D3E98 - ((f64) (func_80082908(var_fa0) / arg5))); temp_ft0_2 = temp_fa0_2 * (sp28 - spD0); temp_fv0_3 = temp_fa0_2 * (sp30 - spD8); temp_fv1_7 = temp_fa0_2 * (sp2C - spD4); sp18 = temp_ft0_2; sp20 = temp_fv0_3; sp28 += temp_ft0_2; sp1C = temp_fv1_7; sp30 += temp_fv0_3; sp2C += temp_fv1_7; rotateVec3ByMat3(&sp68, &sp18); *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + sp18); *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg3) + 4))) + sp1C); var_fv1 = (*((f32 *) (((char *) arg3) + 8))) + sp20; *__base_gPlayerActor = var_s5; sp1BC = var_s6; sp1AF = 1; block_73: *((f32 *) (((char *) arg3) + 8)) = var_fv1; } } } } sp1EC += 3; sp1C6 += 1; var_fp += 3; } while (sp1C6 < ((u16) (*((u16 *) (((char *) temp_s7) + 0x40))))); } } else { temp_t1 = *((u16 **) (((char *) temp_s7) + 0x3C)); sp204 = temp_t1; if (temp_v1 < ((u16) (*((u16 *) (((char *) temp_s7) + 0x40))))) { sp1C6 = 0; var_fp_2 = temp_t1 + 2; do { temp_v1_4 = *((u16 *) ((sp1C6 * 2) + (*((s32 *) (((char *) temp_s7) + 0x38))))); if ((sp1DE & temp_v1_4) && (sp1E6 & temp_v1_4)) { temp_v1_5 = *((s32 *) (((char *) temp_s7) + 0x34)); buildPlaneFromPoints(sp1F4, temp_v1_5 + ((*sp204) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_fp_2) + (-1)))) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_fp_2) + 0))) * 0xC)); temp_fs0_5 = (((spA0 * sp28) + (spA4 * sp2C)) + (spA8 * sp30)) + spAC; var_v0_5 = 1; if (!(arg5 > temp_fs0_5)) { var_v0_5 = 0; } var_v1_5 = 1; if (!(temp_fs0_5 > 0.0f)) { var_v1_5 = 0; } if (var_v0_5 & var_v1_5) { *((f32 *) (((char *) arg4) + 0)) = (f32) (sp28 - (temp_fs0_5 * spA0)); *((f32 *) (((char *) arg4) + 4)) = (f32) (sp2C - (temp_fs0_5 * spA4)); *((f32 *) (((char *) arg4) + 8)) = (f32) (sp30 - (temp_fs0_5 * spA8)); temp_a3_2 = *((s32 *) (((char *) temp_s7) + 0x34)); temp_s3_2 = temp_a3_2 + ((*sp204) * 0xC); temp_s1_3 = temp_a3_2 + ((*((u8 *) (((char *) var_fp_2) + (-1)))) * 0xC); temp_s2_2 = temp_a3_2 + ((*((u8 *) (((char *) var_fp_2) + 0))) * 0xC); if ((triangleContainsPoint(arg4, temp_s3_2, temp_s1_3, temp_s2_2, sp1F4) << 0x18) != 0) { temp_fs0_5 = arg5 - temp_fs0_5; temp_ft1_2 = temp_fs0_5 * spA0; temp_ft0_3 = temp_fs0_5 * spA4; temp_fv0_4 = temp_fs0_5 * spA8; sp18 = temp_ft1_2; sp1C = temp_ft0_3; sp20 = temp_fv0_4; sp28 += temp_ft1_2; sp2C += temp_ft0_3; sp30 += temp_fv0_4;
+                              temp_fs0_3 = arg5 - temp_fs0_3; temp_ft1 = temp_fs0_3 * spA0; temp_ft0 = temp_fs0_3 * spA4; temp_fv0 = temp_fs0_3 * spA8; sp18 = temp_ft1; sp1C = temp_ft0; sp20 = temp_fv0; sp28 += temp_ft1; sp2C += temp_ft0; sp30 += temp_fv0;
+                              rotateVec3ByMat3(&sp68, &sp18);
+                              *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + sp18);
+                              *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg3) + 4))) + sp1C);
+                              var_fv1 = (*((f32 *) (((char *) arg3) + 8))) + sp20;
+                              *__base_gPlayerActor = var_s5;
+                              sp1BC = var_s6;
+                              sp1AF = 1;
+                              goto block_73;
+                            }
+                            temp_fv1 = sp2C - arg6;
+                            if ((((((((!((*((f32 *) (((char *) temp_s3) + 4))) < temp_fv1)) || (!((*((f32 *) (((char *) temp_s1_2) + 4))) < temp_fv1))) || (!((*((f32 *) (((char *) temp_s2) + 4))) < temp_fv1))) && ((((temp_fv1_2 = sp2C + arg7, !(temp_fv1_2 < (*((f32 *) (((char *) temp_s3) + 4)))))) || (!(temp_fv1_2 < (*((f32 *) (((char *) temp_s1_2) + 4)))))) || (!(temp_fv1_2 < (*((f32 *) (((char *) temp_s2) + 4))))))) && ((((temp_fv1_3 = sp28 + arg5, !(temp_fv1_3 < (*((f32 *) (((char *) temp_s3) + 0)))))) || (!(temp_fv1_3 < (*((f32 *) (((char *) temp_s1_2) + 0)))))) || (!(temp_fv1_3 < (*((f32 *) (((char *) temp_s2) + 0))))))) && ((((temp_fv1_4 = sp28 - arg5, !((*((f32 *) (((char *) temp_s3) + 0))) < temp_fv1_4))) || (!((*((f32 *) (((char *) temp_s1_2) + 0))) < temp_fv1_4))) || (!((*((f32 *) (((char *) temp_s2) + 0))) < temp_fv1_4)))) && ((((temp_fv1_5 = sp30 + arg5, !(temp_fv1_5 < (*((f32 *) (((char *) temp_s3) + 8)))))) || (!(temp_fv1_5 < (*((f32 *) (((char *) temp_s1_2) + 8)))))) || (!(temp_fv1_5 < (*((f32 *) (((char *) temp_s2) + 8))))))) && ((((temp_fv1_6 = sp30 - arg5, !((*((f32 *) (((char *) temp_s3) + 8))) < temp_fv1_6))) || (!((*((f32 *) (((char *) temp_s1_2) + 8))) < temp_fv1_6))) || (!((*((f32 *) (((char *) temp_s2) + 8))) < temp_fv1_6))))
+                            {
+                              segmentClosestPoint(sp1FC, temp_s3, temp_s1_2, sp1CC);
+                              temp_fs0_4 = func_80047AB0(sp1FC, sp1CC);
+                              segmentClosestPoint(&spF0, temp_s1_2, temp_s2, sp1CC);
+                              temp_fs1 = func_80047AB0(&spF0, sp1CC);
+                              segmentClosestPoint(&sp100, temp_s2, temp_s3, sp1CC);
+                              temp_fv0_2 = func_80047AB0(&sp100, sp1CC); var_fa0 = temp_fs0_4;
+                              *((Vec3Copy *) (&spD0)) = *((Vec3Copy *) (&spE0)); var_v0_3 = 1;
+                              if (!(temp_fs1 < var_fa0))
+                              {
+                                var_v0_3 = 0;
+                              }
+                              var_v1_3 = 1;
+                              if (!(temp_fs1 < temp_fv0_2))
+                              {
+                                var_v1_3 = 0;
+                              }
+                              if (var_v0_3 & var_v1_3)
+                              {
+                                *((Vec3Copy *) (&spD0)) = *((Vec3Copy *) (&spF0)); var_fa0 = temp_fs1;
+                              }
+                              else
+                              {
+                                var_v0_4 = 1;
+                                if (!(temp_fv0_2 < var_fa0))
+                                {
+                                  var_v0_4 = 0;
+                                }
+                                var_v1_4 = 1;
+                                if (!(temp_fv0_2 < temp_fs1))
+                                {
+                                  var_v1_4 = 0;
+                                }
+                                if (var_v0_4 & var_v1_4)
+                                {
+                                  *((Vec3Copy *) (&spD0)) = *((Vec3Copy *) (&sp100)); var_fa0 = temp_fv0_2;
+                                }
+                              }
+                              if (var_fa0 < temp_fs4)
+                              {
+                                temp_fa0_2 = (f32) (D_800D3E98 - ((f64) (func_80082908(var_fa0) / arg5))); temp_ft0_2 = temp_fa0_2 * (sp28 - spD0); temp_fv0_3 = temp_fa0_2 * (sp30 - spD8); temp_fv1_7 = temp_fa0_2 * (sp2C - spD4); sp18 = temp_ft0_2; sp20 = temp_fv0_3; sp28 += temp_ft0_2; sp1C = temp_fv1_7; sp30 += temp_fv0_3; sp2C += temp_fv1_7;
+                                rotateVec3ByMat3(&sp68, &sp18);
+                                *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + sp18);
+                                *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg3) + 4))) + sp1C);
+                                var_fv1 = (*((f32 *) (((char *) arg3) + 8))) + sp20;
+                                *__base_gPlayerActor = var_s5;
+                                sp1BC = var_s6;
+                                sp1AF = 1;
+                                block_73:
+                                *((f32 *) (((char *) arg3) + 8)) = var_fv1;
+
+                              }
+                            }
+                          }
+                        }
+                        sp1EC += 3; sp1C6 += 1; var_fp += 3;
+                      }
+                      while (sp1C6 < ((u16) (*((u16 *) (((char *) temp_s7) + 0x40)))));
+                    }
+                  }
+                  else
+                  {
+                    temp_t1 = *((u16 **) (((char *) temp_s7) + 0x3C)); sp204 = temp_t1;
+                    if (temp_v1 < ((u16) (*((u16 *) (((char *) temp_s7) + 0x40)))))
+                    {
+                      sp1C6 = 0; var_fp_2 = temp_t1 + 2;
+                      do
+                      {
+                        temp_v1_4 = *((u16 *) ((sp1C6 * 2) + (*((s32 *) (((char *) temp_s7) + 0x38)))));
+                        if ((sp1DE & temp_v1_4) && (sp1E6 & temp_v1_4))
+                        {
+                          temp_v1_5 = *((s32 *) (((char *) temp_s7) + 0x34));
+                          buildPlaneFromPoints(sp1F4, temp_v1_5 + ((*sp204) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_fp_2) + (-1)))) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_fp_2) + 0))) * 0xC));
+                          temp_fs0_5 = (((spA0 * sp28) + (spA4 * sp2C)) + (spA8 * sp30)) + spAC; var_v0_5 = 1;
+                          if (!(arg5 > temp_fs0_5))
+                          {
+                            var_v0_5 = 0;
+                          }
+                          var_v1_5 = 1;
+                          if (!(temp_fs0_5 > 0.0f))
+                          {
+                            var_v1_5 = 0;
+                          }
+                          if (var_v0_5 & var_v1_5)
+                          {
+                            *((f32 *) (((char *) arg4) + 0)) = (f32) (sp28 - (temp_fs0_5 * spA0));
+                            *((f32 *) (((char *) arg4) + 4)) = (f32) (sp2C - (temp_fs0_5 * spA4));
+                            *((f32 *) (((char *) arg4) + 8)) = (f32) (sp30 - (temp_fs0_5 * spA8)); temp_a3_2 = *((s32 *) (((char *) temp_s7) + 0x34)); temp_s3_2 = temp_a3_2 + ((*sp204) * 0xC); temp_s1_3 = temp_a3_2 + ((*((u8 *) (((char *) var_fp_2) + (-1)))) * 0xC); temp_s2_2 = temp_a3_2 + ((*((u8 *) (((char *) var_fp_2) + 0))) * 0xC);
+                            if ((triangleContainsPoint(arg4, temp_s3_2, temp_s1_3, temp_s2_2, sp1F4) << 0x18) != 0)
+                            {
+                              temp_fs0_5 = arg5 - temp_fs0_5; temp_ft1_2 = temp_fs0_5 * spA0; temp_ft0_3 = temp_fs0_5 * spA4; temp_fv0_4 = temp_fs0_5 * spA8; sp18 = temp_ft1_2; sp1C = temp_ft0_3; sp20 = temp_fv0_4; sp28 += temp_ft1_2; sp2C += temp_ft0_3; sp30 += temp_fv0_4;
                               rotateVec3ByMat3(&sp68, &sp18);
                               *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + sp18);
                               *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg3) + 4))) + sp1C);
@@ -611,7 +713,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       spC4 = temp_fv1_16;
                     }
                   }
-                  if ((spF4 < 0.5f) || ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2))
+                  if (((spF4 - 1) < (0.5f - 1)) || ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2))
                   {
                     temp_fs0_7 = (((spF0 * spC0) + (spF4 * spC4)) + (spF8 * spC8)) + spFC;
                     if (temp_fs0_7 < arg5)
@@ -1001,3 +1103,4 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   return (s8) sp1AF;
 
 }
+

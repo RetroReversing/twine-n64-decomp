@@ -1,3 +1,4 @@
+typedef struct { f32 x, y, z; } HitVec;
 f32 Vec3_DistanceSq(f32 *, void *);
 f32 absFloat(f32);
 s32 actorFinishIfMatch(void *, s32);
@@ -156,8 +157,8 @@ void func_8006D2E4(void *arg0)
   temp_s3 = *((void **) (((char *) arg0) + 0x6C));
   temp_s4 = *((s8 *) (((char *) temp_s3) + 0x182));
   var_fs0 = 0.0f;
-  sp34 = NULL;
   sp40 = 0;
+  sp34 = NULL;
   sp38 = NULL;
   sp3C = 0;
   sp30 = 0;
@@ -563,12 +564,10 @@ void func_8006D2E4(void *arg0)
           sp58[1] = *((f32 *) (((char *) arg0) + 0x28));
           sp58[2] = *((f32 *) (((char *) sp34) + 0x2C));
           sp58[0] -= sinAngle(temp_fa0) * 0.43f;
-          sp58[2] -= cosAngle(temp_fa0) * 0.43f;
+          sp58[2] -= cosAngle(sp48[1]) * 0.43f;
           if ((!((*((f32 *) (((char *) temp_s3) + 0x14))) < sp58[1])) && (!(sp58[1] < (*((f32 *) (((char *) temp_s3) + 0x18))))))
           {
-            *((f32 *) (((char *) arg0) + 0x24)) = sp58[0];
-            *((f32 *) (((char *) arg0) + 0x28)) = sp58[1];
-            *((f32 *) (((char *) arg0) + 0x2C)) = sp58[2];
+            *(HitVec *)((char *)arg0 + 0x24) = *(HitVec *)sp58;
             *((f32 *) (((char *) arg0) + 0x3C)) = 0.0f;
             *((f32 *) (((char *) arg0) + 0x44)) = 0.0f;
             *((f32 *) (((char *) arg0) + 0x40)) = sp48[1];
@@ -610,9 +609,7 @@ void func_8006D2E4(void *arg0)
           if ((*((s8 *) (((char *) temp_s3) + 0x19C))) != 0)
         {
           temp_v0_11 = *((void **) (((char *) temp_s3) + 0xC4));
-          *((f32 *) (((char *) temp_v0_11) + 0x24)) = (f32) (*((f32 *) (((char *) temp_s3) + 0xEC)));
-          *((f32 *) (((char *) temp_v0_11) + 0x28)) = (f32) (*((f32 *) (((char *) temp_s3) + 0xF0)));
-          *((f32 *) (((char *) temp_v0_11) + 0x2C)) = (f32) (*((f32 *) (((char *) temp_s3) + 0xF4)));
+          *(HitVec *)((char *)temp_v0_11 + 0x24) = *(HitVec *)((char *)temp_s3 + 0xEC);
           *((f32 *) (((char *) (*((void **) (((char *) temp_s3) + 0xC4)))) + 0x3C)) = -1024.0f;
           *((s32 *) (((char *) (*((void **) (((char *) temp_s3) + 0xC4)))) + 0x40)) = 0;
           *((s32 *) (((char *) (*((void **) (((char *) temp_s3) + 0xC4)))) + 0x44)) = 0;
@@ -676,9 +673,7 @@ void func_8006D2E4(void *arg0)
               *((f32 *) (((char *) arg0) + 0x40)) = (f32) (temp_fa0_2 + 2048.0f);
               sp48[0] = (*((f32 *) (((char *) temp_s3) + 0xEC))) + (sinAngle(temp_fa0_2) * 0.22500001f);
               sp48[2] = (*((f32 *) (((char *) temp_s3) + 0xF4))) + (cosAngle(D_800E19F8) * 0.22500001f);
-              *((f32 *) (((char *) arg0) + 0x24)) = sp48[0];
-              *((f32 *) (((char *) arg0) + 0x28)) = sp48[1];
-              *((f32 *) (((char *) arg0) + 0x2C)) = sp48[2];
+              *(HitVec *)((char *)arg0 + 0x24) = *(HitVec *)sp48;
               func_80065684(arg0);
               func_800635BC(arg0, 3);
               clearProbeState(arg0, 0x159);

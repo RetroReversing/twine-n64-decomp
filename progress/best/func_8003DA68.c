@@ -36,23 +36,23 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
   Vec3 neg;
   Vec3 p1;
   Vec3 p2;
+  u16 t0;
   void *b;
   void *pa;
   void *pb;
-  u16 t0;
   u16 t1;
   u16 t2;
   long vbase;
   void *s1;
   s32 cellA;
-s32 __repair_result_cellA;
+  s32 __repair_result_cellA;
   s32 cellB;
-s32 __repair_result_cellB;
+  s32 __repair_result_cellB;
   f32 d1;
   s8 c1;
   s8 c2;
   b = *((void **) (((u8 *) arg0) + 0x3C));
-  pos.x = *((f32 *) (((u8 *) arg0) + 0x40));
+  pos.x = *((f32 *) (0x40 + ((u8 *) arg0)));
   pos.y = *((f32 *) (((u8 *) arg0) + 0x44));
   pos.z = *((f32 *) (((u8 *) arg0) + 0x48));
   pa = NULL;
@@ -178,7 +178,7 @@ s32 __repair_result_cellB;
   *arg4 = r.w;
   c1 = Probe_BoundsContainPoint(&sum, arg1);
   c2 = Probe_BoundsContainPoint(&sum, arg2);
-  if ((c2 == 0) & (c1 == 0))
+  if ((c1 == 0) & (c2 == 0))
   {
     arg3->x = 0.0f;
     arg3->y = 0.0f;
@@ -206,7 +206,7 @@ s32 __repair_result_cellB;
     {
       return 1;
     }
-    if ((c1 == 0) & (c2 != 0))
+    if ((c2 != 0) & (c1 == 0))
     {
       FLIP_RETURN();
     }

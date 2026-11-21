@@ -110,7 +110,14 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
           D_800E4260 = s0;
           s0->prev = NULL;
         }
-        a1 = s0->addr;
+        if (D_800E425C)
+        {
+          a1 = s0->addr;
+        }
+        else
+        {
+          a1 = s0->addr;
+        }
         if (s4 < a1)
         {
           p = &sp10[(u16) s3];
@@ -197,7 +204,12 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
       if (__repair_phase_storage.value >= 0x601U)
       {
         Ent *e;
- do { s0->len = 0x600; D_80109BF8 += 0xC; v0 = func_800CEEE0(D_80109BA0, D_80109BF8); __repair_phase_storage.value = (u16) s3; p = &sp10[__repair_phase_storage.value]; } while (0);
+        do
+        {
+          s0->len = 0x600; D_80109BF8 += 0xC;
+          v0 = func_800CEEE0(D_80109BA0, D_80109BF8); __repair_phase_storage.value = (u16) s3; p = &sp10[__repair_phase_storage.value];
+        }
+        while (0);
         s3++;
         e = &D_80103EB4[D_80108F70];
         D_80109BA0 = v0;
@@ -218,20 +230,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
         D_80109BF8 += 0xC;
         v0 = func_800CEEE0(D_80109BA0, D_80109BF8);
         e = &D_80103EB4[D_80108F70];
-        e->b = s0->addr;
-        e->a = s0->len;
-        e->c = s0->data;
-        p = &sp10[(u16) s3];
-        p[0] = s0->data + s1_2;
-        D_80109BA0 = v0;
-        D_80108F70 += 1;
-        do
-        {
-          s3++;
-        }
-        while (0);
-        p[2] = s2;
-        s2 = 0;
+ do { e->b = s0->addr; e->a = s0->len; e->c = s0->data; p = &sp10[(u16) s3]; p[0] = s0->data + s1_2; D_80109BA0 = v0; D_80108F70 += 1; do { s3++; } while (0); p[2] = s2; s2 = 0; } while (0);
         p[4] = s0->addr + s1_2;
       }
       s1_2 = 0;

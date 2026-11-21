@@ -25,9 +25,9 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
   f32 sp18[3];
   SweepVec vec28;
   SweepVec vec38;
+  SweepVec vec70;
   f32 matrix[9];
   s16 sp68[3];
-  SweepVec vec70;
   union 
   {
     s16 angles[3];
@@ -318,8 +318,8 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
       if (var_s6 != NULL)
       {
         sp17C = (s16 *) (&scratch.point);
-        sp18C = &vecA8.x;
         sp184 = &result.second.end.x;
+        sp18C = &vecA8.x;
         sp194 = &spE0;
         sp19C = &spE4;
         do
