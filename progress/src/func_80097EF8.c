@@ -14,7 +14,7 @@ s32 func_80097EF8(u16 arg0, s32 arg1) {
     s32 i;
     s32 idx;
     s32 j;
-    s32 k;
+    
     u16 cnt;
 
     workerLockAcquire();
@@ -48,8 +48,8 @@ s32 func_80097EF8(u16 arg0, s32 arg1) {
             }
             p++;
         }
-        for (k = D_800F8D5C - 1; k >= idx; k--) {
-            D_800F9560[k + 1] = D_800F9560[k];
+        for (i = D_800F8D5C - 1; i >= idx; i--) {
+            D_800F9560[i + 1] = D_800F9560[i];
         }
         D_800F9560[idx].key = arg0;
         D_800F9560[idx].count = 1;
