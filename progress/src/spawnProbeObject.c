@@ -19,50 +19,52 @@ extern void actorLinkToSurface(s32, OverlayObject *, s32);
 extern void objectSetAnimFrame(OverlayObject *, s32, s32);
 extern s32 *gProbeObjectList;
 extern u8 gSceneType;
-extern u32 sProbeTimers[][2];
-extern u8 sProbeActive[];
+extern u32 D_8011F140[][2];
+extern u8 D_8011F168[];
 extern OverlayObject *sProbeObjects[];
-extern s32 sProbeFlags[], sProbeHandles[];
+extern s32 D_8011F280[], D_8011F290[];
 extern OverlayPosition sProbePositions[];
 
-/* Spawns a probe object for slot 'slot' in scene types 2 and 3, records its position and state, and returns it (or NULL). */
-OverlayObject *spawnProbeObject(register OverlayPosition *position, void *orientation, u32 slot)
+OverlayObject *spawnProbeObject(register OverlayPosition *position, void *orientation, u32 index)
 {
-    register u8 *sceneType = &gSceneType;
+    register u8 *state = &gSceneType;
 
-    if ((u32)(*sceneType - 2) < 2U) {
-        OverlayObject *probe = spawnEffectObject(0, position, orientation);
-        if (probe != NULL) {
-            register u32 slotIndex = (u16)slot;
-            register void *timerRec;
-            do { objectSetAnimFrame(probe, 6, 0xF4); } while (0);
-            sProbePositions[slotIndex] = *position;
-            timerRec = sProbeTimers[slotIndex];
-            probe->kind = 0x45;
-            probe->index = slot;
-            probe->scale = 1.0f;
-            sProbeObjects[slotIndex] = probe;
-            sProbeActive[slotIndex] = 1;
-            sProbeFlags[slotIndex] = 0;
-            func_8002B000(timerRec, 0x1E);
-            listUnlinkFree(sProbeHandles[slotIndex]);
-            sProbeHandles[slotIndex] = 0;
-            probe->flags &= ~0x200;
-            if (*sceneType == 3) {
-                sProbePositions[slotIndex].y += 0.76f;
+    if ((u32)(*state - 2) < 2U) {
+        OverlayObject *object = spawnEffectObject(0, position, orientation);
+        if (object != NULL) {
+            register u32 idx = (u16)index;
+            register void *timer;
+            do { objectSetAnimFrame(object, 6, 0xF4); } while (0);
+            sProbePositions[idx] = *position;
+            timer = D_8011F140[idx];
+            object->kind = 0x45;
+            object->index = index;
+            object->scale = 1.0f;
+            sProbeObjects[idx] = object;
+            D_8011F168[idx] = 1;
+            D_8011F280[idx] = 0;
+            func_8002B000(timer, 0x1E);
+            listUnlinkFree(D_8011F290[idx]);
+            D_8011F290[idx] = 0;
+            object->flags &= ~0x200;
+            if (*state == 3) {
+                sProbePositions[idx].y += 0.76f;
             }
-            actorLinkToSurface(*gProbeObjectList, probe, 1);
+            actorLinkToSurface(*gProbeObjectList, object, 1);
             {
-                register s32 colorValue = 0xB4;
-                if (slotIndex == 0) {
-                    probe->color[2] = colorValue;
+                register s32 color = 0xB4;
+                if (idx == 0) {
+                    object->color[2] = color;
                 } else {
-                    probe->color[0] = colorValue;
+                    object->color[0] = color;
                 }
-                probe->color[1] = colorValue;
+                object->color[1] = color;
             }
-            return probe;
+            return object;
         }
     }
     return NULL;
 }
+
+
+
