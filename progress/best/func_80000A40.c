@@ -127,9 +127,9 @@ s32 __repair_phase_var_s4;
         case 3:
             var_s4 = (s8)(M2C_FIELD(temp_s3, s8 *, 0x9F));
             spA7C = 1;
-            temp_v0 = (var_s4 * 3) + 2;
-            spA8C = temp_v0;
-            spA94 = temp_v0 + var_s4;
+            var_s6 = (var_s4 * 3) + 2;
+            spA8C = var_s6;
+            spA94 = var_s6 + var_s4;
             break;
         }
         __repair_result_spA5C = M2C_FIELD(arg0, u16 *, 0x78);
@@ -171,8 +171,8 @@ do {
             temp_v0_2 = findOrLoadStreamSlot(M2C_FIELD(temp_s3, u8 *, 0x9E));
             if (*temp_v0_2 >= 0) {
                 var_a1 = temp_v0_2;
-                spA9C = &sp120;
                 var_s6 = 0;
+                spA9C = &sp120;
                 spAAC = spA6C;
                 do {
                     temp_s1 = (s32 *)((char *)spA9C + M2C_FIELD(var_a1, s16 *, 0) * 0x30);

@@ -47,13 +47,13 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     f32 *sp13C;
     u8 sp147;
     void *sp14C;
-    f32 *sp154;
+    u16 *var_s6;
     f32 *sp15C;
     u16 sp166;
     u16 sp16E;
     f32 temp_fa0;
     f32 temp_fa0_2;
-    f32 temp_fa0_3;
+    register f32 temp_fa0_3;
     f32 temp_fa0_4;
     f32 temp_fs0;
     f32 temp_fs0_2;
@@ -105,7 +105,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     s32 var_v1;
     s32 var_v1_2;
     s32 var_v1_3;
-    u16 *var_s6;
+    f32 *sp154;
     u8 *var_s6_2;
     u16 temp_a0;
     u16 temp_v1;
@@ -387,8 +387,8 @@ block_21:
                                 temp_v1_10 = (*(u8 *)((char *)(temp_s4) + 0x48)) & 4;
                                 sp16E = temp_v0_3 & 0xFF00;
                                 if (temp_v1_10 != 0) {
-                                    var_s6_3 = 0;
                                     if (temp_s1_2 < (u16) (*(u16 *)((char *)(temp_s4) + 0x40))) {
+    var_s6_3 = 0;
     do {
         temp_v1_11 = var_s6_3 & 0xFFFF;
         temp_a0 = (*(u16 *)((char *)((*(void **)((char *)(temp_s4) + 0x38))) + (temp_v1_11 * 2)));
@@ -466,80 +466,82 @@ block_103:
                                 }
                                 if (temp_v1_10 < (u16) (*(u16 *)((char *)(temp_s4) + 0x40))) {
                                     var_s6_4 = 0;
-    loop_106:
-                                    temp_a0_2 = var_s6_4 & 0xFFFF;
-                                    temp_v1_13 = (*(u16 *)((char *)((*(void **)((char *)(temp_s4) + 0x38))) + (temp_a0_2 * 2)));
-                                    temp_a2_2 = (*(s32 *)((char *)(temp_s4) + 0x3C)) + (temp_a0_2 * 3);
-                                    if ((sp166 & temp_v1_13) && (sp16E & temp_v1_13)) {
-                                        temp_a3_2 = (*(s32 *)((char *)(temp_s4) + 0x34));
-                                        temp_s3_3 = temp_a3_2 + ((*(u8 *)((char *)(temp_a2_2) + 0)) * 0xC);
-                                        temp_s1_4 = temp_a3_2 + ((*(u8 *)((char *)(temp_a2_2) + 1)) * 0xC);
-                                        temp_s0_2 = temp_a3_2 + ((*(u8 *)((char *)(temp_a2_2) + 2)) * 0xC);
-                                        buildPlaneFromPoints(workspace.data, temp_s3_3, temp_s1_4, temp_s0_2);
-                                        if (((*(f32 *)((char *)(var_s2) + 0x30)) == 0.0f) && ((*(f32 *)((char *)(var_s2) + 0x38)) == 0.0f)) {
-                                            temp_fv1_4 = ((*(f32 *)((char *)(temp_s3_3) + 4)) + (*(f32 *)((char *)(temp_s1_4) + 4)) + (*(f32 *)((char *)(temp_s0_2) + 4))) * 0.33333334f;
-                                            temp_fv0_6 = temp_fs2 - arg6;
-                                            geometry.points.first[1] = temp_fv1_4;
-                                            if (temp_fv1_4 < temp_fv0_6) {
-                                                geometry.points.first[1] = temp_fv0_6;
-                                            }
-                                            temp_fv1_5 = temp_fs2 + arg7;
-                                            if (temp_fv1_5 < geometry.points.first[1]) {
-                                                geometry.points.first[1] = temp_fv1_5;
-                                            }
-                                        }
-                                        if ((workspace.data[1] < 0.5f) || (((u32) (*(u32 *)((char *)(var_s2) + 0x5C)) >> 0x17) & 2)) {
-                                            temp_fs0_5 = (workspace.data[0] * geometry.points.first[0]) + (workspace.data[1] * geometry.points.first[1]) + (workspace.data[2] * geometry.points.first[2]) + workspace.data[3];
-                                            if (temp_fs0_5 < arg5) {
-                                                (*(f32 *)((char *)(arg4) + 0)) = (f32) (geometry.points.first[0] - (temp_fs0_5 * workspace.data[0]));
-                                                (*(f32 *)((char *)(arg4) + 4)) = (f32) (geometry.points.first[1] - (temp_fs0_5 * workspace.data[1]));
-                                                (*(f32 *)((char *)(arg4) + 8)) = (f32) (geometry.points.first[2] - (temp_fs0_5 * workspace.data[2]));
-                                                if ((triangleContainsPoint(arg4, temp_s3_3, temp_s1_4, temp_s0_2, (f32 *) sp11C) << 0x18) != 0) {
-                                                    if (!(temp_fs0_5 < 0.0f)) {
-                                                        temp_fa0_4 = arg5 - temp_fs0_5;
-                                                        temp_ft1_4 = temp_fa0_4 * workspace.data[0];
-                                                        temp_fv1_6 = temp_fa0_4 * workspace.data[1];
-                                                        temp_fv0_7 = temp_fa0_4 * workspace.data[2];
-                                                        sp18Buf[0] = temp_ft1_4;
-                                                        sp18Buf[1] = temp_fv1_6;
-                                                        sp18Buf[2] = temp_fv0_7;
-                                                        geometry.points.first[0] += temp_ft1_4;
-                                                        geometry.points.first[1] += temp_fv1_6;
-                                                        geometry.points.first[2] += temp_fv0_7;
-                                                        if (((u32) (*(u32 *)((char *)(var_s2) + 0x5C)) >> 0x17) & 2) {
-                                                            func_80083B64((s32 *)&sp28Buf[0], &sp18Buf[0]);
-                                                        }
-                                                        (*(f32 *)((char *)(arg3) + 0)) = (f32) ((*(f32 *)((char *)(arg3) + 0)) + sp18Buf[0]);
-                                                        (*(f32 *)((char *)(arg3) + 4)) = (f32) ((*(f32 *)((char *)(arg3) + 4)) + sp18Buf[1]);
-                                                        (*(f32 *)((char *)(arg3) + 8)) = (f32) ((*(f32 *)((char *)(arg3) + 8)) + sp18Buf[2]);
-                                                        temp_v1_14 = (*(u32 *)((char *)(var_s2) + 0x5C));
-                                                        if (temp_v1_14 & 0x7E0000) {
-                                                            if (arg9 != NULL) {
-                                                                *arg9 = (temp_v1_14 >> 0x11) & 0x3F;
-                                                            }
-                                                            if (arg10 != NULL) {
-                                                                *arg10 = var_s2;
-                                                            }
-                                                        }
-                                                        spF7 = 1;
-                                                        goto block_132;
-                                                    }
-                                                    if (((workspace.data[0] * geometry.points.second[0]) + (workspace.data[1] * geometry.points.second[1]) + (workspace.data[2] * geometry.points.second[2]) + workspace.data[3]) > 0.0f) {
-                                                        (*(__repair_vec3 *) ((s8 *) (arg3) + 0)) = (*(__repair_vec3 *) ((s8 *) (spEC) + 0));
-                                                        return 1;
-                                                    }
-                                                    goto block_132;
-                                                }
-                                            }
-                                        }
-                                        goto block_132;
-                                    }
-    block_132:
-                                    var_s6_4 += 1;
-                                    if ((u32) (var_s6_4 & 0xFFFF) >= (u16) (*(u16 *)((char *)(temp_s4) + 0x40))) {
-                                        goto block_133;
-                                    }
-                                    goto loop_106;
+    for (;;) {
+        temp_a0_2 = var_s6_4 & 0xFFFF;
+        temp_v1_13 = (*(u16 *)((char *)((*(void **)((char *)(temp_s4) + 0x38))) + (temp_a0_2 * 2)));
+        temp_a2_2 = (*(s32 *)((char *)(temp_s4) + 0x3C)) + (temp_a0_2 * 3);
+        if ((sp166 & temp_v1_13) && (sp16E & temp_v1_13)) {
+            temp_a3_2 = (*(s32 *)((char *)(temp_s4) + 0x34));
+            temp_s3_3 = temp_a3_2 + ((*(u8 *)((char *)(temp_a2_2) + 0)) * 0xC);
+            temp_s1_4 = temp_a3_2 + ((*(u8 *)((char *)(temp_a2_2) + 1)) * 0xC);
+            temp_s0_2 = temp_a3_2 + ((*(u8 *)((char *)(temp_a2_2) + 2)) * 0xC);
+            buildPlaneFromPoints(workspace.data, temp_s3_3, temp_s1_4, temp_s0_2);
+            if (((*(f32 *)((char *)(var_s2) + 0x30)) == 0.0f) && ((*(f32 *)((char *)(var_s2) + 0x38)) == 0.0f)) {
+                temp_fv1_4 = ((*(f32 *)((char *)(temp_s3_3) + 4)) + (*(f32 *)((char *)(temp_s1_4) + 4)) + (*(f32 *)((char *)(temp_s0_2) + 4))) * 0.33333334f;
+                temp_fv0_6 = temp_fs2 - arg6;
+                geometry.points.first[1] = temp_fv1_4;
+                if (temp_fv1_4 < temp_fv0_6) {
+                    geometry.points.first[1] = temp_fv0_6;
+                }
+                temp_fv1_5 = temp_fs2 + arg7;
+                if (temp_fv1_5 < geometry.points.first[1]) {
+                    geometry.points.first[1] = temp_fv1_5;
+                }
+            }
+            if ((workspace.data[1] < 0.5f) || (((u32) (*(u32 *)((char *)(var_s2) + 0x5C)) >> 0x17) & 2)) {
+                temp_fs0_5 = (workspace.data[0] * geometry.points.first[0]) + (workspace.data[1] * geometry.points.first[1]) + (workspace.data[2] * geometry.points.first[2]) + workspace.data[3];
+                if (temp_fs0_5 < arg5) {
+                    (*(f32 *)((char *)(arg4) + 0)) = (f32) (geometry.points.first[0] - (temp_fs0_5 * workspace.data[0]));
+                    (*(f32 *)((char *)(arg4) + 4)) = (f32) (geometry.points.first[1] - (temp_fs0_5 * workspace.data[1]));
+                    (*(f32 *)((char *)(arg4) + 8)) = (f32) (geometry.points.first[2] - (temp_fs0_5 * workspace.data[2]));
+                    if ((triangleContainsPoint(arg4, temp_s3_3, temp_s1_4, temp_s0_2, (f32 *) sp11C) << 0x18) != 0) {
+                        if (!(temp_fs0_5 < 0.0f)) {
+                            temp_fa0_4 = arg5 - temp_fs0_5;
+                            temp_ft1_4 = temp_fa0_4 * workspace.data[0];
+                            temp_fv1_6 = temp_fa0_4 * workspace.data[1];
+                            temp_fv0_7 = temp_fa0_4 * workspace.data[2];
+                            sp18Buf[0] = temp_ft1_4;
+                            sp18Buf[1] = temp_fv1_6;
+                            sp18Buf[2] = temp_fv0_7;
+                            geometry.points.first[0] += temp_ft1_4;
+                            geometry.points.first[1] += temp_fv1_6;
+                            geometry.points.first[2] += temp_fv0_7;
+                            if (((u32) (*(u32 *)((char *)(var_s2) + 0x5C)) >> 0x17) & 2) {
+                                func_80083B64((s32 *)&sp28Buf[0], &sp18Buf[0]);
+                            }
+                            (*(f32 *)((char *)(arg3) + 0)) = (f32) ((*(f32 *)((char *)(arg3) + 0)) + sp18Buf[0]);
+                            (*(f32 *)((char *)(arg3) + 4)) = (f32) ((*(f32 *)((char *)(arg3) + 4)) + sp18Buf[1]);
+                            (*(f32 *)((char *)(arg3) + 8)) = (f32) ((*(f32 *)((char *)(arg3) + 8)) + sp18Buf[2]);
+                            temp_v1_14 = (*(u32 *)((char *)(var_s2) + 0x5C));
+                            if (temp_v1_14 & 0x7E0000) {
+                                if (arg9 != NULL) {
+                                    *arg9 = (temp_v1_14 >> 0x11) & 0x3F;
+                                }
+                                if (arg10 != NULL) {
+                                    *arg10 = var_s2;
+                                }
+                            }
+                            spF7 = 1;
+                            goto block_132;
+                        }
+                        if (((workspace.data[0] * geometry.points.second[0]) + (workspace.data[1] * geometry.points.second[1]) + (workspace.data[2] * geometry.points.second[2]) + workspace.data[3]) > 0.0f) {
+                            (*(__repair_vec3 *) ((s8 *) (arg3) + 0)) = (*(__repair_vec3 *) ((s8 *) (spEC) + 0));
+                            return 1;
+                        }
+                        goto block_132;
+                    }
+                }
+            }
+            goto block_132;
+        }
+block_132:
+        var_s6_4 += 1;
+        if ((u32) (var_s6_4 & 0xFFFF) >= (u16) (*(u16 *)((char *)(temp_s4) + 0x40))) {
+            goto block_133;
+        }
+        continue;
+        break;
+    }
                                 }
                                 goto block_133;
                             }

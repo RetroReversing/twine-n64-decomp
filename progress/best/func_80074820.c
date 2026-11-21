@@ -23,8 +23,9 @@ extern s32 gTrackMarkerSerial;
 
 void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
     char sp30[0x200];
-    s8 sp230;
+    s8 sp230[0x208];
     f32 var_fv1;
+    s16 count;
     union { s32 * pointer; s32 value; } __repair_phase_storage;
     s32 temp_s0;
     s32 temp_v0_3;
@@ -42,13 +43,13 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
     s8 var_v0;
     u8 *var_s0;
     u8 var_a0;
-    u8 var_v1;
+    s32 var_v1;
     void **var_a0_3;
     void *temp_v0_4;
     void *temp_v0_5;
 
     var_s0 = arg1;
-    sp230 = 0;
+    sp230[0] = 0;
     var_a0 = *var_s0;
     if ((s8) *var_s0 != 0) {
         var_t0 = sp30;
@@ -58,7 +59,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
             var_v1 = var_a0;
             if (var_a0 != 0) {
 loop_3:
-                if ((s8) var_a0 != 0) {
+                if ((s8) var_v1 != 0) {
                     var_a2 = 0;
                     if (((((s8) var_v1 == 0x2E) | ((s8) var_v1 == 0x21)) != 0) || ((s8) var_v1 == 0x3F)) {
                         var_a2 = 1;
@@ -80,7 +81,7 @@ block_14:
                         temp_v0 = *var_s0;
                         var_t0 += 1;
                         var_a3 += 1;
-                        var_v1 = (u8) temp_v0;
+                        var_v1 = temp_v0;
                         if (temp_v0 == 0) {
 
                         } else {
@@ -91,59 +92,64 @@ block_14:
             }
             *var_t0 = 0;
             func_80074788(sp30, arg2);
-            if (sp230 != 0) {
-                func_800AB6C0(&sp230, &D_800D4870);
+            if (sp230[0] != 0) {
+                func_800AB6C0(sp230, &D_800D4870);
             }
-            func_800AB6C0(&sp230, sp30);
+            func_800AB6C0(sp230, sp30);
             var_a0 = (u8) *var_s0;
             var_t0 = sp30;
         } while (*var_s0 != 0);
     }
     D_80112EBC = 0;
-    var_s1 = &sp230;
-    if (sp230 != 0) {
+    var_s1 = sp230;
+    if (sp230[0] != 0) {
+        s8 *buffer = sp30;
+        s32 *entries = (s32 *)&D_80100B20;
         var_v0 = *var_s1;
         var_a0_2 = 0;
         do {
             temp_a1 = var_s1;
-            if (((var_v0 == 0) | (var_v0 == 0xA)) != 0) {
-
-            } else {
-loop_27:
-                var_s1 += 1;
+            if (!((var_v0 == 0) | (var_v0 == '\n'))) goto scan;
+            goto advance;
+emit:
+            temp_s0 = var_s1 - temp_a1;
+            memcpy(buffer, temp_a1, temp_s0);
+            buffer[temp_s0] = 0;
+            gTrackMarkerSerial++;
+            temp_v0_3 = func_80073AF8(0, arg0, buffer, -1, -1, 1, 0, 0, arg5 & 0xFF, 0, 0x1E);
+            {
+                u16 index = D_80112EBC;
+                __repair_phase_storage.pointer = (s32 *)((s8 *)entries + ((s32)(index << 16) >> 14));
+                D_80112EBC = index + 1;
+                *__repair_phase_storage.pointer = temp_v0_3;
+            }
+            goto advance;
+check:
+            if (temp_v1 | (var_a0_2 >= arg3)) goto emit;
+scan:
+            do {
+                ++var_s1;
                 temp_v0_2 = *var_s1;
                 temp_v1 = temp_v0_2 == 0;
-                if ((temp_v1 | (temp_v0_2 == 0xA)) == 0) {
-                    goto loop_27;
-                }
-                if (var_s1 != temp_a1) {
-                    var_a0_2 += 1;
-                    if ((temp_v1 | (var_a0_2 >= arg3)) != 0) {
-                        temp_s0 = var_s1 - temp_a1;
-                        memcpy(sp30, temp_a1, temp_s0);
-                        (sp30)[temp_s0] = 0;
-                        gTrackMarkerSerial += 1;
-                        temp_v0_3 = func_80073AF8(0, arg0, sp30, -1, -1, 1, 0, 0, arg5 & 0xFF, 0, 0x1E);
-                        __repair_phase_storage.pointer = ((s32) (D_80112EBC << 0x10) >> 0xE) + &D_80100B20;
-                        D_80112EBC += 1;
-                        *__repair_phase_storage.pointer = temp_v0_3;
-                    } else {
-                        goto loop_27;
-                    }
-                }
+            } while (!(temp_v1 | (temp_v0_2 == '\n')));
+            if (var_s1 != temp_a1) {
+                ++var_a0_2;
+                goto check;
             }
-            var_s1 = &var_s1[*var_s1 != 0];
+advance:
+            var_s1 += *var_s1 != 0;
             var_v0 = *var_s1;
             var_a0_2 = 0;
         } while (var_v0 != 0);
     }
-    if ((s16) D_80112EBC != 0) {
-        var_fv1 = ((arg4 / (f32) (s16) D_80112EBC) * 30.0f) - 15.0f;
+    count = D_80112EBC;
+    if (count != 0) {
+        var_fv1 = ((arg4 / (f32) count) * 30.0f) - 15.0f;
         if (var_fv1 < 1.0f) {
             var_fv1 = 1.0f;
         }
         __repair_phase_storage.value = 0;
-        if ((s16) D_80112EBC > 0) {
+        if (count > 0) {
             var_a0_3 = &D_80100B20;
             do {
                 temp_v0_4 = *var_a0_3;
@@ -154,7 +160,7 @@ loop_27:
                     M2C_FIELD(temp_v0_5, f32 *, 0x14) = (f32) (4096.0f / var_fv1);
                 }
                 var_a0_3 += 1;
-            } while (__repair_phase_storage.value < (s16) D_80112EBC);
+            } while (__repair_phase_storage.value < count);
         }
     }
 }

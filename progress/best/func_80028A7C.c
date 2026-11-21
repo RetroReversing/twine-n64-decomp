@@ -16,8 +16,11 @@ extern s32 sSaveMenuFlagsB;
 void func_80028A7C(void) {
     s32 var_a0_2;
     s16 temp_v0_2;
-    s16 temp_v0_4;
-    s16 temp_v0_5;
+    s32 temp_v0_4;
+    s32 temp_v0_5;
+    void *state;
+    void *loopState;
+    volatile s32 *idle;
     s16 temp_v1_2;
     s16 var_v0;
     s32 temp_v1_4;
@@ -56,14 +59,17 @@ void func_80028A7C(void) {
     temp_v1_2 = (*(s16 *)((char *)(sActiveMenu) + 0x7C));
     if (temp_v1_2 == 0) {
         var_a2 = 0;
-        if ((u32) temp_v1_2 < (u8) (*(u8 *)((char *)((*(s32 **)((char *)(gSaveMenuState) + 0x10))) + 5))) {
+        state = gSaveMenuState;
+        if ((u32) temp_v1_2 < (u8) (*(u8 *)((char *)((*(s32 **)((char *)(state) + 0x10))) + 5))) {
+            loopState = state;
+            idle = &sSaveMenuColorIdle;
             do {
-                temp_v1_3 = ((var_a2 & 0xFFFF) * 0x28) + (*(s32 *)((char *)((*(s32 **)((char *)(gSaveMenuState) + 0x10))) + 0));
+                temp_v1_3 = (char *)((var_a2 & 0xFFFF) * 0x28) + (*(s32 *)((char *)((*(s32 **)((char *)(state) + 0x10))) + 0));
                 if ((*(s32 *)((char *)(temp_v1_3) + 8)) != 0) {
-                    temp_v0_2 = (*(u16 *)((char *)(gSaveMenuState) + 0x32)) - (*(u16 *)((char *)(temp_v1_3) + 0x1A));
+                    temp_v0_2 = (*(u16 *)((char *)(state) + 0x32)) - (*(u16 *)((char *)(temp_v1_3) + 0x1A));
                     var_a1 = 0;
                     if (temp_v0_2 <= 0) {
-                        temp_v1_4 = temp_v0_2 * -0xE;
+                        temp_v1_4 = (temp_v0_2 - (temp_v0_2 << 3)) << 1;
                         if (temp_v1_4 >= 0) {
                             var_a0 = 0xFF;
                             if (temp_v1_4 < 0x100) {
@@ -74,86 +80,57 @@ void func_80028A7C(void) {
                         }
                         var_a1 = var_a0;
                     }
-                    (*(s32 *)((char *)((*(void **)((char *)((((var_a2 & 0xFFFF) * 0x28) + *(*(s32 **)((char *)(gSaveMenuState) + 0x10)))) + 8))) + 0x10)) = (s32) ((sSaveMenuColorIdle & ~0xFF) | (var_a1 & 0xFFFF));
+                    (*(s32 *)((char *)((*(void **)((char *)((((var_a2 & 0xFFFF) * 0x28) + *(*(s32 **)((char *)(loopState) + 0x10)))) + 8))) + 0x10)) = (s32) ((*idle & ~0xFF) | (var_a1 & 0xFFFF));
                 }
+                state = gSaveMenuState;
                 var_a2 += 1;
-            } while ((u32) (var_a2 & 0xFFFF) < (u8) (*(u8 *)((char *)((*(s32 **)((char *)(gSaveMenuState) + 0x10))) + 5)));
+            } while ((u32) (var_a2 & 0xFFFF) < (u8) (*(u8 *)((char *)((*(s32 **)((char *)(state) + 0x10))) + 5)));
         }
         temp_v0_3 = (*(u16 *)((char *)(gSaveMenuState) + 0x32)) + 6;
         (*(u16 *)((char *)(gSaveMenuState) + 0x32)) = temp_v0_3;
         if ((u32) (temp_v0_3 & 0xFFFF) >= 0xF6U) {
-            var_v0 = 1;
+            void *active;
             if ((*(u16 *)((char *)(gSaveMenuState) + 0x14)) == 0x10) {
-                var_v0 = 0x4B;
+                active = sActiveMenu;
+                *(s16 *)((char *)active + 0x7C) = 0x4B;
+            } else {
+                active = sActiveMenu;
+                *(s16 *)((char *)active + 0x7C) = 1;
             }
-            (*(s16 *)((char *)(sActiveMenu) + 0x7C)) = var_v0;
             goto block_24;
         }
     } else {
 block_24:
-        if ((u16) (*(u16 *)((char *)(gSaveMenuState) + 0x32)) >= 0xF6U) {
-            temp_v0_4 = (*(s16 *)((char *)(sActiveMenu) + 0x7C));
-            if (temp_v0_4 > 0) {
+        state = gSaveMenuState;
+        if (*(u16 *)((char *)state + 0x32) >= 0xF6U) {
+            void *active = sActiveMenu;
+            void *saved = state;
+            temp_v0_4 = (*(s16 *)((char *)active + 0x7C));
+            if ((s16)temp_v0_4 > 0) {
                 temp_v0_5 = temp_v0_4 - 1;
-                (*(s16 *)((char *)(sActiveMenu) + 0x7C)) = temp_v0_5;
+                (*(s16 *)((char *)active + 0x7C)) = temp_v0_5;
                 if ((temp_v0_5 << 0x10) == 0) {
-                    temp_v0_6 = (*(u16 *)((char *)(gSaveMenuState) + 0x14));
+                    temp_v0_6 = (*(u16 *)((char *)saved + 0x14));
                     switch (temp_v0_6) {
-                    case 1:
-                        var_a0_2 = 2;
-block_44:
+
+                    case 1: var_a0_2 = 2; goto play_sound;
+                    case 2: var_a0_2 = 3; goto play_sound;
+                    case 3: var_a0_2 = 4; goto play_sound;
+                    case 4: var_a0_2 = 5; goto play_sound;
+                    case 5: var_a0_2 = 6; goto play_sound;
+                    case 6: var_a0_2 = 7; goto play_sound;
+                    case 7: var_a0_2 = 8; goto play_sound;
+                    case 8: var_a0_2 = 9; goto play_sound;
+                    case 9: var_a0_2 = 10; goto play_sound;
+                    case 10: var_a0_2 = 11; goto play_sound;
+                    case 11: var_a0_2 = 12; goto play_sound;
+                    case 12: var_a0_2 = 13; goto play_sound;
+                    case 13: var_a0_2 = 14; goto play_sound;
+                    case 14: var_a0_2 = 15; goto play_sound;
+                    case 15: var_a0_2 = 16;
+play_sound:
                         func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
-                    case 2:
-                        var_a0_2 = 3;
-                        {
-                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);break;}
-                    case 3:
-                        var_a0_2 = 4;
-                        {
-                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);break;}
-                    case 4:
-                        var_a0_2 = 5;
-                        {
-                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);break;}
-                    case 5:
-                        var_a0_2 = 6;
-                        {
-                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);break;}
-                    case 6:
-                        var_a0_2 = 7;
-                        {
-                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);break;}
-                    case 7:
-                        var_a0_2 = 8;
-                        {
-                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);break;}
-                    case 8:
-                        var_a0_2 = 9;
-                        {
-                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);break;}
-                    case 9:
-                        var_a0_2 = 0xA;
-                        {
-                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);break;}
-                    case 10:
-                        var_a0_2 = 0xB;
-                        goto block_44;
-                    case 11:
-                        var_a0_2 = 0xC;
-                        goto block_44;
-                    case 12:
-                        var_a0_2 = 0xD;
-                        goto block_44;
-                    case 13:
-                        var_a0_2 = 0xE;
-                        goto block_44;
-                    case 14:
-                        var_a0_2 = 0xF;
-                        goto block_44;
-                    case 15:
-                        var_a0_2 = 0x10;
-                        goto block_44;
                     case 16:
                         func_80030644((*(s32 *)((char *)(gSaveMenuState) + 0x20)), 0xFF);
                         (*(s32 **)((char *)(gSaveMenuState) + 0xC)) = &D_800BD8C4;
@@ -166,10 +143,13 @@ block_44:
                         }
                         break;
                     }
-                    (*(u16 *)((char *)(gSaveMenuState) + 0x32)) = 0U;
                     func_8002778C();
+                    (*(u16 *)((char *)(gSaveMenuState) + 0x32)) = 0U;
                 }
             }
         }
     }
 }
+
+
+
