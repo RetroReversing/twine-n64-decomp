@@ -105,7 +105,20 @@ u16 func_80012F50(void)
         --p;
       }
       while (j >= 0);
- do { name[16] = 0; j = 3; p = code + 3; do { *p = ' '; --j; --p; } while (j >= 0); code[4] = 0; *((s32 *) (D_80108408 + rawOffset)) = 0; } while (0);
+      do
+      {
+        name[16] = 0; j = 3; p = code + 3;
+        do
+        {
+          *p = ' ';
+          --j;
+          --p;
+        }
+        while (j >= 0);
+        code[4] = 0;
+        *((s32 *) (D_80108408 + rawOffset)) = 0;
+      }
+      while (0);
       gSaveCmdResult = 0;
     }
     else
@@ -128,8 +141,12 @@ u16 func_80012F50(void)
     code += 24;
     used += 12;
     rawOffset += 32;
-    raw += 32;/*__repair_loop_weight*/do {
-    ++i;} while (0);
+    raw += 32;
+    do
+    {
+      ++i;
+    }
+    while (0);
   }
   while (i < 16);
   if (D_800E097C)
@@ -138,7 +155,7 @@ u16 func_80012F50(void)
     *buf = 'A';
     saveDataEncodeName(D_80115308, D_80103030, 16);
     encoded = gSaveSlotCodeByte;
-    saveDataEncodeName(encoded, buf, 4);
+    saveDataEncodeName(gSaveSlotCodeByte, buf, 4);
     baseName = D_80107B6A;
     do
     {
@@ -154,13 +171,7 @@ u16 func_80012F50(void)
           value = *((s8 *) (gSaveSlotCodes + scanOffset));
           do
           {
-            if (value == (*((s8 *) encoded)))
-            {
-              done = 0;
-              *encoded = value + 1;
-              break;
-            }
-            gSaveFoundSlot = scan;
+ do { if (value == (*((s8 *) gSaveSlotCodeByte))) { done = 0; *gSaveSlotCodeByte = value + 1; break; } gSaveFoundSlot = scan; } while (0);
           }
           while (0);
         }

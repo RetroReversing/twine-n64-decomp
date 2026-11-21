@@ -15,6 +15,7 @@ typedef struct { int value; } __repair_field_0;
 void func_800355BC(void *arg0) {
     s32 matrixAddr;
     s32 *temp_a0;
+s32 *__repair_phase_temp_a0;
     s32 *temp_v1;
     s32 *temp_v1_3;
     
@@ -53,15 +54,13 @@ void func_800355BC(void *arg0) {
                                     temp_v1_2 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
                                     D_801032A0 = 4;
                                     switch (temp_v1_2) {
-case 2:
+case 4:
                                         temp_a0 = sDisplayListCursor;
                                         sDisplayListCursor = temp_a0 + 2;
                                         ((__repair_field_0 *)temp_a0)->value = 0xFC119823;
                                         (*(s32 *)((char *)(temp_a0) + 4)) = 0xFF32FF7F;
                                         break;
-                                    case 0: break;
- /* irregular */
-                                    case 4:
+                                    case 2:
                                         temp_a0 = sDisplayListCursor;
                                         sDisplayListCursor = temp_a0 + 2;
                                         ((__repair_field_0 *)temp_a0)->value = 0xFC119823;
@@ -73,15 +72,17 @@ case 2:
                                         ((__repair_field_0 *)temp_v1_3)->value = 0xFC121824;
                                         (*(s32 *)((char *)(temp_v1_3) + 4)) = 0xFF33FFFF;
                                         break;
+                                    case 0: break;
+ /* irregular */
                                     }
                                 }
-                                temp_a0 = sDisplayListCursor;
+                                __repair_phase_temp_a0 = sDisplayListCursor;
                                 temp_sRenderState = sRenderState;
-                                ((__repair_field_0 *)temp_a0)->value = 0xDA380003;
+                                ((__repair_field_0 *)__repair_phase_temp_a0)->value = 0xDA380003;
                                 matrixAddr = *(s32 *)((char *)temp_sRenderState + 0x74C);
                                 var_s3 = 0;
-                                sDisplayListCursor = temp_a0 + 2;
-                                (*(s32 *)((char *)(temp_a0) + 4)) = (s32) (matrixAddr - 0x80000000);
+                                sDisplayListCursor = __repair_phase_temp_a0 + 2;
+                                (*(s32 *)((char *)(__repair_phase_temp_a0) + 4)) = (s32) (matrixAddr - 0x80000000);
                             }
                             emitPrimColor(var_s2, arg0);
                             var_s0 = 0;

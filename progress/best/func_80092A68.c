@@ -12,6 +12,11 @@ extern void insertOrRefSortedEntry(u16, void *);
 extern void insertOrCountEntry(u16, void *);
 extern void insertSortedKeyEntry(u16, void *, u16);
 extern void registerWorkerEntry(s32, void *, u16);
+inline static u16 *inline_fn(u16 *arg0)
+{
+  return arg0;
+}
+
 s32 func_80092A68(u8 *first, short id, s32 resource, s32 table, u8 *data)
 {
   u8 *entry;
@@ -32,7 +37,7 @@ s32 func_80092A68(u8 *first, short id, s32 resource, s32 table, u8 *data)
       {
         sSceneGroupStack[sSceneGroupStackCount] = group;
         PROCESS(8, 0, func_80097EF8(HALF(key), found + 8));
-        key = ((u16 *) (group + WORD(group + 12))) + 4;
+        key = inline_fn(((u16 *) (group + WORD(group + 12))) + 4);
         if (keyTableRegister(table, func_8008C758(resource)))
         {
           while ((lookup = *(key++)) != 0xffff)
@@ -46,8 +51,16 @@ s32 func_80092A68(u8 *first, short id, s32 resource, s32 table, u8 *data)
         PROCESS(24, 12, insertSortedKeyEntry(HALF(key), found + 12, HALF(found + 10)));
         if (HALF(group + 6) == 1)
         {
-          entry = group + WORD(group + 28);
-          registerWorkerEntry((u16) id, entry + 12, HALF(entry + 8));
+          if (group || lookup)
+          {
+            entry = group + WORD(group + 28);
+            registerWorkerEntry((u16) id, entry + 12, HALF(entry + 8));
+          }
+          else
+          {
+            entry = group + WORD(group + 28);
+            registerWorkerEntry((u16) id, entry + 12, HALF(entry + 8));
+          }
         }
         sSceneGroupStackCount++;
         return 1;

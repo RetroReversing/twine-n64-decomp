@@ -73,12 +73,12 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
   void *temp_s1_6;
   void *temp_v0;
   s32 var_a1;
-  temp_v1_3 = ((*((u8 *) (((char *) arg0) + 1))) * 0xC); temp_a1 = temp_v1_3 + arg2;
+  temp_v1_3 = (*((u8 *) (((char *) arg0) + 1))) * 0xC; temp_a1 = temp_v1_3 + arg2;
   temp_v0_2 = (u8) (*((u8 *) (((char *) temp_a1) + 0)));
   sp17 = (u8) arg4;
   temp_s7 = (-((temp_v0_2 & 2) != 0)) & 3;
   temp_s6 = (-((temp_v0_2 & 4) != 0)) & 3;
-  if (((arg4 << 0x18) != 0) && ((*((u8 *) (((char *) temp_a1) + 6))) != 1))
+  if (((arg4 << 0x18) != 0) && ((*((u8 *) (((char *) temp_a1) - -6))) != 1))
   {
     D_80109A94 = 1;
     func_800326BC(arg2 + ((*((u8 *) (((char *) arg0) + 1))) * 0xC));
@@ -126,8 +126,12 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
         temp_s0 = func_80032830(temp_s3);
         width_log = func_80032830(temp_s2);
         var_a3 = 0x800;
-        { u32 mask = (temp_s6 << 18); u32 height = ((temp_s0 & 15) << 14) | 0x07000000; u32 tile = (mask | height) | (temp_s7 << 8);
-        ((__repair_field_C *) temp_s1)->value = tile | ((width_log & 15) << 4); }
+        {
+          u32 mask = temp_s6 << 18;
+          u32 height = ((temp_s0 & 15) << 14) | 0x07000000;
+          u32 tile = (mask | height) | (temp_s7 << 8);
+          ((__repair_field_C *) temp_s1)->value = tile | ((width_log & 15) << 4);
+        }
         temp_a0 = temp_s2 >> 3;
         temp_a1_2 = gGfxPtr;
         gGfxPtr = temp_a1_2 + 8;
@@ -139,7 +143,7 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
         {
           var_a3 = temp_a0 + 0x7FF;
         }
-        var_v1 = (((u32) ((temp_s2 * temp_s3) + 1)) >> 1) - 1;
+        var_a2 = ((u32) ((temp_s2 * temp_s3) + 1)) >> 1; var_v1 = var_a2 - 1;
         if (var_v1 >= 0x800U)
         {
           var_v1 = 0x7FF;
@@ -151,7 +155,11 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
         }
         else
         {
-          var_v0 = var_a3 & 0xFFF;
+          do
+          {
+            var_v0 = var_a3 & 0xFFF;
+          }
+          while (0);
         }
         ((__repair_field_C *) temp_a1_2)->value = (s32) (temp_a2 | var_v0);
         temp_s1_2 = gGfxPtr;
@@ -266,9 +274,13 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
           temp_s0_3 = func_80032830(temp_s3);
           width_log = func_80032830(temp_s2);
           var_a3_2 = 0x800;
-          { u32 mask = (temp_s6 << 18); u32 height = ((temp_s0_3 & 15) << 14) | 0x07000000; u32 tile = (mask | height) | (temp_s7 << 8);
-          var_a1_2 = (u32) gGfxPtr;
-          ((__repair_field_C *) temp_s1_3)->value = tile | ((width_log & 15) << 4); }
+          {
+            u32 mask = temp_s6 << 18;
+            u32 height = ((temp_s0_3 & 15) << 14) | 0x07000000;
+            u32 tile = (mask | height) | (temp_s7 << 8);
+            var_a1_2 = (u32) gGfxPtr;
+            ((__repair_field_C *) temp_s1_3)->value = tile | ((width_log & 15) << 4);
+          }
           temp_a0_4 = temp_s2 >> 4;
           gGfxPtr = var_a1_2 + 8;
           *((s32 *) (((char *) var_a1_2) + 0)) = 0xE6000000;
@@ -380,9 +392,13 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
         temp_s0_5 = func_80032830(temp_s3);
         width_log = func_80032830(temp_s2);
         var_a3_3 = 0x800;
-        { u32 mask = (temp_s6 << 18); u32 height = ((temp_s0_5 & 15) << 14) | 0x07000000; u32 tile = (mask | height) | (temp_s7 << 8);
-        temp_a1_3 = gGfxPtr;
-        ((__repair_field_C *) temp_s1_4)->value = tile | ((width_log & 15) << 4); }
+        {
+          u32 mask = temp_s6 << 18;
+          u32 height = ((temp_s0_5 & 15) << 14) | 0x07000000;
+          u32 tile = (mask | height) | (temp_s7 << 8);
+          temp_a1_3 = gGfxPtr;
+          ((__repair_field_C *) temp_s1_4)->value = tile | ((width_log & 15) << 4);
+        }
         temp_a0_7 = temp_s2 >> 3;
         gGfxPtr = temp_a1_3 + 8;
         *((s32 *) (((char *) temp_a1_3) + 0)) = 0xE6000000;
@@ -407,7 +423,7 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
         {
           var_v0_6 = var_a3_3 & 0xFFF;
         }
-        ((__repair_field_C *) temp_a1_3)->value = (s32) (temp_a2_3 | var_v0_6);
+        ((__repair_field_C *) temp_a1_3)->value = (unsigned char) ((s32) (temp_a2_3 | var_v0_6));
         temp_s1_5 = gGfxPtr;
         gGfxPtr = temp_s1_5 + 8;
         *((s32 *) (((char *) temp_s1_5) + 0)) = 0xE7000000;
@@ -445,9 +461,13 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
         temp_s0_7 = func_80032830(temp_s3);
         width_log = func_80032830(temp_s2);
         var_a3_4 = 0x800;
-        { u32 mask = (temp_s6 << 18); u32 height = ((temp_s0_7 & 15) << 14) | 0x07000000; u32 tile = (mask | height) | (temp_s7 << 8);
-        var_a1_2 = (u32) gGfxPtr;
-        ((__repair_field_C *) temp_s1_6)->value = tile | ((width_log & 15) << 4); }
+        {
+          u32 mask = temp_s6 << 18;
+          u32 height = ((temp_s0_7 & 15) << 14) | 0x07000000;
+          u32 tile = (mask | height) | (temp_s7 << 8);
+          var_a1_2 = (u32) gGfxPtr;
+          ((__repair_field_C *) temp_s1_6)->value = tile | ((width_log & 15) << 4);
+        }
         temp_a0_9 = temp_s2 >> 4;
         gGfxPtr = var_a1_2 + 8;
         *((s32 *) (((char *) var_a1_2) + 0)) = 0xE6000000;
@@ -490,7 +510,7 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
         return;
       }
 
-      *(volatile s32 *) arg5 += 7;
+      *((volatile s32 *) arg5) += 7;
       return;
     }
       break;
@@ -498,3 +518,4 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
   }
 
 }
+

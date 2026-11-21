@@ -119,7 +119,6 @@ volatile unsigned int func_80069DCC(void *arg0)
   f32 temp_fs1_2;
   f32 temp_fs2;
   f32 temp_fs2_2;
-  f32 temp_fs2_3;
   f32 temp_fs3;
   f32 temp_fs3_10;
   f32 temp_fs3_11;
@@ -1762,10 +1761,9 @@ volatile unsigned int func_80069DCC(void *arg0)
         temp_fs0_4 = sinTableLookup(D_800E1A10 * 3.0f);
         temp_fs3_9 = temp_fs0_4 * (cosTableLookup(D_800E1A10) * 0.1f);
         temp_fs0_5 = sinTableLookup(D_800E1A10);
-        temp_fs2_3 = temp_fs0_5 * (cosTableLookup(D_800E1A10 * 3.0f) * 0.1f);
+        D_800C7DC4 = temp_fs0_5 * (cosTableLookup(D_800E1A10 * 3.0f) * 0.1f);
         *__base_D_800C7DBC = temp_fs3_9;
         D_800E1A10 += 0.01f;
-        D_800C7DC4 = temp_fs2_3;
         temp_fv1_8 = *((f32 *) (((char *) temp_s1) + 0x48));
         temp_fv0_29 = (((func_80081B44(temp_s4, 4, 5) * 32.0f) - temp_fv1_8) * 0.1f) + temp_fv1_8;
         *((f32 *) (((char *) temp_s1) + 0x48)) = temp_fv0_29;
@@ -1826,7 +1824,7 @@ volatile unsigned int func_80069DCC(void *arg0)
         temp_s5_2 = ((temp_s5 + temp_fs3_9) + sp20[0]) + (temp_fs3_10 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         temp_ft1_2 = *inline_fn2(temp_s1);
         temp_fv1_11 = (((temp_fs5_2 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
-        temp_s6_2 = ((temp_s6 + temp_fs2_3) + sp20[2]) + (temp_fs3_10 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
+        temp_s6_2 = ((temp_s6 + D_800C7DC4) + sp20[2]) + (temp_fs3_10 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         *((f32 *) (((char *) temp_s1) + 0x4C)) = (((temp_fs5_2 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
         if (temp_fv1_11 < (-0.15f))
         {

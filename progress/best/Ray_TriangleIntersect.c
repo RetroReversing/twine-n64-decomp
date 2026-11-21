@@ -75,7 +75,11 @@ s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *
   }
   if (temp_ft0)
   {
- do { var_v1 = 1; } while (0);
+    do
+    {
+      var_v1 = 1;
+    }
+    while (0);
   }
   else
   {
@@ -83,7 +87,7 @@ s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *
   }
   if (!(temp_ft0 < 1e-10f))
   {
-    var_v1 = 0;
+ do { var_v1 = 0; } while (0);
   }
   if (temp_fs1 || temp_ft2)
   {
@@ -125,11 +129,16 @@ s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *
     sp40[0] = temp_fa0_2;
     sp40[1] = temp_ft2_2;
     sp40[2] = temp_ft3_2;
-    if (temp_fv0 < 0.0f) return var_v0;
-    if ((temp_fa1_2 + temp_fv0) > 1.0f) return var_v0;
-      *arg5 = (((temp_fv1 * temp_fa0_2) + (temp_fv1_2 * temp_ft2_2)) + (temp_fs2 * temp_ft3_2)) * temp_ft4_2;
+    if (temp_fv0 < 0.0f)
+    {
+      return var_v0;
+    }
+    if ((temp_fa1_2 + temp_fv0) > 1.0f)
+    {
+      return var_v0;
+    }
+    *arg5 = (((temp_fv1 * temp_fa0_2) + (temp_fv1_2 * temp_ft2_2)) + (temp_fs2 * temp_ft3_2)) * temp_ft4_2;
     var_v0 = 1;
   }
   return var_v0;
 }
-

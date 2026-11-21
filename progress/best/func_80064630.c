@@ -17,6 +17,7 @@ void func_80064630(void *arg0)
   void *temp_s0;
   void *temp_s5;
   void *var_v1;
+void *__repair_phase_var_v1;
   var_s2 = 0;
   temp_s5 = *((void **) (((char *) arg0) + 0x6C));
   __repair_phase_storage.pointer = &D_80112F6C;
@@ -48,22 +49,22 @@ void func_80064630(void *arg0)
   var_s2 = 0;
   __repair_phase_storage.value = 0;
   first_offset = 0;
-  var_v1 = temp_s5;
+  __repair_phase_var_v1 = temp_s5;
   second_loop:
   {
     if (D_80112F6C != 0)
     {
       do
       {
-        *((u8 *) (((char *) var_v1) + 0x1FC)) = (u8) D_800C46A1[__repair_phase_storage.value];
-        *((u8 *) (((char *) var_v1) + 0x1FF)) = (u8) D_800C471E[__repair_phase_storage.value];
+        *((u8 *) (((char *) __repair_phase_var_v1) + 0x1FC)) = (u8) D_800C46A1[__repair_phase_storage.value];
+        *((u8 *) (((char *) __repair_phase_var_v1) + 0x1FF)) = (u8) D_800C471E[__repair_phase_storage.value];
       }
       while (0);
     }
     else
     {
-      *((u8 *) (((char *) var_v1) + 0x1FC)) = 0U;
-      *((u8 *) (((char *) var_v1) + 0x1FF)) = 0U;
+      *((u8 *) (((char *) __repair_phase_var_v1) + 0x1FC)) = 0U;
+      *((u8 *) (((char *) __repair_phase_var_v1) + 0x1FF)) = 0U;
     }
     if (!((*((u16 *) (((u8 *) sEnemyDefTable) + __repair_phase_storage.value))) & 0x8000))
     {
@@ -72,7 +73,7 @@ void func_80064630(void *arg0)
     __repair_phase_storage.value += 0xE8;
     temp_s0 = (void *) (((s32) temp_s5) + first_offset);
     first_offset += 8;
-    var_v1 += 8;
+    __repair_phase_var_v1 += 8;
     temp_a0 = var_s2;
     var_s2 += 1;
     *((s8 *) (((char *) temp_s0) + 0x1FD)) = 0;

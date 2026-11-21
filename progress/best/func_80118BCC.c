@@ -530,17 +530,20 @@ void func_80118BCC(void *arg0)
         var_fs0 = (*((f32 *) (((char *) temp_s2) + 0x1B0))) * ((f32) (*(D_800C7DAC + ((((u32) (*((u32 *) (((char *) temp_s2) + 0x18C)))) >> 0xC) & 0xF))));
         if (temp_ft1 > 0.0f)
         {
-          temp_fv1_3 = temp_ft1 - var_fs0;
-          *((f32 *) (((char *) temp_s2) + 0x60)) = temp_fv1_3;
-          if (temp_fv1_3 < 0.0f)
+          if (1)
           {
-            *((f32 *) (((char *) temp_s2) + 0x60)) = 0.0f;
-            var_fs0 = -temp_fv1_3;
-            func_80070730(temp_s2, 0x1A, 1);
-          }
-          else
-          {
-            var_fs0 = 0.0f;
+            temp_fv1_3 = temp_ft1 - var_fs0;
+            *((f32 *) (((char *) temp_s2) + 0x60)) = temp_fv1_3;
+            if (temp_fv1_3 < 0.0f)
+            {
+              *((f32 *) (((char *) temp_s2) + 0x60)) = 0.0f;
+              var_fs0 = -temp_fv1_3;
+              func_80070730(temp_s2, 0x1A, 1);
+            }
+            else
+            {
+              var_fs0 = 0.0f;
+            }
           }
         }
         if ((var_fs0 > 0.0f) && ((*((s8 *) (((char *) temp_s2) + 0x198))) == 0))
@@ -572,7 +575,7 @@ void func_80118BCC(void *arg0)
         else
           if (temp_v1_10 & 2)
         {
-          if (!((*((f32 *) (((char *) arg0) + 0x74))) > (*((f32 *) (((char *) temp_s2) + 0x1B0)))))
+          if (!((*((f32 *) (((char *) temp_s2) + 0x1B0))) < (*((f32 *) (((char *) arg0) + 0x74)))))
           {
             var_a2_2 = 0;
           }
@@ -683,18 +686,18 @@ void func_80118BCC(void *arg0)
       temp_v1_13 = *((s16 *) (((char *) (*((void **) (((char *) temp_s2) + 0xA8)))) + 0x7A));
       if (((int) temp_v1_13) != 2)
       {
-        if (temp_v1_13 >= 3)
+        if (!(temp_v1_13 >= 3))
         {
-          if (inline_fn234(temp_v1_13 == 4) || (temp_v1_13 == 8))
+          if (temp_v1_13 != 0)
+          {
+          }
+          else
           {
             goto block_179;
           }
         }
         else
-          if (temp_v1_13 != 0)
-        {
-        }
-        else
+          if (inline_fn234(temp_v1_13 == 4) || (temp_v1_13 == 8))
         {
           goto block_179;
         }

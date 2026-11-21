@@ -23,10 +23,14 @@ extern u16 D_800C9D40;
 extern u8 D_800CEEB0;
 extern s32 D_80112E98[];
 extern BonusEnt sBonusSlots[];
+inline static u8 inline_fn(SlotOut *arg0, s32 arg1)
+{
+  return arg0[arg1].a;
+}
+
 void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
 {
   s32 i = 0;
-  s32 s1;
   s32 idx;
   u8 bonus;
   s32 a2;
@@ -35,6 +39,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
   SlotEnt *e;
   s32 t1;
   s32 t2;
+  s32 s1;
   s32 t3;
   s32 one;
   if (arg0[0].idx == (-1))
@@ -105,7 +110,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
             }
           }
         }
-        s1 = s1 != 0; D_800C9D40 |= s1; v = arg3[idx].a;
+        s1 = s1 != 0; D_800C9D40 |= s1; v = inline_fn(arg3, idx);
         if (((v & 1) ^ s1) & s1)
         {
           arg3[idx].a = v | 2;

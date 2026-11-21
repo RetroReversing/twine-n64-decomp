@@ -102,6 +102,11 @@ typedef struct
   f32 y;
   f32 z;
 } Vec3Copy;
+inline static u16 inline_fn(s32 arg0, void *arg1)
+{
+  return *((u16 *) ((arg0 * 2) + (*((s32 *) (((char *) arg1) + 0x38)))));
+}
+
 s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, s32 *arg9, void **arg10, void **arg11)
 {
   void **__base_gPlayerActor;
@@ -422,7 +427,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       var_fp = temp_t2 + 2;
                       do
                       {
-                        temp_v1_2 = *((u16 *) ((sp1C6 * 2) + (*((s32 *) (((char *) temp_s7) + 0x38)))));
+                        temp_v1_2 = inline_fn(sp1C6, temp_s7);
                         if ((sp1DE & temp_v1_2) && (sp1E6 & temp_v1_2))
                         {
                           temp_v1_3 = *((s32 *) (((char *) temp_s7) + 0x34));
@@ -524,7 +529,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       sp1C6 = 0; var_fp_2 = temp_t1 + 2;
                       do
                       {
-                        temp_v1_4 = *((u16 *) ((sp1C6 * 2) + (*((s32 *) (((char *) temp_s7) + 0x38)))));
+                        temp_v1_4 = inline_fn(sp1C6, temp_s7);
                         if ((sp1DE & temp_v1_4) && (sp1E6 & temp_v1_4))
                         {
                           temp_v1_5 = *((s32 *) (((char *) temp_s7) + 0x34));
@@ -682,15 +687,17 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
             sp226 = temp_v0_3 & 0xFF00;
             if (temp_v1_7 != 0)
             {
-              do {
-                  var_fp_3 = 0;
-              } while (0);
+              do
+              {
+                var_fp_3 = 0;
+              }
+              while (0);
               if (temp_s0 < ((u16) (*((u16 *) (((char *) temp_s5) + 0x40)))))
               {
                 loop_145:
                 temp_v1_8 = var_fp_3 & 0xFFFF;
 
-                temp_a0 = *((u16 *) ((temp_v1_8 * 2) + (*((s32 *) (((char *) temp_s5) + 0x38)))));
+                temp_a0 = inline_fn(temp_v1_8, temp_s5);
                 temp_a2 = (*((s32 *) (((char *) temp_s5) + 0x3C))) + (temp_v1_8 * 6);
                 if ((sp21E & temp_a0) && (sp226 & temp_a0))
                 {
@@ -841,15 +848,17 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
               }
               goto block_270;
             }
-            do {
-                var_fp_4 = 0;
-            } while (0);
+            do
+            {
+              var_fp_4 = 0;
+            }
+            while (0);
             if (temp_v1_7 < ((u16) (*((u16 *) (((char *) temp_s5) + 0x40)))))
             {
               loop_208:
               temp_a0_2 = var_fp_4 & 0xFFFF;
 
-              temp_v1_10 = *((u16 *) ((temp_a0_2 * 2) + (*((s32 *) (((char *) temp_s5) + 0x38)))));
+              temp_v1_10 = inline_fn(temp_a0_2, temp_s5);
               temp_a2_2 = (*((s32 *) (((char *) temp_s5) + 0x3C))) + (temp_a0_2 * 3);
               if ((sp21E & temp_v1_10) && (sp226 & temp_v1_10))
               {

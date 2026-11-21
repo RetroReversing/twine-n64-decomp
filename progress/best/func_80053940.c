@@ -41,6 +41,11 @@ typedef struct
   unsigned char pad_74[4];
   unsigned short field_78;
 } __repair_record_var_s0_2;
+typedef struct { f32 v; } Field_f32;
+typedef struct { s32 v; } Field_s32;
+typedef struct { u16 v; } Field_u16;
+typedef struct { u32 v; } Field_u32;
+typedef struct { u8 v; } Field_u8;
 s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, s32 *arg9, void **arg10, void **arg11)
 {
   u16 *__base_gSurfaceQueryStamp;
@@ -214,7 +219,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
           temp_s3 = ((__repair_record_var_s0_2 *) var_s0_2)->field_58 & 0x400;
           if (temp_s3 != 0)
           {
-            if ((((*((s32 *) (((char *) spE4) + 0x58))) & 0x400) && ((*((s32 *) (((char *) spE4) + 0x5C))) & 0x200)) && (absFloat((*((f32 *) (((char *) arg3) + 4))) - ((__repair_record_var_s0_2 *) var_s0_2)->field_28) < 1.5f))
+            if (((((((Field_s32 *) (((char *) spE4) + 0x58))->v)) & 0x400) && (((((Field_s32 *) (((char *) spE4) + 0x5C))->v)) & 0x200)) && (absFloat(((((Field_f32 *) (((char *) arg3) + 4))->v)) - ((__repair_record_var_s0_2 *) var_s0_2)->field_28) < 1.5f))
             {
               temp_fv0 = func_80045590(var_s0_2 + 0x24, arg3);
               var_v0 = 1;
@@ -230,15 +235,15 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
               if (var_v0 & var_v1)
               {
                 sp18Buf[1] = 0.0f;
-                sp18Buf[0] = (*((f32 *) (((char *) arg3) + 0))) - ((__repair_record_var_s0_2 *) var_s0_2)->field_24;
-                sp18Buf[2] = (*((f32 *) (((char *) arg3) + 8))) - ((__repair_record_var_s0_2 *) var_s0_2)->field_2C;
+                sp18Buf[0] = ((((Field_f32 *) (((char *) arg3) + 0))->v)) - ((__repair_record_var_s0_2 *) var_s0_2)->field_24;
+                sp18Buf[2] = ((((Field_f32 *) (((char *) arg3) + 8))->v)) - ((__repair_record_var_s0_2 *) var_s0_2)->field_2C;
                 func_80045764(&sp18Buf[0], &sp18Buf[0]);
                 temp_v1 = ((__repair_record_var_s0_2 *) var_s0_2)->field_78;
                 temp_fs0 = sp10C - temp_fv0;
                 if (temp_v1 == 1)
                 {
                   var_ft0 = temp_fs0;
-                  if ((*((u16 *) (((char *) spE4) + 0x78))) == temp_v1)
+                  if (((((Field_u16 *) (((char *) spE4) + 0x78))->v)) == temp_v1)
                   {
                     var_ft0 = temp_fs0 * 0.75f;
                     ((__repair_record_var_s0_2 *) var_s0_2)->field_58 = (s32) (((__repair_record_var_s0_2 *) var_s0_2)->field_58 | 1);
@@ -257,8 +262,8 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                   var_ft1 = 0.0f;
 
                 }
-                *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + (sp18Buf[0] * var_ft0));
-                *((f32 *) (((char *) arg3) + 8)) = (f32) ((*((f32 *) (((char *) arg3) + 8))) + (sp18Buf[2] * var_ft0));
+                (((Field_f32 *) (((char *) arg3) + 0))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 0))->v)) + (sp18Buf[0] * var_ft0));
+                (((Field_f32 *) (((char *) arg3) + 8))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 8))->v)) + (sp18Buf[2] * var_ft0));
                 ((__repair_record_var_s0_2 *) var_s0_2)->field_24 = (f32) (((__repair_record_var_s0_2 *) var_s0_2)->field_24 - (sp18Buf[0] * var_ft1));
                 spF7 = 1;
                 ((__repair_record_var_s0_2 *) var_s0_2)->field_2C = (f32) (((__repair_record_var_s0_2 *) var_s0_2)->field_2C - (sp18Buf[2] * var_ft1));
@@ -279,7 +284,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
               sp28Buf[1] -= ((__repair_record_var_s0_2 *) var_s0_2)->field_28;
               sp28Buf[2] -= ((__repair_record_var_s0_2 *) var_s0_2)->field_2C;
               rotateVec3ByMat3(sp124, sp114);
-              if (((((((*((f32 *) (((char *) temp_s1) + 0x18))) < (sp28Buf[0] + arg5)) && ((sp28Buf[0] - arg5) < (*((f32 *) (((char *) temp_s1) + 0x1C))))) && ((*((f32 *) (((char *) temp_s1) + 0x28))) < (sp28Buf[2] + arg5))) && ((sp28Buf[2] - arg5) < (*((f32 *) (((char *) temp_s1) + 0x2C))))) && ((*((f32 *) (((char *) temp_s1) + 0x20))) < (sp28Buf[1] + arg5))) && ((sp28Buf[1] - arg5) < (*((f32 *) (((char *) temp_s1) + 0x24)))))
+              if ((((((((((Field_f32 *) (((char *) temp_s1) + 0x18))->v)) < (sp28Buf[0] + arg5)) && ((sp28Buf[0] - arg5) < ((((Field_f32 *) (((char *) temp_s1) + 0x1C))->v)))) && (((((Field_f32 *) (((char *) temp_s1) + 0x28))->v)) < (sp28Buf[2] + arg5))) && ((sp28Buf[2] - arg5) < ((((Field_f32 *) (((char *) temp_s1) + 0x2C))->v)))) && (((((Field_f32 *) (((char *) temp_s1) + 0x20))->v)) < (sp28Buf[1] + arg5))) && ((sp28Buf[1] - arg5) < ((((Field_f32 *) (((char *) temp_s1) + 0x24))->v))))
               {
                 *((__repair_vec3 *) spC0Buf) = *((__repair_vec3 *) sp28Buf);
                 *((__repair_vec3 *) spB0Buf) = *((__repair_vec3 *) spC0Buf);
@@ -295,11 +300,11 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                 D_80108404 = var_s0_2;
                 workspace.angles[2] = (s16) ((s32) ((__repair_record_var_s0_2 *) var_s0_2)->field_44);
                 buildRotationMatrixS16(sp11C, geometry.matrix);
-                temp_v1_2 = (*((u8 *) (((char *) temp_s1) + 0x48))) & 4;
+                var_s4 = ((((Field_u8 *) (((char *) temp_s1) + 0x48))->v)); temp_v1_2 = var_s4 & 4;
                 if (temp_v1_2 != 0)
                 {
                   var_s6 = *((u16 **) (((char *) temp_s1) + 0x3C));
-                  if (temp_s3 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                  if (temp_s3 < ((u16) ((((Field_u16 *) (((char *) temp_s1) + 0x40))->v))))
                   {
                     var_s4 = 0;
                     var_s3 = var_s6 + 2;
@@ -308,8 +313,8 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       temp_v1_3 = *((u16 *) (((char *) (*((void **) (((char *) temp_s1) + 0x38)))) + ((var_s4 & 0xFFFF) * 2)));
                       if ((sp12E & temp_v1_3) && (sp136 & temp_v1_3))
                       {
-                        temp_v1_4 = *((s32 *) (((char *) temp_s1) + 0x34));
-                        buildPlaneFromPoints(sp13C, temp_v1_4 + ((*var_s6) * 0xC), temp_v1_4 + ((*((u16 *) (((char *) var_s3) + (-2)))) * 0xC), temp_v1_4 + ((*((u16 *) (((char *) var_s3) + 0))) * 0xC));
+                        temp_v1_4 = (((Field_s32 *) (((char *) temp_s1) + 0x34))->v);
+                        buildPlaneFromPoints(sp13C, temp_v1_4 + ((*var_s6) * 0xC), temp_v1_4 + ((*((u16 *) (((char *) var_s3) + (-2)))) * 0xC), temp_v1_4 + (((((Field_u16 *) (((char *) var_s3) + 0))->v)) * 0xC));
                         var_v0_2 = 1;
                         temp_fs0_2 = (((workspace.data[2] * sp28Buf[0]) + (workspace.data[3] * sp28Buf[1])) + (workspace.data[4] * sp28Buf[2])) + workspace.data[5];
                         if (!(temp_fs0_2 < arg5))
@@ -323,11 +328,11 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                         }
                         if (var_v0_2 & var_v1_2)
                         {
-                          *((f32 *) (((char *) arg4) + 0)) = (f32) (sp28Buf[0] - (temp_fs0_2 * workspace.data[2]));
-                          *((f32 *) (((char *) arg4) + 4)) = (f32) (sp28Buf[1] - (temp_fs0_2 * workspace.data[3]));
-                          *((f32 *) (((char *) arg4) + 8)) = (f32) (sp28Buf[2] - (temp_fs0_2 * workspace.data[4]));
-                          temp_v1_5 = *((s32 *) (((char *) temp_s1) + 0x34));
-                          if ((triangleContainsPoint(arg4, temp_v1_5 + ((*var_s6) * 0xC), temp_v1_5 + ((*((u16 *) (((char *) var_s3) + (-2)))) * 0xC), temp_v1_5 + ((*((u16 *) (((char *) var_s3) + 0))) * 0xC), sp13C) << 0x18) != 0)
+                          (((Field_f32 *) (((char *) arg4) + 0))->v) = (f32) (sp28Buf[0] - (temp_fs0_2 * workspace.data[2]));
+                          (((Field_f32 *) (((char *) arg4) + 4))->v) = (f32) (sp28Buf[1] - (temp_fs0_2 * workspace.data[3]));
+                          (((Field_f32 *) (((char *) arg4) + 8))->v) = (f32) (sp28Buf[2] - (temp_fs0_2 * workspace.data[4]));
+                          temp_v1_5 = (((Field_s32 *) (((char *) temp_s1) + 0x34))->v);
+                          if ((triangleContainsPoint(arg4, temp_v1_5 + ((*var_s6) * 0xC), temp_v1_5 + ((*((u16 *) (((char *) var_s3) + (-2)))) * 0xC), temp_v1_5 + (((((Field_u16 *) (((char *) var_s3) + 0))->v)) * 0xC), sp13C) << 0x18) != 0)
                           {
                             temp_fs0_2 = arg5 - temp_fs0_2;
                             temp_ft1 = temp_fs0_2 * workspace.data[2];
@@ -340,21 +345,21 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                             sp28Buf[1] += temp_ft0;
                             sp28Buf[2] += temp_fv0_2;
                             rotateVec3ByMat3((s32 *) geometry.matrix, &sp18Buf[0]);
-                            *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + sp18Buf[0]);
-                            *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg3) + 4))) + sp18Buf[1]);
+                            (((Field_f32 *) (((char *) arg3) + 0))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 0))->v)) + sp18Buf[0]);
+                            (((Field_f32 *) (((char *) arg3) + 4))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 4))->v)) + sp18Buf[1]);
                             gPlayerActor = var_s0_2;
                             sp104 = var_s2;
                             spF7 = 1;
-                            *((f32 *) (((char *) arg3) + 8)) = (f32) ((*((f32 *) (((char *) arg3) + 8))) + sp18Buf[2]);
+                            (((Field_f32 *) (((char *) arg3) + 8))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 8))->v)) + sp18Buf[2]);
                           }
                         }
                       }
-                      var_s3 += 6;
-                      var_s4 += 1;
+                      var_s3 += 6;/*__repair_loop_weight*/do {
+                      var_s4 += 1;} while (0);
                       var_s6 += 3;
                     }
 
-                    if (((u32) (var_s4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                    if (((u32) (var_s4 & 0xFFFF)) < ((u16) ((((Field_u16 *) (((char *) temp_s1) + 0x40))->v))))
                     {
                       goto __repair_rows;
                     }
@@ -363,7 +368,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                 else
                 {
                   var_s6_2 = *((u8 **) (((char *) temp_s1) + 0x3C));
-                  if (temp_v1_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                  if (temp_v1_2 < ((u16) ((((Field_u16 *) (((char *) temp_s1) + 0x40))->v))))
                   {
                     var_s4_2 = 0;
                     var_s3_2 = var_s6_2 + 2;
@@ -372,8 +377,8 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       temp_v1_6 = *((u16 *) (((char *) (*((void **) (((char *) temp_s1) + 0x38)))) + ((var_s4_2 & 0xFFFF) * 2)));
                       if ((sp12E & temp_v1_6) && (temp_v1_6 & sp136))
                       {
-                        temp_v1_7 = *((s32 *) (((char *) temp_s1) + 0x34));
-                        buildPlaneFromPoints(sp13C, temp_v1_7 + ((*var_s6_2) * 0xC), temp_v1_7 + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), temp_v1_7 + ((*((u8 *) (((char *) var_s3_2) + 0))) * 0xC));
+                        temp_v1_7 = (((Field_s32 *) (((char *) temp_s1) + 0x34))->v);
+                        buildPlaneFromPoints(sp13C, temp_v1_7 + ((*var_s6_2) * 0xC), temp_v1_7 + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), temp_v1_7 + (((((Field_u8 *) (((char *) var_s3_2) + 0))->v)) * 0xC));
                         temp_fs0_3 = ((workspace.data[4] * sp28Buf[2]) + ((workspace.data[2] * sp28Buf[0]) + (workspace.data[3] * sp28Buf[1]))) + workspace.data[5];
                         var_v0_3 = 1;
                         if (!(temp_fs0_3 < arg5))
@@ -387,11 +392,11 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                         }
                         if (var_v0_3 & var_v1_3)
                         {
-                          *((f32 *) (((char *) arg4) + 0)) = (f32) (sp28Buf[0] - (temp_fs0_3 * workspace.data[2]));
-                          *((f32 *) (((char *) arg4) + 4)) = (f32) (sp28Buf[1] - (temp_fs0_3 * workspace.data[3]));
-                          *((f32 *) (((char *) arg4) + 8)) = (f32) (sp28Buf[2] - (temp_fs0_3 * workspace.data[4]));
-                          temp_v1_8 = *((s32 *) (((char *) temp_s1) + 0x34));
-                          if ((triangleContainsPoint(arg4, temp_v1_8 + ((*var_s6_2) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) var_s3_2) + 0))) * 0xC), sp13C) << 0x18) != 0)
+                          (((Field_f32 *) (((char *) arg4) + 0))->v) = (f32) (sp28Buf[0] - (temp_fs0_3 * workspace.data[2]));
+                          (((Field_f32 *) (((char *) arg4) + 4))->v) = (f32) (sp28Buf[1] - (temp_fs0_3 * workspace.data[3]));
+                          (((Field_f32 *) (((char *) arg4) + 8))->v) = (f32) (sp28Buf[2] - (temp_fs0_3 * workspace.data[4]));
+                          temp_v1_8 = (((Field_s32 *) (((char *) temp_s1) + 0x34))->v);
+                          if ((triangleContainsPoint(arg4, temp_v1_8 + ((*var_s6_2) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), temp_v1_8 + (((((Field_u8 *) (((char *) var_s3_2) + 0))->v)) * 0xC), sp13C) << 0x18) != 0)
                           {
                             temp_fs0_3 = arg5 - temp_fs0_3;
                             temp_ft1_2 = temp_fs0_3 * workspace.data[2];
@@ -404,20 +409,20 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                             sp28Buf[1] += temp_ft0_2;
                             sp28Buf[2] += temp_fv0_3;
                             rotateVec3ByMat3((s32 *) geometry.matrix, &sp18Buf[0]);
-                            *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + sp18Buf[0]);
-                            *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg3) + 4))) + sp18Buf[1]);
+                            (((Field_f32 *) (((char *) arg3) + 0))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 0))->v)) + sp18Buf[0]);
+                            (((Field_f32 *) (((char *) arg3) + 4))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 4))->v)) + sp18Buf[1]);
                             gPlayerActor = var_s0_2;
                             sp104 = var_s2;
                             spF7 = 1;
-                            *((f32 *) (((char *) arg3) + 8)) = (f32) ((*((f32 *) (((char *) arg3) + 8))) + sp18Buf[2]);
+                            (((Field_f32 *) (((char *) arg3) + 8))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 8))->v)) + sp18Buf[2]);
                           }
                         }
                       }
                       var_s3_2 += 3;
-                      var_s4_2 += 1;
                       var_s6_2 += 3;
+                      var_s4_2 += 1;
                     }
-                    while (((u32) (var_s4_2 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
+                    while (((u32) (var_s4_2 & 0xFFFF)) < ((u16) ((((Field_u16 *) (((char *) temp_s1) + 0x40))->v))));
                   }
                 }
               }
@@ -445,37 +450,37 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     {
       for (;;)
       {
-        temp_v1_9 = *((s32 *) (((char *) var_s2) + 0x50));
+        temp_v1_9 = (((Field_s32 *) (((char *) var_s2) + 0x50))->v);
         temp_s4 = *((void **) (((char *) var_s2) + 0x3C));
         if (!(temp_v1_9 & 0x20000000))
         {
           if (temp_v1_9 & 0x200)
           {
-            temp_s1_2 = (((u32) (*((u32 *) (((char *) var_s2) + 0x5C)))) >> 0x17) & 0x20;
+            temp_s1_2 = (((u32) ((((Field_u32 *) (((char *) var_s2) + 0x5C))->v))) >> 0x17) & 0x20;
             if ((temp_s1_2 == 0) && ((Sphere_OverlapsPoint(var_s2 + 0x40, arg3, arg5) << 0x18) != 0))
             {
               *((__repair_vec3 *) geometry.points.first) = *((__repair_vec3 *) arg3);
               *((__repair_vec3 *) geometry.points.second) = *((__repair_vec3 *) spEC);
-              if ((((u32) (*((u32 *) (((char *) var_s2) + 0x5C)))) >> 0x17) & 1)
+              if ((((u32) ((((Field_u32 *) (((char *) var_s2) + 0x5C))->v))) >> 0x17) & 1)
               {
                 do
                 {
-                  geometry.points.first[0] -= *((f32 *) (((char *) var_s2) + 0x24));
+                  geometry.points.first[0] -= (((Field_f32 *) (((char *) var_s2) + 0x24))->v);
                 }
                 while (0);
-                geometry.points.first[1] -= *((f32 *) (((char *) var_s2) + 0x28));
-                geometry.points.first[2] -= *((f32 *) (((char *) var_s2) + 0x2C));
-                geometry.points.second[0] -= *((f32 *) (((char *) var_s2) + 0x24));
-                geometry.points.second[1] -= *((f32 *) (((char *) var_s2) + 0x28));
-                geometry.points.second[2] -= *((f32 *) (((char *) var_s2) + 0x2C));
+                geometry.points.first[1] -= (((Field_f32 *) (((char *) var_s2) + 0x28))->v);
+                geometry.points.first[2] -= (((Field_f32 *) (((char *) var_s2) + 0x2C))->v);
+                geometry.points.second[0] -= (((Field_f32 *) (((char *) var_s2) + 0x24))->v);
+                geometry.points.second[1] -= (((Field_f32 *) (((char *) var_s2) + 0x28))->v);
+                geometry.points.second[2] -= (((Field_f32 *) (((char *) var_s2) + 0x2C))->v);
               }
-              if ((((u32) (*((u32 *) (((char *) var_s2) + 0x5C)))) >> 0x17) & 2)
+              if ((((u32) ((((Field_u32 *) (((char *) var_s2) + 0x5C))->v))) >> 0x17) & 2)
               {
                 applyObjectRotation(var_s2, &sp28Buf[0], sp50);
                 func_80083B64(sp50, sp154);
                 func_80083B64(sp50, sp15C);
               }
-              if (((((((*((f32 *) (((char *) temp_s4) + 0x18))) < (geometry.points.first[0] + arg5)) && ((geometry.points.first[0] - arg5) < (*((f32 *) (((char *) temp_s4) + 0x1C))))) && ((*((f32 *) (((char *) temp_s4) + 0x28))) < (geometry.points.first[2] + arg5))) && ((geometry.points.first[2] - arg5) < (*((f32 *) (((char *) temp_s4) + 0x2C))))) && ((*((f32 *) (((char *) temp_s4) + 0x20))) < (geometry.points.first[1] + arg5))) && ((geometry.points.first[1] - arg5) < (*((f32 *) (((char *) temp_s4) + 0x24)))))
+              if ((((((((((Field_f32 *) (((char *) temp_s4) + 0x18))->v)) < (geometry.points.first[0] + arg5)) && ((geometry.points.first[0] - arg5) < ((((Field_f32 *) (((char *) temp_s4) + 0x1C))->v)))) && (((((Field_f32 *) (((char *) temp_s4) + 0x28))->v)) < (geometry.points.first[2] + arg5))) && ((geometry.points.first[2] - arg5) < ((((Field_f32 *) (((char *) temp_s4) + 0x2C))->v)))) && (((((Field_f32 *) (((char *) temp_s4) + 0x20))->v)) < (geometry.points.first[1] + arg5))) && ((geometry.points.first[1] - arg5) < ((((Field_f32 *) (((char *) temp_s4) + 0x24))->v))))
               {
                 f32 *lower = workspace.bounds.lower;
                 *((__repair_vec3 *) spD0Buf) = *((__repair_vec3 *) geometry.points.first);
@@ -487,25 +492,25 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                 spD0Buf[2] += arg5;
                 temp_v0_3 = func_8004E418(temp_s4 + 0x18, lower, spD0Buf);
                 sp166 = temp_v0_3 & 0xFF;
-                temp_v1_10 = (*((u8 *) (((char *) temp_s4) + 0x48))) & 4;
+                temp_v1_10 = ((((Field_u8 *) (((char *) temp_s4) + 0x48))->v)) & 4;
                 sp16E = temp_v0_3 & 0xFF00;
                 if (temp_v1_10 != 0)
                 {
                   do
                   {
-                    if (temp_s1_2 < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))))
+                    if (temp_s1_2 < ((u16) ((((Field_u16 *) (((char *) temp_s4) + 0x40))->v))))
                     {
                       var_s6_3 = 0;
                       do
                       {
-                        temp_v1_11 = var_s6_3 & 0xFFFF; temp_a0 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_v1_11 * 2))); temp_a2 = (*((s32 *) (((char *) temp_s4) + 0x3C))) + (temp_v1_11 * 6);
+                        temp_v1_11 = var_s6_3 & 0xFFFF; temp_a0 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_v1_11 * 2))); temp_a2 = ((((Field_s32 *) (((char *) temp_s4) + 0x3C))->v)) + (temp_v1_11 * 6);
                         if ((sp166 & temp_a0) && (temp_a0 & sp16E))
                         {
-                          temp_a3 = *((s32 *) (((char *) temp_s4) + 0x34)); temp_s3_2 = temp_a3 + ((*((u16 *) (((char *) temp_a2) + 0))) * 0xC); temp_s1_3 = temp_a3 + ((*((u16 *) (((char *) temp_a2) + 2))) * 0xC); temp_s0 = temp_a3 + ((*((u16 *) (((char *) temp_a2) + 4))) * 0xC);
+                          temp_a3 = (((Field_s32 *) (((char *) temp_s4) + 0x34))->v); temp_s3_2 = temp_a3 + (((((Field_u16 *) (((char *) temp_a2) + 0))->v)) * 0xC); temp_s1_3 = temp_a3 + (((((Field_u16 *) (((char *) temp_a2) + 2))->v)) * 0xC); temp_s0 = temp_a3 + (((((Field_u16 *) (((char *) temp_a2) + 4))->v)) * 0xC);
                           buildPlaneFromPoints(workspace.data, temp_s3_2, temp_s1_3, temp_s0);
-                          if (((*((f32 *) (((char *) var_s2) + 0x30))) == 0.0f) && ((*((f32 *) (((char *) var_s2) + 0x38))) == 0.0f))
+                          if ((((((Field_f32 *) (((char *) var_s2) + 0x30))->v)) == 0.0f) && (((((Field_f32 *) (((char *) var_s2) + 0x38))->v)) == 0.0f))
                           {
-                            temp_fv1 = (((*((f32 *) (((char *) temp_s3_2) + 4))) + (*((f32 *) (((char *) temp_s1_3) + 4)))) + (*((f32 *) (((char *) temp_s0) + 4)))) * 0.33333334f; temp_fv0_4 = temp_fs2 - arg6; geometry.points.first[1] = temp_fv1;
+                            temp_fv1 = ((((((Field_f32 *) (((char *) temp_s3_2) + 4))->v)) + ((((Field_f32 *) (((char *) temp_s1_3) + 4))->v))) + ((((Field_f32 *) (((char *) temp_s0) + 4))->v))) * 0.33333334f; temp_fv0_4 = temp_fs2 - arg6; geometry.points.first[1] = temp_fv1;
                             if (temp_fv1 < temp_fv0_4)
                             {
                               geometry.points.first[1] = temp_fv0_4;
@@ -516,14 +521,14 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                               geometry.points.first[1] = temp_fv1_2;
                             }
                           }
-                          if ((workspace.data[1] < 0.5f) || ((((u32) (*((u32 *) (((char *) var_s2) + 0x5C)))) >> 0x17) & 2))
+                          if ((workspace.data[1] < 0.5f) || ((((u32) ((((Field_u32 *) (((char *) var_s2) + 0x5C))->v))) >> 0x17) & 2))
                           {
                             temp_fs0_4 = (((workspace.data[0] * geometry.points.first[0]) + (workspace.data[1] * geometry.points.first[1])) + (workspace.data[2] * geometry.points.first[2])) + workspace.data[3];
                             if (temp_fs0_4 < arg5)
                             {
-                              *((f32 *) (((char *) arg4) + 0)) = (f32) (geometry.points.first[0] - (temp_fs0_4 * workspace.data[0]));
-                              *((f32 *) (((char *) arg4) + 4)) = (f32) (geometry.points.first[1] - (temp_fs0_4 * workspace.data[1]));
-                              *((f32 *) (((char *) arg4) + 8)) = (f32) (geometry.points.first[2] - (temp_fs0_4 * workspace.data[2]));
+                              (((Field_f32 *) (((char *) arg4) + 0))->v) = (f32) (geometry.points.first[0] - (temp_fs0_4 * workspace.data[0]));
+                              (((Field_f32 *) (((char *) arg4) + 4))->v) = (f32) (geometry.points.first[1] - (temp_fs0_4 * workspace.data[1]));
+                              (((Field_f32 *) (((char *) arg4) + 8))->v) = (f32) (geometry.points.first[2] - (temp_fs0_4 * workspace.data[2]));
                               if ((triangleContainsPoint(arg4, temp_s3_2, temp_s1_3, temp_s0, (f32 *) sp11C) << 0x18) != 0)
                               {
                                 if (1)
@@ -531,13 +536,13 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                                   if (!(temp_fs0_4 < 0.0f))
                                   {
                                     temp_fa0_3 = arg5 - temp_fs0_4; temp_ft1_3 = temp_fa0_3 * workspace.data[0]; temp_fv1_3 = temp_fa0_3 * workspace.data[1]; temp_fv0_5 = temp_fa0_3 * workspace.data[2]; sp18Buf[0] = temp_ft1_3; sp18Buf[1] = temp_fv1_3; sp18Buf[2] = temp_fv0_5; geometry.points.first[0] += temp_ft1_3; geometry.points.first[1] += temp_fv1_3; geometry.points.first[2] += temp_fv0_5;
-                                    if ((((u32) (*((u32 *) (((char *) var_s2) + 0x5C)))) >> 0x17) & 2)
+                                    if ((((u32) ((((Field_u32 *) (((char *) var_s2) + 0x5C))->v))) >> 0x17) & 2)
                                     {
                                       func_80083B64((s32 *) (&sp28Buf[0]), &sp18Buf[0]);
                                     }
-                                    *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + sp18Buf[0]);
-                                    *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg3) + 4))) + sp18Buf[1]);
-                                    *((f32 *) (((char *) arg3) + 8)) = (f32) ((*((f32 *) (((char *) arg3) + 8))) + sp18Buf[2]); temp_v1_12 = *((u32 *) (((char *) var_s2) + 0x5C));
+                                    (((Field_f32 *) (((char *) arg3) + 0))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 0))->v)) + sp18Buf[0]);
+                                    (((Field_f32 *) (((char *) arg3) + 4))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 4))->v)) + sp18Buf[1]);
+                                    (((Field_f32 *) (((char *) arg3) + 8))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 8))->v)) + sp18Buf[2]); temp_v1_12 = (((Field_u32 *) (((char *) var_s2) + 0x5C))->v);
                                     if (temp_v1_12 & 0x7E0000)
                                     {
                                       if (arg9 != NULL)
@@ -568,31 +573,33 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                         var_s6_3 += 1;
 
                       }
-                      while (((u32) (var_s6_3 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))));
+                      while (((u32) (var_s6_3 & 0xFFFF)) < ((u16) ((((Field_u16 *) (((char *) temp_s4) + 0x40))->v))));
                       goto block_133;
                     }
                   }
                   while (0);
                   goto block_133;
                 }
-                if (temp_v1_10 < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))))
+                do {
+                    var_s6_4 = 0;
+                } while (0);
+                if (temp_v1_10 < ((u16) ((((Field_u16 *) (((char *) temp_s4) + 0x40))->v))))
                 {
-                  var_s6_4 = 0;
                   for (;;)
                   {
                     temp_a0_2 = var_s6_4 & 0xFFFF;
                     temp_v1_13 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_a0_2 * 2)));
-                    temp_a2_2 = (*((s32 *) (((char *) temp_s4) + 0x3C))) + (temp_a0_2 * 3);
+                    temp_a2_2 = ((((Field_s32 *) (((char *) temp_s4) + 0x3C))->v)) + (temp_a0_2 * 3);
                     if ((sp166 & temp_v1_13) && (sp16E & temp_v1_13))
                     {
-                      temp_a3_2 = *((s32 *) (((char *) temp_s4) + 0x34));
-                      temp_s3_3 = temp_a3_2 + ((*((u8 *) (((char *) temp_a2_2) + 0))) * 0xC);
-                      temp_s1_4 = temp_a3_2 + ((*((u8 *) (((char *) temp_a2_2) + 1))) * 0xC);
-                      temp_s0_2 = temp_a3_2 + ((*((u8 *) (((char *) temp_a2_2) + 2))) * 0xC);
+                      temp_a3_2 = (((Field_s32 *) (((char *) temp_s4) + 0x34))->v);
+                      temp_s3_3 = temp_a3_2 + (((((Field_u8 *) (((char *) temp_a2_2) + 0))->v)) * 0xC);
+                      temp_s1_4 = temp_a3_2 + (((((Field_u8 *) (((char *) temp_a2_2) + 1))->v)) * 0xC);
+                      temp_s0_2 = temp_a3_2 + (((((Field_u8 *) (((char *) temp_a2_2) + 2))->v)) * 0xC);
                       buildPlaneFromPoints(workspace.data, temp_s3_3, temp_s1_4, temp_s0_2);
-                      if (((*((f32 *) (((char *) var_s2) + 0x30))) == 0.0f) && ((*((f32 *) (((char *) var_s2) + 0x38))) == 0.0f))
+                      if ((((((Field_f32 *) (((char *) var_s2) + 0x30))->v)) == 0.0f) && (((((Field_f32 *) (((char *) var_s2) + 0x38))->v)) == 0.0f))
                       {
-                        temp_fv1_4 = (((*((f32 *) (((char *) temp_s3_3) + 4))) + (*((f32 *) (((char *) temp_s1_4) + 4)))) + (*((f32 *) (((char *) temp_s0_2) + 4)))) * 0.33333334f;
+                        temp_fv1_4 = ((((((Field_f32 *) (((char *) temp_s3_3) + 4))->v)) + ((((Field_f32 *) (((char *) temp_s1_4) + 4))->v))) + ((((Field_f32 *) (((char *) temp_s0_2) + 4))->v))) * 0.33333334f;
                         temp_fv0_6 = temp_fs2 - arg6;
                         geometry.points.first[1] = temp_fv1_4;
                         if (temp_fv1_4 < temp_fv0_6)
@@ -605,14 +612,14 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                           geometry.points.first[1] = temp_fv1_5;
                         }
                       }
-                      if ((workspace.data[1] < 0.5f) || ((((u32) (*((u32 *) (((char *) var_s2) + 0x5C)))) >> 0x17) & 2))
+                      if ((workspace.data[1] < 0.5f) || ((((u32) ((((Field_u32 *) (((char *) var_s2) + 0x5C))->v))) >> 0x17) & 2))
                       {
                         temp_fs0_5 = (((workspace.data[0] * geometry.points.first[0]) + (workspace.data[1] * geometry.points.first[1])) + (workspace.data[2] * geometry.points.first[2])) + workspace.data[3];
                         if (temp_fs0_5 < arg5)
                         {
-                          *((f32 *) (((char *) arg4) + 0)) = (f32) (geometry.points.first[0] - (temp_fs0_5 * workspace.data[0]));
-                          *((f32 *) (((char *) arg4) + 4)) = (f32) (geometry.points.first[1] - (temp_fs0_5 * workspace.data[1]));
-                          *((f32 *) (((char *) arg4) + 8)) = (f32) (geometry.points.first[2] - (temp_fs0_5 * workspace.data[2]));
+                          (((Field_f32 *) (((char *) arg4) + 0))->v) = (f32) (geometry.points.first[0] - (temp_fs0_5 * workspace.data[0]));
+                          (((Field_f32 *) (((char *) arg4) + 4))->v) = (f32) (geometry.points.first[1] - (temp_fs0_5 * workspace.data[1]));
+                          (((Field_f32 *) (((char *) arg4) + 8))->v) = (f32) (geometry.points.first[2] - (temp_fs0_5 * workspace.data[2]));
                           if ((triangleContainsPoint(arg4, temp_s3_3, temp_s1_4, temp_s0_2, (f32 *) sp11C) << 0x18) != 0)
                           {
                             if (!(temp_fs0_5 < 0.0f))
@@ -627,14 +634,14 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                               geometry.points.first[0] += temp_ft1_4;
                               geometry.points.first[1] += temp_fv1_6;
                               geometry.points.first[2] += temp_fv0_7;
-                              if ((((u32) (*((u32 *) (((char *) var_s2) + 0x5C)))) >> 0x17) & 2)
+                              if ((((u32) ((((Field_u32 *) (((char *) var_s2) + 0x5C))->v))) >> 0x17) & 2)
                               {
                                 func_80083B64((s32 *) (&sp28Buf[0]), &sp18Buf[0]);
                               }
-                              *((f32 *) (((char *) arg3) + 0)) = (f32) ((*((f32 *) (((char *) arg3) + 0))) + sp18Buf[0]);
-                              *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg3) + 4))) + sp18Buf[1]);
-                              *((f32 *) (((char *) arg3) + 8)) = (f32) ((*((f32 *) (((char *) arg3) + 8))) + sp18Buf[2]);
-                              temp_v1_14 = *((u32 *) (((char *) var_s2) + 0x5C));
+                              (((Field_f32 *) (((char *) arg3) + 0))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 0))->v)) + sp18Buf[0]);
+                              (((Field_f32 *) (((char *) arg3) + 4))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 4))->v)) + sp18Buf[1]);
+                              (((Field_f32 *) (((char *) arg3) + 8))->v) = (f32) (((((Field_f32 *) (((char *) arg3) + 8))->v)) + sp18Buf[2]);
+                              temp_v1_14 = (((Field_u32 *) (((char *) var_s2) + 0x5C))->v);
                               if (temp_v1_14 & 0x7E0000)
                               {
                                 if (arg9 != NULL)
@@ -663,7 +670,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                     block_132:
                     var_s6_4 += 1;
 
-                    if (((u32) (var_s6_4 & 0xFFFF)) >= ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))))
+                    if (((u32) (var_s6_4 & 0xFFFF)) >= ((u16) ((((Field_u16 *) (((char *) temp_s4) + 0x40))->v))))
                     {
                       goto block_133;
                     }
@@ -707,7 +714,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   {
     if (arg9 != NULL)
     {
-      temp_v1_15 = *((u16 *) (((char *) gPlayerActor) + 0x78));
+      temp_v1_15 = (((Field_u16 *) (((char *) gPlayerActor) + 0x78))->v);
       switch (temp_v1_15)
       {
         case 0xB:
@@ -732,15 +739,15 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     {
       *arg11 = gPlayerActor;
     }
-    temp_v1_16 = (*((s32 *) (((char *) gPlayerActor) + 0x60))) | arg8;
-    *((s32 *) (((char *) gPlayerActor) + 0x60)) = temp_v1_16;
+    temp_v1_16 = ((((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v)) | arg8;
+    (((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v) = temp_v1_16;
     if (sp104 == spFC)
     {
-      *((s32 *) (((char *) gPlayerActor) + 0x60)) = temp_v1_16 | 8;
+      (((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v) = temp_v1_16 | 8;
     }
     else
     {
-      *((s32 *) (((char *) gPlayerActor) + 0x60)) = temp_v1_16 & (~8);
+      (((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v) = temp_v1_16 & (~8);
     }
   }
 
@@ -755,7 +762,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     {
       if (var_fp != NULL)
       {
-        if ((Sphere_OverlapsPoint((*((s32 *) (((char *) var_fp) + 4))) + 0x40, arg3, arg5) << 0x18) != 0)
+        if ((Sphere_OverlapsPoint(((((Field_s32 *) (((char *) var_fp) + 4))->v)) + 0x40, arg3, arg5) << 0x18) != 0)
         {
           var_fp = *((void **) (((char *) var_fp) + 0));
           goto block_166;

@@ -1,4 +1,4 @@
-s32 func_80048794(s32, s32);
+s32 func_80048794(unsigned int, s32);
 s32 func_800820B0(s32);
 extern f64 D_800D48B0;
 extern f64 D_800D48B8;
@@ -21,6 +21,11 @@ extern void *sTrackMarkerTable[];
 inline static float inline_fn(float arg0, float arg1)
 {
   return arg0 * arg1;
+}
+
+inline static unsigned short inline_fn2()
+{
+  return (unsigned short) 1.0f;
 }
 
 void func_8007560C(void)
@@ -178,7 +183,7 @@ void func_8007560C(void)
       if (gBorderFlipFlag == 1)
     {
       temp_fs0_2 = inline_fn(160.0f, 0.5f);
-      func_8004844C(sTrackMarkerTable[0], temp_fs0_2, 120.0f, 160.0f, inline_fn(2.0f, 120.0f), (unsigned short) 1.0f, 1.0f);
+      func_8004844C(sTrackMarkerTable[0], temp_fs0_2, 120.0f, 160.0f, inline_fn(2.0f, 120.0f), inline_fn2(), 1.0f);
       var_a0_2 = sTrackMarkerTable[1];
       var_a2 = 120.0f;
       var_a1 = 160.0f + temp_fs0_2;
@@ -257,7 +262,7 @@ void func_8007560C(void)
       func_8004844C(sTrackMarkerTable[0], inline_fn(160.0f, 0.5f), temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
       temp_fs3_2 = temp_fs2_3 + 160.0f;
       func_8004844C(sTrackMarkerTable[1], temp_fs3_2, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
-      func_8004844C(sTrackMarkerTable[2], inline_fn(160.0f, 0.5f), 120.0f + temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
+      func_8004844C(sTrackMarkerTable[2], inline_fn(160.0f, 0.5f), (char) (120.0f + temp_fs4), 160.0f, 120.0f, 1.0f, 1.0f);
       var_a0_2 = sTrackMarkerTable[3];
       var_a1 = temp_fs3_2;
       var_a2 = 120.0f + temp_fs1;

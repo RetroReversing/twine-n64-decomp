@@ -40,7 +40,7 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
     u16 packedSizePadding;
   } header;
   s32 expansionPresent;
-  s32 sp34;
+  
   u8 sp3F;
   s32 sp44;
   u16 *sp4C;
@@ -82,7 +82,6 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
   u32 var_s3;
   unsigned long var_s6;
   temp_s2 = arg1 * 0x10;
-  sp34 = arg0;
   sp3F = arg2;
   if ((*((s32 *) (((char *) D_800C0784) + temp_s2))) == 0)
   {
@@ -232,7 +231,7 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
           *((u16 **) (((char *) (*((u16 **) (((char *) var_s0_2) + 0)))) + 8)) = NULL;
           *((u16 **) (((char *) (*((u16 **) (((char *) var_s0_2) + 0)))) + 0x10)) = NULL;
         }
-        func_800411C0(sp34, var_s2, (s8) sp3F, sp3F);
+        func_800411C0(arg0, var_s2, (s8) sp3F, sp3F);
         var_s0_2 = (u16 *) (((char *) var_s0_2) + 0x44);
         var_s6 -= 1;
         var_s2 = (u16 *) (((char *) var_s2) + 0x44);

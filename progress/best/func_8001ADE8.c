@@ -135,8 +135,8 @@ void func_8001ADE8(void)
       {
         temp_s3 = getSaveSlotIndex(var_s0);
         temp_v0 = spawnTrackMarker(sMenuListKind);
-        temp_s0_2 = markers + var_s0;
-        *temp_s0_2 = temp_v0;
+        ;
+        *(markers + var_s0) = temp_v0;
         if (temp_v0 != 0)
         {
           temp_s1 = lookupDataEntry((var_s2 + 0x4008) & 0xFFFF);
@@ -264,7 +264,14 @@ void func_8001ADE8(void)
           {
             var_v0_2 = D_80102EC0; var_a0_3 = *((u8 *) (((char *) temp_a1) + 0x13));
           }
-          *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((var_v0_2 & (~0xFF)) | var_a0_3);
+          if (D_800D285C)
+          {
+            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((var_v0_2 & (~0xFF)) | var_a0_3);
+          }
+          else
+          {
+            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((var_v0_2 & (~0xFF)) | var_a0_3);
+          }
         }
         layoutTextBox(*((s32 *) (((char *) gSaveMenuState) + 0x1C)), *((void **) (((char *) gSaveMenuState) + 0x18)), 0);
       }
@@ -289,7 +296,16 @@ void func_8001ADE8(void)
     }
     else
     {
- do { *((s8 *) (((char *) temp_s7) + (-1))) = 3; *((s8 *) (((char *) temp_fp) + (-2))) = 5; D_801002E8 = 7; D_801002E9 = 3; D_801002E6 = 1; D_801002E7 = 1; func_80025F78(temp_a0_3, 0); func_80025F78(temp_s6, 0); func_80025F78(temp_s5 - 0x28, 0); } while (0);
+      do
+      {
+        *((s8 *) (((char *) temp_s7) + (-1))) = 3;
+        *((s8 *) (((char *) temp_fp) + (-2))) = 5; D_801002E8 = 7; D_801002E9 = 3; D_801002E6 = 1;
+        D_801002E7 = 1;
+        func_80025F78(temp_a0_3, 0);
+        func_80025F78(temp_s6, 0);
+        func_80025F78(temp_s5 - 0x28, 0);
+      }
+      while (0);
       func_80025F78(temp_s5, 0);
     }
     actorSlot = &gPickupActor;
@@ -342,3 +358,4 @@ void func_8001ADE8(void)
     }
   }
 }
+

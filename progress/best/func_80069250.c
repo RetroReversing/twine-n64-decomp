@@ -30,6 +30,12 @@ inline static void *inline_fn(void **arg0)
   return *arg0;
 }
 
+typedef struct { f32 v; } Field_f32;
+typedef struct { s16 v; } Field_s16;
+typedef struct { s32 v; } Field_s32;
+typedef struct { s8 v; } Field_s8;
+typedef struct { u16 v; } Field_u16;
+typedef struct { u8 v; } Field_u8;
 void func_80069250(void *arg0)
 {
   f32 sp28[3];
@@ -91,7 +97,7 @@ void func_80069250(void *arg0)
   spD4 = *((void **) (((char *) temp_s3) + 0xA8));
   func_800643D8(temp_s4);
   func_800643D8(temp_s2);
-  if ((((*((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0xA8)))) + 0x7A))) == 0) && (((temp_t0 = *((s8 *) (((char *) temp_s3) + 0x182)), spDC = (s32) temp_t0, temp_s5 = &sTrackMarkerTable[temp_t0], sp28[0] = *((f32 *) (((char *) inline_fn(temp_s5)) + 0x34)), temp_fp = ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) * 0xE8) + ((char *) (&sEnemyDefTable)), sp28[2] = 0, sp28[1] = *((f32 *) (((char *) (*temp_s5)) + 0x38)), var_v0 = temp_s4 != NULL, ((*((s32 *) (((char *) temp_fp) + 0x60))) & 0xC) != 0)) || ((var_v0 = temp_s4 != NULL, (*((s16 *) (((char *) arg0) + 0x7C))) == 5)))) && (var_v0 & (temp_s2 != NULL)))
+  if ((((*((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0xA8)))) + 0x7A))) == 0) && (((temp_t0 = (((Field_s8 *) (((char *) temp_s3) + 0x182))->v), spDC = (s32) temp_t0, temp_s5 = &sTrackMarkerTable[temp_t0], sp28[0] = *((f32 *) (((char *) inline_fn(temp_s5)) + 0x34)), temp_fp = ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) * 0xE8) + ((char *) (&sEnemyDefTable)), sp28[2] = 0, sp28[1] = *((f32 *) (((char *) (*temp_s5)) + 0x38)), var_v0 = temp_s4 != NULL, (((((Field_s32 *) (((char *) temp_fp) + 0x60))->v)) & 0xC) != 0)) || ((var_v0 = temp_s4 != NULL, ((((Field_s16 *) (((char *) arg0) + 0x7C))->v)) == 5)))) && (var_v0 & (temp_s2 != NULL)))
   {
     temp_v0 = inline_fn(temp_s5);
     *((CameraVec *) sp38) = *((CameraVec *) (((char *) temp_v0) + 0x10));
@@ -99,9 +105,9 @@ void func_80069250(void *arg0)
     sp98[1] = temp_fa0;
     sp98[0] = -(sp28[0] * 651.8986f);
     temp_v0_2 = *temp_s5;
-    sp48[0] = (-(((*((f32 *) (((char *) temp_v0_2) + 0x78))) * (*((f32 *) (((char *) temp_s3) + 0x24)))) / (*((f32 *) (((char *) temp_v0_2) + 0x4C))))) / (*((f32 *) (((char *) temp_v0_2) + 0x68)));
+    sp48[0] = (-((((((Field_f32 *) (((char *) temp_v0_2) + 0x78))->v)) * ((((Field_f32 *) (((char *) temp_s3) + 0x24))->v))) / ((((Field_f32 *) (((char *) temp_v0_2) + 0x4C))->v)))) / ((((Field_f32 *) (((char *) temp_v0_2) + 0x68))->v));
     temp_v0_3 = *temp_s5;
-    cameraAim = (((*((f32 *) (((char *) temp_v0_3) + 0x7C))) * (*((f32 *) (((char *) temp_s3) + 0x28)))) / (*((f32 *) (((char *) temp_v0_3) + 0x4C)))) / (*((f32 *) (((char *) temp_v0_3) + 0x6C)));
+    cameraAim = ((((((Field_f32 *) (((char *) temp_v0_3) + 0x7C))->v)) * ((((Field_f32 *) (((char *) temp_s3) + 0x28))->v))) / ((((Field_f32 *) (((char *) temp_v0_3) + 0x4C))->v))) / ((((Field_f32 *) (((char *) temp_v0_3) + 0x6C))->v));
     sp48[2] = 1.0f;
     sp48[1] = cameraAim;
     sp68 = cosAngle(temp_fa0);
@@ -129,25 +135,25 @@ void func_80069250(void *arg0)
     sp48[0] = temp_ft1 + sp38[0];
     sp48[1] = temp_ft0 + sp38[1];
     sp48[2] = temp_fv0 + sp38[2];
-    if ((*((s16 *) (((char *) arg0) + 0x7C))) == 5)
+    if (((((Field_s16 *) (((char *) arg0) + 0x7C))->v)) == 5)
     {
       temp_v0_4 = inline_fn((void **) (((char *) inline_fn((void **) (((char *) temp_s3) + 0xBC))) + 0x6C));
       *((CameraVec *) (((char *) temp_v0_4) + 0)) = *((CameraVec *) sp48);
     }
-    if ((func_800158A4(sp38, sp48, *((s32 *) (((char *) inline_fn(temp_s5)) + 0xF4)), sp58, &spA8, 0, *((s32 *) (((char *) temp_s3) + 0)), 1, 0) << 0x18) != 0)
+    if ((func_800158A4(sp38, sp48, *((s32 *) (((char *) inline_fn(temp_s5)) + 0xF4)), sp58, &spA8, 0, (((Field_s32 *) (((char *) temp_s3) + 0))->v), 1, 0) << 0x18) != 0)
     {
       *((CameraVec *) sp58) = *((CameraVec *) sp48);
     }
-    temp_v0_5 = ((*((u16 *) (((char *) temp_fp) + 0x90))) * 0xC) + inline_fn((char **) (((char *) (*((void **) (((char *) spD4) + 0x68)))) + 4));
+    temp_v0_5 = (((((Field_u16 *) (((char *) temp_fp) + 0x90))->v)) * 0xC) + inline_fn((char **) (((char *) (*((void **) (((char *) spD4) + 0x68)))) + 4));
     *((CameraVec *) spB0) = *((CameraVec *) temp_v0_5);
     spB0[1] = -spB0[1];
     spB0[0] = -spB0[0];
     rotateVec3ByMat3((const void *) (&sp68), spB0);
-    spB0[0] += *((f32 *) (((char *) sTrackMarkerTable[*((s8 *) (((char *) temp_s3) + 0x182))]) + 0x10));
-    spB0[1] += *((f32 *) (((char *) sTrackMarkerTable[*((s8 *) (((char *) temp_s3) + 0x182))]) + 0x14));
-    spB0[2] += *((f32 *) (((char *) sTrackMarkerTable[*((s8 *) (((char *) temp_s3) + 0x182))]) + 0x18));
+    spB0[0] += *((f32 *) (((char *) sTrackMarkerTable[(((Field_s8 *) (((char *) temp_s3) + 0x182))->v)]) + 0x10));
+    spB0[1] += *((f32 *) (((char *) sTrackMarkerTable[(((Field_s8 *) (((char *) temp_s3) + 0x182))->v)]) + 0x14));
+    spB0[2] += *((f32 *) (((char *) sTrackMarkerTable[(((Field_s8 *) (((char *) temp_s3) + 0x182))->v)]) + 0x18));
     temp_fv0_2 = Vec3_DistanceSq(spB0, sp58);
-    *((f32 *) (((char *) temp_s4) + 0x54)) = temp_fv0_2;
+    (((Field_f32 *) (((char *) temp_s4) + 0x54))->v) = temp_fv0_2;
     *((CameraVec *) (((char *) temp_s4) + 36)) = *((CameraVec *) spB0);
     temp_ft1_2 = spB0[0] - sp58[0];
     temp_ft0_2 = spB0[1] - sp58[1];
@@ -156,24 +162,24 @@ void func_80069250(void *arg0)
     spC0[1] = temp_ft0_2;
     spC0[2] = temp_fv1;
     func_80046384(temp_s4 + 0x3C, temp_ft1_2, temp_ft0_2, temp_fv1);
-    *((s32 *) (((char *) temp_s4) + 0x44)) = 0;
-    *((s32 *) (((char *) temp_s4) + 0x58)) |= 0x10000;
-    *((f32 *) (((char *) temp_s4) + 0x3C)) = (f32) (-(*((f32 *) (((char *) temp_s4) + 0x3C))));
-    *((s32 *) (((char *) temp_s2) + 0x58)) |= 0x10000;
-    *((f32 *) (((char *) temp_s2) + 0x24)) = sp58[0];
-    *((f32 *) (((char *) temp_s2) + 0x28)) = sp58[1];
-    *((f32 *) (((char *) temp_s2) + 0x2C)) = sp58[2];
+    (((Field_s32 *) (((char *) temp_s4) + 0x44))->v) = 0;
+    (((Field_s32 *) (((char *) temp_s4) + 0x58))->v) |= 0x10000;
+    (((Field_f32 *) (((char *) temp_s4) + 0x3C))->v) = (f32) (-((((Field_f32 *) (((char *) temp_s4) + 0x3C))->v)));
+    (((Field_s32 *) (((char *) temp_s2) + 0x58))->v) |= 0x10000;
+    (((Field_f32 *) (((char *) temp_s2) + 0x24))->v) = sp58[0];
+    (((Field_f32 *) (((char *) temp_s2) + 0x28))->v) = sp58[1];
+    (((Field_f32 *) (((char *) temp_s2) + 0x2C))->v) = sp58[2];
     if (spA8 == 1)
     {
-      *((s8 *) (((char *) temp_s2) + 0x7F)) = 0x40;
-      *((s8 *) (((char *) temp_s2) + 0x80)) = 0;
-      *((s8 *) (((char *) temp_s2) + 0x81)) = 0;
+      (((Field_s8 *) (((char *) temp_s2) + 0x7F))->v) = 0x40;
+      (((Field_s8 *) (((char *) temp_s2) + 0x80))->v) = 0;
+      (((Field_s8 *) (((char *) temp_s2) + 0x81))->v) = 0;
     }
     else
     {
-      *((u8 *) (((char *) temp_s2) + 0x7F)) = 0xFF;
-      *((u8 *) (((char *) temp_s2) + 0x80)) = 0xFF;
-      *((u8 *) (((char *) temp_s2) + 0x81)) = 0xFF;
+      (((Field_u8 *) (((char *) temp_s2) + 0x7F))->v) = 0xFF;
+      (((Field_u8 *) (((char *) temp_s2) + 0x80))->v) = 0xFF;
+      (((Field_u8 *) (((char *) temp_s2) + 0x81))->v) = 0xFF;
     }
     if (spB0)
     {
@@ -183,23 +189,23 @@ void func_80069250(void *arg0)
     {
       temp_v1 = *((void **) (((char *) arg0) + 0x68));
     }
-    if (((*((u16 *) (((char *) temp_v1) + 0xC))) & 1) && ((*((s32 *) (D_800C46FC + ((*((s8 *) (((char *) temp_v1) + 0xE))) * 0xE8)))) & 8))
+    if ((((((Field_u16 *) (((char *) temp_v1) + 0xC))->v)) & 1) && ((*((s32 *) (D_800C46FC + (((((Field_s8 *) (((char *) temp_v1) + 0xE))->v)) * 0xE8)))) & 8))
     {
       temp_v0_6 = spDC * 0xC;
       *((CameraVec *) (D_80109A98 + temp_v0_6)) = *((CameraVec *) sp58);
     }
-    if ((*((s16 *) (((char *) arg0) + 0x7C))) == 5)
+    if (((((Field_s16 *) (((char *) arg0) + 0x7C))->v)) == 5)
     {
       temp_v0_7 = *((void **) (((char *) (*((void **) (((char *) temp_s3) + 0xBC)))) + 0x6C));
       *((CameraVec *) (((char *) temp_v0_7) + 0)) = *((CameraVec *) sp58);
     }
-    if ((*((s32 *) (((char *) temp_fp) + 0x60))) & 4)
+    if (((((Field_s32 *) (((char *) temp_fp) + 0x60))->v)) & 4)
     {
       temp_fv0_3 = (f32) (((f64) ((temp_fv0_2 * temp_fv0_2) / D_800C0740)) + D_800D44F0);
-      *((f32 *) (((char *) temp_s2) + 0x54)) = temp_fv0_3;
+      (((Field_f32 *) (((char *) temp_s2) + 0x54))->v) = temp_fv0_3;
       if (D_800D44F8 < ((f64) temp_fv0_3))
       {
-        *((f32 *) (((char *) temp_s2) + 0x54)) = 4.0f;
+        (((Field_f32 *) (((char *) temp_s2) + 0x54))->v) = 4.0f;
       }
       if (gBorderSkipActive != 0)
       {
@@ -210,7 +216,7 @@ void func_80069250(void *arg0)
       }
       else
       {
-        func_80064318(temp_s4, *((s8 *) (((char *) temp_s3) + 0x182)));
+        func_80064318(temp_s4, (((Field_s8 *) (((char *) temp_s3) + 0x182))->v));
       }
       setActorStatusBits(temp_s2);
     }

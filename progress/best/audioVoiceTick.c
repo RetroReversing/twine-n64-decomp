@@ -55,7 +55,6 @@ inline static void *inline_fn2(void *arg0, unsigned int arg1)
 
 void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
 {
-  u8 *__base_D_800FDB9D;
   union 
   {
     u16 params[4];
@@ -185,11 +184,8 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       *((s32 *) (((char *) arg0) + 0x24)) = (s32) (temp_v1 & (~1));
       func_8008C590(*((u8 *) (((char *) arg0) + 0x63)));
     }
-    if ((*((s32 *) (((char *) arg0) + 0x24))) & 0x40)
+    if (!((*((s32 *) (((char *) arg0) + 0x24))) & 0x40))
     {
-      *((s32 *) (((char *) arg0) + 0x24)) = 0;
-      goto release_on_init;
-    }
     func_800969B4(arg0);
     temp_v0_2 = *(((u8 *) arg0) + 0x54);
     temp_v1_2 = *(((u8 *) arg0) + 0x52);
@@ -264,7 +260,8 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     *((s32 *) (((char *) arg0) + 0xA0)) = 0U;
     *((s32 *) (((char *) arg0) + 0xA4)) = 0U;
     goto block_19;
-    release_on_init:
+    }
+    *((s32 *) (((char *) arg0) + 0x24)) = 0;
     releaseAudioVoice(arg0);
 
     return;
@@ -290,6 +287,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   }
   if ((*((s32 *) (((char *) arg0) + 0x9C))) == 0)
   {
+    s32 invalidVoice = -1;
     s32 divisorReciprocal = 0x51EB851F;
     D_80100868 = 1;
     loop_25:
@@ -310,18 +308,16 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       {
         case 0x0:
           block_40:
-        voiceListRemove(arg0);
-
-
-        releaseAudioVoice(arg0);
-        var_a0 = (void *) 1;
+        goto release_command;
       }
         break;
 
       case 0x2:
+      {
+        u32 command = *(volatile u32 *) &D_800FDB9C;
         if (((u16) (*((u16 *) (((char *) arg0) + 0x50)))) >= ((u8) D_800FDB9E))
       {
-        temp_v0_4 = func_800982B4(((u32) D_800FDB9C) >> 0x10);
+        temp_v0_4 = func_800982B4(command >> 0x10);
         var_a0 = NULL;
         if (temp_v0_4 != 0)
         {
@@ -339,6 +335,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       }
         break;
 
+      }
       case 0x3:
         if ((*((u16 *) (((char *) arg0) + 0x30))) >= ((u8) D_800FDB9E))
       {
@@ -403,7 +400,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
             temp_a0 = *((s32 *) (((char *) (&D_8010D784)) + var_a2_2));
             if (temp_a0 == (key | var_a1_2))
             {
-              if (temp_a0 != (-1))
+              if ((s32) temp_a0 != invalidVoice)
               {
                 temp_v1_7 = (temp_a0 & 0xFF) * 0x1A0;
                 if ((*((s32 *) (((char *) (&D_8010D784)) + temp_v1_7))) == temp_a0)
@@ -447,10 +444,10 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         }
       }
         break;
-        __base_D_800FDB9D = &D_800FDB9D;
+
 
       case 0xB:
-        temp_a0_2 = (((s32) ((((*((u16 *) (((char *) arg0) + 0x50))) - (*__base_D_800FDB9D)) << 0x10) * (((s32) (D_800FDB9C << 0x10)) >> 0x18))) >> 7) + ((((u32) D_800FDB9C) >> 0x18) << 0x10);
+        temp_a0_2 = (((s32) ((((*((u16 *) (((char *) arg0) + 0x50))) - D_800FDB9D) << 0x10) * (((s32) (D_800FDB9C << 0x10)) >> 0x18))) >> 7) + ((((u32) D_800FDB9C) >> 0x18) << 0x10);
         if (temp_a0_2 >= 0)
       {
         var_v1 = 0x7F0000;
@@ -563,7 +560,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         temp_v1_9 = *((s32 *) (((char *) arg0) + 0x60));
         *((u16 *) (((char *) arg0) + 0x50)) = (u16) (((unsigned) D_800FDB9E) & 0x7F);
         *((u8 *) (((char *) arg0) + 0xC0)) = (s8) ((u16) D_800FDB9C);
-        if (temp_v1_9 != (-1))
+        if (temp_v1_9 != invalidVoice)
       {
         temp_a1_2 = *((u8 *) (((char *) arg0) + 0x4A));
         var_v0_2 = 0;
@@ -768,7 +765,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         break;
 
       case 0x32:
-        *((s16 *) (((char *) (&D_80112EBE)) + (D_800FDB9E * 2))) = (s16) (*__base_D_800FDB9D);
+        *((s16 *) (((char *) (&D_80112EBE)) + (D_800FDB9E * 2))) = (s16) D_800FDB9D;
         var_a0 = NULL;
         break;
 
@@ -1136,6 +1133,12 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
 
     }
 
+    goto command_complete;
+    release_command:
+    voiceListRemove(arg0);
+    releaseAudioVoice(arg0);
+    var_a0 = (void *) 1;
+    command_complete:
     if (!(((s32) var_a0) & 0xFF))
     {
       temp_v0_22 = D_80100868 + 1;
@@ -1169,4 +1172,6 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     *((s32 *) (((char *) arg0) + 0x9C)) = 0U;
   }
 }
+
+
 

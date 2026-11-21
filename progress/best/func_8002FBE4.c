@@ -37,7 +37,6 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
   s32 temp_v0;
   s32 temp_v0_2;
   s32 __repair_phase_temp_v0_2;
-  s32 temp_v0_3;
   s32 temp_v0_4;
   s32 temp_v0_5;
   unsigned short temp_v1_2;
@@ -50,6 +49,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
   s32 var_v1;
   s32 __repair_phase_var_v1;
   s8 *var_a0;
+  s8 *__repair_phase_var_a0;
   union 
   {
     u16 *pointer;
@@ -85,10 +85,10 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
         temp_v0_2 = (randomU32Next() % 255) - 0x80;
         var_a1 = D_800E1568 * D_800E156C;
         *inline_fn23(((char *) temp_s1) + 0) = temp_v0_2;
-        var_a0 = (s8 *) (temp_s0 + (D_800E1564 + var_a1));
-        temp_v0_3 = ((s32) inline_fn234(temp_v0_2, *var_a0)) >> 1;
-        *inline_fn23(((char *) temp_s1) + 0) = temp_v0_3;
-        *var_a0 = (s8) temp_v0_3;
+        __repair_phase_var_a0 = (s8 *) (temp_s0 + (D_800E1564 + var_a1));
+        temp_v0 = ((s32) inline_fn234(temp_v0_2, *__repair_phase_var_a0)) >> 1;
+        *inline_fn23(((char *) temp_s1) + 0) = temp_v0;
+        *__repair_phase_var_a0 = (s8) temp_v0;
         temp_v0 = inline_fn234(*inline_fn23(((char *) temp_s1) + 4), 1);
         *inline_fn23(((char *) temp_s1) + 4) = temp_v0;
       }
@@ -138,8 +138,16 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
             {
               var_v1 = D_800E1564 + 1;
             }
-            D_800E1578 = var_v1;
-            var_a0_4 = var_v1;
+            if (D_800E1564)
+            {
+              D_800E1578 = var_v1;
+              var_a0_4 = var_v1;
+            }
+            else
+            {
+              D_800E1578 = var_v1;
+              var_a0_4 = var_v1;
+            }
             if (var_v1 < 0)
             {
               var_a0_4 = var_v1 + D_800E156C;

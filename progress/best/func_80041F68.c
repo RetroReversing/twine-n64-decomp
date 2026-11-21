@@ -1,5 +1,5 @@
-s32 func_8000B9B8(u16 *, void *, u32);
-s32 func_8000BE00(u32, s32, s32);
+unsigned int func_8000B9B8(u16 *, void *, u32);
+unsigned short func_8000BE00(u32, s32, s32);
 u32 func_8001499C(u16 *);
 s32 func_80014A0C(u16 *, u16 *);
 s32 func_80083E24();
@@ -16,8 +16,11 @@ void func_80041F68(void *arg0)
   s32 sp14;
   s32 var_a0_2;
   long temp_a0;
-  union { u16 * pointer; s32 value; } __repair_phase_storage;
-  
+  union 
+  {
+    u16 *pointer;
+    s32 value;
+  } __repair_phase_storage;
   s32 var_t0;
   u16 *temp_fp;
   u16 *sp1C;
@@ -107,7 +110,7 @@ void func_80041F68(void *arg0)
     do
     {
       *((s32 *) (((char *) ((var_s1 * 8) + (*((u8 **) (((char *) arg0) + 0x10))))) + 4)) = (s32) ((*((s32 *) (((char *) ((var_s1 * 8) + (*((u8 **) (((char *) arg0) + 0x10))))) + 4))) * 2);
-      var_t0 = (var_s1 * 8); temp_a0_2 = var_t0 + (*((u8 **) (((char *) arg0) + 0x10)));
+      var_t0 = var_s1 * 8; temp_a0_2 = var_t0 + (*((u8 **) (((char *) arg0) + 0x10)));
       *((void **) (((char *) temp_a0_2) + 4)) = (void *) ((*((u32 *) (((char *) temp_a0_2) + 4))) + ((u8 *) var_s5));
       var_s1 += 1;
     }
@@ -119,7 +122,7 @@ void func_80041F68(void *arg0)
     var_a0_2 = 0;
     do
     {
-      temp_a0 = (*((u8 **) (((char *) arg0) + 0x18))); temp_v0_3 = var_a0_2 + temp_a0;
+      temp_a0 = *((u8 **) (((char *) arg0) + 0x18)); temp_v0_3 = var_a0_2 + temp_a0;
       *((void **) (((char *) temp_v0_3) + 8)) = (void *) ((*((u32 *) (((char *) temp_v0_3) + 8))) + ((u8 *) var_s7));
       var_s1 += 1;
       var_a0_2 += 0xC;

@@ -36,7 +36,6 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
   unsigned short var_s0;
   s32 var_s1;
   s32 var_v0_2;
-  unsigned long long var_v0_3;
   s32 var_v1;
   u8 temp_s6;
   u8 temp_v1;
@@ -178,12 +177,12 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
       *((s32 *) (((char *) (*((void **) (((char *) var_s4) + 8)))) + 0x10)) = (s32) (((*var_a0_4) & colorMask) | (*((u8 *) (((char *) inactiveState) + 0x30))));
       temp_v1 = *((u8 *) (((char *) gSaveMenuState) + 0x30));
       var_s1_2 = 0xFF;
-      if (temp_v1 < 0xFFU)
+      if ((temp_v1 + 1) <= 0xFFU)
       {
         var_s1_2 = temp_v1;
       }
       temp_s3 = *((void **) (((char *) var_s3) + 8));
-      temp_s0 = (*((s32 *) (((char *) temp_s3) + 0x10))) & (~0xFF);
+      colorMask = *((s32 *) (((char *) temp_s3) + 0x10)); temp_s0 = colorMask & (~0xFF);
       if (func_8002AB54(arg0) & 0xFF)
       {
         var_v0_2 = var_s1_2 | temp_s0;
@@ -195,15 +194,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
       *((s32 *) (((char *) temp_s3) + 0x10)) = var_v0_2;
       temp_s3_2 = *((void **) (((char *) var_s4) + 8));
       temp_s0 = (*((s32 *) (((char *) temp_s3_2) + 0x10))) & (~0xFF);
-      if (func_8002AB6C(arg0) & 0xFF)
-      {
-        var_v0_3 = var_s1_2 | temp_s0;
-      }
-      else
-      {
-        var_v0_3 = temp_s0 | (*((u8 *) (((char *) (*((void **) (((char *) gSaveMenuState) + 0x1C)))) + 0x13)));
-      }
-      *((s32 *) (((char *) temp_s3_2) + 0x10)) = var_v0_3;
+      *((s32 *) (((char *) temp_s3_2) + 0x10)) = (func_8002AB6C(arg0) & 0xFF) ? ((unsigned long long) (var_s1_2 | temp_s0)) : ((unsigned long long) (temp_s0 | (*((u8 *) (((char *) (*((void **) (((char *) gSaveMenuState) + 0x1C)))) + 0x13)))));
     }
 
     if (var_v0 != NULL)

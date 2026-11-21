@@ -35,67 +35,7 @@ void func_8003FDE0(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3)
           p += raw + 1;
           break;
 
-        case 1:
-        {
-          long long phantom_wide = raw;
-        }
-          *arg1 = (*arg1) + p[1];
-          p++;
-          raw = *p;
-          *arg3 = 1;
-          raw *= 3;
-          goto double_size;
-
-        case 3:
-          *arg1 = (*arg1) + p[1];
-          p++;
-          raw = *p;
-          *arg3 = 3;
-          p += raw - (-1);
-          break;
-
-        case 2:
-          *arg1 = (*arg1) + p[1];
-          p++;
-          raw = *p;
-          *arg3 = 2;
-          double_size:
-        raw *= 2;
-
-          p += raw + 1;
-          break;
-
-        case 6:
-          p += 2;
-          goto extra;
-
-        case 7:
-          p += 1;
-          goto extra;
-
-        case 8:
-          p += 3;
-
-        case 5:
-          extra:
-        count = p[1];
-
-          p += 2;
-          *arg2 += count;
-          p += count * 3;
-          break;
-
-        case 4:
-          p += 4;
-          *arg2 += 1;
-          break;
-
-        case 10:
-
-        case 11:
-          p += 2;
-          break;
-
+ do { case 1: { long long phantom_wide = raw; } *arg1 = (*arg1) + p[1]; p++; raw = *p; *arg3 = 1; raw *= 3; goto double_size; case 3: *arg1 = (*arg1) + p[1]; p++; raw = *p; *arg3 = 3; p += raw - (-1); break; case 2: *arg1 = (*arg1) + p[1]; p++; raw = *p; *arg3 = 2; double_size: raw *= 2; p += raw + 1; break; case 6: p += 2; goto extra; case 7: p += 1; goto extra; case 8: p += 3; case 5: extra: count = p[1]; p += 2; *arg2 += count; p += count * 3; break; case 4: p += 4; *arg2 += 1; break; case 10: case 11: p += 2; break; } while (0);
       }
 
       __repair_phase_raw = *p;
@@ -104,4 +44,3 @@ void func_8003FDE0(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3)
     while (__repair_phase_raw != 12);
   }
 }
-

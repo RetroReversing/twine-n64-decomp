@@ -18,7 +18,7 @@ s32 func_80047B14(s32 *, f32, s32 *);
 s32 func_800635BC(void *, s32);
 s32 func_80065684(void *);
 s32 func_8006CD34(void *);
-s32 func_8006D224(void *, s32);
+s32 func_8006D224(void *);
 s32 func_8006E648(s32, void *, s32, s32 *, void **, void **, s32 *, s32 *);
 s32 func_80070730(void *, s32, s32);
 s32 func_80073A30(void);
@@ -86,6 +86,13 @@ inline static s32 inline_fn()
   return (s32) sDifficultyLevel;
 }
 
+typedef struct { f32 v; } Field_f32;
+typedef struct { s16 v; } Field_s16;
+typedef struct { s32 v; } Field_s32;
+typedef struct { s8 v; } Field_s8;
+typedef struct { u16 v; } Field_u16;
+typedef struct { u32 v; } Field_u32;
+typedef struct { u8 v; } Field_u8;
 void func_8006D2E4(void *arg0)
 {
   struct {
@@ -105,7 +112,7 @@ void func_8006D2E4(void *arg0)
   s32 *temp_s0_2;
   s32 var_a1_2;
   s32 var_a2_3;
-  s32 var_a2_4;
+  
   f32 temp_fa0;
   f32 temp_fa0_2;
   f32 temp_fs0;
@@ -120,7 +127,6 @@ void func_8006D2E4(void *arg0)
   f32 var_fv0_2;
   f32 var_fv1;
   f64 var_ft0;
-  s16 temp_s0;
   s16 temp_v0_10;
   s16 temp_v0_14;
   s16 var_a1;
@@ -149,6 +155,7 @@ void func_8006D2E4(void *arg0)
   u32 temp_v0_8;
   u32 temp_v0_9;
   void *temp_a1;
+void *__repair_phase_temp_a1;
   register void *temp_s0_3;
   void *temp_s3;
   void *temp_v0;
@@ -161,56 +168,56 @@ void func_8006D2E4(void *arg0)
   void *temp_v1_4;
   void *temp_v1_5;
   temp_s3 = *((void **) (((char *) arg0) + 0x6C));
-  temp_s4 = *((s8 *) (((char *) temp_s3) + 0x182));
+  temp_s4 = (((Field_s8 *) (((char *) temp_s3) + 0x182))->v);
   var_fs0 = 0.0f;
   locals.out40 = 0;
   locals.out34 = NULL;
   locals.out38 = NULL;
   locals.flags3C = 0;
   locals.flags30 = 0;
-  temp_s5 = *((s32 *) (((char *) arg0) + 0x20));
+  temp_s5 = (((Field_s32 *) (((char *) arg0) + 0x20))->v);
   if (((gBorderSkipActive != 0) && (gSaveKeyRelaxed != 0)) && (D_801002D5 == 0))
   {
-    temp_v0 = func_8011B3D8(*((s32 *) (((char *) temp_s3) + 0x1B8)));
+    temp_v0 = func_8011B3D8((((Field_s32 *) (((char *) temp_s3) + 0x1B8))->v));
     if ((temp_v0 != NULL) && (((*((u8 *) (((char *) (*((void **) (((char *) temp_s3) + 0xB4)))) + 0x12))) == (*((u8 *) (((char *) (*((void **) (((char *) temp_v0) + 0xB4)))) + 0x12)))) & (((s32) temp_s3) != ((s32) temp_v0))))
     {
-      *((s32 *) (((char *) arg0) + 0x60)) = (s32) ((*((s32 *) (((char *) arg0) + 0x60))) & (~0x62));
+      (((Field_s32 *) (((char *) arg0) + 0x60))->v) = (s32) (((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & (~0x62));
     }
   }
-  if ((D_80112F68 == 0) && ((temp_s0 = *((s16 *) (((char *) arg0) + 0x7A)), temp_s0 == 1)))
+  if ((D_80112F68 == 0) && ((((((Field_s16 *) (((char *) arg0) + 0x7A))->v)) == 1)))
   {
-    temp_v0_2 = *((s8 *) (((char *) temp_s3) + 0x198));
+    temp_v0_2 = (((Field_s8 *) (((char *) temp_s3) + 0x198))->v);
     if (temp_v0_2 > 0)
     {
-      *((s8 *) (((char *) temp_s3) + 0x198)) = (s8) (temp_v0_2 - 1);
+      (((Field_s8 *) (((char *) temp_s3) + 0x198))->v) = (s8) (temp_v0_2 - 1);
     }
-    if ((*((s32 *) (((char *) arg0) + 0x60))) & 0x20)
+    if (((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & 0x20)
     {
-      *((s8 *) (((char *) temp_s3) + 0x198)) = 0;
+      (((Field_s8 *) (((char *) temp_s3) + 0x198))->v) = 0;
     }
-    if ((*((s32 *) (((char *) arg0) + 0x60))) & 4)
+    if (((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & 4)
     {
       func_80085454();
-      *((s32 *) (((char *) arg0) + 0x60)) = (s32) ((*((s32 *) (((char *) arg0) + 0x60))) & (~4));
+      (((Field_s32 *) (((char *) arg0) + 0x60))->v) = (s32) (((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & (~4));
     }
-    temp_v1 = *((s32 *) (((char *) arg0) + 0x60));
+    temp_v1 = (((Field_s32 *) (((char *) arg0) + 0x60))->v);
     if (temp_v1 & 0x42000022)
     {
       if (temp_v1 & 0x40000020)
       {
-        var_fs0 = *((f32 *) (((char *) temp_s3) + 0x1B0));
-        *((f32 *) (((char *) temp_s3) + 0x1B0)) = 0.0f;
-        *((u32 *) (((char *) temp_s3) + 0x18C)) = (u32) (((*((u32 *) (((char *) temp_s3) + 0x18C))) & 0xFFFF0FFF) | 0x7000);
+        var_fs0 = (((Field_f32 *) (((char *) temp_s3) + 0x1B0))->v);
+        (((Field_f32 *) (((char *) temp_s3) + 0x1B0))->v) = 0.0f;
+        (((Field_u32 *) (((char *) temp_s3) + 0x18C))->v) = (u32) ((((((Field_u32 *) (((char *) temp_s3) + 0x18C))->v)) & 0xFFFF0FFF) | 0x7000);
       }
-      if ((*((s32 *) (((char *) arg0) + 0x60))) & 2)
+      if (((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & 2)
       {
         if (gBorderSkipActive != 0)
         {
-          temp_v0_3 = func_8011B3D8(*((s32 *) (((char *) temp_s3) + 4)));
+          temp_v0_3 = func_8011B3D8((((Field_s32 *) (((char *) temp_s3) + 4))->v));
           table = D_800C7DAC;
           if (temp_v0_3 != NULL)
           {
-            temp_a0 = *((s8 *) (((char *) temp_v0_3) + 0x182));
+            temp_a0 = (((Field_s8 *) (((char *) temp_v0_3) + 0x182))->v);
             if (temp_a0 >= gSaveSlotCount)
             {
               temp_v0_4 = (((u16) (*((u16 *) (((u8 *) (&D_800BF688)) + ((*((s32 *) (((u8 *) (&gSaveSlotInfo)) + ((getSaveSlotIndex(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18)))) * 0xC))))) >> 5) & 7;
@@ -240,9 +247,9 @@ void func_8006D2E4(void *arg0)
 
               }
 
-              if ((((*((u32 *) (((char *) temp_s3) + 0x18C))) & 0xF000) == 0xE000) && (var_s0 < randomIntBelow(0x64)))
+              if (((((((Field_u32 *) (((char *) temp_s3) + 0x18C))->v)) & 0xF000) == 0xE000) && (var_s0 < randomIntBelow(0x64)))
               {
-                *((u32 *) (((char *) temp_s3) + 0x18C)) = (u32) (((*((u32 *) (((char *) temp_s3) + 0x18C))) & 0xFFFF0FFF) | 0x7000);
+                (((Field_u32 *) (((char *) temp_s3) + 0x18C))->v) = (u32) ((((((Field_u32 *) (((char *) temp_s3) + 0x18C))->v)) & 0xFFFF0FFF) | 0x7000);
               }
             }
           }
@@ -256,7 +263,7 @@ void func_8006D2E4(void *arg0)
             var_ft0 += D_800D4650;
           }
           var_fs0 = temp_fs0 + ((f32) ((s16) ((s32) (((f32) var_ft0) - (temp_fs0 * 0.05f)))));
-          *((f32 *) (((char *) temp_s3) + 0x1B0)) = 0.0f;
+          (((Field_f32 *) (((char *) temp_s3) + 0x1B0))->v) = 0.0f;
           if (var_fs0 <= 0.0f)
           {
             var_fs0 = 1.0f;
@@ -264,7 +271,7 @@ void func_8006D2E4(void *arg0)
         }
         else
         {
-          if (sDifficultyLevel == temp_s0)
+          if (sDifficultyLevel == ((((Field_s16 *) (((char *) arg0) + 0x7A))->v)))
             goto normal_scale;
           if (inline_fn() < 2)
             goto low_scale;
@@ -279,21 +286,21 @@ void func_8006D2E4(void *arg0)
         high_scale:
           var_fv1 = 1.8000001f;
         apply_scale:
-          temp_fv0 = *((f32 *) (((char *) temp_s3) + 0x1B0));
-          *((f32 *) (((char *) temp_s3) + 0x1B0)) = 0.0f;
+          temp_fv0 = (((Field_f32 *) (((char *) temp_s3) + 0x1B0))->v);
+          (((Field_f32 *) (((char *) temp_s3) + 0x1B0))->v) = 0.0f;
           var_fs0 = temp_fv0 * var_fv1;
         }
       }
-      if (!((*((s32 *) (((char *) arg0) + 0x60))) & 0x40000000))
+      if (!(((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & 0x40000000))
       {
-        temp_fv0_2 = *((f32 *) (((char *) temp_s3) + 0x60));
-        if (((temp_fv0_2 > 0.0f) && ((*((s8 *) (((char *) temp_s3) + 0x198))) == 0)) && (((*((u32 *) (((char *) temp_s3) + 0x18C))) & 0xF000) != 0xE000))
+        temp_fv0_2 = (((Field_f32 *) (((char *) temp_s3) + 0x60))->v);
+        if (((temp_fv0_2 > 0.0f) && (((((Field_s8 *) (((char *) temp_s3) + 0x198))->v)) == 0)) && ((((((Field_u32 *) (((char *) temp_s3) + 0x18C))->v)) & 0xF000) != 0xE000))
         {
           temp_fv0_3 = temp_fv0_2 - var_fs0;
-          *((f32 *) (((char *) temp_s3) + 0x60)) = temp_fv0_3;
+          (((Field_f32 *) (((char *) temp_s3) + 0x60))->v) = temp_fv0_3;
           if (temp_fv0_3 < 0.0f)
           {
-            *((f32 *) (((char *) temp_s3) + 0x60)) = 0.0f;
+            (((Field_f32 *) (((char *) temp_s3) + 0x60))->v) = 0.0f;
             var_fs0 = -temp_fv0_3;
             func_80070730(temp_s3, 0x1A, 1);
           }
@@ -303,11 +310,11 @@ void func_8006D2E4(void *arg0)
           }
         }
       }
-      if (!((*((s32 *) (((char *) arg0) + 0x60))) & 0x02000000))
+      if (!(((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & 0x02000000))
       {
-        if ((*((u16 *) (((char *) arg0) + 0x78))) == 2)
+        if (((((Field_u16 *) (((char *) arg0) + 0x78))->v)) == 2)
         {
-          var_a2 = (((*(D_800C7DAC + ((((u32) (*((u32 *) (((char *) temp_s3) + 0x18C)))) >> 0xC) & 0xF))) * 0x46) / 25) + 0x1E;
+          var_a2 = (((*(D_800C7DAC + ((((u32) ((((Field_u32 *) (((char *) temp_s3) + 0x18C))->v))) >> 0xC) & 0xF))) * 0x46) / 25) + 0x1E;
           if (var_a2 <= 0)
           {
             var_a2 = 1;
@@ -319,7 +326,7 @@ void func_8006D2E4(void *arg0)
           }
           func_80082834(temp_s4, 8, var_a2);
         }
-        if ((*((s32 *) (((char *) arg0) + 0x60))) & 0x02000000)
+        if (((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & 0x02000000)
         {
           goto block_62;
         }
@@ -330,7 +337,7 @@ void func_8006D2E4(void *arg0)
       {
         if (randomIntBelow(0x1E) == 0)
         {
-          *((s8 *) (((char *) temp_s3) + 0x198)) = 0;
+          (((Field_s8 *) (((char *) temp_s3) + 0x198))->v) = 0;
           switch (sDifficultyLevel)
           {
             case 3:
@@ -366,13 +373,13 @@ void func_8006D2E4(void *arg0)
       else
       {
         var_a0_2 = 8;
-        if ((*((s16 *) (((char *) arg0) + 0x7C))) == 6)
+        if (((((Field_s16 *) (((char *) arg0) + 0x7C))->v)) == 6)
         {
           var_a0_2 = 0x10;
         }
         if (randomIntBelow(var_a0_2) == 0)
         {
-          *((s8 *) (((char *) temp_s3) + 0x198)) = 0;
+          (((Field_s8 *) (((char *) temp_s3) + 0x198))->v) = 0;
           if ((sDifficultyLevel != 1) && ((inline_fn() < 2) || (sDifficultyLevel != 2)))
           {
             var_fs0 = 1.0f;
@@ -381,7 +388,7 @@ void func_8006D2E4(void *arg0)
           {
             var_fs0 = 2.0f;
           }
-          temp_fv1_2 = *((f32 *) (((char *) arg0) + 0x74));
+          temp_fv1_2 = (((Field_f32 *) (((char *) arg0) + 0x74))->v);
           var_v0 = (u32) temp_fv1_2;
           if (!(var_v0 & 3))
           {
@@ -392,7 +399,7 @@ void func_8006D2E4(void *arg0)
 
       var_condition_bit = var_fs0 > 0.0f;
       *(HitVec *)((char *)temp_s3 + 0x1A0) = *(HitVec *)((char *)arg0 + 0x24);
-      if ((var_fs0 > 0.0f) && ((*((u16 *) (((char *) arg0) + 0x78))) == 2))
+      if ((var_fs0 > 0.0f) && (((((Field_u16 *) (((char *) arg0) + 0x78))->v)) == 2))
       {
         var_a2_2 = (s32) (var_fs0 * 40.0f);
         if (var_a2_2 <= 0)
@@ -411,19 +418,19 @@ void func_8006D2E4(void *arg0)
       }
       if (var_condition_bit)
       {
-        if ((*((s8 *) (((char *) temp_s3) + 0x198))) == 0)
+        if (((((Field_s8 *) (((char *) temp_s3) + 0x198))->v)) == 0)
         {
-          *((s8 *) (((char *) temp_s3) + 0x198)) = 5;
-          *((f32 *) (((char *) arg0) + 0x74)) = (f32) ((*((f32 *) (((char *) arg0) + 0x74))) - var_fs0);
+          (((Field_s8 *) (((char *) temp_s3) + 0x198))->v) = 5;
+          (((Field_f32 *) (((char *) arg0) + 0x74))->v) = (f32) (((((Field_f32 *) (((char *) arg0) + 0x74))->v)) - var_fs0);
           if ((*((void **) (((char *) temp_s3) + 0x414))) == NULL)
           {
             temp_v0_6 = func_80015F0C();
             *((void **) (((char *) temp_s3) + 0x414)) = temp_v0_6;
             if (temp_v0_6 != NULL)
             {
-              temp_s1 = (angleDelta12((s32) (approximateAtan2((*((f32 *) (((char *) arg0) + 0x24))) - (*((f32 *) (((char *) temp_s3) + 0x1A0))), (*((f32 *) (((char *) arg0) - (-0x2C)))) - (*((f32 *) (((char *) temp_s3) + 0x1A8)))) * 651.8986f), (s32) ((*((f32 *) (((char *) arg0) + 0x40))) + 256.0f)) >> 9) & 7;
+              temp_s1 = (angleDelta12((s32) (approximateAtan2(((((Field_f32 *) (((char *) arg0) + 0x24))->v)) - ((((Field_f32 *) (((char *) temp_s3) + 0x1A0))->v)), (*((f32 *) (((char *) arg0) - (-0x2C)))) - ((((Field_f32 *) (((char *) temp_s3) + 0x1A8))->v))) * 651.8986f), (s32) (((((Field_f32 *) (((char *) arg0) + 0x40))->v)) + 256.0f)) >> 9) & 7;
               temp_v0_7 = temp_s1 * 8;
-              *((s32 *) (((char *) temp_v0_6) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_v0_6) + 0x28))) & (~0xFC)) | 0x10);
+              (((Field_s32 *) (((char *) temp_v0_6) + 0x28))->v) = (s32) ((((((Field_s32 *) (((char *) temp_v0_6) + 0x28))->v)) & (~0xFC)) | 0x10);
               initObjectFromBankEntry(temp_v0_6, D_800C7DC8[temp_s1].f0, 0x1B);
               func_800165E0(*((void **) (((char *) temp_s3) + 0x414)), sTrackMarkerTable[temp_s4]);
               var_a1 = 0x140;
@@ -464,47 +471,47 @@ void func_8006D2E4(void *arg0)
                 var_v0_2 = temp_s1 * 8;
 
               }
-              *((s16 *) (((char *) temp_v0_6) + 0x20)) = 0;
-              *((s16 *) (((char *) temp_v0_6) + 0x22)) = 0;
-              *((s16 *) (((char *) temp_v0_6) + 0x26)) = var_a1;
-              *((s8 *) (((char *) temp_v0_6) + 0x29)) = var_a0_3;
-              *((s16 *) (((char *) temp_v0_6) + 0x1E)) = (s16) (D_800C7DCC[temp_s1].f0 | 0x4402);
+              (((Field_s16 *) (((char *) temp_v0_6) + 0x20))->v) = 0;
+              (((Field_s16 *) (((char *) temp_v0_6) + 0x22))->v) = 0;
+              (((Field_s16 *) (((char *) temp_v0_6) + 0x26))->v) = var_a1;
+              (((Field_s8 *) (((char *) temp_v0_6) + 0x29))->v) = var_a0_3;
+              (((Field_s16 *) (((char *) temp_v0_6) + 0x1E))->v) = (s16) (D_800C7DCC[temp_s1].f0 | 0x4402);
             }
           }
-          func_8006D224(arg0, 0xA0);
+          func_8006D224(arg0);
         }
-        if ((!((*((s32 *) (((char *) arg0) + 0x60))) & 0x02000000)) || (gWheelsGrounded != 0))
+        if ((!(((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & 0x02000000)) || (gWheelsGrounded != 0))
         {
           var_a2_3 = 1;
-          if (!((*((f32 *) (((char *) arg0) + 0x74))) > 0.0f))
+          if (!(((((Field_f32 *) (((char *) arg0) + 0x74))->v)) > 0.0f))
           {
             var_a2_3 = 0;
           }
           func_800848EC(arg0, 1, var_a2_3);
         }
       }
-      temp_v1_2 = *((s32 *) (((char *) arg0) + 0x60));
-      var_a2_4 = 1;
+      temp_v1_2 = (((Field_s32 *) (((char *) arg0) + 0x60))->v);
+      var_a2_3 = 1;
       if (temp_v1_2 & 0x40)
       {
-        if (!((*((f32 *) (((char *) arg0) + 0x74))) > 0.0f))
+        if (!(((((Field_f32 *) (((char *) arg0) + 0x74))->v)) > 0.0f))
         {
-          var_a2_4 = 0;
+          var_a2_3 = 0;
         }
-        func_80084CD8(arg0 + 0x24, 1, var_a2_4);
+        func_80084CD8(arg0 + 0x24, 1, var_a2_3);
       }
       else
         if (temp_v1_2 & 2)
       {
-        if (!((*((f32 *) (((char *) arg0) + 0x74))) > 0.0f))
+        if (!(((((Field_f32 *) (((char *) arg0) + 0x74))->v)) > 0.0f))
         {
-          var_a2_4 = 0;
+          var_a2_3 = 0;
         }
-        func_800843CC(arg0 + 0x24, 1, var_a2_4);
+        func_800843CC(arg0 + 0x24, 1, var_a2_3);
       }
       if ((actorFinishIfMatch(arg0, 2) << 0x18) == 0)
       {
-        if ((*((s32 *) (((char *) arg0) + 0x60))) & 0x40000022)
+        if (((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & 0x40000022)
         {
           func_800452E0(temp_s3 + 0x1A0, arg0 + 0x24, locals.vec20);
           func_80045764(locals.vec20, locals.vec20);
@@ -537,17 +544,17 @@ void func_8006D2E4(void *arg0)
     temp_a1 = *((void **) (((char *) temp_s3) + 0x414));
     if (temp_a1 != NULL)
     {
-      temp_v1_2 = *((s32 *) (((char *) temp_a1) + 0x10));
+      temp_v1_2 = (((Field_s32 *) (((char *) temp_a1) + 0x10))->v);
       temp_v0_8 = temp_v1_2 & 0xFF;
       temp_v0_9 = temp_v0_8 - (temp_v0_8 >> 2);
-      *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((temp_v1_2 & (~0xFF)) | temp_v0_9);
+      (((Field_s32 *) (((char *) temp_a1) + 0x10))->v) = (s32) ((temp_v1_2 & (~0xFF)) | temp_v0_9);
       if (temp_v0_9 < 4U)
       {
         freeMenuItemRecord(*((void **) (((char *) temp_s3) + 0x414)), temp_a1);
         *((void **) (((char *) temp_s3) + 0x414)) = NULL;
       }
     }
-    if (((u32) (((u16) (*((s16 *) (((char *) arg0) + 0x7A)))) - 2)) >= 2U)
+    if (((u32) (((u16) ((((Field_s16 *) (((char *) arg0) + 0x7A))->v))) - 2)) >= 2U)
     {
       if (((((D_800E19F4 == 0) && (gGameMode == 0xB)) && (locals.out38 != NULL)) && (D_80109A73 != 0)) && (((*((s32 *) (((char *) ((__repair_record_sp38 *) locals.out38)->field_70) + 0x30))) & 0xFFFF0) == 0x610))
       {
@@ -556,43 +563,43 @@ void func_8006D2E4(void *arg0)
         func_80073A30();
         func_8000C91C(7);
       }
-      temp_a1 = locals.out34;
-      if ((temp_a1 != NULL) && (locals.flags30 & 1))
+      __repair_phase_temp_a1 = locals.out34;
+      if ((__repair_phase_temp_a1 != NULL) && (locals.flags30 & 1))
       {
-        temp_v0_10 = *((s16 *) (((char *) arg0) + 0x7C));
-        if ((((temp_v0_10 != 1) & (temp_v0_10 != 3)) && ((*((u8 *) (((char *) temp_s3) + 0x186))) == 0)) && (((f32) angleDelta12((s32) (*((f32 *) (((char *) arg0) + 0x40))), (s32) ((*((f32 *) (((char *) temp_a1) + 0x34))) * 651.8986f))) < 0.0f))
+        temp_v0_10 = (((Field_s16 *) (((char *) arg0) + 0x7C))->v);
+        if ((((temp_v0_10 != 1) & (temp_v0_10 != 3)) && (((((Field_u8 *) (((char *) temp_s3) + 0x186))->v)) == 0)) && (((f32) angleDelta12((s32) ((((Field_f32 *) (((char *) arg0) + 0x40))->v)), (s32) (((((Field_f32 *) (((char *) __repair_phase_temp_a1) + 0x34))->v)) * 651.8986f))) < 0.0f))
         {
-          *((f32 *) (((char *) temp_s3) + 0x14)) = (f32) (((*((f32 *) (((char *) temp_a1) + 0x44))) + (*((f32 *) (((char *) temp_a1) + 0x4C)))) + (-1.1f));
-          *((f32 *) (((char *) temp_s3) + 0x18)) = (f32) (((*((f32 *) (((char *) temp_a1) + 0x44))) - (*((f32 *) (((char *) temp_a1) + 0x4C)))) + 0.9f);
-          temp_fa0 = ((*((f32 *) (((char *) temp_a1) + 0x34))) * 651.8986f) + 1024.0f;
+          (((Field_f32 *) (((char *) temp_s3) + 0x14))->v) = (f32) ((((((Field_f32 *) (((char *) __repair_phase_temp_a1) + 0x44))->v)) + ((((Field_f32 *) (((char *) __repair_phase_temp_a1) + 0x4C))->v))) + (-1.1f));
+          (((Field_f32 *) (((char *) temp_s3) + 0x18))->v) = (f32) ((((((Field_f32 *) (((char *) __repair_phase_temp_a1) + 0x44))->v)) - ((((Field_f32 *) (((char *) __repair_phase_temp_a1) + 0x4C))->v))) + 0.9f);
+          temp_fa0 = (((((Field_f32 *) (((char *) __repair_phase_temp_a1) + 0x34))->v)) * 651.8986f) + 1024.0f;
           locals.vec48[1] = temp_fa0;
-          locals.vec58[0] = *((f32 *) (((char *) temp_a1) + 0x24));
-          locals.vec58[1] = *((f32 *) (((char *) arg0) + 0x28));
-          locals.vec58[2] = *((f32 *) (((char *) temp_a1) + 0x2C));
+          locals.vec58[0] = (((Field_f32 *) (((char *) __repair_phase_temp_a1) + 0x24))->v);
+          locals.vec58[1] = (((Field_f32 *) (((char *) arg0) + 0x28))->v);
+          locals.vec58[2] = (((Field_f32 *) (((char *) __repair_phase_temp_a1) + 0x2C))->v);
           locals.vec58[0] -= sinAngle(temp_fa0) * 0.43f;
           locals.vec58[2] -= cosAngle(locals.vec48[1]) * 0.43f;
-          if ((!((*((f32 *) (((char *) temp_s3) + 0x14))) < locals.vec58[1])) && (!(locals.vec58[1] < (*((f32 *) (((char *) temp_s3) + 0x18))))))
+          if ((!(((((Field_f32 *) (((char *) temp_s3) + 0x14))->v)) < locals.vec58[1])) && (!(locals.vec58[1] < ((((Field_f32 *) (((char *) temp_s3) + 0x18))->v)))))
           {
             *(HitVec *)((char *)arg0 + 0x24) = *(HitVec *)locals.vec58;
-            *((f32 *) (((char *) arg0) + 0x3C)) = 0.0f;
-            *((f32 *) (((char *) arg0) + 0x44)) = 0.0f;
-            *((f32 *) (((char *) arg0) + 0x40)) = locals.vec48[1];
-            *((f32 *) (((char *) temp_s3) + 0x90)) = (f32) (*((f32 *) (((char *) arg0) + 0x40)));
-            if (absFloat((*((f32 *) (((char *) arg0) + 0x28))) - (*((f32 *) (((char *) temp_s3) + 0x18)))) < 0.15f)
+            (((Field_f32 *) (((char *) arg0) + 0x3C))->v) = 0.0f;
+            (((Field_f32 *) (((char *) arg0) + 0x44))->v) = 0.0f;
+            (((Field_f32 *) (((char *) arg0) + 0x40))->v) = locals.vec48[1];
+            (((Field_f32 *) (((char *) temp_s3) + 0x90))->v) = (f32) ((((Field_f32 *) (((char *) arg0) + 0x40))->v));
+            if (absFloat(((((Field_f32 *) (((char *) arg0) + 0x28))->v)) - ((((Field_f32 *) (((char *) temp_s3) + 0x18))->v))) < 0.15f)
             {
               var_a1_2 = 0x296;
               func_80002BD0(arg0, var_a1_2);
               temp_v1_4 = *((void **) (((char *) arg0) + 0x68));
-              *((u16 *) (((char *) temp_v1_4) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_4) + 0xC))) | 0x40);
+              (((Field_u16 *) (((char *) temp_v1_4) + 0xC))->v) = (u16) (((((Field_u16 *) (((char *) temp_v1_4) + 0xC))->v)) | 0x40);
             }
             else
             {
               var_a1_2 = 0x297;
-              if (absFloat((*((f32 *) (((char *) arg0) + 0x28))) - (*((f32 *) (((char *) temp_s3) + 0x14)))) < 0.15f)
+              if (absFloat(((((Field_f32 *) (((char *) arg0) + 0x28))->v)) - ((((Field_f32 *) (((char *) temp_s3) + 0x14))->v))) < 0.15f)
               {
                 func_80002BD0(arg0, var_a1_2);
                 temp_v1_4 = *((void **) (((char *) arg0) + 0x68));
-                *((u16 *) (((char *) temp_v1_4) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_4) + 0xC))) | 0x40);
+                (((Field_u16 *) (((char *) temp_v1_4) + 0xC))->v) = (u16) (((((Field_u16 *) (((char *) temp_v1_4) + 0xC))->v)) | 0x40);
               }
               else
               {
@@ -604,15 +611,15 @@ void func_8006D2E4(void *arg0)
             *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x34)) = 0;
             func_80065684(arg0);
             func_800635BC(arg0, 1);
-            *((s8 *) (((char *) temp_s3) + 0x181)) = 1;
-            *((s8 *) (((char *) temp_s3) + 0x17E)) = 2;
+            (((Field_s8 *) (((char *) temp_s3) + 0x181))->v) = 1;
+            (((Field_s8 *) (((char *) temp_s3) + 0x17E))->v) = 2;
           }
         }
       }
       switch (D_80100B18)
       {
         case 0:
-          if ((*((s8 *) (((char *) temp_s3) + 0x19C))) != 0)
+          if (((((Field_s8 *) (((char *) temp_s3) + 0x19C))->v)) != 0)
         {
           temp_v0_11 = *((void **) (((char *) temp_s3) + 0xC4));
           *(HitVec *)((char *)temp_v0_11 + 0x24) = *(HitVec *)((char *)temp_s3 + 0xEC);
@@ -621,7 +628,7 @@ void func_8006D2E4(void *arg0)
           *((s32 *) (((char *) (*((void **) (((char *) temp_s3) + 0xC4)))) + 0x44)) = 0;
           *((f32 *) (((char *) (*((void **) (((char *) temp_s3) + 0xC4)))) + 0x54)) = 0.0f;
           effectSetAnimFrame(*((void **) (((char *) temp_s3) + 0xC4)), 0xC, 0x1B);
-          var_fv0_2 = ((*((f32 *) (((char *) temp_s3) + 0xF0))) - (*((f32 *) (((char *) temp_s3) + 0xFC)))) - 0.4f;
+          var_fv0_2 = (((((Field_f32 *) (((char *) temp_s3) + 0xF0))->v)) - ((((Field_f32 *) (((char *) temp_s3) + 0xFC))->v))) - 0.4f;
           if (var_fv0_2 < 0.4f)
           {
             var_fv0_2 = 0.4f;
@@ -631,10 +638,10 @@ void func_8006D2E4(void *arg0)
           gSwingPhase = 0;
           D_800E1A04 = 0;
           D_800E1A08 = 0;
-          if ((*((s16 *) (((char *) arg0) + 0x7C))) == 3)
+          if (((((Field_s16 *) (((char *) arg0) + 0x7C))->v)) == 3)
           {
-            *((s32 *) (((char *) temp_s3) + 0xCC)) = 0;
-            *((s8 *) (((char *) temp_s3) + 0x188)) = 0x14;
+            (((Field_s32 *) (((char *) temp_s3) + 0xCC))->v) = 0;
+            (((Field_s8 *) (((char *) temp_s3) + 0x188))->v) = 0x14;
             func_800635BC(arg0, 0);
           }
         }
@@ -643,26 +650,26 @@ void func_8006D2E4(void *arg0)
         case 1:
           updateSwingAnimation(arg0, randomFloatScaled(0.1f) + 0.1f);
           temp_v0_12 = *((void **) (((char *) temp_s3) + 0xC4));
-          *((f32 *) (((char *) temp_v0_12) + 0x54)) = (f32) ((*((f32 *) (((char *) temp_v0_12) + 0x54))) + (D_800E19FC * 0.016666668f));
+          (((Field_f32 *) (((char *) temp_v0_12) + 0x54))->v) = (f32) (((((Field_f32 *) (((char *) temp_v0_12) + 0x54))->v)) + (D_800E19FC * 0.016666668f));
           temp_v0_13 = *((void **) (((char *) temp_s3) + 0xC4));
-          if (D_800E19FC <= (*((f32 *) (((char *) temp_v0_13) + 0x54))))
+          if (D_800E19FC <= ((((Field_f32 *) (((char *) temp_v0_13) + 0x54))->v)))
         {
-          *((f32 *) (((char *) temp_v0_13) + 0x54)) = (f32) D_800E19FC;
+          (((Field_f32 *) (((char *) temp_v0_13) + 0x54))->v) = (f32) D_800E19FC;
           D_80100B18 = 2;
         }
           break;
 
         case 2:
           updateSwingAnimation(arg0, 0.01f);
-          temp_v0_14 = *((s16 *) (((char *) arg0) + 0x7C));
-          if (((temp_v0_14 != 3) & (temp_v0_14 != 1)) && ((*((s8 *) (((char *) temp_s3) + 0x188))) == 0))
+          temp_v0_14 = (((Field_s16 *) (((char *) arg0) + 0x7C))->v);
+          if (((temp_v0_14 != 3) & (temp_v0_14 != 1)) && (((((Field_s8 *) (((char *) temp_s3) + 0x188))->v)) == 0))
         {
           temp_s0_3 = arg0 + 0x24;
           segmentClosestPoint(locals.vec48, temp_s3 + 0xEC, temp_s3 + 0xF8, temp_s0_3);
           if (Vec3_DistanceSq(locals.vec48, temp_s0_3) < 0.8f)
           {
-            temp_fa0_2 = approximateAtan2((*((f32 *) (((char *) arg0) + 0x24))) - locals.vec48[0], (*((f32 *) (((char *) arg0) + 0x2C))) - locals.vec48[2]) * 651.8986f;
-            temp_fv1_3 = (f32) (((s32) ((((s32) (*((f32 *) (((char *) arg0) + 0x40)))) - ((s32) temp_fa0_2)) << 0x14)) >> 0x14);
+            temp_fa0_2 = approximateAtan2(((((Field_f32 *) (((char *) arg0) + 0x24))->v)) - locals.vec48[0], ((((Field_f32 *) (((char *) arg0) + 0x2C))->v)) - locals.vec48[2]) * 651.8986f;
+            temp_fv1_3 = (f32) (((s32) ((((s32) ((((Field_f32 *) (((char *) arg0) + 0x40))->v))) - ((s32) temp_fa0_2)) << 0x14)) >> 0x14);
             D_800E19F8 = temp_fa0_2;
             var_v0_3 = 1;
             if (!(temp_fv1_3 > 1800.0f))
@@ -676,15 +683,15 @@ void func_8006D2E4(void *arg0)
             }
             if ((var_v0_3 | var_v1) != 0)
             {
-              *((f32 *) (((char *) arg0) + 0x40)) = (f32) (temp_fa0_2 + 2048.0f);
-              locals.vec48[0] = (*((f32 *) (((char *) temp_s3) + 0xEC))) + (sinAngle(temp_fa0_2) * 0.22500001f);
-              locals.vec48[2] = (*((f32 *) (((char *) temp_s3) + 0xF4))) + (cosAngle(D_800E19F8) * 0.22500001f);
+              (((Field_f32 *) (((char *) arg0) + 0x40))->v) = (f32) (temp_fa0_2 + 2048.0f);
+              locals.vec48[0] = ((((Field_f32 *) (((char *) temp_s3) + 0xEC))->v)) + (sinAngle(temp_fa0_2) * 0.22500001f);
+              locals.vec48[2] = ((((Field_f32 *) (((char *) temp_s3) + 0xF4))->v)) + (cosAngle(D_800E19F8) * 0.22500001f);
               *(HitVec *)((char *)arg0 + 0x24) = *(HitVec *)locals.vec48;
               func_80065684(arg0);
               func_800635BC(arg0, 3);
               clearProbeState(arg0, 0x159);
-              *((s8 *) (((char *) temp_s3) + 0x17E)) = 2;
-              *((s8 *) (((char *) temp_s3) + 0x181)) = 1;
+              (((Field_s8 *) (((char *) temp_s3) + 0x17E))->v) = 2;
+              (((Field_s8 *) (((char *) temp_s3) + 0x181))->v) = 1;
               *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x34)) = 0;
             }
           }
@@ -694,18 +701,18 @@ void func_8006D2E4(void *arg0)
       }
 
       temp_v0_15 = *((void **) (((char *) arg0) + 0x68));
-      *((u16 *) (((char *) temp_v0_15) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v0_15) + 0xC))) & 0xFFFB);
+      (((Field_u16 *) (((char *) temp_v0_15) + 0xC))->v) = (u16) (((((Field_u16 *) (((char *) temp_v0_15) + 0xC))->v)) & 0xFFFB);
       if ((locals.out40 != 0) && (locals.flags3C & 2))
       {
         temp_v1_5 = *((void **) (((char *) arg0) + 0x68));
-        *((u16 *) (((char *) temp_v1_5) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_5) + 0xC))) | 4);
+        (((Field_u16 *) (((char *) temp_v1_5) + 0xC))->v) = (u16) (((((Field_u16 *) (((char *) temp_v1_5) + 0xC))->v)) | 4);
       }
     }
-    *((s32 *) (((char *) arg0) + 0x60)) = (s32) ((*((s32 *) (((char *) arg0) + 0x60))) & 0xBDFFFF9D);
-    *((s32 *) (((char *) sTrackMarkerTable[temp_s4]) + 0xFC)) = (s32) (*((u8 *) (((char *) temp_s3) + 0x184)));
-    *((s32 *) (((char *) arg0) + 0x58)) = (s32) ((*((s32 *) (((char *) arg0) + 0x58))) | 1);
+    (((Field_s32 *) (((char *) arg0) + 0x60))->v) = (s32) (((((Field_s32 *) (((char *) arg0) + 0x60))->v)) & 0xBDFFFF9D);
+    *((s32 *) (((char *) sTrackMarkerTable[temp_s4]) + 0xFC)) = (s32) ((((Field_u8 *) (((char *) temp_s3) + 0x184))->v));
+    (((Field_s32 *) (((char *) arg0) + 0x58))->v) = (s32) (((((Field_s32 *) (((char *) arg0) + 0x58))->v)) | 1);
     func_8006CD34(arg0);
-    *((s32 *) (((char *) temp_s3) + 4)) = 0;
+    (((Field_s32 *) (((char *) temp_s3) + 4))->v) = 0;
   }
 }
 

@@ -1,12 +1,24 @@
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
 s32 angleDelta12(s32, s32);
 f32 approximateAtan2(f32, f32);
-s32 func_80002BD0(void *, s32);
-s32 func_80002EB8(void *);
-s32 func_800452E0(void *, void *, void *);
-void func_80077960(void *, s16);
-s32 func_80085610(void *);
-s32 func_80085690(void *);
-s32 func_80085710(void *arg0, void *);
+s32 func_80002BD0();
+s32 func_80002EB8();
+s32 func_800452E0();
+void func_80077960();
+s32 func_80085610();
+s32 func_80085690();
+s32 func_80085710();
 s32 randomIntBelow(s32);
 extern u8 D_800C470A;
 extern u8 D_800C9A58;
@@ -39,11 +51,6 @@ extern u8 D_800C9B78;
 extern u8 D_800C9B7C;
 extern u8 D_800C9B80;
 extern u8 D_800C9B88;
-inline static f32 inline_fn(void *arg0)
-{
-  return *((f32 *) (((char *) arg0) + 0x24));
-}
-
 void func_800770E4(void *arg0)
 {
   u8 *var_s0_2;
@@ -54,13 +61,13 @@ void func_800770E4(void *arg0)
   f32 var_fv1;
   f32 var_fv1_2;
   s16 temp_v1_4;
+  s32 var_s3;
   f32 origin_x;
   void *temp_s0;
   f32 origin_z;
   u32 actor_flags;
   s32 var_a0;
   s32 var_a0_2;
-  s32 var_s0;
   u16 temp_v1;
   s32 var_a1_2;
   u16 var_v0;
@@ -84,8 +91,8 @@ void func_800770E4(void *arg0)
   if (temp_v1 == 1)
   {
     temp_s0 = *((void **) (((char *) arg0) + 0x6C));
-    var_a1 = *((s16 *) (((char *) arg0) + 0x7C));
-    var_fs1 = (*((f32 *) (((char *) temp_s0) + 0x50))) - inline_fn(arg0);
+    var_s3 = *((s16 *) (((char *) arg0) + 0x7C));
+    var_fs1 = (*((f32 *) (((char *) temp_s0) + 0x50))) - (*((f32 *) (((char *) arg0) + 0x24)));
     var_s2 = *((u8 *) (((char *) temp_s0) + 0x82));
     var_fs0 = (*((f32 *) (((char *) temp_s0) + 0x58))) - (*((f32 *) (((char *) arg0) + 0x2C)));
     func_800452E0(arg0 + 0x24, arg0 + 0x30, temp_s0);
@@ -94,8 +101,8 @@ void func_800770E4(void *arg0)
     *((u16 *) (((char *) arg0) + 0x78)) = 0x4CU;
     *((s16 *) (((char *) arg0) + 0x7C)) = 0xC;
     *((u8 *) (((char *) temp_s0) + 0x7F)) = 0xCU;
-    var_s0 = actor_flags >> 0x11;
-    var_s0 &= 0xF;
+    var_a1 = actor_flags >> 0x11;
+    var_a1 &= 0xF;
   }
   else
     if (temp_v1 == 2)
@@ -103,8 +110,8 @@ void func_800770E4(void *arg0)
     __repair_phase_storage.pointer = *((void **) (((char *) arg0) + 0x6C));
     do
     {
-      origin_x = inline_fn(arg0);
-      origin_z = *((f32 *) (((char *) arg0) + 0x2C)); var_fv0 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A0)); var_fv1_2 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A8)); var_v1_2 = *((u32 *) (((char *) __repair_phase_storage.pointer) + 0x18C)); var_s2 = 0; var_a1 = 0;
+      origin_x = *((f32 *) (((char *) arg0) + 0x24));
+      origin_z = *((f32 *) (((char *) arg0) + 0x2C)); var_fv0 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A0)); var_fv1_2 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A8)); var_v1_2 = *((u32 *) (((char *) __repair_phase_storage.pointer) + 0x18C)); var_s2 = 0; var_s3 = 0;
       *((s32 *) (((char *) __repair_phase_storage.pointer) + 0xCC)) = 0;
     }
     while (0);
@@ -113,17 +120,10 @@ void func_800770E4(void *arg0)
   }
   else
   {
-    var_a1 = 0;
+    var_s3 = 0;
     if (temp_v1 == 3)
     {
-      temp_v0_3 = *((void **) (((char *) arg0) + 0x6C));
-      origin_x = inline_fn(arg0);
-      origin_z = *((f32 *) (((char *) arg0) + 0x2C));
-      var_fv0 = *((f32 *) (((char *) temp_v0_3) + 0x1A0));
-      var_fv1_2 = *((f32 *) (((char *) temp_v0_3) + 0x1A8));
-      var_v1_2 = *((u32 *) (((char *) temp_v0_3) + 0x18C));
-      var_s2 = 0;
-      *((s32 *) (((char *) temp_v0_3) + 0xCC)) = 0;
+ do { temp_v0_3 = *((void **) (((char *) arg0) + 0x6C)); origin_x = *((f32 *) (((char *) arg0) + 0x24)); origin_z = *((f32 *) (((char *) arg0) + 0x2C)); var_fv0 = *((f32 *) (((char *) temp_v0_3) + 0x1A0)); var_fv1_2 = *((f32 *) (((char *) temp_v0_3) + 0x1A8)); var_v1_2 = *((u32 *) (((char *) temp_v0_3) + 0x18C)); var_s2 = 0; *((s32 *) (((char *) temp_v0_3) + 0xCC)) = 0; } while (0);
       var_v0 = 0x61;
     }
     else
@@ -134,8 +134,8 @@ void func_800770E4(void *arg0)
     var_fs1 = var_fv0 - origin_x;
 
     *((u16 *) (((char *) arg0) + 0x78)) = var_v0;
-    var_s0 = var_v1_2 >> 0xC;
-    var_s0 &= 0xF;
+    var_a1 = var_v1_2 >> 0xC;
+    var_a1 &= 0xF;
     var_fs0 = var_fv1_2 - origin_z;
   }
   block_9:
@@ -158,7 +158,7 @@ void func_800770E4(void *arg0)
       return;
 
     case 7:
-      func_80085710(arg0, arg0 + 0x24);
+      func_80085710(arg0 + 0x24);
       var_a1_2 = *((u16 *) ((&D_800C9A5C) + (randomIntBelow(6) * 2)));
       goto block_61;
 
@@ -177,7 +177,7 @@ void func_800770E4(void *arg0)
       goto block_71;
 
     default:
-      var_v1 = var_a1 - 2;
+      var_v1 = var_s3 - 2;
       if ((*((u16 *) (((char *) arg0) + 0x78))) == 1)
     {
       temp_v1_2 = *((u8 *) (((char *) (*((void **) (((char *) arg0) + 0x6C)))) + 0x7F));
@@ -186,25 +186,30 @@ void func_800770E4(void *arg0)
         switch (temp_v1_2)
         {
           case 1:
+            do
+          {
+            case 2:
+              case 3:
+              case 4:
+              case 5:
+              case 6:
+              case 7:
+              case 8:
+              case 9:
+              case 10:
+              ;
 
-          case 2:
 
-          case 3:
 
-          case 4:
 
-          case 5:
 
- goto dummy_label_727648; dummy_label_727648: ;
-          case 6:
 
-          case 7:
 
-          case 8:
 
-          case 9:
 
-          case 10:
+            ;
+          }
+          while (0);
 
           case 11:
 
@@ -218,10 +223,10 @@ void func_800770E4(void *arg0)
         }
 
       }
-      var_v1 = var_a1 - 2;
+      var_v1 = var_s3 + (-2);
     }
       state_dispatch:
-    __repair_phase_var_v1 = var_a1 - 2;
+    __repair_phase_var_v1 = var_s3 - 2;
 
       switch (__repair_phase_var_v1)
     {
@@ -312,7 +317,7 @@ void func_800770E4(void *arg0)
         goto block_71;
 
       default:
-        if (var_s0 == 0xE)
+        if (var_a1 == 0xE)
       {
         var_a1_2 = *((u16 *) ((&D_800C9B30) + (randomIntBelow(4) * 2)));
         goto block_61;
@@ -437,7 +442,7 @@ void func_800770E4(void *arg0)
       {
         var_fv1 = 15.0f;
       }
-      if (var_fv1 >= 2.1474836e9f)
+      if ((var_fv1 + 1) >= (2.1474836e9f + 1))
       {
         var_a0 = ((s32) (var_fv1 - 2.1474836e9f)) | 0x80000000;
       }

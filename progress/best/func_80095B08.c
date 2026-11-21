@@ -11,6 +11,11 @@ inline static ControlRow *inline_fn2(ControlRow (*arg0)[16], s32 arg1)
   return arg0[arg1];
 }
 
+inline static ControlRow *inline_fn23(u32 arg0, ControlRow *arg1)
+{
+  return arg0 + arg1;
+}
+
 void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
 {
   s32 temp_a0;
@@ -34,7 +39,7 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
     if (temp_a0 != 0xFF)
     {
       groupBase = (u32) inline_fn2(D_800EE420, temp_a0);
-      rowOffset = 134 * (arg1 & 0xFF);
+      var_v0 = arg1 & 0xFF; rowOffset = var_v0 * 134;
       var_v0 = inline_fn(groupBase, rowOffset);
     }
     else
@@ -46,10 +51,20 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
       }
       while (0);
     }
-    *((u8 *) inline_fn(index, var_v0)) = upper & 0x7F;
-    temp_a0 = (arg0 & 0x1F) | 0x20;
-    temp_a2 = arg2 & 0xFF;
-    temp_a3 = arg3 & 0x7F;
+    if (D_800F2720)
+    {
+      *((u8 *) inline_fn(index, var_v0)) = upper & 0x7F;
+      temp_a0 = (arg0 & 0x1F) | 0x20;
+      temp_a2 = arg2 & 0xFF;
+      temp_a3 = arg3 & 0x7F;
+    }
+    else
+    {
+      *((u8 *) inline_fn(index, var_v0)) = upper & 0x7F;
+      temp_a0 = (arg0 & 0x1F) | 0x20;
+      temp_a2 = arg2 & 0xFF;
+      temp_a3 = arg3 & 0x7F;
+    }
     if (temp_a2 != 0xFF)
     {
       *((u8 *) (temp_a0 + inline_fn2(D_800EE420, temp_a2)[arg1 & 0xFF])) = temp_a3;
@@ -68,12 +83,14 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
       if (temp_a0 != 0xFF)
       {
         groupBase = (u32) inline_fn2(D_800EE420, temp_a0);
-        rowOffset = (arg1 & 0xFF) * 134;
+        temp_a0 = arg1 & 0xFF;
+        rowOffset = temp_a0 * 134;
         var_v0 = inline_fn(groupBase, rowOffset);
       }
       else
       {
-        rowOffset = (arg1 & 0xFF) * 134;
+        temp_a0 = arg1 & 0xFF;
+        rowOffset = temp_a0 * 134;
         var_v0 = inline_fn(rowOffset, (u32) D_800F2720);
       }
       *((u8 *) inline_fn(index, var_v0)) = upper & 0x7F;
@@ -122,7 +139,8 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
     }
     else
     {
-      rowOffset = (arg1 & 0xFF) * 134;
+      temp_a0 = arg1 & 0xFF;
+      rowOffset = temp_a0 * 134;
       var_v0 = rowOffset + ((u32) D_800F2720);
     }
     if (arg1)
@@ -166,7 +184,7 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
       while (0);
     }
     block_20:
-    *((u8 *) (var_v0 + (index & 0xFF))) = var_a3;
+    *((u8 *) ((index & 0xFF) + var_v0)) = var_a3;
 
     return;
   }
@@ -179,7 +197,7 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
   }
   else
   {
-    var_v0 = rowOffset + D_800F2720;
+    var_v0 = inline_fn23(rowOffset, D_800F2720);
     rowOffset = (arg1 & 0xFF) * 134;
   }
   *((u8 *) (var_v0 + temp_t0)) = (index >> 7) & 0x7F;

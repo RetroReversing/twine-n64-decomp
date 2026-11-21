@@ -26,6 +26,11 @@ inline static int inline_fn(u32 arg0)
   return (arg0 >> 8) & 0xF;
 }
 
+inline static int inline_fn2(void *arg0)
+{
+  return (((((s32) (((__repair_record_arg2 *) arg0)->field_24 + 7)) >> 3) & 0x1FF) << 9) | 0xF5080000;
+}
+
 void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
 {
   s16 temp_t2_2;
@@ -71,7 +76,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
   u16 temp_v1;
   register u16 temp_v1_3;
   u32 temp_a0_3;
-  u32 temp_a0_5;
+  char temp_a0_5;
   volatile unsigned int var_t0;
   u32 var_v0_2;
   u8 temp_a1;
@@ -174,7 +179,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
     var_s5 = 0x400;
   }
   temp_a0 = (u16) ((__repair_record_arg2 *) arg2)->field_24;
-  sp4C = ((s32) ((__repair_record_arg2 *) arg2)->field_26); var_s6 = ((s32) (0x400 * temp_a0)) / sp4C; sp44 = ((s32) ((__repair_record_arg2 *) arg2)->field_29); var_s5_2 = ((s32) (var_s5 * ((__repair_record_arg2 *) arg2)->field_28)) / sp44;
+  sp4C = (s32) ((__repair_record_arg2 *) arg2)->field_26; var_s6 = ((s32) (0x400 * temp_a0)) / sp4C; sp44 = (s32) ((__repair_record_arg2 *) arg2)->field_29; var_s5_2 = ((s32) (var_s5 * ((__repair_record_arg2 *) arg2)->field_28)) / sp44;
   var_s1 = temp_a0 << 5;
   if (((__repair_record_arg2 *) arg2)->field_1E & 0x80)
   {
@@ -202,7 +207,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
   *((s32 *) (((char *) temp_v1_4) + 0x14)) = 0;
   D_80115328 = temp_v1_4 + 0x10;
   *((s32 *) (((char *) temp_v1_4) + 4)) = (s32) ((__repair_field_8 *) arg2)->value;
-  temp_v0_2 = temp_v1_4 + 0x18;
+  ;
   D_80115328 = temp_v0_2;
   temp_a1_2 = ((__repair_record_arg2 *) arg2)->field_24;
   temp_a0_3 = temp_a1_2 >> 3;
@@ -218,19 +223,19 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
   }
   if (temp_a0_3 != 0)
   {
-    var_v0 = (var_a2 / ((s32) temp_a0_3)) & 0xFFF;
+    sp44 = var_a2 / ((s32) temp_a0_3); var_v0 = sp44 & 0xFFF;
   }
   else
   {
     var_v0 = var_a2 & 0xFFF;
   }
   temp_a1_4 = D_80115328;
-  *((s32 *) (((char *) temp_v0_2) + 4)) = (s32) ((((var_v1 & 0xFFF) << 0xC) | 0x07000000) | var_v0);
+  *((s32 *) (((char *) (temp_v1_4 + 0x18)) + 4)) = (s32) ((((var_v1 & 0xFFF) << 0xC) | ((char) 0x07000000)) | var_v0);
   *((s32 *) (((char *) temp_a1_4) + 0)) = 0xE7000000;
   *((s32 *) (((char *) temp_a1_4) + 4)) = 0;
   *((s32 *) (((char *) temp_a1_4) + 0xC)) = 0xC0300;
   *((s32 *) (((char *) temp_a1_4) + 0x10)) = 0xF2000000;
-  ((__repair_field_8 *) temp_a1_4)->value = (s32) (((unsigned short) ((var_t1 << 8) << 13)) | ((((((s32) (((__repair_record_arg2 *) arg2)->field_24 + 7)) >> 3) & 0x1FF) << 9) | 0xF5080000));
+  ((__repair_field_8 *) temp_a1_4)->value = (s32) (((unsigned short) ((var_t1 << 8) << 13)) | inline_fn2(arg2));
   D_80115328 = temp_a1_4 + 8;
   D_80115328 = temp_a1_4 + 0x10;
   D_80115328 = temp_a1_4 + 0x18;
@@ -252,7 +257,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
         sp4C = sp4C >> 0x10;
         do
         {
-          temp_t2 = (((__repair_record_arg2 *) arg2)->field_20 + arg0) + (((__repair_record_arg2 *) arg2)->field_26 * var_s2);
+          sp44 = ((__repair_record_arg2 *) arg2)->field_20 + arg0; temp_t2 = sp44 + (((__repair_record_arg2 *) arg2)->field_26 * var_s2);
           temp_t0 = ((__repair_record_arg2 *) arg2)->field_22 + (((__repair_record_arg2 *) arg2)->field_29 * var_t9);
           if (gHiResScreen != 0)
           {

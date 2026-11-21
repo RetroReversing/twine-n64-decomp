@@ -96,6 +96,26 @@ inline static int inline_fn23(u8 *arg0)
   return ((u32) arg0) - 0x16A0;
 }
 
+inline static float inline_fn234(f32 arg0)
+{
+  return arg0 * 255.0f;
+}
+
+inline static FrameView *inline_fn2345(FrameView *arg0)
+{
+  return arg0;
+}
+
+inline static u32 inline_fn23456(f32 arg0)
+{
+  return (u32) (arg0 * 255.0f);
+}
+
+inline static int inline_fn234567(u32 arg0, int arg1)
+{
+  return arg0 - arg1;
+}
+
 void func_80007958(void)
 {
   short __repair_constant = -1;
@@ -110,22 +130,19 @@ void func_80007958(void)
   s32 commandBytes;
   FrameView **entry;
   FrameView *view;
-FrameView *__repair_phase_view;
+  FrameView *__repair_phase_view;
   FrameSlot *submittedSlot;
   FrameView **layerEntry;
   u64 stamp;
   FrameCommand *cmd;
-FrameCommand *__repair_phase_cmd;
+  FrameCommand *__repair_phase_cmd;
   u32 i;
   u32 mask;
-  
   u32 __repair_phase_alpha;
-u32 __repair_phase___repair_phase_alpha;
+  u32 __repair_phase___repair_phase_alpha;
   register s32 transitioning;
-  
   s32 __repair_phase_layer;
-s32 __repair_phase___repair_phase_layer;
-  
+  s32 __repair_phase___repair_phase_layer;
   f32 opacity;
   u8 *modeFlags;
   sRenderState = slot->buffer;
@@ -174,7 +191,7 @@ s32 __repair_phase___repair_phase_layer;
         goto next_view;
       }
       opacity = (view->opacity > 0.0f) ? (view->opacity) : (0.0f);
-      view->alpha = (u32) (opacity * 255.0f);
+      inline_fn2345(view)->alpha = inline_fn23456(opacity);
       func_800344DC(view);
       if ((*entry)->flags & 0x40)
       {
@@ -234,7 +251,7 @@ s32 __repair_phase___repair_phase_layer;
       {
         do
         {
-          __repair_phase_alpha = (u32) (__repair_phase_view->overlay * 255.0f);
+          __repair_phase_alpha = (u32) inline_fn234(__repair_phase_view->overlay);
           if ((*entry)->flags & 2)
           {
             func_800075C4(__repair_phase_alpha, i, 0, 255, 0);
@@ -273,10 +290,10 @@ s32 __repair_phase___repair_phase_layer;
   cmd->w0 = 0xDF000000;
   cmd->w1 = 0;
   func_800A0220(slot->buffer, transitioning);
-  func_800A0220(slot->buffer, inline_fn() - ((u32) slot));
-  func_800A0220(slot->buffer, inline_fn23(D_80109CB8) - ((u32) slot));
-  func_800A0220(slot->buffer, (((u32) D_801002FC) - 0x1AA8) - ((u32) slot));
-  func_800A0220(slot->buffer, (((u32) D_8010A4B4) - 0x1BB0) - ((u32) slot));
+  func_800A0220(slot->buffer, inline_fn234567(inline_fn(), (u32) slot));
+  func_800A0220(slot->buffer, inline_fn234567(inline_fn23(D_80109CB8), (u32) slot));
+  func_800A0220(slot->buffer, inline_fn234567((u32) D_801002FC, 0x1AA8) - ((u32) slot));
+  func_800A0220(slot->buffer, inline_fn234567((u32) D_8010A4B4, 0x1BB0) - ((u32) slot));
   submittedSlot = slot;
   slot->commands = *((FrameCommand **) (sRenderState + 0x750));
   slot->commandBytes = (((s32) (((u32) sDisplayListCursor) - (*((u32 *) (sRenderState + 0x750))))) >> 3) << 3;
@@ -284,7 +301,7 @@ s32 __repair_phase___repair_phase_layer;
   {
     func_8000B260();
     osRecvMesg(D_8010A2A0, NULL, 1);
-    __repair_phase_layer = ((u32) D_8010A4B0) - 1;
+    __repair_phase_layer = inline_fn234567((u32) D_8010A4B0, 1);
     if (__repair_phase_layer < 0)
     {
       __repair_phase_layer += sMatrixPoolSlotCount;
@@ -338,12 +355,6 @@ s32 __repair_phase___repair_phase_layer;
     stamp = osGetTime();
     D_800DD750[D_8010A4B0] = stamp;
     func_8000B224(submittedSlot);
-    D_800B1D70++;
-    D_8010A4B0++;
-    if (sMatrixPoolSlotCount <= D_8010A4B0)
-    {
-      D_8010A4B0 = 0;
-    }
+ do { D_800B1D70++; D_8010A4B0++; if (sMatrixPoolSlotCount <= D_8010A4B0) { D_8010A4B0 = 0; } } while (0);
   }
 }
-

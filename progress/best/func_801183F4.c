@@ -53,7 +53,7 @@ void *func_801183F4(void *arg0, u8 arg1)
   s32 var_v0_8;
   u16 temp_v0;
   u16 temp_v1_2;
-  u16 var_v0_5;
+  int var_v0_5;
   u32 temp_v1_4;
   u32 var_s1;
   u32 var_s1_2;
@@ -181,7 +181,11 @@ void *func_801183F4(void *arg0, u8 arg1)
   {
     if (sp47 == 0)
     {
- do { return *((void **) (((char *) temp_s3) + 0xC0)); } while (0);
+      do
+      {
+        return *((void **) (((char *) temp_s3) + 0xC0));
+      }
+      while (0);
     }
     var_s0_2 = D_8010A410;
     if (var_s0_2 != NULL)
@@ -328,3 +332,4 @@ void *func_801183F4(void *arg0, u8 arg1)
   }
   return var_v0;
 }
+

@@ -74,7 +74,7 @@ void func_80098B14(register Entry *entry, s32 group)
         for (;;)
         {
           key = (u16) current;
-          if (orderedGroup >= key)
+          if (((u16) __repair_phase_storage.value) >= key)
           {
             previous = current; current = D_8010A51A[key].index;
             if (current != 0xFFFF)
@@ -92,8 +92,19 @@ void func_80098B14(register Entry *entry, s32 group)
         }
       }
       else
+        if (group)
       {
-        D_8010A51A[groupPosition].index = head; D_8010A51C[groupPosition].index = 0xFFFF; D_8010A51C[head].index = __repair_phase_storage.value; D_80109B1C = __repair_phase_storage.value;
+        D_8010A51A[groupPosition].index = head;
+        D_8010A51C[groupPosition].index = 0xFFFF;
+        D_8010A51C[head].index = __repair_phase_storage.value;
+        D_80109B1C = __repair_phase_storage.value;
+      }
+      else
+      {
+        D_8010A51A[groupPosition].index = head;
+        D_8010A51C[groupPosition].index = 0xFFFF;
+        D_8010A51C[head].index = __repair_phase_storage.value;
+        D_80109B1C = __repair_phase_storage.value;
       }
     }
     else
