@@ -7,23 +7,24 @@ void unlinkNode(Node *, Node *, void *);
 extern Node *gTrackMarkerTable[];
 extern s16 gMarkerLastIndex1, gMarkerLastIndex2, gMarkerLastIndex3;
 extern NodeEntry *sMarkerTextNode1, *sMarkerTextNode2, *sMarkerTextNode3;
+/* Moves a track marker's text entry to the list for its slot (1, 2 or other) and updates that list's last index. */
 void relinkTrackMarker(EventActor *actor, u16 slot) {
- s16 *previous; NodeEntry *entry; u32 indexBits;
+ s16 *lastIndex; NodeEntry *textNode; u32 indexBits;
  requestSound(0x223);
  switch(slot) {
  case 1:
- previous=&gMarkerLastIndex1; actor->event->flags |= 1;
- unlinkNode(&sMarkerTextNode1->node,gTrackMarkerTable[*previous],gTrackMarkerTable[actor->index]);
- entry=sMarkerTextNode1; indexBits=(u32)(u8)actor->index << 24; break;
+ lastIndex=&gMarkerLastIndex1; actor->event->flags |= 1;
+ unlinkNode(&sMarkerTextNode1->node,gTrackMarkerTable[*lastIndex],gTrackMarkerTable[actor->index]);
+ textNode=sMarkerTextNode1; indexBits=(u32)(u8)actor->index << 24; break;
  case 2:
- previous=&gMarkerLastIndex2; actor->event->flags |= 2;
- unlinkNode(&sMarkerTextNode2->node,gTrackMarkerTable[*previous],gTrackMarkerTable[actor->index]);
- entry=sMarkerTextNode2; indexBits=(u32)(u8)actor->index << 24; break;
+ lastIndex=&gMarkerLastIndex2; actor->event->flags |= 2;
+ unlinkNode(&sMarkerTextNode2->node,gTrackMarkerTable[*lastIndex],gTrackMarkerTable[actor->index]);
+ textNode=sMarkerTextNode2; indexBits=(u32)(u8)actor->index << 24; break;
  default:
- previous=&gMarkerLastIndex3; actor->event->flags |= 4;
- unlinkNode(&sMarkerTextNode3->node,gTrackMarkerTable[*previous],gTrackMarkerTable[actor->index]);
- entry=sMarkerTextNode3; indexBits=(u32)(u8)actor->index << 24; break;
+ lastIndex=&gMarkerLastIndex3; actor->event->flags |= 4;
+ unlinkNode(&sMarkerTextNode3->node,gTrackMarkerTable[*lastIndex],gTrackMarkerTable[actor->index]);
+ textNode=sMarkerTextNode3; indexBits=(u32)(u8)actor->index << 24; break;
  }
- *previous=(s32)indexBits >> 24;
- entry->flags=(entry->flags & ~0xFC) | 0xC;
+ *lastIndex=(s32)indexBits >> 24;
+ textNode->flags=(textNode->flags & ~0xFC) | 0xC;
 }

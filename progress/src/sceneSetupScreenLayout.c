@@ -20,8 +20,8 @@ void func_8011CC3C(void);
 void func_8011C430(void);
 void func_8011D3C0(void);
 
-/* Sets up the screen layout for the current border mode and clears the per-scene tables, then runs the scene's init. */
-/* Sets the screen layout for the current border mode, clears scene tables and runs the scene's init. */ void sceneSetupScreenLayout(void) {
+/* Sets the screen layout for the current border mode, clears scene tables and runs the scene's init. */
+void sceneSetupScreenLayout(void) {
     u16 baseX, flipX;
     u16 i, j;
 

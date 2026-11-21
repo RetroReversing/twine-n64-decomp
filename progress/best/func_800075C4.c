@@ -2,7 +2,8 @@
 
 void emitScissorFromWindow(void *);
 extern void *gTrackMarkerTable[];
-extern void * volatile sDisplayListCursor;
+typedef struct { u32 w0, w1; } Gfx;
+extern Gfx *sDisplayListCursor;
 
 void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
     f32 temp_fv1;
@@ -17,7 +18,7 @@ void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
     s32 var_v0_2;
     s32 var_v0_3;
     s32 var_v0_4;
-    void *temp_a0;
+    Gfx *cmd;
     void *temp_v0;
     void *temp_v0_2;
     void *temp_v0_3;
@@ -64,36 +65,35 @@ void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
         var_v0_4 = arg1 * 4;
     }
     emitScissorFromWindow(gTrackMarkerTable[arg1]);
-    temp_a0 = sDisplayListCursor;
-    sDisplayListCursor = temp_a0 + 8;
-    sDisplayListCursor = temp_a0 + 0x10;
-    sDisplayListCursor = temp_a0 + 0x18;
-    sDisplayListCursor = temp_a0 + 0x20;
-    (*(s32 *)((char *)(temp_a0) + 0)) = 0xE3000A01;
-    sDisplayListCursor = temp_a0 + 0x28;
-    (*(s32 *)((char *)(temp_a0) + 0x18)) = 0xFA000000;
-    sDisplayListCursor = temp_a0 + 0x30;
-    sDisplayListCursor = temp_a0 + 0x38;
-    (*(s32 *)((char *)(temp_a0) + 0x30)) = 0xE7000000;
-    sDisplayListCursor = temp_a0 + 0x40;
-    (*(s32 *)((char *)(temp_a0) + 0x3C)) = 0x8000;
-    sDisplayListCursor = temp_a0 + 0x48;
-    (*(s32 *)((char *)(temp_a0) + 0xC)) = 0xFFFDF6FB;
-    sDisplayListCursor = temp_a0 + 0x50;
-    (*(s32 *)((char *)(temp_a0) + 0x1C)) = (s32) ((arg2 << 0x18) | ((arg3 & 0xFF) << 0x10) | (arg4 << 8) | (arg0 & 0xFF));
-    (*(s32 *)((char *)(temp_a0) + 4)) = 0;
-    (*(s32 *)((char *)(temp_a0) + 8)) = 0xFCFFFFFF;
-    (*(s32 *)((char *)(temp_a0) + 0x10)) = 0xE200001C;
-    (*(s32 *)((char *)(temp_a0) + 0x14)) = 0x504340;
-    (*(s32 *)((char *)(temp_a0) + 0x20)) = 0xD9C0F9FA;
-    (*(s32 *)((char *)(temp_a0) + 0x24)) = 0;
-    (*(s32 *)((char *)(temp_a0) + 0x28)) = 0xD9FFFFFF;
-    (*(s32 *)((char *)(temp_a0) + 0x2C)) = 0x200004;
-    (*(s32 *)((char *)(temp_a0) + 0x34)) = 0;
-    (*(s32 *)((char *)(temp_a0) + 0x38)) = 0xE3001001;
-    (*(s32 *)((char *)(temp_a0) + 0x40)) = 0xD7000002;
-    (*(s32 *)((char *)(temp_a0) + 0x44)) = 0x80008000;
-    (*(s32 *)((char *)(temp_a0) + 0x48)) = (s32) (((var_s1 & 0x3FF) << 0xE) | (((var_s0 & 0x3FF) * 4) | 0xF6000000));
-    (*(s32 *)((char *)(temp_a0) + 0x4C)) = (s32) (((var_s3 & 0x3FF) << 0xE) | ((var_s2 & 0x3FF) * 4));
+    cmd = sDisplayListCursor++;
+    cmd->w0 = 0xE3000A01;
+    cmd->w1 = 0;
+    cmd = sDisplayListCursor++;
+    cmd->w0 = 0xFCFFFFFF;
+    cmd->w1 = 0xFFFDF6FB;
+    cmd = sDisplayListCursor++;
+    cmd->w0 = 0xE200001C;
+    cmd->w1 = 0x504340;
+    cmd = sDisplayListCursor++;
+    cmd->w0 = 0xFA000000;
+    cmd->w1 = (s32) ((arg2 << 0x18) | ((arg3 & 0xFF) << 0x10) | (arg4 << 8) | (arg0 & 0xFF));
+    cmd = sDisplayListCursor++;
+    cmd->w0 = 0xD9C0F9FA;
+    cmd->w1 = 0;
+    cmd = sDisplayListCursor++;
+    cmd->w0 = 0xD9FFFFFF;
+    cmd->w1 = 0x200004;
+    cmd = sDisplayListCursor++;
+    cmd->w0 = 0xE7000000;
+    cmd->w1 = 0;
+    cmd = sDisplayListCursor++;
+    cmd->w0 = 0xE3001001;
+    cmd->w1 = 0x8000;
+    cmd = sDisplayListCursor++;
+    cmd->w0 = 0xD7000002;
+    cmd->w1 = 0x80008000;
+    cmd = sDisplayListCursor++;
+    cmd->w0 = (s32) ((((var_s0 & 0x3FF) * 4) | ((var_s1 & 0x3FF) << 0xE)) | 0xF6000000);
+    cmd->w1 = (s32) (((var_s3 & 0x3FF) << 0xE) | ((var_s2 & 0x3FF) * 4));
 }
 

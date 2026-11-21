@@ -5,7 +5,7 @@ s32 func_80022A30();
 s32 func_80022AD8();
 s32 updateSaveMenuSprites();
 s32 refreshSlotMenuLabels();
-s32 func_80024EF0();
+s32 findSaveSlotByMode();
 s32 func_8002A644();
 s32 func_8002A7CC();
 s32 func_8002A9A8();
@@ -77,6 +77,6 @@ void func_8002424C(void) {
     func_8002A9A8(menu, 0);
     func_8002AC04(menu, 1);
     if ((u32)(((SaveState *)gMenuItems)->mode - 0x19) < 2)
-        func_8002A9A8(menu, (u8)func_80024EF0(sSaveMenuAction));
+        func_8002A9A8(menu, (u8)findSaveSlotByMode(sSaveMenuAction));
     ((SaveState *)gMenuItems)->refresh = 0;
 }
