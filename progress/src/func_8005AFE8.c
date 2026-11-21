@@ -5,13 +5,15 @@ typedef struct EffectState5A {
     s32 link;
     f32 minA,minB,nearRange,farRange;
     u16 distance;
-    u8 field16,field17,field18,field19,field1A,pad1B;
+    volatile u8 field16,field17,field18,field19,field1A;
+    u8 pad1B;
     Placement5A *placement;
     s32 field20;
     f32 rate;
     s16 owner,field2A;
     f32 inverseLife;
-    u8 field30,field31,field32,field33;
+    u8 field30,field31;
+    volatile u8 field32,field33;
 } EffectState5A;
 typedef struct Effect5A {
     u8 pad[0x24];
@@ -40,6 +42,7 @@ Effect5A *func_8005AFE8(EffectParams5A *params, Placement5A *placement, s32 owne
         EffectState5A *state = effect->state;
         f32 inverseLife;
         f32 farRange;
+        u16 field33, distance;
         state->field30 = params->field2C;
         state->field31 = params->field38;
         if (!params->life)
@@ -52,13 +55,15 @@ Effect5A *func_8005AFE8(EffectParams5A *params, Placement5A *placement, s32 owne
         state->rate = 0.01f;
         state->inverseLife = inverseLife;
         state->field32 = params->field2E;
+        field33 = params->field32;
         state->field18 = 0;
-        state->field33 = params->field32;
+        state->field33 = field33;
+        distance = params->distance;
         state->field19 = 255;
         state->field16 = 0;
         state->field17 = 0;
         state->field1A = 1;
-        state->distance = params->distance;
+        state->distance = distance;
         state->nearRange = sDistanceNearRange[params->distance];
         farRange = sDistanceFarRange[params->distance];
         state->link = -1;
