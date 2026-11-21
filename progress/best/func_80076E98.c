@@ -76,8 +76,8 @@ void func_80076E98(void *arg0) {
         M2C_FIELD(arg0, s16 *, 0x7C) = 6;
         M2C_FIELD(temp_s1, s8 *, 0x7F) = 6;
         temp_v0_2 = ((u32) M2C_FIELD(temp_s1, u32 *, 0x88) >> 0xF) & 0x3C;
-        func_80002C74(arg0, *(u16 *)((u8 *)&D_800C99AC + temp_v0_2), *(u16 *)((u8 *)&D_800C99AE + temp_v0_2));
         var_s2 = 1;
+        func_80002C74(arg0, *(u16 *)((u8 *)&D_800C99AC + temp_v0_2), *(u16 *)((u8 *)&D_800C99AE + temp_v0_2));
         break;
     case 1:
         M2C_FIELD(arg0, s16 *, 0x7C) = 4;

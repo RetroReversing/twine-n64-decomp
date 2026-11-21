@@ -6192,6 +6192,14 @@
   "score_after": 1911
  },
  {
+  "function": "func_8002F868",
+  "text": "Best historical score remains 800 from saved_best revision 2ec06b382607541e5818; our saved-source recheck/compile under current header was score 810, and correcting func_8002FBD4's case-6 call/prototype to the matched callee's `(void*, s16)` interface scored 980, so that change was reverted by retaining the best attempt. Local repair families tested (explicit loop backedge, forwarded call arguments, address temporary, sum shape, unsigned switch, one-shot call scope) did not improve the 810 candidate. Remaining mismatches mostly branch targets and call argument/register scheduling. Target case 6 assembly calls `func_8002FBD4` with arg0=$s1 (second function argument) and arg1=4; saved draft instead has three args `(arg0,arg1,4)` and is signature-incompatible. Correct signature is confirmed by matched func_8002FBD4: `void func_8002FBD4(void*, s16)`, but this source correction lowered match because broader branch layout/call placement shifted. Target branches from switch case cleanup are 4 bytes longer than current. Case 4 target's `func_8002B150` paths likely share `block_19`; target placement differs from current direct repeated call. Also note compiler warning in candidate around `func_80016160` pointer args. Exhausted 9/8 no-better compile count; start from saved best 800.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795164320.5684988,
+  "score_before": 800,
+  "score_after": 800
+ },
+ {
   "function": "findNearestSurfaceActor",
   "text": "Best score 1900 (85.2%, 128/129 instructions), improved from verified 2385 by simplifying final result selection to `if (var_s2 == NULL) var_s2 = (void *)((s32)var_s4 & -((s32)var_s4 != 0)); return (s32)var_s2;`. Tried accurate float prototype for func_8004886C, frame pointer locals, branch orientation variants, and volatile direct loads for D_800D2FC8/D_800D2FD4; latter did not alter code. Remaining mismatch starts at loop setup: target has stack pointers fp=sp+0x28 and s7=sp+0x38 before loop; candidate instead hoists D_800D2FC8 and D_800D2FD4 bases into s6/s5 and omits those two frame-address instructions. This shifts loop branch targets and register assignment; target retains func_8004DBD8 in s6, constant 1 in s5, output pointer sp+0x48 in s3. Last target-vs-candidate diff page was rows 0:70 via last_diff. Continue by expressing the two vector/frame pointers as address-taken stack objects so GCC allocates fp/s7 to those local addresses, then keep global data accesses inside the per-item loop.",
   "by": "codex-gpt-6-luna-14",
@@ -14704,6 +14712,14 @@
   "score_after": 35
  },
  {
+  "function": "func_8002F868",
+  "text": "Improved verified score 800 to 560 by const-qualified field reads (revision b47c3676fb37998dd281). Loop backedge, argument forwarding to func_80081730, call arity, signedness, declaration order and address sum trials did not improve. Passing arg1 to func_8002EFD8 worsened score; inspect call scheduling and switch branch layout. Case 6's func_8002FBD4 arguments merit checking against target.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795183346.59485,
+  "score_before": 800,
+  "score_after": 560
+ },
+ {
   "function": "func_80037DC0",
   "text": "Rechecked baseline 2565. Eight independent local repairs (signedness, declaration order, const reads, argument passthrough, result placement, goto restructuring) did not improve it. First mismatch is extra third argument at func_80034928; inspect its prototype and remaining control-flow/register differences. 46 local proposals remain on revision 3601bea5281c18317f0e.",
   "by": "codex-gpt-6.1-terra-4",
@@ -16822,6 +16838,14 @@
   "created_at": 1795184380.6689532,
   "score_before": 330,
   "score_after": 330
+ },
+ {
+  "function": "func_8002F868",
+  "text": "Best candidate verified at score 560 (96.4%), 156 target instructions. Six local-repair variants and two targeted arity experiments did not improve. Changing case 6 call from func_8002FBD4(arg0,arg1,4) to func_8002FBD4(arg1,4) scored 740; restoring original call recovered 560. Residual diff is small: 30 differing rows, chiefly branch offsets in three beqz instructions caused by 1\u20132 instruction path layout differences, plus register/delay-slot ordering around cases 1, 4, and 6. Candidate has an incompatible pointer warning near the ring-buffer copy; inspect that code and surrounding case/goto structure. func_80081730(arg0) and reducing func_8002B150 arity both worsened. Candidate saved at best source.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795184384.00736,
+  "score_before": 560,
+  "score_after": 560
  },
  {
   "function": "func_80023BD4",
@@ -27128,6 +27152,14 @@
   "score_after": 10807
  },
  {
+  "function": "func_8002F868",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Ordinary judge could not start; gcc-2.7.2-kmc is not installed. Target case 6 calls func_8002FBD4 with (arg1, 4); patch replacing (arg0, arg1, 4) was unscored. Case 0 passes (arg0, arg1) to func_8002EFD8. Target calls func_80016160 with just the value at arg0+0x2C and &D_800BFD74; var_a2/var_a3 are residual copy-loop registers. Target has one shared func_8002F2EC call. Retest after restoring the compiler.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795193987.698443,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
   "function": "UpdateSwitchedActorState",
   "text": "Released because its agent stopped (3 consecutive sessions ended without a build or investigation. Automatic retries paused.); its attempts are kept.",
   "by": "codex-gpt-6.2-sol-3",
@@ -32600,6 +32632,14 @@
   "score_after": 4345
  },
  {
+  "function": "func_8002F868",
+  "text": "Restored saved_best b47c3676fb37998dd281 immediately before handoff. Historical score 560 remains unverified on current inputs. Target assembly confirms func_8002FBD4 takes (pointer, s32): case 6 call is (arg1,4), cases 3/1/7 use (arg1,1/2/0). Attempted only changing prototype to (void *, s32), but compile failed since case 6 still had 3 args; no fresh valid result. Separate broad rewrite with correct case 6 arity scored 7753 and was discarded. Saved draft also appears suspicious in case 7 (counter incremented twice; func_80016160 called with extra args), plus incorrect declarations for D_80102EE0/EE8 likely addresses, so prioritize signatures/global declarations and case 7 data copy.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795202414.38323,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
   "function": "showTrackMarker",
   "text": "Current saved best score 6623. Derived from inherited m2c and exact matched callee evidence; correcting void func_800314E0 to call then var_a2=0 improved from 6718 to 6623. A typed rewrite scored 11733 and global-pointer/callee-argument rewrite scored 12270. No exact match. Target begins 0x48 frame, saves s4/s3/s2/s1/s0, retains arg0 in a0 until branch and then narrows to s2. Both initial func_800312F4 calls pass second argument zero, while candidate second call currently passes arg0 as second argument. Target func_800313DC receives arg1=0; candidate omits it. Target then loads *D_80109688 through s1 before passing; candidate direct global scalar expression causes different load patterns. Remaining mismatch primarily branch target/register lifetime and calls.",
   "by": "codex-gpt-6-luna-6",
@@ -34734,6 +34774,14 @@
   "created_at": 1795204532.264321,
   "score_before": 5555,
   "score_after": 5555
+ },
+ {
+  "function": "func_8002F868",
+  "text": "Accidentally compiled empty source, replacing candidate with empty. No useful recheck or source recovery possible from this claim revision. Historical best score 560; next agent should recover saved best via get_candidate(base=saved_best) and test/revise.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795204533.102257,
+  "score_before": 560,
+  "score_after": 560
  },
  {
   "function": "func_800156F4",
@@ -36952,6 +37000,14 @@
   "score_after": 2231
  },
  {
+  "function": "func_8002F868",
+  "text": "Structure: switch on s16 arg1->0x7A (cases 0..11, jump table), each case calls one helper then func_8002F2EC(arg0,arg1) via shared tail. Helper signatures: F8002EFD8(a0), F8002F068(a0,a1), F8002F37C(a0) returns s32 (andi 0xFF), F8002FBD4(a1,imm), F8002F560(a0) returns s32, F8002F240(a0,a1), B050(D_800E1584,1), B150(D_800E1584,0,0), B02C(D_80102EFC), F80081730() (andi 0xFFFF), 800283B0(), 80087E74(), 8003099C(u8,u8). Case 7 is a 36-byte copy loop into D_800BFD74 from D_800BFD08 + (v&1)*0x24, then func_80016160(arg0->0x2C, &D_800BFD74, a2, a3). Best so far: saved_best 560 (m2c-style draft). My two hand rewrites scored 2075 (worse): (a) per-case break with shared tail: target's case-6 false branch goes to a separate 'addu a0,s0; F2EC' block (.L8002FAB8) that my build merges, so beqz offset is 4 bytes short; (b) per-case explicit F2EC+return: same 2075, target keeps shared tail with j+delay-slot a0=s0. Untested: emit the shared tail F2EC call once with a0 re-copied from s0, and make case 9 jump into the block shared with case 4 (B150 call). Start from get_candidate(base=saved_best).",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795206987.47189,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
   "function": "func_800179E8",
   "text": "Best remains saved_best bbaad71e508d278d4596 (2277, with the odd __repair_call_balance if/else block around the first loop's func_8001792C call). Cleaned rewrite (same logic, plain 4-arg call in first loop, M2C_FIELD macro restored) = revision 28e84bcfe6c72411a3d7 scores 2502: target keeps s4=arg2 with sw s4 at 0x238, s6 zeroed, frame 0x250; cleaned version puts arg2 into s5 and stores at 0x23c. local repairs declaration_order/signedness on 28e84b: no change (2502). Untested next: start from saved_best and make the first-loop call in the form that keeps var_s4 in s4 (target sw $s4,0x238 before move $s4,$a2); check sp214/sp21C volatile store order (target stores a0 at 0x214 and a3 at 0x21c after the s-register saves).",
   "by": "api-claude-haiku-5-5-4",
@@ -38264,6 +38320,14 @@
   "score_after": 745
  },
  {
+  "function": "func_8002F868",
+  "text": "Restored historical saved_best revision b47c3676fb37998dd281 and verified current score 560. One exploratory rewrite scored 745, worse than saved best; candidate best remains 560. Main unresolved difference is call arguments/branch convergence: target carries move $a0,$s0 at shared tails, while candidate omits it; helper calls in cases 6/4/9 and switch default also need precise restructuring. Initial rewrite attempt failed to compile due C89 declarations/symbol context, then baseline recheck done. Move-on budget exhausted (7/4).\nRestored and verified current score 560; exploratory simplified switch scored 745, so saved best recovered.\nNo improvement; target has shared-tail argument move $a0,$s0 where candidate misses it, with ensuing argument/register and branch target differences.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795208201.572507,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
   "function": "func_8001A4F4",
   "text": "[Released without compiling it once; notes not checked by a compile.] Released at move-on limit (9/8). Saved best 540936280aac5ba25727 rechecks at 255. Source is still m2c-style with gotos into case 3/5/8 shared tails. Prior tries (byte selector temps, scoped local, shorter rewrite, ++/-- variant) did not beat 255. Mismatch: target uses v0 for D_801002A0 load/increment, baseline uses s1. Untested idea: rewrite the three selector-update tails as one shared helper-free block with explicit `D_801002A0 = sel + 1` in each arm, and move the D_80112F80/81/7F checks to the front of each case so the shared store lands in the same delay slot.",
   "by": "api-claude-haiku-5-5-3",
@@ -39390,6 +39454,14 @@
   "created_at": 1795209197.783247,
   "score_before": null,
   "score_after": null
+ },
+ {
+  "function": "func_8002F868",
+  "text": "Stalled at saved best 560 (rev b47c3676fb37998dd281). This session: rewrote as clean switch with break + shared tail func_8002F2EC; scored 2275 (worse). Diffs: target duplicates the tail per case (beqz/j with delay slot 'move $a0,$s0' and 'move $a1,$s1'), compiler does not reproduce that from a single shared call. Case 6 must call FBD4(arg1,4) not FBD4(arg0,arg1,4). Case 9 and case 4 share a B150 path (target .L8002FA48). Case 7 copy: target uses lw/sw of 4 words per iteration plus tail word, and loads D_800BFD74 via addiu (address, not lw) in a3, so the copy destination is &D_800BFD74 passed as pointer not deref. Untried: write each case with its own explicit tail call func_8002F2EC(arg0,arg1) (duplicated, using return), which mirrors the per-case j tails.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795209200.696534,
+  "score_before": 560,
+  "score_after": 560
  },
  {
   "function": "func_800449A0",
@@ -41096,6 +41168,14 @@
   "score_after": 1300
  },
  {
+  "function": "func_8002F868",
+  "text": "Stalled after 4 compiles. Best remains saved_best 560 (rev b47c3676fb37998dd281). Clean-switch rewrite (rev cf274e5c077df2f9b61f) scores 1275: corrected call args (case 0 EFD8(arg0,arg1), case 6 FBD4(arg1,4), case 5 F068(arg0,arg1), case 8 F240(arg0,arg1)) but the case 4/9 shared B150 block and the tail-branch layout still differ (beqz encodings at 0x250/0x254). Next: restart from saved_best and fix only the argument forms, not the switch structure.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795210259.407371,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
   "function": "func_80092F9C",
   "text": "[Released without compiling it once; notes not checked by a compile.] Prior session verified 190 and exhausted six variants before interruption. Volatile parameter 1179, unsigned word 600, volatile byte read 1018, early flag tautology 710, word-to-byte cast and mask unchanged. Remaining mismatch is prologue save/move of arg2 and flag byte load/mask scheduling near first blez.",
   "by": "codex-gpt-6.2-sol-9",
@@ -42583,6 +42663,15 @@
   "score_before": 5,
   "score_after": 5,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:01373c06c8bad58a2cdfe6fe68cbe058a4c94cecb35b07332659162093e21354"
+ },
+ {
+  "function": "func_8002F868",
+  "text": "Not matched. Saved best 560 (rev b47c3676fb37998dd281) remains. Tried a clean switch rewrite with break and shared tail func_8002F2EC (rev 99455efece456edf4a03): scored 5318, worse. Target has per-case duplicated tails (beqz/j to a shared exit with delay-slot moves), and the 0x20 frame vs 0x28 mismatch suggests a different local set (no p/q/n temps needed in target for case 7 layout). Case 4/9 share the B150 block. Also the rewrite mismatched the jtbl switch shape. Next step: start from saved_best, keep the draft's per-case returns, and fix only the case 6 call FBD4(arg1,4) and case 0/5/8 arg pairs before touching frame size.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795211450.097337,
+  "score_before": 5318,
+  "score_after": 5318,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
  },
  {
   "function": "actorUpdateGatedState",
@@ -46798,6 +46887,15 @@
   "score_before": 3718,
   "score_after": 3718,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:523a31d9605eb22f1f57867e45478766397a03ee51c874a755fe09976d82ee35"
+ },
+ {
+  "function": "func_8002F868",
+  "text": "Moving the shared B150 block to case 9 and correcting calls 0/6 improved 560 to 245. Four variants then tied at 245, reaching the 4-compile move-on threshold. Case 4 branch polarity and case 7 counter/parity registers still differ.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795215619.474011,
+  "score_before": 2570,
+  "score_after": 245,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
  },
  {
   "function": "func_80012F50",
@@ -51353,6 +51451,15 @@
   "score_before": 40,
   "score_after": 40,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:9482edf9e382eb9f79825a14e65a6bd44d9059bbd33d883fe0d1a61ed1b3d77d"
+ },
+ {
+  "function": "func_8002F868",
+  "text": "Judge stopped at 5/4. Best 35: case 4 branch fixed with explicit default-tail goto. Seven v1/a0 differences remain in case 7. Signed temp and split stride tied; do/while scored 300.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795222291.746958,
+  "score_before": 245,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
  },
  {
   "function": "func_80019E28",
@@ -56198,6 +56305,15 @@
   "score_before": 1590,
   "score_after": 1140,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:03d16b97e89a0f3db7effa48c95d895070aa466a90290e8660c7954b92387d33"
+ },
+ {
+  "function": "func_8002F868",
+  "text": "Rechecked baseline 35; six declaration-order variants did not improve the seven register-only differences around D_800BFC92.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795230470.738434,
+  "score_before": 35,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
  },
  {
   "function": "func_8001CCF4",
@@ -62070,6 +62186,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
  },
  {
+  "function": "func_8002F868",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nVerified baseline 35, matching 156/156 instructions except seven register allocation rows in circular-buffer index update: target loads/increments u16 into v1, then masks into a0; candidate holds it in a0 then masks into v1. Two declaration-order variants had same score/diff, no effect. A no-op local compile also scored 35. Existing handoffs indicate switch/case branch structure and call arguments are well explored; next try alter the lifetime/use of temp_v1_2 versus temp_v1 around D_800BFC92 increment to make raw loaded halfword occupy v1.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795237334.109023,
+  "score_before": 35,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
+ },
+ {
   "function": "func_8000D6A0",
   "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 3; 40 differing rows (30 register, 10 reordered; advisory).\nTarget: lui $a2, %hi(gObjectRecords)\nCandidate: lui $a1, %hi(gObjectRecords)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s2, 0x40($sp)\n  = move $s2, $a0\nr T: lui $a2, %hi(gObjectRecords) | C: lui $a1, %hi(gObjectRecords)\nr T: lw $a2, %lo(gObjectRecords)($a2) | C: lw $a1, %lo(gObjectRecords)($a1)\n  = sll $v0, $s2, 1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAutomatic handoff at verified 450, revision 67fca2e46e2b4758fa1d. Two-arg buildRotationMatrixS16 confirmed from callee (a2 overwritten immediately); integer offset-before-base restored the missing addu, and explicit integer index-first address to func_800839F0 fixed operand order. Target and candidate both 218 instructions; 30 register and 10 reorder rows remain. Casting 0xFF to u8 was identical. Next step: read parentRecord->parent into a local before both object-pointer loads to probe the early lbu/lw allocation.",
   "by": "codex-gpt-6.2-sol-6",
@@ -62911,6 +63036,14 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:42bf20b37e4af224ef31ae7691695f211aee8e22ce696d664d09636e1034913d"
  },
  {
+  "function": "steerSaveSlotActors",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not started: the matched C is a messy m2c draft with nested blocks and repair casts. Understanding it needs reading actorSteerTowardTarget and the sSaveSlotMarkers/gBonusObjects tables first. Next step: read the callee, then rename it and the globals, then make_readable with a clean loop shape.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795238510.639951,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
   "function": "func_8007AABC",
   "text": "Saved source omits forwarded arg1; explicit arg1 preserves score 10 with same instruction diff.",
   "by": "codex-gpt-6.1-terra-5",
@@ -62938,136 +63071,39 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ac492b18eb039cceb5e0639ccfc74fb1f45446bd015178fe5cae1002687da8e9"
  },
  {
-  "function": "func_8002F868",
-  "text": "Best historical score remains 800 from saved_best revision 2ec06b382607541e5818; our saved-source recheck/compile under current header was score 810, and correcting func_8002FBD4's case-6 call/prototype to the matched callee's `(void*, s16)` interface scored 980, so that change was reverted by retaining the best attempt. Local repair families tested (explicit loop backedge, forwarded call arguments, address temporary, sum shape, unsigned switch, one-shot call scope) did not improve the 810 candidate. Remaining mismatches mostly branch targets and call argument/register scheduling. Target case 6 assembly calls `func_8002FBD4` with arg0=$s1 (second function argument) and arg1=4; saved draft instead has three args `(arg0,arg1,4)` and is signature-incompatible. Correct signature is confirmed by matched func_8002FBD4: `void func_8002FBD4(void*, s16)`, but this source correction lowered match because broader branch layout/call placement shifted. Target branches from switch case cleanup are 4 bytes longer than current. Case 4 target's `func_8002B150` paths likely share `block_19`; target placement differs from current direct repeated call. Also note compiler warning in candidate around `func_80016160` pointer args. Exhausted 9/8 no-better compile count; start from saved best 800.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795164320.5684988,
-  "score_before": 800,
-  "score_after": 800
- },
- {
-  "function": "func_8002F868",
-  "text": "Improved verified score 800 to 560 by const-qualified field reads (revision b47c3676fb37998dd281). Loop backedge, argument forwarding to func_80081730, call arity, signedness, declaration order and address sum trials did not improve. Passing arg1 to func_8002EFD8 worsened score; inspect call scheduling and switch branch layout. Case 6's func_8002FBD4 arguments merit checking against target.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795183346.59485,
-  "score_before": 800,
-  "score_after": 560
- },
- {
-  "function": "func_8002F868",
-  "text": "Best candidate verified at score 560 (96.4%), 156 target instructions. Six local-repair variants and two targeted arity experiments did not improve. Changing case 6 call from func_8002FBD4(arg0,arg1,4) to func_8002FBD4(arg1,4) scored 740; restoring original call recovered 560. Residual diff is small: 30 differing rows, chiefly branch offsets in three beqz instructions caused by 1\u20132 instruction path layout differences, plus register/delay-slot ordering around cases 1, 4, and 6. Candidate has an incompatible pointer warning near the ring-buffer copy; inspect that code and surrounding case/goto structure. func_80081730(arg0) and reducing func_8002B150 arity both worsened. Candidate saved at best source.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795184384.00736,
-  "score_before": 560,
-  "score_after": 560
- },
- {
-  "function": "func_8002F868",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Ordinary judge could not start; gcc-2.7.2-kmc is not installed. Target case 6 calls func_8002FBD4 with (arg1, 4); patch replacing (arg0, arg1, 4) was unscored. Case 0 passes (arg0, arg1) to func_8002EFD8. Target calls func_80016160 with just the value at arg0+0x2C and &D_800BFD74; var_a2/var_a3 are residual copy-loop registers. Target has one shared func_8002F2EC call. Retest after restoring the compiler.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795193987.698443,
-  "score_before": 560,
-  "score_after": 560
- },
- {
-  "function": "func_8002F868",
-  "text": "Restored saved_best b47c3676fb37998dd281 immediately before handoff. Historical score 560 remains unverified on current inputs. Target assembly confirms func_8002FBD4 takes (pointer, s32): case 6 call is (arg1,4), cases 3/1/7 use (arg1,1/2/0). Attempted only changing prototype to (void *, s32), but compile failed since case 6 still had 3 args; no fresh valid result. Separate broad rewrite with correct case 6 arity scored 7753 and was discarded. Saved draft also appears suspicious in case 7 (counter incremented twice; func_80016160 called with extra args), plus incorrect declarations for D_80102EE0/EE8 likely addresses, so prioritize signatures/global declarations and case 7 data copy.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795202414.38323,
-  "score_before": 560,
-  "score_after": 560
- },
- {
-  "function": "func_8002F868",
-  "text": "Accidentally compiled empty source, replacing candidate with empty. No useful recheck or source recovery possible from this claim revision. Historical best score 560; next agent should recover saved best via get_candidate(base=saved_best) and test/revise.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795204533.102257,
-  "score_before": 560,
-  "score_after": 560
- },
- {
-  "function": "func_8002F868",
-  "text": "Structure: switch on s16 arg1->0x7A (cases 0..11, jump table), each case calls one helper then func_8002F2EC(arg0,arg1) via shared tail. Helper signatures: F8002EFD8(a0), F8002F068(a0,a1), F8002F37C(a0) returns s32 (andi 0xFF), F8002FBD4(a1,imm), F8002F560(a0) returns s32, F8002F240(a0,a1), B050(D_800E1584,1), B150(D_800E1584,0,0), B02C(D_80102EFC), F80081730() (andi 0xFFFF), 800283B0(), 80087E74(), 8003099C(u8,u8). Case 7 is a 36-byte copy loop into D_800BFD74 from D_800BFD08 + (v&1)*0x24, then func_80016160(arg0->0x2C, &D_800BFD74, a2, a3). Best so far: saved_best 560 (m2c-style draft). My two hand rewrites scored 2075 (worse): (a) per-case break with shared tail: target's case-6 false branch goes to a separate 'addu a0,s0; F2EC' block (.L8002FAB8) that my build merges, so beqz offset is 4 bytes short; (b) per-case explicit F2EC+return: same 2075, target keeps shared tail with j+delay-slot a0=s0. Untested: emit the shared tail F2EC call once with a0 re-copied from s0, and make case 9 jump into the block shared with case 4 (B150 call). Start from get_candidate(base=saved_best).",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795206987.47189,
-  "score_before": 560,
-  "score_after": 560
- },
- {
-  "function": "func_8002F868",
-  "text": "Restored historical saved_best revision b47c3676fb37998dd281 and verified current score 560. One exploratory rewrite scored 745, worse than saved best; candidate best remains 560. Main unresolved difference is call arguments/branch convergence: target carries move $a0,$s0 at shared tails, while candidate omits it; helper calls in cases 6/4/9 and switch default also need precise restructuring. Initial rewrite attempt failed to compile due C89 declarations/symbol context, then baseline recheck done. Move-on budget exhausted (7/4).\nRestored and verified current score 560; exploratory simplified switch scored 745, so saved best recovered.\nNo improvement; target has shared-tail argument move $a0,$s0 where candidate misses it, with ensuing argument/register and branch target differences.",
+  "function": "func_8006F634",
+  "text": "Baseline 2053 rechecked. It contains an undeclared jump-table reference, so compilation was not available from the source as given. A structured rewrite replacing indirect jump table with if(i==7||i==14) loop compiled but scored 7852 and introduced .rodata+0 relocation; discard it. Target switch dispatch is via external jtbl_800D46A8, with active body at table indices 7 and 14; source switch output had historically matched much better than the if rewrite. Next step: declare/use the actual project jump-table data symbol from context or express the switch as a real integer switch on the loop index (cases 7,14) and compile, avoiding local static table emission.",
   "by": "codex-gpt-6-luna-15",
-  "created_at": 1795208201.572507,
-  "score_before": 560,
-  "score_after": 560
+  "created_at": 1795238600.028856,
+  "score_before": 7852,
+  "score_after": 7852,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5f1240455833c193d0b64acc232b0c5f0d3f933206b7ae33d6a0061bc2d3d301"
  },
  {
-  "function": "func_8002F868",
-  "text": "Stalled at saved best 560 (rev b47c3676fb37998dd281). This session: rewrote as clean switch with break + shared tail func_8002F2EC; scored 2275 (worse). Diffs: target duplicates the tail per case (beqz/j with delay slot 'move $a0,$s0' and 'move $a1,$s1'), compiler does not reproduce that from a single shared call. Case 6 must call FBD4(arg1,4) not FBD4(arg0,arg1,4). Case 9 and case 4 share a B150 path (target .L8002FA48). Case 7 copy: target uses lw/sw of 4 words per iteration plus tail word, and loads D_800BFD74 via addiu (address, not lw) in a3, so the copy destination is &D_800BFD74 passed as pointer not deref. Untried: write each case with its own explicit tail call func_8002F2EC(arg0,arg1) (duplicated, using return), which mirrors the per-case j tails.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795209200.696534,
-  "score_before": 560,
-  "score_after": 560
- },
- {
-  "function": "func_8002F868",
-  "text": "Stalled after 4 compiles. Best remains saved_best 560 (rev b47c3676fb37998dd281). Clean-switch rewrite (rev cf274e5c077df2f9b61f) scores 1275: corrected call args (case 0 EFD8(arg0,arg1), case 6 FBD4(arg1,4), case 5 F068(arg0,arg1), case 8 F240(arg0,arg1)) but the case 4/9 shared B150 block and the tail-branch layout still differ (beqz encodings at 0x250/0x254). Next: restart from saved_best and fix only the argument forms, not the switch structure.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795210259.407371,
-  "score_before": 560,
-  "score_after": 560
- },
- {
-  "function": "func_8002F868",
-  "text": "Not matched. Saved best 560 (rev b47c3676fb37998dd281) remains. Tried a clean switch rewrite with break and shared tail func_8002F2EC (rev 99455efece456edf4a03): scored 5318, worse. Target has per-case duplicated tails (beqz/j to a shared exit with delay-slot moves), and the 0x20 frame vs 0x28 mismatch suggests a different local set (no p/q/n temps needed in target for case 7 layout). Case 4/9 share the B150 block. Also the rewrite mismatched the jtbl switch shape. Next step: start from saved_best, keep the draft's per-case returns, and fix only the case 6 call FBD4(arg1,4) and case 0/5/8 arg pairs before touching frame size.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795211450.097337,
-  "score_before": 5318,
-  "score_after": 5318,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
- },
- {
-  "function": "func_8002F868",
-  "text": "Moving the shared B150 block to case 9 and correcting calls 0/6 improved 560 to 245. Four variants then tied at 245, reaching the 4-compile move-on threshold. Case 4 branch polarity and case 7 counter/parity registers still differ.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795215619.474011,
-  "score_before": 2570,
-  "score_after": 245,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
- },
- {
-  "function": "func_8002F868",
-  "text": "Judge stopped at 5/4. Best 35: case 4 branch fixed with explicit default-tail goto. Seven v1/a0 differences remain in case 7. Signed temp and split stride tied; do/while scored 300.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795222291.746958,
-  "score_before": 245,
-  "score_after": 35,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
- },
- {
-  "function": "func_8002F868",
-  "text": "Rechecked baseline 35; six declaration-order variants did not improve the seven register-only differences around D_800BFC92.",
+  "function": "create_player_state_objects",
+  "text": "Nested state checks with shared create label scored 873, but claim ended and candidate reverted. Integer-cast table address left output unchanged. Extra s5 and 0x30 frame come from hoisting table address alongside base and special. Next: force byte load via global base plus offset without keeping the table base live across calls.",
   "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795230470.738434,
-  "score_before": 35,
-  "score_after": 35,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
+  "created_at": 1795238638.2872572,
+  "score_before": 1865,
+  "score_after": 873,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
  },
  {
-  "function": "func_8002F868",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nVerified baseline 35, matching 156/156 instructions except seven register allocation rows in circular-buffer index update: target loads/increments u16 into v1, then masks into a0; candidate holds it in a0 then masks into v1. Two declaration-order variants had same score/diff, no effect. A no-op local compile also scored 35. Existing handoffs indicate switch/case branch structure and call arguments are well explored; next try alter the lifetime/use of temp_v1_2 versus temp_v1 around D_800BFC92 increment to make raw loaded halfword occupy v1.",
+  "function": "func_80005D04",
+  "text": "Clean rewrite (no uninit vars) reached 1520 (rev 2af15bf4bf342ee0a248; 151 vs 150 insns, frame 0x50 OK via `volatile s32 scratch[2]`), worse than saved 1150 but semantically valid. Structure: hdr word; floats loop with u8* a/b/d using +8/+0xC/+0x10 offsets in goto-loop with draft's interleaved sub/mul/add order; packed loop off=(i+flt)*4, words at +8; callback loop base=flt+count. Remaining: regalloc only \u2014 target flt in $t2 / flag $t3 (mine $t1/$t2), off in $a0 (mine $a2), target schedules shifts of va between addu and 2nd lw, andi of ay/az after first mul; target packed loop store in bnez delay slot (do-while form made frame drop to 0x48 and scored worse 1669). Prologue order differs (target saves $s4, moves a1->s4, lw first). Next step: keep rev 2af15..., try adding a local for the packed-loop word pointer or swapping order of arg1/arg2 reads to shift temp numbering.\nclean rewrite w/ draft-ordered float loop and draft-ordered packed temps, volatile s32 scratch[2] for 0x50 frame\n1520, only regalloc/scheduling diffs remain (t1/t2 vs t2/t3, a2 vs a0)",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795238645.72366,
+  "score_before": 4310,
+  "score_after": 1520,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2d9064b4426cc052cee372f3d2335f0b9de596e13ffde6eba1c00530f11b76fb"
+ },
+ {
+  "function": "func_80082D24",
+  "text": "Verified current best score 50 after a trig-expression rewrite regressed to 2507. Restored exact saved best; no untried applicable local repairs. Remaining 10 differences are FPR register allocation/order only; target sine table load in f2, candidate f0, with downstream differences. Earlier sessions explored statement order, operand order and local repair variants.\nReordered trig expressions scored 2507; saved best recompiled at 50. Applicable local repair search found no untried options.\n88 instruction body; only 10 register differences remain. Target table value in f2 vs candidate f0.",
   "by": "codex-gpt-6-luna-20",
-  "created_at": 1795237334.109023,
-  "score_before": 35,
-  "score_after": 35,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
- },
- {
-  "function": "steerSaveSlotActors",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not started: the matched C is a messy m2c draft with nested blocks and repair casts. Understanding it needs reading actorSteerTowardTarget and the sSaveSlotMarkers/gBonusObjects tables first. Next step: read the callee, then rename it and the globals, then make_readable with a clean loop shape.",
-  "by": "api-claude-haiku-5-5-12",
-  "created_at": 1795238510.639951,
-  "score_before": 0,
-  "score_after": 0
+  "created_at": 1795238662.5909052,
+  "score_before": 2507,
+  "score_after": 50,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
  }
 ]
