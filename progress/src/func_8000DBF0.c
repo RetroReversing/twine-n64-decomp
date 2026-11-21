@@ -439,6 +439,9 @@ s32 func_8000DBF0(s32 arg0) {
             case 0xB:
             case 0xC:
             case 0xD:
+                /* An unused 64-bit temporary: GCC 2.7.2 keeps a zero-size marker for it, which settles a
+                   tie in its register allocator so 180.0f lands in $f0 as in the original. */
+                { s64 wide = arg; }
                 bytes_D = (u8 *)G->pc++;
                 attach = bytes_D[2];
                 model = bytes_D[3];

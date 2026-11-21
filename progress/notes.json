@@ -2232,14 +2232,6 @@
   "score_after": null
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Not attempted: 9704 bytes, a large switch-based command interpreter (switch over op = temp_a3/temp_t0 & 0x3F with ~40 cases plus a second switch over 0x33 subcodes and a per-object 0x38-iteration update loop). The m2c draft's switch/goto structure is only partly right; needs careful per-case recovery. Consider splitting first.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056832.553044,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_800561BC",
   "text": "10012-byte function, 2503 insns; m2c draft is heavily goto-tangled (switch 1 with fallthrough into block_19/block_262/etc., switch 2/3 irregular). Draft does not compile: undeclared spill vars sp54/sp58/sp64/sp68 (adding them as f32 compiles past that), and many 'too few arguments' errors from func_80045CF8/func_80045D2C/func_80047E4C/func_800851E0 which need arity fixes in the header (the draft passes wrong arg counts). Also prototype caller disagreement for func_80044670/func_80032220. Recommend splitting into per-case sub-functions only after reconstructing the real control flow. Not attempted beyond the sp54 declaration patch (revision 3d6f85d51949b69314bf, non-compiling).",
   "by": "permuter-25769805351",
@@ -2400,14 +2392,6 @@
   "score_after": null
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Not attempted. 9704-byte bytecode interpreter: a do/while loop over a u32 opcode stream (switch on temp_t0 & 0x3F, 35+ cases, nested switch 2 for case 33 and switch 3 over 0x38 actor slots of 0xD4 bytes each at D_800B2710). Source exceeds the candidate-size budget as-is and the draft has many undeclared temps. Suggest splitting into per-opcode helpers or the post-loop update loop (switch 3, the 'do { ... } while (var_s2_2 < 0x38)' tail) with split_function/report_boundary before matching any part.",
-  "by": "permuter-25769805351",
-  "created_at": 1795057755.217698,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_80014EB0",
   "text": "Best 13736 (74% match), revision 1b1fccf35290410de56f: control flow mostly right (per-node list walk setting flag 0x800 into D_80109DC4 list, box[4] f32 bounds, sp10[16] pending list, recursive call at end). Remaining big mismatch is stack frame: target frame is 0x110 with saves at 0x108(fp) etc; mine is 0xd8, so an extra ~0x38 bytes of locals are missing (probably a local matrix/struct buffer, since D_80102E68 is used as scratch). Also spAC lives at 0xAC in target; the sp10 array and box locations need to be matched. Callee prototypes: func_80082BD0 takes (void*,u8) in some calls and zero args in others (I used unprototyped ()). func_8003F918 is (f32,f32,s32,s32) per matched caller; I passed f32 args. Not tried: adding a local struct to enlarge the frame, and inlining the 4-element matrix copies as a struct copy.",
   "by": "permuter-25769805351",
@@ -2532,14 +2516,6 @@
   "text": "Not compiled. 9068 bytes, the largest kind of collision-style function (multi-stage collision loops, many f32 temps, sp188/sp184 undeclared, several float/pointer confusions in m2c). Needs a region-by-region approach; not a first-pass match. Suggest splitting the three nested loops (loop_3 body, loop_129 body, block_274 tail) and matching the tail (block_274..block_304, small) first.",
   "by": "permuter-25769805351",
   "created_at": 1795058693.112801,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Not attempted this session. 9704-byte bytecode interpreter (do/while over u32 opcode stream, switch on temp_t0 & 0x3F with 35+ cases, nested switch for case 33, post-loop switch over 0x38 actor slots of 0xD4 bytes at D_800B2710). The m2c candidate is far over a practical source budget and has many undeclared temps. Suggest splitting into per-opcode static helpers (or the post-loop actor update loop) and matching each separately, starting with the smallest cases. Candidate revision 8147400dbdea5fa8754e left unchanged.",
-  "by": "permuter-25769805351",
-  "created_at": 1795058706.338119,
   "score_before": null,
   "score_after": null
  },
@@ -8964,14 +8940,6 @@
   "text": "Inherited m2c draft does not compile. Casting M2C_BITWISE through s32 removed float-to-pointer errors, exposing undeclared stack components spA4/A8/AC, spF4/F8/FC, sp104/108, sp114/118, sp154/158, sp164/168, sp174/178 and sp184/188; several integer address dereferences also need pointer types. Calls to func_80083A6C and func_80083B64 have inconsistent inferred arities. Reconstruct stack arrays and call prototypes from assembly before tuning.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795177344.6764648,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_8000DBF0",
-  "text": "The 9704-byte function's machine draft exceeds the judge's 65536-byte source limit. Removing the initial comment was insufficient and no compiling baseline exists. Next experiment: compact the generated draft substantially (remove repetitive comments and whitespace), then address its type errors before tuning.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795177345.75382,
   "score_before": null,
   "score_after": null
  },
@@ -38432,14 +38400,6 @@
   "score_after": 11654
  },
  {
-  "function": "func_8000DBF0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No compiling baseline was available: the inherited m2c source exceeds the 65,536-byte source limit, and removal of the initial comment alone was already reported insufficient. The function is a very large opcode interpreter with more than 35 switch cases plus a post-loop actor update. Candidate is otherwise incomplete/poorly typed, so no compiler diff was obtained in this pass. Next step: compact the generated draft substantially (especially repetitive whitespace), then fix compile errors in bounded batches; consider splitting work by extracting opcode groups or the post-loop actor update only if the project tool supports separate claimed boundaries. Keep revision 8147400dbdea5fa8754e.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795209195.988078,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "updateMenuStateMachine",
   "text": "Stalled at saved best 560 (rev b47c3676fb37998dd281). This session: rewrote as clean switch with break + shared tail func_8002F2EC; scored 2275 (worse). Diffs: target duplicates the tail per case (beqz/j with delay slot 'move $a0,$s0' and 'move $a1,$s1'), compiler does not reproduce that from a single shared call. Case 6 must call FBD4(arg1,4) not FBD4(arg0,arg1,4). Case 9 and case 4 share a B150 path (target .L8002FA48). Case 7 copy: target uses lw/sw of 4 words per iteration plus tail word, and loads D_800BFD74 via addiu (address, not lw) in a3, so the copy destination is &D_800BFD74 passed as pointer not deref. Untried: write each case with its own explicit tail call func_8002F2EC(arg0,arg1) (duplicated, using return), which mirrors the per-case j tails.",
   "by": "api-claude-haiku-5-5-6",
@@ -38606,14 +38566,6 @@
   "created_at": 1795209282.4641962,
   "score_before": 450,
   "score_after": 450
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Recovered inherited claim, but candidate C is empty and no source was saved. Brief confirms the generated 9704-byte opcode interpreter draft exceeds 65536 bytes and has no compiling draft. Attempted redraft, but it requires real nonempty C declarations and cannot be used without struct/prototype evidence. No compile was possible; next agent should obtain the draft through get_function(section=brief), compact it below source limit while preserving semantics, then compile and resolve compile errors.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795209282.7163022,
-  "score_before": null,
-  "score_after": null
  },
  {
   "function": "func_80005D04",
@@ -40232,14 +40184,6 @@
   "score_after": 45
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Inherited machine draft was rejected as source too large; saved candidate was empty. A fresh minimal stub compiled but scored 242465 (2 instructions vs 2426), so no useful C baseline. Function is a 9.7KB interpreter/update routine with a large switch and frame; next agent should obtain/regenerate an abridged or machine draft under source-size limit and progressively simplify declarations/expressions. Current compiler is gcc-2.7.2-kmc -O2. No structural tuning attempted.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795210474.643122,
-  "score_before": 242465,
-  "score_after": 242465
- },
- {
   "function": "func_80039A10",
   "text": "Saved candidate remains revision cc37d590e4fbeb9eeaee. Local repair batch reduced current score from 29246 to 19820 with an explicit outer-loop label/goto. One volatile local patch scored 20217, so it was worse; retain the lower-scoring candidate. Persistent issue is wrong inferred prototype/argument positions causing frame 0x80 vs target 0x58; target clearly loads stack args at offsets 0x68-0x8c after 0x58 frame. Candidate warning: assignment makes pointer from integer and .rodata references at +0/+8. Next investigate function signature/argument widths and fix pointer arithmetic/store model; then retry frame and prologue.\nExplicit outer-loop label/goto repair (best 19820 from 29246); volatile spC variant scored 20217, worse. No function matched.\nFrame remains 0x80 vs target 0x58; score variation only, diagnostics mention pointer-from-integer and spurious .rodata refs.",
   "by": "codex-gpt-6-luna-13",
@@ -41428,15 +41372,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:dd95f59897cac98b3bb9e1f240d0736998e9edee0b7c3a58be2aaca8a1706a1e"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Stub rechecked at 242465 (2 generated vs 2426 target instructions). Inherited m2c source is rejected above 65536 bytes, and this is a 9.7KB interpreter with 35+ switch cases. No source-size-safe draft or viable C candidate available; repeated stub tuning would have no value. Next step: request/produce a compact machine draft with comments and redundant temporaries removed, or reconstruct switch cases from target jump tables.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795211415.509491,
-  "score_before": 242465,
-  "score_after": 242465,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_80022290",
   "text": "Rechecked inherited best 75. Rewrote with matched callee varargs signature and explicit pointer arithmetic; scored 80. Struct-based global modeling then scored 85 (byte offset became 0x29 instead of target 0x2D). Restored baseline. Main remaining code difference in inherited source is callee/global address allocation around loading D_80109BB0 again after func_80087100; target moves returned v0 to a2 before reloading global into v0 and loads its +0x18 field. Next step: alter global declaration/address expression to get global pointer reload allocated to v0 and correct +0x18 offset while keeping exact matched call signature.",
   "by": "codex-gpt-6-luna-19",
@@ -42382,15 +42317,6 @@
   "score_after": 75440
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Prior full C draft and fresh redraft both exceed the 65,536-byte source limit. Current saved candidate is only a stub; verified stub score remains 242465. Tried local width_promotion; same score and no improvement. Next step: obtain a reduced draft or reconstruct the large switch body from assembly in several concise C blocks, then compile.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795212989.985893,
-  "score_before": 242465,
-  "score_after": 242465,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_80044538",
   "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at saved_best e84317ed (score 875, 18 mismatches). Not re-compiled this session; prior trials (per handoff) covered signedness/declaration_order local repairs, dummy locals, direct p=D_800C0788, removing stack_pad (881), moving i=0 into do-loop (1070). Persistent diff: target keeps the D_800C0788 base in $a3 (lui $a3 + addu with $v1 cursor) and hoists t1=4 and t0=arg0<<4 before the loop, reloading D_800C078C count each iteration; candidate allocates base to $a1. Next step: try a loop with an explicit index variable over D_800C0788[arg0] base computed once into a separate u8* local declared after the count guard, keeping i as u32 and the count reloaded through D_800C078C[arg0].f0 each iteration (untested variant of the current shape).",
   "by": "api-claude-haiku-5-5-7",
@@ -42786,14 +42712,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:ed4755f1364c8d2ac83c21f5c1595e47edf708e94d7d0d89b79b137ccb3328b0"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Only the stub is saved; full m2c draft exceeds the compiler source limit. No reduced draft is available in candidate state, and no viable patch was possible.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795213410.2409558,
-  "score_before": 242465,
-  "score_after": 242465
- },
- {
   "function": "func_8009A0E4",
   "text": "Saved candidate current verified score 705. I tested three distinct clamp forms (signed halfword reload without volatile, split comparison/output, and shared final store); scores 1085\u20131725, no improvements. Target around clamp does lh into v0, branch on sign with `addu v1,v0,zero` in delay slot, then unsigned `<0x80` clamp using beql, followed by branch/join and halfword stores. Existing best uses volatile s16 but compiler selects lhu followed by sll sign extension. Other table-path and signature issues still present. Next try a different signed-halfword expression that lets GCC perform a sign-extending scalar load directly into the comparison/result register (perhaps signed `s16 *` pointee expression and a value captured directly into an s32 temporary), preserving the unusual target shared-store/likely branch flow.",
   "by": "codex-gpt-6-luna-17",
@@ -42887,15 +42805,6 @@
   "score_before": 45,
   "score_after": 40,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:84570a933a63d4cf0712d4df6ed86efaeebc8439f13a4c8b84d35f85b7dfa8c0"
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Compiled the only saved candidate (2-instruction stub); score 242465 against a 2,426-instruction target, confirming no useful draft is saved. Function is a large 0x35 opcode-dispatch interpreter and m2c source was rejected above 65,536 bytes. I did not attempt speculative full reconstruction. Next step needs reduced draft generation or a deliberate reconstruction from paged assembly, then a real compilation.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795213489.3533719,
-  "score_before": 242465,
-  "score_after": 242465,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "func_80118BCC",
@@ -43409,15 +43318,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:12198e1fc2c6048da4947334837aa0789e037f5e10aa348b9422cf9a21fee677"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Saved candidate is only the 2-instruction `return 0` stub; the confirmed baseline score is 242465 against 2426 target instructions. The machine draft was rejected because its generated source exceeded 65,536 bytes. Target begins with a load from D_800B2710, then a 0xF0-byte frame and a large opcode dispatch interpreter; no useful C draft was available to refine.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795213988.62326,
-  "score_before": 242465,
-  "score_after": 242465,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_80042CFC",
   "text": "Recompiled inherited stub: score 118805, target 1190 instructions versus 2 emitted. Prior attempts have an invalid ~4.7KB draft and two source variants with same output; no compilable draft can be reconstructed from current brief. Dispatcher identifies jump tables jtbl_800D3950 and jtbl_800D3C80. Handoff recommendation: derive struct/callee declarations from callers and assembly, then regenerate a compiling draft before optimization.",
   "by": "codex-gpt-6-luna-11",
@@ -43433,15 +43333,6 @@
   "created_at": 1795214015.994289,
   "score_before": 118805,
   "score_after": 118805
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Verified inherited stub again: score 242465, 2 instructions against 2426. Existing machine draft source exceeded the 65,536-byte compile limit; target is large opcode-dispatch interpreter (0xF0 frame) and needs assembly paging/reduced source before a useful compile.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795214023.494772,
-  "score_before": 242465,
-  "score_after": 242465,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "func_80002098",
@@ -43548,15 +43439,6 @@
   "created_at": 1795214136.225734,
   "score_before": 192665,
   "score_after": 192665
- },
- {
-  "function": "func_8000DBF0",
-  "text": "This interpreter target is 2,426 instructions/9.7KB. Rechecked stub emits 2 instructions; inherited m2c draft is rejected as >65,536 bytes. Width-promotion local repair had no effect. Assembly starts with global D_800B2710, 0xF0 frame, many saved registers/FPRs, a bytecode cursor and a 0x25-way opcode dispatch. No viable reduced draft assembled during this claim. Next step: generate smaller source by paging opcode handlers and reconstructing the shared dispatch loop/early default case from assembly segments.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795214136.7388852,
-  "score_before": 242465,
-  "score_after": 242465,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "func_80118BCC",
@@ -44643,15 +44525,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:efe3450dcf34282620274d198b5fcec1b70f503576260df29e8397730493011c"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Interpreter is 2,426 instructions. Recompiled two-instruction stub confirms score 242465; inherited complete m2c source exceeded compiler's 65,536-byte source cap. Target is a 0xF0-frame bytecode interpreter with 0x25-way indirect jump table. No reduced but meaningful source could be produced within this pass; no C match evidence.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795215090.143071,
-  "score_before": 242465,
-  "score_after": 242465,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_8004FF30",
   "text": "Rechecked inherited baseline at 74630. Added an extra local float slot after sp178 to test frame reserve; score unchanged and prologue remained -0x1f0 vs target -0x250. The tool's callee-write finding says func_80082FE4 writes nine words through the buffer at sp+0x58; inspect buffer extent and signatures. Current diff is dominated by stack layout and several undeclared temps/incorrect prototypes in generated draft.\nRechecked baseline at 74630; a single extra f32 local (sp178) had no effect.\nScore and assembly unchanged; target frame -0x250 vs candidate -0x1f0.",
   "by": "codex-gpt-6-luna-20",
@@ -45087,15 +44960,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5f2beaeed26d10429c5889f21242f9456bc2e736a1132f9afdefc4d4230fc091"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "This 2,426-instruction bytecode interpreter remains largely undecompiled. A compact switch stub with global cursor/count and opcode fetch compiled to 15 instructions, score 241785; placing default before cases changed generated dispatch and improved score to 241400, still only 14/2426 target instructions approximately. Inherited giant m2c source was unavailable and exceeded 64 KiB. First target page shows 0x25 opcode jump table, cursor at D_800B2710, frame 0xF0. Need meaningful handler implementation, likely per-opcode C helper cases with exact behavior.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795215362.70836,
-  "score_before": 242465,
-  "score_after": 241400,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_80042CFC",
   "text": "Reconstructed initial setup and first calls; score improved from 118805 to 116601 (31/1190 instructions). s6 local did not change output. Volatile 64-word frame worsened score to 116958. Commoning stride brought it to 116811, still worse than saved best. Saved best is 116601. Frame is 0x20 vs target 0x120, index scale 4 vs 16, register assignment differs, and dispatch body is absent.\nReconstructed initial setup and first calls; score improved from 118805 to 116601 (31/1190 instructions). s6 local did not change output. Volatile 64-word frame worsened score to 116958. Commoning stride brought it to 116811, still worse than saved best.\nSaved best is 116601. Frame is 0x20 vs target 0x120, index scale 4 vs 16, register assignment differs, and dispatch body is absent.",
   "by": "codex-gpt-6-luna-13",
@@ -45504,15 +45368,6 @@
   "score_after": 14083
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Best saved score 240235; current recheck same, only 33 target instructions out of 2426. Started from compact interpreter shell; adding opcodes 0 and 1 plus raw state layout improved baseline 241400 to 240611. Reserving 58-word volatile local changed frame to target 0xF0 and improved slightly to 240610. Default switch break gave 240480 but still worse than saved best; local repair variants (pc signedness, switch unsigned, case ordering) tied or regressed. A float value declaration improved to 240425; pointer volatile was identical output; adding opcode 2 float/vector stores worsened drastically to 243545. Restored saved best revision 1f1c796adab90ddf65b1.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795215665.8792698,
-  "score_before": 241400,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_8000628C",
   "text": "Current baseline compile is 1210. Local repairs (inferred layout, assignment order, field layout) produced 1210, 1215, 1210. Candidate emits 0x50 frame vs target 0x48, shifting every saved GPR/FPR slot by +8 and causing most mismatch cascade; final index scaling also folds target sll into addu. Earlier 29 local repairs and signedness trial already recorded. Target is 181 instructions.\nCompiled the inherited candidate; current score 1210. Tested inferred arg0 layout, independent assignment ordering, and field layout; no improvement.\nFrame remains 0x50 vs target 0x48. Saved registers are displaced by +8, so fixing frame size is the highest priority before later register differences.",
   "by": "codex-gpt-6-luna-20",
@@ -45808,15 +45663,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Large bytecode interpreter (9.7KB, 2426 insns), full draft cannot be generated (source exceeds 64KB). Best compact candidate handles only opcode 0/1 and score 240235. Added op2 speculative case worsened to 241805; restore best. Volatile FPR scratch also worsened frame from 0xf0 to 0x100. Main target starts global D_800B2710 load before frame setup, count decrement fast path then 0x25-way opcode dispatch.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795215946.540763,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_8000D000",
   "text": "Fresh current score reached 1565 after correcting the local duplicate func_8004844C prototype and converting its bit-pattern integer arguments to float literals (160,120,320,180,0,0). Initial candidate compile failed from conflicting prototype; removal compiled at 2085, float correction improved to 1565. A later no-op compile confirmed unchanged diff. Historical saved score 1465 is not current-input verified. Remaining target around D_80109690 uses its address in $s0 with two loads through that pointer; around D_8010A4C1 target hoists its address into $a1 and uses indirect byte loads/stores. Current candidate still reloads globals directly. No global convention learned.\nCorrected func_8004844C types via shared context signature and passed floating point values; improved 2085 to 1565. No-op declaration patch had no effect.\nResidual differences include direct D_8010A4C1 scalar accesses instead of target address-hoisted byte pointer; direct D_80109690 value access also differs from target address in $s0 followed by repeated loads.",
   "by": "codex-gpt-6-luna-10",
@@ -45859,15 +45705,6 @@
   "created_at": 1795215979.61435,
   "score_before": 1085,
   "score_after": 1085
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Fresh baseline confirms saved 2-opcode shell score 240235 (33/2426 instructions). The dispatch table is available via read_data(jtbl_800D2228), despite the previous claims' difficulty: 37 entries, targets range from +0xDC through +0xF34 and fallback +0xF7C? First 16 offsets: +0x3F4,+0x184,+0x208,+0x3D4,+0x3DC,+0x2AC,+0x330,+0x3E4,+0x3EC,+0xDC,+0x13C,+0xC38 (three aliases), +0x1284,+0x135C. Body is 2426 instructions with large dispatch cases; added opcode 2 and volatile scratch attempts both regressed. Target prologue loads global state before stack setup, count fast-path returns arg0, then initializes FP=1 and float constants before dispatch loop.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795215982.953536,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "menuRefreshSlot",
@@ -45955,15 +45792,6 @@
   "created_at": 1795216063.9430091,
   "score_before": 75,
   "score_after": 75
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Large bytecode interpreter; saved best shell score 240235 (33/2426 instructions). Integerized pc load/increment had no effect. Signed count worsened to 240425 and lost opcode dispatch prefix; restoring saved best recovered 240235. Replacing case 1 with case 11 left score unchanged and confirmed dispatch remains far from target. Need reconstruct whole 0x25-way switch; target dispatch masks opcode with 0x3f, checks <0x25, indexes jtbl_800D2228, and extracts operand via srl. Full draft exceeds source limit.\nTwo-opcode shell baseline; integerized pc increment (no effect); signed count (worse); case 11 substitution (same score).\nTarget dispatch still requires masked opcode range check and jump table; candidate only emits early fast path and two incomplete cases.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795216092.5098891,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "func_80098D18",
@@ -46904,15 +46732,6 @@
   "score_before": 43032,
   "score_after": 2766,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:d4fdff81ff1e1ec6761c123974a3a4b176a81c176e58520768b329eb9795fd33"
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Inherited candidate is a tiny stub (score 240235) for a 2504-line, ~33 KB interpreter. Bounded local repair batch tried switch_case_order, signedness (pc pointer), switch_layout, unsigned_switch, assignment_at_use, switch_case_order; none improved score, several worsened. Target entry: global interpreter pointer load, 0xF0 frame with s0-s7, fp, fs0-fs2; checks count at +0xC and has a large opcode switch (0x3F mask, sltiu <0x25). Need complete machine draft or function structure before useful C rewrite. Next step: retrieve/redraft full machine draft with interpreter state layout and decompose opcode cases into plausible C; don't repeat tried local families.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795217014.635266,
-  "score_before": 240350,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "func_8009D5D4",
@@ -52941,15 +52760,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f84ebab0b09436c7a1ddec1c1ecef98d61d54e87a02fd1a84528204d5fe592fc"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Freshly compiled supplied 33-instruction approximation: score 240235 versus 2426 target instructions. Prior full machine draft was rejected over 65,536-byte source limit; current candidate is only a small interpreter skeleton. Next step: generate the full draft in smaller source chunks or simplify its declarations/control flow enough to fit, then compile.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795228143.9412532,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_80036BBC",
   "text": "Six local variants did not improve verified 7427; switch case 5 improves one region but scores 7897. Candidate has uninitialized pointers in irregular switches; inspect target paths and repair those before register tuning.",
   "by": "codex-gpt-6.1-terra-2",
@@ -55194,14 +55004,6 @@
   "score_after": 225320
  },
  {
-  "function": "func_8000DBF0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited candidate is a small interpreter stub, 2,426-instruction target; previous machine draft rejected for exceeding 65,536-byte source limit. No useful reduced draft available and no match-capable candidate to compile. Next step: regenerate an abridged machine draft or rebuild switch cases incrementally, keeping source below tool limit.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795231369.09323,
-  "score_before": 240235,
-  "score_after": 240235
- },
- {
   "function": "emitObjectMatrixCmd",
   "text": "Stuck at 60 (only lw s0,0x74c(t0) vs addiu v0,a3,1 ordering swapped). Tried this session: statement order of pool-used store/s0 compute, ++sMatrixPoolUsed, commuted add, split s0 += shift, pointer casts: all 60 or worse (240/365/465/840). Next step: restructure so float args are computed into locals before the s0 load, or make the matrix pointer a struct field of sRenderState (e.g. Mtx *pool) with pool + ++used indexing.\nstatement reorderings, ++ form, commuted add, casts\nstays 60 or worse",
   "by": "api-claude-sonnet-5-5-2",
@@ -56050,15 +55852,6 @@
   "created_at": 1795232322.958508,
   "score_before": 192665,
   "score_after": 192665
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Stub baseline rechecked at 240235; switch ordering scored 240350 or 240420, unsigned opcode unchanged. Target has 2426 instructions and stub only 33. Rebuild interpreter cases from assembly in a compact source; full machine draft exceeds source limit.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795232324.792181,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "func_80034EFC",
@@ -64147,15 +63940,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f84ebab0b09436c7a1ddec1c1ecef98d61d54e87a02fd1a84528204d5fe592fc"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Rechecked inherited interpreter stub at 240235; target has 2426 instructions and the stored machine draft exceeds the 65536-byte source limit. Next step: compact the draft and reconstruct the switch in stages, checking actual opcode cases and callee declarations.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795243827.1088152,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_8011D158",
   "text": "Typed draft recovered the 0x30 frame; the bound and lifetime trials stalled at 2100 after the move-on threshold.",
   "by": "codex-gpt-6.2-sol-6",
@@ -64867,15 +64651,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Stub covers only two of 37 opcodes. Target tests signed count with blez, although correcting the stub's unsigned count scored 240425 versus 240235; removing volatile frame flag worsened to 241200. Actual tail increments state +8 and returns signed status at +0x12.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795245457.590615,
-  "score_before": 240425,
-  "score_after": 240425,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "setupSaveSlotMarkers",
   "text": "Current candidate uses byte indexing and resolves marker nodes.",
   "by": "codex-gpt-6.1-terra-2",
@@ -65467,14 +65242,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] The function is a 2,426-instruction interpreter with 37 opcode cases. Existing candidate is a tiny two-case stub (score ~240k) and prior full machine draft exceeded 65,536-byte source limit. I confirmed dispatch: opcode = instruction & 0x3F, switch range 0..0x24; the instruction word is shifted right 8 for case operands; common fallthrough must preserve signed state count and common exit at F82C/F834. A real reconstruction needs paged assembly, likely case-by-case.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795246664.215486,
-  "score_before": 240235,
-  "score_after": 240235
- },
- {
   "function": "setActionSlot",
   "text": "Swapping action and id references in guard generated identical output, score 360. Restored best.",
   "by": "codex-gpt-6.1-terra-5",
@@ -65957,15 +65724,6 @@
   "score_before": 1535,
   "score_after": 1535,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Recompiled inherited stub, confirming 240235 (0.9% match; 33 candidate versus 2426 target instructions). It implements only opcodes 0 and 1 of 37; prior history has 33 local repairs and notes full machine draft exceeds 65,536-byte source limit. Target dispatches `(opcode & 0x3f)` across cases 0..0x24, consumes fields from `opcode >> 8`, and common tail advances state by 8. Next step: page assembly in chunks and construct a compact switch starting with shared exits and first four dispatch targets; avoid oversized generated draft.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795247761.118654,
-  "score_before": 240425,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "create_player_state_objects",
@@ -67673,15 +67431,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Recompiled the two-case interpreter candidate; score remains 240235, emitting 33/2426 instructions. The dispatch is a 37-case interpreter (opcode low six bits, values 0..0x24); the prior full draft exceeded the 65,536-byte source limit. No reasonable incremental case reconstruction completed here. Resume by rebuilding cases incrementally from assembly, ensuring candidate source stays under the limit.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795251258.688805,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "saveRefreshStatus",
   "text": "First mismatch saves s1 rather than target s0 for gSaveSlotTable; 118 displayed mismatch rows remain.",
   "by": "codex-gpt-6.1-terra-2",
@@ -68535,14 +68284,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:7651921d02483a853a7851b773c94b78fa2aec7522f828ad992481c3c5a79f33"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] The held candidate is a two-case stub for a 2,426-instruction interpreter and has repeatedly scored about 240k; a previous full draft exceeded the source-size limit. It has already had 42 local repair trials and no reasonable incremental reconstruction was completed. Dispatch uses low six opcode bits (0..0x24); operands come from opcode >> 8.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795252932.3754518,
-  "score_before": 240235,
-  "score_after": 240235
- },
- {
   "function": "func_800067C8",
   "text": "[Released without compiling it once; notes not checked by a compile.] Fresh baseline 410; six local repair variants did not improve. Earlier candidate scored 170 with a volatile table pointer and compound &=; extensive prior trials exist. Current diff has 5 rows remaining.",
   "by": "codex-gpt-6-luna-15",
@@ -69265,15 +69006,6 @@
   "score_after": 22439
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Recompiled inherited two-case candidate; unchanged at 240235 (33/2426 instructions), first target opcode table dispatch is wholly absent. Although claim objective mentions one call/argument producer, the stub has no meaningful call mismatch to isolate. Need reconstruct handler cases before signature work.\nRecompiled the existing two-handler stub unchanged.\nScore and emitted instructions unchanged: 240235, only 33 of 2426 target instructions.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795254758.196954,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_80064630",
   "text": "Claim vanished before release. Revision 214f2678f2d9ce3cacb6 scored 2185 after byte-offset loads and explicit loop backedges; remaining branch and register scheduling differences. Earlier score 630 source was unavailable via saved_best. Next step: test pointer local for D_80112F6C to retain its address in first loop.",
   "by": "codex-gpt-6.1-terra-5",
@@ -69713,15 +69445,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Stub remains 33 of 2426 instructions, score 240235. Signed count worsened to 240425; switch default relocation worsened to 240420; unsigned switch and signed pc unchanged. Full dispatch handlers must be reconstructed.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795256311.891489,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "create_player_state_objects",
   "text": "Verified 2058. Byte-cast equivalent address produced identical instructions; unsigned slot also unchanged; inverted type branch worsened to 2548. Target computes call argument from saved D_8011EE4C address; candidate keeps separate D_8011EE2C address in s5.\nSpelled text pointer as byte offset -0x20\n2058, instruction output unchanged",
   "by": "codex-gpt-6.1-terra-2",
@@ -69899,14 +69622,6 @@
   "score_before": 1990,
   "score_after": 1990,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ac90503fdd4ffb1873c86ff5bb12e64972beb126af7f0d00a60091de35cc65bf"
- },
- {
-  "function": "func_8000DBF0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited candidate is a two-opcode stub covering only 33 of 2426 target instructions (score 240235). Prior signedness/switch layout work didn't reconstruct the dispatch table. I inspected brief; no useful full source draft due 65KB limit. This is a massive opcode interpreter; progress requires recovering actual handlers, not local register tweaks.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795256734.272224,
-  "score_before": 240235,
-  "score_after": 240235
  },
  {
   "function": "func_8002502C",
@@ -70250,15 +69965,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:45736c2a205375ad89199b4b7a38941a3e9753119b4587f04a9c668af83723fd"
  },
  {
-  "function": "func_8000DBF0",
-  "text": "Compiled inherited source against current inputs: 240235, unchanged (33/2426 target instructions). The stub only implements opcodes 0 and 1; inspected the target's first dispatch block, which fetches a word from *gObjectRecords->pc, increments pc by 4, masks low 6 bits, and indexes jtbl_800D2228 across 0..0x24. This is a 2,426-instruction interpreter with many nontrivial handlers; the inherited C lacks its cases and can't be repaired by local register/switch edits.\nRecompiled tiny inherited source; unchanged 240235. Inspected assembly lines 30-55; complete opcode dispatch uses a 0x25-entry jump table.\nNo score gain; source remains 33 target instructions.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795257737.318819,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
   "function": "func_8001D738",
   "text": "Four subsequent variants failed to improve score 5961; moving on. Claimed raw draft differs from the previously reported better candidate.",
   "by": "codex-gpt-6.1-terra-5",
@@ -70550,15 +70256,6 @@
   "score_before": 3388,
   "score_after": 936,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:32b5750632852e234b2215e881cc15947eac42cc2215674207d071a48358981c"
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Compiled inherited candidate at revision 1ecbad540a7f0dd386cb; score unchanged 240235, matching only 33/2426 target instructions. First target instructions load gObjectRecords then allocate 0xF0 stack frame. Existing candidate loops over opcodes & 0x3F but has only cases 0/1, whereas target contains 155 dispatch-table address adds and 71 jumps back into func+0x1c44. Prior 45 local repairs and unsigned_switch variant did not improve; do not repeat. Source draft only 65KB cap means full-function m2c unavailable. Next step: inspect assembly pages around dispatch entry at +0x1c44 and any table/data references, then recover handler groups as structured C switch fragments before another broad compile.\nrecompiled inherited 2-opcode interpreter stub against current inputs\nscore unchanged at 240235; only 33 of 2426 instructions matched",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795258856.407907,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "Ray_TriangleIntersect",
@@ -70973,15 +70670,6 @@
   "score_before": 150,
   "score_after": 150,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Saved best is still 0.8% (33/2426 instructions). Candidate only handles two opcode cases, while target is a large interpreter dispatch with 155 additions of dispatch-table addresses and 71 jumps back to func+0x1c44. Local repair batch (signedness, switch layout/order, assignment at use) did not improve; reordered cases scored worse. Next step: inspect full target around the dispatch table and reconstruct the complete opcode switch, starting from a similar matched interpreter if find_similar identifies one.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795260169.398958,
-  "score_before": 240235,
-  "score_after": 240235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "func_8003C94C",
@@ -71539,15 +71227,6 @@
   "score_before": 11940,
   "score_after": 11940,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:136dc6a8bbeef1919c6d32495c24f9d3360e8552c712cdd72a350489ba995c2d"
- },
- {
-  "function": "func_8000DBF0",
-  "text": "Session allowance nearly used. Saved 198358 from 217300. Recovered the post-loop tail from 80010100, partial 56-record loop, shared calls for 3/4/7/8/24/25, cases 20/21/30/31/32, and nested case 118 of opcode 33. Target tables at 800D2228 and 800D22D0. Link reports .rodata+0x0 while the dispatch is incomplete. Remaining ~1940 target instructions require handler and interpolation reconstruction before register or linker matching is meaningful.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795265449.0887449,
-  "score_before": 217300,
-  "score_after": 198358,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
   "function": "func_80074C34",
@@ -74276,5 +73955,326 @@
   "score_before": 1470,
   "score_after": 640,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:c21fffb4df80e8d36fcaa3f4e4b398e3ee87e625a2e1d3372332d50cca8b171e"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Not attempted: 9704 bytes, a large switch-based command interpreter (switch over op = temp_a3/temp_t0 & 0x3F with ~40 cases plus a second switch over 0x33 subcodes and a per-object 0x38-iteration update loop). The m2c draft's switch/goto structure is only partly right; needs careful per-case recovery. Consider splitting first.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056832.553044,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Not attempted. 9704-byte bytecode interpreter: a do/while loop over a u32 opcode stream (switch on temp_t0 & 0x3F, 35+ cases, nested switch 2 for case 33 and switch 3 over 0x38 actor slots of 0xD4 bytes each at D_800B2710). Source exceeds the candidate-size budget as-is and the draft has many undeclared temps. Suggest splitting into per-opcode helpers or the post-loop update loop (switch 3, the 'do { ... } while (var_s2_2 < 0x38)' tail) with split_function/report_boundary before matching any part.",
+  "by": "permuter-25769805351",
+  "created_at": 1795057755.217698,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Not attempted this session. 9704-byte bytecode interpreter (do/while over u32 opcode stream, switch on temp_t0 & 0x3F with 35+ cases, nested switch for case 33, post-loop switch over 0x38 actor slots of 0xD4 bytes at D_800B2710). The m2c candidate is far over a practical source budget and has many undeclared temps. Suggest splitting into per-opcode static helpers (or the post-loop actor update loop) and matching each separately, starting with the smallest cases. Candidate revision 8147400dbdea5fa8754e left unchanged.",
+  "by": "permuter-25769805351",
+  "created_at": 1795058706.338119,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "The 9704-byte function's machine draft exceeds the judge's 65536-byte source limit. Removing the initial comment was insufficient and no compiling baseline exists. Next experiment: compact the generated draft substantially (remove repetitive comments and whitespace), then address its type errors before tuning.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795177345.75382,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No compiling baseline was available: the inherited m2c source exceeds the 65,536-byte source limit, and removal of the initial comment alone was already reported insufficient. The function is a very large opcode interpreter with more than 35 switch cases plus a post-loop actor update. Candidate is otherwise incomplete/poorly typed, so no compiler diff was obtained in this pass. Next step: compact the generated draft substantially (especially repetitive whitespace), then fix compile errors in bounded batches; consider splitting work by extracting opcode groups or the post-loop actor update only if the project tool supports separate claimed boundaries. Keep revision 8147400dbdea5fa8754e.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795209195.988078,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Recovered inherited claim, but candidate C is empty and no source was saved. Brief confirms the generated 9704-byte opcode interpreter draft exceeds 65536 bytes and has no compiling draft. Attempted redraft, but it requires real nonempty C declarations and cannot be used without struct/prototype evidence. No compile was possible; next agent should obtain the draft through get_function(section=brief), compact it below source limit while preserving semantics, then compile and resolve compile errors.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795209282.7163022,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Inherited machine draft was rejected as source too large; saved candidate was empty. A fresh minimal stub compiled but scored 242465 (2 instructions vs 2426), so no useful C baseline. Function is a 9.7KB interpreter/update routine with a large switch and frame; next agent should obtain/regenerate an abridged or machine draft under source-size limit and progressively simplify declarations/expressions. Current compiler is gcc-2.7.2-kmc -O2. No structural tuning attempted.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795210474.643122,
+  "score_before": 242465,
+  "score_after": 242465
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Stub rechecked at 242465 (2 generated vs 2426 target instructions). Inherited m2c source is rejected above 65536 bytes, and this is a 9.7KB interpreter with 35+ switch cases. No source-size-safe draft or viable C candidate available; repeated stub tuning would have no value. Next step: request/produce a compact machine draft with comments and redundant temporaries removed, or reconstruct switch cases from target jump tables.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795211415.509491,
+  "score_before": 242465,
+  "score_after": 242465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Prior full C draft and fresh redraft both exceed the 65,536-byte source limit. Current saved candidate is only a stub; verified stub score remains 242465. Tried local width_promotion; same score and no improvement. Next step: obtain a reduced draft or reconstruct the large switch body from assembly in several concise C blocks, then compile.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795212989.985893,
+  "score_before": 242465,
+  "score_after": 242465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Only the stub is saved; full m2c draft exceeds the compiler source limit. No reduced draft is available in candidate state, and no viable patch was possible.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795213410.2409558,
+  "score_before": 242465,
+  "score_after": 242465
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Compiled the only saved candidate (2-instruction stub); score 242465 against a 2,426-instruction target, confirming no useful draft is saved. Function is a large 0x35 opcode-dispatch interpreter and m2c source was rejected above 65,536 bytes. I did not attempt speculative full reconstruction. Next step needs reduced draft generation or a deliberate reconstruction from paged assembly, then a real compilation.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795213489.3533719,
+  "score_before": 242465,
+  "score_after": 242465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Saved candidate is only the 2-instruction `return 0` stub; the confirmed baseline score is 242465 against 2426 target instructions. The machine draft was rejected because its generated source exceeded 65,536 bytes. Target begins with a load from D_800B2710, then a 0xF0-byte frame and a large opcode dispatch interpreter; no useful C draft was available to refine.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795213988.62326,
+  "score_before": 242465,
+  "score_after": 242465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Verified inherited stub again: score 242465, 2 instructions against 2426. Existing machine draft source exceeded the 65,536-byte compile limit; target is large opcode-dispatch interpreter (0xF0 frame) and needs assembly paging/reduced source before a useful compile.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795214023.494772,
+  "score_before": 242465,
+  "score_after": 242465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "This interpreter target is 2,426 instructions/9.7KB. Rechecked stub emits 2 instructions; inherited m2c draft is rejected as >65,536 bytes. Width-promotion local repair had no effect. Assembly starts with global D_800B2710, 0xF0 frame, many saved registers/FPRs, a bytecode cursor and a 0x25-way opcode dispatch. No viable reduced draft assembled during this claim. Next step: generate smaller source by paging opcode handlers and reconstructing the shared dispatch loop/early default case from assembly segments.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795214136.7388852,
+  "score_before": 242465,
+  "score_after": 242465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Interpreter is 2,426 instructions. Recompiled two-instruction stub confirms score 242465; inherited complete m2c source exceeded compiler's 65,536-byte source cap. Target is a 0xF0-frame bytecode interpreter with 0x25-way indirect jump table. No reduced but meaningful source could be produced within this pass; no C match evidence.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795215090.143071,
+  "score_before": 242465,
+  "score_after": 242465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "This 2,426-instruction bytecode interpreter remains largely undecompiled. A compact switch stub with global cursor/count and opcode fetch compiled to 15 instructions, score 241785; placing default before cases changed generated dispatch and improved score to 241400, still only 14/2426 target instructions approximately. Inherited giant m2c source was unavailable and exceeded 64 KiB. First target page shows 0x25 opcode jump table, cursor at D_800B2710, frame 0xF0. Need meaningful handler implementation, likely per-opcode C helper cases with exact behavior.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795215362.70836,
+  "score_before": 242465,
+  "score_after": 241400,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Best saved score 240235; current recheck same, only 33 target instructions out of 2426. Started from compact interpreter shell; adding opcodes 0 and 1 plus raw state layout improved baseline 241400 to 240611. Reserving 58-word volatile local changed frame to target 0xF0 and improved slightly to 240610. Default switch break gave 240480 but still worse than saved best; local repair variants (pc signedness, switch unsigned, case ordering) tied or regressed. A float value declaration improved to 240425; pointer volatile was identical output; adding opcode 2 float/vector stores worsened drastically to 243545. Restored saved best revision 1f1c796adab90ddf65b1.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795215665.8792698,
+  "score_before": 241400,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Large bytecode interpreter (9.7KB, 2426 insns), full draft cannot be generated (source exceeds 64KB). Best compact candidate handles only opcode 0/1 and score 240235. Added op2 speculative case worsened to 241805; restore best. Volatile FPR scratch also worsened frame from 0xf0 to 0x100. Main target starts global D_800B2710 load before frame setup, count decrement fast path then 0x25-way opcode dispatch.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795215946.540763,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Fresh baseline confirms saved 2-opcode shell score 240235 (33/2426 instructions). The dispatch table is available via read_data(jtbl_800D2228), despite the previous claims' difficulty: 37 entries, targets range from +0xDC through +0xF34 and fallback +0xF7C? First 16 offsets: +0x3F4,+0x184,+0x208,+0x3D4,+0x3DC,+0x2AC,+0x330,+0x3E4,+0x3EC,+0xDC,+0x13C,+0xC38 (three aliases), +0x1284,+0x135C. Body is 2426 instructions with large dispatch cases; added opcode 2 and volatile scratch attempts both regressed. Target prologue loads global state before stack setup, count fast-path returns arg0, then initializes FP=1 and float constants before dispatch loop.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795215982.953536,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Large bytecode interpreter; saved best shell score 240235 (33/2426 instructions). Integerized pc load/increment had no effect. Signed count worsened to 240425 and lost opcode dispatch prefix; restoring saved best recovered 240235. Replacing case 1 with case 11 left score unchanged and confirmed dispatch remains far from target. Need reconstruct whole 0x25-way switch; target dispatch masks opcode with 0x3f, checks <0x25, indexes jtbl_800D2228, and extracts operand via srl. Full draft exceeds source limit.\nTwo-opcode shell baseline; integerized pc increment (no effect); signed count (worse); case 11 substitution (same score).\nTarget dispatch still requires masked opcode range check and jump table; candidate only emits early fast path and two incomplete cases.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795216092.5098891,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Inherited candidate is a tiny stub (score 240235) for a 2504-line, ~33 KB interpreter. Bounded local repair batch tried switch_case_order, signedness (pc pointer), switch_layout, unsigned_switch, assignment_at_use, switch_case_order; none improved score, several worsened. Target entry: global interpreter pointer load, 0xF0 frame with s0-s7, fp, fs0-fs2; checks count at +0xC and has a large opcode switch (0x3F mask, sltiu <0x25). Need complete machine draft or function structure before useful C rewrite. Next step: retrieve/redraft full machine draft with interpreter state layout and decompose opcode cases into plausible C; don't repeat tried local families.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795217014.635266,
+  "score_before": 240350,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Freshly compiled supplied 33-instruction approximation: score 240235 versus 2426 target instructions. Prior full machine draft was rejected over 65,536-byte source limit; current candidate is only a small interpreter skeleton. Next step: generate the full draft in smaller source chunks or simplify its declarations/control flow enough to fit, then compile.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795228143.9412532,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited candidate is a small interpreter stub, 2,426-instruction target; previous machine draft rejected for exceeding 65,536-byte source limit. No useful reduced draft available and no match-capable candidate to compile. Next step: regenerate an abridged machine draft or rebuild switch cases incrementally, keeping source below tool limit.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795231369.09323,
+  "score_before": 240235,
+  "score_after": 240235
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Stub baseline rechecked at 240235; switch ordering scored 240350 or 240420, unsigned opcode unchanged. Target has 2426 instructions and stub only 33. Rebuild interpreter cases from assembly in a compact source; full machine draft exceeds source limit.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795232324.792181,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Rechecked inherited interpreter stub at 240235; target has 2426 instructions and the stored machine draft exceeds the 65536-byte source limit. Next step: compact the draft and reconstruct the switch in stages, checking actual opcode cases and callee declarations.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795243827.1088152,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Stub covers only two of 37 opcodes. Target tests signed count with blez, although correcting the stub's unsigned count scored 240425 versus 240235; removing volatile frame flag worsened to 241200. Actual tail increments state +8 and returns signed status at +0x12.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245457.590615,
+  "score_before": 240425,
+  "score_after": 240425,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] The function is a 2,426-instruction interpreter with 37 opcode cases. Existing candidate is a tiny two-case stub (score ~240k) and prior full machine draft exceeded 65,536-byte source limit. I confirmed dispatch: opcode = instruction & 0x3F, switch range 0..0x24; the instruction word is shifted right 8 for case operands; common fallthrough must preserve signed state count and common exit at F82C/F834. A real reconstruction needs paged assembly, likely case-by-case.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795246664.215486,
+  "score_before": 240235,
+  "score_after": 240235
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Recompiled inherited stub, confirming 240235 (0.9% match; 33 candidate versus 2426 target instructions). It implements only opcodes 0 and 1 of 37; prior history has 33 local repairs and notes full machine draft exceeds 65,536-byte source limit. Target dispatches `(opcode & 0x3f)` across cases 0..0x24, consumes fields from `opcode >> 8`, and common tail advances state by 8. Next step: page assembly in chunks and construct a compact switch starting with shared exits and first four dispatch targets; avoid oversized generated draft.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795247761.118654,
+  "score_before": 240425,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Recompiled the two-case interpreter candidate; score remains 240235, emitting 33/2426 instructions. The dispatch is a 37-case interpreter (opcode low six bits, values 0..0x24); the prior full draft exceeded the 65,536-byte source limit. No reasonable incremental case reconstruction completed here. Resume by rebuilding cases incrementally from assembly, ensuring candidate source stays under the limit.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795251258.688805,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] The held candidate is a two-case stub for a 2,426-instruction interpreter and has repeatedly scored about 240k; a previous full draft exceeded the source-size limit. It has already had 42 local repair trials and no reasonable incremental reconstruction was completed. Dispatch uses low six opcode bits (0..0x24); operands come from opcode >> 8.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795252932.3754518,
+  "score_before": 240235,
+  "score_after": 240235
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Recompiled inherited two-case candidate; unchanged at 240235 (33/2426 instructions), first target opcode table dispatch is wholly absent. Although claim objective mentions one call/argument producer, the stub has no meaningful call mismatch to isolate. Need reconstruct handler cases before signature work.\nRecompiled the existing two-handler stub unchanged.\nScore and emitted instructions unchanged: 240235, only 33 of 2426 target instructions.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795254758.196954,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Stub remains 33 of 2426 instructions, score 240235. Signed count worsened to 240425; switch default relocation worsened to 240420; unsigned switch and signed pc unchanged. Full dispatch handlers must be reconstructed.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795256311.891489,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited candidate is a two-opcode stub covering only 33 of 2426 target instructions (score 240235). Prior signedness/switch layout work didn't reconstruct the dispatch table. I inspected brief; no useful full source draft due 65KB limit. This is a massive opcode interpreter; progress requires recovering actual handlers, not local register tweaks.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795256734.272224,
+  "score_before": 240235,
+  "score_after": 240235
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Compiled inherited source against current inputs: 240235, unchanged (33/2426 target instructions). The stub only implements opcodes 0 and 1; inspected the target's first dispatch block, which fetches a word from *gObjectRecords->pc, increments pc by 4, masks low 6 bits, and indexes jtbl_800D2228 across 0..0x24. This is a 2,426-instruction interpreter with many nontrivial handlers; the inherited C lacks its cases and can't be repaired by local register/switch edits.\nRecompiled tiny inherited source; unchanged 240235. Inspected assembly lines 30-55; complete opcode dispatch uses a 0x25-entry jump table.\nNo score gain; source remains 33 target instructions.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795257737.318819,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Compiled inherited candidate at revision 1ecbad540a7f0dd386cb; score unchanged 240235, matching only 33/2426 target instructions. First target instructions load gObjectRecords then allocate 0xF0 stack frame. Existing candidate loops over opcodes & 0x3F but has only cases 0/1, whereas target contains 155 dispatch-table address adds and 71 jumps back into func+0x1c44. Prior 45 local repairs and unsigned_switch variant did not improve; do not repeat. Source draft only 65KB cap means full-function m2c unavailable. Next step: inspect assembly pages around dispatch entry at +0x1c44 and any table/data references, then recover handler groups as structured C switch fragments before another broad compile.\nrecompiled inherited 2-opcode interpreter stub against current inputs\nscore unchanged at 240235; only 33 of 2426 instructions matched",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795258856.407907,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Saved best is still 0.8% (33/2426 instructions). Candidate only handles two opcode cases, while target is a large interpreter dispatch with 155 additions of dispatch-table addresses and 71 jumps back to func+0x1c44. Local repair batch (signedness, switch layout/order, assignment at use) did not improve; reordered cases scored worse. Next step: inspect full target around the dispatch table and reconstruct the complete opcode switch, starting from a similar matched interpreter if find_similar identifies one.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795260169.398958,
+  "score_before": 240235,
+  "score_after": 240235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
+ },
+ {
+  "function": "func_8000DBF0",
+  "text": "Session allowance nearly used. Saved 198358 from 217300. Recovered the post-loop tail from 80010100, partial 56-record loop, shared calls for 3/4/7/8/24/25, cases 20/21/30/31/32, and nested case 118 of opcode 33. Target tables at 800D2228 and 800D22D0. Link reports .rodata+0x0 while the dispatch is incomplete. Remaining ~1940 target instructions require handler and interpolation reconstruction before register or linker matching is meaningful.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795265449.0887449,
+  "score_before": 217300,
+  "score_after": 198358,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  }
 ]
