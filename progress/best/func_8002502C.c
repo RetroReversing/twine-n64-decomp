@@ -372,11 +372,13 @@ block_184:
                 case 0x25:
                 case 0x62:
                 case 0x63:
-                    switch (D_80100910) {           /* switch 6; irregular */
-                    case 1:                         /* switch 6 */
+                    {
+                    u16 mode = D_80100910;
+                    if (mode == 1) {
                         var_a1 = func_8002CC54();
                         return func_8002502C(arg0, (s32) var_a1) & 0xFFFF;
-                    case 2:                         /* switch 6 */
+                    }
+                    if (mode == 2) {
 block_159:
                         var_a1_6 = func_8002CBF4();
                         if (D_80109DD0 != 0) {
@@ -389,7 +391,7 @@ block_159:
 block_163:
                         var_a1 = (s16) (var_a1_5 >> 0x10);
                         return func_8002502C(arg0, (s32) var_a1) & 0xFFFF;
-                    default:                        /* switch 6 */
+                    }
                         var_v0 = 0xFF;
                         if (D_800BFC34 != 0) {
                             func_8002778C();

@@ -117,17 +117,15 @@ void func_8008D838(void)
         if ((*((u8 *) (((char *) var_s1) + (-5)))) == 0)
         {
           var_s2 = 0;
-          var_s0 = var_s5;
           do
           {
-            if ((*((u32 *) (((char *) var_s0) + 0x16C))) != 0)
+            if ((*((u32 *) (((char *) ((char *) (var_s5) + var_s2 * 0xC)) + 0x16C))) != 0)
             {
-              temp_v1 = (*((u32 *) (((char *) var_s0) + 0x168))) + D_80109680;
-              *((u32 *) (((char *) var_s0) + 0x168)) = temp_v1;
-              *((s16 *) (((char *) var_s0) + 0x170)) = func_80095664((((u32) ((temp_v1 % (*((u32 *) (((char *) var_s0) + 0x16C)))) * 0x10)) / ((u32) ((*((u32 *) (((char *) var_s0) + 0x16C))) >> 8))) & 0xFFFF);
+              temp_v1 = (*((u32 *) (((char *) ((char *) (var_s5) + var_s2 * 0xC)) + 0x168))) + D_80109680;
+              *((u32 *) (((char *) ((char *) (var_s5) + var_s2 * 0xC)) + 0x168)) = temp_v1;
+              *((s16 *) (((char *) ((char *) (var_s5) + var_s2 * 0xC)) + 0x170)) = func_80095664((((u32) ((temp_v1 % (*((u32 *) (((char *) ((char *) (var_s5) + var_s2 * 0xC)) + 0x16C)))) * 0x10)) / ((u32) ((*((u32 *) (((char *) ((char *) (var_s5) + var_s2 * 0xC)) + 0x16C))) >> 8))) & 0xFFFF);
             }
             var_s2 += 1;
-            var_s0 += 0xC;
           }
           while (var_s2 < 2);
           if ((*((s32 *) (((char *) var_s1) + (-0x9E)))) & 0x4000)

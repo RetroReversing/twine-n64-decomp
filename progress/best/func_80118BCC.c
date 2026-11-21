@@ -96,7 +96,6 @@ void func_80118BCC(void *arg0)
   f32 var_fv1;
   f64 var_ft0;
   s32 temp_v1_13;
-  
   s32 temp_v1_6;
   u32 temp_v1_7;
   s32 temp_v1_8;
@@ -107,9 +106,7 @@ void func_80118BCC(void *arg0)
   s32 temp_v1_10;
   s32 temp_v1_2;
   s32 var_s0_2;
-  
   long var_s3;
-  
   int temp_v0_5;
   char var_s3_2;
   u16 *temp_v0_6;
@@ -132,7 +129,7 @@ void func_80118BCC(void *arg0)
   temp_s5 = *((s32 *) (((char *) arg0) + 0x20));
   temp_v1 = *((s32 *) (((u8 *) (&gSaveSlotInfo)) + ((getSaveSlotIndex((u16) (((s32) ((*((volatile u8 *) (((char *) temp_s2) + 0x182))) << 24)) >> 24)) & 0xFFFF) * 0x18)));
   temp_fv1 = *((f32 *) (((char *) arg0) + 0x74));
-  temp_v1_2 = ((s32)((u32)temp_v1 << 16) >> 16) * 0xC;
+  temp_v1_2 = (((s32) (((u32) temp_v1) << 16)) >> 16) * 0xC;
   temp_s4 = *((&D_800BF68B) + temp_v1_2);
   temp_v0 = temp_s4 & 0x10;
   if (temp_fv1 > 0.0f)
@@ -466,13 +463,13 @@ void func_80118BCC(void *arg0)
         if (randomIntBelow(0x64) < 0x42U)
         {
           var_a1_3 = 0xA;
-        
-        func_80117EC8(arg0, var_a1_3);}
+          func_80117EC8(arg0, var_a1_3);
+        }
         else
         {
           var_a1_3 = 3;
-        
-        func_80117EC8(arg0, var_a1_3);}
+          func_80117EC8(arg0, var_a1_3);
+        }
       }
       else
         if (temp_v1_8 == 0xA)
@@ -497,7 +494,8 @@ void func_80118BCC(void *arg0)
       {
         if ((*((s32 *) (((char *) sp44) + 0x20))) == (*((s32 *) (((char *) arg0) + 0x20))))
         {
-          temp_v0 = (*((s32 *) (((char *) sp44) + 0x60))); *((s32 *) (((char *) sp44) + 0x60)) = temp_v0 | 8;
+          temp_v0 = *((s32 *) (((char *) sp44) + 0x60));
+          *((s32 *) (((char *) sp44) + 0x60)) = temp_v0 | 8;
         }
         else
         {
@@ -565,7 +563,7 @@ void func_80118BCC(void *arg0)
           {
             long long phantom_wide2 = sp38;
           }
-          if (!((*((f32 *) (((char *) temp_s2) + 0x1B0))) < (*((f32 *) (((char *) arg0) + 0x74)))))
+          if (!((*((f32 *) (((char *) arg0) + 0x74))) > (*((f32 *) (((char *) temp_s2) + 0x1B0)))))
           {
             var_a2_2 = 0;
           }
@@ -574,7 +572,7 @@ void func_80118BCC(void *arg0)
         else
           if (temp_v1_10 & 2)
         {
-          if (!((*((f32 *) (((char *) temp_s2) + 0x1B0))) < (*((f32 *) (((char *) arg0) + 0x74)))))
+          if (!((*((f32 *) (((char *) arg0) + 0x74))) > (*((f32 *) (((char *) temp_s2) + 0x1B0)))))
           {
             var_a2_2 = 0;
           }
@@ -623,7 +621,7 @@ void func_80118BCC(void *arg0)
       var_fa0 = (*((f32 *) (((char *) temp_v1_11) + 0x28))) - (*((f32 *) (((char *) arg0) + 0x28)));
       if ((*((f32 *) (((char *) (*((void **) (((char *) (((*((s8 *) (((char *) (*((void **) (((char *) temp_v1_11) + 0x6C)))) + 0x182))) * 4) + 0x80110000)) + (-0x6978))))) + 0x130))) > 0.0f)
       {
-        var_fa0 -= 0.35f;
+        var_fa0 = var_fa0 - 0.35f;
       }
       temp_fv1_4 = *((f32 *) (((char *) temp_s2) + 0x34));
       *((f32 *) (((char *) temp_s2) + 0x34)) = (f32) (temp_fv1_4 + (((approximateAtan2(var_fa0, temp_fa1) * 0.63661975f) - temp_fv1_4) * 0.5f));

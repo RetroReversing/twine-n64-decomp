@@ -73,7 +73,7 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
   void *temp_s1_6;
   void *temp_v0;
   s32 var_a1;
-  temp_a1 = ((*((u8 *) (((char *) arg0) + 1))) * 0xC) + arg2;
+  temp_v1_3 = ((*((u8 *) (((char *) arg0) + 1))) * 0xC); temp_a1 = temp_v1_3 + arg2;
   temp_v0_2 = (u8) (*((u8 *) (((char *) temp_a1) + 0)));
   sp17 = (u8) arg4;
   temp_s7 = (-((temp_v0_2 & 2) != 0)) & 3;

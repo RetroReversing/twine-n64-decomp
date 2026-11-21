@@ -190,9 +190,11 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x18);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x20);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x28);
+    do {
+        var_s0 = 0;
+    } while (0);
     if (initialLength != 0)
     {
-      var_s0 = 0;
       do
       {
         temp_s3_2 = *((u8 *) (((__repair_field_18 *) arg2)->value + var_s0));

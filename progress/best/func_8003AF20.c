@@ -174,7 +174,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
     var_s5 = 0x400;
   }
   temp_a0 = (u16) ((__repair_record_arg2 *) arg2)->field_24;
-  var_s6 = ((s32) (0x400 * temp_a0)) / ((s32) ((__repair_record_arg2 *) arg2)->field_26); var_s5_2 = ((s32) (var_s5 * ((__repair_record_arg2 *) arg2)->field_28)) / ((s32) ((__repair_record_arg2 *) arg2)->field_29);
+  sp4C = ((s32) ((__repair_record_arg2 *) arg2)->field_26); var_s6 = ((s32) (0x400 * temp_a0)) / sp4C; sp44 = ((s32) ((__repair_record_arg2 *) arg2)->field_29); var_s5_2 = ((s32) (var_s5 * ((__repair_record_arg2 *) arg2)->field_28)) / sp44;
   var_s1 = temp_a0 << 5;
   if (((__repair_record_arg2 *) arg2)->field_1E & 0x80)
   {
