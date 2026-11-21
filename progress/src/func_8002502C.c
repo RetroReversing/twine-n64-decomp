@@ -58,8 +58,8 @@ extern s16 D_80109DD0;
 extern char D_8010A950[];
 
 typedef struct { void * field_0; unsigned char pad_4[16]; unsigned short field_14; unsigned char pad_16[10]; int field_20; } __repair_record_D_80109BB0;
-s32 func_8002502C(s16 *arg0, s32 arg1) {
-    char *var_a1_2;
+s32 func_8002502C(s16 *arg0, s16 arg1) {
+    unsigned char *var_a1_2;
     long var_a2_3;
     s32 var_a0;
     s32 var_a2;
@@ -185,7 +185,7 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
                         }
                         return 0x80;
             case 96:
-                        func_80030644((((__repair_record_D_80109BB0*)D_80109BB0)->field_20), 0x80, 0xA, 1);
+                        func_80030644((((__repair_record_D_80109BB0*)D_80109BB0)->field_20), 0x80);
                         var_a1_2 = D_800B9F40;
                         var_a2 = 3;
                         func_8002AD60(D_8010A950, var_a1_2, var_a2, 0);
@@ -280,20 +280,22 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
             }
             case 0x2:                               /* switch 1 */
                 D_80102EDC = 0;
-                if ((func_8002AEC8(D_8010A950) & 0xFF) == 1) {
-                    return 2;
-                }
+                if ((func_8002AEC8(D_8010A950) & 0xFF) != 1) {
                 if (arg0 != NULL) {
                     *arg0 = func_8002AF30(D_8010A950) & 0xFF;
                 }
                 D_800BD690 = 1;
                 D_800BD55C = 1U;
-                return 1;
+                    return 1;
+                } else {
+                    return 2;
+                }
     case 1:
-        var_v0_2 = 0xFF;
         if (D_800BD55E != 0) {
             D_800BD55E--;
             var_v0_2 = 1;
+        } else {
+            var_v0_2 = 0xFF;
         }
         D_800BD55C = var_v0_2;
         return 1;
@@ -467,4 +469,5 @@ sound_ten_3:
         return 0xFF;
     }
 }
+
 

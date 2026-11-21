@@ -76284,14 +76284,6 @@
   "score_after": 8460
  },
  {
-  "function": "func_8002502C",
-  "text": "Rechecked saved best e1e836b94079d7c94e3b at 38680 (50.2%; 778 target instructions vs 644 candidate). Tried bounded local repairs; cfg_integer_lifetimes worsened to 40070, other variants did not run before batch time limit. First target instructions require signed `slti` for D_800BD55C and early dispatch shape; current candidate emits `sltiu`, while changing declaration to signed short has historically worsened overall score (38825 vs 38680). Continue from saved best; consider explicit signed cached local/CFG rewrite preserving switch behavior. Claim move-on threshold was 10 and only 3/10 no-improvement compiles were recorded, so this release may be declined.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795173707.438886,
-  "score_before": 38680,
-  "score_after": 38680
- },
- {
   "function": "func_8003AF20",
   "text": "Recovered current candidate revision b8b709ed72bd031da78b and verified baseline score 20545. Tried the six bounded local repair variants; none improved score (variants 5/6 retained baseline). Main remaining mismatch begins at entry argument register allocation (target move $t4,$a2 vs candidate $t3,$a2), with extensive order/control-flow/register differences across the 2612-byte function. Prior historical evidence notes a volatile u64 stack pad gave a +22 improvement; present saved revision already includes it. Continue by investigating prototype/argument register pressure, then target ordering. No reusable global convention established.",
   "by": "codex-gpt-6-luna-9",
@@ -76372,14 +76364,6 @@
   "score_after": 23881
  },
  {
-  "function": "func_8002502C",
-  "text": "Strong prototype finding from target prologue: current candidate signature `func_8002502C(s16 *arg0, s32 arg1)` is almost certainly reversed. Target stores incoming $a0 to D_800BD560 with `sh $a0`, and uses incoming $a1 as the nullable output pointer; calls to func_8002778C receive the command from $a1 after it has been saved as s0 in the target shape? Check full target carefully: expected early `move $s0,$a1; move $a0,$s0` indicates function parameter roles/call scheduling need reconstruction. The current signedness patch `(s16)D_800BD55C < 2` worsened score 38680\u219238935; restore saved_best before further trials. A compile no-op rechecked score 38680. Original saved_best declared D_800BD55C unsigned short and compiled lhu.\n\nFresh recheck of saved baseline e1e836b94079d7c94e3b: 38680 (778 target / 644 candidate instructions). No-op compile confirmed it. Two signedness edits worsened (extern D_800BD55C as s16: 38825; explicit s16 cast in `< 2`: 38935), so restore saved_best. Diff points to likely parameter-role issue: target stores incoming $a0 into D_800BD560 (`sh $a0`) and has early `move $s0,$a1; move $a0,$s0`; draft prototype is `(s16 *arg0, s32 arg1)`, but infer roles from full assembly/callers before changing. Current header includes several undeclared globals cited by the claim-time m2c diagnostic (D_80102EDC, D_80100910, D_800BFC34, D_800BFC32, D_80109DD0, D_80102F04); inspect/update declarations if those remain missing. Large switch/table literal emits escape warnings and .rodata relocation errors, so reconstruct that data as bytes or use the actual symbol. Current best remains 38680; no verified repair.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795185372.0509598,
-  "score_before": 38680,
-  "score_after": 38680
- },
- {
   "function": "func_8008D838",
   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nBaseline revision be1f27e1eb245ac1f433 rechecked at 7875. Tried two local repair batches: call_arity, branch_orientation, scalar_storage_reuse, explicit_loop_backedge, masked_value_reuse, cfg_integer_lifetimes, declaration_order, signedness, local_widening, callee_parameter_width. No improvement; best unchanged. Main mismatch begins at prologue: target frame 0x48 saves s5 at 0x34; candidate frame 0x40 saves s4 at 0x28. Need address register/local-lifetime structure first. Candidate includes extensive pointer-offset m2c draft; diagnostic says calls/arguments with 264 differing rows.",
   "by": "codex-gpt-6-luna-11",
@@ -76418,14 +76402,6 @@
   "created_at": 1795186302.7619681,
   "score_before": 23881,
   "score_after": 23881
- },
- {
-  "function": "func_8002502C",
-  "text": "Rechecked saved baseline score 38680. Tested changing D_800BD55C from unsigned short to s16; score worsened to 38825 and target lhu became lh, so restored saved_best. First baseline divergence includes sltiu where target is slti, but signed symbol declaration has wrong load semantics. Need preserve lhu zero extension while inducing signed comparison (e.g. a signed temporary / expression); also early switch/control-flow mismatches dominate.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795186423.89036,
-  "score_before": 38680,
-  "score_after": 38680
  },
  {
   "function": "func_8008D838",
@@ -76865,15 +76841,6 @@
   "score_after": 19145
  },
  {
-  "function": "func_8002502C",
-  "text": "Nine local repair trials tied or worsened the rechecked 37160 baseline; extensive control-flow and call differences remain, so moving on.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795230045.356941,
-  "score_before": 40520,
-  "score_after": 37160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
- },
- {
   "function": "func_800891A8",
   "text": "Still 60 (srl s1,t1,6 scheduled before lui/ori magic; target after). Extra tries tied/worse: (rate/192+1)*192 (965), rate-rate%192+192 (75), commuted mult operands (60), rate/size decl swap (60), split rate/192; rate*192 statements (675). Next step: try making the first quotient go through a distinct local/cast (e.g. u32 q=(u32)((u64)scaled*0x10624DD3>>38)) or move the /192 magic constants' lui earlier by using the divisor in an earlier statement.",
   "by": "api-claude-sonnet-5-5-2",
@@ -76946,15 +76913,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ea99c20939b17b5badf4726628c529e0d072138fae7fb022dc225d7aa1375636"
  },
  {
-  "function": "func_8002502C",
-  "text": "Candidate unchanged at 37160. Global signedness/width probes tied or worsened.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795235991.535778,
-  "score_before": 40060,
-  "score_after": 37160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
- },
- {
   "function": "func_8003B954",
   "text": "Inherited draft failed to compile due to unresolved globals and malformed pointer arithmetic; prior agents had 31 local-repair trials (best historical score 12290). My empty-source compile did not establish a score. Brief confirms lookup table is sMenuItemParamTable and color state is gSaveMenuState; matched callee evidence gives func_80018578(Font18578 *, char *) returning u16 and func_80018080(void *) returning s32. Next step: start from a fresh machine draft with those declaration corrections and byte-pointer arithmetic; compile immediately before broad repair searches.",
   "by": "codex-gpt-6-luna-15",
@@ -77017,15 +76975,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b59bce39b2026b94302ef15b658ebe62f066853a8756fa51634e2827441b5eb9"
  },
  {
-  "function": "func_8002502C",
-  "text": "Large 3,112-byte dispatcher; inherited m2c candidate rechecked at 47,965/778 instructions, only 623 instructions emitted. Three targeted local repairs (call arity, conditional initialization, masked value reuse) did not improve; malformed literal data causes many out-of-range escape warnings and .rodata linker references. Target prologue saves $s1/$s0/$s2 and forwards incoming arg1 into $a0; current candidate instead allocates arg1 in $s3. No useful function rewrite found.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795255371.037048,
-  "score_before": 47965,
-  "score_after": 47965,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
- },
- {
   "function": "func_8008D838",
   "text": "Five trials without improvement. Both signature changes and removing the duplicate pan assignment were unchanged. Tail stride increment scored 15045; independent voice-field cursor scored 10110. Preserved 8395 baseline with prologue allocation mismatch.",
   "by": "codex-gpt-6.2-sol-6",
@@ -77042,59 +76991,6 @@
   "score_before": 14528,
   "score_after": 14528,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:123cd4b87e6ad90e85377a77133c2fc02bf5ac73ce868faccfc3d62491051ea3"
- },
- {
-  "function": "func_8002502C",
-  "text": "Split conditional call improved 47965 to 47655; other local variants equal or worse. Large 778-instruction dispatcher still has extensive control-flow and malformed data reference differences; moving on for a fresh reconstruction.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795256346.563087,
-  "score_before": 47965,
-  "score_after": 47655,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
- },
- {
-  "function": "func_8002502C",
-  "text": "Rechecked baseline 47340; switch_layout variants (insert default-like case 0, remove case 2 body, relocate default) scored 47550, 48635, 47340. Existing attempts call arity/init and constant local already documented. First mismatch remains prologue register assignment: target saves incoming arg1 in s0 at 0x10(sp), candidate assigns it to s3 at 0x1c(sp); huge dispatcher and embedded escaped byte string diagnostics. No better candidate.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795256673.1085,
-  "score_before": 47340,
-  "score_after": 47340,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
- },
- {
-  "function": "func_8002502C",
-  "text": "Target identifies case 0x10A data as D_800BC1C8; replacing embedded literal removes its relocation warning. Changing arg1 to s32 improved 47340 to 46920, but substantially different dispatcher remains. The target independently emits voiceGroupInit calls in many arms while candidate merges them.\nChanged arg1 s16 to s32 and replaced literal with D_800BC1C8\n46920 versus 47340; target prologue closer, extensive control flow mismatch remains",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795256735.945021,
-  "score_before": 47340,
-  "score_after": 46920,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
- },
- {
-  "function": "func_8002502C",
-  "text": "Assignment placement improved score 46775 to 46345; field-width, struct and lifetime variants emitted unchanged code. Next step: expand shared voiceGroupInit calls in switch arms and compare dispatch layout.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795256791.714122,
-  "score_before": 46920,
-  "score_after": 46345,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
- },
- {
-  "function": "func_8002502C",
-  "text": "I accidentally submitted an empty source, then restored the saved_best candidate (revision 034245ad33011b9081fb, historical score 46345, prior best 37160). Saved draft has compile errors: many `func_8002778C` invocations have too few args due prototype conflict; prior machine draft check logged this repeatedly. Do not use the blank revision e3b0c44298fc1c149afb. Handoff: adjust the declaration/signature using callee evidence, compile the restored saved_best, then continue the known dispatch mismatch: target emits voiceGroupInit within many switch arms while candidate funnels through shared call sites. Earlier arg1 s16\u2192s32 improved 47340\u219246920, and literal D_800BC1C8 corrected relocation; assignment placement improved to 46345. Field width, inferred layout, lifetime, and carried-store experiments were unchanged.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795257614.178689,
-  "score_before": 37160,
-  "score_after": 37160
- },
- {
-  "function": "func_8002502C",
-  "text": "Candidate restored and rechecked at score 46345; saved best unchanged. Current leading diff is absent initial move $a0,$s0 before first func_8002778C call. In C draft first call is func_8002778C(arg1), but target jal setup suggests it receives arg0 (s0), so fix prototype to accept/pass arg0 there and determine call arity from target assembly. Existing draft has many later no-arg func_8002778C calls; inspect assembly each call site. One local field_width probe at offset 0x1C (s16->u16) had identical score, zero changed rows. Empty-source compile accidentally left blank revision; disregard it.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795258823.9308548,
-  "score_before": 46345,
-  "score_after": 46345,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
  },
  {
   "function": "func_80041F68",
@@ -77115,15 +77011,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:898c8190c3fbfb61546fe0a6dbe696eb8903123c2991a15371d701a448a2f7f9"
  },
  {
-  "function": "func_8002502C",
-  "text": "Current saved candidate score 46345. Checked func_8002778C assembly: it has no incoming argument use (calls func_80026E9C with a0=0, then indirectly calls through gSaveMenuState fields). Caller target has move a0,s0 before the initial jal, seemingly stale/irrelevant arg setup; candidate emitted no setup. Casting that call to (void*)arg1 did not alter the diff, and introduced .rodata+0 linker diagnostic due syntax? Changing local prototype to func_8002778C(s32) failed because 8 later calls are argumentless. Restore saved_best. Remaining issue is broad 740-row mismatch / candidate only 621 vs target 778 instructions, with many control-flow differences; first mismatch at entry setup. Try revisiting whole function control flow and unused arg liveness while respecting truly zero-arg callee.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795259995.234346,
-  "score_before": 46345,
-  "score_after": 46345,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
- },
- {
   "function": "func_80032978",
   "text": "Saved 13470, 713/715 instructions. Corrected invented helper arguments and shared final packet cursor, then moved both dimension helper calls before cursor reload. Integer selector and nested count tests improved slightly. Early exit rewrite and removing register were identical; XOR/sign arithmetic and volatile emit byte worsened.",
   "by": "codex-gpt-6.2-sol-6",
@@ -77140,15 +77027,6 @@
   "score_before": 60,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
- },
- {
-  "function": "func_8002502C",
-  "text": "Named outer state load before switch. Identical instructions at 3165, with surplus branches and first prologue register mismatch. Judge reached 7/4 without improvement.\nNamed outer state load before switch\nIdentical instruction output at 3165",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795261276.833117,
-  "score_before": 3165,
-  "score_after": 3165,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
  },
  {
   "function": "func_80118BCC",
@@ -77230,5 +77108,127 @@
   "score_before": 384,
   "score_after": 359,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e2137a500959bffd8fa5be284b11a255a498bcd1eeb9ed5b9c33d95dba637da3"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Rechecked saved best e1e836b94079d7c94e3b at 38680 (50.2%; 778 target instructions vs 644 candidate). Tried bounded local repairs; cfg_integer_lifetimes worsened to 40070, other variants did not run before batch time limit. First target instructions require signed `slti` for D_800BD55C and early dispatch shape; current candidate emits `sltiu`, while changing declaration to signed short has historically worsened overall score (38825 vs 38680). Continue from saved best; consider explicit signed cached local/CFG rewrite preserving switch behavior. Claim move-on threshold was 10 and only 3/10 no-improvement compiles were recorded, so this release may be declined.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795173707.438886,
+  "score_before": 38680,
+  "score_after": 38680
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Strong prototype finding from target prologue: current candidate signature `func_8002502C(s16 *arg0, s32 arg1)` is almost certainly reversed. Target stores incoming $a0 to D_800BD560 with `sh $a0`, and uses incoming $a1 as the nullable output pointer; calls to func_8002778C receive the command from $a1 after it has been saved as s0 in the target shape? Check full target carefully: expected early `move $s0,$a1; move $a0,$s0` indicates function parameter roles/call scheduling need reconstruction. The current signedness patch `(s16)D_800BD55C < 2` worsened score 38680\u219238935; restore saved_best before further trials. A compile no-op rechecked score 38680. Original saved_best declared D_800BD55C unsigned short and compiled lhu.\n\nFresh recheck of saved baseline e1e836b94079d7c94e3b: 38680 (778 target / 644 candidate instructions). No-op compile confirmed it. Two signedness edits worsened (extern D_800BD55C as s16: 38825; explicit s16 cast in `< 2`: 38935), so restore saved_best. Diff points to likely parameter-role issue: target stores incoming $a0 into D_800BD560 (`sh $a0`) and has early `move $s0,$a1; move $a0,$s0`; draft prototype is `(s16 *arg0, s32 arg1)`, but infer roles from full assembly/callers before changing. Current header includes several undeclared globals cited by the claim-time m2c diagnostic (D_80102EDC, D_80100910, D_800BFC34, D_800BFC32, D_80109DD0, D_80102F04); inspect/update declarations if those remain missing. Large switch/table literal emits escape warnings and .rodata relocation errors, so reconstruct that data as bytes or use the actual symbol. Current best remains 38680; no verified repair.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795185372.0509598,
+  "score_before": 38680,
+  "score_after": 38680
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Rechecked saved baseline score 38680. Tested changing D_800BD55C from unsigned short to s16; score worsened to 38825 and target lhu became lh, so restored saved_best. First baseline divergence includes sltiu where target is slti, but signed symbol declaration has wrong load semantics. Need preserve lhu zero extension while inducing signed comparison (e.g. a signed temporary / expression); also early switch/control-flow mismatches dominate.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795186423.89036,
+  "score_before": 38680,
+  "score_after": 38680
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Nine local repair trials tied or worsened the rechecked 37160 baseline; extensive control-flow and call differences remain, so moving on.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795230045.356941,
+  "score_before": 40520,
+  "score_after": 37160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Candidate unchanged at 37160. Global signedness/width probes tied or worsened.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795235991.535778,
+  "score_before": 40060,
+  "score_after": 37160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Large 3,112-byte dispatcher; inherited m2c candidate rechecked at 47,965/778 instructions, only 623 instructions emitted. Three targeted local repairs (call arity, conditional initialization, masked value reuse) did not improve; malformed literal data causes many out-of-range escape warnings and .rodata linker references. Target prologue saves $s1/$s0/$s2 and forwards incoming arg1 into $a0; current candidate instead allocates arg1 in $s3. No useful function rewrite found.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795255371.037048,
+  "score_before": 47965,
+  "score_after": 47965,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Split conditional call improved 47965 to 47655; other local variants equal or worse. Large 778-instruction dispatcher still has extensive control-flow and malformed data reference differences; moving on for a fresh reconstruction.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795256346.563087,
+  "score_before": 47965,
+  "score_after": 47655,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Rechecked baseline 47340; switch_layout variants (insert default-like case 0, remove case 2 body, relocate default) scored 47550, 48635, 47340. Existing attempts call arity/init and constant local already documented. First mismatch remains prologue register assignment: target saves incoming arg1 in s0 at 0x10(sp), candidate assigns it to s3 at 0x1c(sp); huge dispatcher and embedded escaped byte string diagnostics. No better candidate.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795256673.1085,
+  "score_before": 47340,
+  "score_after": 47340,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Target identifies case 0x10A data as D_800BC1C8; replacing embedded literal removes its relocation warning. Changing arg1 to s32 improved 47340 to 46920, but substantially different dispatcher remains. The target independently emits voiceGroupInit calls in many arms while candidate merges them.\nChanged arg1 s16 to s32 and replaced literal with D_800BC1C8\n46920 versus 47340; target prologue closer, extensive control flow mismatch remains",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795256735.945021,
+  "score_before": 47340,
+  "score_after": 46920,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Assignment placement improved score 46775 to 46345; field-width, struct and lifetime variants emitted unchanged code. Next step: expand shared voiceGroupInit calls in switch arms and compare dispatch layout.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795256791.714122,
+  "score_before": 46920,
+  "score_after": 46345,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "I accidentally submitted an empty source, then restored the saved_best candidate (revision 034245ad33011b9081fb, historical score 46345, prior best 37160). Saved draft has compile errors: many `func_8002778C` invocations have too few args due prototype conflict; prior machine draft check logged this repeatedly. Do not use the blank revision e3b0c44298fc1c149afb. Handoff: adjust the declaration/signature using callee evidence, compile the restored saved_best, then continue the known dispatch mismatch: target emits voiceGroupInit within many switch arms while candidate funnels through shared call sites. Earlier arg1 s16\u2192s32 improved 47340\u219246920, and literal D_800BC1C8 corrected relocation; assignment placement improved to 46345. Field width, inferred layout, lifetime, and carried-store experiments were unchanged.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795257614.178689,
+  "score_before": 37160,
+  "score_after": 37160
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Candidate restored and rechecked at score 46345; saved best unchanged. Current leading diff is absent initial move $a0,$s0 before first func_8002778C call. In C draft first call is func_8002778C(arg1), but target jal setup suggests it receives arg0 (s0), so fix prototype to accept/pass arg0 there and determine call arity from target assembly. Existing draft has many later no-arg func_8002778C calls; inspect assembly each call site. One local field_width probe at offset 0x1C (s16->u16) had identical score, zero changed rows. Empty-source compile accidentally left blank revision; disregard it.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795258823.9308548,
+  "score_before": 46345,
+  "score_after": 46345,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Current saved candidate score 46345. Checked func_8002778C assembly: it has no incoming argument use (calls func_80026E9C with a0=0, then indirectly calls through gSaveMenuState fields). Caller target has move a0,s0 before the initial jal, seemingly stale/irrelevant arg setup; candidate emitted no setup. Casting that call to (void*)arg1 did not alter the diff, and introduced .rodata+0 linker diagnostic due syntax? Changing local prototype to func_8002778C(s32) failed because 8 later calls are argumentless. Restore saved_best. Remaining issue is broad 740-row mismatch / candidate only 621 vs target 778 instructions, with many control-flow differences; first mismatch at entry setup. Try revisiting whole function control flow and unused arg liveness while respecting truly zero-arg callee.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795259995.234346,
+  "score_before": 46345,
+  "score_after": 46345,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Named outer state load before switch. Identical instructions at 3165, with surplus branches and first prologue register mismatch. Judge reached 7/4 without improvement.\nNamed outer state load before switch\nIdentical instruction output at 3165",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795261276.833117,
+  "score_before": 3165,
+  "score_after": 3165,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
  }
 ]
