@@ -47,7 +47,8 @@ inline static unsigned inline_fn2(unsigned arg0)
 void func_8003C228(void *arg0, s32 arg1, s32 arg2)
 {
   s8 *__base_D_800C0738;
-  volatile int sp14;
+  volatile struct { int unused; int filter; } stack;
+#define sp14 stack.filter
   u8 sp1F;
   s32 temp_s7;
   register f32 temp_fs1;
@@ -151,7 +152,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
                 func_8003B954((s32) (temp_fs1 + 1.0f), (s32) (temp_fs0 + 1.0f), var_s0);
               }
               temp_a3 = sDisplayListCursor;
-              *__base_D_800C0738 = 0;
+              D_800C0738 = 0;
               *((s32 *) (((char *) temp_a3) + 4)) = (s32) (((((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000)) | (temp_s1 & 0xFF00)) | (temp_s1 & 0xFF));
               sDisplayListCursor = temp_a3 + 8;
               sDisplayListCursor = temp_a3 + 0x10;

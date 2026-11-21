@@ -31,6 +31,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
   unsigned long var_a0;
   u8 var_v0_4;
   u8 var_v0_2;
+  u32 kind_mask;
   s32 temp_s2;
   s32 temp_v0;
   s32 temp_v1_2;
@@ -50,7 +51,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
   void *temp_v1_3;
   void *var_s1;
   var_s1 = (u32) NULL;
-  if ((func_80017490(arg5, arg6) << 0x18) != 0)
+  if ((func_80017490(arg5, arg6, arg7) << 0x18) != 0)
   {
     var_s1 = func_800164F8(0x8C, 0, 0);
     if (var_s1 != NULL)
@@ -102,8 +103,13 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
       *((u8 *) (((char *) temp_s0) + 0x84)) = arg13;
       *((s8 *) (((char *) temp_s0) + 0x86)) = 1;
       *((s8 *) (((char *) temp_s0) + 0x87)) = (s8) (arg3 - 1);
+      {
+      s32 mode_flag;
+      s32 asset;
       *((u8 *) (((char *) temp_s0) + 0x80)) = arg4;
       *((u8 *) (((char *) temp_s0) + 0x81)) = arg9;
+      mode_flag = D_800CA338;
+      asset = arg10;
       *((s32 *) (((char *) temp_s0) + 0x70)) = 0;
       *((s32 *) (((char *) temp_s0) + 0x40)) = 0;
       *((s32 *) (((char *) temp_s0) + 0x44)) = arg2;
@@ -112,8 +118,10 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
       *((s16 *) (((char *) temp_s0) + 0x7C)) = 0;
       *((s16 *) (((char *) temp_s0) + 0x7A)) = 0;
       *((s16 *) (((char *) temp_s0) + 0x78)) = 0;
-      func_8000237C(var_s1, arg10, 1, -(D_800CA338 == 0));
-      if ((*((void **) (((char *) var_s1) + 0x68))) != NULL)
+      func_8000237C(var_s1, asset, 1, -(mode_flag == 0));
+      }
+      if ((*((void **) (((char *) var_s1) + 0x68))) == NULL)
+        goto block_112;
       {
         func_800015AC(var_s1, arg11);
         func_80002EAC(var_s1, &actorTickStateMachine);
@@ -121,12 +129,16 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
         *((s32 *) (((char *) var_s1) + 0x58)) |= 0x2400;
         *((u8 *) (((char *) temp_s0) + 0x82)) = arg12;
         ((__repair_field_88 *) temp_s0)->value = (s32) ((((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x200000);
+        {
+          s32 mode;
         *((u8 *) (((char *) temp_s0) + 0x85)) = ((u8 *) (&gTrackMarkerDone))[*((u8 *) (((char *) temp_s0) + 0x84))];
+        mode = gGameMode;
         *((s16 *) (((char *) temp_s0) + 0x76)) = 0;
         *((s16 *) (((char *) temp_s0) + 0x74)) = 0;
-        if (gGameMode == 0x19)
+        if (mode == 0x19)
         {
           D_80117734 = 1;
+        }
         }
         var_s5 = 0x14D;
         if (D_80117734 == 0)
@@ -140,18 +152,10 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
             break;
 
           case 46:
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
             var_v0_2 = 0x2F;
-            block_74:
-          *((u8 *) (((char *) temp_s0) + 0x82)) = (s32) var_v0_2;
-
-            var_v0_3 = 0x600000;
-            block_75:
-          var_v1 = ((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF;
-
-            block_76:
-          ((__repair_field_88 *) temp_s0)->value = (s32) (var_v0_3 | var_v1);
-
-            break;
+            goto set_kind_flags;
 
           case 45:
             *((u8 *) (((char *) temp_s0) + 0x82)) = 0x2EU;
@@ -185,19 +189,22 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
             break;
 
           case 44:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x2C;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x2C;
+            goto set_kind_flags;
 
           case 47:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x30;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x30;
+            goto set_kind_flags;
 
           case 12:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x10;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x10;
+            goto set_kind_flags;
 
           case 11:
             *((u8 *) (((char *) temp_s0) + 0x82)) = 1U;
@@ -237,13 +244,11 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
             break;
 
           case 25:
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
             var_a1 = arg3 & 0xFF;
             var_v0_4 = 0x10;
-            *((u8 *) (((char *) temp_s0) + 0x82)) = var_v0_4;
-            ((__repair_field_88 *) temp_s0)->value = (s32) ((((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000);
-            *((s32 *) (((char *) temp_s0) + 0x44)) = 0;
-            func_8001751C(arg2, var_a1, arg0);
-            break;
+            goto setup_path_kind;
 
           case 4:
             *((u8 *) (((char *) temp_s0) + 0x82)) = 9U;
@@ -251,7 +256,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
           case 2:
             var_a1 = arg3 & 0xFF;
             *((u8 *) (((char *) temp_s0) + 0x85)) = 0U;
-            func_8001751C(arg2, var_a1, arg0);
+            func_8001751C(arg2, var_a1, arg0, arg1);
             *((s32 *) (((char *) temp_s0) + 0x44)) = 0;
             break;
 
@@ -275,23 +280,26 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
             break;
 
           case 36:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x25;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x25;
+            goto set_kind_flags;
 
           case 16:
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
             D_80117734 = 1;
-            *((u8 *) (((char *) temp_s0) + 0x82)) = var_v0_5;
             var_v0_5 = 0x13;
-            ((__repair_field_88 *) temp_s0)->value = (s32) ((((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x400000);
-            D_80108F72 += 1;
-            break;
+            goto set_special_kind;
 
           case 17:
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
             D_80117734 = 1;
             var_v0_5 = 0x14;
+          set_special_kind:
             *((u8 *) (((char *) temp_s0) + 0x82)) = var_v0_5;
-            ((__repair_field_88 *) temp_s0)->value = (s32) ((((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x400000);
+            ((__repair_field_88 *) temp_s0)->value = (var_v1 & kind_mask) | 0x400000;
             D_80108F72 += 1;
             break;
 
@@ -348,24 +356,28 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
             break;
 
           case 18:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x17;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x17;
+            goto set_kind_flags;
 
           case 19:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x18;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x18;
+            goto set_kind_flags;
 
           case 20:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x19;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x19;
+            goto set_kind_flags;
 
           case 21:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x1A;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x1A;
+            goto set_kind_flags;
 
           case 26:
             *((u8 *) (((char *) temp_s0) + 0x82)) = 0x1CU;
@@ -380,6 +392,8 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
             break;
 
           case 27:
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
             var_s5 = 0x14D;
             *((u8 *) (((char *) temp_s0) + 0x82)) = 0x1EU;
             var_v0_3 = 0x800000;
@@ -403,32 +417,46 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
             break;
 
           case 40:
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
             var_a1 = arg3 & 0xFF;
-            *((u8 *) (((char *) temp_s0) + 0x82)) = var_v0_4;
             var_v0_4 = 0x29;
-            ((__repair_field_88 *) temp_s0)->value = (s32) ((((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000);
-            func_8001751C(arg2, var_a1, arg0);
+          setup_path_kind:
+            *((u8 *) (((char *) temp_s0) + 0x82)) = var_v0_4;
+            ((__repair_field_88 *) temp_s0)->value = (var_v1 & kind_mask) | 0x600000;
+            func_8001751C(arg2, var_a1, arg0, arg1);
             *((s32 *) (((char *) temp_s0) + 0x44)) = 0;
             break;
-
           case 41:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x2A;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x2A;
+            goto set_kind_flags;
 
           case 43:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x2D;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x2D;
+            goto set_kind_flags;
 
           case 48:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x31;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
-            break;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x31;
+            goto set_kind_flags;
 
           case 49:
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x32;
-            ((__repair_field_88 *) temp_s0)->value = (((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000;
+            var_v1 = ((__repair_field_88 *) temp_s0)->value;
+            kind_mask = 0xFE1FFFFF;
+            var_v0_2 = 0x32;
+            set_kind_flags:
+            *((u8 *) (((char *) temp_s0) + 0x82)) = var_v0_2;
+            var_v0_3 = 0x600000;
+            block_75:
+            var_v1 &= kind_mask;
+            block_76:
+            var_v1 |= var_v0_3;
+            ((__repair_field_88 *) temp_s0)->value = var_v1;
             break;
 
         }
@@ -444,15 +472,14 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
           *((Position *) (((u8 *) var_s1) + 0x30)) = *((Position *) (((u8 *) var_s1) + 0x24));
           *((Position *) (((u8 *) var_s1) + 0x3C)) = *((Position *) arg1);
           *((Position *) (((u8 *) var_s1) + 0x48)) = *((Position *) (((u8 *) var_s1) + 0x3C));
+          *((Position *) temp_s0) = *((Position *) (((u8 *) var_s1) + 0x24));
+          *((Position *) (((u8 *) temp_s0) + 0xC)) = *((Position *) (((u8 *) var_s1) + 0x3C));
         }
-        *((s32 *) (((char *) temp_s0) + 0)) = (s32) (*((s32 *) (((char *) var_s1) + 0x24)));
-        *((s32 *) (((char *) temp_s0) + 4)) = (s32) (*((s32 *) (((char *) var_s1) + 0x28)));
-        *((s32 *) (((char *) temp_s0) + 8)) = (s32) (*((s32 *) (((char *) var_s1) + 0x2C)));
-        *((s32 *) (((char *) temp_s0) + 0xC)) = (s32) (*((s32 *) (((char *) var_s1) + 0x3C)));
-        *((s32 *) (((char *) temp_s0) + 0x10)) = (s32) (*((s32 *) (((char *) var_s1) + 0x40)));
-        *((s32 *) (((char *) temp_s0) + 0x14)) = (s32) (*((s32 *) (((char *) var_s1) + 0x44)));
         temp_v1_2 = ((__repair_field_88 *) temp_s0)->value & 0x01E00000;
-        *((s32 *) (((char *) var_s1) + 0x5C)) |= (((temp_v1_2 == 0x400000) | (temp_v1_2 == 0x600000)) != 0) ? ((s32) 0x5E600) : ((s32) 0x20600);
+        if ((temp_v1_2 == 0x400000) | (temp_v1_2 == 0x600000))
+          *((volatile s32 *) (((char *) var_s1) + 0x5C)) |= 0x5E600;
+        else
+          *((volatile s32 *) (((char *) var_s1) + 0x5C)) |= 0x20600;
         *((s32 *) (((char *) temp_s0) + 0x6C)) = 0;
         if (var_s5 == 0x129)
         {
@@ -624,10 +651,12 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
 
         if ((*((void **) (((char *) var_s1) + 0x20))) == NULL)
         {
-          goto block_112;
+          block_112:
+          *((s32 *) (((char *) var_s1) + 0x60)) |= 1;
+          return NULL;
         }
-        *((u16 *) (((char *) temp_v1_3) + 0xC)) &= 0xFFF7;
         temp_v1_3 = *((void **) (((char *) var_s1) + 0x68));
+        *((u16 *) (((char *) temp_v1_3) + 0xC)) &= 0xFFF7;
         if ((var_s2 != 0) && ((*((u8 *) (((char *) temp_s0) + 0x80))) == 0))
         {
           func_80077C00(var_s1);
@@ -636,13 +665,11 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
         *((f32 *) (((char *) (*((void **) (((char *) var_s1) + 0x68)))) + 8)) = (f32) (*((f32 *) (((char *) (*((void **) (((char *) (*((void **) (((char *) var_s1) + 0x20)))) + 0x3C)))) + 0x20)));
         goto block_117;
       }
-      block_112:
-      *((s32 *) (((char *) var_s1) + 0x60)) |= 1;
-
-      return NULL;
     }
   }
   block_117:
   return var_s1;
 
 }
+
+

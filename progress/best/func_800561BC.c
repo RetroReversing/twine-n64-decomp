@@ -221,7 +221,7 @@ void func_800561BC(void *arg0) {
     s32 var_s0_5;
     
     int var_s6;
-    s32 var_v0;
+    
     s32 var_v0_2;
     s32 var_v0_4;
     s32 var_v1;
@@ -274,6 +274,7 @@ void func_800561BC(void *arg0) {
     var_s7 = NULL;
     switch (temp_v1) {                              /* switch 1; irregular */
     default:                                        /* switch 1 */
+    case 0:
         temp_fs0_4 = 0.5f;
         temp_fs0_4 += randomFloatScaled(temp_fs0_4);
         var_fs0 = temp_fs0_4 * (*(f32 *)((char *)(temp_s2) + 0x20));
@@ -355,12 +356,8 @@ block_29:
         if (var_fp != NULL) {
             var_fs1 = Vec3_DistanceSq(temp_s2 + 3, &local.hit50[0]);
             if (((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x60)) & 0x8000) && ((*(u16 *)((char *)(local.sp80) + 0x26)) & 0x1000)) {
-                local.sp30 = local.hit50[0];
-                local.sp34 = local.hit50[1];
-                local.sp38 = local.hit50[2];
-                local.sp40 = local.hit50[0];
-                local.sp44 = local.hit50[1];
-                local.sp48 = local.hit50[2];
+                *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)local.hit50;
+                *(Vec3Copy *)&local.sp40 = *(Vec3Copy *)local.hit50;
                 var_s4 = local.sp17C;
                 var_s6 = 1;
                 D_80108F84 = NULL;
@@ -373,9 +370,7 @@ block_29:
                 var_s6 = 1;
                 var_fs1 = temp_fv0;
                 var_s4 = D_80108F84;
-                local.sp30 = local.sp40;
-                local.sp34 = local.sp44;
-                local.sp38 = local.sp48;
+                *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)&local.sp40;
                 local.sp17C = gPlayerActor;
                 var_fp = NULL;
             }
@@ -392,9 +387,7 @@ block_29:
                 var_s7 = temp_a0;
                 var_s6 = 2;
                 var_s5 = gPlayerActor;
-                local.sp30 = local.hit60[0];
-                local.sp34 = local.hit60[1];
-                local.sp38 = local.hit60[2];
+                *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)local.hit60;
                 var_fp = NULL;
                 local.sp184 = D_80108F84;
             }
@@ -405,7 +398,7 @@ block_29:
                 setActorStatusBits(arg0);
                 effectSetAnimFrame(arg0, 5, 0x1B);
                 (*(u8 *)((char *)(arg0) + 0x7F)) = 0xFF;
-                (*(s8 *)((char *)(arg0) + 0x80)) = 0xA0;
+                (*(u8 *)((char *)(arg0) + 0x80)) = 0xA0;
                 (*(s8 *)((char *)(arg0) + 0x81)) = 0xA;
                 (*(s32 *)((char *)(arg0) + 0x58)) = (s32) ((*(s32 *)((char *)(arg0) + 0x58)) | 0x18000);
                 if ((u32)var_s6 == 0) {
@@ -444,8 +437,8 @@ block_29:
             }
         }
         if (var_s6 == 1) {
-            if ((gPlayerActor != NULL) && ((temp_v1_3 = (*(s32 *)((char *)(gPlayerActor) + 0x60)) | (*(s32 *)((char *)(temp_s2) + 0x28)), (*(s32 *)((char *)(gPlayerActor) + 0x60)) = temp_v1_3, temp_a0_2 = (*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)), var_v0 = temp_v1_3 | 0x40, ((temp_a0_2 & 0x200) != 0)) || (var_v0 = temp_v1_3 | 0x80, ((temp_a0_2 & 0x400) != 0)) || (var_v0 = temp_v1_3 | 0x100, ((temp_a0_2 & 0x800) != 0)) || (var_v0 = (unsigned)temp_v1_3 | 0x20, ((temp_a0_2 & 2) != 0)) || (var_v0 = temp_v1_3 | 2, ((temp_a0_2 & 1) != 0)))) {
-                (*(s32 *)((char *)(gPlayerActor) + 0x60)) = var_v0;
+            if ((gPlayerActor != NULL) && ((temp_v1_3 = (*(s32 *)((char *)(gPlayerActor) + 0x60)) | (*(s32 *)((char *)(temp_s2) + 0x28)), (*(s32 *)((char *)(gPlayerActor) + 0x60)) = temp_v1_3, temp_a0_2 = (*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)), var_s1 = temp_v1_3 | 0x40, ((temp_a0_2 & 0x200) != 0)) || (var_s1 = temp_v1_3 | 0x80, ((temp_a0_2 & 0x400) != 0)) || (var_s1 = temp_v1_3 | 0x100, ((temp_a0_2 & 0x800) != 0)) || (var_s1 = (unsigned)temp_v1_3 | 0x20, ((temp_a0_2 & 2) != 0)) || (var_s1 = temp_v1_3 | 2, ((temp_a0_2 & 1) != 0)))) {
+                (*(s32 *)((char *)(gPlayerActor) + 0x60)) = var_s1;
             }
             if ((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)) & 0x20) {
                 func_80084338(0x116, &local.sp40);

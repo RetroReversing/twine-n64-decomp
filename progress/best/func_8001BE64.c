@@ -105,8 +105,9 @@ selected:
       var_v0_2 = 0x1AD;
     }
     *((s16 *) (((char *) var_s1) + (-0x28))) = var_v0_2;
-    temp_v1 = *((u32 *) (((char *) var_s1) + (-0x14)));
-    if (temp_v1 < ((u32) D_80117730))
+    var_v0 = D_80117730;
+    temp_v1 = *(volatile u32 *)((char *)var_s1 - 0x14);
+    if (temp_v1 < var_v0)
     {
       D_80117730 = temp_v1;
     }
@@ -154,34 +155,23 @@ selected:
       var_a0_2 = 9;
     }
     formatTextEntry(temp_s4, &sFmtEntryName, lookupDataEntry(var_a0_2));
-    if (gPauseFlag != 1)
-    {
-      if ((((s32) gPauseFlag) + 1) <= 2)
-      {
-        var_a0_3 = 0xA;
-        if (gPauseFlag)
-        {
-          var_a0_3 = 0x2E4;
-        }
-        block_41:
-        var_v0_4 = lookupDataEntry(var_a0_3);
-
-      }
-      else
-      {
-        if (gPauseFlag != 2)
-        {
-          var_a0_3 = 0x2E4;
-          goto block_41;
-        }
-        var_v0_4 = lookupDataEntry(0x2E3);
-      }
-    }
-    else
-    {
+    switch (gPauseFlag) {
+    case 0: var_a0_3 = 0xA; goto pause_lookup;
+    default: var_a0_3 = 0x2E4; goto pause_lookup;
+    case 1:
       var_v0_4 = lookupDataEntry(0x2E2);
+      var_a1 = &sFmtEntryName;
+      goto pause_format;
+    case 2:
+      var_v0_4 = lookupDataEntry(0x2E3);
+      var_a1 = &sFmtEntryName;
+      goto pause_format;
     }
-    formatTextEntry(temp_s2, &sFmtEntryName, var_v0_4);
+pause_lookup:
+    var_v0_4 = lookupDataEntry(var_a0_3);
+    var_a1 = &sFmtEntryName;
+pause_format:
+    formatTextEntry(temp_s2, var_a1, var_v0_4);
     temp_a0 = temp_s4 - 0x28;
     if (gSaveKeyRelaxed)
     {

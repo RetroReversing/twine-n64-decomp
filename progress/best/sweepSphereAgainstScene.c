@@ -148,8 +148,8 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     sp18[2] = 0.0f;
     vec28.x = *((f32 *) (((char *) sp134) + 0));
     vec28.y = (*((f32 *) (((char *) sp134) + 4))) - var_fs0;
-    sp15C = &vec38.x;
     sp154 = matrix;
+    sp15C = &vec38.x;
     vec28.z = *((f32 *) (((char *) sp134) + 8));
     sp16C = &scratch.first.direction.x;
     sp164 = &vec48.x;
