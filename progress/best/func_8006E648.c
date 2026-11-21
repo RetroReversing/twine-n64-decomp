@@ -23,7 +23,7 @@ M2C_UNK actorFinishIfMatch(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8006D224(void *);                      /* extern */
 M2C_UNK func_8006E4A8(void *);                      /* extern */
 M2C_UNK func_8006E584(void *);                      /* extern */
-M2C_UNK func_8006F50C(s32, void *, s32, s32);       /* extern */
+M2C_UNK resolveActorCollisionOffset(s32, void *, s32, s32);       /* extern */
 M2C_UNK func_8006F634(s32, void *, s32, s32);       /* extern */
 M2C_UNK func_800848EC(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_8008548C(f32 *);                       /* extern */
@@ -99,7 +99,7 @@ void func_8006E648(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
     case 4:
     case 9:
     case 10:
-        func_8006F50C(arg0, arg1, arg3, arg4);
+        resolveActorCollisionOffset(arg0, arg1, arg3, arg4);
         return;
     case 8:
         func_8006F634(arg0, arg1, arg3, arg4);

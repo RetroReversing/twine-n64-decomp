@@ -90,10 +90,10 @@ block_16:
                     } else {
                         temp_v1_3 = M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u8 *, 0xB1);
                         if ((s32) temp_v1_3 < 0x3C) {
-                            var_v0 = 6;
                             if ((s32) temp_v1_3 >= 0x3A) {
                                 return;
                             }
+                            var_v0 = 6;
                             goto block_28;
                         } else {
                             var_v0 = 0x61;
@@ -129,4 +129,5 @@ block_29:
         }
     }
 }
+
 

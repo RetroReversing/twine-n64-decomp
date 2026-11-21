@@ -4808,7 +4808,7 @@
   "score_after": 295
  },
  {
-  "function": "func_8006F50C",
+  "function": "resolveActorCollisionOffset",
   "text": "Current best score 3113, revision c0a5bec97afa0fc903d9. Tried the supplied m2c source, local families call_arity, assignment_at_use, inferred_record_layout, source_lines, read_before_assign, and address_temporary, plus removing several register qualifiers; no improvement. Target begins with 0x78-byte frame, saves s0/ra at 0x70/0x74, reads three fields as integer words and stores them at sp+0x40/44/48, then reloads sp+0x44 as float. Candidate instead emits floating loads, spills callee-saved FP registers, and uses a 0x60-byte frame. Draft also has read-before-initialized `temp_fv0_3` and questionable function-call arity. Best next experiment: model sp40 as union/raw s32 array and f32 view (with sp40[1] increment) to force integer word copies and later FP reloads; remove unnecessary register locals and inspect target full assembly.",
   "by": "codex-gpt-6-luna-22",
   "created_at": 1795138776.2416818,
@@ -10768,7 +10768,7 @@
   "score_after": 270
  },
  {
-  "function": "func_8006F50C",
+  "function": "resolveActorCollisionOffset",
   "text": "Rechecked baseline 3113. Six local repair variants (inferred layout, source lines, address temporary, call arity, read-before-assign, float prototype); none improved. Target stack frame is 0x78 and saves s0/ra at 0x70/0x74; candidate frame is 0x60 with saves at 0x58/0x5c. Callee prototype experiment failed because argument 3 was incorrectly typed f32. Candidate draft also contains suspicious use of temp_fv0_3 before initialization in sp50[2]; inspect target dataflow and callee signature.",
   "by": "codex-gpt-6-luna-9",
   "created_at": 1795178576.7289479,
@@ -26736,7 +26736,7 @@
   "score_after": 640
  },
  {
-  "function": "func_8006F50C",
+  "function": "resolveActorCollisionOffset",
   "text": "Restored historical m2c candidate (d43de84c686857f0a0ec), which rechecked at score 3113; original draft structure still has clear mismatch: target stack is 0x78 with argument fields loaded as integer words to 0x40/44/48, while compiler output uses 0x58 frame, FPR saves and float stores. Tried simplified semantic vectors/delta arrays; score 3447 and added .rodata reference, then restored original style, score 3113. Current repair/local search was blocked before building because gcc-2.7.2-kmc is reported not installed. Remaining work: rebuild toolchain availability, reconstruct target temporary layout/source around the 0x40/44/48 initial record and 0x50/60 vectors; then pursue locals/order. Exact assembly observed: target uses uninitialized/spilled or explicitly staged values at 0x20-0x28, 0x30 scratch, 0x40-48 initial coordinates, 0x50-58 query vector and 0x60-68 original vector. No match.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795193741.010415,
@@ -29864,7 +29864,7 @@
   "score_after": 640
  },
  {
-  "function": "func_8006F50C",
+  "function": "resolveActorCollisionOffset",
   "text": "Tried current candidate local repairs (const_read and five single_use_inline variants), all stayed at 2174. Inspected target entry and tried raw word-backed vector locals; score worsened to 2490. Target begins with frame 0x78, saves s0/ra at 0x70/0x74, object in a1, integer word loads from object+0x24/+0x28/+0x2c into sp+0x40/+0x44/+0x48, then float adjustment at sp+0x44; best remains historical score 1218 revision cfc67b07647a4e68e29a (unverified for current inputs). Best next step: restore saved_best and model the initial vector as integer words with float overlay at 0x40, plus separate query vector and original vector at 0x50 and 0x60; inspect stack geometry and remaining assembly before further edits. Current experimental revision 18300959d911e7575966 scores 2490.",
   "by": "codex-gpt-6-luna-17",
   "created_at": 1795199999.890232,
@@ -31792,7 +31792,7 @@
   "score_after": 60
  },
  {
-  "function": "func_8006F50C",
+  "function": "resolveActorCollisionOffset",
   "text": "Claim permits six compiles, but this session explored 5 compile calls including errors; best remains 1218/74 instructions. Isolated rewrite matched insn count but stack layout differs: target preserves original position as integer words in stack slots 0x40/44/48, current draft uses volatile Vec3f slots differently, resulting lwc1 at entry instead of lw and shifts temps. Tried replacing volatile struct with f32 array and u32 array; u32 array worsened and both errors were corrected/abandoned. Candidate baseline cfc67b07647a4e68e29a. Next test a volatile union of f32[3]/u32[3] for `current`, with word copies to force lw/sw to stack and independent float member update.",
   "by": "codex-gpt-6-luna-12",
   "created_at": 1795201914.4174259,
@@ -34752,7 +34752,7 @@
   "score_after": 1440
  },
  {
-  "function": "func_8006F50C",
+  "function": "resolveActorCollisionOffset",
   "text": "Best verified candidate reached score 21 (historical baseline 1218) by copying three vector words through Words3 integer fields. Rechecked baseline was 1218; best revision is 6f7dbb57994bd6308972. Explored volatile pointer, 64-bit/local padding, arrays/extra locals, and assignment vs +=; poorer candidates 1896/874/35/27, no score below 21. Remaining mismatch at best is stack layout only (3 stack slots in head copy at 0x40, 0x44, 0x48 vs candidate 0x20,0x24,0x28); equivalent stack/frame layout experiments moved to score 27 or worse. Continue from revision 6f7dbb57994bd6308972.",
   "by": "codex-gpt-6-luna-18",
   "created_at": 1795204389.003963,
@@ -35736,7 +35736,7 @@
   "score_after": 220
  },
  {
-  "function": "func_8006F50C",
+  "function": "resolveActorCollisionOffset",
   "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Best verified candidate is revision 6f7dbb57994bd6308972 (score 21; rechecked baseline 1218). Current revision 937639fb4d8c5a5c4446 is the raw m2c draft (score 6187). Remaining mismatch at best is stack layout only: target keeps head-copy values as integer lw/sw words in slots 0x40/0x44/0x48 and lwc1 later, while the candidate uses volatile Vec3f slots giving an lwc1 at entry. Tried: volatile pointer, 64-bit/local padding, f32 and u32 arrays, +=, Words3 integer-field copy. Untested: copy head as three u32 locals (lw/sw) before float use, keeping sp44 += 1.0f after the copy.",
   "by": "api-claude-haiku-5-5-10",
   "created_at": 1795205517.449836,
@@ -54593,6 +54593,22 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0bd8881987a32c3aa3d2569e9d1f0dc184b20894e6acc02a1953c69cfea61d54"
  },
  {
+  "function": "startBonusSceneActor",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No candidate C was generated because m2c failed to identify the indirect jump table at 0x8011B158. Target setup: signed byte arg0+0x182 indexes D_8010A500; calls func_8000A894 with 0x224; then D_801002B4-3 is range-checked against 6 and indexes a six-entry function-pointer table D_8011EFC8. The six table arms appear to be embedded code blocks (values 0..5) converging on D_8011F3AC with argument values and a few alternate a2=0x1E paths. Need provide a jtbl/jpt-style table read before indirect `jr` to help redraft, or manually write switch with equivalent dispatch. Remainder calls func_8002B150, marks arg0+0x32C, increments D_8010302C, calls func_80087100 / func_80073AF8, updates arg0+0x1D8/+0x32F, then func_8007089C. Not compiled.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795138874.512052,
+  "score_before": 730,
+  "score_after": 730
+ },
+ {
+  "function": "startBonusSceneActor",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No saved C candidate; initial m2c generation fails to recognize the indirect jump table at the jr (line 23). Read the 100-instruction target, including switch bounds check and table load through D_8011EFC8. Retried redraft with jtbl_8011EFC8 declaration and needed globals/callees; same detector failure. Not a not-C verdict: next attempt should construct a C switch over D_801002B4 that generates the indirect dispatch, possibly using a symbol alias named jtbl_..., then match the six cases and common tails. Target references D_8011F3AC, D_8010302C, D_80109688, D_8010A500, D_8011EFC8, D_8011F3AC.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795178875.434647,
+  "score_before": 730,
+  "score_after": 730
+ },
+ {
   "function": "func_80087380",
   "text": "Score 15 (rev 775153bba41f2501426f, duplicate externs removed - compiles clean with context.h). Only diff: 0.0f compare constant is in $f2 in ours, $f4 in target (c.eq.s/mov.s/mtc1 rows). Quotient (div.s) is already f4 in both. Tried this session (all 15 or worse): quotient inlined/declared separately, 3.64 const placement, var_fs1/var_fs0 split assign, loop_zero decl order/assign inside cond (595), swapped branch (665), var_s6 init at decl (15). Next step: find what would hold $f2 live across the compare in the original (a dead/unused f32 temp set before func_80045590 call? or different type for temp_fv0 e.g. double compare).",
   "by": "api-claude-sonnet-5-5-2",
@@ -61521,6 +61537,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
  },
  {
+  "function": "spawnTrackMarker",
+  "text": "Claim changed during local repairs. Baseline score 20; unsigned local unchanged, unsigned-short index worsened to 145. Linker reports gTrackMarkerTable unknown; check current symbol and target index width.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795236320.518731,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:dfa4f50deca474b881a539b8ca1a3d4e6ad37875757b51da90af53ac6b046cd5:887656ab9a5ab6938a8d177369683abcbdd756dc29771eb56ee2dc739dd1ca35"
+ },
+ {
   "function": "func_80030108",
   "text": "Rechecked saved_best score 2400. Corrected uninitialized/wrong-value candidate remains 4090. Recompiled saved best semantics and got 2400; last edit restoring byte +0x13 in packed output had no score effect. Target repeated clamp uses v0 temporary for subtract/branch/slti and v1 for result, while current compiler allocates different temporaries and branch delays. Most basic path reads packed word at +0x10 then shifts 24 for high byte; byte field at +0x11 is only the gate.\nCorrected all reported semantic errors in higher-scoring candidate (4090); restoring saved_best and testing packed low byte restoration recovered 2400. Saved best itself has uninitialized temp_v0_8 in +0xC path and wrong repeat subtraction.\nNo improvement. Target uses `lw` + `srl` high component, and repeated clamp compiles to explicit subtract, bltz, slti, bnez with arithmetic in delay slots. Candidate allocation diverges.",
   "by": "codex-gpt-6-luna-15",
@@ -61598,28 +61623,39 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:42bf20b37e4af224ef31ae7691695f211aee8e22ce696d664d09636e1034913d"
  },
  {
-  "function": "spawnTrackMarker",
-  "text": "Claim changed during local repairs. Baseline score 20; unsigned local unchanged, unsigned-short index worsened to 145. Linker reports gTrackMarkerTable unknown; check current symbol and target index width.",
+  "function": "func_80091654",
+  "text": "Rechecked inherited best 1440. Compile and register qualifier attempt both score 1440. Target keeps index in s0 and byte offset in v1, masks arg2 using literal 0x7fffffff before loop, while source hoists gSoundEntities into s1 and address setup shifts control flow/register allocation. Further prior trial history large (38 local repairs, 6 patches).\nRecompiled baseline (1440); register-qualifying loop counter produced same score and same instruction differences.\nNo improvement. Target prologue moves s0=0 before constant mask and uses $v1 offset; source keeps global base in s1, changing register allocation and branch tree.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795236491.982662,
+  "score_before": 1440,
+  "score_after": 1440,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:36265ccd965c0ade8f171337fb04fe39dd9137f24500c8321a05531bf073f231"
+ },
+ {
+  "function": "func_800179E8",
+  "text": "Current baseline remains 2171. Full resend reconfirmed exact candidate; changing sp214 volatile\u2192nonvolatile worsened to 2835; restoring volatile returned 2171. sp21C must remain volatile: nonvolatile produced 7634 and larger frame. First mismatch is saved register allocation: target preserves arg2 in s4, uses s6 counter, but source allocates arg2 to s5 and shifts the register set. Also target homes arg0 at 0x214 and arg3 at 0x21C; source candidate uses 0x218 for arg0 and homes zero at 0x224 in different order. Next step: alter local declaration/order around var_s4, var_s6 and stack homes to make arg2 land in s4 and restore target prologue register order.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795236492.0947468,
+  "score_before": 3701,
+  "score_after": 2171,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:da21e0f8225b955bb7d8ccf94d420b1778cd3dbb46fb5102337f90d28460d918"
+ },
+ {
+  "function": "func_8009A990",
+  "text": "Best 795 (rev 2d20ae705aae9d29fc10, keeps `volatile u64 pad` \u2014 needed for 0x30 frame; without it 809). Remaining: in p[6]!=0 branch target loads lhu v0/lbu v1(p0)/lbu a0(p2), addu a1=t+p0, subu v0=t-p2, then `move v1,v0` (copy of d used for lo) then sll/sra on v0; ours keeps d only in a0. Also chk(): target lbu D_801007D9 uses addiu base then sll/addu with b4a added last (addu v0,v0,a1; lbu 0(v0)) vs ours %lo folded in lbu; and D_80100C7C case order. Tried: lo=t-p[2] first then d=lo (835), s16 sd copy (795 same), u32 d2 copy, swapped a/d order (1205), inverted branch (1375). Next: make D_801007D9 indexing `*(u8*)(base + b4b*16 + b4a)` with base via pointer local to force addiu %lo materialization.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795236512.2081778,
+  "score_before": 715,
+  "score_after": 715,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:a3718772c1b540345c5b8ae240f05ee06fd9d49975df63f76cfde537f1f241af"
+ },
+ {
+  "function": "resetPickupActorState",
+  "text": "Claim changed during trial. Inferred typed float fields for gPickupActor improved current draft 3477 to 2882 (revision ec6e71c9c5833ffe6b4f); earlier historical better source unavailable. Remaining differences include calls and register allocation.",
   "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795236320.518731,
+  "created_at": 1795236514.102369,
   "score_before": 20,
   "score_after": 20,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:dfa4f50deca474b881a539b8ca1a3d4e6ad37875757b51da90af53ac6b046cd5:887656ab9a5ab6938a8d177369683abcbdd756dc29771eb56ee2dc739dd1ca35"
- },
- {
-  "function": "startBonusSceneActor",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No candidate C was generated because m2c failed to identify the indirect jump table at 0x8011B158. Target setup: signed byte arg0+0x182 indexes D_8010A500; calls func_8000A894 with 0x224; then D_801002B4-3 is range-checked against 6 and indexes a six-entry function-pointer table D_8011EFC8. The six table arms appear to be embedded code blocks (values 0..5) converging on D_8011F3AC with argument values and a few alternate a2=0x1E paths. Need provide a jtbl/jpt-style table read before indirect `jr` to help redraft, or manually write switch with equivalent dispatch. Remainder calls func_8002B150, marks arg0+0x32C, increments D_8010302C, calls func_80087100 / func_80073AF8, updates arg0+0x1D8/+0x32F, then func_8007089C. Not compiled.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795138874.512052,
-  "score_before": 730,
-  "score_after": 730
- },
- {
-  "function": "startBonusSceneActor",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No saved C candidate; initial m2c generation fails to recognize the indirect jump table at the jr (line 23). Read the 100-instruction target, including switch bounds check and table load through D_8011EFC8. Retried redraft with jtbl_8011EFC8 declaration and needed globals/callees; same detector failure. Not a not-C verdict: next attempt should construct a C switch over D_801002B4 that generates the indirect dispatch, possibly using a symbol alias named jtbl_..., then match the six cases and common tails. Target references D_8011F3AC, D_8010302C, D_80109688, D_8010A500, D_8011EFC8, D_8011F3AC.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795178875.434647,
-  "score_before": 730,
-  "score_after": 730
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:42bf20b37e4af224ef31ae7691695f211aee8e22ce696d664d09636e1034913d"
  }
 ]
