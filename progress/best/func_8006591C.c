@@ -3,7 +3,7 @@
 extern f32 D_800C0740;
 extern s32 D_800C46AC;
 extern f32 D_800C7C9C;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern s32 gTrackMarkerTable;
 extern s32 D_80115089;
 
@@ -25,7 +25,7 @@ f32 __repair___repair_var_ft2_2_1;
     temp_a1 = (*(void **)((char *)(arg0) + 0x6C));
     var_fv1 = *((f32 *)((s8 *)&D_800C46AC + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 0xE8))) * D_800C7C9C;
     temp_a2 = (*(s8 *)((char *)(temp_a1) + 0x182));
-    if (D_80108F78 == 0x19) {
+    if (gGameMode == 0x19) {
         var_fv1 = D_800C0740;
     }
     if (*((u8 *)((s8 *)&D_80115089 + (temp_a2 * 0xA0))) != 0) {
@@ -43,7 +43,7 @@ f32 __repair___repair_var_ft2_2_1;
                 var_fv0 = var_fv1_2;
             }
             var_ft2 = 0.5f;
-            if (D_80108F78 == 0x19) {
+            if (gGameMode == 0x19) {
                 var_ft2 = 1.01f;
             }
             __repair_var_ft2_2 = var_ft2;
@@ -56,7 +56,7 @@ f32 __repair___repair_var_ft2_2_1;
         var_ft0_2 = ((*(f32 *)((char *)(temp_a1) + 0x1C)) - (*(f32 *)((char *)(temp_a1) + 0x24))) * 0.5f;
         goto block_18;
     }
-    if (D_80108F78 == 0x19) {
+    if (gGameMode == 0x19) {
         var_ft0_2 = ((*(f32 *)((char *)(temp_a1) + 0x1C)) - (*(f32 *)((char *)(temp_a1) + 0x24))) * 0.5f;
         var_fv0_2 = ((*(f32 *)((char *)(temp_a1) + 0x20)) - (*(f32 *)((char *)(temp_a1) + 0x28))) * 0.5f;
 block_18:

@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern f32 D_800C0740;
 extern M2C_UNK D_800C46AC;
 extern f32 D_800C7C9C;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 
 typedef struct { unsigned char pad_0[284]; float field_11C; unsigned char pad_120[24]; void * field_138; } __repair_record_arg0;
 void func_8006F90C(void *arg0) {
@@ -24,7 +24,7 @@ void func_8006F90C(void *arg0) {
     temp_v0 = ((__repair_record_arg0*)arg0)->field_138;
     if (temp_v0 != NULL) {
         ((__repair_record_arg0*)arg0)->field_11C = (f32) (*((f32 *)((s8 *)&D_800C46AC + (M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x68), s8 *, 0xE) * 0xE8))) * D_800C7C9C);
-        if (D_80108F78 == 0x19) {
+        if (gGameMode == 0x19) {
             ((__repair_record_arg0*)arg0)->field_11C = (f32) D_800C0740;
         }
     }

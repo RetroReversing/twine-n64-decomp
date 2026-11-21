@@ -7,7 +7,7 @@ extern u8 D_801002AE;
 extern s8 gBorderSkipFlag;
 extern u8 D_80102EFC[];
 extern s8 D_80103EB0;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern void *gTrackMarkerTable[];
 extern void *D_8010A410;
 extern void *gBonusSceneHandle;
@@ -77,7 +77,7 @@ void func_80016FCC(s8 arg0) {
                 node = *(void **)((u8 *)node + 0x10);
             }
             if (D_800CA338 == 0 && gBonusSceneHandle != NULL && ((t = *(s16 *)((u8 *)gBonusSceneHandle + 0x7A)) >= 4 || t < 2)) {
-                switch (D_80108F78) {
+                switch (gGameMode) {
                 case 25: s1 = 0; func_80118098(); break;
                 case 20: s1 = 0; func_801181B0(); break;
                 case 28: case 33: case 40: case 41: s1 = 0; func_80117740(); break;

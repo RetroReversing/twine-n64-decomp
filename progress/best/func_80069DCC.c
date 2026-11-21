@@ -87,7 +87,7 @@ extern u8 D_801002AE;
 extern s32 gSaveSlotCount;
 extern s32 gBorderSkipFlag;
 extern s8 D_80103EB0;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern M2C_UNK gTrackMarkerTable;
 extern u8 gSceneFlagsB;
 extern M2C_UNK D_8011508B;
@@ -438,14 +438,14 @@ M2C_FIELD(temp_s1, f32 *, 0x3C) = 1.0f;
 func_80081CC0(temp_s4);
 actorInitFromSpawn(arg0, arg0 + 0x24, arg0 + 0x3C);
 M2C_FIELD(temp_s1, void **, 0xB8) = NULL;
-if (D_80108F78 == 0x19) {
+if (gGameMode == 0x19) {
 func_800635BC(arg0, 2);
 func_80119DB4(arg0, temp_s1 + 0xB8);
 D_800E1A20 = 0;
 M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xB8), f32 *, 0x4C) = temp_fs0;
 func_80081D00(temp_s4);
 }
-switch (D_80108F78) {
+switch (gGameMode) {
 case 1:
 case 16:
 case 20:

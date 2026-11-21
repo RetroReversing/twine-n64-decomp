@@ -18,7 +18,7 @@ extern f32 D_800C42B4[14][2];
 extern Vec D_800D3E50;
 extern f64 D_800D3E60;
 extern Actor *gPlayerActor;
-extern s32 D_80108F78, D_80108F84;
+extern s32 gGameMode, D_80108F84;
 
 f32 Vec3_DistanceSq(Vec *, Vec *);
 void func_800455CC(Vec *, Vec *, Vec *, Vec *);
@@ -51,7 +51,7 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
             if (actor != skip && (actor->active & 0x400) &&
                 (actor->mask & 0x400) && (actor->mask & mask)) {
                 scale = 1.5f;
-                if (D_80108F78 == 0x19 && actor->type == 1)
+                if (gGameMode == 0x19 && actor->type == 1)
                     scale = 2.5f;
                 func_800455CC(&closest, start, end, &actor->pos);
                 dx = closest.x - actor->pos.x;

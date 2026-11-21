@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800449A0();                            /* extern */
-extern s32 D_80108F78;
+extern s32 gGameMode;
 
 void func_80044BE4(s32 arg0) {
-    D_80108F78 = arg0;
+    gGameMode = arg0;
     func_800449A0();
 }

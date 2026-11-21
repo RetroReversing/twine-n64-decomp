@@ -1384,14 +1384,6 @@
   "score_after": 740
  },
  {
-  "function": "func_80086C10",
-  "text": "Structure is a two-level switch: outer on D_80108F78 via 41-entry jump table jtbl_800D65B0 (cases 1..41, default -> epilogue at +0x170), inner switches via jtbl_800D6658 and jtbl_800D6690. The saved-up C from the m2c draft is wrong on case mapping. My hand-written switch scored 3225 (76 vs 97 insns): saves s0/s1 in the wrong order (target: sw $s0 at 0x10, move $s0,$a0; sw $s1 at 0x14), and the blocks are arranged differently, so the compiler lays out cases differently. Lessons: target uses 'j' to shared exit at +0x170 for most cases; several cases share one block that does (arg1&0xFF)==k tests. Try writing the cases with explicit gotos or shared tails, and check the jump table data (jtbl_800D65B0 entries) to map exact case numbers before retrying. Also: func_80081470 and func_800814EC are called with arg0 only.",
-  "by": "permuter-25769804461",
-  "created_at": 1795050498.954287,
-  "score_before": 3225,
-  "score_after": 3225
- },
- {
   "function": "func_800AAB20",
   "text": "exp-like wrapper; 0x40 frame. Target: saves ra (0x34), s0 (0x30), fs0 (0x38, sdc1); s0=sp+0x20 is the address of a local double (u, written via sdc1/lw/sw) and sp+0x28 is the int-part output of func_800AAF80 (passed as &n). Rodata: D_800D6F38/40 = range bounds, D_800D6F48 scale, D_800D6F50 scale, D_800D6F58 = 1.0 numerator, D_800D6F60 = 1.0, D_800D6F30 = \"exp\" name string. Best C (revision 841f7b4e0886) scores 5230: frame is 0x38 instead of 0x40 and no s0 pointer to the local. Next: force the local double to memory via a pointer (e.g., `f64 u; u32 *pw = (u32*)&u;`) so it occupies sp+0x20 and make the stack 0x40 with ra at 0x34; use a fs0 save (mov.d $fs0,$fa0 keeps arg in f20). Budget spent on this pass.",
   "by": "permuter-25769804461",
@@ -1654,14 +1646,6 @@
   "created_at": 1795050345.658574,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "func_80086C10",
-  "text": "Structure is a two-level switch: outer on D_80108F78 via 41-entry jump table jtbl_800D65B0 (cases 1..41, default -> epilogue at +0x170), inner switches via jtbl_800D6658 and jtbl_800D6690. The saved-up C from the m2c draft is wrong on case mapping. My hand-written switch scored 3225 (76 vs 97 insns): saves s0/s1 in the wrong order (target: sw $s0 at 0x10, move $s0,$a0; sw $s1 at 0x14), and the blocks are arranged differently, so the compiler lays out cases differently. Lessons: target uses 'j' to shared exit at +0x170 for most cases; several cases share one block that does (arg1&0xFF)==k tests. Try writing the cases with explicit gotos or shared tails, and check the jump table data (jtbl_800D65B0 entries) to map exact case numbers before retrying. Also: func_80081470 and func_800814EC are called with arg0 only.",
-  "by": "permuter-25769804951",
-  "created_at": 1795050498.954287,
-  "score_before": 3225,
-  "score_after": 3225
  },
  {
   "function": "func_800AAB20",
@@ -3016,7 +3000,7 @@
   "score_after": 210
  },
  {
-  "function": "func_800814EC",
+  "function": "actorUpdateOwnerLink",
   "text": "Saved best revision 1cbe8880b6007a3b890e rechecks at 505. Tried six independent local repairs (inferred layout, signedness, address temp, const read, assignment-at-use, single-use inline), all tied. One direct source reorder (write 0x68, float 0x60, then masked 0x88) worsened to 590; restored baseline remains best. Target final block loads 0x88 into a0, builds mask in v0, loads 0x68 into v1, materializes 500.0f, then performs and/or, sets/stores 0x68, stores float, and stores 0x88 last. Baseline differs heavily in register allocation/order at this block (candidate begins with lw v0,0x68 where target begins lw a0,0x88). Need a different temp/declaration/source shape to make the 0x88 expression compile first and reuse a0/v0/v1.",
   "by": "codex-gpt-6-luna-6",
   "created_at": 1795136865.536198,
@@ -4886,6 +4870,14 @@
   "created_at": 1795138647.4832482,
   "score_before": 455,
   "score_after": 455
+ },
+ {
+  "function": "func_8000D3AC",
+  "text": "Rechecked saved candidate at 7195; six local record-layout, signedness, address, lifetime and stack-array trials did not improve it. Target loads D_800B2710 as a base pointer, uses offset arg0*0xD4 in bytes, and advances the float stream pointer at base+0 by 4 bytes per read. Candidate incorrectly scales some pointer arithmetic and uses direct float stores where target uses stack vector copies via integer loads/stores. Next rewrite using a 12-byte vector struct copied by value and a correctly typed base/stream; compare all four groups.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795138650.9841862,
+  "score_before": 7195,
+  "score_after": 7195
  },
  {
   "function": "func_80005310",
@@ -8960,7 +8952,7 @@
   "score_after": 18965
  },
  {
-  "function": "func_800814EC",
+  "function": "actorUpdateOwnerLink",
   "text": "Improved saved candidate to verified 60 by staging both fields, splitting x &= mask and x |= bits, and storing 0x68 then float then 0x88. Only mismatch is lw 0x68 scheduled before the mask constant instead of after it. Moving source load after x mask worsened register allocation to 485; explore other lifetime expressions.",
   "by": "codex-gpt-6.1-terra-8",
   "created_at": 1795173798.648088,
@@ -10512,14 +10504,6 @@
   "score_after": 475
  },
  {
-  "function": "func_80086C10",
-  "text": "Rechecked b61a247e9d49e1ad8248 at 2750; six independent local switch and address variants did not improve. Candidate introduces extra .rodata jump table at +0xA8, while target is 44 bytes longer. Inspect target case dispatch and calls; restructure nested switch to match target control flow.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795178101.7691479,
-  "score_before": 2750,
-  "score_after": 2750
- },
- {
   "function": "func_80082834",
   "text": "Best score 114. Removing volatile from the unused 0x51EB851F local reduced score to 120; restoring it returned 114. Target frame is -0x18, current -0x20, and current has an extra sw $v1 at 0x10($sp); target saves ra at 0x10. Remaining body otherwise close, including multiply by 255. Try removing/reshaping the volatile stack reservation while preserving the exact shift/sub sequence.",
   "by": "codex-gpt-6-luna-20",
@@ -11214,6 +11198,14 @@
   "created_at": 1795178539.769402,
   "score_before": 1520,
   "score_after": 1520
+ },
+ {
+  "function": "func_8000D3AC",
+  "text": "Verified candidate compiles at score 7195; no local repair improved it. The current declaration treats D_800B2710 as f32 **, and the resulting code repeatedly loads/stores through that global; many target repeated float operations instead use stack spill slots and derive the per-record address in registers. First indexing region differs at sll $t0,$v0,2 / addu $a2,$v1,$t0 while candidate allocates a2/v1 differently. Candidate has pointer-from-integer warnings due draft casts. Investigate true global type/layout and model input float stream advancing as a local pointer; compare full assembly around target offsets 0x20-0x50. Best source remains initial m2c C with revision baseline.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795178544.375912,
+  "score_before": 7195,
+  "score_after": 7195
  },
  {
   "function": "func_800556DC",
@@ -12856,7 +12848,7 @@
   "score_after": 11857
  },
  {
-  "function": "func_800814EC",
+  "function": "actorUpdateOwnerLink",
   "text": "Saved best score 60/31; recheck confirmed only two reordered loads (`lw 0x68($a1)` target after constant setup, candidate before). Tried moving its read below x computation with C89-compliant declaration; worsened to 490 by changing register allocation/order. First attempt with declaration after statements did not compile. Restore best and investigate how to delay y load without shifting x/y registers; target loads 0x88 into a0, then later 0x68 into v1.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795182058.017694,
@@ -14054,14 +14046,6 @@
   "created_at": 1795182515.661712,
   "score_before": 2706,
   "score_after": 1774
- },
- {
-  "function": "func_80086C10",
-  "text": "Rechecked baseline 2750 at b61a247e9d49e1ad8248. Switch layout, case ordering, selector type, and address temporary trials did not improve. Target has 13 instructions absent in candidate and mismatched jump table placement; inspect target case bodies and calls before further switch tuning.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795182534.096925,
-  "score_before": 2750,
-  "score_after": 2750
  },
  {
   "function": "func_80092F9C",
@@ -22840,14 +22824,6 @@
   "score_after": 2230
  },
  {
-  "function": "func_80086C10",
-  "text": "Session context limit: verified improvement 2750 to 1060. Added explicit no-op cases to both inner switches to force target jump-table ranges, shared case 1's comparison with case 40 via goto, and added case 16's arg1==1 guard. Case 18 switch with explicit 2 and 3 is closer, but target also has slti <3 branch; same pattern missing for case 41. Next try explicit conditional guards `if (arg1 == 2) break; if (arg1 < 3) break; if (arg1 == 3)...` for cases 18 and 41, then compare jump-table targets. Candidate has 90 vs target 97 instructions; table at D6658 still differs and D6690 is emitted at wrong address.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795188276.4504619,
-  "score_before": 2750,
-  "score_after": 1060
- },
- {
   "function": "func_8002E9D0",
   "text": "Best verified score 1755 (revision 0bb281f669f51f5ec082); expression recovers unsigned modulo 255 and output classification via ((value % 255) >> 7) ^ 1, giving 57 instructions. Also tried pointer staging, integer widths, loop-index casts and branch/expression variants; no match. Remaining mismatch primarily prologue/local allocation and control around target's sltiu $v0,$v0,0x80 and bnez backedge. Current experimental revision was worse; saved best retained.",
   "by": "codex-gpt-6-luna-22",
@@ -24294,14 +24270,6 @@
   "created_at": 1795189831.609922,
   "score_before": 280,
   "score_after": 280
- },
- {
-  "function": "func_80086C10",
-  "text": "Read the ROM tables at 0x800D65B0, 0x800D6658, and 0x800D6690 to verify case mapping. Inner case 20 routes selectors 2/4/5/6/8/11 to both calls and 13 to the single call. Inner case 11 routes 3/7 to both calls, then falls through to the case-41 switch. Explicit empty case 1 alongside 2 and 3 in cases 18 and 41 recovers the compiler's three-way decision tree. Direct calls in the switch cases let the compiler generate the shared tails and final register allocation.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795189845.1262069,
-  "score_before": 1060,
-  "score_after": 0
  },
  {
   "function": "func_80097D0C",
@@ -27824,6 +27792,14 @@
   "score_after": 580
  },
  {
+  "function": "func_8000D3AC",
+  "text": "Best verified/rechecked score 7195 (41.9%, target 124 insns vs candidate 114). Fixed the initial undeclared global by declaring extern f32 **D_800B2710; raw target confirms this address is base of indexed records, not command cursor. Tried pointer-type changes and rewritten record/command-stream model; these dropped score to 12140 or failed due to declarations; restored saved best. Remaining major issue is actual data layout: target computes record address from 0xD4 stride and loads command pointer at +0x68; command cursor appears to be separately stored via D_800B2710 in draft but that label seems alias confusion. Target then repeatedly loads cursor, increments by 4, stores it, and spills floats at sp+0/+4. Rework layout/global symbols first; don't tune regs yet.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795193702.0832481,
+  "score_before": 7195,
+  "score_after": 7195
+ },
+ {
   "function": "quaternion_multiply",
   "text": "Verified saved best 710. Arithmetic matches, remaining differences are prologue save scheduling and two nops. Removing unused temporaries or changing register qualifiers yielded identical code; swapping first loads worsened score. Flag search found no better profile. Investigate instruction scheduling or source structure that interleaves callee-saved FPU saves.",
   "by": "codex-gpt-6.1-terra-7",
@@ -31040,6 +31016,14 @@
   "score_after": 180
  },
  {
+  "function": "func_8000D3AC",
+  "text": "Rechecked the saved candidate at 7500. Six local repair variants did not improve it. Explicit stride `(arg0*53)<<2` improved to 7405; equivalent reshaping `((arg0*13)*4+arg0)*4` returned 7500. Remaining mismatch starts in record base/stride register allocation and then nearly all writes/float argument cursor handling. Consider a properly typed record array rooted at the table symbol and a separate typed argument cursor; current draft's `D_800B2710` declaration (`f32 **`) causes repeated invalid pointer arithmetic. No reusable discovery beyond already accepted stride rule.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795199757.831002,
+  "score_before": 7195,
+  "score_after": 7195
+ },
+ {
   "function": "func_8005BC7C",
   "text": "Saved best verified score 15 (65 target/candidate instructions), with only three rendered register mismatches. A `register` qualifier on var_a2 did not change output. Marking var_a2 volatile regressed badly to 1403 points and expanded stack frame from 0x28 to 0x38. Target's initial null-pointer branch uses `addu $v0,$a2,$zero` with `$a2` initialized to zero; candidate folds that to `move $v1,$zero`. Next try to preserve the zero carrier/live register without volatile memory traffic; current candidate best is retained.",
   "by": "codex-gpt-6-luna-7",
@@ -32718,6 +32702,14 @@
   "created_at": 1795201737.701899,
   "score_before": 150,
   "score_after": 150
+ },
+ {
+  "function": "func_8000D3AC",
+  "text": "Historical/current best 7405, revision 5d201cc214adc82bd163. Initial machine-draft source failed due to missing global declaration at one use; proper global appears to be pointer at D_800B2710. Attempted high-level typed struct rewrite, score 9770 and 49 instructions versus target 124; clearly too compact and wrong base symbol address (compiler saw 0x800B270C vs target 0x800B2710). Discard that exploration and restore saved best. Function likely processes indexed object records and advances a global float cursor through many individual scalar loads/stores; the m2c draft duplicated cursor updates due to poor types. Next step: inspect full assembly and model D_800B2710 as a pointer-to-record global and separate cursor as pointer stored at the exact global, then simplify sequential 3-float groups only where assembly shows updates.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795201737.8754828,
+  "score_before": 7195,
+  "score_after": 7195
  },
  {
   "function": "func_800AB880",
@@ -36000,6 +35992,14 @@
   "score_after": 285
  },
  {
+  "function": "func_8000D3AC",
+  "text": "Rechecked inherited candidate score 7405, tried full typed/vector rewrite (worse), then expanded pointer/cursor and explicit stack-friendly scalar version (score 11225), still worse. Target has exact repeated cursor update sequence: load *D_800B2710 pointer, increment cursor by 4, lwc1 input, swc1 to 0/4/8($sp), negate third, then load three stack words and store vector at computed object offset. Original draft's extern pointer type likely wrong: global D_800B2710 contains object-table base for early section but later is also used as cursor pointer location; inspect actual symbol type/layout and two meanings carefully. Early target uses base table+arg0*212; child at +0x68; short fields +0x80/+0x82; child copies object words +0x2c/30/34 to +0x24/28/2c. No exact match found. Current candidate revision 3939467012d29b4603ab.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795204171.3477561,
+  "score_before": 7195,
+  "score_after": 7195
+ },
+ {
   "function": "func_8000B5E0",
   "text": "Score 145; differences are register allocation and order of index scaling. Index width and register qualifiers emitted identical code; volatile pointer worsened score to 420.",
   "by": "codex-gpt-6.1-terra-2",
@@ -37326,6 +37326,14 @@
   "created_at": 1795205274.8108501,
   "score_before": 75,
   "score_after": 75
+ },
+ {
+  "function": "func_8000D3AC",
+  "text": "Current candidate scores 7405 (124 target insns, 113 ours). The compiled raw-pointer version still has repeated D_800B2710 relocations and misses 11 instructions; target's first index calculation is (arg0*53) then <<2, followed by base+index and object +0x68. Likely global is a pointer to float stream, not a pointer-to-pointer advanced repeatedly. Next rewrite should use local float stream pointer and typed indexed object array.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795205288.545395,
+  "score_before": 7195,
+  "score_after": 7195
  },
  {
   "function": "func_8007AABC",
@@ -40206,6 +40214,14 @@
   "created_at": 1795208011.281176,
   "score_before": 200,
   "score_after": 200
+ },
+ {
+  "function": "func_8000D3AC",
+  "text": "Typed 0xD4-byte stream record improved verified score 395 to 140. Target opens with D_800B2710 load before all stride instructions, while C places it after them. All four vector groups differ only in addu operands: target v1,v1,t0, C v1,t0,v1. Both orders of a cast integer sum in the writer compiled identically. Standalone postincrement on raw pointer tied 395; raw base += off worsened to 415.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795208011.9589078,
+  "score_before": 395,
+  "score_after": 140
  },
  {
   "function": "func_8005E68C",
@@ -48005,6 +48021,15 @@
   "score_before": 3520,
   "score_after": 120,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
+ },
+ {
+  "function": "func_8000D3AC",
+  "text": "Improved 140 to 20 by staging global base and using integer byte offset for initial object. Four remaining addu operands reversed. Macro address forms and offset local were unchanged; separate destination pointer scored 520.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795214820.8286998,
+  "score_before": 10380,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:536b302a75d6b3d397db7996a1a99affd92067a9960bbcbf7a6b6ec037e83ab0"
  },
  {
   "function": "vecSlerp",
@@ -56457,76 +56482,95 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:1cff13f04b54181339522f7f396f358fbdda9ecc33aff6decb10d4303709f379"
  },
  {
-  "function": "func_8000D3AC",
-  "text": "Rechecked saved candidate at 7195; six local record-layout, signedness, address, lifetime and stack-array trials did not improve it. Target loads D_800B2710 as a base pointer, uses offset arg0*0xD4 in bytes, and advances the float stream pointer at base+0 by 4 bytes per read. Candidate incorrectly scales some pointer arithmetic and uses direct float stores where target uses stack vector copies via integer loads/stores. Next rewrite using a 12-byte vector struct copied by value and a correctly typed base/stream; compare all four groups.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795138650.9841862,
-  "score_before": 7195,
-  "score_after": 7195
- },
- {
-  "function": "func_8000D3AC",
-  "text": "Verified candidate compiles at score 7195; no local repair improved it. The current declaration treats D_800B2710 as f32 **, and the resulting code repeatedly loads/stores through that global; many target repeated float operations instead use stack spill slots and derive the per-record address in registers. First indexing region differs at sll $t0,$v0,2 / addu $a2,$v1,$t0 while candidate allocates a2/v1 differently. Candidate has pointer-from-integer warnings due draft casts. Investigate true global type/layout and model input float stream advancing as a local pointer; compare full assembly around target offsets 0x20-0x50. Best source remains initial m2c C with revision baseline.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795178544.375912,
-  "score_before": 7195,
-  "score_after": 7195
- },
- {
-  "function": "func_8000D3AC",
-  "text": "Best verified/rechecked score 7195 (41.9%, target 124 insns vs candidate 114). Fixed the initial undeclared global by declaring extern f32 **D_800B2710; raw target confirms this address is base of indexed records, not command cursor. Tried pointer-type changes and rewritten record/command-stream model; these dropped score to 12140 or failed due to declarations; restored saved best. Remaining major issue is actual data layout: target computes record address from 0xD4 stride and loads command pointer at +0x68; command cursor appears to be separately stored via D_800B2710 in draft but that label seems alias confusion. Target then repeatedly loads cursor, increments by 4, stores it, and spills floats at sp+0/+4. Rework layout/global symbols first; don't tune regs yet.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795193702.0832481,
-  "score_before": 7195,
-  "score_after": 7195
- },
- {
-  "function": "func_8000D3AC",
-  "text": "Rechecked the saved candidate at 7500. Six local repair variants did not improve it. Explicit stride `(arg0*53)<<2` improved to 7405; equivalent reshaping `((arg0*13)*4+arg0)*4` returned 7500. Remaining mismatch starts in record base/stride register allocation and then nearly all writes/float argument cursor handling. Consider a properly typed record array rooted at the table symbol and a separate typed argument cursor; current draft's `D_800B2710` declaration (`f32 **`) causes repeated invalid pointer arithmetic. No reusable discovery beyond already accepted stride rule.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795199757.831002,
-  "score_before": 7195,
-  "score_after": 7195
- },
- {
-  "function": "func_8000D3AC",
-  "text": "Historical/current best 7405, revision 5d201cc214adc82bd163. Initial machine-draft source failed due to missing global declaration at one use; proper global appears to be pointer at D_800B2710. Attempted high-level typed struct rewrite, score 9770 and 49 instructions versus target 124; clearly too compact and wrong base symbol address (compiler saw 0x800B270C vs target 0x800B2710). Discard that exploration and restore saved best. Function likely processes indexed object records and advances a global float cursor through many individual scalar loads/stores; the m2c draft duplicated cursor updates due to poor types. Next step: inspect full assembly and model D_800B2710 as a pointer-to-record global and separate cursor as pointer stored at the exact global, then simplify sequential 3-float groups only where assembly shows updates.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795201737.8754828,
-  "score_before": 7195,
-  "score_after": 7195
- },
- {
-  "function": "func_8000D3AC",
-  "text": "Rechecked inherited candidate score 7405, tried full typed/vector rewrite (worse), then expanded pointer/cursor and explicit stack-friendly scalar version (score 11225), still worse. Target has exact repeated cursor update sequence: load *D_800B2710 pointer, increment cursor by 4, lwc1 input, swc1 to 0/4/8($sp), negate third, then load three stack words and store vector at computed object offset. Original draft's extern pointer type likely wrong: global D_800B2710 contains object-table base for early section but later is also used as cursor pointer location; inspect actual symbol type/layout and two meanings carefully. Early target uses base table+arg0*212; child at +0x68; short fields +0x80/+0x82; child copies object words +0x2c/30/34 to +0x24/28/2c. No exact match found. Current candidate revision 3939467012d29b4603ab.",
+  "function": "func_8006D2E4",
+  "text": "Recovered work packet source was truncated by tool output; prior draft has multiple hard compile errors and claim asks for one compiling candidate. First compile submitted stub did not define the target; current candidate has no recoverable full C from get_function(section=work) output. Need fresh draft or source recovery. No meaningful code result.",
   "by": "codex-gpt-6-luna-15",
-  "created_at": 1795204171.3477561,
-  "score_before": 7195,
-  "score_after": 7195
+  "created_at": 1795226606.252359,
+  "score_before": 22177,
+  "score_after": 22177
  },
  {
-  "function": "func_8000D3AC",
-  "text": "Current candidate scores 7405 (124 target insns, 113 ours). The compiled raw-pointer version still has repeated D_800B2710 relocations and misses 11 instructions; target's first index calculation is (arg0*53) then <<2, followed by base+index and object +0x68. Likely global is a pointer to float stream, not a pointer-to-pointer advanced repeatedly. Next rewrite should use local float stream pointer and typed indexed object array.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795205288.545395,
-  "score_before": 7195,
-  "score_after": 7195
- },
- {
-  "function": "func_8000D3AC",
-  "text": "Typed 0xD4-byte stream record improved verified score 395 to 140. Target opens with D_800B2710 load before all stride instructions, while C places it after them. All four vector groups differ only in addu operands: target v1,v1,t0, C v1,t0,v1. Both orders of a cast integer sum in the writer compiled identically. Standalone postincrement on raw pointer tied 395; raw base += off worsened to 415.",
+  "function": "func_8011AE4C",
+  "text": "Score 200, one opcode differs. Aggregate cast restores exact prologue and 3-arg call restores exact call site. Exhausted cast and expression variants trying to preserve the move.",
   "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795208011.9589078,
-  "score_before": 395,
-  "score_after": 140
+  "created_at": 1795226615.028116,
+  "score_before": 415,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f070be0536889ef813108c9f2fa2f820dbb208b6d7e4ce75f26b5d6f0ce96ad1"
  },
  {
-  "function": "func_8000D3AC",
-  "text": "Improved 140 to 20 by staging global base and using integer byte offset for initial object. Four remaining addu operands reversed. Macro address forms and offset local were unchanged; separate destination pointer scored 520.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795214820.8286998,
-  "score_before": 10380,
-  "score_after": 20,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:536b302a75d6b3d397db7996a1a99affd92067a9960bbcbf7a6b6ec037e83ab0"
+  "function": "handleActorModeEvent",
+  "text": "Structure is a two-level switch: outer on D_80108F78 via 41-entry jump table jtbl_800D65B0 (cases 1..41, default -> epilogue at +0x170), inner switches via jtbl_800D6658 and jtbl_800D6690. The saved-up C from the m2c draft is wrong on case mapping. My hand-written switch scored 3225 (76 vs 97 insns): saves s0/s1 in the wrong order (target: sw $s0 at 0x10, move $s0,$a0; sw $s1 at 0x14), and the blocks are arranged differently, so the compiler lays out cases differently. Lessons: target uses 'j' to shared exit at +0x170 for most cases; several cases share one block that does (arg1&0xFF)==k tests. Try writing the cases with explicit gotos or shared tails, and check the jump table data (jtbl_800D65B0 entries) to map exact case numbers before retrying. Also: func_80081470 and func_800814EC are called with arg0 only.",
+  "by": "permuter-25769804461",
+  "created_at": 1795050498.954287,
+  "score_before": 3225,
+  "score_after": 3225
+ },
+ {
+  "function": "handleActorModeEvent",
+  "text": "Structure is a two-level switch: outer on D_80108F78 via 41-entry jump table jtbl_800D65B0 (cases 1..41, default -> epilogue at +0x170), inner switches via jtbl_800D6658 and jtbl_800D6690. The saved-up C from the m2c draft is wrong on case mapping. My hand-written switch scored 3225 (76 vs 97 insns): saves s0/s1 in the wrong order (target: sw $s0 at 0x10, move $s0,$a0; sw $s1 at 0x14), and the blocks are arranged differently, so the compiler lays out cases differently. Lessons: target uses 'j' to shared exit at +0x170 for most cases; several cases share one block that does (arg1&0xFF)==k tests. Try writing the cases with explicit gotos or shared tails, and check the jump table data (jtbl_800D65B0 entries) to map exact case numbers before retrying. Also: func_80081470 and func_800814EC are called with arg0 only.",
+  "by": "permuter-25769804951",
+  "created_at": 1795050498.954287,
+  "score_before": 3225,
+  "score_after": 3225
+ },
+ {
+  "function": "handleActorModeEvent",
+  "text": "Rechecked b61a247e9d49e1ad8248 at 2750; six independent local switch and address variants did not improve. Candidate introduces extra .rodata jump table at +0xA8, while target is 44 bytes longer. Inspect target case dispatch and calls; restructure nested switch to match target control flow.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795178101.7691479,
+  "score_before": 2750,
+  "score_after": 2750
+ },
+ {
+  "function": "handleActorModeEvent",
+  "text": "Rechecked baseline 2750 at b61a247e9d49e1ad8248. Switch layout, case ordering, selector type, and address temporary trials did not improve. Target has 13 instructions absent in candidate and mismatched jump table placement; inspect target case bodies and calls before further switch tuning.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795182534.096925,
+  "score_before": 2750,
+  "score_after": 2750
+ },
+ {
+  "function": "handleActorModeEvent",
+  "text": "Session context limit: verified improvement 2750 to 1060. Added explicit no-op cases to both inner switches to force target jump-table ranges, shared case 1's comparison with case 40 via goto, and added case 16's arg1==1 guard. Case 18 switch with explicit 2 and 3 is closer, but target also has slti <3 branch; same pattern missing for case 41. Next try explicit conditional guards `if (arg1 == 2) break; if (arg1 < 3) break; if (arg1 == 3)...` for cases 18 and 41, then compare jump-table targets. Candidate has 90 vs target 97 instructions; table at D6658 still differs and D6690 is emitted at wrong address.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795188276.4504619,
+  "score_before": 2750,
+  "score_after": 1060
+ },
+ {
+  "function": "handleActorModeEvent",
+  "text": "Read the ROM tables at 0x800D65B0, 0x800D6658, and 0x800D6690 to verify case mapping. Inner case 20 routes selectors 2/4/5/6/8/11 to both calls and 13 to the single call. Inner case 11 routes 3/7 to both calls, then falls through to the case-41 switch. Explicit empty case 1 alongside 2 and 3 in cases 18 and 41 recovers the compiler's three-way decision tree. Direct calls in the switch cases let the compiler generate the shared tails and final register allocation.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795189845.1262069,
+  "score_before": 1060,
+  "score_after": 0
+ },
+ {
+  "function": "func_8003AF20",
+  "text": "Extensive structural and register differences remain; the session claim was unexpectedly lost and reacquired, resetting the move-on count. Tested old-cursor first conditional write: 17537 versus 16587, so restored best.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795226624.484823,
+  "score_before": 31587,
+  "score_after": 16587,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:898c8190c3fbfb61546fe0a6dbe696eb8903123c2991a15371d701a448a2f7f9"
+ },
+ {
+  "function": "func_80093268",
+  "text": "Best 230 (rev 235b5eec7a0a672c8fda) is only 1 insn off: target emits `move $a2,$zero` in the delay slot of `beqz $v0,.L8009333C` (before `subu a1`); mine has nop there and the move later (before a3=0). Tried: (s32)0 casts, temp for now-old, base=0 temps, now>old, struct-array version (4185, wrong: target uses separate symbols). Next step: change how the zero args (a2,a3) are produced so a2=0 is emitted first in the old<now arm (e.g. different fn-pointer prototype with different arg types, or reorder arg evaluation).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795226654.169292,
+  "score_before": 230,
+  "score_after": 230,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:d7e3ebae87163e0171ce379bff7cc80314cb269f03fe6d9f25b3a5fff8ab60be"
+ },
+ {
+  "function": "func_80099CA8",
+  "text": "Saved best 1050 (rev e6f103343c5723b38536), down from 2030. Key: nested structure (if (count!=0){...return x!=0;} return 0;) with inner early `return 0`s, plain C instead of gotos. Remaining diffs: target does `lw 4(arg1); srl 8; andi 1; move s1,v0; andi v0,v0,0xff` (s1 u32 copy, then masked test) whereas mine does `andi s1,v0,1; andi v0,s1,0xff`. Target also shares a common `sw v0,0x9C` (v0=-1 in beq delay slot for sp10==0xFFFF; v0=A4+sp10 in the other path via j) \u2014 mine duplicates the store. A goto/shared-var version (v=-1; ... *9C=v) gave 1205 (bnez/beqz orientation changed, -1 into a0). u8 s1 turns lw into lbu 6 (worse, 1245). Next step: find source that makes sp10==0xFFFF and the (A4+sp10) path share one store while keeping the beqz s1 orientation; maybe type arg1 as struct with real fields.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795226657.853739,
+  "score_before": 2030,
+  "score_after": 1050,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bb001ea5202bfe79c01b5e3a8d49d04dca2f9082a01394075711642d04b57d08"
  }
 ]

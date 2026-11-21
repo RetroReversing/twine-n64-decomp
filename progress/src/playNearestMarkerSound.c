@@ -21,7 +21,7 @@ extern M2C_UNK D_800CE5F0;
 extern M2C_UNK D_800CE5FC;
 extern M2C_UNK D_800CE60C;
 extern M2C_UNK D_800CE614;
-extern u32 D_80108F78;
+extern u32 gGameMode;
 extern M2C_UNK gTrackMarkerTable;
 
 /* Plays a random sfx for the current state at the distance to the nearest track marker, then pans it toward that marker */ void playNearestMarkerSound(void *obj) {
@@ -33,7 +33,7 @@ extern M2C_UNK gTrackMarkerTable;
 
     channel = -1;
     dist = findNearestTrackMarker(obj + 0x24, &markerIdx);
-    switch (D_80108F78) {                           /* switch 1; irregular */
+    switch (gGameMode) {                           /* switch 1; irregular */
     case 29:                                        /* switch 1 */
         sfxId = *((u16 *)((s8 *)&D_800CE614 + (randomIntBelow(9) * 2)));
         goto block_15;

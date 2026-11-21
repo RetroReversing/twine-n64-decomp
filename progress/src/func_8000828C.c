@@ -5,7 +5,7 @@ extern s32 D_800B1D7C;
 extern s32 D_800B1D80;
 extern s32 sMatrixPoolLimit;
 extern s32 gBorderSkipFlag;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern Ctx828C *D_8010A2BC[];
 extern u16 D_8010A518;
 
@@ -18,7 +18,7 @@ void func_8000828C(void) {
     } else {
         D_800B1D80 = 0x190;
         D_800B1D7C = 0xBB8;
-        if (D_80108F78 == 0x24) {
+        if (gGameMode == 0x24) {
             D_800B1D7C = 0xE74;
         }
     }

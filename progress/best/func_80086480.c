@@ -71,7 +71,7 @@ s32 func_80119BD4();
 s32 func_80119C6C();
 s32 func_80119CD0();
 s32 func_80119D88();
-extern s32 D_80108F78;
+extern s32 gGameMode;
 
 s32 func_80086480(s32 arg0, s32 arg1) {
     s32 temp_a1;
@@ -89,7 +89,7 @@ s32 func_80086480(s32 arg0, s32 arg1) {
     s32 temp_v0_7;
     s32 var_v0;
 
-    switch (D_80108F78) {                           /* switch 1 */
+    switch (gGameMode) {                           /* switch 1 */
     case 33:                                        /* switch 1 */
         temp_a1 = arg1 & 0xFF;
         switch (temp_a1) {                          /* switch 2; irregular */

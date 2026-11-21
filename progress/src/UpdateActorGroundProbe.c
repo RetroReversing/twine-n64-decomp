@@ -10,7 +10,7 @@ extern f64 D_800D4E80;
 extern u16 D_80103046;
 extern s32 D_80103F00;
 extern s32 gPlayerActor;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern void *D_80108F84;
 
 typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
@@ -103,7 +103,7 @@ typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
     (*(f32 *)((char *)(actor) + 0x28)) = (f32) ((*(f32 *)((char *)(actor) + 0x28)) + frame.view_sp54.value);
     (*(u16 *)((char *)(__repair_phase_storage.pointer) + 0xC)) = (u16) ((*(u16 *)((char *)(__repair_phase_storage.pointer) + 0xC)) | 0x80);
     if ((*(f32 *)((char *)(actor) + 0x28)) <= (frame.view_sp34.value + probeRadius)) {
-        if ((D_80108F78 != 0x19) && ((*(f32 *)((char *)(motion) + 0x48)) < -12.0f)) {
+        if ((gGameMode != 0x19) && ((*(f32 *)((char *)(motion) + 0x48)) < -12.0f)) {
             (*(f32 *)((char *)(actor) + 0x74)) = -1.0f;
         }
         __repair_phase_storage.value = (*(s16 *)((char *)(actor) + 0x7A));

@@ -6,7 +6,7 @@ s32 randomIntBelow(s32);
 f32 findNearestTrackMarker(void *, s32 *);
 extern u16 D_800CE63C[];
 extern u16 D_800CE640[];
-extern s32 D_80108F78;
+extern s32 gGameMode;
 
 void func_800847D4(s32 arg0, Obj847D4 *arg1) {
     s32 sp10;
@@ -14,7 +14,7 @@ void func_800847D4(s32 arg0, Obj847D4 *arg1) {
     u16 id;
 
     vol = findNearestTrackMarker(arg1->pos, &sp10);
-    switch (D_80108F78) {
+    switch (gGameMode) {
     case 2:
         id = 0x176;
         if (!(arg1->sub->flags & 0x200000)) {

@@ -44,7 +44,7 @@ extern char D_80102CD0[];
 extern s32 gBorderSkipFlag;
 extern u8 D_80102EE8;
 extern s8 D_80103EB0;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern char gTrackMarkerTable[];
 extern char gBonusSceneHandle[];
 extern u8 D_80112F6D;
@@ -319,7 +319,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
                 var_a3 = *(D_801001A3 + ((func_80022DBC(var_fv1) & 0xFFFF) * 0x18));
                 var_a1 = __repair_phase_storage.value;
             } else {
-                switch (D_80108F78) {               /* switch 1 */
+                switch (gGameMode) {               /* switch 1 */
                 default:                            /* switch 1 */
                     var_a1 = 0x11;
                     break;
@@ -369,10 +369,10 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
                 (*(s8 *)((char *)((temp_s3 + (temp_s1_3 * 8))) + 0x1FC)) = 1;
                 (*(u16 *)((char *)((temp_s3 + (*(D_800C471C + temp_s0_6) * 2))) + 0x1BC)) = temp_s0;
                 (*(u8 *)((char *)((temp_s3 + ((s32) (func_80063C7C((s16) temp_s1_3) << 0x10) >> 0xD))) + 0x1FF)) = (u8) *(D_800C471E + temp_s0_6);
-                if (((D_80108F78 == 0x26) | (D_80108F78 == 1)) != 0) {
+                if (((gGameMode == 0x26) | (gGameMode == 1)) != 0) {
                     (*(s8 *)((char *)(temp_s3) + 0x21E)) = 1;
                 }
-                if (D_80108F78 != 0x19) {
+                if (gGameMode != 0x19) {
                     (*(s8 *)((char *)(temp_s3) + 0x304)) = 1;
                     (*(s8 *)((char *)(temp_s3) + 0x30C)) = 1;
                     (*(s8 *)((char *)(temp_s3) + 0x314)) = 1;
@@ -380,8 +380,8 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
                     (*(s8 *)((char *)(temp_s3) + 0x307)) = 0x64;
                     (*(s8 *)((char *)(temp_s3) + 0x317)) = 0x64;
                     var_v1_3 = 0xC;
-                    if (D_80108F78 != 2) {
-                        var_v1_3 = -(D_80108F78 == 0x26) & 0xC;
+                    if (gGameMode != 2) {
+                        var_v1_3 = -(gGameMode == 0x26) & 0xC;
                     }
                     (*(s8 *)((char *)(temp_s3) + 0x30F)) = var_v1_3;
                 }

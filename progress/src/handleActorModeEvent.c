@@ -1,10 +1,10 @@
-extern s32 D_80108F78;
-void func_80081470(void *);
-void func_800814EC(void *);
+extern s32 gGameMode;
+void actorClearPendingFlags(void *);
+void actorUpdateOwnerLink(void *);
 
-void func_80086C10(void *arg0, u8 arg1)
+void handleActorModeEvent(void *arg0, u8 arg1)
 {
-    switch (D_80108F78) {
+    switch (gGameMode) {
     case 1:
         if ((arg1 & 0xFF) == 1) break;
         goto shared_two;
@@ -12,31 +12,31 @@ void func_80086C10(void *arg0, u8 arg1)
         switch (arg1 & 0xFF) {
         case 1: break;
         case 2:
-            func_80081470(arg0);
-            func_800814EC(arg0);
+            actorClearPendingFlags(arg0);
+            actorUpdateOwnerLink(arg0);
             break;
         case 4:
-            func_80081470(arg0);
-            func_800814EC(arg0);
+            actorClearPendingFlags(arg0);
+            actorUpdateOwnerLink(arg0);
             break;
         case 5:
-            func_80081470(arg0);
-            func_800814EC(arg0);
+            actorClearPendingFlags(arg0);
+            actorUpdateOwnerLink(arg0);
             break;
         case 6:
-            func_80081470(arg0);
-            func_800814EC(arg0);
+            actorClearPendingFlags(arg0);
+            actorUpdateOwnerLink(arg0);
             break;
         case 8:
-            func_80081470(arg0);
-            func_800814EC(arg0);
+            actorClearPendingFlags(arg0);
+            actorUpdateOwnerLink(arg0);
             break;
         case 11:
-            func_80081470(arg0);
-            func_800814EC(arg0);
+            actorClearPendingFlags(arg0);
+            actorUpdateOwnerLink(arg0);
             break;
         case 13:
-            func_80081470(arg0);
+            actorClearPendingFlags(arg0);
             break;
         }
         break;
@@ -56,8 +56,8 @@ void func_80086C10(void *arg0, u8 arg1)
         case 1: break;
         case 2: break;
         case 3:
-            func_80081470(arg0);
-            func_800814EC(arg0);
+            actorClearPendingFlags(arg0);
+            actorUpdateOwnerLink(arg0);
             break;
         }
         break;
@@ -66,8 +66,8 @@ void func_80086C10(void *arg0, u8 arg1)
         case 1: case 2: case 4: case 5: case 6: case 8: case 9: case 10: case 11: break;
         case 3:
         case 7:
-            func_80081470(arg0);
-            func_800814EC(arg0);
+            actorClearPendingFlags(arg0);
+            actorUpdateOwnerLink(arg0);
             break;
         }
         /* fall through */
@@ -75,13 +75,13 @@ void func_80086C10(void *arg0, u8 arg1)
         switch (arg1 & 0xFF) {
         case 1: break;
         case 2: break;
-        case 3: func_80081470(arg0); break;
+        case 3: actorClearPendingFlags(arg0); break;
         }
         break;
     case 40:
     shared_two:
         if ((arg1 & 0xFF) == 2) {
-            func_80081470(arg0);
+            actorClearPendingFlags(arg0);
         }
         break;
     }

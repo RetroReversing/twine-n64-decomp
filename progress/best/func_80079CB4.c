@@ -29,7 +29,7 @@ M2C_UNK func_8007C93C(void *);                      /* extern */
 s32 randomIntBelow(s32);                            /* extern */
 extern u8 D_800CA338;
 extern u16 D_80108F72;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern u16 D_80113020;
 extern u8 D_80117734;
 extern M2C_UNK func_80076CE4;
@@ -100,7 +100,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg
                 M2C_FIELD(temp_s0, u8 *, 0x85) = (u8) *(&gTrackDoneFlags + M2C_FIELD(temp_s0, u8 *, 0x84));
                 M2C_FIELD(temp_s0, s16 *, 0x76) = 0;
                 M2C_FIELD(temp_s0, s16 *, 0x74) = 0;
-                if (D_80108F78 == 0x19) {
+                if (gGameMode == 0x19) {
                     D_80117734 = 1;
                 }
                 var_s5 = 0x14D;

@@ -19,7 +19,7 @@ f32 absFloat(f32);                             /* extern */
 M2C_UNK func_800839F0(void *, M2C_UNK32 *, f32 *);  /* extern */
 extern f32 D_800C7C98;
 extern s32 gBorderSkipFlag;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 
 void func_8006F974(void *arg0, void *arg1) {
     union { f32 f[3]; M2C_UNK32 w[3]; } in;
@@ -54,7 +54,7 @@ void func_8006F974(void *arg0, void *arg1) {
         var_fs1 = 1.0f;
         temp_a1 = M2C_FIELD(temp_s3, void **, 0x6C);
         var_s2 = NULL;
-        if (D_80108F78 == 0x19) {
+        if (gGameMode == 0x19) {
             var_fs0 = M2C_FIELD(arg0, f32 *, 0x58) * M2C_FIELD(temp_a1, f32 *, 0x20);
             var_fs1 = 8.0f;
             var_fs4 = 8.0f;
@@ -110,7 +110,7 @@ block_29:
                                     M2C_FIELD(arg0, f32 *, 0x11C) = sp40;
                                     { struct vec { u32 x, y, z; }; *(struct vec *)((s8 *)arg0 + 0x104) = *(struct vec *)&in; }
                                     M2C_FIELD(arg0, f32 *, 0x114) = sp3C;
-                                    if (D_80108F78 != 0x19) {
+                                    if (gGameMode != 0x19) {
                                         if (!(sp40 < D_800C7C98)) {
                                             M2C_FIELD(arg0, f32 *, 0x110) = 0.0f;
                                             return;

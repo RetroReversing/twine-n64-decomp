@@ -33,7 +33,7 @@ s32 func_8007C120(s32, s32, f32);
 s32 func_8007C214();
 s32 func_8007C3F0();
 extern char D_800C2E64[];
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern void *gBonusSceneHandle;
 extern s8 D_80115319;
 extern s16 D_80117386;
@@ -178,7 +178,7 @@ block_40:
                 }
                 if (M2C_FIELD(arg0, s32 *, 0x60) & 0x800000) {
                     temp_s2 = temp_s1 + 0x50;
-                    if (((actorTargetInAngleRange(arg0, temp_s2, &sp34, *(f32 *)(D_800C2E64 + (D_80108F78 * 4)) * 0.95f) << 0x18) != 0) && ((func_800158A4(*M2C_FIELD(arg0, s32 **, 0x68) + 0xA8, temp_s2, M2C_FIELD(arg0, s32 *, 0x20), &sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+                    if (((actorTargetInAngleRange(arg0, temp_s2, &sp34, *(f32 *)(D_800C2E64 + (gGameMode * 4)) * 0.95f) << 0x18) != 0) && ((func_800158A4(*M2C_FIELD(arg0, s32 **, 0x68) + 0xA8, temp_s2, M2C_FIELD(arg0, s32 *, 0x20), &sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                         func_800779C4(arg0);
                         M2C_FIELD(temp_s1, __repair_words3 *, 0x18) = *(__repair_words3 *) ((s8 *) temp_s1 + 0x50);
                         if (((func_8007AA40(arg0, temp_s1 + 0x18, &sp48) << 0x18) == 0) && ((func_80077E00(arg0) << 0x18) != 0)) {

@@ -16,12 +16,12 @@ M2C_UNK func_80070730(s32, M2C_UNK, M2C_UNK);       /* extern */
 M2C_UNK func_8007089C(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_80074C34(M2C_UNK, M2C_UNK *, M2C_UNK); /* extern */
 extern M2C_UNK D_800CEC64;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern M2C_UNK func_801183F4;
 
 void func_8005C41C(void *arg0) {
     func_80070730(M2C_FIELD(arg0, s32 *, 0x6C), 3, 1);
-    if (D_80108F78 == 2) {
+    if (gGameMode == 2) {
         if (M2C_FIELD(&func_801183F4, s8 *, 0x55D) == 0) {
             if (M2C_FIELD(&func_801183F4, s8 *, 0x55E) == 0) {
                 func_80074C34(0, &D_800CEC64, 1);

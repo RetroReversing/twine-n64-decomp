@@ -34,7 +34,7 @@ extern s8 D_80103EB0;
 extern s32 D_80103F00;
 extern void *D_80108404;
 extern void *gPlayerActor;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern void *D_80108F84;
 
 typedef struct { s32 words[4]; } QuadWords;
@@ -92,7 +92,7 @@ void func_8006E648(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
     void *temp_v1_9;
     void *var_s3;
 
-    if (D_80108F78 == 0xB) {
+    if (gGameMode == 0xB) {
         func_8006E4A8(arg1);
     }
     switch (M2C_FIELD(arg1, s16 *, 0x7C)) {

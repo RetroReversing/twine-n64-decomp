@@ -27,7 +27,7 @@ extern s8 D_801002AE;
 extern s32 gSaveSlotCount;
 extern s32 gBorderSkipFlag;
 extern void *sActiveMenu;
-extern s32 D_80108F78;
+extern s32 gGameMode;
 extern void *gMenuState;
 
 void func_8001EB2C(void) {
@@ -69,7 +69,7 @@ void func_8001EB2C(void) {
             temp_s0 = var_s1 & 0xFFFF;
             func_80011938(temp_s0, 0);
             func_80081CC0(temp_s0);
-            if (D_80108F78 == 0x19) {
+            if (gGameMode == 0x19) {
                 func_80081D00(temp_s0);
             }
             var_s1 += 1;
