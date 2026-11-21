@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80001928(M2C_UNK);                         /* extern */
+s32 findOrLoadStreamSlot(M2C_UNK);                         /* extern */
 M2C_UNK func_800055CC(M2C_UNK *, s32, M2C_UNK, M2C_UNK); /* extern */
 M2C_UNK func_80005868(s32, M2C_UNK *, M2C_UNK, M2C_UNK); /* extern */
 
@@ -20,5 +20,5 @@ void func_80005A18(s32 arg0, M2C_UNK arg1, M2C_UNK arg2, M2C_UNK arg3) {
     u8 sp10[0x628];
 
     func_800055CC(sp10, arg0, arg1, 0);
-    func_80005868(func_80001928(0x11), sp10, arg2, arg3);
+    func_80005868(findOrLoadStreamSlot(0x11), sp10, arg2, arg3);
 }

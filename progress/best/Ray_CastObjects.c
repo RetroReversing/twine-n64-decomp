@@ -33,7 +33,7 @@ s32 randomIntBelow(s32);                         /* extern */
 void func_80047E4C(void *, s32, void *);     /* extern */
 s32 func_800488D4(void *, void *, void *);            /* extern */
 s32 Ray_TriangleIntersect(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
-s32 func_8004DEE0(void *, void *, void *);           /* extern */
+s32 clipSegmentToObjectBox(void *, void *, void *);           /* extern */
 u16 func_8004E418(void *, void *, void *);            /* extern */
 void func_80082D24(void *, void *);            /* extern */
 void rotateVec3ByMat3(void *, void *);            /* extern */
@@ -321,7 +321,7 @@ s32 __repair_phase_var_a2;
                                 work.scratch.room.clippedStart = work.plane.vector;
                                 work.scratch.room.clippedEnd = work.scratch.room.end;
                                 var_s4_3 = -1;
-                                if (((u32)func_8004DEE0(var_s7, sp184, sp18C) << 24) != 0) {
+                                if (((u32)clipSegmentToObjectBox(var_s7, sp184, sp18C) << 24) != 0) {
                                     work.roomDirection = *(RayVec *)spFC;
                                     temp_v0_2 = func_8004E418(temp_s0_4, sp184, sp18C);
                                     sp19E = temp_v0_2 & 0xFF;

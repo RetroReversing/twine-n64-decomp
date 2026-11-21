@@ -32,7 +32,7 @@ M2C_UNK collectVisibleObjects(void *);                      /* extern */
 M2C_UNK func_80036B38(void *);                      /* extern */
 M2C_UNK func_80036BBC(void *);                      /* extern */
 M2C_UNK func_800371E0(void *);                      /* extern */
-M2C_UNK func_800374BC(void *);                      /* extern */
+M2C_UNK emitObjectListCommands(void *);                      /* extern */
 M2C_UNK func_80037A7C(void *);                      /* extern */
 M2C_UNK func_80037BDC(void *);                      /* extern */
 M2C_UNK func_80037C84(void *);                      /* extern */
@@ -240,7 +240,7 @@ loop_15:
             func_80034928(arg0, D_8010A4D8);
             func_800362B4(arg0);
             func_80034928(arg0, D_8010A4D8);
-            func_800374BC(arg0);
+            emitObjectListCommands(arg0);
             func_80034928(arg0, D_8010A4D8);
             func_80036BBC(arg0);
             func_80034928(arg0, D_8010A4D8);

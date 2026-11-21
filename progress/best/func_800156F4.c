@@ -31,9 +31,10 @@ void func_800156F4(void) {
     Entry156 *cur;
     Entry156 *prev;
 
-    stamp = gSurfaceQueryStamp + 1;
-    gSurfaceQueryStamp = stamp;
+    u32 s0 = gSurfaceQueryStamp + 1;
     count = D_80109E1C;
+    gSurfaceQueryStamp = s0;
+    stamp = s0;
     for (i = 0; i < D_80109E1C; i++) {
         entry = D_80102D68[i];
         b = &D_80103F10[i];
@@ -53,8 +54,8 @@ void func_800156F4(void) {
         prev = NULL;
         cur = gObjectListHead;
         if (cur == NULL) {
-            entry->next = NULL;
             gObjectListHead = entry;
+            entry->next = NULL;
             continue;
         }
         do {
@@ -62,9 +63,9 @@ void func_800156F4(void) {
                 entry->next = cur;
                 if (prev == NULL) {
                     gObjectListHead = entry;
-                } else {
-                    prev->next = entry;
+                    goto next;
                 }
+                prev->next = entry;
                 goto next;
             }
             prev = cur;

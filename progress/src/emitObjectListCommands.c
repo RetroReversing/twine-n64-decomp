@@ -30,7 +30,7 @@ extern void *sRenderState;
 
 typedef struct { int value; } __repair_field_0;
 typedef struct { unsigned char pad_0[20]; void * field_14; unsigned char pad_18[12]; float field_24; float field_28; float field_2C; int field_30; int field_34; int field_38; void * field_3C; unsigned char pad_40[24]; unsigned int field_58; } __repair_record_var_s0;
-void func_800374BC(void *arg0, s32 arg1) {
+/* Walks the object list, emitting primitive colour and per-part matrix display-list commands for visible parts. */ void emitObjectListCommands(void *arg0, s32 arg1) {
     s32 var_a1;
     f32 temp_fv0, planeY, delta;
     register s32 var_a0;

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8004DEE0(void *arg0, void *arg1, void *arg2) {
+s32 clipSegmentToObjectBox(void *arg0, void *arg1, void *arg2) {
 f32 __repair_operand;
 
     f32 sp0[3];
@@ -146,7 +146,9 @@ block_34:
             temp_fv0_4 = M2C_FIELD(arg2, f32 *, 0);
             temp_ft0_4 = M2C_FIELD(temp_v0_5, f32 *, 0x18);
             if (temp_fv0_4 <= temp_ft0_4) {
-                temp_fv1_10 = M2C_FIELD(arg2, f32 *, 8) + (temp_ft2 * ((temp_ft0_4 - temp_fv0_4) / temp_ft1));
+                temp_fv1_10 = temp_ft1;
+                temp_fv1_10 = (temp_ft0_4 - temp_fv0_4) / temp_fv1_10;
+                temp_fv1_10 = M2C_FIELD(arg2, f32 *, 8) + temp_ft2 * temp_fv1_10;
                 if ((M2C_FIELD(temp_v0_5, f32 *, 0x28) < temp_fv1_10) && (temp_fv1_10 < M2C_FIELD(temp_v0_5, f32 *, 0x2C))) {
                     M2C_FIELD(arg2, f32 *, 0) = temp_ft0_4;
                     M2C_FIELD(arg2, f32 *, 8) = temp_fv1_10;
@@ -161,12 +163,14 @@ block_34:
                 }
             }
         }
-        if (sp0[2] != 0.0f) {
+        if ((temp_fv1_12 = sp0[2]) != 0.0f) {
             temp_v0_6 = M2C_FIELD(arg0, void **, 0x3C);
             temp_ft0_6 = M2C_FIELD(arg2, f32 *, 8);
             temp_fv0_5 = M2C_FIELD(temp_v0_6, f32 *, 0x28);
             if (temp_ft0_6 <= temp_fv0_5) {
-                temp_fv1_12 = M2C_FIELD(arg2, f32 *, 0) + (sp0[0] * ((temp_fv0_5 - temp_ft0_6) / sp0[2]));
+                temp_fv1_12 = sp0[2];
+                temp_fv1_12 = (temp_fv0_5 - temp_ft0_6) / temp_fv1_12;
+                temp_fv1_12 = M2C_FIELD(arg2, f32 *, 0) + sp0[0] * temp_fv1_12;
                 if ((M2C_FIELD(temp_v0_6, f32 *, 0x18) < temp_fv1_12) && (temp_fv1_12 < M2C_FIELD(temp_v0_6, f32 *, 0x1C))) {
                     M2C_FIELD(arg2, f32 *, 0) = temp_fv1_12;
                     M2C_FIELD(arg2, f32 *, 8) = (f32) M2C_FIELD(M2C_FIELD(arg0, void **, 0x3C), f32 *, 0x28);
@@ -184,4 +188,5 @@ block_34:
     }
     return var_v1;
 }
+
 

@@ -18,7 +18,7 @@ void func_80042CFC(s32 arg0, s32 arg1) {
     size = count * 68;
     data = func_80083E90(size, 0x2D);
     src = fp->offset;
-    func_8000B9B8(data, (s32)(D_54D910 + src), size);
+    func_8000B9B8(data, (s32)(D_54D910 + src), fp->count * 68);
     func_80084048((s32)data, 0x2D);
     if (!special && fp->extra_offset) {
         extra = func_80083E90(fp->extra_count * 28, 0x2D);

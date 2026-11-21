@@ -19,16 +19,16 @@ extern Seq *gSeqPlayer;
 extern s32 D_801002D8;
 extern s32 D_8010A514;
 
-void reset_timed_sequence(s32 base) {
-    Ev *p;
+/* Rewinds the sequence player to the event list, fires events already due at this base time, then recomputes the output position and half-step values from the current tempo. */ void reset_timed_sequence(s32 base) {
+    Ev *event;
     u32 v;
-    s32 tempo;
+    s32 tempoScale;
     u32 hi;
     u32 end;
 
-    p = gSeqPlayer->list;
-    if (p != NULL) {
-        gSeqPlayer->next = p;
+    event = gSeqPlayer->list;
+    if (event != NULL) {
+        gSeqPlayer->next = event;
         gSeqPlayer->base = base;
         gSeqPlayer->f70 = 0;
         if (gSeqPlayer->list != NULL && gSeqPlayer->next->time != (u32)-1) {
@@ -44,15 +44,15 @@ void reset_timed_sequence(s32 base) {
                 }
             }
         }
-        tempo = (D_801002D8 << 16) / D_8010A514;
+        tempoScale = (D_801002D8 << 16) / D_8010A514;
         {
-        u32 low = (((gSeqPlayer->cur * 0xC00) / 60 * tempo) >> 3);
+        u32 lowBits = (((gSeqPlayer->cur * 0xC00) / 60 * tempoScale) >> 3);
         u16 scale = gSeqPlayer->scale;
-        v = low * scale;
-        low = (v >> 8) & 0xFFFF;
+        v = lowBits * scale;
+        lowBits = (v >> 8) & 0xFFFF;
         v >>= 24;
         gSeqPlayer->hi = v;
-        gSeqPlayer->lo = low;
+        gSeqPlayer->lo = lowBits;
         gSeqPlayer->half = (s32)v >> 1;
         }
     }

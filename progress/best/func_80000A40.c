@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern float D_800D1D60;
 extern float D_800D1D64;
 extern float D_800D1D68;
-s16 *func_80001928();
+s16 *findOrLoadStreamSlot();
 s32 func_8000628C();
 s32 *func_8000DA08();
 s32 func_80043FA0();
@@ -171,7 +171,7 @@ do {
             sp50[11] = 0;
             sp50[15] = 1.0f;
             __repair_phase_var_s4 = 0;
-            temp_v0_2 = func_80001928(M2C_FIELD(temp_s3, u8 *, 0x9E));
+            temp_v0_2 = findOrLoadStreamSlot(M2C_FIELD(temp_s3, u8 *, 0x9E));
             if (*temp_v0_2 >= 0) {
                 var_a1 = temp_v0_2;
                 var_s6 = 0;

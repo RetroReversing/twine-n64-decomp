@@ -123,11 +123,11 @@ f32 __repair_var_a1_1;
                         (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & ~(1 << var_s0));
                         var_v1 = 1 << var_s0;
                     }
-                    (*(u8 *)((char *)(temp_s4) + 0)) &= temp_v1;
                     var_v1 = ~var_v1;
+                    (*(u8 *)((char *)(temp_s4) + 0)) &= var_v1;
                     (*(u8 *)((char *)(temp_s4) + -1)) &= var_v1;
-                    (*(s32 *)((char *)(temp_v1_2) + 0x100)) |= __repair_constant;
                     temp_v1_2 = *var_s1;
+                    (*(s32 *)((char *)(temp_v1_2) + 0x100)) |= __repair_constant;
                 } else {
                     (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) | (1 << var_s0));
                 }
