@@ -4120,14 +4120,6 @@
   "score_after": 230
  },
  {
-  "function": "func_8011CAE4",
-  "text": "Rechecked saved best 530. Correcting the apparent pointer arithmetic to byte offsets worsened score to 1340 due to register allocation; saved candidate's typed arithmetic appears semantically incorrect and needs restructuring. Mask reuse, signedness, declaration order, constant guard, unsigned switch did not improve. Target indexes D_8011F338 by outer*4 + inner*16 and D_8011F150 by inner*4, with inner loop reset each outer iteration.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795138985.093802,
-  "score_before": 530,
-  "score_after": 530
- },
- {
   "function": "actorUpdateSpawnTimer",
   "text": "Exact match with an address-taken f32[3] result for func_800158A4, direct 32-bit flags masking, and case 28 emitted before cases 29/30. func_800158A4 consumes both first arguments as three-word vectors and writes the fourth as a three-word vector. Its full prototype awaits analysis of other callers and return width.",
   "by": "codex-gpt-6.2-sol-7",
@@ -8200,14 +8192,6 @@
   "score_after": 2045
  },
  {
-  "function": "func_8011CAE4",
-  "text": "Saved 530 baseline likely has incorrect 4x pointer scaling. Correct byte-stride load *(void **)((s8 *)&D_8011F338 + inner*16 + outer*4) scored 775, better than prior corrected 1340; candidate revision 7162b4a010d6a0ebfe68. Target hoists D_8011F338 in fp whereas corrected candidate reloads inside loop; investigate lifetimes and switch branch lowering.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795178909.614723,
-  "score_before": 530,
-  "score_after": 530
- },
- {
   "function": "adjustMenuSliderValue",
   "text": "Best score 695 (94.4%), retained. Recheckable improvement from 1985 to 1265 came from forming the computed array address as `(s8 *)base + (index * 0x28 + 0x28)`, keeping runtime offset byte-scaled. Inlining the two `func_80026004` calls into the corresponding branches and using extern D_800D2CB8/D_800D2AF0 raised score to 695. Remaining 32 differing rows are largely register allocation: target keeps child float pointer in s3 and argument in s2, candidate has those in s2/s3; target branch offsets also differ around the flag and high-half conversion. Reordering pointer local declarations had no effect; changing low-half conversion assignment to branch-local form slightly worsened. Restored candidate 3a3b6a4ba97de8ae6652 as saved best.",
   "by": "codex-gpt-6-luna-7",
@@ -10710,14 +10694,6 @@
   "created_at": 1795183041.213347,
   "score_before": 805,
   "score_after": 805
- },
- {
-  "function": "func_8011CAE4",
-  "text": "Current saved candidate rechecked at score 530. Two local-repair batches covered masked value reuse, signedness, declaration order, constant local, switch layout/unsigned/range; no improvement. Signed temp widening and switch restructuring worsen; remaining harmless variants tie. Quality review confirms candidate likely has semantically wrong pointer arithmetic: target indexes D_8011F338 by outer*4 + inner*16 and D_8011F150 by inner*4, with the inner loop reset each outer iteration. Correcting pointer arithmetic previously worsened to 1340 due to register allocation. First mismatch is prologue saved-register allocation (target stores/zeros $s3; candidate uses $s4). Use current best revision bfe1a77a3ce637a652fe and restructure loops/index variables while preserving correct data access; verify C semantics alongside match score.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795183041.234807,
-  "score_before": 530,
-  "score_after": 530
  },
  {
   "function": "func_800968A4",
@@ -20032,14 +20008,6 @@
   "score_after": 360
  },
  {
-  "function": "func_8011CAE4",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Normal judge also reports gcc-2.7.2-kmc unavailable for this unit, after failures in main. Attempted exact-anchor byte-offset repair replacing *(temp_s4 + ((__repair_i * 0x10) + __base_D_8011F338)) with *(void **)((u8 *)__base_D_8011F338 + __repair_i * 0x10 + temp_s4); toolchain error prevented verification. Recheck target's D_8011F150 stride as well before tuning allocation.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795193820.959897,
-  "score_before": 530,
-  "score_after": 530
- },
- {
   "function": "func_8009D94C",
   "text": "[Released without compiling it once; notes not checked by a compile.] Compiler unavailable in this session: gcc-2.7.2-kmc toolchain missing; compile_and_diff was attempted and failed before compilation. Candidate revision 2d8e8276d8ca3beaf194 retains historical best 795, unverified.",
   "by": "codex-gpt-6-luna-7",
@@ -22344,14 +22312,6 @@
   "score_after": 140
  },
  {
-  "function": "func_8011CAE4",
-  "text": "Current verified 135. The only mismatch is setup of the third argument of func_8011E95C: the target materializes D_8011F118 in v0 before the a0 move and a1 load, while the candidate uses t0 after both. All loop induction, lookup, dispatch, and frame instructions agree. Local pointer assignments, volatile a1 load, integer casts/operand reversal and typed 12-byte indexing did not improve. Try combining the baseline's explicitly preassigned global base with a distinct lifetime for the call-local base to affect register allocation and scheduling.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795200267.097545,
-  "score_before": 135,
-  "score_after": 135
- },
- {
   "function": "func_8008CEB0",
   "text": "Current source rechecked at 997, matching the historical saved C under current inputs. Rebuilt whole draft rewrite diverged to 2600; switching loop goto to do/while stayed at 2600; do not use. Six local families on verified baseline: local widening 997 unchanged; target call arity worsened 1132; scalar reuse 1052; inferred record layout 997 unchanged; structured backedge 2600; branch orientation 2092. Target opening frame is -0x50 vs current -0x48; target saves s4 at 0x38 and uses s4=-1. Current diff is largely register/stack allocation. `var_s5` in draft is undefined-before-set and likely needs source-lifetime/branch restructuring; target uses s0 field accesses (0x2c,0x3c,0x26,0x27,0x9c), actual array stride 0x1A0. No untried applicable local repairs remain.",
   "by": "codex-gpt-6-luna-13",
@@ -23822,14 +23782,6 @@
   "created_at": 1795202027.084678,
   "score_before": 165,
   "score_after": 165
- },
- {
-  "function": "func_8011CAE4",
-  "text": "Baseline and rewrite both score 135/86 instructions. Automatic local repair consumed 2 attempts without improvement. Three-variant batch tested extracting call arguments into locals in either order (variants 1 and 2 remained score 135 with no diff-row changes) and direct global output pointer arithmetic (variant 3 worsened to 430). The remaining 7 rows are only call setup order and register allocation: target computes output offset in $a2/$v0, loads D_8010A500 through $s6, then materializes D_8011F118 in $v0 immediately before setting $a0 and calling; baseline emits move $a0, load $a1, then uses $t0 for D_8011F118. Next try making three distinct locals for out offset, call input and base pointer, with declarations/reassignments that preserve target order; current evidence doesn't identify a higher-level semantic mismatch.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795202034.464801,
-  "score_before": 135,
-  "score_after": 135
  },
  {
   "function": "func_8005C24C",
@@ -37942,15 +37894,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:def4773cc39b587730bff73adccf0051c6b9643a0ba20aeac6965a61929cccae"
  },
  {
-  "function": "func_8011CAE4",
-  "text": "Reached 6/6 without improvement. Call setup is the sole remaining mismatch at score 135. Donor-style inline arguments, address scheduling via an aggregate or before actor lookup, and explicit stride and slot-offset forms scored 135\u2013770.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795229987.786528,
-  "score_before": 185,
-  "score_after": 135,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
- },
- {
   "function": "func_8009D94C",
   "text": "Saved best returns uninitialized delta on inactive path. Valid return ret scored 795; conditional clamp rewrite 890.",
   "by": "codex-gpt-6.1-terra-5",
@@ -40534,15 +40477,6 @@
   "created_at": 1795136609.191155,
   "score_before": 0,
   "score_after": 0
- },
- {
-  "function": "func_8011CAE4",
-  "text": "Best is 135 (revision 03c0039fc56e1fc17660). It uses clean C: `extern u8 *D_8011F338[][4]`, `Vec12 D_8011F118[]` (12-byte elements), `u8 *D_8011F150[]`, an outer do-while over u16 slot and an inner for over u16 i<3. Only the scheduling of the D_8011F118 address differs. The target emits `lui/addiu $v0` before `move $a0,$s0` and `lw $a1`, then `addu $a2,$a2,$v0`. Mine emits them after, into $t0, as `addu $a2,$t0,$a2`. Without the `base` local, GCC hoists all three addresses and the score is 430. Tried with no gain: `base` local forms, (i*12)+(u8*) operand order, a `Vec12 *p` temp before or at the call, a u8 base. Next step: look for a form where the address expression is computed before the gBonusObjects load and obj move, e.g. a pointer temp in the loop condition or for-init, or an index-scaled local used as the third argument.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795234738.95542,
-  "score_before": 135,
-  "score_after": 135,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
  },
  {
   "function": "func_8001A4F4",
@@ -43181,14 +43115,6 @@
   "handoff_inputs": "5e9980fa89b48fb4fe807b73a5d022d9953d2caf6b725058f1e8c12d457deab2:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:3e5be3e05e761d9c741b072d7604cd1663d2b96fc2df16feb46ab258abbe5b17"
  },
  {
-  "function": "func_8011CAE4",
-  "text": "Attempted reconstruct source from m2c but missing declarations led compile errors; then added declared symbols but pointer arithmetic produced integer/pointer warning and parse errors at M2C_FIELD dereference due malformed expression. Historical verified candidate 135 and one remaining argument setup ordering mismatch: target materializes D_8011F118 in v0 before a0/a1 setup, candidate uses t0 after. Historical extensive testing. Next step: retrieve best historical source from get_function history or candidate saved_best, then focus call's third arg as explicit pointer local initialized before other call args.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795239721.629733,
-  "score_before": 135,
-  "score_after": 135
- },
- {
   "function": "menuBuildOwnerChannels",
   "text": "[Released without compiling it once; notes not checked by a compile.] Readability state is inconsistent: make_readable reported success with named locals and a comment (337/1458), but claim_readable keeps returning this function with m2c names. Needs a check of the saved candidate. No further change made in this claim.",
   "by": "api-claude-haiku-5-5-12",
@@ -43593,15 +43519,6 @@
   "score_before": 0,
   "score_after": 0,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
-  "function": "func_8011CAE4",
-  "text": "Session ending; historical 135 candidate unavailable. Current 1280 candidate still differs in loop structure and register allocation.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795240668.1636522,
-  "score_before": 135,
-  "score_after": 135,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
  },
  {
   "function": "func_8005E68C",
@@ -44081,15 +43998,6 @@
   "created_at": 1795241578.029709,
   "score_before": 7425,
   "score_after": 7425
- },
- {
-  "function": "func_8011CAE4",
-  "text": "Saved candidate score 1670. D_8011F150 is pointer table; default color global is sSaveMenuColorActive. Full rewrite misbound array strides and scored 3124; do not inherit it. Next: saved_best, preserve m2c loop shape, correct address/global carefully.\nLocal repairs: combined scheduling, structured backedge, masked reuse, signedness, declaration order, address temp; no score below 1670. Plain nested for rewrite scored 3124.\nSaved 1670 candidate remains best. Target uses D_8011F150 as pointer table; default color is sSaveMenuColorActive. Rewrite confused strides/register frame.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795241669.0923562,
-  "score_before": 135,
-  "score_after": 135,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
  },
  {
   "function": "menuUpdateCursorActor",
@@ -45267,15 +45175,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:f7e067ebe7014bf39961f8ceb051bb5eb083c0dd969e0f78aba2c2df26e76d06"
  },
  {
-  "function": "func_8011CAE4",
-  "text": "Hoisting bonus table pointer improved 1670 to 830; moving masked inner index assignment into branch improved to 820. Reordered marker arithmetic unchanged; remasking call index worsened to 945. -fno-cse-skip-blocks unchanged. Target keeps marker table in fp and materializes D_8011F118 inside loop; candidate does the reverse, with s0/s1 swapped.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795245413.902393,
-  "score_before": 1670,
-  "score_after": 820,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
- },
- {
   "function": "func_8005EF84",
   "text": "Target assembly confirms dispatch modes 0, 1, and 2; inherited candidate implements only mode 2. Prior compile scores: baseline 40727, repairs equal/worse. Similarity search found func_8005FE20 at 63% similarity; likely sibling routine is best source-level clue. Next step: claim func_8005FE20 and compare its body.\nVerified baseline score 40727; ran all five exposed local repair proposals (call scope, address temp, constant local, const read, callee arity); none improved score. Source generates only the mode==2 fragment (58 instructions) while target has 473 instructions and mode==0/1 bodies.\nNo score improvement; target dispatch at entry branches to major mode==1 and mode==0 paths, absent from candidate. Similar function func_8005FE20 is an unclaimed 469-instruction candidate likely sibling/template.",
   "by": "codex-gpt-6-luna-15",
@@ -45802,15 +45701,6 @@
   "score_before": 2905,
   "score_after": 2905,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "func_8011CAE4",
-  "text": "Historical best 1885 retained. Local repair variants: pointer_byte_step tied; structured do-loop variants worsened to 2045. First mismatch shows global should be gVisibleSaveSlotCount, but replacing only declaration failed because body still references gBorderMode; need replace both references with the known symbol. Prior handoff notes mention D_8011F150 pointer table and byte addressing; do not repeat full rewrite that scored 3124.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795247124.001098,
-  "score_before": 820,
-  "score_after": 820,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
  },
  {
   "function": "func_8002AB6C",
@@ -46425,15 +46315,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
-  "function": "func_8011CAE4",
-  "text": "Current machine draft baseline 1885 uses unresolved gBorderMode; replacing with observed gVisibleSaveSlotCount scored 1845 before the claim changed. Structured backedge scored 2045; signedness 2680; masked value reuse unchanged.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795249158.0410812,
-  "score_before": 1885,
-  "score_after": 1845,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
- },
- {
   "function": "func_8006201C",
   "text": "Swapping global byte sources improved current baseline 1845 to 1545. Both versions have 88 instructions; scheduling and registers remain different. Const input reads scored 3060; unsigned field widths 1745; volatile 0x2c store/read unchanged; moving 0x20 store before 0x18 scored 1615.\nSwapped global byte sources and tested volatile reload and store scheduling.\nScore 1545; remaining register and scheduling differences.",
   "by": "codex-gpt-6.1-terra-4",
@@ -46999,15 +46880,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:414d4807c68273825a095ba09f2b151aa66f15752e9ac6b28a46f8d402aabee8"
  },
  {
-  "function": "func_8011CAE4",
-  "text": "Claim reset before release. Structured inner loop and correct gVisibleSaveSlotCount improved 1900 to 1450; pointer indexing gave 1445 (revision 990549fea7925acd95e3). Unsigned switch value worsened to 1640. Next step: model D_8011F338 as a typed two-dimensional pointer array; target and candidate table addresses and scaling differ.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795251043.002218,
-  "score_before": 1845,
-  "score_after": 1445,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
- },
- {
   "function": "func_80039A10",
   "text": "Resumed from score-18384 candidate, which rechecks at 29246 on current inputs. Local batch yielded 19820 via explicit outer backedge, 22065 via record-layout sequence; pointer/integer phase union unchanged. Candidate has large frame mismatch (target 0x58, C 0x80) and many register differences. Attempted manual compile rewrite but C89 declarations were accidentally placed after executable statements; discarded. Next step: inspect assembly stack slots and restructure locals/loop source to target 0x58 frame; avoid malformed C89 rewrite.",
   "by": "codex-gpt-6-luna-15",
@@ -47015,15 +46887,6 @@
   "score_before": 20414,
   "score_after": 19820,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:d59547c238ccab4a89fdaa73b932af32e168502ccb9dbc858df541b7062c5c7e"
- },
- {
-  "function": "func_8011CAE4",
-  "text": "Claim reset during work. Revision adc6fc01d981f7b42898 scored 775: explicit address temporary for D_8010A500 and initializing j inside outer loop. Typed 2D table indexing produced unchanged assembly. Remaining differences include table base register allocation and branch offsets. Next step: inspect table base lifetimes and loop initialization against full diff.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795251126.123082,
-  "score_before": 1445,
-  "score_after": 775,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
  },
  {
   "function": "setupSaveSlotMarkers",
@@ -47932,15 +47795,6 @@
   "created_at": 1795254837.3068721,
   "score_before": 437903,
   "score_after": 437903
- },
- {
-  "function": "func_8011CAE4",
-  "text": "Best score 1640 still has scaled offsets in call and pointer field. Fully corrected arithmetic revision 0d79b076b716bdf3f193 scored 1670; structured inner backedge scored 1850. Table base lifetimes and register allocation differ.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795254858.0709271,
-  "score_before": 775,
-  "score_after": 775,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
  },
  {
   "function": "func_80019A3C",
@@ -76529,5 +76383,151 @@
   "score_before": 1040,
   "score_after": 1040,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0ec4d3a37f600805c4d42dbbcfd86559f198934dfe89191d2de160683dfe610a"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Rechecked saved best 530. Correcting the apparent pointer arithmetic to byte offsets worsened score to 1340 due to register allocation; saved candidate's typed arithmetic appears semantically incorrect and needs restructuring. Mask reuse, signedness, declaration order, constant guard, unsigned switch did not improve. Target indexes D_8011F338 by outer*4 + inner*16 and D_8011F150 by inner*4, with inner loop reset each outer iteration.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795138985.093802,
+  "score_before": 530,
+  "score_after": 530
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Saved 530 baseline likely has incorrect 4x pointer scaling. Correct byte-stride load *(void **)((s8 *)&D_8011F338 + inner*16 + outer*4) scored 775, better than prior corrected 1340; candidate revision 7162b4a010d6a0ebfe68. Target hoists D_8011F338 in fp whereas corrected candidate reloads inside loop; investigate lifetimes and switch branch lowering.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795178909.614723,
+  "score_before": 530,
+  "score_after": 530
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Current saved candidate rechecked at score 530. Two local-repair batches covered masked value reuse, signedness, declaration order, constant local, switch layout/unsigned/range; no improvement. Signed temp widening and switch restructuring worsen; remaining harmless variants tie. Quality review confirms candidate likely has semantically wrong pointer arithmetic: target indexes D_8011F338 by outer*4 + inner*16 and D_8011F150 by inner*4, with the inner loop reset each outer iteration. Correcting pointer arithmetic previously worsened to 1340 due to register allocation. First mismatch is prologue saved-register allocation (target stores/zeros $s3; candidate uses $s4). Use current best revision bfe1a77a3ce637a652fe and restructure loops/index variables while preserving correct data access; verify C semantics alongside match score.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795183041.234807,
+  "score_before": 530,
+  "score_after": 530
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Normal judge also reports gcc-2.7.2-kmc unavailable for this unit, after failures in main. Attempted exact-anchor byte-offset repair replacing *(temp_s4 + ((__repair_i * 0x10) + __base_D_8011F338)) with *(void **)((u8 *)__base_D_8011F338 + __repair_i * 0x10 + temp_s4); toolchain error prevented verification. Recheck target's D_8011F150 stride as well before tuning allocation.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795193820.959897,
+  "score_before": 530,
+  "score_after": 530
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Current verified 135. The only mismatch is setup of the third argument of func_8011E95C: the target materializes D_8011F118 in v0 before the a0 move and a1 load, while the candidate uses t0 after both. All loop induction, lookup, dispatch, and frame instructions agree. Local pointer assignments, volatile a1 load, integer casts/operand reversal and typed 12-byte indexing did not improve. Try combining the baseline's explicitly preassigned global base with a distinct lifetime for the call-local base to affect register allocation and scheduling.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795200267.097545,
+  "score_before": 135,
+  "score_after": 135
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Baseline and rewrite both score 135/86 instructions. Automatic local repair consumed 2 attempts without improvement. Three-variant batch tested extracting call arguments into locals in either order (variants 1 and 2 remained score 135 with no diff-row changes) and direct global output pointer arithmetic (variant 3 worsened to 430). The remaining 7 rows are only call setup order and register allocation: target computes output offset in $a2/$v0, loads D_8010A500 through $s6, then materializes D_8011F118 in $v0 immediately before setting $a0 and calling; baseline emits move $a0, load $a1, then uses $t0 for D_8011F118. Next try making three distinct locals for out offset, call input and base pointer, with declarations/reassignments that preserve target order; current evidence doesn't identify a higher-level semantic mismatch.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795202034.464801,
+  "score_before": 135,
+  "score_after": 135
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Reached 6/6 without improvement. Call setup is the sole remaining mismatch at score 135. Donor-style inline arguments, address scheduling via an aggregate or before actor lookup, and explicit stride and slot-offset forms scored 135\u2013770.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795229987.786528,
+  "score_before": 185,
+  "score_after": 135,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Best is 135 (revision 03c0039fc56e1fc17660). It uses clean C: `extern u8 *D_8011F338[][4]`, `Vec12 D_8011F118[]` (12-byte elements), `u8 *D_8011F150[]`, an outer do-while over u16 slot and an inner for over u16 i<3. Only the scheduling of the D_8011F118 address differs. The target emits `lui/addiu $v0` before `move $a0,$s0` and `lw $a1`, then `addu $a2,$a2,$v0`. Mine emits them after, into $t0, as `addu $a2,$t0,$a2`. Without the `base` local, GCC hoists all three addresses and the score is 430. Tried with no gain: `base` local forms, (i*12)+(u8*) operand order, a `Vec12 *p` temp before or at the call, a u8 base. Next step: look for a form where the address expression is computed before the gBonusObjects load and obj move, e.g. a pointer temp in the loop condition or for-init, or an index-scaled local used as the third argument.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795234738.95542,
+  "score_before": 135,
+  "score_after": 135,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Attempted reconstruct source from m2c but missing declarations led compile errors; then added declared symbols but pointer arithmetic produced integer/pointer warning and parse errors at M2C_FIELD dereference due malformed expression. Historical verified candidate 135 and one remaining argument setup ordering mismatch: target materializes D_8011F118 in v0 before a0/a1 setup, candidate uses t0 after. Historical extensive testing. Next step: retrieve best historical source from get_function history or candidate saved_best, then focus call's third arg as explicit pointer local initialized before other call args.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795239721.629733,
+  "score_before": 135,
+  "score_after": 135
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Session ending; historical 135 candidate unavailable. Current 1280 candidate still differs in loop structure and register allocation.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795240668.1636522,
+  "score_before": 135,
+  "score_after": 135,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Saved candidate score 1670. D_8011F150 is pointer table; default color global is sSaveMenuColorActive. Full rewrite misbound array strides and scored 3124; do not inherit it. Next: saved_best, preserve m2c loop shape, correct address/global carefully.\nLocal repairs: combined scheduling, structured backedge, masked reuse, signedness, declaration order, address temp; no score below 1670. Plain nested for rewrite scored 3124.\nSaved 1670 candidate remains best. Target uses D_8011F150 as pointer table; default color is sSaveMenuColorActive. Rewrite confused strides/register frame.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795241669.0923562,
+  "score_before": 135,
+  "score_after": 135,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Hoisting bonus table pointer improved 1670 to 830; moving masked inner index assignment into branch improved to 820. Reordered marker arithmetic unchanged; remasking call index worsened to 945. -fno-cse-skip-blocks unchanged. Target keeps marker table in fp and materializes D_8011F118 inside loop; candidate does the reverse, with s0/s1 swapped.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245413.902393,
+  "score_before": 1670,
+  "score_after": 820,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Historical best 1885 retained. Local repair variants: pointer_byte_step tied; structured do-loop variants worsened to 2045. First mismatch shows global should be gVisibleSaveSlotCount, but replacing only declaration failed because body still references gBorderMode; need replace both references with the known symbol. Prior handoff notes mention D_8011F150 pointer table and byte addressing; do not repeat full rewrite that scored 3124.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795247124.001098,
+  "score_before": 820,
+  "score_after": 820,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Current machine draft baseline 1885 uses unresolved gBorderMode; replacing with observed gVisibleSaveSlotCount scored 1845 before the claim changed. Structured backedge scored 2045; signedness 2680; masked value reuse unchanged.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795249158.0410812,
+  "score_before": 1885,
+  "score_after": 1845,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Claim reset before release. Structured inner loop and correct gVisibleSaveSlotCount improved 1900 to 1450; pointer indexing gave 1445 (revision 990549fea7925acd95e3). Unsigned switch value worsened to 1640. Next step: model D_8011F338 as a typed two-dimensional pointer array; target and candidate table addresses and scaling differ.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795251043.002218,
+  "score_before": 1845,
+  "score_after": 1445,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Claim reset during work. Revision adc6fc01d981f7b42898 scored 775: explicit address temporary for D_8010A500 and initializing j inside outer loop. Typed 2D table indexing produced unchanged assembly. Remaining differences include table base register allocation and branch offsets. Next step: inspect table base lifetimes and loop initialization against full diff.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795251126.123082,
+  "score_before": 1445,
+  "score_after": 775,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
+ },
+ {
+  "function": "func_8011CAE4",
+  "text": "Best score 1640 still has scaled offsets in call and pointer field. Fully corrected arithmetic revision 0d79b076b716bdf3f193 scored 1670; structured inner backedge scored 1850. Table base lifetimes and register allocation differ.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795254858.0709271,
+  "score_before": 775,
+  "score_after": 775,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
  }
 ]
