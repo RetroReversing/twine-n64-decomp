@@ -35,8 +35,8 @@ typedef struct {
 #define RESTORE(a) ((a)->pos = (a)->previousPos, (a)->angles = (a)->previousAngles)
 void func_80016A34(SurfaceProbeActor *actor) {
     ProbeVec *pos = &actor->pos;
-    u8 *hit = func_80047B44(actor->surface, &actor->previousPos, pos, 0);
-    s32 surface;
+    register u8 *hit = func_80047B44(actor->surface, &actor->previousPos, pos, 0);
+    register s32 surface;
     u8 marker;
     if (hit != NULL) {
         if (*(u16 *)(hit + 0x26) & 0x1000) {
@@ -72,7 +72,20 @@ void func_80016A34(SurfaceProbeActor *actor) {
         goto done;
     case 0x24:
         if ((s8)actorLinkToSurface(*gProbeObjectList, actor, 0)) goto save;
-        RESTORE(actor);
+        {
+            volatile ProbeVec *p = &actor->previousPos;
+            volatile ProbeVec *a = &actor->previousAngles;
+            s32 x = p->x, y = p->y, z = p->z;
+            ((volatile SurfaceProbeActor *)actor)->pos.x = x;
+            ((volatile SurfaceProbeActor *)actor)->pos.y = y;
+            ((volatile SurfaceProbeActor *)actor)->pos.z = z;
+            x = a->x;
+            y = a->y;
+            z = a->z;
+            ((volatile SurfaceProbeActor *)actor)->angles.x = x;
+            ((volatile SurfaceProbeActor *)actor)->angles.y = y;
+            ((volatile SurfaceProbeActor *)actor)->angles.z = z;
+        }
         goto insert;
     default:
         if ((s8)actorLinkToSurface(*gProbeObjectList, actor, 0)) goto save;
@@ -107,3 +120,4 @@ void func_80016A34(SurfaceProbeActor *actor) {
 done:
     actor->flags &= ~1;
 }
+

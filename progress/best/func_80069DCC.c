@@ -63,7 +63,7 @@ M2C_UNK updateAirTimeGauge(void *);
 M2C_UNK updateHudSprites(void *);
 M2C_UNK updateSwayMotion(void *);
 extern M2C_UNK D_800C4710;
-extern M2C_UNK D_800C7C8E;
+extern u16 D_800C7C8E;
 extern f32 D_800C7DBC;
 extern f32 D_800C7DC4;
 extern f64 D_800D45E0;
@@ -93,15 +93,9 @@ extern void *sTrackMarkerTable[];
 
 void func_80069DCC(void *arg0) {
   f32 sp20[3];
-  M2C_UNK sp30;
-  M2C_UNK sp34;
-  M2C_UNK sp38;
-  M2C_UNK sp3C;
-  M2C_UNK sp40;
-  f32 sp48;
-  f32 sp4C;
-  f32 sp50;
-  f32 sp5C;
+  M2C_UNK probeOutputs[5];
+  CopyVec3 probe;
+  volatile f32 sp5C;
   void *sp64;
   f32 temp_fa0;
   f32 temp_fa0_2;
@@ -334,7 +328,7 @@ void func_80069DCC(void *arg0) {
       listUnlinkFree(temp_a0);
       M2C_FIELD(temp_s1, s32 *, 8) = -1;
     }
-    func_8006E648(M2C_FIELD(arg0, void **, 0x20), arg0, 0, &sp30, &sp34, &sp38, &sp3C, &sp40);
+    func_8006E648(M2C_FIELD(arg0, void **, 0x20), arg0, 0, &probeOutputs[0], &probeOutputs[1], &probeOutputs[2], &probeOutputs[3], &probeOutputs[4]);
     func_80002EF0(arg0);
     func_80070F34(arg0);
     temp_v1 = M2C_FIELD(arg0, s16 *, 0x7A);
@@ -391,11 +385,7 @@ block_11:
         }
         temp_fv1 = (f32) gAirTimeGauge * 0.035555556f;
         temp_a0_3 = M2C_FIELD(temp_s1, void **, 0x404);
-        if (temp_fv1 >= 2.1474836e9f) {
-          M2C_FIELD(temp_a0_3, s16 *, 0x26) = (s16) ((s32) (temp_fv1 - 2.1474836e9f) | 0x80000000);
-        } else {
-          M2C_FIELD(temp_a0_3, s16 *, 0x26) = (s16) (s32) temp_fv1;
-        }
+        M2C_FIELD(temp_a0_3, s16 *, 0x26) = (u32)temp_fv1;
       } else {
         temp_v1_10 = M2C_FIELD(temp_s1, void **, 0x404);
         temp_a0_4 = M2C_FIELD(temp_v1_10, s32 *, 0x10);
@@ -570,11 +560,11 @@ block_11:
           var_s6 = 0.0f + (temp_fs3 * cosAngle(M2C_FIELD(arg0, f32 *, 0x40)));
           M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), f32 *, 0x34) = temp_fs3;
           temp_fs2 = absFloat(temp_fs3);
-          func_800452E0(temp_s1 + 0x128, arg0 + 0x24, &sp48);
+          func_800452E0(temp_s1 + 0x128, arg0 + 0x24, &probe.x);
           M2C_FIELD(temp_s1, CopyVec3 *, 0x128) = M2C_FIELD(arg0, CopyVec3 *, 0x24);
-          sp4C = 0.0f;
+          probe.y = 0.0f;
           var_s0 = 1;
-          if (func_8004572C(&sp48) <= 0.001f) {
+          if (func_8004572C(&probe.x) <= 0.001f) {
             temp_fs0_2 = M2C_FIELD(temp_s1, f32 *, 0x58);
             var_fs1 = 0.0f;
             func_80065684(arg0);
@@ -882,13 +872,11 @@ block_479:
           temp_v1_28 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC);
           if (!(temp_v1_28 & 1)) {
             if ((temp_v1_28 & 8) && ((func_800819EC((s32) temp_s4, 0xD) != 0) || (func_800819EC((s32) temp_s4, 0xC) != 0))) {
-              if ((func_8004BCC0(sp64, arg0 + 0x24, &sp48, 0x40000000) << 0x18) == 0) {
-                sp48 = M2C_FIELD(arg0, f32 *, 0x24);
-                sp4C = M2C_FIELD(arg0, f32 *, 0x28);
-                sp50 = M2C_FIELD(arg0, f32 *, 0x2C);
-                sp4C += 2.0f;
+              if ((func_8004BCC0(sp64, arg0 + 0x24, &probe.x, 0x40000000) << 0x18) == 0) {
+                probe = M2C_FIELD(arg0, CopyVec3 *, 0x24);
+                probe.y += 2.0f;
               }
-              if ((M2C_FIELD(arg0, f32 *, 0x28) + 1.46f) < sp4C) {
+              if ((M2C_FIELD(arg0, f32 *, 0x28) + 1.46f) < probe.y) {
                 func_80002D50(arg0, 0x177);
                 func_800635BC(arg0, 0);
                 temp_v1_29 = M2C_FIELD(arg0, void **, 0x68);
@@ -1049,13 +1037,11 @@ block_479:
               M2C_FIELD(temp_s1, s8 *, 0x181) = 4;
               requestSound(0xFF);
             } else if (M2C_FIELD(temp_s1, f32 *, 0x14) < temp_fs0_3) {
-              if ((func_8004BCC0(sp64, arg0 + 0x24, &sp48, 0x40000000) << 0x18) == 0) {
-                sp48 = M2C_FIELD(arg0, f32 *, 0x24);
-                sp4C = M2C_FIELD(arg0, f32 *, 0x28);
-                sp50 = M2C_FIELD(arg0, f32 *, 0x2C);
-                sp4C += 2.0f;
+              if ((func_8004BCC0(sp64, arg0 + 0x24, &probe.x, 0x40000000) << 0x18) == 0) {
+                probe = M2C_FIELD(arg0, CopyVec3 *, 0x24);
+                probe.y += 2.0f;
               }
-              if ((M2C_FIELD(arg0, f32 *, 0x28) + 1.46f) < sp4C) {
+              if ((M2C_FIELD(arg0, f32 *, 0x28) + 1.46f) < probe.y) {
                 temp_fv0_19 = func_80063758(M2C_FIELD(arg0, f32 *, 0x40), M2C_FIELD(temp_s1, f32 *, 0x90), 128.0f);
                 var_fs3_5 = temp_fv0_19;
                 if (temp_fv0_19 == 0.0f) {

@@ -256,10 +256,10 @@ block_21:
                                                     (*(f32 *)((char *)(arg4) + 8)) = (f32) (sp28Buf[2] - (temp_fs0_2 * workspace.data[4]));
                                                     temp_v1_5 = (*(s32 *)((char *)(temp_s1) + 0x34));
                                                     if ((triangleContainsPoint(arg4, temp_v1_5 + (*var_s6 * 0xC), temp_v1_5 + ((*(u16 *)((char *)(var_s3) + -2)) * 0xC), temp_v1_5 + ((*(u16 *)((char *)(var_s3) + 0)) * 0xC), sp13C) << 0x18) != 0) {
-                                                        temp_fa0 = arg5 - temp_fs0_2;
-                                                        temp_ft1 = temp_fa0 * workspace.data[2];
-                                                        temp_ft0 = temp_fa0 * workspace.data[3];
-                                                        temp_fv0_2 = temp_fa0 * workspace.data[4];
+                                                        temp_fs0_2 = arg5 - temp_fs0_2;
+                                                        temp_ft1 = temp_fs0_2 * workspace.data[2];
+                                                        temp_ft0 = temp_fs0_2 * workspace.data[3];
+                                                        temp_fv0_2 = temp_fs0_2 * workspace.data[4];
                                                         sp18Buf[0] = temp_ft1;
                                                         sp18Buf[1] = temp_ft0;
                                                         sp18Buf[2] = temp_fv0_2;

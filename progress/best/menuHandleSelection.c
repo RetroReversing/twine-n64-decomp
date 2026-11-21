@@ -40,7 +40,6 @@ void menuHandleSelection(void) {
     void *temp_s0_2;
     void *temp_s0_3;
     void *temp_s0_4;
-    void *temp_v0_2;
     void *temp_s2;
     void *temp_s3;
     void *temp_s1;
@@ -51,7 +50,7 @@ void menuHandleSelection(void) {
     if ((*(u8 *)((char *)(gSaveMenuState) + 0x2E)) == 0) {
         if (func_80029C08(gMenuList, 2, 0) & 0xFFFF) {
             temp_s2 = func_8002A980(gMenuList);
-            if (*(&sBonusObjectTable + (gMenuSlot * 4)) != 0) {
+            if ((&sBonusObjectTable)[gMenuSlot] != 0) {
                 switch (gMenuMode) {                /* switch 1; irregular */
                 case 0:                             /* switch 1 */
                     temp_s1 = findEntryPayload((*(s32 *)((char *)(gSaveMenuState) + 0x10)), 0x62);
@@ -80,7 +79,7 @@ void menuHandleSelection(void) {
                 case 1:                             /* switch 1 */
                     temp_s0_3 = func_80026314((*(s32 *)((char *)(gSaveMenuState) + 0x10)), 0xA6, 2);
                     temp_v1 = (*(u8 *)((char *)(temp_s2) + 8)) * 0x10;
-                    menuUpdateCursorActor(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
+                    menuUpdateCursorActor(*(s16 *)((char *)&D_800C4478 + temp_v1), *(s16 *)((char *)&D_800C447A + temp_v1));
                     if (temp_s0_3 != NULL) {
                         (*(s32 *)((char *)((*(void **)((char *)(temp_s0_3) + 0x30))) + 0x18)) = lookupDataEntry(func_8001E760(2, (*(u8 *)((char *)(temp_s2) + 8))) & 0xFFFF);
                         temp_s0_4 = (*(void **)((char *)(temp_s0_3) + 0x30));
@@ -92,30 +91,30 @@ void menuHandleSelection(void) {
             }
         } else {
 block_15:
-            temp_v0_2 = func_8002A980(gMenuList);
-            if ((temp_v0_2 != NULL) && (func_80027C60(0x2A) & 0xFF)) {
+            temp_s2 = func_8002A980(gMenuList);
+            if ((temp_s2 != NULL) && (func_80027C60(0x2A) & 0xFF)) {
                 requestSound(0xE8);
                 switch (gMenuMode) {                /* switch 2; irregular */
                 case 0:                             /* switch 2 */
-                    temp_a1 = (*(u8 *)((char *)(temp_v0_2) + 8));
-                    *(&D_800E0ECC + (gMenuSlot * 2)) = (s16) temp_a1;
-                    temp_a0_2 = (*(void **)((char *)(*(&sBonusObjectTable + (gMenuSlot * 4))) + 0x6C));
+                    temp_a1 = (*(u8 *)((char *)(temp_s2) + 8));
+                    ((u16 *)&D_800E0ECC)[gMenuSlot] = (s16) temp_a1;
+                    temp_a0_2 = (*(void **)((char *)((&sBonusObjectTable)[gMenuSlot]) + 0x6C));
                     if (D_800C469E[temp_a1 & 0xFFFF].f0 == 0x21) {
                         (*(s8 *)((char *)(temp_a0_2) + 0x306)) = (s8) (temp_a1 - 0x21);
                     }
-                    temp_a2 = *((gMenuSlot * 2) + &D_800E0ECC);
+                    temp_a2 = ((u16 *)&D_800E0ECC)[gMenuSlot];
                     func_8007089C((&sBonusObjectTable)[gMenuSlot], 0, (temp_a2 + (*(u8 *)((char *)((temp_a0_2 + (temp_a2 * 8))) + 0x1FE))) & 0xFFFF, &sBonusObjectTable);
                     if ((*(void **)((char *)(gSaveMenuState) + 0x18)) != NULL) {
                         temp_v0_3 = findEntryById((*(s32 *)((char *)(gSaveMenuState) + 0xC)), 0xE);
                         (*(s8 *)((char *)(gSaveMenuState) + 0x2C)) = 1;
                         (*(void **)((char *)(gSaveMenuState) + 0x18)) = temp_v0_3;
-                        (*(s32 (**)(void *))((char *)((*(void **)((char *)(gSaveMenuState) + 0x18))) + 4))(gSaveMenuState);
+                        (*(s32 (**)(void *))((char *)((*(void *volatile *)((char *)(gSaveMenuState) + 0x18))) + 4))(gSaveMenuState);
                         return;
                     }
                     break;
                 case 1:                             /* switch 2 */
-                    temp_v1_2 = (*(u8 *)((char *)(temp_v0_2) + 8));
-                    *(&D_800E0ED4 + (gMenuSlot * 2)) = (s16) temp_v1_2;
+                    temp_v1_2 = (*(u8 *)((char *)(temp_s2) + 8));
+                    ((u16 *)&D_800E0ED4)[gMenuSlot] = (s16) temp_v1_2;
                     func_8001F4B8(gMenuSlot, temp_v1_2);
                     break;
                 case 2:
