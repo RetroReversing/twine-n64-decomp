@@ -26,7 +26,7 @@ s32 func_80070870();
 s32 func_800770E4();
 s32 func_80084D88();
 void *lookupDataEntry();
-s32 func_8011AA9C();
+s32 updateActorPartnerLink();
 s32 func_8011B368();
 s32 func_8011B3D8();
 s32 sprintf();
@@ -95,7 +95,7 @@ s32 actorFinishIfMatch(void *arg0, s32 arg1) {
             } else {
                 if (M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), s32 *, 8) == 0) {
                     temp_s0 = func_8011B3D8(M2C_FIELD(temp_s3, s32 *, 4));
-                    func_8011AA9C(arg0);
+                    updateActorPartnerLink(arg0);
                     D_800C7CC0 = (s16) (s8) M2C_FIELD(temp_s3, u8 *, 0x182);
                     temp_a0_3 = (s8) M2C_FIELD(temp_s3, u8 *, 0x182) + 0x4013;
                     D_800C7CB4 = temp_a0_3;

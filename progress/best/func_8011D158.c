@@ -29,15 +29,14 @@ void func_8011D158(s16 arg0) {
                     count -= (diff >= (s32)(o->a - o->b));
                 }
             }
-            if (count == 2) id = 0x2E6;
-            else if (count < 3) {
-                if (count == 1) id = 0x2E5;
-                else goto skip;
-            } else if (count == 3) id = 0x2E7;
-            else if (count == 4) id = 0x2E8;
-            else goto skip;
-            sprintf(D_8011F2B8 + idx * 12, lookupDataEntry(id));
-skip:
+            switch (count) {
+            case 1: id = 0x2E5; goto doit;
+            case 2: id = 0x2E6; goto doit;
+            case 3: id = 0x2E7; goto doit;
+            case 4: id = 0x2E8;
+            doit:
+                sprintf(D_8011F2B8 + arg0 * 12, lookupDataEntry(id));
+            }
             D_8011F3E8[arg0]->flags = (D_8011F3E8[arg0]->flags & ~0xFC) | 0xC;
             D_8011F3E8[arg0]->color = -1;
             D_8011F3E0[arg0] = 0x3C;

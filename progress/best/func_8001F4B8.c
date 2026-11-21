@@ -24,7 +24,7 @@ extern void *sActiveMenu;
 s32 func_8001F4B8(s32 arg0, s32 arg1) {
     M2C_UNK (*temp_v0)(s32);
     s32 temp_a0;
-    s32 temp_s0;
+    u8 temp_s0;
     s32 var_v0;
     void *temp_v0_2;
 

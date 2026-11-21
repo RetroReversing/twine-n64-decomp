@@ -64039,7 +64039,25 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
  },
  {
-  "function": "func_8011AA9C",
+  "function": "func_80082E84",
+  "text": "Isolated -cb before the sa load, with both multiply operand orders. Also tried reusing sacb for -cb and the product.\nBoth hoisted-negation variants tied at 50. Reusing sacb scored 1370. Verified baseline retained: exact instruction order with f0/f2 swapped for sa and sacb across ten rows.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795240406.5537002,
+  "score_before": 50,
+  "score_after": 50,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b967f0af2630ace1807efe4add8f28cde745b91a88cd1e6c433b5d50d0282965"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Corrected gTrackMarkers symbol and rechecked reported candidate at 1355. Three target operations in float tail are absent; register allocation and branch offsets also differ. Swapping division source order produced identical instructions; inferred layout and unsigned index were also unchanged, split lifetime worsened to 2670.\nSwapped the two division assignments\nIdentical instructions, score 1355",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795240408.617185,
+  "score_before": 2830,
+  "score_after": 1355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "updateActorPartnerLink",
   "text": "Baseline 2945. Target loads mode as unsigned byte but uses signed comparisons; changing global to u8 alone produces sltiu and worsens score. Target branch layout suggests a switch with cases 2/3, 7 and 8, falling into shared default logic; rewrite the m2c control flow as a switch and inspect branches. Local pointer, call arity, record layout and signedness variants did not improve.",
   "by": "codex-gpt-6.1-terra-3",
   "created_at": 1795165311.075846,
@@ -64047,7 +64065,7 @@
   "score_after": 2945
  },
  {
-  "function": "func_8011AA9C",
+  "function": "updateActorPartnerLink",
   "text": "Recompiled current candidate (score 2945, 132 target/132 candidate instructions); no change from baseline. Prior signed/unsigned temp_s1 and explicit func_8011B3D8 prototype attempts were flat. First mismatch region is call/argument/register structure; target saves s2 and carries a0 in s2, while candidate lacks that save/move. Also target loads D_801002A0 with lbu but draft declares it s8, and control flow differs around value 7 / branches. Further work should inspect exact assembly and experiment with byte unsigned global and inferred pointer/call argument types.",
   "by": "codex-gpt-6-luna-22",
   "created_at": 1795183673.1113842,
@@ -64055,7 +64073,7 @@
   "score_after": 2945
  },
  {
-  "function": "func_8011AA9C",
+  "function": "updateActorPartnerLink",
   "text": "Verified baseline 2945. Target mode byte is lbu; changing declaration to u8 alone changes comparisons to sltiu and worsened score. Sparse switch for cases 2,3,7,8 reordered blocks and scored 4495; dense cases produced a jump table. Target dispatch is a signed comparison tree on the zero-extended mode, with case 8 code before case 7 and shared default after both. Restructure using explicit gotos in target order, and force signed int mode after loading unsigned byte. Final accounting remains close to draft.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795184673.988416,
@@ -64063,7 +64081,7 @@
   "score_after": 2945
  },
  {
-  "function": "func_8011AA9C",
+  "function": "updateActorPartnerLink",
   "text": "Baseline 2603 verified. Nine layout, signedness, branch, constant, address and goto variants did not improve; unsigned state byte 3003, duplicated shared tail 3403. Target frame 0x20 versus candidate 0x28.",
   "by": "codex-gpt-6.1-terra-5",
   "created_at": 1795202533.7705338,
@@ -64071,7 +64089,7 @@
   "score_after": 2603
  },
  {
-  "function": "func_8011AA9C",
+  "function": "updateActorPartnerLink",
   "text": "Fresh baseline 2603, revision 56d3cf3dd2d2e60ad4ec. Ran six more local variants: inferred layout, unsigned base, declaration order, address temporary tied at 2603; branch orientation worsened to 3378; constant local to 2823. Existing history had 20 local and 4 explicit attempts, no improvement over 2603. Target frame is 0x20 vs candidate 0x28; mismatch spans 78 instructions, with ordering/register/control-flow differences. Release threshold 8 not reached in this turn, but extensive prior attempts and no promising remaining direction.",
   "by": "codex-gpt-6-luna-15",
   "created_at": 1795205858.540444,
@@ -64079,7 +64097,7 @@
   "score_after": 2603
  },
  {
-  "function": "func_8011AA9C",
+  "function": "updateActorPartnerLink",
   "text": "Saved best 2603 rechecked; retained revision 56d3cf3dd2d2e60ad4ec. Local-repair batch tested inferred_record_layout, signedness, declaration_order, branch_orientation, address_temporary, constant_local. Layout/signedness/declaration/address tied; branch orientation worsened to 3378 and constant local to 2823. A follow-up patch merely renamed __base_D_8011F100 and failed compilation; restored saved_best afterward. No exact match. Target prologue uses frame 0x20, preserves original arg0 in s2, loads object pointer into s0, and result of func_8011B3D8 into s1. Best candidate frame is 0x28; diff shows heavy reorder/control-flow despite 78 differing rows. Target calls func_8011AE4C(arg0, temp_s0, temp_s1) at status 8 and separately funnels statuses 0..1 vs 2..3 through xor/or zero handling; inspect delay-slot branches around lines 12-35. End target directly computes D_8011F100[index*2] using signed object index and sign-extended result byte, and clears object +4 on both paths. Further candidate should remove __base_D_8011F100 flow and express array stores directly as D_8011F100[index*2], while preserving signed char extension; then revisit frame and function-local live ranges. One targeted next compile before release failed to compile and was reverted; the verified 2603 baseline was restored.",
   "by": "codex-gpt-6-luna-17",
   "created_at": 1795208498.486042,
@@ -64087,12 +64105,30 @@
   "score_after": 2603
  },
  {
-  "function": "func_8011AA9C",
+  "function": "updateActorPartnerLink",
   "text": "Saved candidate rechecked at 2603; prior 34 repairs cover most layout/signedness/declaration/address/branch/constant probes. Fresh bounded batch had inferred layout and base signedness tie; frame_pad[2] widened frame to 0x30 and scored 2611. Restored saved best. Target needs 0x20 frame, saves only s0-s2, reads global gSceneType with lbu (candidate emits lb), then dispatches scene branches. My u32 padding attempt worsened frame and was discarded. Next step: inspect get_context symbol typing for globals and live locals; test whether s3/temp declarations or known global signedness cause candidate's extra saved register/frame, focusing on first prologue instructions. Also examine gSceneType's unsigned byte declaration to recover lbu.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795234260.039659,
   "score_before": 2603,
   "score_after": 2603,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:3b2e3791d305a550b6b6568a02423f79eeeba2389e42ce893566774d551061d3"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Candidate reset unexpectedly during sequential patches. Revision 0b06efa89ae4ee3dd11b scored 1940 with byte-based sSaveSlotInfo access and byte sMarkerTextArgs; draft scored 1950. Attempt to declare sSaveSlotMarkerTable as void *[3][4] needs both assignment expressions changed together; reset interrupted before second change. Next step: compile both indexed assignments together.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795240425.975659,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "func_80022044",
+  "text": "Rechecked candidate aa819a8b40e9609fd434: score 375; claim ended during compile. Target has andi $a0,$a0,0xffff in lookupDataEntry call delay slot, candidate omits it. Next step: inspect lookupDataEntry prototype and test u16 argument narrowing at the call.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795240438.78351,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:dfa4f50deca474b881a539b8ca1a3d4e6ad37875757b51da90af53ac6b046cd5:115a0b4ea2035559c59fb7ab894dc9d63d4b389d69c0512224709f6a5e17f9b2"
  }
 ]
