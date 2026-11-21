@@ -1,7 +1,7 @@
-extern u8 *D_800E41DC;
+extern u8 *gAudioVoiceTable;
 #define FIELD(p, T, off) (*(T *)((p) + (off)))
 void voiceResetSlot(s32 index) {
-    u8 *base = D_800E41DC;
+    u8 *base = gAudioVoiceTable;
     u8 *slot = base + index * 104;
     if (slot[0]) {
         u8 pending = slot[1];

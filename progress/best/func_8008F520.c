@@ -106,7 +106,7 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
         {
             u8 __repair_i;
             for (__repair_i = 0; __repair_i < 0x80; __repair_i++) {
-                *(s8 *)(temp_a3 + __repair_i) = 0xFF;
+                *(u8 *)(temp_a3 + __repair_i) = 0xFF;
             }
         }
         var_a1 = M2C_FIELD(var_a2, u8 *, 5);
@@ -122,7 +122,7 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
         temp_a3_2 = (void *) ((0x8C) + (s32) temp_s2);
         var_a2_2 = M2C_FIELD(temp_s2, void **, 0x88);
         for (var_a0_4 = 0; var_a0_4 < 0x80; var_a0_4++) {
-            *(s8 *)(temp_a3_2 + var_a0_4) = 0xFF;
+            *(u8 *)(temp_a3_2 + var_a0_4) = 0xFF;
         }
         var_a1_2 = M2C_FIELD(var_a2_2, u8 *, 5);
         var_a0_5 = 0;

@@ -1,4 +1,4 @@
-extern void func_80065D90(void *arg0, void *);
+extern void func_80065D90(void *arg0);
 extern void *func_801183F4(void *, s32);
 extern s32 func_80022DBC(s32, s32);
 extern u8 gSaveSlotInfo[];
@@ -77,7 +77,7 @@ void func_80118BCC(void *arg0, s32 arg1) {
                 }
             }
         }
-        func_80065D90(arg0, (u8 *)target + 0x24);
+        func_80065D90(arg0);
         if ((u16)*(s16 *)(self + 0x7A) < 11) {
             (void)jtbl_8011EF48[(u16)*(s16 *)(self + 0x7A)];
         }

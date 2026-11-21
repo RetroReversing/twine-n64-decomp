@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern f64 D_800D67A0;
-extern s32 D_800E41DC;
+extern s32 gAudioVoiceTable;
 
-void func_8008C1E4(s32 arg0, void *arg1, s32 arg2) {
+void audioVoiceSetup(s32 arg0, void *arg1, s32 arg2) {
     f64 var_fv1;
     s32 temp_a2;
     s32 temp_a2_2;
@@ -28,7 +28,7 @@ void func_8008C1E4(s32 arg0, void *arg1, s32 arg2) {
     void *temp_v1;
     void *temp_v1_2;
 
-    temp_v1 = (void *)(D_800E41DC + ((arg0 & 0xFFFF) * 0x68));
+    temp_v1 = (void *)(gAudioVoiceTable + ((arg0 & 0xFFFF) * 0x68));
     M2C_FIELD(temp_v1, s16 *, 4) = 0x1000;
     M2C_FIELD(temp_v1, s8 *, 0) = 0;
     M2C_FIELD(temp_v1, s16 *, 2) = 0;
@@ -42,7 +42,7 @@ void func_8008C1E4(s32 arg0, void *arg1, s32 arg2) {
     M2C_FIELD(temp_v1, s16 *, 0x44) = 0;
     M2C_FIELD(temp_v1, s16 *, 0x46) = 0;
     if (arg2 & 0xFF) {
-        s32 base = D_800E41DC;
+        s32 base = gAudioVoiceTable;
         temp_v0 = (void *)((arg0 * 0x68) + base);
         M2C_FIELD(temp_v0, s16 *, 0x20) = 0;
         M2C_FIELD(temp_v0, s16 *, 0x22) = 0;
@@ -50,7 +50,7 @@ void func_8008C1E4(s32 arg0, void *arg1, s32 arg2) {
         M2C_FIELD(temp_v0, s16 *, 0x28) = 0x14;
     }
     {
-        s32 base = D_800E41DC;
+        s32 base = gAudioVoiceTable;
         temp_a2 = arg0 * 0x68;
         temp_a0 = (void *)(temp_a2 + base);
     }
@@ -68,13 +68,13 @@ void func_8008C1E4(s32 arg0, void *arg1, s32 arg2) {
     M2C_FIELD(temp_a0, s32 *, 0x34) = (s32) M2C_FIELD(arg1, s32 *, 0x10);
     M2C_FIELD(temp_a0, s32 *, 0x38) = (s32) M2C_FIELD(arg1, s32 *, 0x14);
     M2C_FIELD(temp_a0, u8 *, 0x5D) = (u8) M2C_FIELD(arg1, u8 *, 0x18);
-    temp_a0_2 = (void *)(temp_a2 + D_800E41DC);
+    temp_a0_2 = (void *)(temp_a2 + gAudioVoiceTable);
     temp_a2_2 = M2C_FIELD(temp_a0_2, s32 *, 0x38);
     if ((temp_a2_2 == 0) || (temp_v0_4 = M2C_FIELD(temp_a0_2, s32 *, 0x30) - (M2C_FIELD(temp_a0_2, s32 *, 0x34) + temp_a2_2), M2C_FIELD(temp_a0_2, u32 *, 0x3C) = temp_v0_4, ((temp_v0_4 < 0xAU) != 0))) {
         M2C_FIELD(temp_a0_2, u32 *, 0x3C) = 0U;
     }
     if ((M2C_FIELD(arg1, s32 *, 4) & 0xF0000000) != 0x80000000) {
-        s32 base = D_800E41DC;
+        s32 base = gAudioVoiceTable;
         s32 offset = arg0 * 0x68;
         temp_v1_2 = (void *)(offset + base);
         M2C_FIELD(temp_v1_2, u16 *, 2) = (u16) (M2C_FIELD(temp_v1_2, u16 *, 2) | 1);

@@ -1,4 +1,4 @@
-extern u8 *D_800E41DC;
+extern u8 *gAudioVoiceTable;
 extern u16 D_800E41E4;
 extern u16 D_800E4216;
 extern u8 *D_800E4218;
@@ -30,13 +30,13 @@ void func_8008AECC(s32 arg0, u16 arg1) {
     if (D_800E41E4 != 0) {
         do {
             off = (i * 13) << 3;
-            ent = (u8 *)(off + (u32)D_800E41DC);
+            ent = (u8 *)(off + (u32)gAudioVoiceTable);
             if (ent[0x61] != 0) {
                 ent[0x61] = 0;
-                s2 |= 1 << ((u8 *)(off + (u32)D_800E41DC))[0x60];
+                s2 |= 1 << ((u8 *)(off + (u32)gAudioVoiceTable))[0x60];
             }
-            if (((u8 *)(off + (u32)D_800E41DC))[0] != 0) {
-                func_8008A52C(D_800E41DC + off, arg1 & 0xFFFF, s1 & 0xFF);
+            if (((u8 *)(off + (u32)gAudioVoiceTable))[0] != 0) {
+                func_8008A52C(gAudioVoiceTable + off, arg1 & 0xFFFF, s1 & 0xFF);
                 s1 += 1;
             }
             i += 1;

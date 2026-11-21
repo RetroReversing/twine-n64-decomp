@@ -6,11 +6,11 @@ typedef struct {
     u8 tail[0x3e];
 } Entry8C;
 
-extern Entry8C *D_800E41DC;
+extern Entry8C *gAudioVoiceTable;
 extern f64 D_800D67A8;
 
 void func_8008C3D8(s32 index, u16 *data) {
-    u32 base = (u32)D_800E41DC;
+    u32 base = (u32)gAudioVoiceTable;
     s32 recordUnits = index * 13;
     u16 a = data[0];
     Entry8C *entry = (Entry8C *)((u32)(recordUnits * 8) + base);

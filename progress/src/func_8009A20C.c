@@ -6,7 +6,7 @@ extern s32 D_800FDB84;
 extern u32 D_800FDB88;
 extern u32 D_800FDB8C;
 s32 func_8009835C(u16, s32 *);
-void func_8008C1E4(u8, u32 *, s32);
+void audioVoiceSetup(u8, u32 *, s32);
 
 s32 func_8009A20C(VoiceA20C *v, EvA20C *e) {
     s32 flag;
@@ -36,11 +36,11 @@ s32 func_8009A20C(VoiceA20C *v, EvA20C *e) {
     }
     ch = v->b63;
     if (!(v->f24 & 0x200)) {
-        func_8008C1E4(ch, p - 2, 1);
+        audioVoiceSetup(ch, p - 2, 1);
     
 v->f5C = D_800FDB80;
 } else {
-        func_8008C1E4(ch, p - 2, 0);
+        audioVoiceSetup(ch, p - 2, 0);
     
 v->f5C = D_800FDB80;
 }

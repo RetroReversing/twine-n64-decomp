@@ -13,11 +13,11 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8008C870(s32, s32, M2C_UNK, M2C_UNK, s32, s32, s32, s32); /* extern */
-extern s32 D_800E41DC;
+extern s32 gAudioVoiceTable;
 
 void func_8008C524(s32 arg0, M2C_UNK arg1, M2C_UNK arg2, s32 arg3, s32 arg4) {
     s32 temp_a1;
 
-    temp_a1 = D_800E41DC + (arg0 * 0x68);
+    temp_a1 = gAudioVoiceTable + (arg0 * 0x68);
     func_8008C870(temp_a1 + 0x42, temp_a1 + 0x40, arg1, arg2, arg3, temp_a1 + 0x44, arg4, temp_a1 + 0x46);
 }

@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_800E41DC;
+extern s32 gAudioVoiceTable;
 
 void func_8008C590(s32 arg0) {
 
-    if (((u8 (*)[0x68]) D_800E41DC)[arg0][0x0] != 0) {
-        ((u8 (*)[0x68]) D_800E41DC)[arg0][0x0] = 0;
-        ((s8 (*)[0x68]) D_800E41DC)[arg0][0x61] = 1;
+    if (((u8 (*)[0x68]) gAudioVoiceTable)[arg0][0x0] != 0) {
+        ((u8 (*)[0x68]) gAudioVoiceTable)[arg0][0x0] = 0;
+        ((s8 (*)[0x68]) gAudioVoiceTable)[arg0][0x61] = 1;
     }
 }

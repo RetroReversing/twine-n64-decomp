@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_800E41DC;
+extern s32 gAudioVoiceTable;
 
 void func_8008C4C0(s32 arg0, u16 arg1) {
     if ((u32) arg1 < 0x2001U) {
-        M2C_FIELD(((arg0 * 0x68) + D_800E41DC), s16 *, 4) = arg1;
+        M2C_FIELD(((arg0 * 0x68) + gAudioVoiceTable), s16 *, 4) = arg1;
         return;
     }
-    M2C_FIELD(((arg0 * 0x68) + D_800E41DC), s16 *, 4) = 0x2000;
+    M2C_FIELD(((arg0 * 0x68) + gAudioVoiceTable), s16 *, 4) = 0x2000;
 }

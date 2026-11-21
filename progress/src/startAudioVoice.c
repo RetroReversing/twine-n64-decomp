@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
-M2C_UNK func_8008C1E4(s32, s32 *, M2C_UNK);         /* extern */
+M2C_UNK audioVoiceSetup(s32, s32 *, M2C_UNK);         /* extern */
 M2C_UNK func_8008C43C(s32);                         /* extern */
 M2C_UNK func_8008C4C0(s32, s32);                    /* extern */
 M2C_UNK func_8008C524(s32, s32, s32, s32, s32);     /* extern */
@@ -57,7 +57,7 @@ extern s32 D_8010A514;
             sp18s.w[4] = 0;
             sp18s.w[5] = dataEnd;
             sp18s.b = 0;
-            func_8008C1E4(voice, &sp18s, 1);
+            audioVoiceSetup(voice, &sp18s, 1);
             rateRatio = ((f32) (u32) freq / (f32) D_8010A514) * 4096.0f;
             rateFixed = (u32) rateRatio;
             func_8008C4C0(voice, rateFixed & 0xFFFF);

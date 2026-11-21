@@ -58,7 +58,7 @@ s32 func_8009846C(s16 arg0) {
 f64 func_800AC0A0(f64 x, s32 *e) { u32 *p = (u32 *)&x; if (x==0.0) {*e=0; return 0.0;} else { *e=((*p>>20)&0x7ff)-0x3fe; *p=(*p&0x800fffff)|0x3fe00000; } return x; }
 
 typedef struct { u8 active; u8 pad[7]; f64 time; u32 now; u32 prev; u8 rest[0x50]; } E8B1C0;
-extern E8B1C0 *D_800E41DC;
+extern E8B1C0 *gAudioVoiceTable;
 extern u16 D_800E41E4;
 void func_8008B1C0(void) {
     s32 i;
@@ -66,7 +66,7 @@ void func_8008B1C0(void) {
     E8B1C0 *e;
     E8B1C0 *p;
     i = 0;
-    e = D_800E41DC;
+    e = gAudioVoiceTable;
     if (i < count) {
         do {
             p = e;
