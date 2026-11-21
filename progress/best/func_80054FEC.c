@@ -7,6 +7,7 @@ s32 func_80073108(void *, void *, f32);     /* extern */
 s32 startSubdivision(s32, void **, void *, s32, f32, f32, s32, s32); /* extern */
 s32 func_800851E0(void *arg0);                      /* extern */
 extern s32 gBorderSkipActive;
+typedef struct { f32 x, y, z; } BlastPosition;
 
 void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 arg5, s32 arg6) {
   s32 __repair_integer_one;
@@ -40,20 +41,20 @@ void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 a
                     if ((*(s32 *)((char *)(var_s1) + 0x58)) & 0x400) {
                         temp_fv0 = approxDistance(arg4, var_s1 + 0x24);
                         if (temp_fv0 < arg2) {
+                            temp_fv0 /= arg2;
+                            temp_fv0 = 1.0f - temp_fv0;
                             if ((u32) ((*(u16 *)((char *)(var_s1) + 0x78)) - 2) < 2U) {
                                 temp_a2 = (*(void **)((char *)(var_s1) + 0x6C));
-                                if (gBorderSkipActive != 0) {
-                                    var_fv0 = arg1;
-                                } else {
+                                if (gBorderSkipActive == 0) {
                                     var_fv0 = arg1 * 0.25f;
+                                } else {
+                                    var_fv0 = arg1;
                                 }
                                 (*(s32 *)((char *)(var_s1) + 0x60)) = arg5;
                                 (*(s32 *)((char *)(temp_a2) + 0x18C)) = (s32) (((*(s32 *)((char *)(temp_a2) + 0x18C)) & 0xFFFF0FFF) | 0x7000);
-                                (*(s32 *)((char *)(temp_a2) + 0x1A0)) = (s32) (*(s32 *)((char *)(arg4) + 0));
-                                (*(s32 *)((char *)(temp_a2) + 0x1A4)) = (s32) (*(s32 *)((char *)(arg4) + 4));
-                                (*(s32 *)((char *)(temp_a2) + 0x1A8)) = (s32) (*(s32 *)((char *)(arg4) + 8));
+                                *(BlastPosition *)((u8 *)temp_a2 + 0x1A0) = *(BlastPosition *)arg4;
                                 (*(s32 *)((char *)(temp_a2) + 0x1B8)) = arg6;
-                                (*(f32 *)((char *)(temp_a2) + 0x1B0)) = (f32) ((*(f32 *)((char *)(temp_a2) + 0x1B0)) + ((1.0f - (temp_fv0 / arg2)) * var_fv0));
+                                (*(f32 *)((char *)(temp_a2) + 0x1B0)) = (f32) ((*(f32 *)((char *)(temp_a2) + 0x1B0)) + (temp_fv0 * var_fv0));
                                 (*(s32 *)((char *)(temp_a2) + 0x1B4)) = 0;
                                 if (arg0 != NULL) {
                                     (*(s32 *)((char *)(temp_a2) + 0x1B4)) = (s32) (*(u8 *)((char *)(arg0) + 1));
@@ -62,13 +63,11 @@ void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 a
                                     (*(s32 *)((char *)(temp_a2) + 4)) = (s32) (*(s32 *)((char *)((*(void **)((char *)(arg3) + 0x6C))) + 0x24));
                                 }
                             }
-                            if (((*(u16 *)((char *)(var_s1) + 0x78)) == 1) && ((*(s16 *)((char *)(var_s1) + 0x7A)) != 0x27)) {
+                            if (((*(u16 *)((char *)(var_s1) + 0x78)) == __repair_integer_one) && ((*(s16 *)((char *)(var_s1) + 0x7A)) != 0x27)) {
                                 temp_a2_2 = (*(void **)((char *)(var_s1) + 0x6C));
                                 (*(s32 *)((char *)(var_s1) + 0x60)) = arg5;
                                 (*(s32 *)((char *)(temp_a2_2) + 0x88)) = (s32) (((*(s32 *)((char *)(temp_a2_2) + 0x88)) & 0xFFE1FFFF) | 0xE0000);
-                                (*(s32 *)((char *)(temp_a2_2) + 0x50)) = (s32) (*(s32 *)((char *)(arg4) + 0));
-                                (*(s32 *)((char *)(temp_a2_2) + 0x58)) = (s32) (*(s32 *)((char *)(arg4) + 8));
-                                (*(s32 *)((char *)(temp_a2_2) + 0x54)) = (s32) (*(s32 *)((char *)(arg4) + 4));
+                                *(BlastPosition *)((u8 *)temp_a2_2 + 0x50) = *(BlastPosition *)arg4;
                                 (*(s32 *)((char *)(temp_a2_2) + 0x64)) = 0;
                                 (*(s32 *)((char *)(temp_a2_2) + 0x68)) = arg6;
                                 (*(f32 *)((char *)(temp_a2_2) + 0x60)) = (f32) ((*(f32 *)((char *)(temp_a2_2) + 0x60)) + arg1);
@@ -82,7 +81,7 @@ void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 a
                                     temp_s0 = var_s1 + 0x24;
                                     func_80073108(temp_s0, arg4, 5.0f);
                                     startSubdivision((*(s32 *)((char *)(var_s1) + 0x70)), var_s3, temp_s0, (*(s32 *)((char *)(var_s1) + 0x3C)), (*(f32 *)((char *)(var_s1) + 0x40)), (*(f32 *)((char *)(var_s1) + 0x44)), __repair_integer_one, __repair_integer_one);
-                                    func_800851E0(arg0);
+                                    func_800851E0(arg4);
                                 }
                             }
                         }

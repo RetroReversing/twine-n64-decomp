@@ -16,6 +16,7 @@ void func_8009DBE8(s32, s16 *, s16 *, s16 *, s16 *, s16 *, s16 *, s32);
 
 s32 func_8009DCD0(s32 arg0, void *arg1, s32 arg2) {
     s16 params[8], spC8[4], spC0[4], spB8[4], spB0[4], sp48[52];
+    volatile u8 frame[32];
     s16 *var_a3;
     s16 *var_t1;
     s16 *var_t2;
@@ -69,3 +70,4 @@ s32 func_8009DCD0(s32 arg0, void *arg1, s32 arg2) {
     func_8009DBE8(arg0, params, spC8, spB8, spC0, spB0, sp48, arg2);
     return 0;
 }
+

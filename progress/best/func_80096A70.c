@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80096460(u8, u8, u8, u8);                  /* extern */
+s32 func_80096460(u8, u8, u8);                  /* extern */
 
 s32 func_80096A70(void *arg0, void *arg1) {
     u32 index = 0;
@@ -35,30 +35,40 @@ s32 func_80096A70(void *arg0, void *arg1) {
                 case 0xA0: value = M2C_FIELD(arg0, s16 *, 0x170) * 2; break;
                 case 0xA1: value = M2C_FIELD(arg0, s16 *, 0x17C) * 2; break;
                 default:
-                    value = (u16)func_80096460(raw, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B), raw) - 0x2000;
+                    value = (u16)func_80096460(raw, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B)) - 0x2000;
                     break;
                 }
                 scaled = (value * M2C_FIELD(cursor, s16 *, 2)) >> 8;
-                if (scaled < -0x2000) scaled = -0x2000;
-                else if (scaled >= 0x2000) scaled = 0x1FFF;
+                if (scaled < -0x2000) value = -0x2000;
+                else if (scaled < 0x2000) value = scaled;
+                else value = 0x1FFF;
+                scaled = value;
                 mode = cursor[1];
                 switch (mode) {
                 case 0:
                     centered = scaled;
                     break;
                 case 1:
-                    centered = result + (scaled - 0x2000);
-                    goto clamp_centered;
+                    centered = (s32)result + (scaled - 0x2000);
+                    if (centered >= -0x2000) goto upper_centered;
+                    value = -0x2000;
+                    goto finish_centered;
                 case 2:
                     centered = ((s32)(result - 0x2000) * scaled) >> 13;
-clamp_centered:
-                    if (centered < -0x2000) centered = -0x2000;
-                    else if (centered >= 0x2000) centered = 0x1FFF;
+                    if (centered < -0x2000) {
+                        value = -0x2000;
+                        goto finish_centered;
+                    }
+upper_centered:
+                    value = 0x1FFF;
+                    if (centered < 0x2000) value = centered;
+finish_centered:
+                    centered = value;
                     break;
                 }
                 result = centered + 0x2000;
             } else {
-                scaled = ((u16)func_80096460(kind, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B), raw) * M2C_FIELD(cursor, s16 *, 2)) >> 8;
+                scaled = ((u16)func_80096460(kind, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B)) * M2C_FIELD(cursor, s16 *, 2)) >> 8;
                 if (scaled >= 0x4000) scaled = 0x3FFF;
                 mode = cursor[1];
                 switch (mode) {
@@ -69,7 +79,11 @@ clamp_centered:
                 case 2:
                     result = (result * scaled) >> 14;
 clamp_result:
-                    if (result >= 0x4000) result = 0x3FFF;
+                    {
+                        u32 capped = 0x3FFF;
+                        if (result < 0x4000U) capped = result;
+                        result = capped;
+                    }
                     break;
                 }
             }
@@ -79,3 +93,4 @@ clamp_result:
     }
     return (u16)result;
 }
+

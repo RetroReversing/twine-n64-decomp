@@ -14,7 +14,7 @@ typedef struct {
 
 extern s32 triangleOverlapsBounds(f32 *, f32 *, f32 *, f32, f32, f32, f32);
 
-void func_80040E5C(GridMesh *mesh) {
+void buildTriangleGridMasks(GridMesh *mesh) {
     f32 xstep = (mesh->xmax - mesh->xmin) * 0.125f;
     f32 zstep = (mesh->zmax - mesh->zmin) * 0.125f;
     s32 i;

@@ -10,7 +10,7 @@ s32 func_8003FCF4();
 s32 func_8003FDE0();
 s32 func_8003FF3C();
 s32 func_800404F0();
-s32 func_80040E5C();
+s32 buildTriangleGridMasks();
 s32 func_800410E8();
 s32 func_80041114();
 s32 func_80045278();
@@ -264,7 +264,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                     typedef struct { s32 words[4]; } Bounds;
                     *(Bounds *)((char *)temp_v0_11 + 8) = *(Bounds *)((char *)temp_v1_2 + 0x40);
                 }
-                func_80040E5C((*(void **)((char *)(*arg0) + 0x3C)));
+                buildTriangleGridMasks((*(void **)((char *)(*arg0) + 0x3C)));
                 func_80041114(*arg0);
                 if (var_fs1 != 1.0f) {
                     temp_v1_3 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
@@ -426,7 +426,7 @@ block_37:
                 }
                 func_8003FF3C(temp_s4_2, (*(s32 *)((char *)(((__repair_field_24 *)arg1)->value) + 0x18)), (*(s32 *)((char *)(temp_s4_2) + 0x38)));
                 computeMeshBounds(temp_s4_2, temp_s4_2 + 8, temp_s4_2 + 0x18);
-                func_80040E5C(temp_s4_2);
+                buildTriangleGridMasks(temp_s4_2);
             } else {
                 temp_v0_16 = ((__repair_field_24 *)arg1)->value;
                 func_8003CD18((*(u16 *)((char *)(temp_v0_16) + 4)), (*(s32 *)((char *)(temp_v0_16) + 0)), temp_a2_3, temp_s4_2 + 0x18);

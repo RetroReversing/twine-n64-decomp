@@ -51,10 +51,10 @@ void *func_8006201C(s32 arg0, void *arg1, s32 arg2, s16 arg3) {
         M2C_FIELD(temp_a3, s16 *, 0x24) = 0xF2;
         M2C_FIELD(temp_a3, s8 *, 0x2A) = 1;
         M2C_FIELD(temp_a3, f32 *, 0x1C) = (f32) D_800B20D2;
+        M2C_FIELD(temp_a3, f32 *, 0x20) = (f32) D_800B2322;
         M2C_FIELD(temp_a3, s32 *, 0x10) = -1;
         M2C_FIELD(temp_a3, f32 *, 0x14) = 1000.0f;
         M2C_FIELD(temp_a3, f32 *, 0x18) = 1000.0f;
-        M2C_FIELD(temp_a3, f32 *, 0x20) = (f32) D_800B2322;
         effectSetAnimFrame(temp_v0, M2C_FIELD(temp_a3, u16 *, 0x2C), D_800C2942, temp_a3);
     }
     return temp_v0;
