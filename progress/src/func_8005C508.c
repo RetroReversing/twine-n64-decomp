@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80054FEC(M2C_UNK *, s32, s32, void *, s32, s32, s32); /* extern */
-M2C_UNK func_800617D8(s32, s32, void *, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
+M2C_UNK spawnConfiguredEffect(s32, s32, void *, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_80073508(s32, f32);                /* extern */
 M2C_UNK func_800853D4(s32);                         /* extern */
 extern M2C_UNK D_800C6CAC;
@@ -22,7 +22,7 @@ extern s32 D_800C6CB8;
 
 void func_8005C508(void *arg0, s32 arg1) {
     func_80054FEC(&D_800C6CAC, D_800C6CB4, D_800C6CB8, arg0, arg1, 0x04000000, 0x7D000);
-    func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, arg0 + 0x3C, 0, 0.75f, 1.09f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x80808010);
+    spawnConfiguredEffect(M2C_FIELD(arg0, s32 *, 0x20), arg1, arg0 + 0x3C, 0, 0.75f, 1.09f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x80808010);
     func_80073508(arg1, 0.002f);
     func_800853D4(arg1);
 }

@@ -2,7 +2,7 @@ s32 objectSetAnimFrame();
 s32 randomIntBelow();
 s32 func_80045DB4(f32 *, f32, f32);
 s32 updateNearestTargets();
-s32 func_800617D8(s32, void *, s32, f32 *, f32, f32, s32, s32, s32, s32, s32);
+s32 spawnConfiguredEffect(s32, void *, s32, f32 *, f32, f32, s32, s32, s32, s32, s32);
 s32 func_80062450();
 extern s32 gBorderSkipFlag;
 
@@ -31,7 +31,7 @@ void actorUpdateSparkEmitter(Obj62F34 *arg0) {
             if (v[1] < zero) {
                 v[1] = -v[1];
             }
-            func_80062450(func_800617D8(arg0->field_20, (u8 *)arg0 + 0x24, 0, v, 1.0f, zero, randomIntBelow(1) + 0x17, 0xFB, 0x33, 0xFF0000FF, 6), v);
+            func_80062450(spawnConfiguredEffect(arg0->field_20, (u8 *)arg0 + 0x24, 0, v, 1.0f, zero, randomIntBelow(1) + 0x17, 0xFB, 0x33, 0xFF0000FF, 6), v);
         }
     }
 }

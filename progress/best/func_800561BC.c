@@ -41,7 +41,7 @@ s32 func_800588D8(void *);                          /* extern */
 M2C_UNK func_8005CBD4(void *, f32 *, f32 *, M2C_UNK, s32); /* extern */
 M2C_UNK func_8005D070(void *, M2C_UNK, void *, f32 *); /* extern */
 M2C_UNK func_800613AC(void *, f32 *, f32 *, M2C_UNK); /* extern */
-M2C_UNK func_800617D8(void *, f32 *, f32 *, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
+M2C_UNK spawnConfiguredEffect(void *, f32 *, f32 *, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_800624A8(void *, f32 *, f32, M2C_UNK); /* extern */
 M2C_UNK func_800643C8(void *);                      /* extern */
 M2C_UNK func_80073108(void *, f32 *, M2C_UNK);      /* extern */
@@ -471,7 +471,7 @@ loop_95:
                             goto block_262;
                         }
                         if (gBorderSkipFlag == 0) {
-                            func_800617D8(M2C_FIELD(arg0, void **, 0x20), &vsp40[0], arg0 + 0x3C, 0, 0.1f, 1.025f, 0x19, 0xFB, 0x17, 0x80, 0x8080800C);
+                            spawnConfiguredEffect(M2C_FIELD(arg0, void **, 0x20), &vsp40[0], arg0 + 0x3C, 0, 0.1f, 1.025f, 0x19, 0xFB, 0x17, 0x80, 0x8080800C);
                             if (D_80108F84 != NULL) {
                                 vsp98[0] = -sp70;
                                 vsp98[1] = -sp74;
@@ -488,7 +488,7 @@ loop_95:
                                 temp_fv0_3 = approximateAtan2(spA8, spB0) * 651.8986f;
                                 vspC0[0] = 0.0f;
                                 spBC = temp_fv0_3;
-                                func_800617D8(M2C_FIELD(arg0, void **, 0x20), &vsp40[0], &spB8, 0, 3.0f, 1.25f, 7, 0x1B, 0x22, 0xFFA00AC0, 0x8080803C);
+                                spawnConfiguredEffect(M2C_FIELD(arg0, void **, 0x20), &vsp40[0], &spB8, 0, 3.0f, 1.25f, 7, 0x1B, 0x22, 0xFFA00AC0, 0x8080803C);
                             }
                         }
                         vsp98[0] = M2C_FIELD(arg0, f32 *, 0x3C);
@@ -500,7 +500,7 @@ loop_95:
                             var_fv1_4 += D_800D3F80;
                         }
                         vsp98[2] = (f32) var_fv1_4;
-                        func_800617D8(M2C_FIELD(arg0, void **, 0x20), &vsp40[0], arg0 + 0x3C, 0, randomFloatScaled(1.5f) + 1.5f, 1.5f, 8, 0x1B, 0x17, 0xFFFF00FF, 0x8080807F);
+                        spawnConfiguredEffect(M2C_FIELD(arg0, void **, 0x20), &vsp40[0], arg0 + 0x3C, 0, randomFloatScaled(1.5f) + 1.5f, 1.5f, 8, 0x1B, 0x17, 0xFFFF00FF, 0x8080807F);
                         goto block_107;
                     }
                     goto block_107;
@@ -517,7 +517,7 @@ block_107:
                         }
                         temp_v1_6 = M2C_FIELD(temp_s2, void **, 0x2C);
                         func_80054FEC(M2C_FIELD(temp_s2, void **, 0x2C), M2C_FIELD(temp_v1_6, f32 *, 8), M2C_FIELD(temp_v1_6, f32 *, 0xC), arg0, var_s0, 0x04000000, M2C_FIELD(temp_s2, s32 *, 0x24));
-                        func_800617D8(M2C_FIELD(arg0, void **, 0x20), var_s0, arg0 + 0x3C, 0, 0.75f, 1.09f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x80808010);
+                        spawnConfiguredEffect(M2C_FIELD(arg0, void **, 0x20), var_s0, arg0 + 0x3C, 0, 0.75f, 1.09f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x80808010);
                         goto block_131;
                     }
                     if (var_s6 == 1) {
@@ -561,7 +561,7 @@ block_126:
                 if (temp_v1_9 & 0x1000) {
                     if ((var_s6 == 2) || (temp_a2 & 0x8000)) {
                         var_s0 = arg0 + 0x24;
-                        func_800617D8(M2C_FIELD(arg0, void **, 0x20), var_s0, arg0 + 0x3C, 0, 0.75f, 1.09f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x80808010);
+                        spawnConfiguredEffect(M2C_FIELD(arg0, void **, 0x20), var_s0, arg0 + 0x3C, 0, 0.75f, 1.09f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x80808010);
                         temp_v1_10 = M2C_FIELD(temp_s2, void **, 0x2C);
                         func_80054FEC(M2C_FIELD(temp_s2, void **, 0x2C), M2C_FIELD(temp_v1_10, f32 *, 8), M2C_FIELD(temp_v1_10, f32 *, 0xC), arg0, var_s0, 0x04000000, M2C_FIELD(temp_s2, s32 *, 0x24));
 block_131:
@@ -573,7 +573,7 @@ block_131:
                 }
                 if ((temp_v1_9 & 0x4000) && (((((temp_v0_8 - 1) / 1800) << 0x10) == 0) & ((((temp_v0_8 - 1) % 30) << 0x10) == 0))) {
                     temp_s0_2 = arg0 + 0x24;
-                    func_800617D8(M2C_FIELD(arg0, void **, 0x20), temp_s0_2, arg0 + 0x3C, 0, 2.25f, 0.9f, 0x18, 0xFB, 0x22, 0xFF000080, 0x80000010);
+                    spawnConfiguredEffect(M2C_FIELD(arg0, void **, 0x20), temp_s0_2, arg0 + 0x3C, 0, 2.25f, 0.9f, 0x18, 0xFB, 0x22, 0xFF000080, 0x80000010);
                     func_80084338(0xE9, temp_s0_2);
                 }
                 if ((var_s6 == 2) || ((s16) M2C_FIELD(temp_s2, u16 *, 0x36) < 0)) {
@@ -669,7 +669,7 @@ block_138:
                             break;
                         case 5:                     /* switch 2 */
                             func_8008548C(&vsp40[0], temp_a1_2);
-                            func_800617D8(M2C_FIELD(arg0, void **, 0x20), &vsp40[0], NULL, 0, 0.25f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
+                            spawnConfiguredEffect(M2C_FIELD(arg0, void **, 0x20), &vsp40[0], NULL, 0, 0.25f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
                             break;
                         }
                     }
@@ -903,7 +903,7 @@ block_234:
                 vsp88[0] = vsp60[0] - (M2C_FIELD(temp_s2, f32 *, 0) * 0.35f);
                 vsp88[1] = vsp60[1] - (M2C_FIELD(temp_s2, f32 *, 4) * 0.35f);
                 vsp88[2] = vsp60[2] - (M2C_FIELD(temp_s2, f32 *, 8) * 0.35f);
-                func_800617D8(M2C_FIELD(arg0, void **, 0x20), &vsp88[0], &vsp98[0], 0, 2.0f, 1.1f, 8, 0x1B, 0x17, 0xFFC800FF, 0x80808040);
+                spawnConfiguredEffect(M2C_FIELD(arg0, void **, 0x20), &vsp88[0], &vsp98[0], 0, 2.0f, 1.1f, 8, 0x1B, 0x17, 0xFFC800FF, 0x80808040);
                 temp_v1_15 = M2C_FIELD(var_s7, u16 *, 0x78);
                 switch (temp_v1_15) {               /* switch 3; irregular */
                 default:                            /* switch 3 */

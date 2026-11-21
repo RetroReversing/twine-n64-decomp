@@ -2,7 +2,7 @@
 
 s32 randomIntBelow(s32);                         /* extern */
 s32 func_8004C750(s32, f32 *, f32 *, s32 *, f32, f32 *, f32 *, s32 *); /* extern */
-s32 func_800617D8(s32, s32 *, s32, s32, f32, f32, s32, s32, s32, s32, s32); /* extern */
+s32 spawnConfiguredEffect(s32, s32 *, s32, s32, f32, f32, s32, s32, s32, s32, s32); /* extern */
 s32 func_8008548C(s32 *);                   /* extern */
 typedef struct { u32 x, y, z; } Vec3u32;
 extern Vec3u32 D_800D4E74;
@@ -131,7 +131,7 @@ typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
     }
     if ((D_80103F00 != 0) && (frame.view_sp44.value > (*(f32 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 8))) && (randomIntBelow(4) == 0)) {
         func_8008548C(&frame.view_sp40.value);
-        func_800617D8((*(s32 *)((char *)(actor) + 0x20)), &frame.view_sp40.value, 0, 0, 0.5f, 1.05f, 0x1C, 0x1B, 0x2C, 0x8080, 0x80808008);
+        spawnConfiguredEffect((*(s32 *)((char *)(actor) + 0x20)), &frame.view_sp40.value, 0, 0, 0.5f, 1.05f, 0x1C, 0x1B, 0x2C, 0x8080, 0x80808008);
         (*(u8 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 0x11)) = 5U;
     }
     temp_v1_7 = ((__repair_field_88 *)motion)->value & 0xFBFFFFFF;

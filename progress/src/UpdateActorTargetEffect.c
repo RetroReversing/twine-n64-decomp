@@ -16,7 +16,7 @@ s32 func_8004478C();
 f32 Vec3_DistanceSq();
 s32 randomIntBelow();
 s32 func_800462C4(void *, f32, f32, f32);
-void *func_800617D8(s32, void *, s32, s32, f32, f32, s32, s32, s32, s32, s32);
+void *spawnConfiguredEffect(s32, void *, s32, s32, f32, f32, s32, s32, s32, s32, s32);
 f32 sinAngle(f32);
 f32 cosAngle(f32);
 s32 rotateVec3ByMat3();
@@ -90,11 +90,11 @@ s32 __repair_operand;
             effect = NULL;
             dist = Vec3_DistanceSq(aim_pos, target_pos);
             if (M2C_FIELD(actor_def, s32 *, 0x60) & 0x800) {
-                effect = func_800617D8(M2C_FIELD(actor, s32 *, 0x20), aim_pos, 0, 0, 1.0f, 1.0f, 0x16, 0x1B, 0x22, 0x8020, 0x80808021);
+                effect = spawnConfiguredEffect(M2C_FIELD(actor, s32 *, 0x20), aim_pos, 0, 0, 1.0f, 1.0f, 0x16, 0x1B, 0x22, 0x8020, 0x80808021);
                 M2C_FIELD(effect, s32 *, 0x58) |= 0x100000;
             }
             if (M2C_FIELD(actor_def, s32 *, 0x60) & 0x400) {
-                effect = func_800617D8(M2C_FIELD(actor, s32 *, 0x20), aim_pos, 0, 0, 1.0f, 1.0f, randomIntBelow(4) + 0x17, 0x1B, 0x22, 0x8080, 0x80808081);
+                effect = spawnConfiguredEffect(M2C_FIELD(actor, s32 *, 0x20), aim_pos, 0, 0, 1.0f, 1.0f, randomIntBelow(4) + 0x17, 0x1B, 0x22, 0x8080, 0x80808081);
                 M2C_FIELD(effect, s32 *, 0x58) |= 0x100000;
             }
             if (effect != NULL) {

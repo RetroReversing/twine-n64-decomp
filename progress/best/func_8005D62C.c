@@ -4,7 +4,7 @@ s32 vec3Add();
 s32 randomIntBelow();
 f32 randomFloatScaled(f32);
 s32 func_8005D444(void *, void *, f32, s32, s32, s32);
-void *func_800617D8(void *, void*, void*, void *, f32, f32, s32, s32, s32, u32, u32);
+void *spawnConfiguredEffect(void *, void*, void*, void *, f32, f32, s32, s32, s32, u32, u32);
 extern f64 D_800D4150;
 extern f64 D_800D4158;
 extern f64 D_800D4160;
@@ -57,8 +57,8 @@ __repair_addr = (char *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20
         vec3Add(temp_s0 + 0x10, temp_s2, temp_s2);
         if ((((__repair_record_arg0*)arg0)->field_28) < (*(f32 *)((char *)((*(void **)((char *)(temp_s3) + 0x20))) + 0x5C))) {
             temp_s0_2 = arg0 + 0x24;
-            func_800617D8((((__repair_record_arg0*)arg0)->field_20), temp_s0_2, temp_s2, 0, 0.1f, 1.01f, 0x19, 0xFB, 0x17, 0x80, 0x80808002);
-            func_800617D8((((__repair_record_arg0*)arg0)->field_20), temp_s0_2, NULL, 0, 0.25f, randomFloatScaled(0.05f) + 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
+            spawnConfiguredEffect((((__repair_record_arg0*)arg0)->field_20), temp_s0_2, temp_s2, 0, 0.1f, 1.01f, 0x19, 0xFB, 0x17, 0x80, 0x80808002);
+            spawnConfiguredEffect((((__repair_record_arg0*)arg0)->field_20), temp_s0_2, NULL, 0, 0.25f, randomFloatScaled(0.05f) + 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
             (((__repair_record_arg0*)arg0)->field_60) |= 1;
         }
     

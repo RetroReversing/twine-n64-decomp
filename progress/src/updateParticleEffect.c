@@ -1,5 +1,5 @@
 void vec3Add(void *, void *, void *);
-void func_800617D8(void *, void *, int, int, f32, f32, int, int, int, int, int);
+void spawnConfiguredEffect(void *, void *, int, int, f32, f32, int, int, int, int, int);
 extern f64 D_800D4138;
 extern f64 D_800D4140;
 
@@ -21,7 +21,7 @@ extern f64 D_800D4140;
     parentGroundY = *(f32 *)((char *)*(void **)((char *)parent + 0x20) + 0x5C);
     if (parentGroundY < effectGroundY) {
         *(f32 *)((char *)effect + 0x28) = parentGroundY;
-        func_800617D8(*(void **)((char *)effect + 0x20), (char *)effect + 0x24, 0, 0, 0.25f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
+        spawnConfiguredEffect(*(void **)((char *)effect + 0x20), (char *)effect + 0x24, 0, 0, 0.25f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
         *(int *)((char *)effect + 0x60) = *(int *)((char *)effect + 0x60) | 1;
         return;
     }

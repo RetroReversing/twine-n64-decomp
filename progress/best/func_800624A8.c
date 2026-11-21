@@ -8,7 +8,7 @@ s32 randomIntBelow(s32);                         /* extern */
 f32 randomFloatScaled(f32);                             /* extern */
 f32 randomFloatMinusOffset(f32, f32);                        /* extern */
 s32 func_80045DB4(f32 *, f32, f32);             /* extern */
-s32 func_800617D8(s32, s32, void *, f32 *, f32, f32, s32, s32, s32, s32, s32); /* extern */
+s32 spawnConfiguredEffect(s32, s32, void *, f32 *, f32, f32, s32, s32, s32, s32, s32); /* extern */
 s32 func_80062450(s32, f32 *);                  /* extern */
 s32 func_80073508(s32, f32);                    /* extern */
 s32 func_800853D4(s32);                         /* extern */
@@ -44,7 +44,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
     } else {
         var_fp = 3; var_s6 = 4;
     }
-    func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg0 + 0x24, arg0 + 0x3C, NULL, 0.75f, 1.05f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x7F7F8110);
+    spawnConfiguredEffect((*(s32 *)((char *)(arg0) + 0x20)), arg0 + 0x24, arg0 + 0x3C, NULL, 0.75f, 1.05f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x7F7F8110);
     func_80073508(arg1, arg2 * 0.001f);
     if ((arg3 & 0xFF) && (gTransitionPhase == 0)) {
         func_800853D4(arg1);
@@ -86,7 +86,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
                 sp30[1] = -sp30[1];
             }
             temp_fs2_2 = (f32) (temp_fs1_2 * D_800D4280);
-            func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, temp_fs2_2, (f32) (temp_fs1_2 * D_800D4288), 0x19, 0xFB, 0x33, 0x80, 0x80808001), sp30);
+            func_80062450(spawnConfiguredEffect((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, temp_fs2_2, (f32) (temp_fs1_2 * D_800D4288), 0x19, 0xFB, 0x33, 0x80, 0x80808001), sp30);
             sp30[2] = 0.0f;
             sp30[1] = 0.0f;
             sp30[0] = 0.0f;
@@ -95,7 +95,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
                 sp30[1] = -sp30[1];
             }
             if (gBorderSkipFlag == 0) {
-                func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, temp_fs2_2, (f32) (temp_fs1_2 * D_800D4290), 0x1A, 0xFB, 0x33, 0xFF, 0x80808004), sp30);
+                func_80062450(spawnConfiguredEffect((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, temp_fs2_2, (f32) (temp_fs1_2 * D_800D4290), 0x1A, 0xFB, 0x33, 0xFF, 0x80808004), sp30);
                 var_s0 = 0;
                 if (var_s6) {
                     do {
@@ -106,7 +106,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
                         if (sp30[1] < 0.0f) {
                             sp30[1] = -sp30[1];
                         }
-                        func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, 1.0f, 0.0f, randomIntBelow(2) + 0x17, 0xFB, 0x68, 0xFF0000FF, 4), sp30);
+                        func_80062450(spawnConfiguredEffect((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, 1.0f, 0.0f, randomIntBelow(2) + 0x17, 0xFB, 0x68, 0xFF0000FF, 4), sp30);
                         var_s0 += 1;
                     } while (var_s0 < var_s6);
                 }

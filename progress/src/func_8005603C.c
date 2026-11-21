@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800617D8(s32, s32, void *, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
+M2C_UNK spawnConfiguredEffect(s32, s32, void *, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
 
 void func_8005603C(void *arg0) {
-    func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg0 + 0x24, arg0 + 0x3C, 0, 0.25f, 1.0f, 0x1B, 0xFB, 0x17, 0x40, 0x80808010);
+    spawnConfiguredEffect(M2C_FIELD(arg0, s32 *, 0x20), arg0 + 0x24, arg0 + 0x3C, 0, 0.25f, 1.0f, 0x1B, 0xFB, 0x17, 0x40, 0x80808010);
 }

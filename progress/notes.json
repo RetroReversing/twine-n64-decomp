@@ -5056,7 +5056,7 @@
   "score_after": 790
  },
  {
-  "function": "func_800617D8",
+  "function": "spawnConfiguredEffect",
   "text": "Score 70 candidate has all target opcodes and scheduling. A three-word Point3 assignment fixed the $s0/$s1 swap from the previous scalar temporary copy. Remaining difference is the $s2/$s3 allocation swap for arg9 (packed color) and arg3 (copy source), including their prologue save slots. Explicit register hints, const, local declaration order with fixed-size builtin copy gave identical instructions. Inverting the source null branch to put the copy first worsened to 725. Retain the two arg0 tests because the target emits both.",
   "by": "codex-gpt-6.2-sol-2",
   "created_at": 1795138819.4713159,
@@ -5094,6 +5094,14 @@
   "created_at": 1795138858.947922,
   "score_before": 130,
   "score_after": 85
+ },
+ {
+  "function": "updateBobbingObject",
+  "text": "Restored saved_best revision 1dbb90ce4c490d158d44; current rechecked score 1352. Tried local repairs: deferred_stores (2047), inferred_record_layout (same), guard_shape (1852), target_local_bundle (1552), signedness (1952), declaration_order (same). No improvement. Full source rewrite failed compile because omitted M2C typedef/context preamble; saved best restored afterward. Target uses 0x38 frame, saves $fs0/$fs1; two calls to func_80045D8C receive floats 0.1f and 0.05f in $fa0/$fa1, with first return preserved in $fs0. Current candidate declares it void-argument and does not model float args; promising next correction: change prototype and calls, retain full M2C_DEFINES preamble. Target also passes p+0x10 to func_800452AC as integer/address argument. Distinct target call scheduling and floating-point ABI likely explain most mismatch; frame grows due to preserved $fs registers.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795138861.2063758,
+  "score_before": 1352,
+  "score_after": 1352
  },
  {
   "function": "func_80044538",
@@ -11200,7 +11208,7 @@
   "score_after": 310
  },
  {
-  "function": "func_800617D8",
+  "function": "spawnConfiguredEffect",
   "text": "Verified baseline 70. Componentwise float copy worsens to 1355, struct assignment preserves integer word copy. Remaining differences are s2/s3 allocation swap for arg9 and arg3; inverted branch is 725, unused local and equivalent zero test have no effect. Explore meaningful changes to those argument lifetimes.",
   "by": "codex-gpt-6.1-terra-5",
   "created_at": 1795178681.158474,
@@ -58090,11 +58098,30 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
  },
  {
-  "function": "updateBobbingObject",
-  "text": "Restored saved_best revision 1dbb90ce4c490d158d44; current rechecked score 1352. Tried local repairs: deferred_stores (2047), inferred_record_layout (same), guard_shape (1852), target_local_bundle (1552), signedness (1952), declaration_order (same). No improvement. Full source rewrite failed compile because omitted M2C typedef/context preamble; saved best restored afterward. Target uses 0x38 frame, saves $fs0/$fs1; two calls to func_80045D8C receive floats 0.1f and 0.05f in $fa0/$fa1, with first return preserved in $fs0. Current candidate declares it void-argument and does not model float args; promising next correction: change prototype and calls, retain full M2C_DEFINES preamble. Target also passes p+0x10 to func_800452AC as integer/address argument. Distinct target call scheduling and floating-point ABI likely explain most mismatch; frame grows due to preserved $fs registers.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795138861.2063758,
-  "score_before": 1352,
-  "score_after": 1352
+  "function": "func_8008E7B8",
+  "text": "Saved best 210 (rechecked): only 3 rows differ: target `andi $s0,$s2,0xff` x2 (redundant mask of already-masked s2) and `andi $a3,$s3,0xff`; ours uses andi s0,v1 / move a3,s3. Variants temp_s2=(u8)v1 with var_s0=temp_s2&0xff or (u8)temp_s2 -> 600 (move s0,s2). Struct-with-offsets rewrite scored 2034 (hoists table base; target uses separate symbols D_8010D784 etc, each with own lui). Next step: find expression that hides s2's masked-ness from combine (e.g. s2 from a u8 callee return or from memory) so the later (u8) stays an andi.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795229893.6715698,
+  "score_before": 600,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:cdfe6f62a352a55bb3d0cfacdf3ab66d20b9829a5f9cffb8da6232d6f5d86461"
+ },
+ {
+  "function": "func_8009DCD0",
+  "text": "Best source rechecked 12666/164 instructions. Compiling inherited draft under this claim scored 12666. Correcting func_8009DBE8 prototype based on exact-matched callee changed no instructions (warning evidence shows caller argument types still conflict). Same edit no-op repeated; prior history reports 44 local trials best 12207 and multiple explicit patches, so do not repeat those families blindly. Target prologue homes a0/a2 at E0/E8 and decodes 5-byte packed header into D0..DE with interleaved lbu/sra/andi/sh, then has multi-record decode loop. Current source includes incorrect 0x28 pad and int32 buffers that shift stack locals and miss store shapes. Next step: inspect early assembly and recreate declarations/layout: frame E0, ra at 24, header shorts D0..DE, output buffers B0/B8/C0/C8 and 48; preserve input pointer in a local, then compile.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795229900.887451,
+  "score_before": 12666,
+  "score_after": 12666,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:def4773cc39b587730bff73adccf0051c6b9643a0ba20aeac6965a61929cccae"
+ },
+ {
+  "function": "func_80060AA8",
+  "text": "Baseline score 1920, fully rechecked. Repair batch: reversing nested comparisons worsened to 2185; unsigned switch 3040; call one-shot scope and split result unchanged; branch orientation to default also worse (2375). Target differs in branch destinations and dispatch layout by ~33 instructions, although instruction count matches. Saved best retained and move-on threshold reached.\nBranch orientation, unsigned switch, call one-shot scope, split call result and target-local bundle repair families.\nNo improvement; scores 1920 baseline, variants 2185/3040/2375 worse or unchanged.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795229907.342366,
+  "score_before": 1920,
+  "score_after": 1920,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
  }
 ]

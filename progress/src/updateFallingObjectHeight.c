@@ -11,7 +11,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800617D8(void *, void *, M2C_UNK, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
+M2C_UNK spawnConfiguredEffect(void *, void *, M2C_UNK, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
 
 /* Applies gravity to the object's vertical velocity, integrates its height, and clamps it to the floor. */
 void updateFallingObjectHeight(void *obj) {
@@ -47,7 +47,7 @@ void updateFallingObjectHeight(void *obj) {
         hitFlag = 1;
     }
     if (hitFlag != 0) {
-        func_800617D8(M2C_FIELD(obj, void **, 0x20), obj + 0x24, 0, 0, 0.25f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
+        spawnConfiguredEffect(M2C_FIELD(obj, void **, 0x20), obj + 0x24, 0, 0, 0.25f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
         M2C_FIELD(obj, s32 *, 0x60) = (s32) (M2C_FIELD(obj, s32 *, 0x60) | 1);
     }
     if (parent == NULL) {
