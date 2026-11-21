@@ -16,45 +16,44 @@ M2C_UNK vec3Add(void *, void *, void *); /* extern */
 f32 randomFloatMinusOffset(f32, f32);                /* extern */
 M2C_UNK func_8008550C(void *);                      /* extern */
 
-/* Per-frame bobbing motion: integrates velocity, bounces the Y position off a floor, and counts down a timer. */
-void updateBobbingObject(void *obj) {
-    f32 velYNew;
-    f32 newVelZ;
-    f32 newVelX;
-    s16 bounceCount;
-    s16 timer;
-    void *vel;
-    void *state;
+void func_80058FBC(void *arg0) {
+    f32 temp_fs0;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    s16 temp_v0;
+    s16 temp_v1;
+    void *temp_a1;
+    void *temp_s1;
 
-    bounceCount = M2C_FIELD(obj, s16 *, 0x7A);
-    state = M2C_FIELD(obj, void **, 0x6C);
-    if ((bounceCount < 2)) {
-        if ((bounceCount >= 0)) {
-            M2C_FIELD(obj, f32 *, 0x24) = (f32) (M2C_FIELD(obj, f32 *, 0x24) + M2C_FIELD(state, f32 *, 4));
-            M2C_FIELD(obj, f32 *, 0x28) = (f32) (M2C_FIELD(obj, f32 *, 0x28) + M2C_FIELD(state, f32 *, 8));
-            vel = obj + 0x3C;
-            M2C_FIELD(obj, f32 *, 0x2C) = (f32) (M2C_FIELD(obj, f32 *, 0x2C) + M2C_FIELD(state, f32 *, 0xC));
-            vec3Add(state + 0x10, vel, vel);
-            M2C_FIELD(state, f32 *, 8) = (f32) (M2C_FIELD(state, f32 *, 8) - 0.01088889f);
+    temp_v1 = M2C_FIELD(arg0, s16 *, 0x7A);
+    temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
+    if ((temp_v1 < 2)) {
+        if ((temp_v1 >= 0)) {
+            M2C_FIELD(arg0, f32 *, 0x24) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + M2C_FIELD(temp_s1, f32 *, 4));
+            M2C_FIELD(arg0, f32 *, 0x28) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + M2C_FIELD(temp_s1, f32 *, 8));
+            temp_a1 = arg0 + 0x3C;
+            M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + M2C_FIELD(temp_s1, f32 *, 0xC));
+            vec3Add(temp_s1 + 0x10, temp_a1, temp_a1);
+            M2C_FIELD(temp_s1, f32 *, 8) = (f32) (M2C_FIELD(temp_s1, f32 *, 8) - 0.01088889f);
         }
     }
-    if (M2C_FIELD(obj, f32 *, 0x28) < M2C_FIELD(state, f32 *, 0)) {
-        velYNew = M2C_FIELD(state, f32 *, 0);
-        if (M2C_FIELD(obj, s16 *, 0x7A) == 0) {
-            M2C_FIELD(obj, f32 *, 0x28) = velYNew;
-            newVelX = randomFloatMinusOffset(0.1f, 0.05f);
-            newVelZ = randomFloatMinusOffset(0.1f, 0.05f);
-            M2C_FIELD(state, f32 *, 4) = newVelX;
-            M2C_FIELD(state, f32 *, 0xC) = newVelZ;
-            M2C_FIELD(state, f32 *, 8) = (f32) (M2C_FIELD(state, f32 *, 8) * -0.5f);
-            func_8008550C(obj + 0x24);
+    if (M2C_FIELD(arg0, f32 *, 0x28) < M2C_FIELD(temp_s1, f32 *, 0)) {
+        temp_fv1 = M2C_FIELD(temp_s1, f32 *, 0);
+        if (M2C_FIELD(arg0, s16 *, 0x7A) == 0) {
+            M2C_FIELD(arg0, f32 *, 0x28) = temp_fv1;
+            temp_fs0 = randomFloatMinusOffset(0.1f, 0.05f);
+            temp_fv0 = randomFloatMinusOffset(0.1f, 0.05f);
+            M2C_FIELD(temp_s1, f32 *, 4) = temp_fs0;
+            M2C_FIELD(temp_s1, f32 *, 0xC) = temp_fv0;
+            M2C_FIELD(temp_s1, f32 *, 8) = (f32) (M2C_FIELD(temp_s1, f32 *, 8) * -0.5f);
+            func_8008550C(arg0 + 0x24);
         }
-        M2C_FIELD(obj, s16 *, 0x7A) = (s16) ((u16) M2C_FIELD(obj, s16 *, 0x7A) + 1);
+        M2C_FIELD(arg0, s16 *, 0x7A) = (s16) ((u16) M2C_FIELD(arg0, s16 *, 0x7A) + 1);
     }
-    timer = M2C_FIELD(state, s16 *, 0x1C);
-    if (timer > 0) {
-        M2C_FIELD(state, s16 *, 0x1C) = (s16) (timer - 1);
+    temp_v0 = M2C_FIELD(temp_s1, s16 *, 0x1C);
+    if (temp_v0 > 0) {
+        M2C_FIELD(temp_s1, s16 *, 0x1C) = (s16) (temp_v0 - 1);
         return;
     }
-    M2C_FIELD(obj, s32 *, 0x60) = (s32) (M2C_FIELD(obj, s32 *, 0x60) | 1);
+    M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
 }
