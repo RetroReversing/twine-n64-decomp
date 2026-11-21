@@ -44,6 +44,15 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
   s32 temp_a0_2;
   s32 temp_a0_9;
   s32 temp_a1_3;
+  s32 glyphWidth, glyphHeight;
+  u32 packedStart;
+  u32 rectangleOpcode;
+  s32 initialWidth;
+  s32 firstWidthPlusOne;
+  s32 textureCount;
+  s32 tileLine;
+  s32 tileBits;
+  u16 decoded;
   s32 temp_a1_5;
   s32 temp_a2;
   s32 temp_a3;
@@ -112,38 +121,38 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
     *((s32 *) (((char *) temp_v1) + 0x14)) = 0;
     ((__repair_field_18 *) temp_v1)->value = 0xF3000000;
     temp_a0_2 = (u16) (*((u16 *) (((char *) ((((__repair_field_4 *) temp_s4)->value * 0xC) + ((__repair_field_18 *) temp_s3)->value)) + 2)));
-    sDisplayListCursor = (void *) (((char *) temp_v1) + 8);
-    sDisplayListCursor = (void *) (((char *) temp_v1) + 0x10);
-    temp_v0 = (void *) (0x18 + ((s32) temp_v1));
-    sDisplayListCursor = temp_v0;
-    sDisplayListCursor = (void *) (((char *) temp_v1) + 0x20);
-    temp_s0 = temp_a0_2 + 1;
-    var_v1 = temp_s0;
-    if (temp_s0 < 0)
-    {
-      var_v1 = temp_a0_2 + 0x10;
-    }
-    temp_s0 = var_v1 >> 4;
+    sDisplayListCursor = temp_v1 + 2;
+    sDisplayListCursor = temp_v1 + 4;
+    sDisplayListCursor = temp_v1 + 6;
+    temp_v0 = temp_v1 + 6;
+    sDisplayListCursor = temp_v1 + 8;
+    initialWidth = temp_a0_2;
+    firstWidthPlusOne = initialWidth + 1;
+    var_v1 = firstWidthPlusOne;
+    if (firstWidthPlusOne < 0)
+      var_v1 = initialWidth + 16;
+    tileLine = var_v1 >> 4;
     var_a2 = 0x800;
-    if (temp_s0 > 0)
+    if (tileLine > 0)
     {
-      var_a2 = temp_s0 + 0x7FF;
+      var_a2 = tileLine + 0x7FF;
     }
     temp_v0_3 = (((__repair_field_4 *) temp_s4)->value * 0xC) + ((__repair_field_18 *) temp_s3)->value;
     temp_t0 = *((u16 *) (((char *) temp_v0_3) + 2));
     temp_a0_2 = temp_t0 + 1;
-    temp_s0 = (((s32) ((temp_a0_2 * ((*((u16 *) (((char *) temp_v0_3) + 4))) + 1)) + 3)) >> 2) - 1;
-    if (temp_s0 >= 0x800)
+    textureCount = (((s32) ((temp_a0_2 * ((*((u16 *) (((char *) temp_v0_3) + 4))) + 1)) + 3)) >> 2) - 1;
+    if (textureCount >= 0x800)
     {
-      temp_s0 = 0x7FF;
+      textureCount = 0x7FF;
     }
+    tileBits = ((textureCount & 0xFFF) << 12) | 0x07000000;
     var_a1 = temp_a0_2;
     if (0 > temp_a0_2)
     {
       var_a1 = temp_t0 + 0x10;
     }
     temp_v0_4 = var_a1 >> 4;
-    if ((temp_v0_4 - 1) >= 0)
+    if (temp_v0_4 > 0)
     {
       var_a1 = (var_a2 / temp_v0_4) & 0xFFF;
     }
@@ -151,7 +160,7 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
     {
       var_a1 = var_a2 & 0xFFF;
     }
-    ((__repair_field_4 *) temp_v0)->value = (s32) ((((temp_s0 & 0xFFF) << 0xC) | 0x07000000) | var_a1);
+    ((__repair_field_4 *) temp_v0)->value = (s32) (tileBits | var_a1);
     __repair_phase_storage.pointer = sDisplayListCursor;
     ((__repair_field_0 *) __repair_phase_storage.pointer)->value = 0xE7000000;
     *((s32 *) (((char *) __repair_phase_storage.pointer) + 4)) = 0;
@@ -237,12 +246,13 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
             var_s5 = (var_s5 + 3) + (*((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148)));
             if (temp_a0_5 & 1)
           {
-            var_s1 -= func_800180D4(((__repair_field_18 *) arg2)->value + (var_s0 + 1), (((*((u16 *) (((char *) arg2) + 0x1C))) - 1) - var_s0) & 0xFFFF, *((u16 *) (((char *) arg2) + 0x1E)), decodeButtonMask840(temp_a0_5) & 0xFFFF, (s32) D_800E1766) >> 1;
+            decoded = decodeButtonMask840(temp_a0_5);
+            var_s1 -= func_800180D4(((__repair_field_18 *) arg2)->value + (var_s0 + 1), (((*((u16 *) (((char *) arg2) + 0x1C))) - 1) - var_s0) & 0xFFFF, *((u16 *) (((char *) arg2) + 0x1E)), decoded, (s32) D_800E1766) >> 1;
           }
             break;
 
           case 32:
-            var_v1_3 = (s8) (*((u8 *) (((char *) temp_s4) + 0x10)));
+            var_v1_3 = *((u8 *) (((char *) temp_s4) + 0x10));
             var_s1 += var_v1_3;
             D_800E1760 += var_v1_3;
             break;
@@ -255,7 +265,10 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
             var_s5 = (var_s5 + 3) + (*((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148)));
             if (temp_a0_6 & 1)
             {
-              var_s1 = (*((u16 *) (((char *) arg2) + 0x20))) - (func_800180D4(((__repair_field_18 *) arg2)->value + var_s0, ((*((u16 *) (((char *) arg2) + 0x1C))) - var_s0) & 0xFFFF, *((u16 *) (((char *) arg2) + 0x1E)), decodeButtonMask840(temp_a0_6) & 0xFFFF, (s32) D_800E1766) >> 1);
+              u32 lineWidth;
+              decoded = decodeButtonMask840(temp_a0_6);
+              lineWidth = func_800180D4(((__repair_field_18 *) arg2)->value + var_s0, ((*((u16 *) (((char *) arg2) + 0x1C))) - var_s0) & 0xFFFF, *((u16 *) (((char *) arg2) + 0x1E)), decoded, (s32) D_800E1766);
+              var_s1 = *((u16 *) (((char *) arg2) + 0x20)) - (lineWidth >> 1);
             }
             else
             {
@@ -294,8 +307,8 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
           }
             temp_a3 = temp_t2_3 * 5;
             temp_v1_4 = temp_a3 + (*((void **) (((char *) temp_s4) + 8)));
-            temp_t3 = *((u8 *) (((char *) temp_v1_4) + 0));
-            temp_t4 = (float) ((*((u8 *) (((char *) temp_v1_4) + 1))) << 5);
+            temp_t3 = *((u8 *) (((char *) temp_v1_4) + 0)) << 5;
+            temp_t4 = ((*((u8 *) (((char *) temp_v1_4) + 1))) << 5);
             temp_a0_2 = (s8) (*((s8 *) (((char *) temp_v1_4) + 4)));
             if (gHiResScreen != 0)
           {
@@ -303,34 +316,43 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
             __repair_phase_storage.value = arg1 + ((var_s5 - temp_a0_2) * 2);
             temp_v1_5 = temp_a3 + (*((void **) (((char *) temp_s4) + 8)));
             sDisplayListCursor = (s32 *) (((char *) var_a2_2) + 8);
+            glyphWidth = *((u8 *) temp_v1_5 + 2);
+            glyphHeight = *((u8 *) temp_v1_5 + 3);
+            packedStart = (((arg0 + var_s1) * 4 & 0xFFF) << 12) | ((__repair_phase_storage.value * 4) & 0xFFF);
             sDisplayListCursor = ((s8 *) var_a2_2) + 0x10;
             *((s32 *) (((char *) var_a2_2) + 8)) = 0xE1000000;
             *((s32 *) (((char *) var_a2_2) + 0xC)) = (s32) ((temp_t3 << 0x10) | temp_t4);
             sDisplayListCursor = ((s8 *) var_a2_2) + 0x18;
             *((s32 *) (((char *) var_a2_2) + 0x10)) = 0xF1000000;
-            ((__repair_field_4 *) var_a2_2)->value = (s32) (((((arg0 + var_s1) * 4) & 0xFFF) << 0xC) | ((__repair_phase_storage.value * 4) & 0xFFF));
+            ((__repair_field_4 *) var_a2_2)->value = packedStart;
             *((s32 *) (((char *) var_a2_2) + 0x14)) = 0x04000200;
-            var_a1_2 = (((arg0 + (var_s1 + (*((u8 *) (((char *) temp_v1_5) + 2))))) * 4) & 0xFFF) << 0xC;
-            var_a0_2 = __repair_phase_storage.value + ((*((u8 *) (((char *) temp_v1_5) + 3))) * 2);
+            rectangleOpcode = 0xE4000000;
+            var_a1_2 = (((arg0 + (var_s1 + glyphWidth)) * 4) & 0xFFF) << 0xC;
+            var_a0_2 = __repair_phase_storage.value + (glyphHeight * 2);
           }
           else
           {
             var_a2_2 = sDisplayListCursor;
             ;
+            temp_a1_5 = arg0 + var_s1;
             temp_a0_9 = arg1 + (var_s5 - temp_a0_2);
             temp_v1_6 = temp_a3 + (*((void **) (((char *) temp_s4) + 8)));
             sDisplayListCursor = (s32 *) (((char *) var_a2_2) + 8);
+            glyphWidth = *((u8 *) temp_v1_6 + 2);
+            glyphHeight = *((u8 *) temp_v1_6 + 3);
+            packedStart = (((temp_a1_5) * 4 & 0xFFF) << 12) | ((temp_a0_9 * 4) & 0xFFF);
             sDisplayListCursor = (s32 *) (((char *) var_a2_2) + 0x10);
             *((s32 *) (((char *) var_a2_2) + 8)) = 0xE1000000;
             *((s32 *) (((char *) var_a2_2) + 0xC)) = (s32) ((temp_t3 << 0x10) | temp_t4);
             sDisplayListCursor = (s32 *) (((char *) var_a2_2) + 0x18);
             *((s32 *) (((char *) var_a2_2) + 0x10)) = 0xF1000000;
-            ((__repair_field_4 *) var_a2_2)->value = (s32) (((((arg0 + var_s1) * 4) & 0xFFF) << 0xC) | ((temp_a0_9 * 4) & 0xFFF));
+            ((__repair_field_4 *) var_a2_2)->value = packedStart;
             *((s32 *) (((char *) var_a2_2) + 0x14)) = 0x04000400;
-            var_a1_2 = (((temp_a1_5 + (*((u8 *) (((char *) temp_v1_6) + 2)))) * 4) & 0xFFF) << 0xC;
-            var_a0_2 = temp_a0_9 + (*((u8 *) (((char *) temp_v1_6) + 3)));
+            rectangleOpcode = 0xE4000000;
+            var_a1_2 = (((temp_a1_5 + glyphWidth) * 4) & 0xFFF) << 0xC;
+            var_a0_2 = temp_a0_9 + glyphHeight;
           }
-            *var_a2_2 = var_a1_2 | (((var_a0_2 * 4) & 0xFFF) | 0xE4000000);
+            *var_a2_2 = var_a1_2 | (((var_a0_2 * 4) & 0xFFF) | rectangleOpcode);
             var_s7 = temp_t2_3;
             __repair_result_var_v1_3 = (*((u8 *) (((char *) ((temp_t2_3 * 5) + (*((void **) (((char *) temp_s4) + 8))))) + 2))) + (*((s8 *) (((char *) temp_s4) + 0x11)));
             var_s1 += __repair_result_var_v1_3;
@@ -349,4 +371,5 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
     ((__repair_field_4 *) temp_v0_6)->value = 0;
   }
 }
+
 

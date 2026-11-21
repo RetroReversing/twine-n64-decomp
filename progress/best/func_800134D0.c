@@ -21,7 +21,7 @@ void func_800134D0(void *arg0) {
     s32 *var_a0_5;
     
     s32 *var_a2_5;
-    s32 *var_t7_2;
+    
     s32 temp_a1_3;
     s32 temp_s2;
     s32 temp_s6;
@@ -62,7 +62,7 @@ s32 __repair_phase_var_t3_4;
     u16 var_t1_7;
     u32 *temp_v1;
     u32 *var_a0;
-    u32 *var_a0_2;
+    
     u32 *var_a0_3;
     u32 *var_a0_4;
     u32 *var_s1;
@@ -255,18 +255,18 @@ loop_17:
         var_t3 = 0;
         var_a3_3 = 1;
         do {
-            var_a1 = 0;
             if (var_a2_3 != 0) {
-                var_a0_2 = &D_800B283C;
+                var_a1 = 0;
+                temp_v1 = &D_800B283C;
                 var_v1_2 = (s32 *)((s8 *)&D_800B3134 + (var_t3 * 4));
                 do {
-                    if (*var_a0_2 == var_a3_3) {
+                    if (*temp_v1 == var_a3_3) {
                         *var_v1_2 = var_a1;
                         var_v1_2++;
                         var_t3 += 1;
                     }
                     var_a1 += 1;
-                    var_a0_2++;
+                    temp_v1++;
                 } while (var_a1 < var_a2_3);
             }
             var_a3_3 += 1;
@@ -424,19 +424,19 @@ block_78:
                     if (*var_s2 != 0) {
                         temp_v0_4 = var_t3_5 * 4;
                         var_t8 = &(&D_800B283C)[var_t3_5];
-                        var_t7_2 = (s32 *)((s8 *)&D_800B3134 + temp_v0_4);
+                        var_a2_5 = (s32 *)((s8 *)&D_800B3134 + temp_v0_4);
                         var_t5_3 = (s32 *)((s8 *)&D_800B2CB8 + temp_v0_4);
                         do {
                             temp_v1_5 = spC[temp_a2 & sp2C];
                             temp_a2 = *var_t5_3;
                             var_a1_5 = temp_a2 >> var_s3;
 do {
-                            (&spC[(temp_v1_5 >> 7) + temp_s6])[var_a1_5] = (*var_t7_2 << 7) + *var_t8;
+                            (&spC[(temp_v1_5 >> 7) + temp_s6])[var_a1_5] = (*var_a2_5 << 7) + *var_t8;
                             var_a1_5 += 1 << (*var_t8 - var_s3);
                             } while ((var_a1_5 >> ((temp_v1_5 >> 4) & 7)) == 0);
                             var_a3_9 += 1;
                             var_t8 += 1;
-                            var_t7_2++;
+                            var_a2_5++;
                             var_t5_3 += 1;
                             var_t3_5 += 1;
                         } while ((u32) *(u32 *)((s8 *)&D_80112EE0 + var_t9) >= var_a3_9);

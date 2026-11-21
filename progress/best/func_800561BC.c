@@ -23,7 +23,7 @@ s32 func_80045290(f32 *, f32 *);                /* extern */
 s32 func_80045764(f32 *, f32 *);                /* extern */
 f32 func_80046054(f32, f32, f32);                   /* extern */
 s32 func_80046424(void *, f32, f32, f32);       /* extern */
-s32 func_80048F10(void *, f32 *, s32, s32, f32, s32, s32, s32); /* extern */
+s32 func_80048F10(void *,  f32 *,  s32,  s32,  f32,  s32); /* extern */
 s32 func_80054FEC(void *, f32, f32, void *, f32 *, s32, s32); /* extern */
 s32 func_8005603C(void *);                      /* extern */
 s32 func_800560AC(void *);                      /* extern */
@@ -187,7 +187,7 @@ void func_800561BC(void *arg0) {
     f32 var_fv1_5;
     s32 var_s1;
     s32 var_s1_2;
-    s32 var_s4_3;
+    unsigned int var_s4_3;
     s32 var_s4_4;
     f64 var_fv0;
     f64 var_fv1;
@@ -205,9 +205,9 @@ void func_800561BC(void *arg0) {
     s32 temp_a1_3;
     s32 temp_a1_4;
     s32 temp_a3;
-    s32 temp_v0_14;
+    int temp_v0_14;
     s32 temp_v0_15;
-    s32 temp_v0_16;
+    int temp_v0_16;
     long temp_v0_19;
     s32 temp_v0_3;
     s32 temp_v0_4;
@@ -220,7 +220,7 @@ void func_800561BC(void *arg0) {
     s32 var_s0_4;
     s32 var_s0_5;
     s32 var_s4_2;
-    s32 var_s6;
+    int var_s6;
     s32 var_v0;
     s32 var_v0_2;
     s32 var_v0_4;
@@ -231,9 +231,9 @@ void func_800561BC(void *arg0) {
     u16 temp_v1_15;
     u32 temp_a1_2;
     u32 temp_v0_12;
-    u32 var_s0_3;
+    register u32 var_s0_3;
     u8 temp_a1;
-    void *temp_a0;
+    register void *temp_a0;
     void *temp_a0_3;
     union { void * pointer; s32 value; } __repair_phase_storage;
     void *temp_a2_2;
@@ -345,7 +345,7 @@ block_19:
             }
         } else {
 block_29:
-            var_s5 = NULL;
+            var_s5 = (u32)NULL;
         }
         local.sp17C = NULL;
         local.sp184 = NULL;
@@ -376,8 +376,8 @@ block_29:
                 local.sp30 = local.sp40;
                 local.sp34 = local.sp44;
                 local.sp38 = local.sp48;
-                var_fp = NULL;
                 local.sp17C = gPlayerActor;
+                var_fp = NULL;
             }
         }
         temp_a0 = findActorCapsuleHit(local.sp174, arg0 + 0x24, &local.sp30, (*(s32 *)((char *)(temp_s2) + 0x24)), &local.hit60[0], 1, ((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x60)) & 0x2000) != 0, 0);
@@ -408,7 +408,7 @@ block_29:
                 (*(s8 *)((char *)(arg0) + 0x80)) = 0xA0;
                 (*(s8 *)((char *)(arg0) + 0x81)) = 0xA;
                 (*(s32 *)((char *)(arg0) + 0x58)) = (s32) ((*(s32 *)((char *)(arg0) + 0x58)) | 0x18000);
-                if (var_s6 == 0) {
+                if ((u32)var_s6 == 0) {
                     (*(f32 *)((char *)(arg0) + 0x54)) = var_fs0;
                 } else {
                     (*(f32 *)((char *)(arg0) + 0x54)) = var_fs1;
@@ -444,7 +444,7 @@ block_29:
             }
         }
         if (var_s6 == 1) {
-            if ((gPlayerActor != NULL) && ((temp_v1_3 = (*(s32 *)((char *)(gPlayerActor) + 0x60)) | (*(s32 *)((char *)(temp_s2) + 0x28)), (*(s32 *)((char *)(gPlayerActor) + 0x60)) = temp_v1_3, temp_a0_2 = (*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)), var_v0 = temp_v1_3 | 0x40, ((temp_a0_2 & 0x200) != 0)) || (var_v0 = temp_v1_3 | 0x80, ((temp_a0_2 & 0x400) != 0)) || (var_v0 = temp_v1_3 | 0x100, ((temp_a0_2 & 0x800) != 0)) || (var_v0 = temp_v1_3 | 0x20, ((temp_a0_2 & 2) != 0)) || (var_v0 = temp_v1_3 | 2, ((temp_a0_2 & 1) != 0)))) {
+            if ((gPlayerActor != NULL) && ((temp_v1_3 = (*(s32 *)((char *)(gPlayerActor) + 0x60)) | (*(s32 *)((char *)(temp_s2) + 0x28)), (*(s32 *)((char *)(gPlayerActor) + 0x60)) = temp_v1_3, temp_a0_2 = (*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)), var_v0 = temp_v1_3 | 0x40, ((temp_a0_2 & 0x200) != 0)) || (var_v0 = temp_v1_3 | 0x80, ((temp_a0_2 & 0x400) != 0)) || (var_v0 = temp_v1_3 | 0x100, ((temp_a0_2 & 0x800) != 0)) || (var_v0 = (unsigned)temp_v1_3 | 0x20, ((temp_a0_2 & 2) != 0)) || (var_v0 = temp_v1_3 | 2, ((temp_a0_2 & 1) != 0)))) {
                 (*(s32 *)((char *)(gPlayerActor) + 0x60)) = var_v0;
             }
             if ((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)) & 0x20) {
@@ -452,7 +452,7 @@ block_29:
                 if ((D_80108F84 != NULL) && ((*(s32 *)((char *)(D_80108F84) + 0x50)) & 0x01000000)) {
                     temp_s0 = (*(void **)((char *)((*(void **)((char *)(&sBonusObjectTable) + (*(s16 *)((char *)(temp_s2) + 0x34)) * 4))) + 0x6C));
                     local.sp44 -= 0.1f;
-                    if ((func_80048F10(local.sp174, &local.sp40, (s32)(temp_s0 + 0xF8), 0, 100.0f, 0, 0, 0) << 0x18) != 0) {
+                    if ((func_80048F10(local.sp174,  &local.sp40,  (s32)(temp_s0 + 0xF8),  0,  100.0f,  0) << 0x18) != 0) {
                         func_80084338(0x117, &local.sp40);
                         (*(f32 *)((char *)(temp_s0) + 0xEC)) = local.sp40;
                         (*(f32 *)((char *)(temp_s0) + 0xF0)) = local.sp44;
@@ -658,8 +658,8 @@ block_138:
             temp_v1_12 = (*(void **)((char *)(temp_s2) + 0x2C));
             if (((*(s32 *)((char *)(temp_v1_12) + 0x64)) & 0x80) && (var_s6 == 1)) {
                 if (local.sp17C != NULL) {
-                    func_800624A8(arg0, &local.sp40, (f32) ((f64) (*(f32 *)((char *)(temp_v1_12) + 0xC)) * D_800D3FA0), 1);
                     temp_v1_13 = (*(void **)((char *)(temp_s2) + 0x2C));
+                    func_800624A8(arg0, &local.sp40, (f32) ((f64) (*(f32 *)((char *)(temp_v1_12) + 0xC)) * D_800D3FA0), 1);
                     func_80054FEC((*(void **)((char *)(temp_s2) + 0x2C)), (*(f32 *)((char *)(temp_v1_13) + 8)), (*(f32 *)((char *)(temp_v1_13) + 0xC)), arg0, &local.sp40, 0x20, (*(s32 *)((char *)(temp_s2) + 0x24)));
                     var_v0_3 = 2;
                 } else {
@@ -1031,7 +1031,7 @@ block_263:
                     temp_v1_16 = (*(s16 *)((char *)(temp_s2) + 0x34));
                     if (temp_v1_16 != -1) {
                         temp_v0_19 = temp_v1_16 * 0xC;
-                        temp_fs4 = (*(f32 *)((char *)(&D_80109A98) + temp_v0_19)) - (*(f32 *)((char *)(arg0) + 0x24));
+                        temp_fs4 = (*(f32 *)((char *)(&D_80109A98) + (u32)temp_v0_19)) - (*(f32 *)((char *)(arg0) + 0x24));
                         temp_fs5 = (*(f32 *)((char *)(&D_80109A9C) + temp_v0_19)) - (*(f32 *)((char *)(arg0) + 0x28));
                         temp_fs3 = (*(f32 *)((char *)(&D_80109AA0) + temp_v0_19)) - (*(f32 *)((char *)(arg0) + 0x2C));
                         if ((*(s16 *)((char *)(arg0) + 0x7C)) == 0) {

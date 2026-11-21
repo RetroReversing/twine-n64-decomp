@@ -3,7 +3,7 @@ s32 func_80001678(void *, s8);
 s32 func_80002D30(void *, u16);
 s32 func_80002EB8(void *);
 s32 func_80002EF0(void *);
-s32 func_8000A270(s32, s8);
+s32 func_8000A270(void);
 s32 func_8000A894(s32);
 void *func_8005F664(void *, s32, s8);
 s32 func_800648FC(void *, s32);
@@ -45,7 +45,7 @@ void func_800673EC(void *arg0, void *arg1)
   s32 __repair_phase_temp_s0;
   s8 temp_v1_6;
   s8 temp_v1_7;
-  volatile unsigned int temp_a1;
+  u16 temp_a1;
   u16 temp_a1_2;
   u16 temp_a1_3;
   void **temp_s0_2;
@@ -66,7 +66,7 @@ void func_800673EC(void *arg0, void *arg1)
   register void *temp_v1_4;
   void *temp_v1_5;
   void *var_s4;
-  temp_a0 = *((void **) (((char *) arg0) + 0x68));
+  stateDest = *((void **) (((char *) arg0) + 0x68)); temp_a0=(void *)stateDest;
   temp_s2 = *((void **) (((char *) arg0) + 0x6C));
   temp_s0 = *((s8 *) (((char *) temp_s2) + 0x182));
   temp_s1 = (void *) ((*((s8 *) (((char *) temp_a0) + 0xE))) * 0xE8); __base_D_800C469C = &D_800C469C;
@@ -100,7 +100,7 @@ void func_800673EC(void *arg0, void *arg1)
         temp_a0_3 = *((s32 *) (((char *) temp_s2) + 8));
         if (temp_a0_3 != (-1))
         {
-          func_8000A270(temp_a0_3, __repair_phase_temp_s0);
+          func_8000A270();
           *((s32 *) (((char *) temp_s2) + 8)) = -1;
         }
         func_80067390(arg0);
@@ -323,7 +323,7 @@ void func_800673EC(void *arg0, void *arg1)
   temp_v0_3 = *((void **) (((char *) temp_s2) + 0xA8));
   *((typeof(sp10) *) (((char *) temp_v0_3) + 0x24)) = sp10;
   temp_v0_4 = *((void **) (((char *) temp_s2) + 0xA8));
-  *((f32 *) (0x24 + ((char *) temp_v0_4))) = (f32) ((*((f32 *) (((char *) temp_v0_4) + 0x24))) + (*((f32 *) (((char *) arg1) + 0))));
+  *((f32 *) (((char *) temp_v0_4) + 0x24)) = (f32) ((*((f32 *) (((char *) temp_v0_4) + 0x24))) + (*((f32 *) (((char *) arg1) + 0))));
   temp_v0_5 = *((void **) (((char *) temp_s2) + 0xA8));
   *((f32 *) (((char *) temp_v0_5) + 0x28)) = (f32) ((*((f32 *) (((char *) temp_v0_5) + 0x28))) + (*((f32 *) (((char *) arg1) + 4))));
   temp_v0_6 = *((void **) (((char *) temp_s2) + 0xA8));
