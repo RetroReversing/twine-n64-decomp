@@ -5,7 +5,7 @@ extern void func_80027EF4(void);
 extern void func_80027F44(void);
 extern void updateMenuState(void);
 extern void func_80028158(void);
-extern void func_800281E0(void);
+extern void runSaveMenuCallbacks(void);
 extern void func_800282D0(void);
 extern void func_800283B0(void);
 extern void func_80028458(void);
@@ -76,7 +76,7 @@ extern void *gSaveMenuState;
             func_800283B0();
             break;
         case 10:
-            func_800281E0();
+            runSaveMenuCallbacks();
             break;
         case 20:
             menuStateTimedUpdate();

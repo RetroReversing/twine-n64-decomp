@@ -4,7 +4,7 @@ extern f32 D_800C0740;
 extern s32 D_800C46AC;
 extern f32 D_800C7C9C;
 extern s32 gGameMode;
-extern s32 gTrackMarkers;
+extern s32 sTrackMarkerTable;
 extern s32 D_80115089;
 
 void func_8006591C(void *arg0) {
@@ -28,7 +28,7 @@ void func_8006591C(void *arg0) {
         var_fv1 = D_800C0740;
     }
     if (*((u8 *)((s8 *)&D_80115089 + (temp_a2 * 0xA0))) != 0) {
-        temp_v0 = *((s32 *)((s8 *)&gTrackMarkers + (temp_a2 * 4)));
+        temp_v0 = *((s32 *)((s8 *)&sTrackMarkerTable + (temp_a2 * 4)));
         if ((*(f32 *)((char *)(temp_v0) + 0x11C)) != var_fv1) {
             var_fv0 = -(*(f32 *)((char *)(temp_v0) + 0x114)) / (*(f32 *)((char *)(temp_v0) + 0x7C));
             var_ft0 = (*(f32 *)((char *)(temp_v0) + 0x110)) / (*(f32 *)((char *)(temp_v0) + 0x78));

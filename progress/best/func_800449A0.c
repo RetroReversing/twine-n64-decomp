@@ -5,7 +5,7 @@ extern void func_80064250(void);
 extern void func_80073400(void);
 extern s32 func_8003C7C4(void);
 extern void func_8007560C(void);
-extern s32 gTrackMarkers[], sBonusObjectTable[], D_8010D2C0[], D_8010D380[];
+extern s32 sTrackMarkerTable[], sBonusObjectTable[], D_8010D2C0[], D_8010D380[];
 extern s32 gTrackMarkerSerial, gProbeObjectList, gObjectListHead, D_80109CB4;
 extern u8 D_801002E4,D_801002E5,D_80100784,D_80102F38,D_80103020,D_8010302A,D_80103041,D_801032A4,D_801032AC,D_80103EB1,D_80107B60,D_80107ECD,D_80107ECE,D_80108F74,D_80108F94,D_801093A0,D_8010957C,D_80109A35,D_80109B1E,D_8010A2B8,D_8010A3C4,D_8010A4B8,D_8010D2B0,D_8010D36C,D_8010D374,D_80110CA8,D_80110DB1,D_80112F88,D_80117734,gSharedItemBusy;
 extern u8 sPrimTintR, sPrimTintG, sPrimTintB, sAltPrimTintR, sAltPrimTintG, sAltPrimTintB, sMarkerMessageCount, gAnnounceCount;
@@ -17,7 +17,7 @@ void func_800449A0(void) {
     initMatrixPools();
     func_80064250();
     func_80073400();
-    for (i = 0; i < 6; i++) gTrackMarkers[i] = 0;
+    for (i = 0; i < 6; i++) sTrackMarkerTable[i] = 0;
     for (i = 0; i < 4; i++) sBonusObjectTable[i] = 0;
     r1 = D_8010D2C0;
     r2 = D_8010D380;

@@ -36,12 +36,13 @@ void *func_8006201C(s32 arg0, void *arg1, s32 arg2, s16 arg3) {
         if (M2C_FIELD(arg1, u16 *, 4) == 0) {
             M2C_FIELD(arg1, u16 *, 4) = 0x1EU;
         }
-        M2C_FIELD(temp_a3, s8 *, 0x2E) = (s8) M2C_FIELD(arg1, u16 *, 0x2C);
+        M2C_FIELD(temp_a3, u8 *, 0x2E) = M2C_FIELD(arg1, u16 *, 0x2C);
+        M2C_FIELD(temp_a3, u8 *, 0x2F) = M2C_FIELD(arg1, u16 *, 0x2E);
         M2C_FIELD(temp_a3, s32 *, 0) = arg2;
         M2C_FIELD(temp_a3, s16 *, 0xC) = arg3;
         M2C_FIELD(temp_a3, s16 *, 0xE) = 0;
         M2C_FIELD(temp_a3, s32 *, 4) = 0;
-        M2C_FIELD(temp_a3, s8 *, 0x2F) = (s8) M2C_FIELD(arg1, u16 *, 0x2E);
+        M2C_FIELD(temp_a3, f32 *, 8) = (f32) (1.0f / (f32) M2C_FIELD(arg1, u16 *, 4));
         M2C_FIELD(temp_a3, u16 *, 0x2C) = 0U;
         M2C_FIELD(temp_a3, s8 *, 0x28) = 0;
         M2C_FIELD(temp_a3, s8 *, 0x26) = 0;
@@ -49,7 +50,6 @@ void *func_8006201C(s32 arg0, void *arg1, s32 arg2, s16 arg3) {
         M2C_FIELD(temp_a3, u8 *, 0x29) = 0xFF;
         M2C_FIELD(temp_a3, s16 *, 0x24) = 0xF2;
         M2C_FIELD(temp_a3, s8 *, 0x2A) = 1;
-        M2C_FIELD(temp_a3, f32 *, 8) = (f32) (1.0f / (f32) M2C_FIELD(arg1, u16 *, 4));
         M2C_FIELD(temp_a3, f32 *, 0x1C) = (f32) D_800B20D2;
         M2C_FIELD(temp_a3, s32 *, 0x10) = -1;
         M2C_FIELD(temp_a3, f32 *, 0x14) = 1000.0f;

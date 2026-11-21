@@ -6,7 +6,7 @@ void func_800315E0(s16);
 void func_80073AF8(s32,s32,s32,s32,s32,s32,s32,s32,s32,s32,s32);
 void func_80074F04(void);
 s32 lookupDataEntry(s32);
-extern s32 gTrackMarkerSerial, gTrackMarkers;
+extern s32 gTrackMarkerSerial, sTrackMarkerTable;
 
 /* Shows the track marker for markerId: 0-9 and 10-19 are two banks of
    entries (with their own state checks), 20+ are the special markers. */
@@ -19,7 +19,7 @@ void showTrackMarker(u32 markerId) {
         func_80031548(entryId,1,0);
         gTrackMarkerSerial++;
         label = formatTrackMarkerLabel(entryId,0);
-        markerTable = &gTrackMarkers;
+        markerTable = &sTrackMarkerTable;
         func_80073AF8(0,*markerTable,label,-1,-1,0,0,0,3,0,0);
         label = func_800314E0(entryId,0);
         func_80073AF8(0,*markerTable,label,-1,-1,1,0,0,3,0,0);
@@ -33,7 +33,7 @@ void showTrackMarker(u32 markerId) {
         func_80031548(entryId,2,0);
         gTrackMarkerSerial++;
         label = formatTrackMarkerLabel(entryId,0);
-        markerTable = &gTrackMarkers;
+        markerTable = &sTrackMarkerTable;
         func_80073AF8(0,*markerTable,label,-1,-1,0,0,0,3,0,0);
         label = func_800314E0(entryId,0);
         func_80073AF8(0,*markerTable,label,-1,-1,1,0,0,3,0,0);
@@ -45,7 +45,7 @@ void showTrackMarker(u32 markerId) {
         func_800315E0(entryId);
         gTrackMarkerSerial++;
         label = lookupDataEntry(0xA3);
-        markerTable = &gTrackMarkers;
+        markerTable = &sTrackMarkerTable;
         func_80073AF8(0,*markerTable,label,-1,-1,0,0,0,3,0,0);
         label = func_800314E0(entryId,0);
         func_80073AF8(0,*markerTable,label,-1,-1,1,0,0,3,0,0);

@@ -2,7 +2,7 @@
 
 s32 workerLockAcquire();                            /* extern */
 s32 workerLockRelease();                            /* extern */
-s32 func_800937D0(s32 *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
+s32 computeSourceAttenuation(s32 *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
 s32 soundVoiceStart(s32 *, f32, s32, s32, f32, f32); /* extern */
 s32 func_8009CC3C(u16, s32, s32);           /* extern */
 extern u8 gWorkerThreadActive;
@@ -39,7 +39,7 @@ typedef struct { s32 x, y, z; } V3_93FE8;
         (*(f32 *)((char *)(slot) + 0x28)) = (f32) leftGain * 0.007874016f;
         (*(f32 *)((char *)(slot) + 0x2C)) = (f32) rightGain * 0.007874016f;
         if (voice == NULL) {
-            func_800937D0(slot, &outA, &outB, &outC, &outD, &outE);
+            computeSourceAttenuation(slot, &outA, &outB, &outC, &outD, &outE);
             if (outA != 0.0f) {
                 channel = func_8009CC3C((*(u16 *)((char *)(slot) + 0x3C)), 0x7F, 0x40);
                 (*(s32 *)((char *)(slot) + 0x34)) = channel;

@@ -22,7 +22,7 @@ extern M2C_UNK D_800C447A;
 extern M2C_UNK D_800C447C;
 extern M2C_UNK D_800C4484;
 extern s32 D_8010302C;
-extern M2C_UNK gTrackMarkers;
+extern M2C_UNK sTrackMarkerTable;
 
 void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     M2C_UNK (*temp_v0)(void *);
@@ -48,7 +48,7 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
         var_s7 = *(s16 *)((u8 *)&D_800C4478 + temp_s0);
         var_s4 = *(s16 *)((u8 *)&D_800C447A + temp_s0);
     }
-    func_80073AF8(0, *(s32 *)((u8 *)&gTrackMarkers + (M2C_FIELD(temp_s6, s8 *, 0x182) * 4)), func_80087100((arg1 | 0x7000) & 0xFFFF), var_s7, (s32) var_s4, 1, 0, 0, 0, 0, 0);
+    func_80073AF8(0, *(s32 *)((u8 *)&sTrackMarkerTable + (M2C_FIELD(temp_s6, s8 *, 0x182) * 4)), func_80087100((arg1 | 0x7000) & 0xFFFF), var_s7, (s32) var_s4, 1, 0, 0, 0, 0, 0);
     if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
         func_80084338(*(u16 *)((u8 *)&D_800C4484 + temp_s0), arg0 + 0x24);
         return;

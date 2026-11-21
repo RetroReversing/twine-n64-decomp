@@ -1,5 +1,5 @@
 extern void *gPlayerActor;
-extern s32 gTrackMarkers;
+extern s32 sTrackMarkerTable;
 extern void func_8000A894(s32,s32), func_8005B5A8(void);
 extern void func_80073AF8(s32,s32,s32,s32,s32,s32,s32,s32,s32,s32,s32);
 extern s32 func_80087100(s32);
@@ -12,7 +12,7 @@ void func_8005C8C4(void) {
  if (*(s32*)((u8*)*(void**)((u8*)gPlayerActor+0x6c)+0x2c) & 0x08000000) {
  *(s32*)((u8*)gPlayerActor+0x60) |= 0x08000000;
  func_8000A894(0x12e,0x08000000);
- func_80073AF8(0,gTrackMarkers,func_80087100(0x160),-1,-1,1,0,0,3,0,0);
+ func_80073AF8(0,sTrackMarkerTable,func_80087100(0x160),-1,-1,1,0,0,3,0,0);
  }
  }
  }

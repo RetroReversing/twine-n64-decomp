@@ -26,7 +26,7 @@ extern s32 D_80102CC8;
 extern s32 D_80102CCC;
 extern s32 *gDemoInputData;
 extern char D_80104320[];
-extern void *gTrackMarkers;
+extern void *sTrackMarkerTable;
 extern s32 gDemoFrame;
 extern s32 gDemoFadeTimer;
 
@@ -50,7 +50,7 @@ void initDemoPlayback(void) {
     temp_s0 = D_801005AC;
     M2C_FIELD(temp_s0, s32 *, 0x18) = temp_v0;
     M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(temp_v0);
-    temp_fv1 = M2C_FIELD(gTrackMarkers, f32 *, 0x60);
+    temp_fv1 = M2C_FIELD(sTrackMarkerTable, f32 *, 0x60);
     ((__repair_record_D_801005AC*)D_801005AC)->field_20 = (s16) (var_a1 = (u32) temp_fv1);
     ((__repair_record_D_801005AC*)D_801005AC)->field_22 = 0xB4;
     ((__repair_record_D_801005AC*)D_801005AC)->field_1E = 0x21;

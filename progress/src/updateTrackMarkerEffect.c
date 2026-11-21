@@ -5,7 +5,7 @@ extern f32 gTrackMarkerEffectTimer;
 extern u16 gTrackMarkerEffectMode;
 extern u16 gTrackMarkerEffectKind;
 extern char D_800BF5CC[];
-extern Def2B6BC *gTrackMarkers[];
+extern Def2B6BC *sTrackMarkerTable[];
 s32 *func_8002B400(f32, s32, char *);
 void actorUnlinkFromSurface(void *);
 void objectListInsert(void *, void *);
@@ -24,7 +24,7 @@ void updateTrackMarkerEffect(s32 arg0) {
         }
         v = (f32 *)func_8002B400(gTrackMarkerEffectTimer, 0xE, D_800BF5CC);
         actorUnlinkFromSurface(*pp);
-        objectListInsert(*pp, gTrackMarkers[gTrackMarkerEffectKind]->fF4);
+        objectListInsert(*pp, sTrackMarkerTable[gTrackMarkerEffectKind]->fF4);
         gTrackMarkerEffectObject->flags |= 0x1000;
         do { gTrackMarkerEffectObject->f54 = *v; } while (0);
         switch (gTrackMarkerEffectMode) {

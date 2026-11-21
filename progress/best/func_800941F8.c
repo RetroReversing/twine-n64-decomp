@@ -3,7 +3,7 @@
 
 s32 workerLockAcquire();                            /* extern */
 s32 workerLockRelease();                            /* extern */
-s32 func_800937D0(s32 *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
+s32 computeSourceAttenuation(s32 *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
 s32 soundVoiceStart(s32 *, f32, s32, s32, f32, f32); /* extern */
 s32 func_8009CC3C(u16, s32, s32);           /* extern */
 extern u8 gWorkerThreadActive;
@@ -41,7 +41,7 @@ s32 func_800941F8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg
         (*(f32 *)((char *)(var_s0) + 0x28)) = (f32) arg7 * 0.007874016f;
         (*(f32 *)((char *)(var_s0) + 0x2C)) = (f32) arg8 * 0.007874016f;
         if (arg0 == NULL) {
-            func_800937D0(var_s0, &sp18, &sp1C, &sp20, &sp24, &sp28);
+            computeSourceAttenuation(var_s0, &sp18, &sp1C, &sp20, &sp24, &sp28);
             if (sp18 != 0.0f) {
                 temp_v0 = func_8009CC3C((*(u16 *)((char *)(var_s0) + 0x3C)), 0x7F, 0x40);
                 (*(s32 *)((char *)(var_s0) + 0x34)) = temp_v0;

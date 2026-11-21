@@ -22,7 +22,7 @@ extern M2C_UNK D_800CE5FC;
 extern M2C_UNK D_800CE60C;
 extern M2C_UNK D_800CE614;
 extern u32 gGameMode;
-extern M2C_UNK gTrackMarkers;
+extern M2C_UNK sTrackMarkerTable;
 
 /* Plays a random sfx for the current state at the distance to the nearest track marker, then pans it toward that marker */ void playNearestMarkerSound(void *obj) {
     u16 markerIdx;
@@ -78,6 +78,6 @@ block_15:
         }
         break;
     }
-    updateSfxPanFromMarker(channel, *((M2C_UNK *)((s8 *)&gTrackMarkers + (markerIdx * 4))), obj + 0x24, 0);
+    updateSfxPanFromMarker(channel, *((M2C_UNK *)((s8 *)&sTrackMarkerTable + (markerIdx * 4))), obj + 0x24, 0);
 }
 

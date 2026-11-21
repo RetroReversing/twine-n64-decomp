@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_8008E3EC(u16, M2C_UNK, M2C_UNK);           /* extern */
 M2C_UNK func_8008EA58(s32);                         /* extern */
-M2C_UNK func_800937D0(void *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
+M2C_UNK computeSourceAttenuation(void *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
 M2C_UNK soundVoiceStart(void *, f32, s32, s32, f32, f32); /* extern */
 M2C_UNK soundGroupAddEntry(void *, f32);                 /* extern */
 s32 soundQueueInsert(void *, f32, s32, s32, f32, f32); /* extern */
@@ -70,7 +70,7 @@ extern void *gActiveSoundList;
                 }
             } else {
                 if (temp_v1 & 0x20001) {
-                    func_800937D0(slot, &sp18, &sp1C, &sp20, &sp24, &sp28);
+                    computeSourceAttenuation(slot, &sp18, &sp1C, &sp20, &sp24, &sp28);
                 }
                 temp_v1_2 = M2C_FIELD(slot, s32 *, 8);
                 if (!(temp_v1_2 & 0x80000)) {

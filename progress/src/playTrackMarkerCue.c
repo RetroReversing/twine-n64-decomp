@@ -1,5 +1,5 @@
 typedef struct { s32 x; f32 y; s32 z; } Vec3s;
-s32 func_8000628C(void *,Vec3s *,s32,s32); s32 func_800828D8(s32); extern s8 gTrackCuePlayed; extern Vec3s *gTrackMarkers[];
+s32 func_8000628C(void *,Vec3s *,s32,s32); s32 func_800828D8(s32); extern s8 gTrackCuePlayed; extern Vec3s *sTrackMarkerTable[];
 /* Plays the track cue once, at the marker or fallback position; returns nonzero when the cue is in range. */ s32 playTrackMarkerCue(void *actor,void *marker,void *fallbackPos) {
  Vec3s cuePos; register s32 effectResult; u16 markerMode; Vec3s *markerPos;
  if(gTrackCuePlayed!=0) goto block_6;
@@ -7,7 +7,7 @@ s32 func_8000628C(void *,Vec3s *,s32,s32); s32 func_800828D8(s32); extern s8 gTr
   if(marker!=NULL) {
    markerMode=*(u16 *)((char *)marker+0x78);
    if((markerMode==2)|(markerMode==0x4d)) {
-    markerPos=gTrackMarkers[*(s8 *)((char *)(*(void **)((char *)marker+0x6c))+0x182)];
+    markerPos=sTrackMarkerTable[*(s8 *)((char *)(*(void **)((char *)marker+0x6c))+0x182)];
     cuePos=*(Vec3s *)((char *)markerPos + 0x10); cuePos.y-=0.1f;
    } else {
     cuePos=*(Vec3s *)((char *)marker+0x24); cuePos.y+=0.5f;

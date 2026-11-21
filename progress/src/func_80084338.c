@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 playDistanceSound(s32, f32, M2C_UNK);               /* extern */
 M2C_UNK updateSfxPanFromMarker(s32, s32, s32, M2C_UNK);      /* extern */
 f32 findNearestTrackMarker(s32, u16 *);                      /* extern */
-extern u32 gTrackMarkers[];
+extern u32 sTrackMarkerTable[];
 extern s32 gBonusObjects;
 
 s32 func_80084338(s32 arg0, s32 arg1) {
@@ -29,7 +29,7 @@ s32 func_80084338(s32 arg0, s32 arg1) {
     }
     temp_s0 = playDistanceSound(temp_s0_2, findNearestTrackMarker(arg1, &sp10), 0xFF);
     if (arg1 != (gBonusObjects + 0x24)) {
-        updateSfxPanFromMarker(temp_s0, gTrackMarkers[sp10], arg1, 0);
+        updateSfxPanFromMarker(temp_s0, sTrackMarkerTable[sp10], arg1, 0);
     }
     return temp_s0;
 }

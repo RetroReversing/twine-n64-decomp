@@ -9,7 +9,7 @@ extern Obj *volatile gTrackMarkerEffectObject;
 extern s32 gTrackMarkerEffectTimer;
 extern s16 gTrackMarkerEffectMode;
 extern s16 gTrackMarkerEffectKind;
-extern Def *gTrackMarkers[];
+extern Def *sTrackMarkerTable[];
 
 /* Spawns the singleton track-marker effect object for kind and mode, unless one already exists; returns it or NULL. */
 Obj *spawnTrackMarkerEffect(u8 kind, u16 mode) {
@@ -52,7 +52,7 @@ Obj *spawnTrackMarkerEffect(u8 kind, u16 mode) {
         *(volatile f32 *)&gTrackMarkerEffectObject->f44 = 0.1f;
         gTrackMarkerEffectObject->f54 = animScale;
         func_80064318(*effectSlot, kind);
-        objectListInsert(*effectSlot, gTrackMarkers[kind]->wF4);
+        objectListInsert(*effectSlot, sTrackMarkerTable[kind]->wF4);
         effect = *effectSlot;
     }
     gTrackMarkerEffectMode = mode;

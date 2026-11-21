@@ -6992,6 +6992,14 @@
   "score_after": 470
  },
  {
+  "function": "computeSourceAttenuation",
+  "text": "Corrected func_80095280 to three pointer arguments, as confirmed by target call and matched callee; score improved 8632 to 8503 (revision 7c3d34c0af2b80a0f876). Judge ended claim. Next inspect target sqrt instructions and replace unresolved sqrtf appropriately; synthetic 152-byte union causes oversized 0x100 frame versus target 0x98, so reconstruct compact vector locals.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795170005.167386,
+  "score_before": 8632,
+  "score_after": 8503
+ },
+ {
   "function": "initSystem",
   "text": "Released because its agent stopped (stopped by you); its attempts are kept.",
   "by": "codex-gpt-6.2-sol-6",
@@ -7184,6 +7192,14 @@
   "score_after": 4835
  },
  {
+  "function": "computeSourceAttenuation",
+  "text": "Current attempt: baseline was blocked by undeclared sp38/sp34; adding proper f32 locals (plus sqrtf prototype) compiled to score 12128. Diff showed target starts with -0x98 frame, saves s6/s7, candidate -0x80; target uses sqrt.s while candidate had unresolved sqrtf symbol. search_flags found project O2 equivalent best; only -fno-schedule-insns variations tested. Candidate changed concurrently back to 7c3d... during compiler experiment, claim ended; no further experiment on that revision.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795170384.168779,
+  "score_before": 8503,
+  "score_after": 8503
+ },
+ {
   "function": "func_800AB9B0",
   "text": "Rechecked best score 140. Loop backedge, signedness, declaration order and const variants all tied; target has an extra initial saved-register move and remaining register/branch differences. Investigate pointer allocation and return-value lifetime.",
   "by": "codex-gpt-6.1-terra-5",
@@ -7230,6 +7246,14 @@
   "created_at": 1795170426.251904,
   "score_before": 45,
   "score_after": 45
+ },
+ {
+  "function": "computeSourceAttenuation",
+  "text": "Adding missing sp34 and sp38 declarations compiles at score 12128, but those must be contiguous with sp30 as a 3-float array for the address-taken vector. Target uses inline sqrt.s (e.g. first at assembly line 60), not an external sqrtf; test fast-math compiler profile or builtin. Claim disappeared after project progress changed.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795170426.6495628,
+  "score_before": 8503,
+  "score_after": 8503
  },
  {
   "function": "func_8002FBE4",
@@ -7286,6 +7310,14 @@
   "created_at": 1795170450.042927,
   "score_before": 5640,
   "score_after": 5635
+ },
+ {
+  "function": "computeSourceAttenuation",
+  "text": "Baseline draft does not compile: sp34 and sp38 are undeclared, apparently components of the address-taken vector beginning at sp30. Claim was lost before editing.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795170450.051998,
+  "score_before": 8503,
+  "score_after": 8503
  },
  {
   "function": "func_8008EF6C",
@@ -7880,6 +7912,14 @@
   "score_after": 450
  },
  {
+  "function": "computeSourceAttenuation",
+  "text": "Initial candidate failed compile because sp38/sp34 undeclared and sqrtf implicit; adding both missing locals allowed compile, score 12128 (57.2%), 312 candidate vs 284 target instructions. sqrtf is not a known link symbol; target uses inline sqrt.s, so replace call expressions with compiler-supported sqrt intrinsic or identify correct intrinsic before further tuning. Adding f32 sqrtf prototype did not change code and linker still rejected name. Current revision 45614a9fdc336bafbd2c, claim still held.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795171380.895118,
+  "score_before": 8503,
+  "score_after": 8503
+ },
+ {
   "function": "updateObjectColor",
   "text": "Initial baseline failed compilation because draft prototypes/calls were wrong: target assembly confirms func_8008292C is one f32 argument and guRandom is zero arguments; target calls are jal with no integer args. Candidate prototype/call fixes reached compile stage but claim was taken by codex-gpt-6.1-terra-8 before recompile. Update local helper declarations and remove temp_a0 args from all guRandom calls.",
   "by": "codex-gpt-6-luna-21",
@@ -7926,6 +7966,14 @@
   "created_at": 1795171417.292845,
   "score_before": 7780,
   "score_after": 7780
+ },
+ {
+  "function": "computeSourceAttenuation",
+  "text": "Inherited draft failed to compile due missing sp38/sp34 locals; adding them allowed a compile (score 12128, 312/284 instructions), but no improvement. Tool then reported claim not held, so no further edits. Critical unresolved issue: sqrtf is not a known symbol; identify target call relocation and use the actual helper name. Target frame is 0x98; likely need correct f64 sqrt helper and explicit f32/f64 conversions. No candidate updates beyond supplied draft.\n\nAdded the missing f32 stack temporaries sp38/sp34; compilation remains 12128 (312/284 instructions), no improvement. Target differs in ABI/register allocation and FP control flow, and compiler warns sqrtf is unresolved; assembly inspection around target lines 165-205 shows func_80095280 called with addiu $a2,$sp,0x30, but sqrtf identity still needs resolving from the earlier call sites/relocations. The candidate revision with locals is cbee065d3bfd76160e6b. Further progress should start by resolving the actual square-root helper and restoring the compact stack layout.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795171421.8718731,
+  "score_before": 8503,
+  "score_after": 8503
  },
  {
   "function": "func_8005B6B8",
@@ -15840,6 +15888,14 @@
   "score_after": 2692
  },
  {
+  "function": "computeSourceAttenuation",
+  "text": "Current rechecked baseline 12128 (revision cbee065d3bfd76160e6b). Two independent try_local_repairs batches: first tested inferred_record_layout, signedness, declaration_order, branch_orientation, operand_temporary, constant_local; all tied except branch_orientation worsened to 13158. Second attempted record_layout_sequence (tied); next batch reported progress changed while compiling variant 2, so project may have been concurrently updated. Candidate still baseline. Mismatch advisory is calls/arguments at entry; target saves $s6/$s7 from incoming stack arguments; candidate comparison lacked setup in normalized diff. Recheck current candidate and continue local families or inspect argument prototypes/call sites. sqrtf prototype warning persists.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795183937.168324,
+  "score_before": 8503,
+  "score_after": 8503
+ },
+ {
   "function": "func_8009532C",
   "text": "Exact diagnostic trial cfd8338f4f9c38a3e7bc under EGCS 2.91.66 with -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -mno-abicalls -fno-pic. Function-only suggestion submitted and verified; automatic compiler changes are off. Reviewer can apply the bundle. KMC 2.7.2 double sqrt with fast-math scored 400, differing only by sqrt.d and conversion pair.",
   "by": "codex-gpt-6.2-sol-4",
@@ -17870,6 +17926,14 @@
   "created_at": 1795184931.39251,
   "score_before": 3075,
   "score_after": 3075
+ },
+ {
+  "function": "computeSourceAttenuation",
+  "text": "Reached 10/10 no-better compile threshold; best score 12128 unchanged. Six local variants (record layout, signedness, declaration order, operand temporary, branch orientation, constant local) produced no improvement. Added sqrtf prototype and tried __builtin_sqrtf; link rejected sqrtf as unknown symbol. Assembly shows hardware sqrt.s instructions at target lines 57, 111, 151; investigate compiler-supported intrinsic or correctly named target operation rather than external sqrtf. Candidate output diagnostics initially reported undeclared sp38/sp34 although current C declares them; investigate source/compiler mismatch. Target frame is -0x98, candidate output blank in early mismatch report due failures. Current scores show 312 candidate vs 284 target instructions; dominant extra ops are NaN self-comparison / conversions and float register choices. Prioritize getting clean math intrinsic compilation and verifying actual linker symbol/prototype.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795184931.399345,
+  "score_before": 8503,
+  "score_after": 8503
  },
  {
   "function": "func_8000550C",
@@ -33192,6 +33256,14 @@
   "score_after": 5220
  },
  {
+  "function": "computeSourceAttenuation",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nResumed saved candidate d688d445257a490941d4 (current recheck 9058). Tried local repair families loop_weight_scope, call_one_shot_scope, branch_orientation, inferred_record_layout, signedness, declaration_order: no improvement; inverted branch worsened to 9668. Core mismatch starts stack frame: target -0x98, candidate -0x88, despite local repair declarations not changing output. Also resumed saved_best c2c3cff867f05f85d455 and same local repairs: unchanged 9058. No new source. Candidate work remains unresolved, sqrtf linkage and earlier undefined stack views in diagnostics. No match.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795203706.294158,
+  "score_before": 8503,
+  "score_after": 8503
+ },
+ {
   "function": "spawnTrackHudObject",
   "text": "Best candidate score 1085 rechecked. Tried three local repair variants (scalar reuse, loop backedge, inferred record) and pointer offset variants; none beat 1085. Initial field_78 zero worsened, so retained the saved best. Remaining discrepancies include global pointer bases around D_800BFD94/D_800BFD74 and multiple branches 8 bytes off from two extra instructions. Next: correct global record base pointer arithmetic and associated offsets.",
   "by": "codex-gpt-6-luna-21",
@@ -36766,6 +36838,14 @@
   "created_at": 1795207086.9066188,
   "score_before": 100,
   "score_after": 100
+ },
+ {
+  "function": "computeSourceAttenuation",
+  "text": "Best score 7870 is not linkable: it replaces the first sqrtf with __builtin_sqrt, which this compiler treats as an unresolved symbol; remaining sqrtf calls are also unresolved. Target has three sqrt.s instructions. -ffast-math compiler trial scored 6953 but did not match; ordinary flag search found no match. Padding, types and register variants did not fix this.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795207099.345558,
+  "score_before": 7990,
+  "score_after": 7870
  },
  {
   "function": "func_8006FDF8",
@@ -46352,6 +46432,15 @@
   "score_before": 9418,
   "score_after": 9418,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:2f1bd23cee408b3a32c95a82be1a0fdcfa9553748c8c354700e3038b36bcc356"
+ },
+ {
+  "function": "computeSourceAttenuation",
+  "text": "Target uses sqrt.s; saved candidate has unresolved sqrt calls. Replacing first builtin with sqrtf scored 7990; __builtin_sqrtf and explicit sqrtf prototype left instructions unchanged; sqrt promoted to double scored 8285.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795215518.28448,
+  "score_before": 9058,
+  "score_after": 7990,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:92913a5b360f12a760679063c043e23c7319639a068595f87933e70242c72584"
  },
  {
   "function": "func_80042CFC",
@@ -64731,92 +64820,109 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:cace62370670041cf5b6bb78d89d7f07acb56f8c72eaa69718c92edaa52cc4e9"
  },
  {
-  "function": "func_800937D0",
-  "text": "Corrected func_80095280 to three pointer arguments, as confirmed by target call and matched callee; score improved 8632 to 8503 (revision 7c3d34c0af2b80a0f876). Judge ended claim. Next inspect target sqrt instructions and replace unresolved sqrtf appropriately; synthetic 152-byte union causes oversized 0x100 frame versus target 0x98, so reconstruct compact vector locals.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795170005.167386,
-  "score_before": 8632,
-  "score_after": 8503
+  "function": "func_8011CAE4",
+  "text": "Saved candidate score 1670. D_8011F150 is pointer table; default color global is sSaveMenuColorActive. Full rewrite misbound array strides and scored 3124; do not inherit it. Next: saved_best, preserve m2c loop shape, correct address/global carefully.\nLocal repairs: combined scheduling, structured backedge, masked reuse, signedness, declaration order, address temp; no score below 1670. Plain nested for rewrite scored 3124.\nSaved 1670 candidate remains best. Target uses D_8011F150 as pointer table; default color is sSaveMenuColorActive. Rewrite confused strides/register frame.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795241669.0923562,
+  "score_before": 135,
+  "score_after": 135,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
  },
  {
-  "function": "func_800937D0",
-  "text": "Current attempt: baseline was blocked by undeclared sp38/sp34; adding proper f32 locals (plus sqrtf prototype) compiled to score 12128. Diff showed target starts with -0x98 frame, saves s6/s7, candidate -0x80; target uses sqrt.s while candidate had unresolved sqrtf symbol. search_flags found project O2 equivalent best; only -fno-schedule-insns variations tested. Candidate changed concurrently back to 7c3d... during compiler experiment, claim ended; no further experiment on that revision.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795170384.168779,
-  "score_before": 8503,
-  "score_after": 8503
+  "function": "func_800468E4",
+  "text": "Current verified best 630. Moving off-diagonal stores before diagonal stores, with or without named diagonal subtraction results, produced identical displayed output. Removing scratch with reordered stores gave 657 and removed the fifth FPR save. Register qualifiers with scratch removed gave 2537.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795241678.887479,
+  "score_before": 630,
+  "score_after": 630,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f893403517bba52590ec1e59ea24c0877aa607af9cf394a3b343b2c983a316f0"
  },
  {
-  "function": "func_800937D0",
-  "text": "Adding missing sp34 and sp38 declarations compiles at score 12128, but those must be contiguous with sp30 as a 3-float array for the address-taken vector. Target uses inline sqrt.s (e.g. first at assembly line 60), not an external sqrtf; test fast-math compiler profile or builtin. Claim disappeared after project progress changed.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795170426.6495628,
-  "score_before": 8503,
-  "score_after": 8503
+  "function": "func_800449A0",
+  "text": "Saved 4580 (rev b8cd4e/8941ee same asm). Diffs: target loads 0xFF ($v1) and 8 ($a0) hoisted right after jal func_8007560C (before 0xA0 store); mine materializes at use. Local u8 ff/eight vars don't change asm. 2D-array [i][j] stride 7 form is worse (4875). Target inner loop: outer counter $a2 init before the lui's, inner $a1; stores q then p; v1 incremented in delay slot. Next: try the nested loop with inner counter declared differently / do-while forms, and the hoisted-constant puzzle (maybe constants are set via a volatile-less macro / different store order of the first few).\nlocal ff/eight vars; 2D array indexing\nno change / worse",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795241688.857356,
+  "score_before": 670,
+  "score_after": 670,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
  },
  {
-  "function": "func_800937D0",
-  "text": "Baseline draft does not compile: sp34 and sp38 are undeclared, apparently components of the address-taken vector beginning at sp30. Claim was lost before editing.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795170450.051998,
-  "score_before": 8503,
-  "score_after": 8503
+  "function": "func_8001F9A4",
+  "text": "Current verified candidate reached 2870: corrected named menu globals, format string addresses, byte table stride and first pickup table byte load. Claim unexpectedly disappeared during patch; result reported revision d8928b88d8abb666a690. Remaining second pickup load still uses lw; next test byte load and inspect signed comparison and allocation. Earlier baseline 4565, corrections 3065, first byte load 2870.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795241703.5255308,
+  "score_before": 1830,
+  "score_after": 1830,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f001a307e6c9983fa40f94322332d3c28efa0628c5d6aef2d8a442998ecff830"
  },
  {
-  "function": "func_800937D0",
-  "text": "Initial candidate failed compile because sp38/sp34 undeclared and sqrtf implicit; adding both missing locals allowed compile, score 12128 (57.2%), 312 candidate vs 284 target instructions. sqrtf is not a known link symbol; target uses inline sqrt.s, so replace call expressions with compiler-supported sqrt intrinsic or identify correct intrinsic before further tuning. Adding f32 sqrtf prototype did not change code and linker still rejected name. Current revision 45614a9fdc336bafbd2c, claim still held.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795171380.895118,
-  "score_before": 8503,
-  "score_after": 8503
+  "function": "func_8009AE24",
+  "text": "Verified baseline 1170, 43 rows. Explicit second flag byte read and u8 cast, or register qualifier on r, kept output unchanged. Removing first code temporary scored 1315, direct first-arm assignment to a scored 1295 with a regional improvement, and if/else with low-half XOR scored 2135. Two-claim session limit reached.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795241717.1141372,
+  "score_before": 1170,
+  "score_after": 1170,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b596b3f3c7ea884cca2ee049fad605fca3901802cc7f905ecb89cd8c7731fd1c"
  },
  {
-  "function": "func_800937D0",
-  "text": "Inherited draft failed to compile due missing sp38/sp34 locals; adding them allowed a compile (score 12128, 312/284 instructions), but no improvement. Tool then reported claim not held, so no further edits. Critical unresolved issue: sqrtf is not a known symbol; identify target call relocation and use the actual helper name. Target frame is 0x98; likely need correct f64 sqrt helper and explicit f32/f64 conversions. No candidate updates beyond supplied draft.\n\nAdded the missing f32 stack temporaries sp38/sp34; compilation remains 12128 (312/284 instructions), no improvement. Target differs in ABI/register allocation and FP control flow, and compiler warns sqrtf is unresolved; assembly inspection around target lines 165-205 shows func_80095280 called with addiu $a2,$sp,0x30, but sqrtf identity still needs resolving from the earlier call sites/relocations. The candidate revision with locals is cbee065d3bfd76160e6b. Further progress should start by resolving the actual square-root helper and restoring the compact stack layout.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795171421.8718731,
-  "score_before": 8503,
-  "score_after": 8503
+  "function": "menuUpdateCursorActor",
+  "text": "Claim disappeared after baseline 6541. Draft has unknown objectSetAnimFrame and gMenuState; target identifies effectSetAnimFrame and gSaveMenuState. Target table loads are signed halfwords at D_800C4478/447A, byte-strided 0x10; other table accesses use byte stride 0xE8 and float fields. Next test correcting these types and byte addressing, with signed s32 var_s0.\n\nFresh corrected draft scored 5351 (from 6541): known symbol names, byte strides and halfword/float table types. Service loses claims between calls and reclaims stale machine draft; candidate revision 6f29d078e691075732a1 may not persist. Next: target uses lbu D_800C473A, lh D_800C447A, logical sign shifts, and saved f20 for 1.0; correct types and lifetime.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795241733.624724,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:02e874e059d33798a956ab23fe1dcc46b80e959e20acb5e11c6dc55378031ef9"
  },
  {
-  "function": "func_800937D0",
-  "text": "Current rechecked baseline 12128 (revision cbee065d3bfd76160e6b). Two independent try_local_repairs batches: first tested inferred_record_layout, signedness, declaration_order, branch_orientation, operand_temporary, constant_local; all tied except branch_orientation worsened to 13158. Second attempted record_layout_sequence (tied); next batch reported progress changed while compiling variant 2, so project may have been concurrently updated. Candidate still baseline. Mismatch advisory is calls/arguments at entry; target saves $s6/$s7 from incoming stack arguments; candidate comparison lacked setup in normalized diff. Recheck current candidate and continue local families or inspect argument prototypes/call sites. sqrtf prototype warning persists.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795183937.168324,
-  "score_before": 8503,
-  "score_after": 8503
+  "function": "func_80018E38",
+  "text": "Recovered saved_best is an accidental empty stub (score 29860); original candidate is lost. Assembly is 324 lines and clearly a substantial function. No repair budget remains for this revision. Next agent should redraft from target assembly/machine draft and recover logic; historical prior best was 3492, attempts included sprintf row/control-flow rewrites.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795241737.5249548,
+  "score_before": 3371,
+  "score_after": 3371
  },
  {
-  "function": "func_800937D0",
-  "text": "Reached 10/10 no-better compile threshold; best score 12128 unchanged. Six local variants (record layout, signedness, declaration order, operand temporary, branch orientation, constant local) produced no improvement. Added sqrtf prototype and tried __builtin_sqrtf; link rejected sqrtf as unknown symbol. Assembly shows hardware sqrt.s instructions at target lines 57, 111, 151; investigate compiler-supported intrinsic or correctly named target operation rather than external sqrtf. Candidate output diagnostics initially reported undeclared sp38/sp34 although current C declares them; investigate source/compiler mismatch. Target frame is -0x98, candidate output blank in early mismatch report due failures. Current scores show 312 candidate vs 284 target instructions; dominant extra ops are NaN self-comparison / conversions and float register choices. Prioritize getting clean math intrinsic compilation and verifying actual linker symbol/prototype.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795184931.399345,
-  "score_before": 8503,
-  "score_after": 8503
+  "function": "func_8002D960",
+  "text": "Service dropped claim immediately after receipt; saved_best recovery returned no source. Machine draft contains invalid .L identifiers and cannot be used as baseline. Historical score 465 was not independently verified.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795241751.374402,
+  "score_before": 465,
+  "score_after": 465
  },
  {
-  "function": "func_800937D0",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nResumed saved candidate d688d445257a490941d4 (current recheck 9058). Tried local repair families loop_weight_scope, call_one_shot_scope, branch_orientation, inferred_record_layout, signedness, declaration_order: no improvement; inverted branch worsened to 9668. Core mismatch starts stack frame: target -0x98, candidate -0x88, despite local repair declarations not changing output. Also resumed saved_best c2c3cff867f05f85d455 and same local repairs: unchanged 9058. No new source. Candidate work remains unresolved, sqrtf linkage and earlier undefined stack views in diagnostics. No match.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795203706.294158,
-  "score_before": 8503,
-  "score_after": 8503
+  "function": "func_80063FE8",
+  "text": "Best this session 2285 (rewrite with current names: gSaveTotalSlots, gTrackMarkerCount, gTrackMarkerPosTable u8[] with *0xC, sBonusObjectTable s32[] +0x24, gTrackMarkerIndex, actorInitTrackMarker; loop-1 as for(;;) with goto again; t=j+1;j=t increments). Remaining: target keeps isSpecial as separate pseudo copied to $s7 ($s7=$v1) only in the else branch (flag live only there; chosen $s4=0 set in delay slot of the first bnez); mine either allocates it early in saved reg or const-folds it to 1 if computed inside else. Target inner skips use beql with increment addiu v0,s0,1 in delay slot (mine beq). Next step: find a source form where the flag pseudo is not CSE-folded but live only in else (e.g. a u8/volatile-free global re-read via different expression).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795241811.3877828,
+  "score_before": 795,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
  },
  {
-  "function": "func_800937D0",
-  "text": "Best score 7870 is not linkable: it replaces the first sqrtf with __builtin_sqrt, which this compiler treats as an unresolved symbol; remaining sqrtf calls are also unresolved. Target has three sqrt.s instructions. -ffast-math compiler trial scored 6953 but did not match; ordinary flag search found no match. Padding, types and register variants did not fix this.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795207099.345558,
-  "score_before": 7990,
-  "score_after": 7870
- },
- {
-  "function": "func_800937D0",
-  "text": "Target uses sqrt.s; saved candidate has unresolved sqrt calls. Replacing first builtin with sqrtf scored 7990; __builtin_sqrtf and explicit sqrtf prototype left instructions unchanged; sqrt promoted to double scored 8285.",
+  "function": "spawnTrackMarker",
+  "text": "Claim ended during compile. Target relocation names sTrackMarkerTable; candidate gTrackMarkers is unknown. Byte-offset patch scored 490, but still used unknown symbol. Next: replace declaration and reference with sTrackMarkerTable and retest.",
   "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795215518.28448,
-  "score_before": 9058,
-  "score_after": 7990,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:92913a5b360f12a760679063c043e23c7319639a068595f87933e70242c72584"
+  "created_at": 1795241826.603213,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:dfa4f50deca474b881a539b8ca1a3d4e6ad37875757b51da90af53ac6b046cd5:887656ab9a5ab6938a8d177369683abcbdd756dc29771eb56ee2dc739dd1ca35"
+ },
+ {
+  "function": "func_800179E8",
+  "text": "Saved 2171 candidate omits forwarded fourth arguments at the three traversal calls. Corrected all three in 690f3fe142e391ea3166 (2963). Combined array and spill struct with final-bound snapshot yielded eb1222b91b080c854a0c (2775), matching frame and spill offsets. Remaining differences are register allocation and branch scheduling.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795241831.2886431,
+  "score_before": 2308,
+  "score_after": 2308,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:da21e0f8225b955bb7d8ccf94d420b1778cd3dbb46fb5102337f90d28460d918"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Claim disappeared during compile. Verified score 655 at revision 063f01c8b7234bc21c70: original D_800B20D2 -> offset 1C and D_800B2322 -> 20 are correct per target assembly; moving division before zero stores and moving 0x20 assignment before 1000 stores improved scheduling. Next: move -1 store after 0x20 assignment to adjust register lifetimes; last patch outcome was lost.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795241831.444917,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  }
 ]

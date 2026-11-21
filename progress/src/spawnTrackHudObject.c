@@ -11,7 +11,7 @@ extern s16 D_800BFDDC;
 extern char D_800E1584[];
 extern char sMenuAnimSlots[];
 extern u8 gPendingMenuCommand;
-extern char gTrackMarkers[];
+extern char sTrackMarkerTable[];
 
 /* Spawns the per-track HUD object: a 0x48-byte effect with nine timed text slots, a marker child and a sound cue. */
 typedef struct {
@@ -153,7 +153,7 @@ void *spawnTrackHudObject(s32 trackIndex) {
         effectSetAnimFrame((((TrackHudState *)objState)->markerObj), 2, 0x24);
         trackIdx = trackIndex & 0xFFFF;
         func_80064318((((TrackHudState *)objState)->markerObj), trackIdx);
-        objectListInsert((((TrackHudState *)objState)->markerObj), (*(s32 *)((char *)(*(s32 *)(gTrackMarkers + (trackIdx * 4))) + 0xF4)));
+        objectListInsert((((TrackHudState *)objState)->markerObj), (*(s32 *)((char *)(*(s32 *)(sTrackMarkerTable + (trackIdx * 4))) + 0xF4)));
         {
             s16 *argsIndex = &D_800BFCE0;
             *argsIndex = trackIndex;
