@@ -1,7 +1,7 @@
 s32 func_8009C420(u32, s32, s32, u8, u8, u8, u8, u16, u16, u8, u8);
 void func_8008E8F0(s32, s32);
 extern u8 sVoiceTable[];
-extern s32 D_8010D734[];
+extern s32 gVoiceChannelTable[];
 extern s32 D_8010D738[];
 
 #define FIELD(base, type, offset) (*(type *)((u8 *)(base) + (offset)))
@@ -57,7 +57,7 @@ s32 func_80099F80(void *state, void *command)
         FIELD(D_8010D738, s32, offset) = data;
         previous = FIELD(state, s32, 0x10);
         if (previous != -1) {
-            FIELD(D_8010D734, s32, offset) = previous;
+            FIELD(gVoiceChannelTable, s32, offset) = previous;
             FIELD(D_8010D738, s32, FIELD(state, u8, 0x13) * 0x1A0) = result;
         }
         {

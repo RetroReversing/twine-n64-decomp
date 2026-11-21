@@ -1,6 +1,6 @@
 extern s32 func_800989B8(u32);
 extern s32 func_80095A80(s32, s32, u8, s32);
-extern s32 D_8010D734, D_8010D748, D_8010D784;
+extern s32 gVoiceChannelTable, D_8010D748, D_8010D784;
 extern u8 D_8010D76F, D_8010D779;
 s32 func_8008E594(u32 arg0, s32 arg1) {
     s32 index, offset, handle, result, ret, end;
@@ -19,7 +19,7 @@ again:
             } else {
                 func_80095A80(0x83, index, *(&D_8010D76F + (handle & 0xff) * 0x1a0), arg1 & 0xff);
             }
-            handle = *(s32 *)((s8 *)&D_8010D734 + index * 0x1a0);
+            handle = *(s32 *)((s8 *)&gVoiceChannelTable + index * 0x1a0);
             result = 0;
             if (handle != end) goto again;
         }

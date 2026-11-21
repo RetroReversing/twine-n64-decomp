@@ -9,7 +9,7 @@ M2C_UNK func_8009876C(void *, s32, s32, u8);
 s32 func_800988D8(void *);
 M2C_UNK func_80099B64(M2C_UNK *);
 extern M2C_UNK D_8010D724;
-extern M2C_UNK D_8010D734;
+extern M2C_UNK gVoiceChannelTable;
 extern u8 D_801176E8;
 s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     M2C_UNK *__base_D_8010D724;
@@ -60,7 +60,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
                         M2C_FIELD(var_s1, s32 *, 0x14) = var_s4;
                         var_s4 = func_800988D8(temp_s2);
                     } else {
-                        *((M2C_UNK *)((s8 *)&D_8010D734 + ((var_s5 & 0xFF) * 0x1A0))) = M2C_FIELD(var_s1, s32 *, 0x60);
+                        *((M2C_UNK *)((s8 *)&gVoiceChannelTable + ((var_s5 & 0xFF) * 0x1A0))) = M2C_FIELD(var_s1, s32 *, 0x60);
                         M2C_FIELD(var_s1, s32 *, 0x14) = var_s5;
                     }
                     var_s5 = M2C_FIELD(var_s1, s32 *, 0x60);

@@ -1,6 +1,6 @@
 extern s32 func_800989B8(void);
 extern u8 gWorkerActive;
-extern s32 D_8010D734;
+extern s32 gVoiceChannelTable;
 extern s32 D_8010D748;
 extern s32 D_8010D784;
 s32 func_8008EA58(void) {
@@ -16,7 +16,7 @@ s32 func_8008EA58(void) {
                     found = 0;
                     *(s32 *)((u8 *)&D_8010D748 + offset) |= 8;
                 }
-                key = *(s32 *)((u8 *)&D_8010D734 + offset);
+                key = *(s32 *)((u8 *)&gVoiceChannelTable + offset);
             } while (key != -1);
         }
     }

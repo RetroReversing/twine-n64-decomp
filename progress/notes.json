@@ -3144,7 +3144,7 @@
   "score_after": 0
  },
  {
-  "function": "func_80099BC0",
+  "function": "voiceClearSlot",
   "text": "Baseline score 230: target copies loaded field v1 to a1 in branch delay slot, candidate keeps it in a1 throughout and schedules shift early. Reload and volatile-cast variants unchanged; reversing address addition worsens. Investigate lifetime/register allocation.",
   "by": "codex-gpt-6.1-terra-6",
   "created_at": 1795137312.3704221,
@@ -4800,7 +4800,7 @@
   "score_after": 2143
  },
  {
-  "function": "func_80099BC0",
+  "function": "voiceClearSlot",
   "text": "Current verified best 230 (11 differing instructions). Local repair batch tested inferred record layout, branch orientation, CFG lifetime, signedness, declaration order, and constant local; output stayed identical (except opposite branch orientation worsened). A full early-return rewrite scored 1860. Best C approximates both table cleanup branches; principal remaining mismatch is initial field value allocated to $a1 instead of target $v1, changing branch layout/offsets and subsequent registers. Preserve original nested branch structure and experiment with lifetime/scoping/declaration order to keep id in $v1. Globals: byte tables D_801007D9 and D_80100C7C.",
   "by": "codex-gpt-6-luna-14",
   "created_at": 1795138577.041497,
@@ -5190,6 +5190,14 @@
   "created_at": 1795138908.999449,
   "score_before": 2045,
   "score_after": 2045
+ },
+ {
+  "function": "updateFallingObjectHeight",
+  "text": "Typed candidate f40e511c1c8cd8e1b75f (attempt 25769827705) reverified the inherited best of 150. Everything matches except the impact flag merge: on owner null or floor clamp the target sets v1=1 then copies v1 into v0 at the shared label, but the s32 two-local goto version sets v0=1 directly, omitting one move. A single u8 flag reproduced the 92-instruction extent and both copy positions, with only two andi v0,v1,0xff opcodes in place of moves (6057c6fb271212a1e3d9, score 400). Testing a final cast to u8 from s32 gave those same opcodes. The explicit separate bypass goto after an inverted compare regressed to 670. All floating-point constants, struct accesses, call arguments and trailing flag stores match.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795138909.022965,
+  "score_before": 150,
+  "score_after": 150
  },
  {
   "function": "func_80005310",
@@ -9088,7 +9096,7 @@
   "score_after": 185
  },
  {
-  "function": "func_80099BC0",
+  "function": "voiceClearSlot",
   "text": "Rechecked saved best at 230. Casting the masked value to u8 and splitting assignment/mask produce identical instructions. Remaining mismatch: initial value allocated to a1 rather than v1, missing move a1,v1, plus operand order in address addition; 31 versus 32 instructions.",
   "by": "codex-gpt-6.1-terra-8",
   "created_at": 1795174881.930017,
@@ -11368,6 +11376,14 @@
   "score_after": 870
  },
  {
+  "function": "updateFallingObjectHeight",
+  "text": "Matched by using one s16 impact flag, assigned in both clamp and null-owner branches, then tested after the merge. This emits the target move without byte masking.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795178747.623712,
+  "score_before": 150,
+  "score_after": 0
+ },
+ {
   "function": "probeTrackSteerAngle",
   "text": "Current best score 3022, revision a690424a9899caba6fd5. Verified compile; casting indexed D_8011508C access from s32* to u8* removed the lw/lbu mismatch and improved by 200. Remaining dominant mismatch is stack layout: target frame 0x78, candidate 0xc0 with extensive stack spills and FPR register differences. Try reconstructing temporary vectors as compact ordinary locals/structs to avoid the 120-byte union and the accidental separate __repair_value_1 field. Existing automatic frame narrowing failed compile because it removed view_sp24 while code still used it. Candidate return path has generated __repair_var_fv0_1 and should be audited; don't assume semantics. Candidate source C and mismatch diagnostics are in latest revision.",
   "by": "codex-gpt-6-luna-17",
@@ -12832,7 +12848,7 @@
   "score_after": 395
  },
  {
-  "function": "func_80099BC0",
+  "function": "voiceClearSlot",
   "text": "Rechecked best 230; same early register and branch-delay scheduling issue as func_80099B64. Early returns and reassociation do not improve; volatile byte read adds andi and scores 295. Investigate allocation or compiler profile.",
   "by": "codex-gpt-6.1-terra-5",
   "created_at": 1795182067.113492,
@@ -15152,7 +15168,7 @@
   "score_after": 1119
  },
  {
-  "function": "func_80099BC0",
+  "function": "voiceClearSlot",
   "text": "Baseline 230 verified. Struct rewrite and base+row+column both hoisted row shift to branch delay slot (390); grouping row+column scored 295. Baseline retains two order differences and the wrong incoming ID lifetime ($a1 from load versus target $v1 then delay-slot move to $a1). Try separating raw ID from the branch-arm value through shared lifetime changes; preserve the byte load and chosen store index, which already agree.",
   "by": "codex-gpt-6.2-sol-8",
   "created_at": 1795183130.565481,
@@ -17064,7 +17080,7 @@
   "score_after": 114
  },
  {
-  "function": "func_80099BC0",
+  "function": "voiceClearSlot",
   "text": "Paired with matched func_80099B64, which writes the low byte of the signed ID at +0x60 to the selected table. This function clears the entry to 0xFF only when that byte still owns the slot. Object subsystem and table roles remain unidentified.",
   "by": "codex-gpt-6.2-sol-2",
   "created_at": 1795184094.389477,
@@ -57081,19 +57097,75 @@
   "score_after": 155
  },
  {
-  "function": "updateFallingObjectHeight",
-  "text": "Typed candidate f40e511c1c8cd8e1b75f (attempt 25769827705) reverified the inherited best of 150. Everything matches except the impact flag merge: on owner null or floor clamp the target sets v1=1 then copies v1 into v0 at the shared label, but the s32 two-local goto version sets v0=1 directly, omitting one move. A single u8 flag reproduced the 92-instruction extent and both copy positions, with only two andi v0,v1,0xff opcodes in place of moves (6057c6fb271212a1e3d9, score 400). Testing a final cast to u8 from s32 gave those same opcodes. The explicit separate bypass goto after an inverted compare regressed to 670. All floating-point constants, struct accesses, call arguments and trailing flag stores match.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795138909.022965,
-  "score_before": 150,
-  "score_after": 150
+  "function": "func_80006E78",
+  "text": "Still 140 (28 register-only diffs; i in $a1 target vs $a2, buf in $a2 vs $a3, boot addr $a3 vs $t0). Explicit pointer-walk loop (p=D_8010A2BC; p++) scored 540 (hoists address before the i=0 move). Local pointer to &D_8010A2BC[i] inside loop: no effect. Next step: try `register` hints or making i the heapAlloc zero arg (e.g. pass i as second arg of heapAlloc(size, i) after i=0).\npointer-walk loop, local &arr[i] pointer\n540 and unchanged 140",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795228016.268328,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
  },
  {
-  "function": "updateFallingObjectHeight",
-  "text": "Matched by using one s16 impact flag, assigned in both clamp and null-owner branches, then tested after the merge. This emits the target move without byte masking.",
+  "function": "func_8005C8C4",
+  "text": "Unsigned comparison local, alternate zero initialization and literal early return\nScores 560, 640 and 160; early literal return retains baseline diff.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795228021.2788632,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5283587a6f8c9938d9b65adc618079fbb97cc12d6e7630b8c674fe6817524dd3"
+ },
+ {
+  "function": "func_80048F10",
+  "text": "Verified inherited stub once: score 192665, target 1928 instructions versus candidate 2. Claim remains structurally unreconstructable from available C; callers establish signature s32(s32, Vec3*, Vec3*, Vec3*, f32, s32, s32, s32), but no usable machine draft. Next step: inspect callsites plus the full target/function behavior and rebuild the geometry logic in coherent regions.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795228030.485325,
+  "score_before": 192665,
+  "score_after": 192665,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:9eab3db7e63cf5ed6f53d23cb4b151321680e05129cf85d51f34067e4ddfe18a"
+ },
+ {
+  "function": "func_8000BF90",
+  "text": "Verified 210 versus inherited 2210. Remaining: selected pointer load, branch, and copy use v0 instead of a1; a single missing andi v1,a0,0xffff on the ambient color floor shifts later branch destinations.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795228038.646204,
+  "score_before": 2385,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b8e847279110973d3d83b977386ac466e6ed7744e4cb94c16665fa6fd78ce07a"
+ },
+ {
+  "function": "func_80002EF0",
+  "text": "Verified inherited 9-instruction placeholder: score 211355 versus 2122 target instructions. Redraft with minimal Obj/Node context produced a ~2,000-line m2c reconstruction, but it has numerous `?` types, malformed inferred pointers/member accesses, and incorrect call signatures; fixing it coherently is beyond this bounded claim. Boundary already reviewed and ends at 0x80005018. Next step: recover the full m2c output, then resolve shared callee prototypes and structure layouts using matched callers before compiling.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795228079.6525528,
+  "score_before": 211355,
+  "score_after": 211355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f7e067ebe7014bf39961f8ceb051bb5eb083c0dd969e0f78aba2c2df26e76d06"
+ },
+ {
+  "function": "func_8009A0E4",
+  "text": "Reordered signed reload through s32 temporary; changed branch orientation and explicit cast\nReload reorder scored 1325; branch orientation 1520; cast unchanged at 705. Target still uses lh and delay-slot move.",
   "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795178747.623712,
-  "score_before": 150,
-  "score_after": 0
+  "created_at": 1795228079.722548,
+  "score_before": 1365,
+  "score_after": 705,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2e8f414903ae0b03a23916e7b0881b4e634debfc29b5881921f2a8928db63fbf"
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Saved best (60) still: only addiu $a2,$a2,8 hoisted above the D_80109CB8 store. I tried Gfx-struct typed pointers with ++ (score 940, early a1 load), local p/q pointers (1765), and reordering the increments (975/1220). All worse. Next step: keep saved_best and try a 2-word Gfx struct only for the D_80109CB8 pointer while leaving the cursor as void*.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795228088.953774,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Narrowing callee argument prototypes, scalar reuse, and declaration order all unchanged at 180; balanced duplicate calls scored 720.\nTarget selects mode in v0 then moves it to a3 at call; candidate selects directly in a3.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795228098.565463,
+  "score_before": 180,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
  }
 ]

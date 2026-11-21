@@ -5,14 +5,14 @@ struct Entry989 {
     u32 key;
     s32 value;
 };
-extern Entry989 *D_800FDB74;
+extern Entry989 *gVoiceListHead;
 
 s32 func_800989B8(u32 key) {
     Entry989 *entry;
     u32 result;
 
     if (key != -1U) {
-        entry = D_800FDB74;
+        entry = gVoiceListHead;
         result = 0;
         if (entry != 0) {
             for (;;) {

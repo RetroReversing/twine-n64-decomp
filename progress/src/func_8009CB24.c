@@ -4,7 +4,7 @@ extern void workerLockRelease(void);
 extern s32 func_800989B8(s32);
 extern void func_80095A80(u8, u8, u8, u8);
 extern u8 gWorkerActive;
-extern s32 D_8010D734, D_8010D748, D_8010D784;
+extern s32 gVoiceChannelTable, D_8010D748, D_8010D784;
 extern u8 D_8010D76F, D_8010D779;
 
 s32 func_8009CB24(s32 arg0, s32 arg1) {
@@ -27,7 +27,7 @@ again:        {
             } else {
                 func_80095A80(64, index, *(&D_8010D76F + index * 0x1A0), parameter);
             }
-            handle = *(s32 *)((s8 *)&D_8010D734 + index * 0x1A0);
+            handle = *(s32 *)((s8 *)&gVoiceChannelTable + index * 0x1A0);
             result = 0;
             if (handle != end) goto again;
         }

@@ -13,12 +13,12 @@ struct Entry989 {
     u32 key;
     s32 value;
 };
-extern Entry989 *D_800FDB74;
+extern Entry989 *gVoiceListHead;
 s32 func_800989B8(u32 key) {
     Entry989 *p, *found;
     if (key == (u32)-1)
         return -1;
-    p = D_800FDB74;
+    p = gVoiceListHead;
     found = NULL;
     if (p != NULL) {
         do {

@@ -15,8 +15,8 @@ typedef s32 M2C_UNK32;
 extern s32 D_800FD970;
 extern s32 *D_800FD974;
 extern char D_800FD978[];
-extern s32 D_800FDB74;
-extern s32 *D_800FDB78;
+extern s32 gVoiceListHead;
+extern s32 *gVoiceListTail;
 
 void func_80098710(void) {
     s32 *var_a1;
@@ -25,8 +25,8 @@ void func_80098710(void) {
 
     var_v1 = NULL;
     D_800FD970 = 0;
-    D_800FDB74 = 0;
-    D_800FDB78 = &D_800FD974;
+    gVoiceListHead = 0;
+    gVoiceListTail = &D_800FD974;
     var_a1 = &D_800FD974;
     var_a0 = 0;
     do {

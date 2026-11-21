@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8008C5DC(s32, u8);
 M2C_UNK func_8009876C(void *, s32, s32);
 M2C_UNK func_80098A18(void *);
-extern void *D_800FDB74; extern u8 D_801002EA; extern u8 D_8010A930; extern u8 D_8010D720;
+extern void *gVoiceListHead; extern u8 D_801002EA; extern u8 D_8010A930; extern u8 D_8010D720;
 extern M2C_UNK D_8010D724, D_8010D734, D_8010D784;
 extern u8 D_80110DB0; extern M2C_UNK D_80117388, D_80117389; extern u8 gWorkerActive;
 s32 sndStopNode(register u32 arg0) {
@@ -23,7 +23,7 @@ s32 sndStopNode(register u32 arg0) {
     var_a2=-1;
     if(gWorkerActive!=0){
       if(arg0==-1U) goto block_11;
-      var_v1=D_800FDB74; var_v0_2=NULL;
+      var_v1=gVoiceListHead; var_v0_2=NULL;
       if(var_v1!=NULL) {
 loop_5: temp_v0=M2C_FIELD(var_v1,u32*,8);
         if(temp_v0!=arg0){var_v0_2=NULL;if(arg0>=temp_v0){var_v1=M2C_FIELD(var_v1,void**,0);if(var_v1!=NULL)goto loop_5;}}

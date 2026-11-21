@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern u32 D_800FD970;
-extern M2C_UNK *D_800FDB74;
-extern M2C_UNK *D_800FDB78;
+extern M2C_UNK *gVoiceListHead;
+extern M2C_UNK *gVoiceListTail;
 
 u32 func_800988D8(void *arg0) {
     M2C_UNK *temp_a1;
@@ -32,7 +32,7 @@ u32 func_800988D8(void *arg0) {
         D_800FD970 = temp_v1 + 1;
         var_a3 = temp_v1;
     } while (temp_v1 == -1U);
-    var_a2 = D_800FDB74;
+    var_a2 = gVoiceListHead;
     var_t0 = NULL;
     if (var_a2 != NULL) {
         for (;;) {
@@ -54,17 +54,17 @@ u32 func_800988D8(void *arg0) {
             break;
         }
     }
-    temp_a1 = D_800FDB78;
+    temp_a1 = gVoiceListTail;
     if (temp_a1 == NULL) return -1U;
     temp_v1 = var_a3;
     {
         temp_v0 = M2C_FIELD(temp_a1, M2C_UNK **, 0);
-        D_800FDB78 = temp_v0;
+        gVoiceListTail = temp_v0;
         if (temp_v0 != NULL) {
             M2C_FIELD(temp_v0, s32 *, 4) = 0;
         }
         if (var_t0 == NULL) {
-            D_800FDB74 = temp_a1;
+            gVoiceListHead = temp_a1;
         } else {
             *var_t0 = temp_a1;
         }

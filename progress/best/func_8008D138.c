@@ -6,7 +6,7 @@ void *func_8009852C();
 s32 func_800988D8();
 s32 func_8009C420();
 extern char sVoiceTable[];
-extern char D_8010D734[];
+extern char gVoiceChannelTable[];
 extern char D_8010D738[];
 
 s32 func_8008D138(u32 arg0, u16 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, u16 arg7, u16 arg8, u8 arg9) {
@@ -107,7 +107,7 @@ loop_3:
                     } else {
                         temp_v0_2 = func_8009C420(temp_t0, sp46, (var_v0_2 | (sp4F & 0x80)) & 0xFF, temp_a3, var_t0 & 0xFF, temp_s3, temp_s4, (s32) sp5E, (s32) sp66, 0, (s32) sp6F);
                         if (temp_v0_2 != -1) {
-                            *((s32 *)((s8 *)D_8010D734 + ((temp_s0 & 0xFF) * 0x1A0))) = temp_v0_2;
+                            *((s32 *)((s8 *)gVoiceChannelTable + ((temp_s0 & 0xFF) * 0x1A0))) = temp_v0_2;
                             *((s32 *)((s8 *)D_8010D738 + ((temp_v0_2 & 0xFF) * 0x1A0))) = temp_s0;
                             var_s2 = temp_v0_2;
                         }
