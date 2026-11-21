@@ -17,7 +17,7 @@ extern s32 D_800D3E18;
 extern void *gPlayerActor;
 extern void **D_80108F84;
 
-s32 func_8004AD30(void **arg0, void *arg1, void *arg2, f32 arg3, void *arg4, void *arg5, s32 arg6, s32 arg7) {
+s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void *arg4, void *arg5, s32 arg6, s32 arg7) {
     s32 *__base_D_800D3E18;
     volatile char padding[0];
     f32 sp18[3];

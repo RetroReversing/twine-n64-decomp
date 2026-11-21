@@ -13,20 +13,20 @@ typedef s32 M2C_UNK32;
 #endif
 
 typedef struct { s16 v; s16 pad; s32 pad2; } R8;
-extern R8 *D_800BFF04;
-extern u16 D_800E1608;
+extern R8 *gEntryTable;
+extern u16 gEntryCount;
 
 s16 func_80030898(void) {
     s16 i;
     s16 n;
 
     i = 0;
-    if (D_800BFF04 == 0) {
+    if (gEntryTable == 0) {
         return 0;
     }
     n = 0;
-    for (; i < D_800E1608; i++) {
-        if (D_800BFF04[i].v >= 0) {
+    for (; i < gEntryCount; i++) {
+        if (gEntryTable[i].v >= 0) {
             n++;
         }
     }

@@ -2,14 +2,14 @@
 
 s32 emitScissorFromWindow(s32);                         /* extern */
 extern void *gTrackMarkerTable[];
-extern void *sDisplayListCursor;
+extern void * volatile sDisplayListCursor;
 
 void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 temp_fv1_3;
     f32 temp_fv1_4;
-    s32 var_s0;
+    u32 var_s0;
     s32 var_s1;
     s32 var_s2;
     s32 var_s3;

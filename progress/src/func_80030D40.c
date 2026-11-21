@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_800BFF04;
-extern s32 D_800BFF10;
-extern u16 D_800E1608;
+extern s32 gEntryTable;
+extern s32 gEntryMode;
+extern u16 gEntryCount;
 extern u16 D_800E160A;
 
 s32 func_80030D40(void) {
@@ -27,14 +27,14 @@ s32 func_80030D40(void) {
 
 
     var_v0 = 7;
-    p = D_800BFF04;
+    p = gEntryTable;
     if (p != 0) {
-        if ((D_800BFF10 == 7) || (var_a0 = 0, (D_800BFF10 == 9))) {
-            return D_800BFF10;
+        if ((gEntryMode == 7) || (var_a0 = 0, (gEntryMode == 9))) {
+            return gEntryMode;
         }
         for (;;) {
             temp_v1 = var_a0 & 0xFFFF;
-            if (temp_v1 < (u16) D_800E1608) {
+            if (temp_v1 < (u16) gEntryCount) {
                 temp_v1_2 = M2C_FIELD(((temp_v1 * 8) + p), u16 *, 2);
                 if ((u16) D_800E160A >= (u32) (temp_v1_2 & 0xF000)) {
                     if (!(temp_v1_2 & 0x200)) {

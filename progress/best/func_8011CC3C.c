@@ -25,8 +25,6 @@ extern s32 gBorderMode;
 extern char D_8011F338[];
 
 void func_8011CC3C(void) {
-char *__repair_addr;
-
     u8 *__base_D_801001A1;
     s32 var_a0;
     s32 var_s2;
@@ -75,9 +73,8 @@ block_14:
                     if ((temp_v1 == 3) && (temp_s0 = D_801002A1, (temp_s0 == 1))) {
                         temp_v1_3 = *(__base_D_801001A1 + ((func_80022DBC(var_s3 & 0xFFFF) & 0xFFFF) * 0x18));
                         if (var_s2 & 1) {
-                            if (temp_v1_3 == 0) {/*__repair_loop_weight*/__repair_rows: {
-                                var_s2 += 1;}
-if (0) goto __repair_rows;
+                            if (temp_v1_3 == 0) {
+                                var_s2 += 1;
                             } else {
                                 goto block_20;
                             }
@@ -113,9 +110,7 @@ block_29:
                     u16 __repair_i;
                     for (__repair_i = 0; __repair_i < 4; __repair_i++) {
                         { {
-__repair_addr = (char *)((char *)D_8011F338 + var_s2 * 4 + __repair_i * 0x10);
-
-                        *(s32 *)(__repair_addr) = 0;
+                        *(s32 *)((char *)D_8011F338 + var_s2 * 4 + __repair_i * 0x10) = 0;
                         }
                         }
                     }

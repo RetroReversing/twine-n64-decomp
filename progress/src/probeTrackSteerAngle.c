@@ -8,37 +8,38 @@ extern u8 D_8011508C;
 
 struct Vec3 { f32 x; f32 y; f32 z; };
 
-f32 probeTrackSteerAngle(s32 arg0, void *arg1) {
-    struct Vec3 v1;
-    struct Vec3 v2;
-    struct { s32 i; f32 f; s32 reserved[2]; } out;
-    void *s3;
-    s32 a0;
-    void *p;
-    f32 t;
-    f32 res;
-    s32 r;
+/* Probes the track surface ahead of the actor; returns a steering angle (0 when no surface is hit). */
+f32 probeTrackSteerAngle(s32 scene, void *actor) {
+    struct Vec3 probePos;
+    struct Vec3 steerPos;
+    struct { s32 i; f32 f; s32 reserved[2]; } hit;
+    void *trackState;
+    s32 unusedActor;
+    void *hitActor;
+    f32 unusedF;
+    f32 steerAngle;
+    s32 hitFound;
 
-    s3 = *(void **)((char *)arg1 + 0x6C);
-    res = 0.0f;
-    if (*((u8 *)((s8 *)&D_8011508C + (*(s8 *)((char *)s3 + 0x182)) * 0xA0)) != 0) {
-        v1 = *(struct Vec3 *)((char *)arg1 + 0x24);
-        v1.x = v1.x + sinAngle(*(f32 *)((char *)arg1 + 0x40)) * 1.5f;
-        v1.y += 0.5f;
-        v1.z += cosAngle(*(f32 *)((char *)arg1 + 0x40)) * 1.5f;
-        p = func_80047B44(arg0, (char *)arg1 + 0x24, &v1.x, 0);
-        if (p != NULL) {
-            arg0 = *(s32 *)((char *)p + 8);
+    trackState = *(void **)((char *)actor + 0x6C);
+    steerAngle = 0.0f;
+    if (*((u8 *)((s8 *)&D_8011508C + (*(s8 *)((char *)trackState + 0x182)) * 0xA0)) != 0) {
+        probePos = *(struct Vec3 *)((char *)actor + 0x24);
+        probePos.x = probePos.x + sinAngle(*(f32 *)((char *)actor + 0x40)) * 1.5f;
+        probePos.y += 0.5f;
+        probePos.z += cosAngle(*(f32 *)((char *)actor + 0x40)) * 1.5f;
+        hitActor = func_80047B44(scene, (char *)actor + 0x24, &probePos.x, 0);
+        if (hitActor != NULL) {
+            scene = *(s32 *)((char *)hitActor + 8);
         }
-        r = func_8004AD30(arg0, &v1.x, &out.i, 4.0f, 0, 0, 0, 0xE);
-        if ((r << 24) != 0) {
-            res = approximateAtan2(out.f - *(f32 *)((char *)s3 + 0xE4), 1.5f);
-            v2 = v1;
-            v2.x += sinAngle(*(f32 *)((char *)arg1 + 0x40));
-            v2.y += func_8008292C(res);
-            v2.z += cosAngle(*(f32 *)((char *)arg1 + 0x40));
-            res *= 0.47746482f;
+        hitFound = func_8004AD30(scene, &probePos.x, &hit.i, 4.0f, 0, 0, 0, 0xE);
+        if ((hitFound << 24) != 0) {
+            steerAngle = approximateAtan2(hit.f - *(f32 *)((char *)trackState + 0xE4), 1.5f);
+            steerPos = probePos;
+            steerPos.x += sinAngle(*(f32 *)((char *)actor + 0x40));
+            steerPos.y += func_8008292C(steerAngle);
+            steerPos.z += cosAngle(*(f32 *)((char *)actor + 0x40));
+            steerAngle *= 0.47746482f;
         }
     }
-    return res;
+    return steerAngle;
 }

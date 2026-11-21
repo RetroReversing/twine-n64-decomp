@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s16 func_8003090C();
 s32 *func_80087100();
 s32 sprintf();
-extern s32 D_800BFF04;
+extern s32 gEntryTable;
 extern char D_800E1610[];
 
 extern char D_800D2DD0[];
@@ -35,13 +35,13 @@ s32 *func_800313DC(s16 arg0, s32 arg1) {
     if (var_s2 < 0) {
         return func_80087100(3);
     }
-    temp_v1 = M2C_FIELD(((var_s2 * 8) + D_800BFF04), u16 *, 2) & 0xF;
+    temp_v1 = M2C_FIELD(((var_s2 * 8) + gEntryTable), u16 *, 2) & 0xF;
     if (temp_v1 == 1) {
         var_s0 = 0xA0;
     } else {
         var_s0 = (-(temp_v1 == 2) & 0x9F) | 0x9E;
     }
     temp_s1 = func_80087100(0xA4);
-    sprintf(D_800E1610, D_800D2DD0, temp_s1, (s8) (M2C_FIELD((((s32) (var_s2 << 0x10) >> 0xD) + D_800BFF04), u8 *, 1) + 0x41), func_80087100(var_s0));
+    sprintf(D_800E1610, D_800D2DD0, temp_s1, (s8) (M2C_FIELD((((s32) (var_s2 << 0x10) >> 0xD) + gEntryTable), u8 *, 1) + 0x41), func_80087100(var_s0));
     return D_800E1610;
 }

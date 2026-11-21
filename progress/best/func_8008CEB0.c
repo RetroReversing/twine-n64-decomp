@@ -50,7 +50,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
         temp_fp = arg0 & 0xFF;
         var_s0 = &sVoiceTable + 0x24;
         var_s7 = 0;
-        do {
+        __repair_rows: {
             if ((M2C_FIELD(var_s0, s32 *, 0x3C) != -1) && (M2C_FIELD(var_s0, u8 *, 0x26) == sp17) && (M2C_FIELD(var_s0, u8 *, 0x27) == sp1F)) {
                 temp_a0 = M2C_FIELD(var_s0, s32 *, 0);
                 if ((temp_a0 & 0x10) && ((temp_a0 & 0x40000008) != 8) && (func_8008C1B0(var_s3) & 0xFF)) {
@@ -85,7 +85,8 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
             var_s3 += 1;
             var_s0 += 0x1A0;
             var_s6 = (M2C_UNK *) ((u8 *) var_s6 + 0x1A0);
-        } while (var_s3 < (u8) sVoiceCount);
+        }
+if (var_s3 < (u8) sVoiceCount) goto __repair_rows;
     }
     if (var_s4 != -1) {
         func_80099B64(var_s1);

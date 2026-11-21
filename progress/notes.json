@@ -2240,7 +2240,7 @@
   "score_after": null
  },
  {
-  "function": "func_8004AD30",
+  "function": "sweepSphereAgainstScene",
   "text": "No compile done in this session. Claimed at candidate 87567e2bbe59f64e0ecc (m2c draft, 3984 bytes, large). The draft does not compile: undeclared sp5C, spCC, sp60 (used around the arg4 block at the end), pointer-vs-int warnings at the func_800488D4/func_8004E418 call sites, and many m2c-only variables. Structure is visible from the draft: outer do-loop over a linked list (arg0) with two scan blocks testing flags at 0x58/0x5C/0x70/0x78 and calls to func_800487F0, func_80083A6C, func_800488D4, func_8004E418, func_8004D910, func_80048CC0, func_8004886C. Needs a full clean rewrite with declared locals and checked struct offsets before any tuning. Verified-by-compile: nothing.\n\nCORRECTION: the previous release note for this function was written without reading the candidate or assembly. Its details (candidate revision, token, the specific sp5C/spCC/sp60 errors, call lists) were not verified. Re-read get_candidate and the brief before relying on any of it. No compile was run in that session.",
   "by": "permuter-25769805351",
   "created_at": 1795056683.709949,
@@ -2464,7 +2464,7 @@
   "score_after": null
  },
  {
-  "function": "func_8004AD30",
+  "function": "sweepSphereAgainstScene",
   "text": "Not attempted in this session; no compile. 3984 bytes / ~996 instructions, the m2c draft is unlikely to match as-is: it does not compile (undeclared sp5C, spCC, sp60 in the arg4 block; sp5C/spCC/sp60 are the high words of a struct-like local array). Needs a clean hand rewrite of the three nested candidate loops (sp134-based distance tests, D_80108788/D_80108F84 outputs) with typed locals. Prototype review warns func_8004886C caller signature disagrees with its matched definition (void*,void*,f32 vs void**,void*,f32); resolve that first. Recommend splitting analysis into the three loops before retrying.",
   "by": "permuter-25769805351",
   "created_at": 1795057620.770462,
@@ -2648,7 +2648,7 @@
   "score_after": null
  },
  {
-  "function": "func_8004AD30",
+  "function": "sweepSphereAgainstScene",
   "text": "Not attempted; no compile run in this session. 3984 bytes, a large nested search loop. The m2c draft has undeclared temporaries (sp5C, spCC, sp60 used at the end, in the arg4 block) and it does not compile yet. Start by fixing the declarations, then check the call signatures (func_80048CC0 / func_8004D910 take f32*, and the draft mixes u16* and u8* index arithmetic). Also check the goto/block labels (block_16, block_17, block_46, block_102, block_131, block_133) against the assembly before matching control flow.\n\nCORRECTION: the previous release note was written without reading this function's assembly, draft or candidate. Do not rely on its specifics (temporaries, block labels, callee signatures). No compile was run on this function in this session. Start fresh from get_candidate and get_assembly.\n\nIgnore my earlier note on this function. It was written in error: I had not read this function's assembly or candidate, so its specifics are unverified. Start fresh from get_candidate and get_assembly.",
   "by": "permuter-25769805351",
   "created_at": 1795058617.5789142,
@@ -4430,6 +4430,14 @@
   "created_at": 1795138284.5664158,
   "score_before": 690,
   "score_after": 690
+ },
+ {
+  "function": "func_80002D70",
+  "text": "Restored/rechecked best score 540. Alternative direct cleanup scored 740. Tested inferred_record_layout, declaration_order, signedness, address_temporary, constant_local and call_arity; no improvement. Remaining mismatch starts at target lw $t0,4($v0), move $a0,$a3; candidate loads into $a0 and uses $a3 as index. Branch targets differ by 4 bytes, signed-vs-unsigned loop compare (target sltiu). Retain best source.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795138284.583463,
+  "score_before": 540,
+  "score_after": 540
  },
  {
   "function": "func_80037788",
@@ -9656,7 +9664,7 @@
   "score_after": 120
  },
  {
-  "function": "func_8004AD30",
+  "function": "sweepSphereAgainstScene",
   "text": "Made previously noncompiling m2c draft compile: declared missing sp5C/sp60/spCC and cast six computed byte addresses to u16 pointers. Score 30926 before experimental volatile padding; 30159 with 184 bytes padding, which is only a diagnostic and not a plausible final solution. Target has 996 instructions versus 858 in draft. Reconstruct stack vector/overlapping short/float layouts (especially sp88), loop and call types before tuning registers. Session context limit; leaving work for continuation.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795177117.124744,
@@ -10864,6 +10872,14 @@
   "score_after": 605
  },
  {
+  "function": "func_80002D70",
+  "text": "Byte-type table declarations and baseline score 540; six local variants did not improve. Target copies loop byte offset from a3 to a0 each iteration and keeps comparison global in t0, whereas candidate uses a3 directly and global in a0. Rework loop's offset lifetime/control flow; remaining 23 diff rows mostly follow.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795178258.168607,
+  "score_before": 540,
+  "score_after": 540
+ },
+ {
   "function": "func_8002A9A8",
   "text": "Rechecked baseline 1080. Six loop, layout, lifetime, signedness, declaration and branch orientation trials did not improve. Target has three missing instructions and loop/register differences; inspect full target around byte-count accumulation and float normalization.",
   "by": "codex-gpt-6.1-terra-4",
@@ -11464,7 +11480,7 @@
   "score_after": 121
  },
  {
-  "function": "func_80030DD8",
+  "function": "setEntryMode",
   "text": "Best verified score 310. Rebuilt with one argument, no-argument callee, cached loop bases and counts, separate loop indices and explicit branches. Case 5 is missing move a2,v1 before the loop; remaining case 8/4 register allocations differ. Try independent locals/lifetimes for case 5 base and count to force the missing move and then tune case 4 registers. Separate base2 alone scored 315.",
   "by": "codex-gpt-6.1-terra-4",
   "created_at": 1795178675.475093,
@@ -14872,6 +14888,14 @@
   "score_after": 170
  },
  {
+  "function": "func_80002D70",
+  "text": "Best 395 at 67f03de3fc81eeb76853, improved from 540. Three-word struct assignment exactly matches the post-call lw/lw/lw/sw/sw/sw. Main remaining difference is the target loop top move a0,a3; global key occupies t0 while best keeps the key in a0. Keeping the copied offset live into first flag check moves key into t0, but GCC schedules the copy in a plain bne delay slot, removing the target's bnel/increment. Split increment branches on that variant scored 630. A two-argument func_80002D30 declaration and call (callee chain uses a0/a1) tied 395; use it when making the next structural variant. Try restructuring the loop-exit and offset-copy lifetime together.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795182802.811695,
+  "score_before": 540,
+  "score_after": 395
+ },
+ {
   "function": "func_8000CA3C",
   "text": "Rechecked saved candidate at 460. Six local repairs (integer lifetime merge, pointer/integer union, statement boundary, signedness, declaration order, constant local) did not improve it. Remaining mismatch starts with D_8010A4C1 address allocated in a2 instead of a0 and includes control-flow/branch-target differences; inspect full diff and restructure the conditional paths.",
   "by": "codex-gpt-6.1-terra-8",
@@ -15200,7 +15224,7 @@
   "score_after": 325
  },
  {
-  "function": "func_80030DD8",
+  "function": "setEntryMode",
   "text": "Score 35 (21afebac563b5170cc96). Case 5 is the only mismatch: a0/a1 swapped consistently for the u16 index and loop limit across seven rows; all other instructions and jump table layout match. Scoped each case independently, put scaled index first in address addition, and used separate cached base/count with guarded do-while in case 5. Changing count/index declaration order, initialization order and splitting the flags load tied. Three for-loop forms worsened. Next try separate width for case 5 limit (s32/u32) or declaring the index inside the if block while preserving the explicit nonzero check and copied base.",
   "by": "codex-gpt-6.2-sol-6",
   "created_at": 1795183005.238513,
@@ -23280,6 +23304,14 @@
   "score_after": 0
  },
  {
+  "function": "func_80002D70",
+  "text": "Rechecked baseline score 395. Tested signed and unsigned 16-bit offset via casts and declarations; scores 580 and 420, so retained baseline. Target needs a distinct offset register copied from the running offset at loop entry; baseline coalesces them, also shifting branches and later registers. Investigate loop structure and offset lifetimes rather than width casts.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795188488.306572,
+  "score_before": 395,
+  "score_after": 395
+ },
+ {
   "function": "func_800AB9B0",
   "text": "Best score 140 (94.1%). Local backedge, declaration, signedness, const-read, and assignment-at-use variants did not improve; a two-pointer rewrite compiled identically. Remaining mismatches are register allocation and branch shape: target moves s1=a0, then s0=s1; candidate misses that move and uses bnez v0 at 0x24 instead of bnez a0 at 0x28 (and beqz target 0x44 instead of 0x48). Restructure pointer lifetime/control flow to preserve the initial pointer in s0 while iterating with s1.",
   "by": "codex-gpt-6-luna-19",
@@ -26176,6 +26208,14 @@
   "score_after": 15
  },
  {
+  "function": "func_80002D70",
+  "text": "Saved best 395/68 target vs 67 generated. Cached global field before loop did not improve; local register qualifiers likewise optimized away and scored 405. Target's loop copies a3 offset into a0 before increment, keeps cached field in t0, and zeroes a2 before a3; candidate differs in register allocation/control offsets. Automatic address_temporary family produced identical results. Continue from saved_best; inspect exact diff/consider offset temporary lifetime.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795191443.4904478,
+  "score_before": 395,
+  "score_after": 395
+ },
+ {
   "function": "func_8003FA20",
   "text": "Regular judge score 60, only the return-address save was early. Diagnostic c0cd704ed024a9e23ede matches exactly with -O1 -fschedule-insns2. Verified function-only bundle submitted; automatic application is off.",
   "by": "codex-gpt-6.2-sol-1",
@@ -26624,7 +26664,7 @@
   "score_after": 1275
  },
  {
-  "function": "func_80030DD8",
+  "function": "setEntryMode",
   "text": "Verified best score 35: seven register differences in case 5 loop, target uses a1 for index and a0 for limit, candidate swaps them. Reordering index/limit initialization and declarations or register qualifier did not change this; widening limit worsened. Seek another expression of case 5 loop that changes allocation while preserving its instruction order.",
   "by": "codex-gpt-6.1-terra-8",
   "created_at": 1795192060.131758,
@@ -27678,6 +27718,14 @@
   "created_at": 1795193220.102087,
   "score_before": 1430,
   "score_after": 1430
+ },
+ {
+  "function": "func_80002D70",
+  "text": "Best 205. Using the copied offset in the first flag test produced the desired a0 copy in the first comparison branch delay slot, but score 445. Splitting increments into two C paths with goto advance still cross-jumps into one increment and yields bne, score 440. Look for a loop form that keeps separate increments and allows the first to fill a branch-likely slot.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795193240.790613,
+  "score_before": 205,
+  "score_after": 205
  },
  {
   "function": "func_8009AE24",
@@ -30000,6 +30048,14 @@
   "score_after": 150
  },
  {
+  "function": "func_80002D70",
+  "text": "Near match; saved best remains score 20 (68/68 instructions). Rechecked baseline; all C equivalents compile. Direct first compile also scored 20. Four register differences remain in target positions 33, 39, 49, 50 (target keeps byte offset in $a0 for one table read, $a3 for the other; scaled table index in $v0 for both flag branches, then addu $v0,$v0,$a2 and sll $v0,$v0,1 for the final table index). Changing the final offset expression from `*((u16 *)((s8 *)&D_800AE682 + ((offset + var_a2) * 2)))` to `((u16 *)&D_800AE682)[offset + var_a2]` kept score 20 and cleared two target mismatch sites; retain this alternate if useful. Explicit stepwise arithmetic made score 30; several statement movement/local renames did not change diff. The core issue is allocation: compiler uses $a3/$a0 for flag offsets and computes final index in $a0 rather than $v0. Try typing offset/index as u16 or splitting the two branch reads into distinct locals, while preserving existing C control flow. Callee definition is void func_80002D30(void*), while target passes $a0 arg0 and u16 in $a1 via call; the compiler currently generates call as needed.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198048.608255,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
   "function": "func_80087380",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 36; 3 differing rows (3 register; advisory).\nTarget: mtc1 $zero, $f4\nCandidate: mtc1 $zero, $f2\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = jal func_80045590\n  = addiu $a1, $s3, 0x30\nr T: mtc1 $zero, $f4 | C: mtc1 $zero, $f2\n  = nop\nr T: c.eq.s $f0, $f4 | C: c.eq.s $f0, $f2\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nActive lease was lost during compile_variants after low-progress handoff. Best candidate is already rechecked score 15 (three register diffs: target mtc1 $zero,$f4; c.eq.s $f0,$f4; mov.s $f20,$f4, candidate uses $f2 throughout). Tried type/initialization/declaration changes to loop_zero and var_fs1, and moving constant setup; outcomes equal or worse. Target assembly around first diff: after func_80045590, mtc1 zero to $ft0; candidate initializes zero in $f2. likely need influence temporary zero FPR allocation without affecting later branch control; try initializing loop_zero after call or ordering var_fs0 setup. Header prototype edit for matched funcs rejected because breaks 4 other matches. Best source mismatched prototypes are legacy m2c; candidate compiles despite warnings.",
   "by": "codex-gpt-6-luna-17",
@@ -31080,6 +31136,14 @@
   "score_after": 185
  },
  {
+  "function": "func_80002D70",
+  "text": "Verified revision 558aeedb8acb564876cf scores 20 with four register-only mismatches. Replacing the loop load's offset copy with var_a3 and scoping branch scaling through do/while tie; scoping the stride update worsens to 60. First remaining mismatch is the D_800AE684 address add using a3 where the ROM uses a0. Explore a branch-local copy of the loop byte offset, or original record-pointer lifetimes around the two flag tests. The matched callee declaration omits the second input that this caller loads; inspect its assembly and other callers before changing that prototype.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795199194.8281841,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
   "function": "cordicAtanVectoring",
   "text": "Best score 2170 at revision 5e980df9dff79dc95ca5 (109 candidate vs 110 target instructions, ~80.2%). Core CORDIC-like loop draft remains low match; diff is broad register/control-flow/order mismatch (88 rows; 60 register, 11 branch targets, inserts/deletes). Tried explicit loop backedge, inverted sign branch, constant-local, unsigned table index and arithmetic operand-order variations via local repairs; none improved, with several worse. Current source uses s64 xin/yin, s64 accumulator z, table D_800D1250[i], output func_800ABFA0(z)/D_800D6EC0. Need re-derive variable lifetimes/condition and 64-bit parameter handling against target assembly before further compiler tuning.",
   "by": "codex-gpt-6-luna-13",
@@ -31160,7 +31224,7 @@
   "score_after": 165
  },
  {
-  "function": "func_80030DD8",
+  "function": "setEntryMode",
   "text": "Best current score 35 (99.6%, all 108 instructions present) on revision 198ff33f072356ef4563. Local repair variants tested explicit loop backedge, constant local, unsigned switch, symbol-address local, narrow widening, global scalar type; no improvement (some broke jump-table bytes). Reordering the case 4/9 local declarations also had no effect. Only seven register allocations differ in the shared case 4/9 loop: target uses a1 for the u16 index and a0 for loaded global value, candidate uses a0 for index and a1 for value; remaining differences are dependent uses. Explore loop variable type/lifetime and statement ordering within that case.",
   "by": "codex-gpt-6-luna-7",
   "created_at": 1795199342.216973,
@@ -32632,6 +32696,14 @@
   "score_after": 15
  },
  {
+  "function": "func_80002D70",
+  "text": "Rechecked baseline score 20, six local repairs exhausted without improvement. Four mismatches are register-only; first is target computes record address with $a0 (incoming third argument pointer) while candidate uses $a3 loop offset at D_800AE684 table lookup. The table entry likely uses the matched loop index scalar that target retains in $a0; explicit reuse of var_a2 for the final offset may recover it. Other differences likely involve argument pointer lifetime. Tried arithmetic operand order (tie), address local (620), operation scope (60), copy register reuse (tie), loop weight (tie), initialization order (30). Next precise edit: use `var_a2 * 6` directly for D_800AE684 table lookup instead of current var_a3, and inspect call lookup index expression `((offset + var_a2) * 2)`; should be `index*6`.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795201047.267265,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
   "function": "func_80037C84",
   "text": "60 baseline differs only in order: addiu a2,a2,8 rises above the D_80109CB8 store. Removing the unneeded third argument gives the same score and bytes (callee's matched signature is two args). As-assignment call, scoped next pointer, and typed field-size pointer increments also keep identical output. Volatile store casts and do/while around either update regress. Try explicit paired Gfx command structs and typed postincrement cursor locals across the final display-list block to change schedule while retaining both pointer lifetimes.",
   "by": "codex-gpt-6.2-sol-6",
@@ -32944,7 +33016,7 @@
   "score_after": 175
  },
  {
-  "function": "func_80030DD8",
+  "function": "setEntryMode",
   "text": "Current best 35 with all 108 instructions present; only seven register allocation differences remain in case 4/9 loop. Target uses a1 as counter, moves result to a0, masks a1 to v1, then increments a1 and compares against a0; candidate's compiler allocates the loop counter/result in a0/a1 reversed. Local repair batch on loop form/switch layout did not improve. One signed-counter rewrite substantially regressed to 1240 by changing loop/control flow; avoid. Try changing names/declaration order or isolate count/index temporaries so target counter lives in a1 and bound in a0, while preserving original u16 arithmetic and switch fallthrough.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795201388.670932,
@@ -33912,6 +33984,14 @@
   "score_after": 50
  },
  {
+  "function": "func_80002D70",
+  "text": "Rechecked score 20; six local variants produced identical instructions. Four register mismatches remain around indexed flag access.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795201980.231013,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
   "function": "func_8006201C",
   "text": "Saved baseline rechecked at 810 (88 instructions), current mismatch is chiefly instruction order plus registers. A custom rewrite first scored same. Moving first two independent field writes so word field preceded byte field scored 1180, so discard. Reordering initialization for inverse/count-related operations ahead of table lookup scored 1430; discard. Reordering adjacent 1000.0 and -1 stores preserved 810 but only changed two displayed rows; no improvement. Reordered global lookup/store segment worsened to 930. Existing candidate reproduces machine behavior but emitted order puts the byte store and arg1+0x2E load after the word/s16/s32 stores; target performs byte store at +0x2E, then loads arg1+0x2E before writing arg2 to +0. Continued likely approach: use target page 40 onward, add scoped temporaries for arg1 fields/table bytes and explicitly stage loads to control instruction scheduling. Target sequence after division does sh zero + lhu $a1 from result field, then clears bytes/sets constants, stores inverse, table global load+convert/store, table global second value and float constant/arg2 initialization before call. Prior source ordered table globals too early relative to constants.",
   "by": "codex-gpt-6-luna-17",
@@ -34704,7 +34784,7 @@
   "score_after": 1285
  },
  {
-  "function": "func_80030DD8",
+  "function": "setEntryMode",
   "text": "Baseline 35, seven register-only differences in case 5 loop. Explicit backedges, loop variable signedness, switch shape and literal variants failed to improve.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795202356.74981,
@@ -36838,6 +36918,14 @@
   "created_at": 1795204337.009103,
   "score_before": 60,
   "score_after": 60
+ },
+ {
+  "function": "func_80002D70",
+  "text": "Best = score 20 (99.7%, 68 insns) at revision 9e0c22b43cbdd7343bf2 (m2c-style loop with var_a2/var_a3/offset, goto block_10). Remaining 4 diffs are register-only: target uses a0 (copy of loop offset) for D_800AE684 address in the flag(0x20) path and a2<<1 scheduling in shared tail; ours uses a3 and a0 for sll. Tried: rewriting loop as for(;;) with count/offset and if-structure (score 2140, worse); moving offset recompute after the flag check into the flag branch (475, worse). Untried: change which variable indexes D_800AE684 in the non-flag branch, or reorder var declarations.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795204337.342428,
+  "score_before": 20,
+  "score_after": 20
  },
  {
   "function": "func_80018364",
@@ -42888,7 +42976,7 @@
   "score_after": 215
  },
  {
-  "function": "func_8004AD30",
+  "function": "sweepSphereAgainstScene",
   "text": "Rechecked saved_best revision 986da6578f40602ccf30 at score 19091. Ran six independent local repairs: symbol_address_local, pointer_byte_step, branch_orientation, stack_object_size, signedness, declaration_order. None improved; stack_object_size worsened to 19101, symbol address local worsened substantially. Dominant mismatch remains frame size/stack layout (target -0x1e0, candidate -0x1c0), 535 advisory differing rows. Resume with deeper aggregate/local layout analysis, especially actual call-written buffer sizes and stack offsets. No better score in 6/6 local trials.",
   "by": "codex-gpt-6-luna-6",
   "created_at": 1795209463.261055,
@@ -47464,6 +47552,15 @@
   "score_before": 9765,
   "score_after": 230,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_80002D70",
+  "text": "Rechecked score 20; 4 register-only differences remain. Local repair family guesses found no untried applicable variants. Existing load captured to temp and equivalent test were no improvement; best remained 20. Target uses a0 at D_800AE684 address addition and a2 as shift input; candidate uses a3 and a0 respectively.\nSame indexed halfword load captured into temp_v1; no assembly change, score 20.\nFour register allocation differences persist in flag paths.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795213836.407435,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4de5e32f80946157fc19c66c986660fef6bd1726553934b6ec67d50efcff3934"
  },
  {
   "function": "func_80087380",
@@ -54020,100 +54117,155 @@
   "score_after": 0
  },
  {
-  "function": "func_80002D70",
-  "text": "Restored/rechecked best score 540. Alternative direct cleanup scored 740. Tested inferred_record_layout, declaration_order, signedness, address_temporary, constant_local and call_arity; no improvement. Remaining mismatch starts at target lw $t0,4($v0), move $a0,$a3; candidate loads into $a0 and uses $a3 as index. Branch targets differ by 4 bytes, signed-vs-unsigned loop compare (target sltiu). Retain best source.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795138284.583463,
-  "score_before": 540,
-  "score_after": 540
- },
- {
-  "function": "func_80002D70",
-  "text": "Byte-type table declarations and baseline score 540; six local variants did not improve. Target copies loop byte offset from a3 to a0 each iteration and keeps comparison global in t0, whereas candidate uses a3 directly and global in a0. Rework loop's offset lifetime/control flow; remaining 23 diff rows mostly follow.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795178258.168607,
-  "score_before": 540,
-  "score_after": 540
- },
- {
-  "function": "func_80002D70",
-  "text": "Best 395 at 67f03de3fc81eeb76853, improved from 540. Three-word struct assignment exactly matches the post-call lw/lw/lw/sw/sw/sw. Main remaining difference is the target loop top move a0,a3; global key occupies t0 while best keeps the key in a0. Keeping the copied offset live into first flag check moves key into t0, but GCC schedules the copy in a plain bne delay slot, removing the target's bnel/increment. Split increment branches on that variant scored 630. A two-argument func_80002D30 declaration and call (callee chain uses a0/a1) tied 395; use it when making the next structural variant. Try restructuring the loop-exit and offset-copy lifetime together.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795182802.811695,
-  "score_before": 540,
-  "score_after": 395
- },
- {
-  "function": "func_80002D70",
-  "text": "Rechecked baseline score 395. Tested signed and unsigned 16-bit offset via casts and declarations; scores 580 and 420, so retained baseline. Target needs a distinct offset register copied from the running offset at loop entry; baseline coalesces them, also shifting branches and later registers. Investigate loop structure and offset lifetimes rather than width casts.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795188488.306572,
-  "score_before": 395,
-  "score_after": 395
- },
- {
-  "function": "func_80002D70",
-  "text": "Saved best 395/68 target vs 67 generated. Cached global field before loop did not improve; local register qualifiers likewise optimized away and scored 405. Target's loop copies a3 offset into a0 before increment, keeps cached field in t0, and zeroes a2 before a3; candidate differs in register allocation/control offsets. Automatic address_temporary family produced identical results. Continue from saved_best; inspect exact diff/consider offset temporary lifetime.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795191443.4904478,
-  "score_before": 395,
-  "score_after": 395
- },
- {
-  "function": "func_80002D70",
-  "text": "Best 205. Using the copied offset in the first flag test produced the desired a0 copy in the first comparison branch delay slot, but score 445. Splitting increments into two C paths with goto advance still cross-jumps into one increment and yields bne, score 440. Look for a loop form that keeps separate increments and allows the first to fill a branch-likely slot.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795193240.790613,
-  "score_before": 205,
-  "score_after": 205
- },
- {
-  "function": "func_80002D70",
-  "text": "Near match; saved best remains score 20 (68/68 instructions). Rechecked baseline; all C equivalents compile. Direct first compile also scored 20. Four register differences remain in target positions 33, 39, 49, 50 (target keeps byte offset in $a0 for one table read, $a3 for the other; scaled table index in $v0 for both flag branches, then addu $v0,$v0,$a2 and sll $v0,$v0,1 for the final table index). Changing the final offset expression from `*((u16 *)((s8 *)&D_800AE682 + ((offset + var_a2) * 2)))` to `((u16 *)&D_800AE682)[offset + var_a2]` kept score 20 and cleared two target mismatch sites; retain this alternate if useful. Explicit stepwise arithmetic made score 30; several statement movement/local renames did not change diff. The core issue is allocation: compiler uses $a3/$a0 for flag offsets and computes final index in $a0 rather than $v0. Try typing offset/index as u16 or splitting the two branch reads into distinct locals, while preserving existing C control flow. Callee definition is void func_80002D30(void*), while target passes $a0 arg0 and u16 in $a1 via call; the compiler currently generates call as needed.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198048.608255,
-  "score_before": 20,
-  "score_after": 20
- },
- {
-  "function": "func_80002D70",
-  "text": "Verified revision 558aeedb8acb564876cf scores 20 with four register-only mismatches. Replacing the loop load's offset copy with var_a3 and scoping branch scaling through do/while tie; scoping the stride update worsens to 60. First remaining mismatch is the D_800AE684 address add using a3 where the ROM uses a0. Explore a branch-local copy of the loop byte offset, or original record-pointer lifetimes around the two flag tests. The matched callee declaration omits the second input that this caller loads; inspect its assembly and other callers before changing that prototype.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795199194.8281841,
-  "score_before": 20,
-  "score_after": 20
- },
- {
-  "function": "func_80002D70",
-  "text": "Rechecked baseline score 20, six local repairs exhausted without improvement. Four mismatches are register-only; first is target computes record address with $a0 (incoming third argument pointer) while candidate uses $a3 loop offset at D_800AE684 table lookup. The table entry likely uses the matched loop index scalar that target retains in $a0; explicit reuse of var_a2 for the final offset may recover it. Other differences likely involve argument pointer lifetime. Tried arithmetic operand order (tie), address local (620), operation scope (60), copy register reuse (tie), loop weight (tie), initialization order (30). Next precise edit: use `var_a2 * 6` directly for D_800AE684 table lookup instead of current var_a3, and inspect call lookup index expression `((offset + var_a2) * 2)`; should be `index*6`.",
+  "function": "func_8009532C",
+  "text": "Saved baseline rechecked score 1260. Target is leaf function: computes sqrt.s of x*x+y*y+z*z, divides each original vector component by length, returns length in $f0, and last swc1 is return delay slot. sqrtf prototype is unrecognized by linker, causing unresolved symbol and much worse output; sqrt declaration generates sqrt.s but warning conflicting built-in type and still has 8 extra instructions, stack frame and wrong FP register allocation. Local inline variants unchanged. Next test: correct math header/prototype context for builtin sqrt semantics or use existing function symbol resolving to sqrt.s; avoid sqrtf without symbol alias. Need retain original direct loads after norm computation, since target reloads y and z after sqrt rather than preserving all scalars. No exact match.",
   "by": "codex-gpt-6-luna-17",
-  "created_at": 1795201047.267265,
-  "score_before": 20,
-  "score_after": 20
+  "created_at": 1795221079.683125,
+  "score_before": 1260,
+  "score_after": 1260
  },
  {
-  "function": "func_80002D70",
-  "text": "Rechecked score 20; six local variants produced identical instructions. Four register mismatches remain around indexed flag access.",
+  "function": "func_8009AE24",
+  "text": "Saved/rechecked best 1170. Tested signed-byte condition (1560), u32 extraction (1570), register qualifier removal (1170 unchanged), and local repair families branch_orientation/signedness/declaration_order (1170 baseline retained). Residual first mismatch is allocation: target uses $s3 for Cmd* and saves it first, candidate uses $s0; additional branch target offsets differ. Next inspect target/source temps and try a declaration/lifetime structure forcing Cmd* into s3.\nRechecked baseline 1170; explored signedness and register declaration variants without improvement.\nFirst mismatch prologue reg allocation $s3 vs $s0 and downstream branch lengths; saved best intact.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795221079.9079602,
+  "score_before": 1170,
+  "score_after": 1170,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b596b3f3c7ea884cca2ee049fad605fca3901802cc7f905ecb89cd8c7731fd1c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "No improvement (best 535 saved). Tried: u16 curve with if(curve!=0) else-store form (540); u32 curve + separate u16 arg var (540); u32 curve with (curve&0xffff) test and call, proto taking u32 (540). All give 'or a0,v1,v0; beqz a0' \u2014 GCC folds the mask away. Target does or v1; andi a0,v1,0xffff; beql a0 with delay sw s0. Next step: try getting curve from a halfword/composed via a struct/union or macro with a separate temp so the or result stays live in v1 beyond the call arg copy.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795221080.234955,
+  "score_before": 540,
+  "score_after": 540,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8011CC3C",
+  "text": "Address temporary in clearing loop improved 1788 to 1783; narrower var_a0 worsened to 2323; record layouts unchanged.\nTarget frame 0x38 versus candidate 0x40, with extensive register differences.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795221096.693611,
+  "score_before": 1923,
+  "score_after": 1783,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:51c7f029121803c86831d45757bc40a84d1f91c8cbd6c69b571198aa1e49d52e"
+ },
+ {
+  "function": "func_80096F44",
+  "text": "Still score 10 (saved best 9b4b68b9f1ded9dcdcaa). Tried this session: s16 param with in-place clamp (1965), s16 shadow var + s32 result r (1790) - both worse, branch inversions (bgez vs bltz). Target: move a3,a2 at entry; sll a2; clamp in a2 (middle case move a2,a3); then move a3,a2. Next step: keep m2c structure, try making the original-value copy a distinct pseudo that survives (e.g. pass through volatile-free helper-style macro with two temps).",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795221109.0104709,
+  "score_before": 1965,
+  "score_after": 1790,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b82f7b0cab97c89b065d2ff98c20925df0a27771d7a11fb7a8043d23b39b19c6"
+ },
+ {
+  "function": "func_80087580",
+  "text": "Retained historical 180. Moving the 0x7C zero store earlier plus moving the loop pointer assignment scored 405; early volatile store scored 405; early ordinary store plus moving both loop initializers after objectSetAnimFrame scored 395. Early-store candidates still exchange arg2/arg3 saved registers.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795221111.930413,
+  "score_before": 405,
+  "score_after": 395,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fc3b637fee7dc0e4341799685c3378a726b8dc1097191b8cce5209d0ec494933"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Current baseline 875. Local repair variants did not improve; branch orientation worsened, inferred-record layout and inline scheduling were neutral, scalar storage and lifetime variants worsened. First mismatch target beqz offset d8 vs candidate d4. Next step: inspect full assembly and try changing null-check block shape to shift branch target by one instruction while preserving register allocation.\n6 independent local repair families; best remained 875\nno score improvement; current best retained",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795221161.243538,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_80099CA8",
+  "text": "Branch orientation of sentinel check is the only verified score improvement 2515\u21922230. Local repairs exhausted (count says move on). Current best candidate remains 2230. Early target assembly has status flags load/srl/andi, bit test branch with -5 delay, then mask/error paths and target beql after func_8008C1B0. Next step: restructure first block to reproduce beql and force desired v0/v1 roles.\nInverted sentinel condition from `if (sp10 != 0xFFFF) { ... } else {store -1;}` to `if (sp10 == 0xFFFF) {store -1;} else { ... }` improved 2515\u21922230. Signedness and remaining local families tied. A manual patch attempt failed because it omitted existing labels/closing structure.\nBest current rechecked score 2230; target early mismatch still flag branch layout (target beqz to 0x180; ours to 0x170), plus $v0/$v1 assignments and beql after callee.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795221175.21615,
+  "score_before": 2515,
+  "score_after": 2230,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bb001ea5202bfe79c01b5e3a8d49d04dca2f9082a01394075711642d04b57d08"
+ },
+ {
+  "function": "func_8008EF18",
+  "text": "Rechecked baseline remains score 40. Target computes index*40 into $a1, uses $a0 for D_80107EE8 base/load, then $v1 for D_80107EE0 and $v0 for D_80107EDC. Candidate's scaled index lands in $a0, forcing first base into $v1. Tested signedness, u8 parameter width, read-before-assign (third errored), and explicit unused local/pointer additions; no improvement. Next try a C shape that keeps index*40 live independently while making first table base naturally use $a0, perhaps explicit typed pointers/tables or reordered address computation; inspect remaining mismatch rows.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795221217.411368,
+  "score_before": 240,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:9482edf9e382eb9f79825a14e65a6bd44d9059bbd33d883fe0d1a61ed1b3d77d"
+ },
+ {
+  "function": "func_800075C4",
+  "text": "Saved revision fe7a8bac4f119b8729c2 scored 1950: volatile cursor preserves four stores, improving 2780. Branch scalar lifetime, signedness, declaration order each tied. First mismatch mfc1 target s3 vs candidate v1; remaining display-list constant/store scheduling differs. Next step: test separate assignment then |= 0x80000000 in each upper conversion branch to influence destination register.",
   "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795201980.231013,
-  "score_before": 20,
-  "score_after": 20
+  "created_at": 1795221242.527594,
+  "score_before": 2780,
+  "score_after": 1950,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:14c914730d90e797a93c10c03ed536507af83cfb0e57415d6e3cdb8cad092bd2"
  },
  {
-  "function": "func_80002D70",
-  "text": "Best = score 20 (99.7%, 68 insns) at revision 9e0c22b43cbdd7343bf2 (m2c-style loop with var_a2/var_a3/offset, goto block_10). Remaining 4 diffs are register-only: target uses a0 (copy of loop offset) for D_800AE684 address in the flag(0x20) path and a2<<1 scheduling in shared tail; ours uses a3 and a0 for sll. Tried: rewriting loop as for(;;) with count/offset and if-structure (score 2140, worse); moving offset recompute after the flag check into the flag branch (475, worse). Untried: change which variable indexes D_800AE684 in the non-flag branch, or reorder var declarations.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795204337.342428,
-  "score_before": 20,
-  "score_after": 20
+  "function": "func_80081D50",
+  "text": "Reused masked temporary and split two shared stores into branch arms; tested inline scalar, inferred record, reversed branch and s32 local.\nCurrent baseline 6955 improved to 5850; remaining tests tied or worsened. Historical best 5235 rechecks at 6955.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795221247.9453042,
+  "score_before": 6955,
+  "score_after": 5850,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
  },
  {
-  "function": "func_80002D70",
-  "text": "Rechecked score 20; 4 register-only differences remain. Local repair family guesses found no untried applicable variants. Existing load captured to temp and equivalent test were no improvement; best remained 20. Target uses a0 at D_800AE684 address addition and a2 as shift input; candidate uses a3 and a0 respectively.\nSame indexed halfword load captured into temp_v1; no assembly change, score 20.\nFour register allocation differences persist in flag paths.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795213836.407435,
-  "score_before": 20,
-  "score_after": 20,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4de5e32f80946157fc19c66c986660fef6bd1726553934b6ec67d50efcff3934"
+  "function": "func_800882D0",
+  "text": "Best stays 60. Alt: stores-before-call with local char *q=(char*)&D_800E3F2C+4 gives 120 (only differs: move a2 placed in jal delay slot vs target's sb in delay slot, a2 move earlier). Tried third arg (void*)0, q-q, int z: unchanged 120. Next step: make the compiler set a2 earlier, e.g. pass a2 via a variable assigned before the first store (after osRecvMesg) that is also used elsewhere.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795221264.759938,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_8001E898",
+  "text": "Saved C rechecks 1440; repairs yielded no gains. One switch_layout expansion made score 4740; avoid. Mismatch begins at target move $a3,$a1 missing from candidate. Next step: inspect full target assembly, focus on argument preservation and switch lowering, then make a narrow patch.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795221276.7114701,
+  "score_before": 2170,
+  "score_after": 1440,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
+ },
+ {
+  "function": "func_8000AABC",
+  "text": "Rechecked best 1565. Tested copying reflected var_v1 into var_a1 (1655), abs conditional rewritten as assigned temp (1565), <= variant (1565 unchanged), extra clamp duplication (2285), inverted branch/goto (1565). Best remains 1565. Key residual: target has blez $a1 then addiu v1,+0x40 and jump over abs calc; candidate computes bgtz on a0 and uses extra branches. Prologue save order/flag pointer scheduling also differs.\nSeveral arithmetic/branch restructures, no improvement. Best 1565.\nTarget's reflection uses blez on $a1, addiu v1,+0x40, unconditional jump; current C branch arrangement generates bgtz $a0 and extra instructions. Target flag address scheduled after first call.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795221332.560915,
+  "score_before": 1655,
+  "score_after": 1565,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "func_8002A9A8",
+  "text": "At the 6/6 move-on threshold. The saved score of 150 lacks the second beqz on the count register. While and goto-to-test scored 210 and 815. Alternate count comparisons scored 150\u2013360. Next step: try a do-while(0) scope around the inner guard.\nWhile, goto-to-test, outer count > 0, outer count-1 >= 0, inner i < count and i != count\nScores 210, 815, 150, 360, 170, 150. Saved 150 lacks the second beqz.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795221333.5034182,
+  "score_before": 210,
+  "score_after": 150,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:12198e1fc2c6048da4947334837aa0789e037f5e10aa348b9422cf9a21fee677"
+ },
+ {
+  "function": "func_8008AECC",
+  "text": "Move-on threshold reached. Baseline 510. Volatile base 1040, staging base before stride 860, reusing ent for the call 540, call address operand reversal unchanged at 510. Target loads base before stride. Next step: use typed 104-byte entry indexing for first entry lookup only.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795221361.06979,
+  "score_before": 1040,
+  "score_after": 510,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b3de1c61e6cd5af2b4f55b30bb0f16e8fcb00b842e00912e80decd3013f1173b"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Saved best remains 210. New finding: a typed struct (E{u16 id;u16 cnt;s32 off;s32 dst;void*p;u8 pad[12]}) with param u16 arg0 and `for(; e->id != 0xFFFF; e=(E*)((char*)e+0x1C)) { if (e->id==arg0) {...; e->cnt++; break;} }` DOES produce the target's `ori v0,0xffff; andi v1,a3,0xffff; beq` guard (score 1305). But then D_800F38F4+i*12 is hoisted as lui/addiu before loop (target computes i*12 into v1 before loop and lui/addu/lw inside), and the call passes e->id reload instead of a3. Assigning a3=e->id inside the loop condition loses the andi (1340). Next step: combine d60f-style loop with idx precomputed `t=i*12` in a form that keeps lui inside loop (e.g. (char*)D_800F38F4 via volatile-less u8* cast add), and pass saved id.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795221361.8976839,
+  "score_before": 1580,
+  "score_after": 1305,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  }
 ]

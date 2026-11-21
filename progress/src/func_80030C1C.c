@@ -13,12 +13,12 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8002B02C(M2C_UNK *);                   /* extern */
-extern s32 D_800BFF04;
-extern s16 D_800E1608;
+extern s32 gEntryTable;
+extern s16 gEntryCount;
 extern M2C_UNK D_80102EFC;
 
 void func_80030C1C(void) {
-    D_800BFF04 = 0;
-    D_800E1608 = 0;
+    gEntryTable = 0;
+    gEntryCount = 0;
     func_8002B02C(&D_80102EFC);
 }

@@ -5,7 +5,7 @@ s32 func_80011938(s32, s32);                /* extern */
 s32 func_800218EC();                            /* extern */
 s32 func_80021938();                            /* extern */
 s32 func_800283B0();                         /* extern */
-s32 func_80030DD8(s32);                     /* extern */
+s32 setEntryMode(s32);                     /* extern */
 s32 func_80045130(s32);                     /* extern */
 extern u16 D_80102EDA;
 extern s8 D_80102EDE;
@@ -32,7 +32,7 @@ void func_8001EF9C(void) {
                 }
             }
             func_800283B0();
-            func_80030DD8(7);
+            setEntryMode(7);
             var_v0 = 0xC;
             if (!temp_s1) {
                 var_v0 = 0x10;

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_8003090C();
 s32 func_80087100();
-extern s32 D_800BFF04;
+extern s32 gEntryTable;
 
 void func_800314E0(s16 arg0, s32 arg1) {
     s32 temp_a1;
@@ -30,7 +30,7 @@ void func_800314E0(s16 arg0, s32 arg1) {
     }
     temp_v0 = var_v0;
     if (temp_v0 >= 0) {
-        var_a0 = M2C_FIELD(((temp_v0 * 8) + D_800BFF04), u16 *, 6);
+        var_a0 = M2C_FIELD(((temp_v0 * 8) + gEntryTable), u16 *, 6);
     } else {
         var_a0 = 3;
     }
