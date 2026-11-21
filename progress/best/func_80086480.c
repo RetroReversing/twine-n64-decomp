@@ -89,7 +89,9 @@ s32 func_80086480(s32 arg0, s32 arg1) {
     s32 temp_v0_7;
     s32 var_v0;
 
-    switch (gGameMode) {                           /* switch 1 */
+    switch (gGameMode) {
+case 0: break;
+                           /* switch 1 */
     case 33:                                        /* switch 1 */
         temp_a1 = arg1 & 0xFF;
         switch (temp_a1) {                          /* switch 2; irregular */
@@ -159,34 +161,28 @@ block_127:
             return 0;
         }
         break;
-    case 1:                                         /* switch 1 */
-        temp_a1_2 = arg1 & 0xFF;
-        if (temp_a1_2 != 2) {
-            if (temp_a1_2 < 3) {
-                if (temp_a1_2 != 1) {
-                    return 0;
-                }
-                var_v0 = func_80117740(temp_a1_2) << 0x18;
-                goto block_127;
-            }
-            switch (temp_a1_2) {                    /* switch 4; irregular */
-            default:                                /* switch 4 */
-                return 0;
-            case 3:                                 /* switch 4 */
-                var_v0 = func_80117DDC() << 0x18;
-                goto block_127;
-            case 4:                                 /* switch 4 */
-                var_v0 = func_80117EF8() << 0x18;
-                goto block_127;
-            }
-        } else {
+    case 1:
+        switch (arg1 & 0xFF) {
+        case 1:
+            var_v0 = func_80117740() << 0x18;
+            goto block_127;
+        case 2:
             var_v0 = func_80117C9C() << 0x18;
             goto block_127;
+        case 3:
+            var_v0 = func_80117DDC() << 0x18;
+            goto block_127;
+        case 4:
+            var_v0 = func_80117EF8() << 0x18;
+            goto block_127;
+        default:
+            return 0;
         }
-        break;
     case 41:                                        /* switch 1 */
         temp_v0_2 = arg1 & 0xFF;
-        switch (temp_v0_2) {                        /* switch 5 */
+        switch (temp_v0_2) {
+        case 1:
+            goto return_zero;                        /* switch 5 */
         case 2:                                     /* switch 5 */
             var_v0 = func_8011781C() << 0x18;
             goto block_127;
@@ -201,27 +197,25 @@ block_127:
             goto block_127;
         }
         break;
-    case 40:                                        /* switch 1 */
-        temp_a1_3 = arg1 & 0xFF;
-        if (temp_a1_3 != 2) {
-            if (temp_a1_3 < 3) {
-                if (temp_a1_3 != 1) {
-                    return 0;
-                }
-                var_v0 = func_80117800() << 0x18;
-                goto block_127;
-            }
-            if (temp_a1_3 != 3) {
-                return 0;
-            }
+    case 40:
+        switch (arg1 & 0xFF) {
+        case 1:
+            var_v0 = func_80117800() << 0x18;
+            goto block_127;
+        case 2:
+            var_v0 = func_80117848() << 0x18;
+            goto block_127;
+        case 3:
             var_v0 = func_80117850() << 0x18;
             goto block_127;
+        default:
+            return 0;
         }
-        var_v0 = func_80117848() << 0x18;
-        goto block_127;
     case 20:                                        /* switch 1 */
         temp_v0_3 = arg1 & 0xFF;
-        switch (temp_v0_3) {                        /* switch 6 */
+        switch (temp_v0_3) {
+        case 1:
+            goto return_zero;                        /* switch 6 */
         case 2:                                     /* switch 6 */
             var_v0 = func_80117740() << 0x18;
             goto block_127;
@@ -262,7 +256,9 @@ block_127:
         break;
     case 28:                                        /* switch 1 */
         temp_v0_4 = arg1 & 0xFF;
-        switch (temp_v0_4) {                        /* switch 7 */
+        switch (temp_v0_4) {
+        case 1:
+            goto return_zero;                        /* switch 7 */
         case 2:                                     /* switch 7 */
             var_v0 = func_8011795C() << 0x18;
             goto block_127;
@@ -286,29 +282,25 @@ block_127:
             goto block_127;
         }
         break;
-    case 29:                                        /* switch 1 */
-        temp_a1_4 = arg1 & 0xFF;
-        if (temp_a1_4 != 2) {
-            if (temp_a1_4 < 3) {
-                if (temp_a1_4 != 1) {
-                    return 0;
-                }
-                var_v0 = func_80117740(temp_a1_4) << 0x18;
-                goto block_127;
-            }
-            if (temp_a1_4 != 3) {
-                return 0;
-            }
+    case 29:
+        switch (arg1 & 0xFF) {
+        case 1:
+            var_v0 = func_80117740() << 0x18;
+            goto block_127;
+        case 2:
+            var_v0 = func_80118014() << 0x18;
+            goto block_127;
+        case 3:
             var_v0 = func_80118074() << 0x18;
             goto block_127;
+        default:
+            return 0;
         }
-        var_v0 = func_80118014() << 0x18;
-        goto block_127;
     case 16:                                        /* switch 1 */
         temp_a1_5 = arg1 & 0xFF;
         switch (temp_a1_5) {                        /* switch 8; irregular */
         case 1:                                     /* switch 8 */
-            var_v0 = func_80117740(temp_a1_5) << 0x18;
+            var_v0 = func_80117740() << 0x18;
             goto block_127;
         case 3:                                     /* switch 8 */
             var_v0 = func_801178D4() << 0x18;
@@ -317,31 +309,23 @@ block_127:
             return 0;
         }
         break;
-    case 34:                                        /* switch 1 */
-        temp_a1_6 = arg1 & 0xFF;
-        if (temp_a1_6 != 3) {
-            if (temp_a1_6 < 4) {
-                if (temp_a1_6 != 1) {
-                    return 0;
-                }
-                var_v0 = func_80117740(temp_a1_6) << 0x18;
-                goto block_127;
-            }
-            switch (temp_a1_6) {                    /* switch 9; irregular */
-            case 4:                                 /* switch 9 */
-                var_v0 = func_8011851C() << 0x18;
-                goto block_127;
-            case 5:                                 /* switch 9 */
-                var_v0 = func_8011858C() << 0x18;
-                goto block_127;
-            default:                                /* switch 9 */
-                return 0;
-            }
-        } else {
-            var_v0 = func_801178A4(temp_a1_6) << 0x18;
+    case 34:
+        switch (arg1 & 0xFF) {
+        case 1:
+            var_v0 = func_80117740() << 0x18;
             goto block_127;
+        case 3:
+            var_v0 = func_801178A4() << 0x18;
+            goto block_127;
+        case 4:
+            var_v0 = func_8011851C() << 0x18;
+            goto block_127;
+        case 5:
+            var_v0 = func_8011858C() << 0x18;
+            goto block_127;
+        default:
+            return 0;
         }
-        break;
     case 38:                                        /* switch 1 */
         temp_v0_5 = arg1 & 0xFF;
         switch (temp_v0_5) {                        /* switch 10 */
@@ -424,4 +408,6 @@ block_127:
         }
         break;
     }
+return_zero:
+    return 0;
 }
