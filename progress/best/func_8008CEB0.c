@@ -3,7 +3,7 @@ typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-s32 func_8008C1B0(u32);
+s32 audioVoiceIsActive(u32);
 M2C_UNK func_800968A4(u8, u8, u8);
 M2C_UNK func_8009876C(void *, s32, s32, u8);
 s32 func_800988D8(void *);
@@ -38,7 +38,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
             if (M2C_FIELD(var_s0, u8 *, 0x27) != sp1F) { var_s7 += 0x1A0; goto advance; }
             {
                 temp_a0 = M2C_FIELD(var_s0, s32 *, 0);
-                if ((temp_a0 & 0x10) && ((temp_a0 & 0x40000008) != 8) && (func_8008C1B0(var_s3) & 0xFF)) {
+                if ((temp_a0 & 0x10) && ((temp_a0 & 0x40000008) != 8) && (audioVoiceIsActive(var_s3) & 0xFF)) {
                     temp_a3 = M2C_FIELD(var_s0, u8 *, 0x2B);
                     temp_s2 = var_s7 + (s8 *)__base_D_8010D724;
                     temp_a2 = M2C_FIELD(var_s0, s8 *, 0x9C) << 0x10;

@@ -3,7 +3,7 @@
 s32 vec3Add();
 s32 randomIntBelow();
 f32 randomFloatScaled(f32);
-s32 func_8005D444(void *, void *, f32, s32, s32, s32);
+s32 spawnRandomEffectBurst(void *, void *, f32, s32, s32, s32);
 void *spawnConfiguredEffect(void *, void*, void*, void *, f32, f32, s32, s32, s32, u32, u32);
 extern f64 D_800D4150;
 extern f64 D_800D4158;
@@ -34,7 +34,7 @@ char *ownerPosAddr;
         goto alive;
     }
     if (randomIntBelow(4) == 0) {
-        func_8005D444(emitter, emitter + 0x24, 2.0f, 2, 0x16, 0xFB);
+        spawnRandomEffectBurst(emitter, emitter + 0x24, 2.0f, 2, 0x16, 0xFB);
     }
     (((ParticleEmitter*)emitter)->field_60) |= 1;
     return;

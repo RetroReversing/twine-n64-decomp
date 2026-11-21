@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce, tried by autopilot */
 
-s32 func_8008C1B0();
+s32 audioVoiceIsActive();
 s32 func_8008C43C();
 s32 func_8008C490();
 s32 func_8008C4C0();
@@ -22,7 +22,7 @@ s32 func_80096D9C();
 s32 func_80096DBC();
 s32 func_80096DDC();
 s32 func_80096DFC();
-s32 func_8009AF94();
+s32 audioVoiceTick();
 extern u8 D_80102FDC[];
 extern u8 D_801032AD;
 extern char D_80107ED4[];
@@ -111,10 +111,10 @@ s32 __repair_result_var_v0_3;
         var_s1 = (char *)&sVoiceTable + 0xC2;
         do {
             if (*(s32 *)var_s5 != 0) {
-                func_8009AF94(var_s5);
+                audioVoiceTick(var_s5);
                 goto block_5;
             }
-            if (func_8008C1B0(var_s6) & 0xFF) {
+            if (audioVoiceIsActive(var_s6) & 0xFF) {
 block_5:
                 if ((*(u8 *)((char *)(var_s1) + -5)) == 0) {
                     var_s2 = 0;

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008C1B0();
+s32 audioVoiceIsActive();
 s32 func_8008C590();
 s32 voiceReleaseHandles();
 extern u8 D_801002EA;
@@ -34,7 +34,7 @@ void voiceRelease(s32 arg0) {
     void *temp_s1;
 
     if (arg0 != -1) {
-        if (func_8008C1B0() & 0xFF) {
+        if (audioVoiceIsActive() & 0xFF) {
             func_8008C590(arg0);
         }
         var_v0 = arg0 * 2;

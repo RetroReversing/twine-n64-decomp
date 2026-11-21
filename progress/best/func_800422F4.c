@@ -13,7 +13,7 @@ extern u8 D_800C46DC[];
 extern void *D_80109688;
 
 void func_800422F4(s32 arg0) {
-    u8 sp10[0x20];
+    u8 sp10[0x18];
     s32 temp_s6, temp_s0, temp_s2, c;
     u8 *temp_v0, *temp_v0_2, *var_s0;
     s16 id;
@@ -22,7 +22,7 @@ void func_800422F4(s32 arg0) {
     temp_s6 = func_80083E24();
     temp_s0 = *(s32 *)(D_800C0780 + arg0 * 0x10);
     temp_v0 = (u8 *)func_80083E90(0x30, 0x2D);
-    func_8000B9B8(temp_v0, D_54D910 + temp_s0, 0x30);
+    func_8000B9B8(temp_v0, (s32)(D_54D910 + temp_s0), 0x30);
     temp_s2 = *(s32 *)(temp_v0 + 4);
     temp_v0_2 = (u8 *)func_80083E90(temp_s2 * 0x44, 0x2D);
     func_8000B9B8(temp_v0_2, D_54D910 + *(s32 *)(temp_v0 + 0), *(s32 *)(temp_v0 + 4) * 0x44);

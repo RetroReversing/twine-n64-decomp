@@ -1,4 +1,4 @@
-s32 func_8008C1B0(s32);
+s32 audioVoiceIsActive(s32);
 s32 func_80095EC4(s32, s32);
 s32 func_800982B4(short);
 void func_8009876C(void *);
@@ -23,7 +23,7 @@ s32 func_8009C420(u32 arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 ar
             var_v0 = arg2 & 0x80;
             func_8009876C(temp_s0);
             *(s32 *)(temp_s0 + 0x24) = (*(s32 *)(temp_s0 + 0x24) & 0x10) | 2;
-            if (func_8008C1B0(temp_v0_2) & 0xFF) {
+            if (audioVoiceIsActive(temp_v0_2) & 0xFF) {
                 *(s32 *)(temp_s0 + 0x24) |= 1;
                 var_v0 = arg2 & 0x80;
             }

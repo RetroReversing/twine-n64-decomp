@@ -1,4 +1,4 @@
-s32 func_8008C1B0(u8);
+s32 audioVoiceIsActive(u8);
 s32 randomU16Next(void);
 s32 func_800957A8(u32 *);
 s32 func_800957B8(u32 *, void *);
@@ -18,7 +18,7 @@ s32 audioUpdateClipSelection(void *voice, void *desc) {
             *(s32 *)((s8 *)voice + 0x24) &= ~4;
         }
         if (*(u8 *)desc & 1) {
-            if (!(*(s32 *)((s8 *)voice + 0x24) & 0x20) && !(func_8008C1B0(*(u8 *)((s8 *)voice + 0x63)) & 0xFF)) return 0;
+            if (!(*(s32 *)((s8 *)voice + 0x24) & 0x20) && !(audioVoiceIsActive(*(u8 *)((s8 *)voice + 0x63)) & 0xFF)) return 0;
             *(s32 *)((s8 *)voice + 0x24) |= 0x100000;
         } else {
             *(s32 *)((s8 *)voice + 0x24) &= 0xFFEFFFFF;

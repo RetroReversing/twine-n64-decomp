@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008C1B0(u8);                              /* extern */
-s32 func_80095638();                                /* extern */
+s32 audioVoiceIsActive(u8);                              /* extern */
+s32 randomU16Next();                                /* extern */
 
-s32 func_80099E40(void *arg0, void *arg1) {
+s32 audioVoiceStepTimer(void *arg0, void *arg1) {
     u16 temp_a0;
     u16 temp_v0;
     u16 temp_v1;
@@ -23,7 +23,7 @@ s32 func_80099E40(void *arg0, void *arg1) {
     temp_v1 = M2C_FIELD(arg0, u16 *, 0x68);
     if (temp_v1 == 0) {
         if (M2C_FIELD(arg1, u16 *, 0) & 1) {
-            M2C_FIELD(arg0, u16 *, 0x68) = (u16) ((u32) (func_80095638() & 0xFFFF) % (u16) M2C_FIELD(arg1, u16 *, 4));
+            M2C_FIELD(arg0, u16 *, 0x68) = (u16) ((u32) (randomU16Next() & 0xFFFF) % (u16) M2C_FIELD(arg1, u16 *, 4));
         } else {
             M2C_FIELD(arg0, u16 *, 0x68) = (u16) M2C_FIELD(arg1, u16 *, 4);
         }
@@ -48,7 +48,7 @@ block_8:
             return 0;
         }
         if ((M2C_FIELD(arg1, u8 *, 0) & 1) && !(M2C_FIELD(arg0, s32 *, 0x24) & 0x20)) {
-            if (!(func_8008C1B0(M2C_FIELD(arg0, u8 *, 0x63)) & 0xFF)) {
+            if (!(audioVoiceIsActive(M2C_FIELD(arg0, u8 *, 0x63)) & 0xFF)) {
                 M2C_FIELD(arg0, u16 *, 0x68) = 0U;
                 return 0;
             }

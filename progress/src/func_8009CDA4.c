@@ -12,7 +12,7 @@ s32 func_800A92C0(s32 direction, s32 spAddress, s32 dramAddress, s32 length) {
     return 0;
 }
 
-s32 func_8008C1B0(s32);
+s32 audioVoiceIsActive(s32);
 unsigned int func_8008C1DC(void);
 extern u8 gWorkerActive;
 extern s8 D_80112DC0;
@@ -31,7 +31,7 @@ s32 func_8009CDA4(void) {
         if ((count = sVoiceCount) > 0) {
             i = 0;
             do {
-                status |= func_8008C1B0(i);
+                status |= audioVoiceIsActive(i);
                 i++;
             } while (i < sVoiceCount);
         }

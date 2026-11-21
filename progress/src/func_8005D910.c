@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 randomIntBelow(s16);                             /* extern */
-M2C_UNK func_8005D444(void *, void *, f32, s32, s32, s32); /* extern */
+M2C_UNK spawnRandomEffectBurst(void *, void *, f32, s32, s32, s32); /* extern */
 M2C_UNK func_80085D08(void *);                      /* extern */
 extern void *gTrackMarkerTable;
 
@@ -24,7 +24,7 @@ void func_8005D910(void *arg0) {
             if ((gTrackMarkerTable != NULL) && !(M2C_FIELD(gTrackMarkerTable, s32 *, 0x100) & 8)) {
                 func_80085D08(arg0 + 0x24);
             }
-            func_8005D444(arg0, arg0 + 0x24, 2.0f, randomIntBelow(4) + 2, 0x16, 0xFB);
+            spawnRandomEffectBurst(arg0, arg0 + 0x24, 2.0f, randomIntBelow(4) + 2, 0x16, 0xFB);
         }
     }
 }

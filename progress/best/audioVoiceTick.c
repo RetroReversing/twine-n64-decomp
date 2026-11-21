@@ -3,7 +3,7 @@
 extern unsigned int D_800FDBA0;
 extern unsigned short D_800FDBA2;
 extern signed char D_800FDBA3;
-s32 func_8008C1B0();
+s32 audioVoiceIsActive();
 s32 func_8008C380();
 s32 func_8008C3D8();
 s32 func_8008C590();
@@ -49,7 +49,7 @@ extern char D_80112E9E[];
 extern char D_80112EBE[];
 extern u8 sVoiceCount;
 
-void func_8009AF94(void *arg0, u8 arg1, s32 arg2) {
+void audioVoiceTick(void *arg0, u8 arg1, s32 arg2) {
     s16 sp10[4];
     s32 var_a2_4;
     s32 var_a2_5;
@@ -859,7 +859,7 @@ block_204:
         (*(u32 *)((char *)(arg0) + 0x9C)) = 0U;
         (*(u32 *)((char *)(arg0) + 0xA0)) = (u32) (*(u32 *)((char *)(arg0) + 0xA4));
     }
-    if (((*(s32 *)((char *)(arg0) + 0x24)) & 0x100000) && !(func_8008C1B0((*(u8 *)((char *)(arg0) + 0x63))) & 0xFF)) {
+    if (((*(s32 *)((char *)(arg0) + 0x24)) & 0x100000) && !(audioVoiceIsActive((*(u8 *)((char *)(arg0) + 0x63))) & 0xFF)) {
         (*(u32 *)((char *)(arg0) + 0x9C)) = 0U;
         (*(s32 *)((char *)(arg0) + 0x24)) &= 0xFFEFFFFF;
         (*(u32 *)((char *)(arg0) + 0xA0)) = (u32) (*(u32 *)((char *)(arg0) + 0xA4));
