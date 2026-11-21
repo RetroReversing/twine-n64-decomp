@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s16 timerGetTotalSeconds(void *arg0) {
+s16 func_8002B278(void *arg0) {
     if (arg0 == NULL) {
         return 0;
     }
