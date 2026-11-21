@@ -70,24 +70,20 @@ void func_80076E98(void *arg0) {
         var_a1_2 = *(u16 *)((u8 *)&D_800C9970 + temp_v0);
         var_a2 = *(u16 *)((u8 *)&D_800C9972 + temp_v0);
         var_s2 = 1;
-block_19:
-        func_80002CAC(arg0, var_a1_2, var_a2);
-    default:
-        var_v0 = var_s2;
-        break;
+        goto block_19;
     case 6:
     case 10:
         M2C_FIELD(arg0, s16 *, 0x7C) = 6;
         M2C_FIELD(temp_s1, s8 *, 0x7F) = 6;
         temp_v0_2 = ((u32) M2C_FIELD(temp_s1, u32 *, 0x88) >> 0xF) & 0x3C;
         func_80002C74(arg0, *(u16 *)((u8 *)&D_800C99AC + temp_v0_2), *(u16 *)((u8 *)&D_800C99AE + temp_v0_2));
-        var_v0 = 1;
+        var_s2 = 1;
         break;
     case 1:
         M2C_FIELD(arg0, s16 *, 0x7C) = 4;
         M2C_FIELD(temp_s1, s8 *, 0x7F) = 4;
-        func_80002BD0(arg0, *(u16 *)((u8 *)&D_800C99E8 + ((u16) M2C_FIELD(temp_s1, u32 *, 0x88) & 0x1E)));
-        var_v0 = 1;
+        func_80002BD0(arg0, *(u16 *)((u8 *)&D_800C99E8 + (M2C_FIELD(temp_s1, u16 *, 0x88) & 0x1E)));
+        var_s2 = 1;
         break;
     case 0:
     case 3:
@@ -118,9 +114,14 @@ block_17:
             var_a1_2 = *(u16 *)((u8 *)&D_800C9A08 + temp_v0_4);
             var_a2 = *(u16 *)((u8 *)&D_800C9A0A + temp_v0_4);
         }
-        goto block_19;
+block_19:
+        func_80002CAC(arg0, var_a1_2, var_a2);
+        break;
+    case 11:
+    default:
+        break;
     }
-    if (var_v0 != 0) {
+    if (var_s2 != 0) {
         M2C_FIELD(temp_s1, s32 *, 0x18) = (s32) M2C_FIELD(temp_s1, s32 *, 0x50);
         M2C_FIELD(temp_s1, __repair_words2 *, 0x1C) = *(__repair_words2 *) ((s8 *) temp_s1 + 0x54);
         func_8007947C(arg0);

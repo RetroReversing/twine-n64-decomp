@@ -1,4 +1,4 @@
-extern u16 D_80103022[];
+extern u16 gSaveSlotFlags[];
 extern u16 D_801083D4[];
 extern u16 gSaveSlotValid[];
 
@@ -23,7 +23,7 @@ u16 countValidSaveSlots(u16 kind) {
             }
             break;
         case 0xA3:
-            if (D_80103022[i] != 0) {
+            if (gSaveSlotFlags[i] != 0) {
                 n++;
             } else {
                 i = 5;

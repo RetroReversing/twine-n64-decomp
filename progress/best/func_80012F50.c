@@ -7,7 +7,7 @@ s32 func_80010B60(s32);                             /* extern */
 s32 saveRefreshStatus();                                /* extern */
 s32 saveSubmitCommand(u16, s32, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_800AB770(s8 *, s8 *);                      /* extern */
-extern s16 D_800BFC30;
+extern s16 gSaveFoundSlot;
 extern u16 gSaveStatus;
 extern u8 gSaveSlotTable[];
 extern s16 gSaveSlot;
@@ -49,7 +49,7 @@ s32 __repair_phase_var_s4_2;
     s32 temp_v1;
 
     gSaveSlot = 0;
-    D_800BFC30 = -1;
+    gSaveFoundSlot = -1;
     if (saveRefreshStatus() & 0xFFFF) {
         return gSaveStatus;
     }
@@ -120,7 +120,7 @@ loop_20:
                             var_s0 = 0;
                             D_80103042 = temp_v1 + 1;
                         } else {
-                            D_800BFC30 = var_s0_3;
+                            gSaveFoundSlot = var_s0_3;
                             goto block_27;
                         }
                     } else {

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char D_80103022[];
+extern char gSaveSlotFlags[];
 
 s32 func_80081828(s32 arg0) {
     char *__base_D_80103022;
@@ -24,7 +24,7 @@ s32 func_80081828(s32 arg0) {
     var_v1 = 0;
     var_a1 = 0;
     temp_a0 = arg0 & 0xFF;
-__base_D_80103022 = D_80103022;
+__base_D_80103022 = gSaveSlotFlags;
     for (;;) {
         if (*(u16 *)(((var_v1 & 0xFF) * 2) + __base_D_80103022) == 0) goto skip;
         var_a1 += 1;

@@ -1,7 +1,7 @@
 extern void ***func_8002A920(void *, s8);
 extern char *lookupDataEntry(s32);
 extern char *func_800AB950(char *, char *);
-extern s16 D_800BFC30;
+extern s16 gSaveFoundSlot;
 extern s32 D_80107EA8;
 extern char D_800D2AC0[];
 s32 func_80024EF0(s32 arg0) {
@@ -15,7 +15,7 @@ s32 func_80024EF0(s32 arg0) {
         if (p && (q = *p) && *(char **)((char *)*q + 0x18)) {
             switch (mode) {
             case 1:
-                if (D_800BFC30 != -1) return (u8)D_800BFC30;
+                if (gSaveFoundSlot != -1) return (u8)gSaveFoundSlot;
                 return 0;
             case 2:
                 name = lookupDataEntry(0x3004);

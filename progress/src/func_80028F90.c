@@ -18,7 +18,7 @@ M2C_UNK func_8002CBF4();                            /* extern */
 M2C_UNK func_8002CFE8();                            /* extern */
 s16 func_8002D218();                                /* extern */
 extern void *sActiveMenu;
-extern s16 D_80109DD0;
+extern s16 gSaveRecovering;
 
 void func_80028F90(void) {
     func_8002CFE8();
@@ -28,5 +28,5 @@ void func_80028F90(void) {
         func_80026424(sActiveMenu, 0x18);
         return;
     }
-    D_80109DD0 = 0;
+    gSaveRecovering = 0;
 }

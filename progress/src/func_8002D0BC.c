@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK D_80103022;
+extern M2C_UNK gSaveSlotFlags;
 extern M2C_UNK D_801083D4;
 extern M2C_UNK gSaveSlotValid;
 
@@ -26,7 +26,7 @@ u16 func_8002D0BC(s32 arg0, s32 arg1) {
     case 0xA6:
         return *((u16 *)((s8 *)&D_801083D4 + ((arg1 & 0xFFFF) * 2)));
     case 0xA3:
-        return *((u16 *)((s8 *)&D_80103022 + ((arg1 & 0xFFFF) * 2)));
+        return *((u16 *)((s8 *)&gSaveSlotFlags + ((arg1 & 0xFFFF) * 2)));
     }
     return 1U;
 }

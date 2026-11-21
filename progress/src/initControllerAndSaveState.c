@@ -18,7 +18,7 @@ s32 osContStartReadData();
 s32 osCreateMesgQueue();
 s16 osEepromProbe();
 s32 osSetEventMesg();
-extern s16 D_800BFC30;
+extern s16 gSaveFoundSlot;
 extern char D_800E0760[];
 extern char D_800E0768[];
 extern s16 D_800E0930;
@@ -36,7 +36,7 @@ extern s8 D_80102D60;
 extern s16 D_801083D4;
 extern u8 D_80108F75;
 extern s16 gSaveSlotValid;
-extern s16 D_80109DD0;
+extern s16 gSaveRecovering;
 extern s16 D_8010A3A0;
 extern char D_8010D298[];
 extern u16 D_8010D430;
@@ -64,7 +64,7 @@ extern s16 D_8010D540;
     saveSlotCount = &D_800E0930;
     D_80102D60 = 1;
     D_800E09AE = 0;
-    D_800BFC30 = -1;
+    gSaveFoundSlot = -1;
     D_800E09B0 = 0;
     gSaveCmdPending = 0;
     D_8010D540 = 0;
@@ -95,9 +95,9 @@ if (i < 4) goto __repair_rows;
     osContStartReadData(D_8010D298);
     D_800E09AE = 1;
     func_80011950();
-    D_80109DD0 = 0;
+    gSaveRecovering = 0;
     if (D_8010D430 & 0x1000) {
-        D_80109DD0 = 1;
+        gSaveRecovering = 1;
     }
     return D_80108F75;
 }

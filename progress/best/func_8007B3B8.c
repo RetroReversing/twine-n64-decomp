@@ -48,7 +48,7 @@ f32 func_8007B3B8(void *arg0, void *arg1, f32 *arg2, u32 arg3) {
 invalid:
     func_80077E00(arg0);
     return 0.0f;
-valid:
+valid:;
     switch (arg3) {
     case 0:
     case 3:
@@ -68,13 +68,16 @@ valid:
         var_fv0 = 0.15752044f;
         var_s1 = 0x1FD;
         break;
+    case 2:
+        goto play;
     case 6:
         var_fv0 = 0.047853343f;
         var_s1 = 2;
         break;
     }
-    do { func_80002BD0(arg0, var_s1 & 0xFFFF); } while (0);
     var_fs1 = temp_fs0 * var_fv0;
+play:;
+    func_80002BD0(arg0, (u16)var_s1);
     M2C_FIELD(arg0, s16 *, 0x7C) = 3;
     M2C_FIELD(__repair_phase_storage.pointer, s8 *, 0x7F) = 3;
     temp_fv1 = *arg2 - var_fs1;

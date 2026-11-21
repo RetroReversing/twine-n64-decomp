@@ -1,5 +1,5 @@
 s32 saveWaitCommand(void);
-s32 func_80010A2C(void);
+s32 saveFindTaggedSlot(void);
 u16 func_80010B60(u32);
 u16 saveVerifySlot(void);
 s32 saveSubmitCommand(u16, void *, s16, s32, s32, s32, s32, s32);
@@ -10,11 +10,11 @@ extern u8 D_800E076A[16];
 extern u8 D_800E076B[16];
 extern u8 gSaveSlotTable[];
 extern s16 D_800E0938, gSaveSlot, D_800E093C, D_800E093E;
-extern s16 D_80103022[4];
+extern s16 gSaveSlotFlags[4];
 extern s32 gSaveCmdResult;
 extern s16 D_801083D4[4];
 extern u8 D_80108F75;
-extern s16 D_80109BA4[4], gSaveSlotValid[4];
+extern s16 gSaveSlotLoaded[4], gSaveSlotValid[4];
 extern s8 D_8010A3C5, D_8010A3C6, D_8010A3C7, D_8010A3C8;
 u16 func_80012C70(void) {
     u8 *__base_D_800E0790;
@@ -30,19 +30,19 @@ u16 func_80012C70(void) {
     gSaveSlot = 0;
     for (;;) {
         s32 i = gSaveSlot;
-        D_80103022[i] = 0;
-        D_80109BA4[i] = 0;
+        gSaveSlotFlags[i] = 0;
+        gSaveSlotLoaded[i] = 0;
         D_801083D4[i] = 0;
         gSaveSlotValid[i] = 0;
         if (D_800E076B[i * 4] == 0 &&
             (D_80108F75 >> i) != 0 &&
-            ((D_800E0768[i * 2] & 0x1F07) != 5 || (D_80103022[i] = 1, (D_800E076A[i * 4] & 1) != 0))) {
+            ((D_800E0768[i * 2] & 0x1F07) != 5 || (gSaveSlotFlags[i] = 1, (D_800E076A[i * 4] & 1) != 0))) {
             switch ((u32)(saveVerifySlot())) {
             case 0xA4:
                 if (state != 0 && gSaveSlot == 0) {
                     state = 0;
-                    D_80109BA4[0] = 1;
-                    if (func_80012F50() == 0 && func_80010A2C() != 0) gSaveStatus = 0x30;
+                    gSaveSlotLoaded[0] = 1;
+                    if (func_80012F50() == 0 && saveFindTaggedSlot() != 0) gSaveStatus = 0x30;
                 }
                 break;
             case 0xA5:

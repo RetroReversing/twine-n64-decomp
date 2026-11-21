@@ -1,5 +1,5 @@
 extern void func_800103B0(u8 *dst, s8 *src, u8 len);
-extern s32 func_80010A2C(void);
+extern s32 saveFindTaggedSlot(void);
 extern s32 func_8001226C(s32);
 extern s32 saveDataRunSteps(void);
 extern u16 func_80012F50(void);
@@ -26,7 +26,7 @@ u16 func_80012AB0(u16 arg0)
             *p = D_80108412[gSaveRequestSlot << 5];
             func_800103B0(D_8010A3C5, p, 4);
         }
-        if ((u16)func_80010A2C() != 0) {
+        if ((u16)saveFindTaggedSlot() != 0) {
             gSaveStatus = 0x30;
             return 0x30;
         }

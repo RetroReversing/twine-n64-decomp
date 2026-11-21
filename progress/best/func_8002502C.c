@@ -53,7 +53,7 @@ extern s32 gMenuSoundParams;
 extern s8 D_80102EDC;
 extern s8 D_80102F04;
 extern void *gMenuItems;
-extern s16 D_80109DD0;
+extern s16 gSaveRecovering;
 extern char D_8010A950[];
 
 s32 func_8002502C(s16 *arg0, s32 arg1) {
@@ -363,7 +363,7 @@ block_184:
                         } else {
 block_134:
                             var_s0 = func_8002CBF4();
-                            if (D_80109DD0 != 0) {
+                            if (gSaveRecovering != 0) {
                                 temp_v0 = var_s0 & 0xFFFF;
                                 if ((((s32)temp_v0 == 0) | (temp_v0 == 0x30)) != 0) {
                                     var_s0 = 0x94;
@@ -475,7 +475,7 @@ block_154:
                     case 2:                         /* switch 6 */
 block_159:
                         var_a1_6 = func_8002CBF4();
-                        if (D_80109DD0 != 0) {
+                        if (gSaveRecovering != 0) {
                             temp_v0_2 = var_a1_6 & 0xFFFF;
                             if (((temp_v0_2 == 0) | (temp_v0_2 == 0x30)) != 0) {
                                 var_a1_6 = 0x94;

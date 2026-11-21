@@ -19,7 +19,7 @@ extern s16 gSaveStatus;
 extern s32 D_801002B4;
 extern s32 gSaveSlotCount;
 extern s32 gVisibleSaveSlots;
-extern s16 D_80109DD0;
+extern s16 gSaveRecovering;
 
 void func_8002CFE8(void) {
     s16 var_v0;
@@ -37,7 +37,7 @@ void func_8002CFE8(void) {
     case 17:
         break;
     case 0:
-        if (D_80109DD0 != 0) {
+        if (gSaveRecovering != 0) {
             var_v0 = 0x94;
             gSaveStatus = var_v0;
             return;

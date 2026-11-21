@@ -6,7 +6,7 @@ extern s32 *gProbeObjectList;
 extern f64 D_800D4170;
 extern u8 sTrackDoneFlags[19];
 extern s8 D_80109B1E;
-typedef struct { unsigned char pad0[36]; s32 x,y,z; unsigned char pad30[12]; f32 a,b,c; unsigned char pad48[20]; s32 flags; unsigned char pad60[12]; void *sub; unsigned char pad70[8]; s16 t,u,v; } R;
+typedef struct { unsigned char pad0[36]; f32 x,y,z; unsigned char pad30[12]; f32 a,b,c; unsigned char pad48[20]; s32 flags; unsigned char pad60[12]; void *sub; unsigned char pad70[8]; s16 t,u,v; } R;
 void *func_8005DC2C(s32 arg0,s32 arg1,void *arg2,s32 arg3) {
     s8 *__base_D_80109B1E;
  s32 var_v0; s32 temp_v1,var_a1; s32 var_a2; u16 temp_v0_2; void *temp_s0,*temp_v0;
@@ -38,9 +38,9 @@ case 0x90: D_80109B1E=1; ((R*)temp_v0)->t=0x60; break;
   *(void**)((char*)temp_s0+4)=arg3;
   temp_v0_2=*(u16*)((char*)arg2+4); *(u16*)((char*)temp_s0+0x44)=temp_v0_2; if(!temp_v0_2) *(u16*)((char*)temp_s0+0x44)=0x3C;
   *(s8*)((char*)temp_s0+0x4B)=0;
-  *(s32*)((char*)temp_s0+0x4C)=(s8)(*(u8*)((char*)arg2+3)-1);
+  *(s8*)((char*)temp_s0+0x4C)=*(u8*)((char*)arg2+3)-1;
   *(f32*)((char*)temp_s0+8)=1.0f;
-  if(arg3!=NULL) { ((R*)temp_v0)->x=*(s32*)arg3; ((R*)temp_v0)->y=*(s32*)((char*)arg3+4); ((R*)temp_v0)->z=*(s32*)((char*)arg3+8); ((R*)temp_v0)->a=(f32)((f64)*(f32*)((char*)arg3+0xC)*D_800D4170); ((R*)temp_v0)->b=(f32)((f64)*(f32*)((char*)arg3+0x10)*D_800D4170); ((R*)temp_v0)->c=(f32)((f64)*(f32*)((char*)arg3+0x14)*D_800D4170); }
+  if(arg3!=NULL) { ((R*)temp_v0)->x=*(f32*)arg3; ((R*)temp_v0)->y=*(f32*)((char*)arg3+4); ((R*)temp_v0)->z=*(f32*)((char*)arg3+8); ((R*)temp_v0)->a=(f32)((f64)*(f32*)((char*)arg3+0xC)*D_800D4170); ((R*)temp_v0)->b=(f32)((f64)*(f32*)((char*)arg3+0x10)*D_800D4170); ((R*)temp_v0)->c=(f32)((f64)*(f32*)((char*)arg3+0x14)*D_800D4170); }
   *(s32*)((char*)temp_v0+0x30)=*(s32*)((char*)temp_v0+0x24); *(s32*)((char*)temp_v0+0x34)=*(s32*)((char*)temp_v0+0x28); *(s32*)((char*)temp_v0+0x38)=*(s32*)((char*)temp_v0+0x2C);
   *(f32*)((char*)temp_v0+0x48)=*(f32*)((char*)temp_v0+0x3C); *(f32*)((char*)temp_v0+0x4C)=*(f32*)((char*)temp_v0+0x40); *(f32*)((char*)temp_v0+0x50)=*(f32*)((char*)temp_v0+0x44);
   ((R*)temp_v0)->u=0; ((R*)temp_v0)->v=0; ((R*)temp_v0)->flags|=0x600;

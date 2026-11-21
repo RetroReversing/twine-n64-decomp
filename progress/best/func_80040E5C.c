@@ -16,7 +16,6 @@ s32 func_8003FA90(s32, s32, s32, f32, f32, f32, f32); /* extern */
 
 typedef struct { unsigned char pad[52]; int value; } __repair_field_34;
 void func_80040E5C(void *arg0) {
-    volatile long long frame_pad;
     s32 sp28;
     s32 sp2C;
     s32 sp30;
