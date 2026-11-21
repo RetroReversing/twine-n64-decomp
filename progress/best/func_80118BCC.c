@@ -28,11 +28,13 @@ void func_80118BCC(void *arg0, s32 arg1) {
     s16 mode = *(s16 *)(self + 0x7A);
     s32 request = 1;
     void *target = *(void **)(state + 0xC0);
-    if (mode == 2 && target != NULL) {
-        u16 type = *(u16 *)((u8 *)target + 0x78);
-        if (((type == 0x55) || (type == 0x28)) &&
-            func_800461D4(self + 0x24, (u8 *)target + 0x24) > 2.0f) {
-            request = 0;
+    if (mode == 2) {
+        if (target != NULL) {
+            u16 type = *(u16 *)((u8 *)target + 0x78);
+            if (((type == 0x55) || (type == 0x28)) &&
+                func_800461D4(self + 0x24, (u8 *)target + 0x24) > 2.0f) {
+                request = 0;
+            }
         }
     }
     *(void **)(state + 0xC0) = func_801183F4(arg0, request);

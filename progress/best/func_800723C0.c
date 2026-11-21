@@ -38,6 +38,8 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
     void *temp_v0_5;
     void *temp_s0;
     void *temp_s3;
+    void *material;
+    void *lastFree;
     
     f32 var_fs0;
     f32 temp_fv0;
@@ -81,16 +83,16 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
         func_80045314(sp58.w, sp30, sp58.w);
         func_80045314(sp80.w, sp30, sp80.w);
         func_80045314(spA8.w, sp30, spA8.w);
-        temp_v0_2 = func_80083E90(0x4C, 0x16);
-        *(void **) ((u8 *) temp_v0 + 0x70) = temp_v0_2;
-        if (temp_v0_2 != NULL) {
+        material = func_80083E90(0x4C, 0x16);
+        *(void **) ((u8 *) temp_v0 + 0x70) = material;
+        if (material != NULL) {
             typedef struct { s32 w[19]; } Block76;
             s32 *src = (s32 *)arg3 + 16;
-            s32 *dst = (s32 *)temp_v0_2 + 16;
-            *(Block76 *)temp_v0_2 = *(Block76 *)arg3;
-            *(s16 *) ((u8 *) temp_v0_2 + 0x42) = 3;
-            *(s32 *) ((u8 *) temp_v0_2 + 0x34) = 0;
-            *(s16 *) ((u8 *) temp_v0_2 + 0x40) = 1;
+            s32 *dst = (s32 *)material + 16;
+            *(Block76 *)material = *(Block76 *)arg3;
+            *(s16 *) ((u8 *) material + 0x42) = 3;
+            *(s32 *) ((u8 *) material + 0x34) = 0;
+            *(s16 *) ((u8 *) material + 0x40) = 1;
             temp_v0_3 = func_80083E90(0x3C, 0x2D);
             temp_v0_2 = (u8 *) temp_v0_3 + 0xC;
             temp_s3 = (u8 *) temp_v0_3 + 0x30;
@@ -123,19 +125,21 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
             ((__repair_record_temp_s0*)temp_s0)->field_18 = temp_v0_4;
             if (temp_v0_4 == NULL) {
                 func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
-                func_80084048(temp_v0_3, 0x2D);
-                goto block_71;
+                lastFree = temp_v0_3;
+                goto free_last;
             }
             temp_v0_5 = func_80083E90(0x100, 0x2D);
             ((__repair_record_temp_s0*)temp_s0)->field_1C = temp_v0_5;
             if (temp_v0_5 == NULL) {
                 func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
                 func_80084048(temp_v0_3, 0x2D);
-                func_80084048(((__repair_record_temp_s0*)temp_s0)->field_18, 0x2D);
+                lastFree = ((__repair_record_temp_s0*)temp_s0)->field_18;
+free_last:
+                func_80084048(lastFree, 0x2D);
                 goto block_71;
             }
             func_800328B8(((__repair_record_temp_s0*)temp_s0)->field_18, temp_v0_5);
-            *(void **)*(void **)((u8 *)temp_v0 + 0x70) = ((__repair_record_temp_s0*)temp_s0)->field_1C;
+            *(void **)material = ((__repair_record_temp_s0*)temp_s0)->field_1C;
             temp_s0_2 = func_80044968(D_800E1A64);
             func_800336FC(&D_800C7E60, (u8 *)temp_v0_3 + 0xC, temp_s3, temp_v0_3, 3, 1.0f, temp_s0_2, func_8004493C(D_800E1A64), 1, 0, 0);
             func_80084048(temp_v0_3, 0x2D);
@@ -161,3 +165,4 @@ block_71:
     }
     return temp_v0;
 }
+

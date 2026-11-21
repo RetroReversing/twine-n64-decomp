@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK initTextFromTemplate(void *, M2C_UNK *, void *);   /* extern */
-extern u16 D_800BFC92;
+extern u16 sMenuAnimFlags;
 extern M2C_UNK D_800BFD98;
 extern s8 gPendingMenuCommand;
 
@@ -78,7 +78,7 @@ extern s8 gPendingMenuCommand;
             M2C_FIELD(M2C_FIELD(obj, void **, 0x30), s8 *, 0x7F) = fade;
             M2C_FIELD(M2C_FIELD(obj, void **, 0x30), s8 *, 0x80) = fade;
             M2C_FIELD(M2C_FIELD(obj, void **, 0x30), s8 *, 0x81) = fade;
-            if (D_800BFC92 & 1) {
+            if (sMenuAnimFlags & 1) {
                 subD = M2C_FIELD(obj, void **, 0x34);
                 M2C_FIELD(subD, s32 *, 0x10) = (s32) ((M2C_FIELD(subD, s32 *, 0x10) & ~0xFF) | (0xFF - alphaByte));
             } else {

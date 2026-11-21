@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 void *spawnEffectObject(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
 M2C_UNK func_80026F84(s32);                         /* extern */
 M2C_UNK hiscore_refresh_all();                      /* extern */
-extern u8 gMenuListParam;
+extern u8 sMenuListKind;
 extern u8 gMenuSlot;
 extern u8 gMenuParamB;
 extern s8 D_801002AE;
@@ -37,7 +37,7 @@ void func_800271A4(u8 arg0) {
             D_801002AE = 1;
             M2C_FIELD(temp_s0, u8 *, 4) = (u8) gMenuSlot;
             M2C_FIELD(temp_s0, u8 *, 5) = (u8) gMenuParamB;
-            M2C_FIELD(temp_s0, u8 *, 6) = (u8) gMenuListParam;
+            M2C_FIELD(temp_s0, u8 *, 6) = (u8) sMenuListKind;
             M2C_FIELD(temp_v0, s16 *, 0x78) = 0x25;
             M2C_FIELD(temp_v0, s16 *, 0x7A) = (s16) D_80102EB9;
         }

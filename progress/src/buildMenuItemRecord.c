@@ -5,103 +5,103 @@ s32 func_800448A4(void *, u32, s32);            /* extern */
 s32 lookupDataEntry(u16);                             /* extern */
 s16 strlen(s32);                                    /* extern */
 extern s32 sMenuItemParamTable;
-extern u8 gMenuListParam;
+extern u8 sMenuListKind;
 extern s32 gMenuSoundParams;
-extern s32 D_80102EC4;
+extern s32 sMenuDefaultSoundParams;
 extern u8 gMenuUseTextList;
 
 
-void *buildMenuItemRecord(void *arg0, s32 arg1) {
-    register long temp_v0_2;
-    s32 var_v0;
+/* Fills a menu item record (flags, position, text or sprite fields) from a menu item definition and returns the record. */ void *buildMenuItemRecord(void *def, s32 value) {
+    register long paramIdx;
+    s32 flags;
     s32 var_v0_3;
-    u16 var_a0;
+    u16 entryId;
     u16 var_v0_2;
-    u32 temp_v0_3;
-    u32 temp_a2;
-    u32 temp_v1;
-    void *temp_v0;
+    u32 posWord;
+    u32 packed;
+    u32 styleBits;
+    void *item;
 
-    if ((arg0 == NULL) || (temp_v0 = func_800162BC(gMenuListParam), (temp_v0 == NULL))) {
+    if ((def == NULL) || (item = func_800162BC(sMenuListKind), (item == NULL))) {
         return NULL;
     }
     if (gMenuUseTextList == 0) {
-        var_v0 = ((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 8;
+        flags = ((*(s32 *)((char *)(item) + 0x28)) & ~0xFC) | 8;
     } else {
-        var_v0 = ((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 4;
+        flags = ((*(s32 *)((char *)(item) + 0x28)) & ~0xFC) | 4;
     }
-    (*(s32 *)((char *)(temp_v0) + 0x28)) = var_v0;
-    (*(u16 *)((char *)(temp_v0) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 0x18));
-    (*(u16 *)((char *)(temp_v0) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 0x1A));
-    (*(s32 *)((char *)(temp_v0) + 0x10)) = (u32)arg1;
-    (*(u16 *)((char *)(temp_v0) + 0x1E)) = 0U;
-    if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x2000) {
-        (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 0x10);
+    (*(s32 *)((char *)(item) + 0x28)) = flags;
+    (*(u16 *)((char *)(item) + 0x20)) = (u16) (*(u16 *)((char *)(def) + 0x18));
+    (*(u16 *)((char *)(item) + 0x22)) = (u16) (*(u16 *)((char *)(def) + 0x1A));
+    (*(s32 *)((char *)(item) + 0x10)) = (u32)value;
+    (*(u16 *)((char *)(item) + 0x1E)) = 0U;
+    if ((*(u16 *)((char *)(def) + 0xC)) & 0x2000) {
+        (*(s32 *)((char *)(item) + 0x28)) = (s32) (((*(s32 *)((char *)(item) + 0x28)) & ~0xFC) | 0x10);
     }
-    temp_v1 = (*(u8 *)((char *)(arg0) + 0x1C)) & 3;
-    switch (temp_v1) {
+    styleBits = (*(u8 *)((char *)(def) + 0x1C)) & 3;
+    switch (styleBits) {
     case 0:
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) |= 0x40;
+        (*(u16 *)((char *)(item) + 0x1E)) |= 0x40;
         break;
     case 2:
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) |= 0x800;
+        (*(u16 *)((char *)(item) + 0x1E)) |= 0x800;
         break;
     case 3:
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) |= 0x840;
+        (*(u16 *)((char *)(item) + 0x1E)) |= 0x840;
         break;
     default:
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) &= 0xF7BF;
+        (*(u16 *)((char *)(item) + 0x1E)) &= 0xF7BF;
         break;
     }
-    if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x20) {
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 1);
+    if ((*(u16 *)((char *)(def) + 0xC)) & 0x20) {
+        (*(u16 *)((char *)(item) + 0x1E)) = (u16) ((*(u16 *)((char *)(item) + 0x1E)) | 1);
     }
-    if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x40) {
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x200);
+    if ((*(u16 *)((char *)(def) + 0xC)) & 0x40) {
+        (*(u16 *)((char *)(item) + 0x1E)) = (u16) ((*(u16 *)((char *)(item) + 0x1E)) | 0x200);
     }
-    if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x4000) {
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 2);
+    if ((*(u16 *)((char *)(def) + 0xC)) & 0x4000) {
+        (*(u16 *)((char *)(item) + 0x1E)) = (u16) ((*(u16 *)((char *)(item) + 0x1E)) | 2);
     }
-    if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x100) {
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x20);
+    if ((*(u16 *)((char *)(def) + 0xC)) & 0x100) {
+        (*(u16 *)((char *)(item) + 0x1E)) = (u16) ((*(u16 *)((char *)(item) + 0x1E)) | 0x20);
     }
-    if ((*(u16 *)((char *)arg0 + 0xC)) & 0x80) {
-        *(s32 *)((char *)temp_v0 + 0x10) = (gMenuSoundParams & ~0xFF) | (u8)arg1;
+    if ((*(u16 *)((char *)def + 0xC)) & 0x80) {
+        *(s32 *)((char *)item + 0x10) = (gMenuSoundParams & ~0xFF) | (u8)value;
     } else {
-        *(s32 *)((char *)temp_v0 + 0x10) = (D_80102EC4 & ~0xFF) | (u8)arg1;
+        *(s32 *)((char *)item + 0x10) = (sMenuDefaultSoundParams & ~0xFF) | (u8)value;
     }
-    temp_v0_2 = (*(u16 *)((char *)(arg0) + 0xC)) & 0xF;
-    if (temp_v0_2 != 0) {
-        (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) ((*(&sMenuItemParamTable + temp_v0_2) & ~0xFF) | (u8)arg1);
+    paramIdx = (*(u16 *)((char *)(def) + 0xC)) & 0xF;
+    if (paramIdx != 0) {
+        (*(s32 *)((char *)(item) + 0x10)) = (s32) ((*(&sMenuItemParamTable + paramIdx) & ~0xFF) | (u8)value);
     }
-    if ((*(u8 *)((char *)(arg0) + 0x1C)) & 0x20) {
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x80);
+    if ((*(u8 *)((char *)(def) + 0x1C)) & 0x20) {
+        (*(u16 *)((char *)(item) + 0x1E)) = (u16) ((*(u16 *)((char *)(item) + 0x1E)) | 0x80);
     }
-    if ((*(u8 *)((char *)(arg0) + 0x1C)) & 0x40) {
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x100);
+    if ((*(u8 *)((char *)(def) + 0x1C)) & 0x40) {
+        (*(u16 *)((char *)(item) + 0x1E)) = (u16) ((*(u16 *)((char *)(item) + 0x1E)) | 0x100);
     }
-    if ((*(u8 *)((char *)(arg0) + 0x1C)) & 0x80) {
-        temp_a2 = (*(u32 *)((char *)(arg0) + 0x20));
-        func_800448A4(temp_v0, temp_a2 >> 0x10, temp_a2 & 0xFF);
-        (*(s32 *)((char *)(temp_v0) + 0x18)) = 0;
-        if (((*(u8 *)((char *)(arg0) + 0x1C)) & 0x10) && (gMenuUseTextList)) {
-            (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 0x1C);
+    if ((*(u8 *)((char *)(def) + 0x1C)) & 0x80) {
+        packed = (*(u32 *)((char *)(def) + 0x20));
+        func_800448A4(item, packed >> 0x10, packed & 0xFF);
+        (*(s32 *)((char *)(item) + 0x18)) = 0;
+        if (((*(u8 *)((char *)(def) + 0x1C)) & 0x10) && (gMenuUseTextList)) {
+            (*(s32 *)((char *)(item) + 0x28)) = (s32) (((*(s32 *)((char *)(item) + 0x28)) & ~0xFC) | 0x1C);
         }
     } else {
-        var_a0 = (*(u16 *)((char *)(arg0) + 0));
-        if ((s32)var_a0 == 0) {
-            var_a0 = 3;
+        entryId = (*(u16 *)((char *)(def) + 0));
+        if ((s32)entryId == 0) {
+            entryId = 3;
         }
-        (*(s32 *)((char *)(temp_v0) + 0x18)) = lookupDataEntry(var_a0);
-        (*(s16 *)((char *)(temp_v0) + 0x1C)) = strlen((*(volatile s32 *)((char *)(temp_v0) + 0x18)));
+        (*(s32 *)((char *)(item) + 0x18)) = lookupDataEntry(entryId);
+        (*(s16 *)((char *)(item) + 0x1C)) = strlen((*(volatile s32 *)((char *)(item) + 0x18)));
     }
-    if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x8000) {
-        temp_v0_3 = (*(u32 *)((char *)(arg0) + 0x14));
-        if (temp_v0_3 != 0) {
-            (*(s16 *)((char *)(temp_v0) + 0x26)) = (s16) (temp_v0_3 >> 0x10);
-            (*(s8 *)((char *)(temp_v0) + 0x29)) = (s8) (*(u32 *)((char *)(arg0) + 0x14));
+    if ((*(u16 *)((char *)(def) + 0xC)) & 0x8000) {
+        posWord = (*(u32 *)((char *)(def) + 0x14));
+        if (posWord != 0) {
+            (*(s16 *)((char *)(item) + 0x26)) = (s16) (posWord >> 0x10);
+            (*(s8 *)((char *)(item) + 0x29)) = (s8) (*(u32 *)((char *)(def) + 0x14));
         }
     }
-    return temp_v0;
+    return item;
 }
 

@@ -1,5 +1,5 @@
 typedef struct { u32 a, b, c, d; } FourWords;
-extern u8 gMenuListParam, gMenuSlot, gMenuUseTextList, D_801007D2, D_801007D3, D_801007D4, gSceneFlagsA[], gSceneFlagsB;
+extern u8 sMenuListKind, gMenuSlot, gMenuUseTextList, D_801007D2, D_801007D3, D_801007D4, gSceneFlagsA[], gSceneFlagsB;
 extern u16 gBorderSkipFlag;
 extern FourWords D_800E1098, D_801007C8;
 void func_8000A2B8(void);
@@ -21,9 +21,9 @@ void updateBonusSceneSlot(u16);
         D_801007D3 = -1;
         D_801007D4 = -1;
         if ((*(s32 *)&gBorderSkipFlag) != 0) {
-            gSceneFlagsB |= 1 << gMenuListParam;
+            gSceneFlagsB |= 1 << sMenuListKind;
         } else {
-            listBit = 1 << gMenuListParam;
+            listBit = 1 << sMenuListKind;
             gSceneFlagsB |= listBit;
             *sceneFlagsA |= listBit;
         }

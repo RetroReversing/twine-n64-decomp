@@ -27,8 +27,8 @@ extern u8 D_80107ECD;
 extern u8 D_80107ECE;
 extern u8 D_80108F94;
 extern u8 D_8010957C;
-extern u8 D_80109684;
-extern u8 D_80109A34;
+extern u8 sPrimTintB;
+extern u8 sPrimTintG;
 extern s32 D_8010A924;
 extern s32 D_8010A92C;
 extern u8 D_8010D36C;
@@ -42,7 +42,7 @@ extern f32 D_80112FB0;
 extern f32 D_80112FB4;
 extern f32 D_80112FB8;
 extern u8 D_80113022;
-extern u8 D_80115318;
+extern u8 sPrimTintR;
 extern s32 * volatile D_80115328;
 extern void *volatile sRenderState;
 
@@ -276,10 +276,10 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
             temp_v1_8 = (*(s32 *)((char *)(arg1) + 0x100));
             if (temp_v1_8 & 2) {
                 temp_a1_5 = ((var_a3_2 + (var_a1 + var_a2)) / 3) & 0xFFFF;
-                temp_a0_5 = temp_a1_5 * D_80115318;
-                temp_v0_5 = temp_a1_5 * D_80109A34;
+                temp_a0_5 = temp_a1_5 * sPrimTintR;
+                temp_v0_5 = temp_a1_5 * sPrimTintG;
                 var_a0_2 = D_80115328;
-                var_a2 = D_80109684;
+                var_a2 = sPrimTintB;
                 D_80115328 = var_a0_2 + 2;
                 ((__repair_field_0 *)var_a0_2)->value = 0xFA000000;
                 var_a1 = (temp_a1_5 * var_a2) & 0xFF00;

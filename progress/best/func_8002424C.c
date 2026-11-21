@@ -19,7 +19,7 @@ extern s32 sSaveMenuSpriteSecond;
 extern volatile u16 sSaveMenuAction;
 extern s8 sSaveMenuRefresh;
 extern char D_800BD5D0[];
-extern u8 gMenuListParam;
+extern u8 sMenuListKind;
 extern s8 D_800BD690;
 extern char D_80107EA8[];
 extern void *gMenuState;
@@ -41,12 +41,12 @@ void func_8002424C(void) {
     D_800BD690 = 0;
     func_8002A644(D_80107EA8, D_8010D478, 0xC0, 6, 0x58, 0xB2, 0x3C, 0x14, 1, &updateSaveMenuEntries, &func_800241F8);
     func_80022A30((i = 0, base = D_800BD5D0, config = base - 0x4C,
-                   empty = 0xF, full = 0x10, slot = base - 0x34, gMenuListParam),
+                   empty = 0xF, full = 0x10, slot = base - 0x34, sMenuListKind),
                   0x20, 0x3C, 0xF8, (pairs = D_80109C18, 0x78));
     sSaveMenuSpriteSecond = func_80015F74(base);
     sSaveMenuSpriteFirst = func_80015F74(base - 0x24);
     do {
-        param = gMenuListParam;
+        param = sMenuListKind;
         *(s16 *)config = param;
         *(s16 *)(config + 0x24) = param;
         offset = (u16)i * 8;
@@ -65,7 +65,7 @@ void func_8002424C(void) {
     refreshSlotMenuLabels();
     sSaveMenuRefresh = 0;
     sSaveMenuAction = 1;
-    func_80022AD8(gMenuListParam);
+    func_80022AD8(sMenuListKind);
     switch (((SaveState *)gMenuState)->mode) {
     case 0x19: case 0x1B: action = 3; break;
     case 0x1A: action = 2; break;

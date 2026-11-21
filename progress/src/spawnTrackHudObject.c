@@ -9,7 +9,7 @@ extern s16 D_800BFD94;
 extern s16 D_800BFDB8;
 extern s16 D_800BFDDC;
 extern char D_800E1584[];
-extern char D_800E1590[];
+extern char sMenuAnimSlots[];
 extern u8 gPendingMenuCommand;
 extern char gTrackMarkerTable[];
 
@@ -109,7 +109,7 @@ void *spawnTrackHudObject(s32 trackIndex) {
             slotPtr = (void *) (((slot * 4)) + (s32) objState);
             (*(void **)((char *)(slotPtr) + 4)) = textNode;
             if (textNode != NULL) {
-            (*(void **)((char *)(textNode) + 0x18)) = (void *) ((slot * 0xC) + D_800E1590);
+            (*(void **)((char *)(textNode) + 0x18)) = (void *) ((slot * 0xC) + sMenuAnimSlots);
             (*(s16 *)((char *)((*(void **)((char *)(slotPtr) + 4))) + 0x1C)) = 0xB;
             node = (*(void **)((char *)(slotPtr) + 4));
             (*(s32 *)((char *)(node) + 0x28)) = (s32) (((*(s32 *)((char *)(node) + 0x28)) & ~0xFC) | 0x14);
@@ -131,7 +131,7 @@ void *spawnTrackHudObject(s32 trackIndex) {
             (*(s16 *)((char *)((*(void **)((char *)(slotEntry) + 4))) + 0x20)) = 0xF0;
             (*(s16 *)((char *)((*(void **)((char *)(slotEntry) + 4))) + 0x22)) = (s16) (((s32) ((s32)slotPtr * 5) * 2) + 0x28);
             }
-            func_8002E9D0((i * 0xC) + D_800E1590, 0xB, (s32) slotPtr);
+            func_8002E9D0((i * 0xC) + sMenuAnimSlots, 0xB, (s32) slotPtr);
         }
     }
     argsBase = &D_800BFCBC;

@@ -28,7 +28,7 @@ s32 lookupDataEntry();
 extern void *volatile gPickupActor;
 extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
-extern u8 gMenuListParam;
+extern u8 sMenuListKind;
 extern char D_800C3CF8[];
 extern s32 *gProbeObjectList;
 extern char D_80100408[];
@@ -79,14 +79,14 @@ extern char sFmtEntryName[];
           actorLinkToSurface(*(volatile s32 *)probe, *pickup, 1); }
         i = 0;
         func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 1, 0x32, 0xB4, 0x34, 0xF, 1, &bindMenuItemRecord, &func_8001AC88);
-        func_80022A30(gMenuListParam, 0x30, 0x30, 0x6E, 0xF);
+        func_80022A30(sMenuListKind, 0x30, 0x30, 0x6E, 0xF);
         itemList = func_800316C8();
         for (;;) {
             index = i & 0xFFFF;
             if (!((index < (u32) (func_800316E4() & 0xFFFF)) && (itemList != NULL))) {
                 break;
             }
-            result = func_800162BC(gMenuListParam);
+            result = func_800162BC(sMenuListKind);
             ((s32 (*)[0x1]) D_80102F48)[index][0x0] = result;
             if (result) {
                 func_800160FC(((s32 (*)[0x1]) D_80102F48)[index][0x0], func_8002BA6C(func_8002B9FC(((u8 (*)[0x4]) itemList)[index][0x2])), 0x40);
@@ -95,8 +95,8 @@ extern char sFmtEntryName[];
             func_8002A7CC(gPickupSearchBox, ((s32 *)D_80102F48)[index], i & 0xFF, result & 0xFF);
             i++;
         }
-        func_80022E18(gMenuListParam);
-        func_80022AD8(gMenuListParam);
+        func_80022E18(sMenuListKind);
+        func_80022AD8(sMenuListKind);
         func_8002A9A8(gPickupSearchBox, 0);
         func_8002AC04(gPickupSearchBox, 1);
         func_8002ACB4(gPickupSearchBox);

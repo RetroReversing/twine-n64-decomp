@@ -23,7 +23,7 @@ s32 func_8002F240();
 s32 func_8002F2EC();
 s32 updateObjectFade();
 s32 decayObjectTimers();
-s32 func_8002F718();
+s32 updateMenuAnimation();
 s32 func_8002FBD4();
 s32 func_8003099C();
 s32 func_80081730();
@@ -47,7 +47,7 @@ void func_8002F868(void *arg0, void *arg1) {
     u16 temp_v1_2;
     void *temp_t0;
 
-    func_8002F718();
+    updateMenuAnimation();
     temp_v1 = M2C_FIELD(arg1, const s16 *, 0x7A);
     switch (temp_v1) {
     case 0:

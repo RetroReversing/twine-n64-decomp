@@ -21,7 +21,7 @@ s32 spawnTrackHudObject(u8);                              /* extern */
 M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
 s32 createTextMenu(u8);                              /* extern */
 M2C_UNK func_80081D20(M2C_UNK, M2C_UNK);            /* extern */
-extern u8 gMenuListParam;
+extern u8 sMenuListKind;
 extern M2C_UNK D_800BF458;
 extern s32 gMenuSoundParams;
 extern u8 gMenuUseTextList;
@@ -34,9 +34,9 @@ extern void *gMenuState;
 
     if (M2C_FIELD(gMenuState, s32 *, 0x20) == 0) {
         if (gMenuUseTextList == 0) {
-            M2C_FIELD(gMenuState, s32 *, 0x20) = spawnTrackHudObject(gMenuListParam);
+            M2C_FIELD(gMenuState, s32 *, 0x20) = spawnTrackHudObject(sMenuListKind);
         } else {
-            M2C_FIELD(gMenuState, s32 *, 0x20) = createTextMenu(gMenuListParam);
+            M2C_FIELD(gMenuState, s32 *, 0x20) = createTextMenu(sMenuListKind);
         }
     }
     setupMenuListFlags();

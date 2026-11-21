@@ -4,14 +4,14 @@ void *func_800162BC(u8);                            /* extern */
 s32 freeMenuItemRecord(void *);                      /* extern */
 s32 func_800448A4(void *, s32, s32);    /* extern */
 extern s32 D_800BD660;
-extern u8 gMenuListParam;
+extern u8 sMenuListKind;
 
 void func_800269B4(void **arg0, s32 arg1, s32 arg2) {
     register void *temp_v0;
 
     freeMenuItemRecord(*arg0);
     *arg0 = NULL;
-    temp_v0 = func_800162BC(gMenuListParam);
+    temp_v0 = func_800162BC(sMenuListKind);
     if (temp_v0 != NULL) {
         (*(s16 *)((char *)(temp_v0) + 0x1E)) = 0;
         (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 0xC);

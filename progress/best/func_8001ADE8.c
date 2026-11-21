@@ -35,7 +35,7 @@ extern void *volatile gPickupActor;
 extern char sMenuItemParamTable[];
 extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
-extern u8 gMenuListParam;
+extern u8 sMenuListKind;
 extern s8 D_800BD690;
 extern u8 D_800BF688[];
 extern char D_800C3CF8[];
@@ -56,7 +56,7 @@ extern s8 D_801002E9;
 extern char D_80100408[];
 extern s32 gMenuSoundParams;
 extern s32 D_80102EC0;
-extern s32 D_80102EC4;
+extern s32 sMenuDefaultSoundParams;
 extern s32 D_80102F48[];
 extern s8 D_80104311;
 extern s8 gSharedItemBusy;
@@ -110,13 +110,13 @@ s32 __repair_phase_var_a0;
     sp34 = findEntryById(((__repair_field_10 *)gMenuState)->value, 0x400C);
     if (((temp_fp != NULL) & (temp_s7 != NULL)) && ((temp_s6 != (int)NULL) & (temp_s5 != NULL)) && (sp34)) {
         func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &bindMenuItemRecord, &func_8001AC88);
-        func_80022A30(gMenuListParam, 0x27, 0x2E, 0x3C, 0x98);
+        func_80022A30(sMenuListKind, 0x27, 0x2E, 0x3C, 0x98);
         var_s2 = 0;
         if (gSaveTotalSlots > 0) {
             var_s0 = 0 & 0xFFFF;
             do {
                 temp_a0_2 = func_80022DBC(var_s0);
-                temp_v0 = func_800162BC(gMenuListParam);
+                temp_v0 = func_800162BC(sMenuListKind);
                 *(s32 *)((var_s0 * 4) + (s32)D_80102F48) = temp_v0;
                 if (temp_v0) {
                     temp_s1 = lookupDataEntry((var_s2 + 0x4008) & 0xFFFF);
@@ -137,8 +137,8 @@ s32 __repair_phase_var_a0;
                 var_s0 = var_s2 & 0xFFFF;
             } while ((var_s2 & 0xFFFF) < gSaveTotalSlots);
         }
-        func_80022E18(gMenuListParam);
-        func_80022AD8(gMenuListParam);
+        func_80022E18(sMenuListKind);
+        func_80022AD8(sMenuListKind);
         func_8002A9A8(gPickupSearchBox, func_80022DE8(gPickupSavedByte));
         func_8002AC04(gPickupSearchBox, 1);
         func_8002ACB4(gPickupSearchBox);
@@ -191,7 +191,7 @@ s32 __repair_phase_var_a0;
                 if (temp_v0_2 & 0x80) {
                     var_v0 = gMenuSoundParams;
                 } else {
-                    var_v0 = D_80102EC4;
+                    var_v0 = sMenuDefaultSoundParams;
                 }
                 (*(s32 *)((char *)((*(void **)((char *)(temp_v1_3) + 8))) + 0x10)) = (s32) ((var_v0 & ~0xFF) | (*(u8 *)((char *)((*(void **)((char *)(temp_v1_3) + 8))) + 0x13)));
             }

@@ -1,9 +1,9 @@
-extern u8 D_80107ECF;
-extern u8 D_80109684;
-extern u8 D_80109A34;
+extern u8 sAltPrimTintR;
+extern u8 sPrimTintB;
+extern u8 sPrimTintG;
 extern u8 D_8010A2CC;
 extern u8 D_8010D2B8;
-extern u8 D_80115318;
+extern u8 sPrimTintR;
 extern void *sDisplayListCursor;
 
 void emitPrimColor(void *arg0, void *arg1) {
@@ -19,15 +19,15 @@ u8 *p;
 
         p = *(u8 **)((char *)arg0 + 0x20);
         avg = (p[0x64] + p[0x65] + p[0x66]) / 3;
-        a1 = (avg * D_80115318) >> 8;
-        a2 = (avg * D_80109A34) >> 8;
-        a3 = (avg * D_80109684) >> 8;
+        a1 = (avg * sPrimTintR) >> 8;
+        a2 = (avg * sPrimTintG) >> 8;
+        a3 = (avg * sPrimTintB) >> 8;
     } else if (flags & 4) {
 u8 *p;
 
         p = *(u8 **)((char *)arg0 + 0x20);
         avg = (p[0x64] + p[0x65] + p[0x66]) / 3;
-        a1 = (avg * D_80107ECF) >> 8;
+        a1 = (avg * sAltPrimTintR) >> 8;
         a2 = (avg * D_8010D2B8) >> 8;
         a3 = (avg * D_8010A2CC) >> 8;
     } else {

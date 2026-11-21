@@ -15,7 +15,7 @@ s32 sprintf();
 extern s16 gMenuMode;
 extern s32 *gMenuList;
 extern s16 D_800B60E8;
-extern u8 gMenuListParam;
+extern u8 sMenuListKind;
 extern u8 gMenuSlot;
 extern char D_800BDBD0[];
 extern char D_800CE92C[];
@@ -46,7 +46,7 @@ void menuPopulateItems(void) {
     D_800B60E8 = 0;
     textHandle = findEntryById(D_800BDBD0, 0x4000);
     if (textHandle) {
-        { func_80022A30(gMenuListParam, 0x2D, 0x46, 0xDC, 0x7F); }
+        { func_80022A30(sMenuListKind, 0x2D, 0x46, 0xDC, 0x7F); }
         itemTable = NULL;
         formatTextEntry(textHandle, "%s", lookupDataEntry(*(u16 *)(D_800E0ED4 + (gMenuSlot * 2)) | 0x7000));
         itemCount = 0;
@@ -67,7 +67,7 @@ void menuPopulateItems(void) {
         itemCounter = 0;
         if (itemCount) {
             do {
-                slotHandle = func_800162BC(gMenuListParam);
+                slotHandle = func_800162BC(sMenuListKind);
                 itemIndex = itemCounter & 0xFFFF;
                 slotPtr = (itemIndex * 4) + D_800E0E40;
                 *slotPtr = slotHandle;
@@ -82,7 +82,7 @@ void menuPopulateItems(void) {
                 ++itemCounter;
             } while ((u32) (itemCounter & 0xFFFF) < itemCount);
         }
-        func_80022AD8(gMenuListParam);
+        func_80022AD8(sMenuListKind);
         func_8002A9A8(gMenuList, 0);
         func_8002AC04(gMenuList, 1);
         func_8002ACB4(gMenuList);

@@ -12,7 +12,7 @@ void func_8002FBD4(void *, s16);
 s32 lookupDataEntry(s32);
 extern u32 sMenuItemParamTable[];
 extern u8 D_800BD8C4[];
-extern u16 D_800BFC92;
+extern u16 sMenuAnimFlags;
 extern u16 D_800BFC94, D_800BFC96;
 extern DisplayItem *volatile D_800E1560;
 extern u8 D_800E1584[];
@@ -33,7 +33,7 @@ void func_8002F068(void *unused, void *arg1)
 
     if (!(u8)func_80027CE0(0x23) && !(u8)func_80027CE0(0x2A) && !gPendingMenuCommand) {
         asset = lookupDataEntry(0x2E9);
-        mode = D_800BFC92 & 1;
+        mode = sMenuAnimFlags & 1;
         x = mode ? 0xA0 : 0xDC;
         y = mode ? 0xB0 : 0x45;
         item = func_80027408(asset, 0, x, y);
@@ -45,7 +45,7 @@ void func_8002F068(void *unused, void *arg1)
             D_800BFC96 = 63 - phase;
         }
         palette = sMenuItemParamTable;
-        if (D_800BFC92 & 1) {
+        if (sMenuAnimFlags & 1) {
             color = palette + 1;
         } else {
             color = palette + 9;

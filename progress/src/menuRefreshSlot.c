@@ -29,7 +29,7 @@ M2C_UNK func_8002AC04(M2C_UNK *, M2C_UNK);          /* extern */
 s32 lookupDataEntry(s32);                             /* extern */
 extern s16 gMenuMode;
 extern M2C_UNK *D_800B60E4;
-extern u8 gMenuListParam;
+extern u8 sMenuListKind;
 extern u8 gMenuSlot;
 extern M2C_UNK D_800C469E;
 extern M2C_UNK D_800C46D8;
@@ -68,7 +68,7 @@ void menuRefreshSlot(void) {
     if (temp_v0 != NULL) {
         temp_s5 = M2C_FIELD(temp_v0, s32 *, 0x6C);
         if (temp_s5 != 0) {
-            func_80022A30(gMenuListParam, 0x20, 0x42, 0x72, 0x50);
+            func_80022A30(sMenuListKind, 0x20, 0x42, 0x72, 0x50);
             temp_v1 = (void *)((gMenuSlot * 2)); temp_v1 = (void *)((char *)temp_v1 + (s32)(&D_800E0ECC));
             if ((u16) *temp_v1 >= 0x28U) {
                 *temp_v1 = 0;
@@ -85,7 +85,7 @@ void menuRefreshSlot(void) {
 __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
 
                 if (((M2C_FIELD(__repair_addr, u8 *, 0x1FC) != 0) | (var_s1 == 0)) != 0) {
-                    temp_v0_2 = func_800162BC(gMenuListParam);
+                    temp_v0_2 = func_800162BC(sMenuListKind);
                     __repair_phase_storage.pointer = var_s1 + &D_80109D28;
                     *__repair_phase_storage.pointer = temp_v0_2;
                     if (temp_v0_2 != 0) {
@@ -118,8 +118,8 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                 }
                 M2C_FIELD(gMenuState, u8 *, 0x30) = 0xFF;
             }
-            func_80022E18(gMenuListParam);
-            func_80022AD8(gMenuListParam);
+            func_80022E18(sMenuListKind);
+            func_80022AD8(sMenuListKind);
             func_8002AC04(D_800B60E4, 1);
         }
     }
