@@ -52298,103 +52298,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:c2029f05aac939bdc996bd2b7c806bafd3e1b28b3a3c816bba01f2ac63e3674d"
  },
  {
-  "function": "lookupDataEntry",
-  "text": "Rechecked 2395. Eight compiling index spelling/width alternatives produced the same instruction stream: separately initialized u16 and compound &=, explicit u16 casts from s32/s16 locals, unsigned modulo, u16 formal parameter, complement mask, union low half, and explicit 0xffff masks. Target still has seven extra `andi v1,v1,0xffff` around the upper switch cases. These shift many downstream branch offsets. O1 scored 2375 in flag sweep; no exact flag result. Next focus on switch shape and per-case narrowing/phase boundaries that might prevent redundant mask elimination.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795164180.078486,
-  "score_before": 2395,
-  "score_after": 2395
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Baseline 2395 retained. Six local repairs did not improve; signed index worsened to 4115, adding u16 casts recovered 2395. Target has seven extra andi v1,v1,0xffff across later switch cases; investigate source control flow/type shaping to produce those masks.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795171018.1074991,
-  "score_before": 2395,
-  "score_after": 2395
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Baseline 861e92dc4e8a216c431d rechecked 2395. Signedness and nested guards tied; split address, unsigned switch, duplicated recursive tail and inlined mask worsened. Remaining 69 rows are dominated by branch destinations and case layout; reconstruct shared tail and individual case code from target.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795183228.413281,
-  "score_before": 2395,
-  "score_after": 2395
- },
- {
-  "function": "lookupDataEntry",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Resubmitted inherited revision 861e92dc4e8a216c431d verbatim. Ordinary judge failed before scoring because gcc-2.7.2-kmc is not installed. Recheck inherited 2395 baseline after restoring toolchain, then compare switch dispatch and shared tail against full target assembly.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795193881.164489,
-  "score_before": 2395,
-  "score_after": 2395
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Started from the prior best source, compiled and verified current score 2375. Changing index to `u16 index = (u16)(id & 0xffff);` brought score down to 660. Target explicitly uses `andi $v1, $a0, 0xfff` and later masks `$v1` to 0xffff in dispatch delay slots; this width choice preserves useful high-half mask lowering. Tried signed/wide index variants, switch on shifted tag, `base + index * 4`, recursion expression, and condition/tag variants; none beat 660. Move-on threshold reached. Candidate retained at revision cdde36e3f1a8841d3c1f. Remaining mismatch: branch tree (target has 38 branch-target discrepancies vs original switch candidate), plus registers; next test should replace switch with explicit if/range tag split (0x6000 equality then <0x6001, else lower-region equality tests and >0x9000 split), mirroring assembly blocks and delay-slot masks. No global reusable knowledge inferred.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795202186.70481,
-  "score_before": 2375,
-  "score_after": 660
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Saved candidate at score 660 (95.8% match), 158 target vs 159 candidate, revision cdde36e3f1a8841d3c1f. Tried 16-bit index candidate (best); 12-bit index mask regressed to 2375 and 32-bit index widened to 6485; restored best. Best remaining difference begins target `andi $v1,$a0,0xfff` vs candidate `move $v1,$a0; andi $v0,$v1,0xffff`; numerous case branch destinations differ by 4 bytes, and register allocation differs. No new successful repair. Next, try an explicit if/else chain for tag selection while preserving full 16-bit index local; could shift common failure tail layout and match target short branches.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795204512.289545,
-  "score_before": 660,
-  "score_after": 660
- },
- {
-  "function": "lookupDataEntry",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Current revision 385e30651eeaf34e5f20 rechecks at 11750 (machine-draft lineage), not the historical 660 candidate (cdde36e3f1a8841d3c1f), which is not recoverable via saved_best here. Ran try_local_repairs (6 trials, none applied; one variant stopped on 'progress changed'). compile_variants of u16/u32 temp_v1 declarations and (u16)arg0 cast: no usable result reported. Structure: switch on arg0&0xF000 tag with 0x1000-steps, index = arg0&0xFFF masked to 0xFFFF, table lookups D_800CE800+table[idx*4], recursion func_80087100(3,...) fallback. Next step: restore the 660-score source (16-bit index via u16 index = (u16)(id & 0xffff) per prior notes) and work on branch shape of the case dispatch (target uses andi $v1,$a0,0xfff first, then andi with 0xffff in delay slots).",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795205661.664484,
-  "score_before": 660,
-  "score_after": 660
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Not matched. Tried rewriting as a switch on (arg0 & 0xF000) with per-case table bounds, fallthrough to func_80087100(3,arg1) (score 8455, 135 insns vs 158 target; compiler emits a binary compare tree but different branch order/targets and a move $v1,$zero). Variant using s32 idx and uidx=(u16) cast gave same 8455. Target: 0x6000 case is tested first (beq), then slti 0x6001 tree; 0x4000 case returns idx*300+D_8010A960; table-null checks shared at one label for 0x6000/0x7000.. cases. Old if-chain candidate 385e... scores 11750. Next step: try writing the if/else tree in the target's exact order (check 0x6000 first, then 0x2000/0x3000/0x1000/0 split on <0x6001 etc.) with a shared 'tbl != 0' lookup label, and keep idx as s32 with (u16) masks at each use.\nswitch(arg0&0xF000) with per-case bounds on uidx=(u16)(arg0&0xFFF), shared tbl!=0 lookup, default/fallthrough to recursive call\nscore 8455 (from 11750 on the machine-draft lineage); still 148 differing rows, branch order differs from target binary tree",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795207851.099704,
-  "score_before": 660,
-  "score_after": 660
- },
- {
-  "function": "lookupDataEntry",
-  "text": "The candidate revision 4de0d9005f77975b7162 rechecks at 8455 after a harmless brace patch; no improvement. Previous explicit rewrites and 33 local trials exhausted candidate variants, with older best 660 unrecoverable. Main structural mismatch: target dispatch compares the 0x6000 range first and uses repeated `andi $a0,$v1,0xffff`/index scaling; candidate switch lowers into different compare order and initializes tbl with `move $v1,$zero`. Preserve target's unusual branch ordering and shared table-null failure path. Earlier tests of s32/u16 index and `(u16)arg0` did not improve.\nHarmless brace patch compiled; score unchanged at 8455. Earlier explicit switch rewrites, u16/s32 index and cast variants, and local repair searches are recorded.\nNo improvement; candidate retained.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795208816.851907,
-  "score_before": 660,
-  "score_after": 660
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Source form with a switch on group and repeated `((u32)arg0 & 0xffff)` expressions per case improved substantially: 8455 \u2192 3660. Changing only the group local from `u32` to `s32` changed sltiu bounds/tree ops to target signed `slti`/`slt` and improved to 2880 (146/158 instructions; 81.7%). Remaining mismatch is primarily dispatch branch targets / ordering and register allocation ($a2 vs target $a0). Current source has group as s32 and per-case 16-bit masking; latest revision 90a5bab1c3b11d25dac2. Claim ended by service; don't patch without reacquiring.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795209387.1543171,
-  "score_before": 660,
-  "score_after": 660
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Saved 2880 candidate incorrectly uses low 16 rather than low 12 bits for index; target masks 0xfff at entry. Corrected alternatives 7970/7995/6200 due to repeated narrowing and control-flow differences.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795209906.009135,
-  "score_before": 660,
-  "score_after": 660
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Current rechecked best remains 2880; mask experiment and explicit nested dispatch rewrite did not improve (one worsened to 16255). The target entry naturally has `andi $v1,$a0,0xfff` and `andi $a0,$a0,0xf000` followed by balanced comparison tree; C `s32 group=(u32)arg0&0xf000; switch(group)` yielded $a2 for low index and jump-table/control-flow mismatches. An explicit nested tree was poor and generated repetitive tail jumps. Next step: try ordering local declarations/initializations so group is computed after a retained low-index variable, or rewrite as if/else tree while each case compares g and directly returns lookup; preserve saved_best.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795215372.6418,
-  "score_before": 11750,
-  "score_after": 2880,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
- },
- {
   "function": "func_80012F50",
   "text": "Saved candidate has two incorrect scaled pointer expressions. Correcting var_s7 alone tied 5490; correcting the var_s3 source offset scored 5585 and fixed its arithmetic but changed address materialization. Pointer parameter prototypes tied 5490.",
   "by": "codex-gpt-6.1-terra-4",
@@ -52438,15 +52341,6 @@
   "score_before": 160,
   "score_after": 140,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:44ce01c95ab5f6f641831f4233e985aad918f93164111ba5ed2954793e280911"
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Target masks index to 12 bits; saved candidate incorrectly uses low 16 bits. Applying arg0 &= 0xfff after computing group scored 2995 versus 2880 baseline, but fixed semantics.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795224096.11839,
-  "score_before": 2880,
-  "score_after": 2880,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
  },
  {
   "function": "buildPlaneFromPoints",
@@ -55137,15 +55031,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:9ff5286058ba2cb0c5948c5fbf1e43d31f2ceb4260809b5ed9077bc5f2c4ed55"
  },
  {
-  "function": "lookupDataEntry",
-  "text": "Saved candidate uses low 16 bits where target masks low 12; correctness needs repair despite score.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795228748.508895,
-  "score_before": 2880,
-  "score_after": 2880,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
- },
- {
   "function": "func_8009D510",
   "text": "Verified saved best 1315; changing osCreateMesgQueue call to pass three args improved from 1880 to 1315. Adding early 0x11A4/0x11A0 zero stores produced 1515; removing them restored 1315. Remaining structural mismatch is argument setup around queue call and conditional byte store; target emits addiu a2,1 and andi v0,zero,ffff plus beqz t1 / bnez t2 branches. Candidate only 45 of 49 target instructions.",
   "by": "codex-gpt-6-luna-15",
@@ -55960,15 +55845,6 @@
   "score_before": 1263,
   "score_after": 420,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
- },
- {
-  "function": "lookupDataEntry",
-  "text": "Four local variants failed to improve verified 2880 baseline. Candidate incorrectly uses low 16 rather than target low 12 index bits, as earlier handoff notes.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795229763.117155,
-  "score_before": 2880,
-  "score_after": 2880,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
  },
  {
   "function": "func_8009D510",
@@ -61295,15 +61171,6 @@
   "score_after": 0
  },
  {
-  "function": "lookupDataEntry",
-  "text": "Current baseline score 2880 rechecked. This inherited function has extensive prior trials; one baseline compile confirmed 2880 and no improvement. Dispatch source switch collapses to a different tree/order and holds masked group in $a2 rather than target $a0; initial target also masks low 12 bits at entry whereas this source still uses low 16 (despite saved candidate's historical score).\nRecompiled inherited best source; score unchanged at 2880/158 target instructions. Saved-best restoration confirmed same candidate.\nNo better output. Target begins andi $v1,$a0,0xfff; andi $a0,$a0,0xf000, then hand-shaped signed comparison tree (0x6000, 0x2000, 0x1000, etc.). Source switch compiles to divergent dispatch, group register $a2 and differing branch targets.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795236234.414976,
-  "score_before": 2880,
-  "score_after": 2880,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
- },
- {
   "function": "func_800219A0",
   "text": "Six local variants did not improve baseline 630; branch inversion worsened to 1470 and the other variants produced unchanged instructions.",
   "by": "codex-gpt-6.1-terra-4",
@@ -62326,5 +62193,138 @@
   "score_before": 200,
   "score_after": 200,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:312b75ee42534593a72014908a22f95d2a15b02c5fbafda93702f25a95b43b1f"
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Rechecked 2395. Eight compiling index spelling/width alternatives produced the same instruction stream: separately initialized u16 and compound &=, explicit u16 casts from s32/s16 locals, unsigned modulo, u16 formal parameter, complement mask, union low half, and explicit 0xffff masks. Target still has seven extra `andi v1,v1,0xffff` around the upper switch cases. These shift many downstream branch offsets. O1 scored 2375 in flag sweep; no exact flag result. Next focus on switch shape and per-case narrowing/phase boundaries that might prevent redundant mask elimination.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795164180.078486,
+  "score_before": 2395,
+  "score_after": 2395
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Baseline 2395 retained. Six local repairs did not improve; signed index worsened to 4115, adding u16 casts recovered 2395. Target has seven extra andi v1,v1,0xffff across later switch cases; investigate source control flow/type shaping to produce those masks.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795171018.1074991,
+  "score_before": 2395,
+  "score_after": 2395
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Baseline 861e92dc4e8a216c431d rechecked 2395. Signedness and nested guards tied; split address, unsigned switch, duplicated recursive tail and inlined mask worsened. Remaining 69 rows are dominated by branch destinations and case layout; reconstruct shared tail and individual case code from target.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795183228.413281,
+  "score_before": 2395,
+  "score_after": 2395
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Resubmitted inherited revision 861e92dc4e8a216c431d verbatim. Ordinary judge failed before scoring because gcc-2.7.2-kmc is not installed. Recheck inherited 2395 baseline after restoring toolchain, then compare switch dispatch and shared tail against full target assembly.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795193881.164489,
+  "score_before": 2395,
+  "score_after": 2395
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Started from the prior best source, compiled and verified current score 2375. Changing index to `u16 index = (u16)(id & 0xffff);` brought score down to 660. Target explicitly uses `andi $v1, $a0, 0xfff` and later masks `$v1` to 0xffff in dispatch delay slots; this width choice preserves useful high-half mask lowering. Tried signed/wide index variants, switch on shifted tag, `base + index * 4`, recursion expression, and condition/tag variants; none beat 660. Move-on threshold reached. Candidate retained at revision cdde36e3f1a8841d3c1f. Remaining mismatch: branch tree (target has 38 branch-target discrepancies vs original switch candidate), plus registers; next test should replace switch with explicit if/range tag split (0x6000 equality then <0x6001, else lower-region equality tests and >0x9000 split), mirroring assembly blocks and delay-slot masks. No global reusable knowledge inferred.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795202186.70481,
+  "score_before": 2375,
+  "score_after": 660
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Saved candidate at score 660 (95.8% match), 158 target vs 159 candidate, revision cdde36e3f1a8841d3c1f. Tried 16-bit index candidate (best); 12-bit index mask regressed to 2375 and 32-bit index widened to 6485; restored best. Best remaining difference begins target `andi $v1,$a0,0xfff` vs candidate `move $v1,$a0; andi $v0,$v1,0xffff`; numerous case branch destinations differ by 4 bytes, and register allocation differs. No new successful repair. Next, try an explicit if/else chain for tag selection while preserving full 16-bit index local; could shift common failure tail layout and match target short branches.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795204512.289545,
+  "score_before": 660,
+  "score_after": 660
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Current revision 385e30651eeaf34e5f20 rechecks at 11750 (machine-draft lineage), not the historical 660 candidate (cdde36e3f1a8841d3c1f), which is not recoverable via saved_best here. Ran try_local_repairs (6 trials, none applied; one variant stopped on 'progress changed'). compile_variants of u16/u32 temp_v1 declarations and (u16)arg0 cast: no usable result reported. Structure: switch on arg0&0xF000 tag with 0x1000-steps, index = arg0&0xFFF masked to 0xFFFF, table lookups D_800CE800+table[idx*4], recursion func_80087100(3,...) fallback. Next step: restore the 660-score source (16-bit index via u16 index = (u16)(id & 0xffff) per prior notes) and work on branch shape of the case dispatch (target uses andi $v1,$a0,0xfff first, then andi with 0xffff in delay slots).",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795205661.664484,
+  "score_before": 660,
+  "score_after": 660
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Not matched. Tried rewriting as a switch on (arg0 & 0xF000) with per-case table bounds, fallthrough to func_80087100(3,arg1) (score 8455, 135 insns vs 158 target; compiler emits a binary compare tree but different branch order/targets and a move $v1,$zero). Variant using s32 idx and uidx=(u16) cast gave same 8455. Target: 0x6000 case is tested first (beq), then slti 0x6001 tree; 0x4000 case returns idx*300+D_8010A960; table-null checks shared at one label for 0x6000/0x7000.. cases. Old if-chain candidate 385e... scores 11750. Next step: try writing the if/else tree in the target's exact order (check 0x6000 first, then 0x2000/0x3000/0x1000/0 split on <0x6001 etc.) with a shared 'tbl != 0' lookup label, and keep idx as s32 with (u16) masks at each use.\nswitch(arg0&0xF000) with per-case bounds on uidx=(u16)(arg0&0xFFF), shared tbl!=0 lookup, default/fallthrough to recursive call\nscore 8455 (from 11750 on the machine-draft lineage); still 148 differing rows, branch order differs from target binary tree",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795207851.099704,
+  "score_before": 660,
+  "score_after": 660
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "The candidate revision 4de0d9005f77975b7162 rechecks at 8455 after a harmless brace patch; no improvement. Previous explicit rewrites and 33 local trials exhausted candidate variants, with older best 660 unrecoverable. Main structural mismatch: target dispatch compares the 0x6000 range first and uses repeated `andi $a0,$v1,0xffff`/index scaling; candidate switch lowers into different compare order and initializes tbl with `move $v1,$zero`. Preserve target's unusual branch ordering and shared table-null failure path. Earlier tests of s32/u16 index and `(u16)arg0` did not improve.\nHarmless brace patch compiled; score unchanged at 8455. Earlier explicit switch rewrites, u16/s32 index and cast variants, and local repair searches are recorded.\nNo improvement; candidate retained.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795208816.851907,
+  "score_before": 660,
+  "score_after": 660
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Source form with a switch on group and repeated `((u32)arg0 & 0xffff)` expressions per case improved substantially: 8455 \u2192 3660. Changing only the group local from `u32` to `s32` changed sltiu bounds/tree ops to target signed `slti`/`slt` and improved to 2880 (146/158 instructions; 81.7%). Remaining mismatch is primarily dispatch branch targets / ordering and register allocation ($a2 vs target $a0). Current source has group as s32 and per-case 16-bit masking; latest revision 90a5bab1c3b11d25dac2. Claim ended by service; don't patch without reacquiring.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795209387.1543171,
+  "score_before": 660,
+  "score_after": 660
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Saved 2880 candidate incorrectly uses low 16 rather than low 12 bits for index; target masks 0xfff at entry. Corrected alternatives 7970/7995/6200 due to repeated narrowing and control-flow differences.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795209906.009135,
+  "score_before": 660,
+  "score_after": 660
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Current rechecked best remains 2880; mask experiment and explicit nested dispatch rewrite did not improve (one worsened to 16255). The target entry naturally has `andi $v1,$a0,0xfff` and `andi $a0,$a0,0xf000` followed by balanced comparison tree; C `s32 group=(u32)arg0&0xf000; switch(group)` yielded $a2 for low index and jump-table/control-flow mismatches. An explicit nested tree was poor and generated repetitive tail jumps. Next step: try ordering local declarations/initializations so group is computed after a retained low-index variable, or rewrite as if/else tree while each case compares g and directly returns lookup; preserve saved_best.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795215372.6418,
+  "score_before": 11750,
+  "score_after": 2880,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Target masks index to 12 bits; saved candidate incorrectly uses low 16 bits. Applying arg0 &= 0xfff after computing group scored 2995 versus 2880 baseline, but fixed semantics.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795224096.11839,
+  "score_before": 2880,
+  "score_after": 2880,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Saved candidate uses low 16 bits where target masks low 12; correctness needs repair despite score.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795228748.508895,
+  "score_before": 2880,
+  "score_after": 2880,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Four local variants failed to improve verified 2880 baseline. Candidate incorrectly uses low 16 rather than target low 12 index bits, as earlier handoff notes.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795229763.117155,
+  "score_before": 2880,
+  "score_after": 2880,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Current baseline score 2880 rechecked. This inherited function has extensive prior trials; one baseline compile confirmed 2880 and no improvement. Dispatch source switch collapses to a different tree/order and holds masked group in $a2 rather than target $a0; initial target also masks low 12 bits at entry whereas this source still uses low 16 (despite saved candidate's historical score).\nRecompiled inherited best source; score unchanged at 2880/158 target instructions. Saved-best restoration confirmed same candidate.\nNo better output. Target begins andi $v1,$a0,0xfff; andi $a0,$a0,0xf000, then hand-shaped signed comparison tree (0x6000, 0x2000, 0x1000, etc.). Source switch compiles to divergent dispatch, group register $a2 and differing branch targets.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795236234.414976,
+  "score_before": 2880,
+  "score_after": 2880,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
  }
 ]
