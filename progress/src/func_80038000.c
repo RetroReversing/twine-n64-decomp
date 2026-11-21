@@ -107,8 +107,26 @@ typedef struct Cam {
   u8 p124[0x24];
   f32 f148;
 } Cam;
-void func_80038000(Cam *arg0, s32 arg1)
+void func_80038000(Cam *arg0, s32 p1)
 {
+  s32 arg1;
+  s16 tv1;
+  s16 tv2;
+  s16 tv3;
+  s16 tv4;
+  s16 tv5;
+  s16 tv6;
+  s16 tv7;
+  s16 tv8;
+  s16 tv9;
+  s16 tv10;
+  s16 tv11;
+  s16 tv12;
+  s16 tv13;
+  s16 tv14;
+  s16 tv15;
+  s16 tv16;
+
   typedef struct 
   {
     u32 words[3];
@@ -118,29 +136,23 @@ void func_80038000(Cam *arg0, s32 arg1)
     f32 values[4];
     u32 words[4];
   } ClipBounds;
-  u32 temp_v0;
   f32 *var_s0;
   register f32 *var_v1;
   f32 temp_fs3;
   f32 temp_fv0;
   void *var_s0_2;
   f32 temp_fv1_2;
-  int temp_s0_2;
-  register void *temp_v1_3;
   ClipB clipBounds;
   s32 var_a0;
   u32 var_a1;
-  void *temp_v1_2;
   do
   {
-    void *temp_a1_2;
     void *temp_s0;
     void *temp_s0_3;
-    void *temp_v1;
-    void *temp_a1;
     int temp_s7;
     f32 temp_fv1;
     temp_fs3 = arg0->f4C;
+    arg1 = p1;
     if ((arg0->flags) & 4)
     {
       gCullFarDistance = 15.0f;
@@ -180,48 +192,64 @@ void func_80038000(Cam *arg0, s32 arg1)
       func_80045180(&arg0->u40, arg0->bB8, temp_s0, temp_fs3);
       func_800839F0(temp_s0, &arg0->u1C, &arg0->fE8);
       arg0->fAC = (f32) (-(arg0->fE8));
-      arg0->fB4 = (f32) (-(arg0->fF0));
       arg0->fB0 = (f32) (-(arg0->fEC));
-      sRenderState->a[arg1].h[0] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[1] - arg0->clip.values[0]))));
-      sRenderState->a[arg1].h[1] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[3] - arg0->clip.values[2]))));
+      arg0->fB4 = (f32) (-(arg0->fF0));
+      tv1 = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[1] - arg0->clip.values[0]))));
+      sRenderState->a[arg1].h[0] = tv1;
+      tv2 = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[3] - arg0->clip.values[2]))));
+      sRenderState->a[arg1].h[1] = tv2;
       sRenderState->a[arg1].h[2] = 0x2FF;
       sRenderState->a[arg1].h[3] = 0;
       if (arg0->flags & 8)
       {
-        sRenderState->a[arg1].h[0] = (s16) ((s32) (((f32) sRenderState->a[arg1].h[0]) + (((f32) (D_800C43A0[D_801007B8 & 0x7F] + 0x80)) * 0.078125f)));
-        sRenderState->a[arg1].h[1] = (s16) ((s32) (((f32) sRenderState->a[arg1].h[1]) + (((f32) (D_800C43A0[(D_801007B8 + 0x2AB) & 0x7F] + 0x80)) * 0.0390625f)));
+        tv3 = (s16) ((s32) (((f32) sRenderState->a[arg1].h[0]) + (((f32) (D_800C43A0[D_801007B8 & 0x7F] + 0x80)) * 0.078125f)));
+      sRenderState->a[arg1].h[0] = tv3;
+        tv4 = (s16) ((s32) (((f32) sRenderState->a[arg1].h[1]) + (((f32) (D_800C43A0[(D_801007B8 + 0x2AB) & 0x7F] + 0x80)) * 0.0390625f)));
+      sRenderState->a[arg1].h[1] = tv4;
       }
-      sRenderState->a[arg1].h[4] = (s16) ((s32) (arg0->f60 * 4.0f));
-      sRenderState->a[arg1].h[5] = (s16) ((s32) (arg0->f64 * 4.0f));
+      tv5 = (s16) ((s32) (arg0->f60 * 4.0f));
+      sRenderState->a[arg1].h[4] = tv5;
+      tv6 = (s16) ((s32) (arg0->f64 * 4.0f));
+      sRenderState->a[arg1].h[5] = tv6;
       sRenderState->a[arg1].h[6] = 255;
       sRenderState->a[arg1].h[7] = 0;
       sDisplayListCursor->w0 = 0xDC080008;
       sDisplayListCursor->w1 = &sRenderState->a[arg1];
       sDisplayListCursor++;
       func_800325E4((char *) sRenderState + (arg1 << 6), (char *) sRenderState + ((arg1 * 2) + 0x360), arg0->f84, arg0->s80, 12.8f, gCullFarDistance * 64.0f, 1.0f);
-      sRenderState->b[arg1].h[0] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[1] - arg0->clip.values[0]))));
-      sRenderState->b[arg1].h[1] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[3] - arg0->clip.values[2]))));
+      tv7 = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[1] - arg0->clip.values[0]))));
+      sRenderState->b[arg1].h[0] = tv7;
+      tv8 = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[3] - arg0->clip.values[2]))));
+      sRenderState->b[arg1].h[1] = tv8;
       sRenderState->b[arg1].h[2] = 0x2EF;
       sRenderState->b[arg1].h[3] = 0;
       if (arg0->flags & 8)
       {
-        sRenderState->b[arg1].h[0] = (s16) ((s32) (((f32) sRenderState->b[arg1].h[0]) + (((f32) (D_800C43A0[D_801007B8 & 0x7F] + 0x80)) * 0.078125f)));
-        sRenderState->b[arg1].h[1] = (s16) ((s32) (((f32) sRenderState->b[arg1].h[1]) + (((f32) (D_800C43A0[(D_801007B8 + 0x2AB) & 0x7F] + 0x80)) * 0.0390625f)));
+        tv9 = (s16) ((s32) (((f32) sRenderState->b[arg1].h[0]) + (((f32) (D_800C43A0[D_801007B8 & 0x7F] + 0x80)) * 0.078125f)));
+      sRenderState->b[arg1].h[0] = tv9;
+        tv10 = (s16) ((s32) (((f32) sRenderState->b[arg1].h[1]) + (((f32) (D_800C43A0[(D_801007B8 + 0x2AB) & 0x7F] + 0x80)) * 0.0390625f)));
+      sRenderState->b[arg1].h[1] = tv10;
       }
-      sRenderState->b[arg1].h[4] = (s16) ((s32) (arg0->f60 * 4.0f));
-      sRenderState->b[arg1].h[5] = (s16) ((s32) (arg0->f64 * 4.0f));
+      tv11 = (s16) ((s32) (arg0->f60 * 4.0f));
+      sRenderState->b[arg1].h[4] = tv11;
+      tv12 = (s16) ((s32) (arg0->f64 * 4.0f));
+      sRenderState->b[arg1].h[5] = tv12;
       sRenderState->b[arg1].h[6] = 255;
       sRenderState->b[arg1].h[7] = 0;
       sDisplayListCursor->w0 = 0xDC080008;
       sDisplayListCursor->w1 = &sRenderState->b[arg1];
       sDisplayListCursor++;
       func_800325E4((char *) sRenderState + ((arg1 << 6) + 0x370), (char *) sRenderState + ((arg1 * 2) + 0x550), arg0->f84, arg0->s80, 12.8f, gCullFarDistance * 64.0f, 1.0f);
-      sRenderState->c[arg1].h[0] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[1] - arg0->clip.values[0]))));
-      sRenderState->c[arg1].h[1] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[3] - arg0->clip.values[2]))));
+      tv13 = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[1] - arg0->clip.values[0]))));
+      sRenderState->c[arg1].h[0] = tv13;
+      tv14 = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[3] - arg0->clip.values[2]))));
+      sRenderState->c[arg1].h[1] = tv14;
       sRenderState->c[arg1].h[2] = 0xFF;
       sRenderState->c[arg1].h[3] = 0;
-      sRenderState->c[arg1].h[4] = (s16) ((s32) (arg0->f60 * 4.0f));
-      sRenderState->c[arg1].h[5] = (s16) ((s32) (arg0->f64 * 4.0f));
+      tv15 = (s16) ((s32) (arg0->f60 * 4.0f));
+      sRenderState->c[arg1].h[4] = tv15;
+      tv16 = (s16) ((s32) (arg0->f64 * 4.0f));
+      sRenderState->c[arg1].h[5] = tv16;
       sRenderState->c[arg1].h[6] = 0;
       sRenderState->c[arg1].h[7] = 0;
       sDisplayListCursor->w0 = 0xDC080008;
@@ -230,11 +258,9 @@ void func_80038000(Cam *arg0, s32 arg1)
       func_800325E4((char *) sRenderState + ((arg1 << 6) + 0x560), (char *) sRenderState + ((arg1 * 2) + 0x740), arg0->f84, arg0->s80, 0.64f, 64.0f, 1.0f);
       if (sMatrixPoolUsed < sMatrixPoolLimit)
       {
-        f32 yaw = (arg0->u40.f[2]) + 3.1415927f;
-        f32 pitch = -((arg0->u40.f[1]) + 3.1415927f);
-        s32 roll = arg0->u40.i[0];
-        sMatrixPoolUsed = sMatrixPoolUsed + 1; sCurrentMatrixSlot = (sMatrixPoolUsed << 6) + sRenderState->s74c;
-        func_8000BBB4(&sObjectMatrixF, yaw, pitch, roll);
+        sMatrixPoolUsed = sMatrixPoolUsed + 1;
+        sCurrentMatrixSlot = sRenderState->s74c + (sMatrixPoolUsed << 6);
+        func_8000BBB4(&sObjectMatrixF, (arg0->u40.f[2]) + 3.1415927f, -((arg0->u40.f[1]) + 3.1415927f), arg0->u40.i[0]);
         guTranslateF(&D_80109E28, (-(arg0->u1C.f[0])) * 64.0f, (-(arg0->u1C.f[1])) * 64.0f, (-(arg0->u1C.f[2])) * 64.0f);
         func_800A3840(&D_80109E28, &sObjectMatrixF, &sParentMatrixF);
         var_s0 = &sParentMatrixF; var_a1 = 0;
