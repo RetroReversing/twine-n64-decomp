@@ -61,7 +61,7 @@ s32 func_8000D000(void) {
     
     s32 var_a0_2;
     s32 var_a2;
-    s8 temp_s1;
+    s32 temp_s1;
     s8 var_a0;
     u8 temp_s0;
     u8 temp_v0_5;
@@ -75,7 +75,7 @@ s32 func_8000D000(void) {
     void *temp_v1_4;
 
     temp_s0 = D_80109E68;
-    { s8 *p = (s8 *)&D_800E0742; temp_s1 = *p; }
+    temp_s1 = (s8)D_800E0742;
     var_a0 = 0;
     if (D_80102EE0 == 0x24) {
         var_a0 = D_80102EDE != 0x1F;
@@ -115,7 +115,7 @@ s32 func_8000D000(void) {
         M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x74) = 255.0f;
         M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x78) = 255.0f;
         M2C_FIELD(__repair_phase_storage.pointer, s16 *, 0x90) = -1;
-        temp_v1 = D_800B2710 + var_a0_2;
+        temp_v1 = __repair_phase_storage.pointer;
         M2C_FIELD(temp_v1, u8 *, 0x99) = 0xFF;
         M2C_FIELD(temp_v1, f32 *, 0x38) = 999.0f;
         temp_v0_4 = D_800B2710 + var_a0_2;

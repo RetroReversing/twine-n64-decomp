@@ -1,2 +1,0 @@
-void func_80011938(s32,s16); void func_80081758(s32); extern s16 D_800E1A80[]; extern s8 D_8010D434[],D_8010D436[],D_80115108[],D_8011510C[];
-void func_800820BC(void){s32 i=0;s16 *slot=D_800E1A80;s32 src=0,dst=0;do{s32 value;func_80011938((u16)i,0);func_80081758(i);*(volatile s32*)(D_80115108+dst)=*(s16*)(D_8010D434+src);value=*(volatile s32*)(D_8010D436+src);i++;src+=8;*(s32*)(D_8011510C+dst)=value;*slot++=0;dst+=0xa0;}while(i<4);}
