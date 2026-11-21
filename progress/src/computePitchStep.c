@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK gPitchUpRatios;
-extern M2C_UNK gPitchRatioDown;
-extern f64 gTwoPow32F64;
-extern f64 gTwoPow32F64Eq;
-extern s32 gAudioOutputRate;
+extern M2C_UNK D_800CEF30;
+extern M2C_UNK D_800CF130;
+extern f64 D_800D67F0;
+extern f64 D_800D67F8;
+extern s32 D_8010A514;
 
-s32 computePitchStep(s32 arg0, u32 arg1) {
+s32 func_8008CC38(s32 arg0, u32 arg1) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 var_fv1_2;
@@ -41,23 +41,23 @@ s32 computePitchStep(s32 arg0, u32 arg1) {
         temp_v0 = var_a1 & 0xFFFFFF;
         var_fv1 = (f64) temp_v0;
         if (temp_v0 < 0) {
-            var_fv1 += gTwoPow32F64;
+            var_fv1 += D_800D67F0;
         }
         temp_fv1 = (f32) var_fv1;
         if (temp_v1 < temp_a0) {
-            var_fv1_2 = temp_fv1 * *((f32 *)((s8 *)&gPitchUpRatios + ((temp_a0 - temp_v1) * 4)));
+            var_fv1_2 = temp_fv1 * *((f32 *)((s8 *)&D_800CEF30 + ((temp_a0 - temp_v1) * 4)));
         } else {
-            var_fv1_2 = temp_fv1 * *((f32 *)((s8 *)&gPitchRatioDown + ((temp_v1 - temp_a0) * 4)));
+            var_fv1_2 = temp_fv1 * *((f32 *)((s8 *)&D_800CF130 + ((temp_v1 - temp_a0) * 4)));
         }
     } else {
         temp_v0_2 = var_a1 & 0xFFFFFF;
         var_fv1_3 = (f64) temp_v0_2;
         if (temp_v0_2 < 0) {
-            var_fv1_3 += gTwoPow32F64Eq;
+            var_fv1_3 += D_800D67F8;
         }
         var_fv1_2 = (f32) var_fv1_3;
     }
-    temp_fv1_2 = (var_fv1_2 * 4096.0f) / (f32) gAudioOutputRate;
+    temp_fv1_2 = (var_fv1_2 * 4096.0f) / (f32) D_8010A514;
     var_v1 = (u32) temp_fv1_2;
     return var_v1;
 }
