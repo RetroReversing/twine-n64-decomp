@@ -9,7 +9,7 @@ s32 func_8008C3D8();
 s32 func_8008C590();
 s32 func_8008C7E0();
 s32 func_8008CE38();
-s32 func_80095638();
+s32 randomU16Next();
 s32 func_800957A8();
 s32 func_800957B8();
 s32 func_800968A4();
@@ -25,7 +25,7 @@ s32 voiceListRemove();
 s32 func_80098B14();
 s32 func_800992B4();
 void *audioUpdateClipSelection();
-void *func_80099E40();
+void *audioVoiceStepTimer();
 void *audioCmdNoteOn();
 void *func_8009A0E4();
 void *audioVoiceApplyEnvelope();
@@ -302,7 +302,7 @@ block_120:
             var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
             break;
         case 0x5:
-            var_a0 = func_80099E40(arg0, &D_800FDB9C);
+            var_a0 = audioVoiceStepTimer(arg0, &D_800FDB9C);
             break;
         case 0x6:
             temp_v0_6 = func_800982B4((u32) (u16) D_800FDB9C);
@@ -422,7 +422,7 @@ block_75:
             (*(s32 *)((char *)(arg0) + 0x24)) |= 0x80;
             break;
         case 0x13:
-            if ((u32) (func_80095638(var_a0) & 0xFF) >= (u8) D_800FDB9E) {
+            if ((u32) (randomU16Next(var_a0) & 0xFF) >= (u8) D_800FDB9E) {
                 temp_v0_15 = func_800982B4((u32) D_800FDB9C >> 0x10);
                 var_a0 = NULL;
                 if (temp_v0_15 != 0) {

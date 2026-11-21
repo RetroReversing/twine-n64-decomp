@@ -1,4 +1,4 @@
-s32 func_80095638();
+s32 randomU16Next();
 void func_800968A4();
 s32 audioUpdateClipSelection();
 extern u8 D_801007D9[];
@@ -21,8 +21,8 @@ s32 func_8009A990(void *arg0, void *arg1) {
         if (d>=0) { s1=0x7F; if(d<0x80)s1=d; } else s1=0;
         { s16 e=(s16)a1; if(e>=0){s0=0x7F;if(0x80>e)s0=e;}else s0=0; }
     }
-    if(p[7]!=0){s32 x=func_80095638(a0)&0xFFFF; a0=(u32)x/201; s4=(s8)(x-a0*201-100);}else s4=p[1];
-    v=func_80095638((u8)a0,(s16)a1)&0xFFFF;
+    if(p[7]!=0){s32 x=randomU16Next(a0)&0xFFFF; a0=(u32)x/201; s4=(s8)(x-a0*201-100);}else s4=p[1];
+    v=randomU16Next((u8)a0,(s16)a1)&0xFFFF;
     v1_2=s1&0xFF; v=v%((s32)((s0&0xFF)-v1_2)+1);
     *(s32 *)(p+4)=0;
     word=((s4&0xFF)<<16)|((((s1&0xFF)+v)<<8)|0x19);

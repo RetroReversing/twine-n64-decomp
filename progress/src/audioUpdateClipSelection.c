@@ -1,5 +1,5 @@
 s32 func_8008C1B0(u8);
-s32 func_80095638(void);
+s32 randomU16Next(void);
 s32 func_800957A8(u32 *);
 s32 func_800957B8(u32 *, void *);
 
@@ -23,7 +23,7 @@ s32 audioUpdateClipSelection(void *voice, void *desc) {
         } else {
             *(s32 *)((s8 *)voice + 0x24) &= 0xFFEFFFFF;
         }
-        if (*(u16 *)desc & 1) clipIndex = (func_80095638() & 0xFFFF) % clipIndex;
+        if (*(u16 *)desc & 1) clipIndex = (randomU16Next() & 0xFFFF) % clipIndex;
         if (clipIndex != 0xFFFF) {
             if ((useRandom = (*(volatile u32 *)((s8 *)desc + 4) >> 8) & 1) & 0xFF) func_800957A8(&clipIndex);
             else func_800957B8(&clipIndex, voice);

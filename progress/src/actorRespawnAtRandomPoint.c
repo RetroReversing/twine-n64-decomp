@@ -5,36 +5,37 @@ s32 actorUnlinkFromSurface(Obj60968 *);
 s32 actorLinkToSurface(s32, Obj60968 *, s32);
 s32 randomU32Next(void);
 s32 func_80048F10(s32, Vec3_60968 *, Vec3_60968 *, Vec3_60968 *, f32, s32, s32, s32);
-s32 func_80060AA8(Obj60968 *);
+s32 objectUpdateAnimByState(Obj60968 *);
 s32 func_800643D8(Obj60968 *);
 f32 absFloat(f32);
 extern s32 *gProbeObjectList;
 
-void func_80060968(Obj60968 *arg0) {
-    Sub60968 *sub = arg0->sub;
-    Sub60968 *e;
-    Vec3_60968 v;
-    Vec3_60968 out;
+/* Moves an actor to one of two random spawn points, re-seats it on the surface and resets its state. */
+void actorRespawnAtRandomPoint(Obj60968 *actor) {
+    Sub60968 *spawnTable = actor->sub;
+    Sub60968 *spawnPoint;
+    Vec3_60968 surfacePos;
+    Vec3_60968 probeOut;
 
-    e = (Sub60968 *)((randomU32Next() & 1) * 0xC + (s32)sub);
-    arg0->pos = e->v[0];
-    v = e->v[0];
-    actorUnlinkFromSurface(arg0);
-    actorLinkToSurface(*gProbeObjectList, arg0, 1);
-    func_80048F10(arg0->f20, &arg0->pos, &v, &out, 250.0f, 0, 0, 0);
-    sub->f34 = v.y;
-    if (absFloat(v.y - arg0->pos.y) > 1.0f) {
-        arg0->f7A = 0;
-        arg0->f78 = 0x28;
-        arg0->f58 |= 1;
-        func_80060AA8(arg0);
+    spawnPoint = (Sub60968 *)((randomU32Next() & 1) * 0xC + (s32)spawnTable);
+    actor->pos = spawnPoint->v[0];
+    surfacePos = spawnPoint->v[0];
+    actorUnlinkFromSurface(actor);
+    actorLinkToSurface(*gProbeObjectList, actor, 1);
+    func_80048F10(actor->f20, &actor->pos, &surfacePos, &probeOut, 250.0f, 0, 0, 0);
+    spawnTable->f34 = surfacePos.y;
+    if (absFloat(surfacePos.y - actor->pos.y) > 1.0f) {
+        actor->f7A = 0;
+        actor->f78 = 0x28;
+        actor->f58 |= 1;
+        objectUpdateAnimByState(actor);
     } else {
-        arg0->f7A = 0;
-        arg0->f78 = 0x55;
-        func_80060AA8(arg0);
+        actor->f7A = 0;
+        actor->f78 = 0x55;
+        objectUpdateAnimByState(actor);
     }
-    func_800643D8(arg0);
-    sub->f28 = 0;
-    sub->f2C = 0;
-    sub->f30 = 0;
+    func_800643D8(actor);
+    spawnTable->f28 = 0;
+    spawnTable->f2C = 0;
+    spawnTable->f30 = 0;
 }
