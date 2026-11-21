@@ -11,7 +11,7 @@ M2C_UNK func_800643C8(void *);
 M2C_UNK func_800643D8(void *);
 M2C_UNK func_80073508(void *, f32);
 M2C_UNK func_800853D4(void *);
-void updateTimedObjectState(void *arg0) {
+void func_8005FBC0(void *arg0) {
 s16 temp_v1; s32 *temp_s0; s32 temp_v1_2; void *temp_s0_2;
 temp_v1=M2C_FIELD(arg0,s16 *,0x7A); temp_s0=M2C_FIELD(arg0,s32 **,0x6C);
 switch(temp_v1) {
