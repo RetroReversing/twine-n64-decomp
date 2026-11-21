@@ -40,6 +40,7 @@ short __repair_constant = 0x100;
     f32 var_a1;
 f32 __repair_var_a1_1;
     f32 var_a2;
+f32 __repair_var_a2_1;
     f32 var_a3;
     register f64 temp_fs0;
     f64 var_fv0;
@@ -168,12 +169,12 @@ f32 __repair_var_a1_1;
             temp_fs0_2 = 160.0f * 0.5f;
             temp_s4 = (*(void **)((char *)(gTrackMarkerTable) + 4));
             do { func_8004844C(((__repair_field_0 *)gTrackMarkerTable)->value, temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f); } while (0);
-            var_a2 = 120.0f;
+            __repair_var_a2_1 = 120.0f;
             __repair_var_a1_1 = 160.0f + temp_fs0_2;
             var_a3 = 160.0f;
         }
 block_74:
-        func_8004844C(temp_s4, __repair_var_a1_1, var_a2, var_a3, gBorderFlipFlag == 1 ? 240.0f : 120.0f, 1.0f, 1.0f);
+        func_8004844C(temp_s4, __repair_var_a1_1, __repair_var_a2_1, var_a3, gBorderFlipFlag == 1 ? 240.0f : 120.0f, 1.0f, 1.0f);
         var_a0 = 0;
 block_75:
         func_800820B0(var_a0);

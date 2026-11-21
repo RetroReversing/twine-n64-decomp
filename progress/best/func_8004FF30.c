@@ -353,7 +353,7 @@ loop_3:
                                                 sp20 += temp_fv0_3;
                                                 sp1C += temp_fv1;
 block_37:
-                                                rotateVec3ByMat3((f32 *)0, &sp58, &spE0);
+                                                rotateVec3ByMat3(&sp58, &spE0);
                                                 M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + spE0);
                                                 M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + spE4);
                                                 M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + spE8);

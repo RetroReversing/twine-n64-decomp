@@ -93,13 +93,11 @@ void func_8002E114(void) {
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A0 + temp_s0_2)), 1, 8);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A1 + temp_s0_2)), 1, 1);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A2 + temp_s0_2)), 1, 4);
-loop_2:
-        temp_a1 = *((unsigned)temp_s0_2 + &D_801001A4 + (var_s3 & 0xFFFF));
+do {
+        temp_a1 = *((u8 *)&D_801001A4 + temp_s0_2 + (var_s3 & 0xFFFF));
         var_s3 += 1;
         func_8002E93C(&D_800E1310, temp_a1, 1, 8);
-        if ((u32) (var_s3 & 0xFFFF) < 9U) {
-            goto loop_2;
-        }
+        } while ((u32) (var_s3 & 0xFFFF) < 9U);
         var_s4 += 1;
     } while ((u32) (var_s4 & 0xFFFF) < 0xBU);
     { func_8002E93C(&D_800E1310, gSceneType, 1, 4); }

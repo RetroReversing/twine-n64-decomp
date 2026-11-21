@@ -11,7 +11,7 @@ extern SetupWords D_80112F68;
 extern u8 D_80115088[];
 extern u8 D_80115091[];
 extern u16 D_80115092[];
-extern void func_80007160(void);
+extern void updateVideoMode(void);
 
 void initSetupTables(void)
 {
@@ -28,5 +28,5 @@ void initSetupTables(void)
         *(u16 *)((u8 *)D_80115092 + offset) = D_80115091[offset];
         i++;
     } while (i < 4);
-    func_80007160();
+    updateVideoMode();
 }

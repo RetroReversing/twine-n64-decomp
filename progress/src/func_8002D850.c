@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80007160();                            /* extern */
+M2C_UNK updateVideoMode();                            /* extern */
 M2C_UNK func_8008173C();                            /* extern */
 M2C_UNK func_80081BC4(s32, M2C_UNK);                /* extern */
 extern s8 sDifficultyLevel;
@@ -64,7 +64,7 @@ void func_8002D850(void) {
     D_8010A4F0 = 1;
     D_8010A4F4 = 0;
     D_8010A4F8 = 0;
-    func_80007160();
+    updateVideoMode();
     for (temp_v0 = 0; temp_v0 < 4; temp_v0++) {
         func_80081BC4(temp_v0, 2);
     }

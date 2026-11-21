@@ -10,7 +10,7 @@ extern void func_80083E44(s32);
 void func_80042CFC(s32 arg0, s32 arg1) {
     s32 saved, src, size, count, special;
     Rec *fp; u8 *data, *extra;
-    volatile s32 frame[0x3C];
+    volatile s32 frame[0x30];
     saved = func_80083E24();
     fp = D_800C0784[arg1].ptr;
     count = fp->count;
@@ -19,6 +19,7 @@ void func_80042CFC(s32 arg0, s32 arg1) {
     data = func_80083E90(size, 0x2D);
     src = fp->offset;
     func_8000B9B8(data, (s32)(D_54D910 + src), fp->count * 68);
+    { s32 i; for (i = 0; i < count; i++) { u8 *p = data + i * 68; s32 off = *(s32 *)(p + 8); if (off) { u8 *q = func_80083E90(*(u16 *)(p + 2) * 24, 0x1F); func_8000B9B8(q, (s32)(D_54D910 + *(s32 *)(p + 8)), *(u16 *)(p + 2) * 24); } { u8 tmp[32]; func_8000B9B8(tmp, (s32)(D_54D910 + *(s32 *)(p + 0x24)), 32); *(u8 **)(p + 0x24) = tmp; } } }
     func_80084048((s32)data, 0x2D);
     if (!special && fp->extra_offset) {
         extra = func_80083E90(fp->extra_count * 28, 0x2D);

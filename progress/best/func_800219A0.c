@@ -1,4 +1,4 @@
-extern void func_80007160(void);
+extern void updateVideoMode(void);
 extern void setupMenuListFlags(void);
 extern void func_8007560C(void);
 extern s16 gExpansionPakPresent;
@@ -37,7 +37,7 @@ s32 func_800219A0(s8 arg0) {
         D_8010A4F4 = 1;
         D_8010A4F8 = 0;
     }
-    func_80007160();
+    updateVideoMode();
     func_8007560C();
     D_8010A4E4 = 1;
     setupMenuListFlags();

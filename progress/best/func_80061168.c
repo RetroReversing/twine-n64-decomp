@@ -29,8 +29,9 @@ void func_80061168(void *arg0) {
             sp50[0] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x3C));
             sp50[1] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x40));
             sp50[2] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x44));
-            buildRotationMatrixS16(sp50, sp20);
-            rotateVec3ByMat3(sp20, sp10);
+            s0 = (u32)sp20;
+            buildRotationMatrixS16(sp50, (void *)s0);
+            rotateVec3ByMat3((void *)s0, sp10);
             *(f32 *)((char *)s2 + 0) = *(f32 *)&sp10[0];
             *(f32 *)((char *)s2 + 4) = *(f32 *)&sp10[1];
             *(f32 *)((char *)s2 + 8) = *(f32 *)&sp10[2];
@@ -45,24 +46,19 @@ void func_80061168(void *arg0) {
                     func_8001751C(*(s32 *)((char *)s2 + 0x18), *(u8 *)((char *)s2 + 0x21), sp58, (f32 *)sp68);
                     spawnDriftEffect(arg0, sp58);
                     applyNearbyActorImpact(arg0, 1.5f, 10.0f);
-                    s0 = 0;
-                    if ((s32)*(u16 *)((char *)arg0 + 0x78) >= 0x47) {
-                        if ((s32)*(u16 *)((char *)arg0 + 0x78) >= 0x49) {
-                            if (*(u16 *)((char *)arg0 + 0x78) == 0x49) {
-                                s0 = 0x02000000;
-                                goto loop;
-                            }
-                        } else {
-loop:
-                            v1 = *(void **)((char *)arg0 + 0x20);
-                            if (v1 != NULL) {
+                    switch (*(u16 *)((char *)arg0 + 0x78)) {
+                    case 0x49: s0 = 0x02000000; goto loop;
+                    case 0x47: case 0x48: s0 = 0;
+                    loop: {
+                        void *head = *(void **)((char *)arg0 + 0x20);
+                        if (head != NULL) {
+                            v1 = *(void **)head;
+                            while (v1 != NULL) {
+                                *(u32 *)((char *)v1 + 0x60) |= s0;
                                 v1 = *(void **)v1;
-                                while (v1 != NULL) {
-                                    *(u32 *)((char *)v1 + 0x60) |= s0;
-                                    v1 = *(void **)v1;
-                                }
                             }
                         }
+                    }
                     }
                 }
                 if (randomIntBelow(*(u8 *)((char *)s2 + 0x27)) == 0) {
