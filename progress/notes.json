@@ -4920,14 +4920,6 @@
   "score_after": 15
  },
  {
-  "function": "func_8005C6F8",
-  "text": "Saved score 15: three register differences around var_v0, target uses v0 instead of v1. Signed loop index retained score; changing loop bound to != worsened control flow; narrowing var_v0 adds an unwanted mask. Investigate control flow/register lifetime.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795164024.550741,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_80079928",
   "text": "Best candidate rechecked at 2854 (120 target instructions vs 120 compiled). Six local repair alternatives did not improve; eliminating an initial Vec3f assignment, changing the collision flags signedness, and reversing the comparison were worse or no-op. Major differences are stack-local placement: target uses scratch/output address slots at sp+0x50, +0x58, +0x68, +0x78 while candidate uses +0x60, +0x70, +0x80; several initial argument moves and loads consequently diverge. Inspect exact target body around the `func_80053940` argument setup and second D_80108404 path, with local vector order/address-taken lifetimes as next focus.",
   "by": "codex-gpt-6-luna-15",
@@ -7014,14 +7006,6 @@
   "created_at": 1795174912.064838,
   "score_before": 210,
   "score_after": 210
- },
- {
-  "function": "func_8005C6F8",
-  "text": "Rechecked baseline score 15. Six local variants did not improve it; inferred layout and temporary changes preserved the same code, inverted outer branch worsened it. Three register mismatches remain, beginning at null nested pointer branch delay slot: target moves s3 to v0, candidate zero to v1. Explore control-flow/lifetime of var_v0 and var_s3.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795174914.7031481,
-  "score_before": 15,
-  "score_after": 15
  },
  {
   "function": "func_8008892C",
@@ -21608,14 +21592,6 @@
   "score_after": 790
  },
  {
-  "function": "func_8005C6F8",
-  "text": "Best candidate score 15 (73 instructions), rechecked before the latest toolchain failure. Only three register mismatches remain: target row 15 move v0,s3 vs candidate move v1,zero; target row 58 move v0,s3 vs candidate move v1,s3; target row 59 bnez v0 vs candidate bnez v1. Replacing final if(var_v0==0) with if(var_s3==0) scored 320, worse; saved best is unchanged. A declaration_order family attempt failed before compilation because gcc-2.7.2-kmc is reported not installed; a register-qualified var_v0 compile_patch failed for the same reason. Resume from revision befe5f6c04523a1fe6b7 after toolchain availability returns. Likely next test is a source lifetime/declaration shape to make the status temporary stay in v0; avoid changing control flow.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795193801.600357,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "func_8006201C",
   "text": "[Released without compiling it once; notes not checked by a compile.] Current best candidate rechecked at 1200. Tried six local repair families; toolchain gcc-2.7.2-kmc is unavailable, so variants did not compile. Prior session also hit same missing compiler. Install/restore toolchain before further experiments; candidate retained at afde475c406ebb250feb.",
   "by": "codex-gpt-6-luna-18",
@@ -24048,14 +24024,6 @@
   "score_after": 225
  },
  {
-  "function": "func_8005C6F8",
-  "text": "Verified score 15/73 instructions. Only three register differences remain: target uses move $v0,$s3 at the inner-null path and final join/branch, while candidate uses move $v1,$zero on the inner-null delay slot and $v1 for final branch. Six local-repair variants (field typing/record/address temp/const read/goto/call arity) did not alter the candidate; shared-tail rewrite worsened score to 240. Try a source control-flow form that carries the state flag through the inner-null path and causes GCC to materialize it in v0, then compare branch/delay-slot registers.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795199856.038856,
-  "score_before": 15,
-  "score_after": 15
- },
- {
   "function": "applyNearbyActorImpact",
   "text": "Best current score 2006; remaining mismatch centered on prologue/frame: target saves ra at 0x24 and s4 at 0x20, candidate allocates 0x30 and lacks saved s4; branch targets too short by 0x0c/0x10. Rewrote second branch to load temp_a0 from node+0x6c before use, but score regressed to 2217 due to frame/register allocation. Restored best and tried loop-backedge, record layouts, field records, address temporaries, constants, passthrough args; no improvements. Correct operations in best assembly correspond largely, but temp_a0 is uninitialized in C best. Next investigate local lifetime/register pressure and source order to induce target's s4 save and 0x38 frame, then align stores.",
   "by": "codex-gpt-6-luna-12",
@@ -25372,14 +25340,6 @@
   "text": "Best score 15 rechecked; exact 42 instructions, 3 register-only differences at loop tail: target loads arg0+4 into v1, masks v1&7 and increments v1; candidate uses a2 throughout. Tried current no-op expression compile; unchanged. Automatic local repair changed global D_800E1550 from u32 to s32 but kept score and did not solve loop temporary register assignment. Candidate saved best restored. Next experiment: keep global signedness baseline and use explicit fresh local for second arg0+4 load, or volatile qualification on that second load, to force GCC to use v1 rather than a2.",
   "by": "codex-gpt-6-luna-11",
   "created_at": 1795201758.2787251,
-  "score_before": 15,
-  "score_after": 15
- },
- {
-  "function": "func_8005C6F8",
-  "text": "Verified baseline score 15. Six local repairs did not improve it; three register mismatches remain, first at null branch delay slot.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795201758.443705,
   "score_before": 15,
   "score_after": 15
  },
@@ -28366,14 +28326,6 @@
   "created_at": 1795204941.325365,
   "score_before": 517,
   "score_after": 517
- },
- {
-  "function": "func_8005C6F8",
-  "text": "Score 15. Only three rows differ, all in fallback gating: delay-slot move uses v1/zero rather than v0/s3, and the final copy and test use v1 rather than v0. Returning the fallback's value added a move in the final branch's delay slot. Early return emitted the same baseline, while redirecting the null-field test through the existing join regressed.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795204941.506915,
-  "score_before": 15,
-  "score_after": 15
  },
  {
   "function": "func_8000628C",
@@ -35118,15 +35070,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  },
  {
-  "function": "func_8005C6F8",
-  "text": "Current best is score 15 (99.7%); three residual register differences. Local repair families allocation_schedule_bridge, inferred_record_layout, call_initialization, signedness, branch_orientation, and address_temporary all tied at 15. A no-op compile_patch rechecked score 15 and shows target row 15 move $v0,$s3 vs candidate move $v1,$zero, with two downstream register mismatches. Removing initialization var_v0 = var_s3 at entry worsened to 210; keep inherited baseline. Next step: change result flag to an explicitly retained signed scalar initialized before pointer branches, then check whether initial null path generates move v0,s3.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795214471.497567,
-  "score_before": 195,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
- },
- {
   "function": "emitObjectMatrixCmd",
   "text": "Inherited best score 60. Tested moving indexed address computation after func_8000BBB4 argument setup; score degraded to 2409. The independent local repair variants signedness, sum_shape, const_read retained score 60; return-value repair worsened to 360. Best still has two reordered loads around float addition: target loads lw s0,0x74c(t0) after lwc1/add.s of field 0x44, candidate loads it before that float path. Multiple previous agents tried rearrangements without improvement.",
   "by": "codex-gpt-6-luna-12",
@@ -41419,15 +41362,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:471ca409e0249f39a31a72c9ed3d80207a3302276f4ebe4d511cfc71bd0cd4ce"
  },
  {
-  "function": "func_8005C6F8",
-  "text": "Move-on threshold reached at 8/6. Saved 15 candidate retains three fallback register mismatches. Reusing the tested field as the fallback temporary makes the final register correct, but GCC folds the early null path straight to the fallback call and drops the delay-slot move (210). Donor-style explicit labels also scored 210 on that alternative.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795227183.9459121,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
- },
- {
   "function": "func_800075C4",
   "text": "Reached move-on limit. Split first upper cast/OR scored 1985, XOR 2180, reversed declarations tied 1985, earlier 0xFCFFFFFF store scored 2075. Restored historical 1950 best.",
   "by": "codex-gpt-6.2-sol-6",
@@ -44401,15 +44335,6 @@
   "score_before": 690,
   "score_after": 690,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
-  "function": "func_8005C6F8",
-  "text": "Saved best 15 (m2c structure). Clean typed rewrite (Actor/Inner structs, && chain, do-while-like for i<1) scores 320: differs only in null-f70 branch needing `move v0,s3` in delay slot (target s3 not const-propagated) and final `move v0,s3; bnez v0`. Tried r=found variants, goto, volatile, nested ifs: no gain. Next step: find a way to keep s3 non-constant before the loop (e.g. found set via a loop-carried form) so gcc emits move v0,s3 rather than zero.\ntyped rewrite, r=found temps, goto, volatile, nested if\nbest remains 15; typed rewrites 240-320",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795233180.097661,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
  },
  {
   "function": "func_80086DA0",
@@ -48457,15 +48382,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6093372827dc073ee336729d6190cbcc476042f839b5c1c56c689f13e5adaae6"
  },
  {
-  "function": "func_8005C6F8",
-  "text": "Fresh compile of reconstructed code scored 1988 because globals were undeclared in source context; after declaring gPlayerActor as byte array and field access, score worsened from historical 15 to 1988. Target starts with loaded global pointer before frame setup; candidate formed address with addiu after frame setup and frame is 0x38 vs target 0x30. Historical work extensively tried 57+ approaches; still fallback gating register differences. Next step: restore the prior best score-15 source from history (e0d8c7b...) and resolve actual target declarations, then test a typed global pointer and fallback control-flow in small patches.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795239691.955565,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
- },
- {
   "function": "actorSetupItemPickup",
   "text": "Typed 4-byte selection records {u16 label; u8 item; u8 pad;} and 12-byte map records {u16 *id; u32 unknown[2];} compile, with unsigned 16-bit func_80029C08 return. Address local &gPickupActor for actor calls, volatile pointer reads for float stores, and late &gSharedItemId pointer for ID store and activate call produced 600; making final nested store's actor load plain reduced to 490. Delaying actor-address local until before clearProbeState and using plain global for initial null test/call gave 470 (c7159fbabdfb86046bb6), but regressed the initial address setup. Remaining issue is rematerializing global hi/lo separately for four float stores while retaining $s3 for calls. No-expensive-opts scored 2075; no CSE follow/skip and no GCSE scored 600. Next step: test -fvolatile-global on the 490 version; the candidate reverted to draft before this trial could run.",
   "by": "codex-gpt-6.2-sol-6",
@@ -48940,15 +48856,6 @@
   "score_before": 0,
   "score_after": 0,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
-  "function": "func_8005C6F8",
-  "text": "Corrected gPlayerActor and gBonusObjectTable to pointers and table increments to one word; score 195. Nine remaining differences are register allocation and scheduling. One-shot call scope scored 255; address temporary was unchanged; local global pointer scored 1373.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795240667.737334,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
  },
  {
   "function": "func_8011CAE4",
@@ -50184,15 +50091,6 @@
   "score_before": 180,
   "score_after": 180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
- },
- {
-  "function": "func_8005C6F8",
-  "text": "Current fresh score 195 (97.3%), 73 instructions. Corrected gPlayerActor and sBonusObjectTable globals/prototypes, and table increments from +4 to +1; 195. Automated local pass six tries retained candidate; explicit branch_scalar_lifetime/value_lifetime/declaration_order had no untried applicable repairs. Nine differences: three register allocation, six reordered. Target has early move v0=s3 and branch constants initialized before loop body; candidate initializes v0=0 and constants later. Remaining tail target uses v0 for s3 branch.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795243322.9404612,
-  "score_before": 15,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
  },
  {
   "function": "func_800158A4",
@@ -51648,15 +51546,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:1308c08f016fc2a6bb9fc201e60f05dad4be9506df496ec576a69257cf1833f4"
  },
  {
-  "function": "func_8005C6F8",
-  "text": "Corrected pointer increments to one word; tested local scope, loop layout, initialization order, register declaration and fallback expressions.\nScore 195; remaining three register differences and scheduling differences. Local variants worsened or unchanged.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795247291.277401,
-  "score_before": 195,
-  "score_after": 195,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
- },
- {
   "function": "func_800067C8",
   "text": "Best current score 170, rechecked. Typed local pointer for marker-table read-modify-write `{ void *p = sTrackMarkerTable; M2C_FIELD(p,s32 *,0x100) = M2C_FIELD(p,s32 *,0x100) & ~0x40; }` improved candidate from 575 to 170 and restores intended table-base reuse. Making global table pointer volatile raised score to 375; `(void)sTrackMarkerTable` worse 575. Moving counter init after func_8000A310 had no effect. Remaining diff: extra sTrackMarkerTable base load for byte field and loop exit branch target c4 vs target c0; target also move s0,zero near after call func_8000A310 while candidate has nop.\nShared local table pointer for 0x100 read-modify-write improved to 170; volatile global made 375; no-op statement worsened; counter-init reorder unchanged.\nRemaining diff includes one extra table-pointer reload before byte store, late move s0,zero ordering and loop branch target c4 vs c0.",
   "by": "codex-gpt-6-luna-15",
@@ -52975,15 +52864,6 @@
   "score_before": 13651,
   "score_after": 3573,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:494b18e51034fb194f6840a484a93c2f26b0aef41d579f4ea9d462861903c296"
- },
- {
-  "function": "func_8005C6F8",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 15; 9 differing rows (3 register, 6 reordered; advisory).\nTarget: move $v0, $s3\nCandidate: move $v1, $zero\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lw $v0, 0x70($v0)\n  = beqz $v0, 0xec\nr T: move $v0, $s3 | C: move $v1, $zero\n  = move $s2, $zero\no T: addiu $s6, $zero, 0x12 | C: \nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nCurrent candidate rechecked 195: pointer increments of one corrected six operands. Assigning var_s3 instead of 0 to var_v0 produced unchanged output; local call scope, backedge and initialization-order variants worsened. Next step: test loop shape or initialization scope to recover target constant scheduling and fallback register.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795250806.522291,
-  "score_before": 195,
-  "score_after": 195,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
  },
  {
   "function": "func_800993A4",
@@ -54339,15 +54219,6 @@
   "score_before": 440,
   "score_after": 390,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
- },
- {
-  "function": "func_8005C6F8",
-  "text": "Remaining register and instruction ordering differences in fallback and loop setup.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795254717.312581,
-  "score_before": 195,
-  "score_after": 195,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
  },
  {
   "function": "func_80002EF0",
@@ -75875,5 +75746,134 @@
   "score_before": 14290,
   "score_after": 12965,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:125f186a5084d5d32ea0da63a0d116e51a8bf8a1de70f1586f09ed4cdf33de5e"
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Saved score 15: three register differences around var_v0, target uses v0 instead of v1. Signed loop index retained score; changing loop bound to != worsened control flow; narrowing var_v0 adds an unwanted mask. Investigate control flow/register lifetime.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795164024.550741,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Rechecked baseline score 15. Six local variants did not improve it; inferred layout and temporary changes preserved the same code, inverted outer branch worsened it. Three register mismatches remain, beginning at null nested pointer branch delay slot: target moves s3 to v0, candidate zero to v1. Explore control-flow/lifetime of var_v0 and var_s3.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795174914.7031481,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Best candidate score 15 (73 instructions), rechecked before the latest toolchain failure. Only three register mismatches remain: target row 15 move v0,s3 vs candidate move v1,zero; target row 58 move v0,s3 vs candidate move v1,s3; target row 59 bnez v0 vs candidate bnez v1. Replacing final if(var_v0==0) with if(var_s3==0) scored 320, worse; saved best is unchanged. A declaration_order family attempt failed before compilation because gcc-2.7.2-kmc is reported not installed; a register-qualified var_v0 compile_patch failed for the same reason. Resume from revision befe5f6c04523a1fe6b7 after toolchain availability returns. Likely next test is a source lifetime/declaration shape to make the status temporary stay in v0; avoid changing control flow.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795193801.600357,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Verified score 15/73 instructions. Only three register differences remain: target uses move $v0,$s3 at the inner-null path and final join/branch, while candidate uses move $v1,$zero on the inner-null delay slot and $v1 for final branch. Six local-repair variants (field typing/record/address temp/const read/goto/call arity) did not alter the candidate; shared-tail rewrite worsened score to 240. Try a source control-flow form that carries the state flag through the inner-null path and causes GCC to materialize it in v0, then compare branch/delay-slot registers.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795199856.038856,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Verified baseline score 15. Six local repairs did not improve it; three register mismatches remain, first at null branch delay slot.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795201758.443705,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Score 15. Only three rows differ, all in fallback gating: delay-slot move uses v1/zero rather than v0/s3, and the final copy and test use v1 rather than v0. Returning the fallback's value added a move in the final branch's delay slot. Early return emitted the same baseline, while redirecting the null-field test through the existing join regressed.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795204941.506915,
+  "score_before": 15,
+  "score_after": 15
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Current best is score 15 (99.7%); three residual register differences. Local repair families allocation_schedule_bridge, inferred_record_layout, call_initialization, signedness, branch_orientation, and address_temporary all tied at 15. A no-op compile_patch rechecked score 15 and shows target row 15 move $v0,$s3 vs candidate move $v1,$zero, with two downstream register mismatches. Removing initialization var_v0 = var_s3 at entry worsened to 210; keep inherited baseline. Next step: change result flag to an explicitly retained signed scalar initialized before pointer branches, then check whether initial null path generates move v0,s3.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795214471.497567,
+  "score_before": 195,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Move-on threshold reached at 8/6. Saved 15 candidate retains three fallback register mismatches. Reusing the tested field as the fallback temporary makes the final register correct, but GCC folds the early null path straight to the fallback call and drops the delay-slot move (210). Donor-style explicit labels also scored 210 on that alternative.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795227183.9459121,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Saved best 15 (m2c structure). Clean typed rewrite (Actor/Inner structs, && chain, do-while-like for i<1) scores 320: differs only in null-f70 branch needing `move v0,s3` in delay slot (target s3 not const-propagated) and final `move v0,s3; bnez v0`. Tried r=found variants, goto, volatile, nested ifs: no gain. Next step: find a way to keep s3 non-constant before the loop (e.g. found set via a loop-carried form) so gcc emits move v0,s3 rather than zero.\ntyped rewrite, r=found temps, goto, volatile, nested if\nbest remains 15; typed rewrites 240-320",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795233180.097661,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Fresh compile of reconstructed code scored 1988 because globals were undeclared in source context; after declaring gPlayerActor as byte array and field access, score worsened from historical 15 to 1988. Target starts with loaded global pointer before frame setup; candidate formed address with addiu after frame setup and frame is 0x38 vs target 0x30. Historical work extensively tried 57+ approaches; still fallback gating register differences. Next step: restore the prior best score-15 source from history (e0d8c7b...) and resolve actual target declarations, then test a typed global pointer and fallback control-flow in small patches.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795239691.955565,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Corrected gPlayerActor and gBonusObjectTable to pointers and table increments to one word; score 195. Nine remaining differences are register allocation and scheduling. One-shot call scope scored 255; address temporary was unchanged; local global pointer scored 1373.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795240667.737334,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Current fresh score 195 (97.3%), 73 instructions. Corrected gPlayerActor and sBonusObjectTable globals/prototypes, and table increments from +4 to +1; 195. Automated local pass six tries retained candidate; explicit branch_scalar_lifetime/value_lifetime/declaration_order had no untried applicable repairs. Nine differences: three register allocation, six reordered. Target has early move v0=s3 and branch constants initialized before loop body; candidate initializes v0=0 and constants later. Remaining tail target uses v0 for s3 branch.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795243322.9404612,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Corrected pointer increments to one word; tested local scope, loop layout, initialization order, register declaration and fallback expressions.\nScore 195; remaining three register differences and scheduling differences. Local variants worsened or unchanged.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795247291.277401,
+  "score_before": 195,
+  "score_after": 195,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 15; 9 differing rows (3 register, 6 reordered; advisory).\nTarget: move $v0, $s3\nCandidate: move $v1, $zero\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lw $v0, 0x70($v0)\n  = beqz $v0, 0xec\nr T: move $v0, $s3 | C: move $v1, $zero\n  = move $s2, $zero\no T: addiu $s6, $zero, 0x12 | C: \nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nCurrent candidate rechecked 195: pointer increments of one corrected six operands. Assigning var_s3 instead of 0 to var_v0 produced unchanged output; local call scope, backedge and initialization-order variants worsened. Next step: test loop shape or initialization scope to recover target constant scheduling and fallback register.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795250806.522291,
+  "score_before": 195,
+  "score_after": 195,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
+ },
+ {
+  "function": "func_8005C6F8",
+  "text": "Remaining register and instruction ordering differences in fallback and loop setup.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795254717.312581,
+  "score_before": 195,
+  "score_after": 195,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d50f99bb61c908412c8ba4ef3110d9c4a467507861d89ecf9cc88da5b938909"
  }
 ]
