@@ -197,8 +197,7 @@ block_52:
             } else if (temp_fv1 > 1.0f) {
                 ((__repair_record_D_80109688*)D_80109688)->field_12C = 1.0f;
             }
-            D_800DC730 -= 1;
-            if (D_800DC730 <= 0) {
+            if (D_800DC730-- <= 0) {
                 D_80103EB0 = D_800DC739;
                 func_800066A0(D_800DC738);
             }

@@ -61,7 +61,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3) {
     s32 var_s2_2;
     s32 var_s2_3;
     s32 var_s2_4;
-    char *var_s4;
+    u16 *var_s4;
     char *var_s4_2;
     u16 temp_v1_10;
     u16 temp_v1_12;
