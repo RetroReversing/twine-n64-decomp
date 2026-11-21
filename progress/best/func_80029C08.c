@@ -97,11 +97,8 @@ block_9:
         goto block_12;
 have_entries:
         if ((var_s1 != 0) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
-            var_a0_2 = 0xEB;
-            if (func_8002AB54(arg0) & 0xFF) {
-                var_a0_2 = 0xEC;
-            }
-            requestSound(var_a0_2);
+            if (func_8002AB54(arg0) & 0xFF) requestSound(0xEC);
+            else requestSound(0xEB);
             temp_a1 = M2C_FIELD(var_s3, void **, 8);
             M2C_FIELD(temp_a1, s32 *, 0x10) = (s32) ((sSaveMenuColorActive & ~0xFF) | M2C_FIELD(gSaveMenuState, u8 *, 0x30));
             if (M2C_FIELD(arg0, u8 *, 0x1E) == 0) {
@@ -110,11 +107,8 @@ have_entries:
                 func_8002AB34(arg0, temp_a1);
             }
         } else if ((var_s0 != 0) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
-            var_a0_3 = 0xEB;
-            if (func_8002AB6C(arg0) & 0xFF) {
-                var_a0_3 = 0xEC;
-            }
-            requestSound(var_a0_3);
+            if (func_8002AB6C(arg0) & 0xFF) requestSound(0xEC);
+            else requestSound(0xEB);
             temp_a1_2 = M2C_FIELD(var_s4, void **, 8);
             M2C_FIELD(temp_a1_2, s32 *, 0x10) = (s32) ((sSaveMenuColorActive & ~0xFF) | M2C_FIELD(gSaveMenuState, u8 *, 0x30));
             if (M2C_FIELD(arg0, u8 *, 0x1E) == 0) {

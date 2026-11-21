@@ -15,7 +15,7 @@ void func_8006FDF8(void *arg0, s32 arg1) {
     Quad sp10, sp18;
     s32 sp24;
     s32 sp2C;
-    s32 *var_s3;
+    s16 *var_s3;
     s32 var_a0;
     s32 var_s6;
     register s32 var_s7;
@@ -43,29 +43,21 @@ void func_8006FDF8(void *arg0, s32 arg1) {
     var_s6 = 0x78;
     sp2C = (s32) (*(s8 *)((char *)(arg0) + 0x182));
     if (D_80102ED8 != 0) {
-        if (D_801002C0 != 2) {
-            var_s2 = 0;
-            if ((D_801002C0 >= 2)) {
-                if ((D_801002C0 < 5)) {
-                    var_s7 = 0x50;
-                    goto block_7;
-                }
-            }
-        } else {
-            if (D_8010A4FD != 1) {
-block_7:
-                var_s6 = 0x3C;
-            } else {
-                var_s7 = 0x50;
-            }
-            goto block_8;
+        switch (D_801002C0) {
+        case 2:
+            if (D_8010A4FD == 1) var_s7 = 0x50;
+            else var_s6 = 0x3C;
+            break;
+        case 3:
+        case 4:
+            var_s7 = 0x50;
+            var_s6 = 0x3C;
+            break;
         }
-    } else {
-block_8:
-        var_s2 = 0;
     }
+    var_s2 = 0;
     var_s4 = &D_800C7E08;
-    var_s3 = (s32 *)&sp10;
+    var_s3 = &sp10.x[0];
     sp10.x[1] = var_s7;
     var_s1 = arg0;
     sp10.x[3] = var_s7;
@@ -84,8 +76,8 @@ block_8:
             func_800165E0(temp_s0, (&D_80109688)[sp2C]);
             (*(u16 *)((char *)(temp_s0) + 0x1E)) = (u16) *var_s4;
         }
-        var_s4 += 2;
-        var_s3 += 2;
+        var_s4++;
+        var_s3++;
         ++var_s2;
         var_s1 += 4;
     } while (var_s2 < 4U);
@@ -102,10 +94,10 @@ block_8:
                 (*(s32 *)((char *)(temp_a0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a0) + 0x28)) & ~0xFC) | 0x10);
                 func_800165E0((*(void **)((char *)(var_s0) + 0x3E4)), (&D_80109688)[sp2C]);
                 (*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x1E)) = 2U;
-                if (var_s1_2 < 0x18U) {
-                    switch (var_s1_2 / 4) {
+                {
+                    switch (var_s1_2) {
                     case 0:
-                    case 1:
+                    case 4:
                         initObjectFromBankEntry((*(void **)((char *)(var_s0) + 0x3E4)), 0xF, 0x2A);
                         if (var_s1_2 == 0) {
                             (*(s16 *)((char *)((*(void **)((char *)(arg0) + 0x3E4))) + 0x20)) = 0x50;
@@ -116,8 +108,8 @@ block_8:
                         }
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x22)) = 0x58;
                         break;
-                    case 2:
-                    case 3:
+                    case 8:
+                    case 12:
                         initObjectFromBankEntry((*(void **)((char *)(var_s0) + 0x3E4)), 0x10, 0x2A);
                         if (var_s0 == ((2 * 4) + arg0)) {
                             (*(s16 *)((char *)((*(void **)((char *)(arg0) + 0x3EC))) + 0x20)) = 0x58;
@@ -128,12 +120,12 @@ block_8:
                         }
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x22)) = 0x78;
                         break;
-                    case 4:
+                    case 16:
                         initObjectFromBankEntry((*(void **)((char *)(var_s0) + 0x3E4)), 0x11, 0x2A);
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x20)) = 0x80;
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x22)) = 0x20;
                         break;
-                    case 5:
+                    case 20:
                         initObjectFromBankEntry((*(void **)((char *)(var_s0) + 0x3E4)), 3, 0x2A);
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x20)) = 0;
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x22)) = 0x78;
@@ -180,3 +172,6 @@ block_8:
         }
     }
 }
+
+
+

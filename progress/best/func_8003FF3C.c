@@ -28,35 +28,51 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2) {
     } else {
         var_s5 = FLD(var_t1, u8 *, 0x3C);
     }
-loop_48:
+    goto loop_48;
+dispatch:
     switch (var_s0[0]) {
     case 9:
         var_s0 += 4;
         goto loop_48;
     case 0:
         var_s1 = var_s0 + 2;
-        var_s0 += 2 + var_s0[1] * 3;
+        ++var_s0;
         var_s7 = 0;
+        var_s0 += 1 + var_s0[0] * 3;
         goto loop_48;
     case 1:
         var_s1 = var_s0 + 2;
-        var_s0 += 2 + var_s0[1] * 6;
+        ++var_s0;
         var_s7 = 1;
+        var_s0 += 1 + var_s0[0] * 6;
         goto loop_48;
     case 3:
         var_s1 = var_s0 + 2;
-        var_s0 += 2 + var_s0[1];
+        ++var_s0;
         var_s7 = 3;
+        var_s0 += 1 + var_s0[0] * 1;
         goto loop_48;
     case 2:
         var_s1 = var_s0 + 2;
+        ++var_s0;
         var_s7 = 2;
-        var_s0 += 2 + var_s0[1] * 2;
+        var_s0 += 1 + var_s0[0] * 2;
         goto loop_48;
     case 6:
-        FLD(var_t1, u8, 0x44) = var_s0[1];
-        var_s0 += 2;
-        /* fall through */
+        {
+            u8 value = var_s0[1];
+            var_s0 += 2;
+            FLD(var_t1, u8, 0x44) = value;
+        }
+        goto block_15;
+    case 7: {
+        u8 value = var_s0[1];
+        ++var_s0;
+        FLD(var_t1, u8, 0x44) = value;
+        goto block_15;
+    }
+    case 8:
+        var_s0 += 3;
     case 5:
 block_15:
         var_t2 = var_s0[1];
@@ -70,8 +86,8 @@ block_15:
                 switch (var_s7) {
                 case 3:
                     tmp8 = var_s1[var_s0[0]];
-                    tmp8 = var_s1[var_s2[-1]];
                     *var_s5 = tmp8;
+                    tmp8 = var_s1[var_s2[-1]];
                     a2 = var_s1[var_s0[0]] & 0xFF;
                     var_s3[-1] = tmp8;
                     var_s5 += 3;
@@ -120,8 +136,8 @@ block_15:
                 goto after;
 block_27:
                 v1 = tmp8 & 0xFF;
-                var_s3 += 3;
                 var_s3[0] = tmp8;
+                var_s3 += 3;
 after:
                 var_s2 += 3;
                 base = FLD(var_t1, s32, 0x34);
@@ -133,13 +149,6 @@ after:
             } while (var_fp < var_t2);
         }
         goto loop_48;
-    case 7:
-        FLD(var_t1, u8, 0x44) = var_s0[1];
-        ++var_s0;
-        goto block_15;
-    case 8:
-        var_s0 += 3;
-        goto block_15;
     case 4:
         switch (var_s7) {
         case 3:
@@ -207,5 +216,9 @@ after:
     case 11:
         var_s0 += 2;
         goto loop_48;
+    default:
+        goto loop_48;
     }
+loop_48:
+    if (var_s0[0] != 12) goto dispatch;
 }
