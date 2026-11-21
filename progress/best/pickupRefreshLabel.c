@@ -9,7 +9,7 @@ s32 selectItemAndUpdateAmount(void *, s16);
 extern u8 gPickupSavedByte;
 extern u32 sPickupSlotTable;
 extern u16 gBorderSkipActive;
-extern u8 gSaveMenuState[];
+extern void *gSaveMenuState;
 extern u8 gPickupSearchBox[36];
 extern u8 D_80100408[420];
 extern s32 bindMenuItemRecord;

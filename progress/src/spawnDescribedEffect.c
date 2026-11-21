@@ -17,7 +17,7 @@ s32 actorLinkToSurface();
 s32 effectSetAnimFrame();
 extern s32 *gProbeObjectList;
 
-void *func_80061DC4(s32 arg0, s32 arg1, void *arg2) {
+void *spawnDescribedEffect(s32 arg0, s32 arg1, void *arg2) {
     s32 temp_v0_2;
     void *temp_a0;
     void *temp_v0;
