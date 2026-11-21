@@ -2744,14 +2744,6 @@
   "score_after": 35
  },
  {
-  "function": "buildRotationMatrix",
-  "text": "Recovered C89 compile by declaring cacb/sacb before statements. Current best remains score 2375/88 instructions. Tried declaration order and pointer constness; both left register/order mismatch, pointer constness worsened to 2965. Target loads all three angles into a3,v1,a0 before stack setup; current source loads into a2,a3,v1 after setup. Remaining work: recover parameter/temporary layout and expression evaluation order, starting from saved best and assembly.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795136684.87867,
-  "score_before": 2375,
-  "score_after": 2375
- },
- {
   "function": "func_80084E10",
   "text": "Best verified score 5, one remaining mismatch: target passes &sp+0x10 in a1 to func_80084270; candidate's declaration currently one pointer parameter causing address in a0. Matched callee evidence declares func_80084270(s32,s16*). Need use two-argument call with first argument likely 0, second pointer to 16-bit local; then judge. Attempted whole rewrite with duplicate typedefs (compile error), restored saved best and tried six local repair variants, all score 5.",
   "by": "codex-gpt-6-luna-12",
@@ -5582,14 +5574,6 @@
   "created_at": 1795163928.3811588,
   "score_before": 2593,
   "score_after": 2593
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Verified 2375; six variants changing angle widths, multiplication sign placement and operand order did not improve. Target saves six FP registers; candidate differs extensively in register allocation and load ordering. Investigate expression lifetimes and target load order.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795163934.4328861,
-  "score_before": 2375,
-  "score_after": 2375
  },
  {
   "function": "func_8007539C",
@@ -8734,14 +8718,6 @@
   "created_at": 1795174881.930017,
   "score_before": 230,
   "score_after": 230
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Verified baseline 2375: all 88 target instructions present modulo ordering and registers. Reordering angle declarations did not change generated assembly. Investigate ordering of table lookups and arithmetic to align register allocation; local repair discovery previously reached its generation budget.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795174881.97422,
-  "score_before": 2375,
-  "score_after": 2375
  },
  {
   "function": "func_8009D94C",
@@ -13582,14 +13558,6 @@
   "created_at": 1795182705.4847949,
   "score_before": 1775,
   "score_after": 1775
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Score 2375 -> 190 by staging first cosine index and sb*sc before later loads; ->80 by staging m[1], ->50 by staging m[3] between second and sacb (revision ae7d740d37e7c7a67492). All 88 operations align. Remaining f0/f2 swap between sin(a) and sa*-cb and its downstream users. Explicit neg_cb, register qualifiers, output order, and staging each remaining result after sacb did not improve. Next try varying where the negated cosine/sacb declaration is introduced relative to fourth and second, keeping the four successful precomputations.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795182712.158057,
-  "score_before": 2375,
-  "score_after": 50
  },
  {
   "function": "initSaveSlotMenus",
@@ -21472,14 +21440,6 @@
   "score_after": 325
  },
  {
-  "function": "buildRotationMatrix",
-  "text": "Rechecked saved best score 50, all 88 instructions present; ten differences are f0/f2 allocation beginning at sa table load. Reversing sacb operands preserved score and changed one operand alignment; inlining sa worsened, inlining ai unchanged, index width and addition operand order worsened. Investigate lifetime and evaluation ordering around sa and sacb to exchange f0/f2.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795187953.765455,
-  "score_before": 50,
-  "score_after": 50
- },
- {
   "function": "piWriteDomainWord",
   "text": "Verified saved candidate score 110: all instructions match except extra addiu of %lo(D_A0000000) and store uses zero offset instead of relocation. Replacing final OR with pointer addition generated relocation store but used addu $at and changed order, scoring 270. Branch reversal and signed byte pointers worsened. Next investigate expression or symbol declaration that combines OR of high address with relocatable low offset in final store.",
   "by": "codex-gpt-6.1-terra-4",
@@ -22976,14 +22936,6 @@
   "score_after": 10
  },
  {
-  "function": "buildRotationMatrix",
-  "text": "Best score 50/88 instructions (99.4%), not exact. Rechecked best and tried signed/unsigned index casts, expression parenthesization, and reordered sine/cosine temporary declarations; no improvement. All 10 remaining rendered differences stem from one table load assigned to $f0 instead of target $f2 at instruction 44, propagating through later FP registers/stores; preceding instructions match. Resume with an allocation-focused edit near the ca/table-load lifetime or alter temporary lifetime to make GCC retain the loaded value in a different FPR. Current candidate remains best.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795189780.4703228,
-  "score_before": 50,
-  "score_after": 50
- },
- {
   "function": "func_8009D510",
   "text": "Best 1650 remains. Moving queue call after field stores improved structural ordering but scored 1665; explicit goto branch emitted identical code. Removing volatile arguments worsened allocation significantly. IDO 5.3 trial on prior candidate scored 2105; target uses IDO-like temporaries but compiler mismatch remains unproven. Target stores parameters before queue call and has explicit andi zero, branch polarity differences.",
   "by": "codex-gpt-6.1-terra-3",
@@ -24198,14 +24150,6 @@
   "created_at": 1795191000.474506,
   "score_before": 420,
   "score_after": 420
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Rechecked saved 50 at ae7d740d37e7c7a67492, 88 instructions, 10 register-only mismatches. Target row 44 loads sa into f2, rows 55\u201356 keep -cb and sa*-cb in f0. Candidate uses opposite registers through final multiply and stores. Declaring sacb before sa or adding an unused final-product temp tied; splitting negation/product (even with negation at the old position) rearranged early angle loads, targeted volatile sa lookup scored 680, and sa *= sb at final store scored 3997. Next isolate a liveness/allocation perturbation that retains combined `f32 sacb = sa * -cb;` expression and existing load/arithmetic order, e.g. stage an actually-used tail expression within a nested block.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795191000.501079,
-  "score_before": 50,
-  "score_after": 50
  },
  {
   "function": "func_800AA8B0",
@@ -25846,14 +25790,6 @@
   "created_at": 1795193040.5271208,
   "score_before": 55,
   "score_after": 55
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Initial candidate compiles at 88 instructions, score 50; only 10 FP register allocation differences. Reviewed target assembly and confirmed operation values/order broadly match. Reordering output stores caused major regression; automatic local families (including arithmetic operand order) gave best exploratory 80, then explicit early m[5] store regressed to 275. Best candidate remains the initial score 50. Remaining work is FP register allocation and perhaps statement/declaration order; saved candidate retained.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795193042.1887941,
-  "score_before": 50,
-  "score_after": 50
  },
  {
   "function": "func_8009D9B8",
@@ -27880,14 +27816,6 @@
   "score_after": 200
  },
  {
-  "function": "buildRotationMatrix",
-  "text": "First compile attempt had malformed #define placement; corrected full function matches instruction count and reaches score 50/88, all remaining 10 differences register allocation. Candidate computations use sine/cos table formulas and matrix assignments. Mismatch starts with table value in target $f2 versus candidate $f0; later negation/product values also swap $f0/$f2. Attempted volatile patch anchors were rejected because retained candidate source differs from formatted draft; no source change. Next inspect exact candidate and try volatile lifetime/declaration order around table values.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795197797.8105931,
-  "score_before": 50,
-  "score_after": 50
- },
- {
   "function": "func_8006D224",
   "text": "Retried clean function-only C at score 60, exact 48-instruction shape; only 12 register assignments differ, first at target srl $v0,$a0,1 vs candidate $v1. Previous three byte-table signedness variants also unchanged. Try changing temp declaration/use order around value/red/blue to alter allocation.",
   "by": "codex-gpt-6-luna-13",
@@ -28878,14 +28806,6 @@
   "created_at": 1795198869.180362,
   "score_before": 180,
   "score_after": 180
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Saved candidate rechecks score 50. Six local variants involving arithmetic order, table index width and inlining did not improve. Current first mismatch is FPR allocation at table load (target f2, candidate f0); investigate local variable lifetimes and table expression schedule. Keep saved best.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198873.11725,
-  "score_before": 50,
-  "score_after": 50
  },
  {
   "function": "func_800AA8B0",
@@ -30400,14 +30320,6 @@
   "score_after": 185
  },
  {
-  "function": "buildRotationMatrix",
-  "text": "Restored saved candidate ae7d740d37e7c7a67492 (historical score 50; current source/profile rechecked later as 555 for my rewrite, not rejudged saved baseline in this session). One algebraically flattened rewrite scored 975; an equivalent explicit-index rewrite scored 555 but remains substantially worse than saved. Target assembly gives strong ordering evidence: arguments loaded into $a3/$v1/$a0, then sine(b), sine(c), cosine(a), cosine(b), cosine(c), sine(a) table reads in sequence; computes sb*sc then ca*cb while deriving next values; target keeps temporaries in $fs1/$fa1/$ft0/$fs2/$ft1/$fv1. Candidate must preserve exact saved source as starting point. My variants changing multi-declaration order, replacing macros with explicit lookups tied at 555. Next useful experiment: test isolated exact C shape that loads b/c/a table values in observed order while computing cosine offsets after their sine lookup, e.g. split locals in declarations but insert `ca` before `cb`; inspect complete diff before further edits. No match or reusable compiler rule found.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795200939.274836,
-  "score_before": 50,
-  "score_after": 50
- },
- {
   "function": "func_800AA8B0",
   "text": "Recovered and compiled draft after removing duplicate f64 typedef and correcting the callback pointer argument cast. Current 3147/91 (candidate 80 instructions), best rechecked 3147. Diff shows major structure mismatch: target has 0x28-byte frame with saved f20/f22, repeated mtc1 zero / compare handling, and div.d path; candidate uses a different frame and trunc.w.d/conversion paths. Existing draft likely has wrong math library call and prototype/branch structure, not a local register-only issue. Need inspect full target assembly and identify correct atan2-style source behavior before more tuning.",
   "by": "codex-gpt-6-luna-13",
@@ -31398,14 +31310,6 @@
   "created_at": 1795201879.880555,
   "score_before": 130,
   "score_after": 130
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Baseline 50 rechecked. Separate negation and moving second before sa tied; nested sacb assignment, splitting fourth, or staging ninth early worsened. Sole issue remains f0/f2 allocation from sine(a) onward.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795201883.174686,
-  "score_before": 50,
-  "score_after": 50
  },
  {
   "function": "func_800588D8",
@@ -33942,14 +33846,6 @@
   "created_at": 1795204110.145359,
   "score_before": 690,
   "score_after": 690
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Verified score 50, ten floating-register-only mismatches. Operand order, index widths and inlining variants did not improve.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795204124.050548,
-  "score_before": 50,
-  "score_after": 50
  },
  {
   "function": "func_8001A434",
@@ -41096,14 +40992,6 @@
   "score_after": 5555
  },
  {
-  "function": "buildRotationMatrix",
-  "text": "Baseline verified at 50 before trials. Ten rows swap f0 and f2 between sine(a) and the sine(a)*-cos(b) chain. Moving sacb before fourth scored 80, moving sine(a) before cosine(c) tied, scoped do-while load 1130, explicit pointer indexing and multiplying cb by -1.0f tied, explicit byte-stride pointer 64. Saved best restored. This is the second compiled claim of the session.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795210454.2346408,
-  "score_before": 50,
-  "score_after": 50
- },
- {
   "function": "func_8009D9F0",
   "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at saved best 6225 (about 50% match); no new compile this session. Target keeps arg0 in $s0 (saved at 0x18($sp)) and the 0x3333 constant in $v1, while the candidate places 0x3333 in $a0 and omits the $s0 save. Prior tried: local base pointer, signedness and declaration_order repairs, hoisting t8 before first store (6250, worse), volatile arg2 home (6525 to 6225). Untested: rewrite the first store block so the lh of arg1[0] and the 0x3333 multiply order match the target's first instructions (lh t8, addiu v1, lh t6 from arg0+0x188 before sll), and make arg0 a function-scope callee-saved value by using it after the call.",
   "by": "api-claude-haiku-5-5-8",
@@ -44159,15 +44047,6 @@
   "score_before": 1125,
   "score_after": 1125,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:6897807369a0b487d52361a7ce740b3a89519c22bdfc6f892ab95a1ffc3c8e87"
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Verified saved baseline score 50; historical 124 compiles and 49 local repair trials suggest register allocation tuning. Statement/declaration variants scored 3545 (negation and altered expression order), 555 (all six table reads named upfront), 590 (angles declared b,c,a), 555 (compact equivalent source), 1030 (small temporary variant). No score beat 50; two variants tied 555. Best source restored by saved_best.\nEquivalent trig expression/order edits produced no match; broader edits worsened. Score 50 baseline retained.\nTarget starts by loading angles to a3,v1,a0 in order; sine/cosine table values feed specific FPR assignments; local declaration order and expression staging shift registers heavily. Avoid repeating fully staged table-read variant (555).",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795213727.555747,
-  "score_before": 3545,
-  "score_after": 555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
  },
  {
   "function": "func_8000299C",
@@ -53386,15 +53265,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b40ffbbc21b19c7ec0eedf68cdeaf380a3d6a50c456e6049b3592bc5c5661e0e"
  },
  {
-  "function": "buildRotationMatrix",
-  "text": "Score 50 stays; only sa (SINS(a), loaded last) is in f2 in target vs f0 in mine, with sacb in f0 vs f2 (10 reg rows). Tried this session: ncb temp, -(sa*cb) (585), operand swaps in m[6]/m[7]/m[8] (55-95), sacc temp (80), sa as macro (4082), repeated SINS(a), moving m[8] store/sasb temp (472+ or 50). Next step: try different source structure e.g. loading sa into a temp via s16 index pointer or computing sa*sb/sa*sc as named temps before ca*cc.\n~20 operand-order/temp variants\nnone beat 50",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795226117.032284,
-  "score_before": 50,
-  "score_after": 50,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
- },
- {
   "function": "func_8003C94C",
   "text": "Seven compiles without improvement. Restored score-25 baseline with five register-only rows across the three squared extents and their additions. The alternate score-60 shape has exact registers and only moves the final add ahead of two maximum stores.",
   "by": "codex-gpt-6.2-sol-9",
@@ -55863,15 +55733,6 @@
   "score_before": 3211,
   "score_after": 2886,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
-  "function": "buildRotationMatrix",
-  "text": "Still 50 (10 FP reg-only rows: sa should be f2, ours f0). Tried this session: sa/second order, sacb/fourth order, commuted operands in m[4], m[8], fourth, sacb (-cb*sa tied), cacb=cb*ca, gCosTable[a&0xFFF]. All tied or worse. Note: some variant compiles warned gCosTable not a known symbol (symbol may have been renamed) - check. Next step: try sa loaded via a distinct s32 index temp or compute sa*cc / sa*sc products as explicit named temps in the target's order (fs4=sa*cc, ft4=sa*sc, fs3=ca*cc).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795230116.798552,
-  "score_before": 50,
-  "score_after": 50,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
  },
  {
   "function": "func_8009D5D4",
@@ -62853,15 +62714,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2d9064b4426cc052cee372f3d2335f0b9de596e13ffde6eba1c00530f11b76fb"
  },
  {
-  "function": "buildRotationMatrix",
-  "text": "Verified current best score 50 after a trig-expression rewrite regressed to 2507. Restored exact saved best; no untried applicable local repairs. Remaining 10 differences are FPR register allocation/order only; target sine table load in f2, candidate f0, with downstream differences. Earlier sessions explored statement order, operand order and local repair variants.\nReordered trig expressions scored 2507; saved best recompiled at 50. Applicable local repair search found no untried options.\n88 instruction body; only 10 register differences remain. Target table value in f2 vs candidate f0.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795238662.5909052,
-  "score_before": 2507,
-  "score_after": 50,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
- },
- {
   "function": "func_8008BA98",
   "text": "Saved best 180 rechecked; retained. Tested mode ladder rewrites: simple sequential if assignment scored 1405; explicit nested branches scored 975 then 775; volatile/register temporary around final call did not improve 775 (one experiment stack frame worse 1334). All remained worse than baseline. Target final sequence computes `v0 = !(flags & 0x80000)` via lui/and/sltiu, then branch delay loads mode constants into v0 and call delay moves v0 to a3. C's direct boolean mode assignment routes result into a3 and loses target sequence. Next step: keep mode local in ordinary s32 and test explicit `(u32)(!(flags & 0x80000))` while structuring branch ladder to hold mode result in v0; inspect target and generated diff.",
   "by": "codex-gpt-6-luna-15",
@@ -64427,5 +64279,153 @@
   "score_before": 2220,
   "score_after": 2220,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Recovered C89 compile by declaring cacb/sacb before statements. Current best remains score 2375/88 instructions. Tried declaration order and pointer constness; both left register/order mismatch, pointer constness worsened to 2965. Target loads all three angles into a3,v1,a0 before stack setup; current source loads into a2,a3,v1 after setup. Remaining work: recover parameter/temporary layout and expression evaluation order, starting from saved best and assembly.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795136684.87867,
+  "score_before": 2375,
+  "score_after": 2375
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Verified 2375; six variants changing angle widths, multiplication sign placement and operand order did not improve. Target saves six FP registers; candidate differs extensively in register allocation and load ordering. Investigate expression lifetimes and target load order.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795163934.4328861,
+  "score_before": 2375,
+  "score_after": 2375
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Verified baseline 2375: all 88 target instructions present modulo ordering and registers. Reordering angle declarations did not change generated assembly. Investigate ordering of table lookups and arithmetic to align register allocation; local repair discovery previously reached its generation budget.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795174881.97422,
+  "score_before": 2375,
+  "score_after": 2375
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Score 2375 -> 190 by staging first cosine index and sb*sc before later loads; ->80 by staging m[1], ->50 by staging m[3] between second and sacb (revision ae7d740d37e7c7a67492). All 88 operations align. Remaining f0/f2 swap between sin(a) and sa*-cb and its downstream users. Explicit neg_cb, register qualifiers, output order, and staging each remaining result after sacb did not improve. Next try varying where the negated cosine/sacb declaration is introduced relative to fourth and second, keeping the four successful precomputations.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795182712.158057,
+  "score_before": 2375,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Rechecked saved best score 50, all 88 instructions present; ten differences are f0/f2 allocation beginning at sa table load. Reversing sacb operands preserved score and changed one operand alignment; inlining sa worsened, inlining ai unchanged, index width and addition operand order worsened. Investigate lifetime and evaluation ordering around sa and sacb to exchange f0/f2.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795187953.765455,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Best score 50/88 instructions (99.4%), not exact. Rechecked best and tried signed/unsigned index casts, expression parenthesization, and reordered sine/cosine temporary declarations; no improvement. All 10 remaining rendered differences stem from one table load assigned to $f0 instead of target $f2 at instruction 44, propagating through later FP registers/stores; preceding instructions match. Resume with an allocation-focused edit near the ca/table-load lifetime or alter temporary lifetime to make GCC retain the loaded value in a different FPR. Current candidate remains best.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795189780.4703228,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Rechecked saved 50 at ae7d740d37e7c7a67492, 88 instructions, 10 register-only mismatches. Target row 44 loads sa into f2, rows 55\u201356 keep -cb and sa*-cb in f0. Candidate uses opposite registers through final multiply and stores. Declaring sacb before sa or adding an unused final-product temp tied; splitting negation/product (even with negation at the old position) rearranged early angle loads, targeted volatile sa lookup scored 680, and sa *= sb at final store scored 3997. Next isolate a liveness/allocation perturbation that retains combined `f32 sacb = sa * -cb;` expression and existing load/arithmetic order, e.g. stage an actually-used tail expression within a nested block.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795191000.501079,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Initial candidate compiles at 88 instructions, score 50; only 10 FP register allocation differences. Reviewed target assembly and confirmed operation values/order broadly match. Reordering output stores caused major regression; automatic local families (including arithmetic operand order) gave best exploratory 80, then explicit early m[5] store regressed to 275. Best candidate remains the initial score 50. Remaining work is FP register allocation and perhaps statement/declaration order; saved candidate retained.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795193042.1887941,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "First compile attempt had malformed #define placement; corrected full function matches instruction count and reaches score 50/88, all remaining 10 differences register allocation. Candidate computations use sine/cos table formulas and matrix assignments. Mismatch starts with table value in target $f2 versus candidate $f0; later negation/product values also swap $f0/$f2. Attempted volatile patch anchors were rejected because retained candidate source differs from formatted draft; no source change. Next inspect exact candidate and try volatile lifetime/declaration order around table values.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795197797.8105931,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Saved candidate rechecks score 50. Six local variants involving arithmetic order, table index width and inlining did not improve. Current first mismatch is FPR allocation at table load (target f2, candidate f0); investigate local variable lifetimes and table expression schedule. Keep saved best.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198873.11725,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Restored saved candidate ae7d740d37e7c7a67492 (historical score 50; current source/profile rechecked later as 555 for my rewrite, not rejudged saved baseline in this session). One algebraically flattened rewrite scored 975; an equivalent explicit-index rewrite scored 555 but remains substantially worse than saved. Target assembly gives strong ordering evidence: arguments loaded into $a3/$v1/$a0, then sine(b), sine(c), cosine(a), cosine(b), cosine(c), sine(a) table reads in sequence; computes sb*sc then ca*cb while deriving next values; target keeps temporaries in $fs1/$fa1/$ft0/$fs2/$ft1/$fv1. Candidate must preserve exact saved source as starting point. My variants changing multi-declaration order, replacing macros with explicit lookups tied at 555. Next useful experiment: test isolated exact C shape that loads b/c/a table values in observed order while computing cosine offsets after their sine lookup, e.g. split locals in declarations but insert `ca` before `cb`; inspect complete diff before further edits. No match or reusable compiler rule found.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795200939.274836,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Baseline 50 rechecked. Separate negation and moving second before sa tied; nested sacb assignment, splitting fourth, or staging ninth early worsened. Sole issue remains f0/f2 allocation from sine(a) onward.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795201883.174686,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Verified score 50, ten floating-register-only mismatches. Operand order, index widths and inlining variants did not improve.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795204124.050548,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Baseline verified at 50 before trials. Ten rows swap f0 and f2 between sine(a) and the sine(a)*-cos(b) chain. Moving sacb before fourth scored 80, moving sine(a) before cosine(c) tied, scoped do-while load 1130, explicit pointer indexing and multiplying cb by -1.0f tied, explicit byte-stride pointer 64. Saved best restored. This is the second compiled claim of the session.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795210454.2346408,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Verified saved baseline score 50; historical 124 compiles and 49 local repair trials suggest register allocation tuning. Statement/declaration variants scored 3545 (negation and altered expression order), 555 (all six table reads named upfront), 590 (angles declared b,c,a), 555 (compact equivalent source), 1030 (small temporary variant). No score beat 50; two variants tied 555. Best source restored by saved_best.\nEquivalent trig expression/order edits produced no match; broader edits worsened. Score 50 baseline retained.\nTarget starts by loading angles to a3,v1,a0 in order; sine/cosine table values feed specific FPR assignments; local declaration order and expression staging shift registers heavily. Avoid repeating fully staged table-read variant (555).",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795213727.555747,
+  "score_before": 3545,
+  "score_after": 555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Score 50 stays; only sa (SINS(a), loaded last) is in f2 in target vs f0 in mine, with sacb in f0 vs f2 (10 reg rows). Tried this session: ncb temp, -(sa*cb) (585), operand swaps in m[6]/m[7]/m[8] (55-95), sacc temp (80), sa as macro (4082), repeated SINS(a), moving m[8] store/sasb temp (472+ or 50). Next step: try different source structure e.g. loading sa into a temp via s16 index pointer or computing sa*sb/sa*sc as named temps before ca*cc.\n~20 operand-order/temp variants\nnone beat 50",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795226117.032284,
+  "score_before": 50,
+  "score_after": 50,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Still 50 (10 FP reg-only rows: sa should be f2, ours f0). Tried this session: sa/second order, sacb/fourth order, commuted operands in m[4], m[8], fourth, sacb (-cb*sa tied), cacb=cb*ca, gCosTable[a&0xFFF]. All tied or worse. Note: some variant compiles warned gCosTable not a known symbol (symbol may have been renamed) - check. Next step: try sa loaded via a distinct s32 index temp or compute sa*cc / sa*sc products as explicit named temps in the target's order (fs4=sa*cc, ft4=sa*sc, fs3=ca*cc).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795230116.798552,
+  "score_before": 50,
+  "score_after": 50,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
+ },
+ {
+  "function": "buildRotationMatrix",
+  "text": "Verified current best score 50 after a trig-expression rewrite regressed to 2507. Restored exact saved best; no untried applicable local repairs. Remaining 10 differences are FPR register allocation/order only; target sine table load in f2, candidate f0, with downstream differences. Earlier sessions explored statement order, operand order and local repair variants.\nReordered trig expressions scored 2507; saved best recompiled at 50. Applicable local repair search found no untried options.\n88 instruction body; only 10 register differences remain. Target table value in f2 vs candidate f0.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795238662.5909052,
+  "score_before": 2507,
+  "score_after": 50,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
  }
 ]
