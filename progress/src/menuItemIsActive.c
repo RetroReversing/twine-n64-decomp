@@ -17,7 +17,7 @@ s32 func_800818AC(u16, s32);                         /* extern */
 extern u8 D_800BD690;
 extern u8 gMenuParamB;
 
-s32 menuItemIsActive(s32 arg0) {
+s32 func_80027CE0(s32 arg0) {
     u16 var_s0;
 
     if (D_800BD690 != 0) {
