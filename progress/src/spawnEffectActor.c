@@ -23,14 +23,14 @@ typedef struct {
 extern Actor862BC *spawnEffectObject(s32, s32, s32);
 extern f64 D_800D63E8;
 
-/* Spawns an effect actor (type 0x1C) from an init record, picks its sub-type and seeds its range and lifetime fields. */ Actor862BC *spawnEffectActor(s32 objectParam, ActorInit862BC *init) {
+Actor862BC *func_800862BC(s32 arg0, ActorInit862BC *arg1) {
     Actor862BC *actor;
     ActorData862BC *data;
     s16 type;
-    u16 lifetime;
-    actor = spawnEffectObject(0x1C, objectParam, 0);
+    u16 limit;
+    actor = spawnEffectObject(0x1C, arg0, 0);
     if (actor != NULL) {
-        type = init->type;
+        type = arg1->type;
         data = actor->data;
         switch (type) {
             case 0: actor->type = 0xE; break;
@@ -38,23 +38,23 @@ extern f64 D_800D63E8;
             case 2: actor->type = 0x57; break;
         }
         data->field18 = 0;
-        data->field14 = init->field0C;
-        data->field16 = init->field0E;
-        data->field17 = init->field10;
-        data->lower = init->field14;
-        data->upper = init->field12;
-        lifetime = init->field16;
+        data->field14 = arg1->field0C;
+        data->field16 = arg1->field0E;
+        data->field17 = arg1->field10;
+        data->lower = arg1->field14;
+        data->upper = arg1->field12;
+        limit = arg1->field16;
         data->state = -1;
-        data->field19 = lifetime;
-        if (init->field1A == 0) {
+        data->field19 = limit;
+        if (arg1->field1A == 0) {
             data->field1A = 1;
         } else {
             data->field1A = 0;
         }
         {
-            f32 farDistance = 1000.0f;
-            data->first = farDistance;
-            data->second = farDistance;
+            f32 distance = 1000.0f;
+            data->first = distance;
+            data->second = distance;
         }
         if (data->field19 == 0) {
             data->field19 = 0xFF;
