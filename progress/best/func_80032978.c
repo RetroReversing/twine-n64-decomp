@@ -115,7 +115,7 @@ case 0: break;
                 var_a3 = 0x800;
                 temp_a0 = temp_s2 >> 3;
                 temp_a1_2 = gGfxPtr;
-                (((__repair_field_C *)temp_s1)->value) = (s32) ((temp_s6 << 0x12) | (((temp_s0 & 0xF) << 0xE) | 0x07000000) | (temp_s7 << 8) | ((width_log & 0xF) * 0x10));
+                (((__repair_field_C *)temp_s1)->value) = (s32) ((((temp_s0 & 0xF) << 0xE) | 0x07000000) | (temp_s6 << 0x12) | (temp_s7 << 8) | ((width_log & 0xF) * 0x10));
                 gGfxPtr = temp_a1_2 + 8;
                 (*(s32 *)((char *)(temp_a1_2) + 0)) = 0xE6000000;
                 gGfxPtr = temp_a1_2 + 0x10;

@@ -12,7 +12,7 @@ s32 func_800648FC(void *, s32);                 /* extern */
 s32 func_80065BC4(void *);                      /* extern */
 s32 func_80065C70(void *);           /* extern */
 s32 func_80067390(void *);                      /* extern */
-s32 func_8006832C(void *, void *);              /* extern */
+void func_8006832C(void *, void *);              /* extern */
 s32 func_80070870(void *);           /* extern */
 s32 func_8008194C(s8, s32);                     /* extern */
 s32 func_80081D20(s8, s32);                 /* extern */
@@ -24,6 +24,7 @@ extern s32 gBorderSkipActive;
 extern s32 sEnemyDefTable;
 extern s32 sTrackMarkerTable;
 
+typedef struct { f32 x,y,z; } CameraOffset;
 void func_800673EC(void *arg0, void *arg1) {
     s32 *__base_sEnemyDefTable;
     f32 sp10[3];
@@ -260,9 +261,7 @@ clearProbeState((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s
         break;
     }
     temp_v0_2 = (void *) ((((var_v0 + temp_s5) * 4)) + (s32) var_s4);
-    sp10[0] = (*(f32 *)((char *)(temp_v0_2) + 0xA0));
-    sp10[1] = (*(f32 *)((char *)(temp_v0_2) + 0xA4));
-    sp10[2] = (*(f32 *)((char *)(temp_v0_2) + 0xA8));
+    *(CameraOffset *)sp10 = *(CameraOffset *)((char *)temp_v0_2 + 0xA0);
     if (!temp_s5) {
         temp_fv1 = (*(f32 *)((char *)(*((s32 *)((s8 *)&sTrackMarkerTable + ((*(s8 *)((char *)(temp_s2) + 0x182)) * 4)))) + 0x130));
         if (temp_fv1 > 0.0f) {

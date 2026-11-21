@@ -73,7 +73,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3) {
     u32 temp_v1;
     u32 var_s0_3;
     register u32 var_s0_4;
-    u32 var_s0_5;
+    register u32 var_s0_5;
     u32 var_s0_6;
     register void **var_s5;
     void *temp_a0;
@@ -109,7 +109,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3) {
             do {
                 if ((*(void **)((char *)(var_s1) + 0x70)) != NULL) {
                     temp_s3 = (*(s32 *)((char *)(var_s1) + 0x58)) & 0x400;
-                    if ((temp_s3 == 0) && ((*(s32 *)((char *)(var_s1) + 0x5C)) & 0x200) && ((func_800487F0(var_s1, arg1, temp_fs2) << 0x18) != 0)) {
+                    if ((!temp_s3) && ((*(s32 *)((char *)(var_s1) + 0x5C)) & 0x200) && ((func_800487F0(var_s1, arg1, temp_fs2) << 0x18) != 0)) {
                         temp_s2 = (*(void **)((char *)(var_s1) + 0x70));
                         scratch.actor.angles[0] = (s16) (s32) -(*(f32 *)((char *)(var_s1) + 0x3C));
                         scratch.actor.angles[1] = (s16) (s32) -(*(f32 *)((char *)(var_s1) + 0x40));
@@ -142,15 +142,15 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3) {
                                         temp_v1_2 = (*(u16 *)((char *)((*(u8 **)((char *)(temp_s2) + 0x38))) + ((var_s0 & 0xFFFF) * 2)));
                                         if ((temp_s7 & temp_v1_2) && (temp_s6 & temp_v1_2)) {
                                             temp_v1_3 = (*(s32 *)((char *)(temp_s2) + 0x34));
-                                            if ((rayHitsTriangleXZ(actorStart, scratch.actor.direction.v, temp_v1_3 + (*(u16 *)var_s4 * 0xC), (s32)temp_v1_3 + ((*(u16 *)((char *)(var_s3) + -2)) * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + 0)) * 0xC), sp124) & 0xFF) && (scratch.actor.hitWide >= 0.0f) && (scratch.actor.hitWide < var_fs0)) {
+                                            if ((rayHitsTriangleXZ(actorStart, scratch.actor.direction.v, temp_v1_3 + (*(u16 *)var_s4 * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + -2)) * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + 0)) * 0xC), sp124) & 0xFF) && (scratch.actor.hitWide >= 0.0f) && (scratch.actor.hitWide < var_fs0)) {
                                                 var_fs0 = scratch.actor.hitWide;
                                                 gPlayerActor = var_s1;
                                                 D_80108F84 = NULL;
                                             }
                                         }
                                         var_s3 += 6;
-                                        var_s0 += 1;
                                         var_s4 += 3;
+                                        ++var_s0;
                                     } while ((u32) (var_s0 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s2) + 0x40)));
                                 }
                             } else {
@@ -226,8 +226,8 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3) {
                                                 D_80108F84 = var_s5;
                                             }
                                         }
-                                        var_s0_3 += 1;
                                         var_s2 += 6;
+                                        var_s0_3 += 1;
                                     } while (var_s0_3 < (u16) (*(u16 *)((char *)(temp_s1) + 0x40)));
                                 }
                             } else {

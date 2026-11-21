@@ -41,6 +41,7 @@ void func_8008B824(u32 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_a2_2;
     s32 temp_s0;
     s32 temp_v0;
+    s32 __repair_temp_v0_1;
     s32 var_a1;
     u32 rate;
     s32 first;
@@ -56,9 +57,10 @@ void func_8008B824(u32 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     sWorkerPendingCallback = 0;
     temp_s0 = var_s0 & 0xFFFF;
     audioInitVoices(temp_s0, *arg0);
-    audioSetupRateBuffer(temp_s0, *arg0, arg3 & 0xFF);
-    temp_a2 = arg2 & 0xFFFF;
+    var_a1 = (u16)temp_s0;
+audioSetupRateBuffer(var_a1, *arg0, arg3 & 0xFF);
     temp_v0 = *arg0;
+    temp_a2 = arg2 & 0xFFFF;
     if (temp_a2 != 0) {
         temp_a2_2 = (((((u32)temp_v0 * temp_a2) / 1000 >> 6) / 3) * 0xC0) + 0xC0;
         D_800E4230 = 0;
@@ -71,9 +73,9 @@ void func_8008B824(u32 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     dmaHandlerInit = 0;
     D_8010D428 = 0;
     D_8010016C(&func_8008B25C);
-    temp_v0 = *arg0;
-    var_ft0 = (f64)temp_v0;
-    if (temp_v0 < 0) var_ft0 += D_800D6798;
+    __repair_temp_v0_1 = *arg0;
+    var_ft0 = (f64)__repair_temp_v0_1;
+    if (__repair_temp_v0_1 < 0) var_ft0 += D_800D6798;
     temp_fv1 = (f32)var_ft0 * 0.016666668f * 0.0052083335f + 0.5f;
     var_v1 = (u32)temp_fv1;
     var_v0 = var_v1 * 2;
