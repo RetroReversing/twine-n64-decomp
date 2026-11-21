@@ -14,69 +14,69 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80016718(void *);                      /* extern */
 M2C_UNK func_800452AC(f32 *, void *, void *);       /* extern */
-u32 func_80045CF8(M2C_UNK);                         /* extern */
+u32 randomIntBelow(M2C_UNK);                         /* extern */
 M2C_UNK func_80084048(s32, M2C_UNK);                /* extern */
 M2C_UNK func_80085160(void *);                      /* extern */
 M2C_UNK func_800851E0(void *);                      /* extern */
 
-void func_80072F58(void *arg0) {
+/* Steps a track path follower: when its timer runs out, advances the state machine and moves its position. */ void stepTrackPathFollower(void *follower) {
     struct {
         f32 f10;
         f32 f14;
         f32 f18;
     } __repair_frame;
-    f32 *temp_s1;
-    s16 temp_v1;
-    s32 temp_s0_2;
-    s32 temp_v0;
-    u32 temp_v0_2;
-    void *temp_a1;
-    void *temp_s0;
-    void *temp_s3;
+    f32 *path;
+    s16 state;
+    s32 slotPtr;
+    s32 timer;
+    u32 randomRoll;
+    void *vel;
+    void *pos;
+    void *track;
 
-    temp_s1 = M2C_FIELD(arg0, f32 **, 0x6C);
-    temp_v0 = M2C_FIELD(temp_s1, s32 *, 0xC);
-    temp_s3 = M2C_FIELD(arg0, void **, 0x20);
-    if (temp_v0 > 0) {
-        M2C_FIELD(temp_s1, s32 *, 0xC) = (s32) (temp_v0 - 1);
+    path = M2C_FIELD(follower, f32 **, 0x6C);
+    timer = M2C_FIELD(path, s32 *, 0xC);
+    track = M2C_FIELD(follower, void **, 0x20);
+    if (timer > 0) {
+        M2C_FIELD(path, s32 *, 0xC) = (s32) (timer - 1);
     }
-    if (M2C_FIELD(temp_s1, s32 *, 0xC) == 0) {
-        temp_v1 = M2C_FIELD(arg0, s16 *, 0x7A);
-        switch (temp_v1) {                          /* irregular */
+    if (M2C_FIELD(path, s32 *, 0xC) == 0) {
+        state = M2C_FIELD(follower, s16 *, 0x7A);
+        switch (state) {                          /* irregular */
         case 0:
-            __repair_frame.f10 = M2C_FIELD(temp_s1, f32 *, 0) * 0.033333335f;
-            __repair_frame.f14 = M2C_FIELD(temp_s1, f32 *, 4) * 0.033333335f;
-            temp_s0 = arg0 + 0x24;
-            __repair_frame.f18 = M2C_FIELD(temp_s1, f32 *, 8) * 0.033333335f;
-            func_800452AC(&__repair_frame, temp_s0, temp_s0);
-            temp_a1 = arg0 + 0x3C;
-            func_800452AC(temp_s1, temp_a1, temp_a1);
-            M2C_FIELD(temp_s1, f32 *, 4) = (f32) (M2C_FIELD(temp_s1, f32 *, 4) - 0.32666668f);
-            if (M2C_FIELD(arg0, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x3C), f32 *, 0x20)) {
-                func_80016718(arg0);
-                temp_v0_2 = func_80045CF8(0x20);
-                switch (temp_v0_2) {
+            __repair_frame.f10 = M2C_FIELD(path, f32 *, 0) * 0.033333335f;
+            __repair_frame.f14 = M2C_FIELD(path, f32 *, 4) * 0.033333335f;
+            pos = follower + 0x24;
+            __repair_frame.f18 = M2C_FIELD(path, f32 *, 8) * 0.033333335f;
+            func_800452AC(&__repair_frame, pos, pos);
+            vel = follower + 0x3C;
+            func_800452AC(path, vel, vel);
+            M2C_FIELD(path, f32 *, 4) = (f32) (M2C_FIELD(path, f32 *, 4) - 0.32666668f);
+            if (M2C_FIELD(follower, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(track, void **, 0x3C), f32 *, 0x20)) {
+                func_80016718(follower);
+                randomRoll = randomIntBelow(0x20);
+                switch (randomRoll) {
                 case 0: case 1: case 2: case 3:
-                    func_80085160(temp_s0);
+                    func_80085160(pos);
                     break;
                 case 4:
-                    func_800851E0(temp_s0);
+                    func_800851E0(pos);
                     break;
                 }
-                M2C_FIELD(arg0, s16 *, 0x7A) = 1;
+                M2C_FIELD(follower, s16 *, 0x7A) = 1;
                 return;
             }
             break;
         default:
-            M2C_FIELD(arg0, s16 *, 0x7A) = (s16) ((u16) M2C_FIELD(arg0, s16 *, 0x7A) + 1);
-            M2C_FIELD(arg0, s32 *, 0x58) = (s32) (M2C_FIELD(arg0, s32 *, 0x58) & ~1);
+            M2C_FIELD(follower, s16 *, 0x7A) = (s16) ((u16) M2C_FIELD(follower, s16 *, 0x7A) + 1);
+            M2C_FIELD(follower, s32 *, 0x58) = (s32) (M2C_FIELD(follower, s32 *, 0x58) & ~1);
             return;
         case 4:
-            temp_s0_2 = M2C_FIELD(arg0, s32 *, 0x70);
-            func_80084048(M2C_FIELD(temp_s1, s32 *, 0x1C), 0x2D);
-            func_80084048(M2C_FIELD(temp_s1, s32 *, 0x18), 0x2D);
-            func_80084048(temp_s0_2, 0x16);
-            M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
+            slotPtr = M2C_FIELD(follower, s32 *, 0x70);
+            func_80084048(M2C_FIELD(path, s32 *, 0x1C), 0x2D);
+            func_80084048(M2C_FIELD(path, s32 *, 0x18), 0x2D);
+            func_80084048(slotPtr, 0x16);
+            M2C_FIELD(follower, s32 *, 0x60) = (s32) (M2C_FIELD(follower, s32 *, 0x60) | 1);
             break;
         }
     }
