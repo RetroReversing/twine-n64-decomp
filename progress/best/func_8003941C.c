@@ -11,7 +11,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4)
   s16 sp128[3];
   unsigned long var_s2;
   unsigned offset;
-  register s32 flags = arg4;
+  register s32 flags;
   register f32 *ent;
   s32 var_s1;
   register u8 *p;
@@ -31,18 +31,8 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4)
   state.mode = arg1;
   state.rotation = arg3;
   state.done = 0;
-  do
-  {
-    if (state.flags)
-    {
-      var_s1 = 0;
-    }
-    else
-    {
-      var_s1 = 0;
-    }
-  }
-  while (0);
+  var_s1 = 0;
+  flags = *(volatile s32 *)&arg4;
   if (((*arg0) != NULL) || ((func_80043FA0(), (*arg0) != NULL)))
   {
     var_s6 = *arg0;
@@ -170,4 +160,5 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4)
     while (!state.done);
   }
 }
+
 

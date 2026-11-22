@@ -73,8 +73,8 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3)
   {
     var_s0 = 0; var_a1 = 0; var_v1 = arg2 * 2;
   }
-  __repair_phase_storage.pointer = (void *) (var_v1 + ((s32) temp_s1)); var_a0 = (var_s0 - ((__repair_record_temp_a2 *) __repair_phase_storage.pointer)->field_94) * arg3;
-  pitchDelta = var_a1 - ((__repair_record_temp_a2 *) __repair_phase_storage.pointer)->field_98;
+  var_v1 = var_v1 + ((s32) temp_s1); var_a0 = (var_s0 - ((__repair_record_temp_a2 *) var_v1)->field_94) * arg3;
+  pitchDelta = var_a1 - ((__repair_record_temp_a2 *) var_v1)->field_98;
   var_a0 >>= 7;
   if (var_a0 < (-0x40))
   {

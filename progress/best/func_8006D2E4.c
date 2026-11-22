@@ -263,10 +263,14 @@ void *__repair_phase_temp_a1;
             var_ft0 += D_800D4650;
           }
           var_fs0 = temp_fs0 + ((f32) ((s16) ((s32) (((f32) var_ft0) - (temp_fs0 * 0.05f)))));
-          (((Field_f32 *) (((char *) temp_s3) + 0x1B0))->v) = 0.0f;
           if (var_fs0 <= 0.0f)
           {
+            *(f32 *)((char *)temp_s3 + 0x1B0) = 0.0f;
             var_fs0 = 1.0f;
+          }
+          else
+          {
+            *(f32 *)((char *)temp_s3 + 0x1B0) = 0.0f;
           }
         }
         else

@@ -53,7 +53,6 @@ void func_80117BF4(s32 map)
   s32 offset = 0;
   s32 base;
   SearchPoint *points;
-  volatile unsigned short pad;
   SearchEdge *edges;
   s16 pointCount;
   s16 edgeCount;
