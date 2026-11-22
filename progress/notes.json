@@ -65218,14 +65218,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:26657568a6012c1d85dc3147e41ac9ae87c83eba9b3c3691034435d8cf22a47a"
  },
  {
-  "function": "func_800891A8",
-  "text": "Score 70, fourteen register differences around size calculation, allocator call, and bytes; target uses s1 for size and s0 for bytes, compiler reverses. Declaration order, unsigned bytes, and moving bytes calculation before call left assembly unchanged.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795163997.317076,
-  "score_before": 70,
-  "score_after": 70
- },
- {
   "function": "func_8011B5F0",
   "text": "Improved baseline 24939 to 24359, revision f82512387d3dd52f0f03, by masked value reuse and merging non-overlapping integer temporaries; ten subsequent signedness, declaration and lifetime trials did not improve. Draft still has incorrect byte-array pointer dereferences and 498 diff rows; reconstruct table element types and control flow from assembly before further register tuning. Target frame 0x68 versus candidate 0x70.",
   "by": "codex-gpt-6.1-terra-6",
@@ -65240,22 +65232,6 @@
   "created_at": 1795173211.2458,
   "score_before": 31363,
   "score_after": 24035
- },
- {
-  "function": "func_800891A8",
-  "text": "Verified score 70, 119 instructions each; 14 register differences in size calculation and allocation call, notably target size in s1 and doubled byte count in s0, reversed in candidate. Local loop weighting, scalar reuse, declaration order and operand-order variants did not improve. Investigate lifetimes across allocator call or compiler scheduling.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795175814.902123,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_800891A8",
-  "text": "Reverified score 70, only 14 register differences. Target computes the first /1000 result in s1, uses v1/v0 for the /192 result and scaling, then puts the rounded size in s1 and byte count in s0. Candidate uses v1 for /1000, s0 for scaling and size, and s1 for byte count. Combining rate and size in the same local scored 100. Naming only rounded-rate product separately and spelling out the byte-length expression at the second call both preserved score 70. Inlining the complete expression scored 650. Focus on a source shape that retains the rate pseudo across the allocator call while splitting the rounded multiplication's scratch pseudo, or investigate allocation-specific compiler flags.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795182716.651927,
-  "score_before": 70,
-  "score_after": 70
  },
  {
   "function": "func_8011B5F0",
@@ -65298,70 +65274,6 @@
   "score_after": 24035
  },
  {
-  "function": "func_800891A8",
-  "text": "Current verified best is score 70 at revision c5b62d27593e438a3165; move-on threshold reached (6/6). Two bounded local-repair batches explored branch orientation, scalar reuse, record layout sequence, loop weight scope, allocation schedule, CFG/integer lifetimes, declaration order, and arithmetic operand order; best stayed 70, other scores 265\u2013830. The remaining 14 displayed differences are register-only. At first mismatch target uses s1 for arg0>>6 while candidate uses v1; then the same multiplication chain propagates that register difference. Consider adjusting local lifetimes/loop index declarations based on assembly and preserve the established struct layouts.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795188347.502523,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_800891A8",
-  "text": "No match; best 70 points (99.4%), target/candidate 119 instructions, 14 register allocation differences. Candidate is extremely close; first mismatch target srl $s1,$t1,6 versus candidate srl $v1,$t1,6, with follow-on register allocation. Declaration reordering did not change instructions. Local repair families operation_scope_depth and arithmetic_operand_order were non-improving; signed loop index substantially regressed. Compiler profile trial repeated current flags at score 70. Try source scoping/temporary lifetimes around rate/size and callback allocation to steer persistent values into s1/s2; don't change loop index signedness.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795190251.335361,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_800891A8",
-  "text": "Rechecked saved score 70, 119/119 instructions with 14 register mismatches. Binding byte count in the clear call ties. Separating /192 as an assignment to size followed by (size * 3 << 6) + 192 fixes downstream saved registers but schedules the allocator pointer load too early and computes /192 in s1 instead of v1 (145, 9 displayed mismatches). Writing the first /1000 result into size and staging the /192 quotient or rounded product separately computes /1000 in s2 (100, 20 register mismatches). Continue by testing source lifetimes that retain the 145 candidate\u2019s saved-register choices after jalr while making the first quotient share the final size register and the second quotient use a scratch.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795193195.193443,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_800891A8",
-  "text": "Saved best score 60 remains candidate revision 60d04a7be75ed3858649; restore this source for continuation. A whole-function recompile yielded 100 (worse), then six local repairs found no improvement; candidate historical source is rechecked at 60. Remaining diff described as register allocation/order, especially target keeps computed rate in s1 then allocated output struct pointer in s2; candidate's mapping swaps s1/s2, causing remaining register differences. Another arithmetic mismatch in local repair variant 6 worsened to 240. Try small variable/declaration/address staging changes based on saved_best. No shared general knowledge found.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795197929.428666,
-  "score_before": 60,
-  "score_after": 60
- },
- {
-  "function": "func_800891A8",
-  "text": "Rechecked 60 with exactly one scheduling displacement: target loads both halves of 0xAAAAAAAB before srl s1,t1,6; candidate shifts before that constant. All registers already match; older notes describing register differences refer to other revisions. Moving the do/while scope to the second division, wrapping both assignments, scoping only the multiply, splitting /192 into size then scaling, and rounding via +1 before multiplication did not improve. Only separately staging the first product while keeping /1000 in the do/while and splitting /192 into size tied.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795199057.569676,
-  "score_before": 60,
-  "score_after": 60
- },
- {
-  "function": "func_800891A8",
-  "text": "Supplied draft compiled at score 60 (119 target and candidate instructions); current best unchanged. Tried equivalent explicit rate division/multiplication ordering, which scored worse (205). Saved best revision 60d04a7be75ed3858649. Only two instruction-order differences remain in the initial rounded rate expression: target places srl $s1,$t1,6 after the reciprocal multiply setup, while candidate places it before loading 0xAAAAAAAB; explore temporary/declaration/expression ordering to move that shift. Other operations match.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795201033.714283,
-  "score_before": 60,
-  "score_after": 60
- },
- {
-  "function": "func_800891A8",
-  "text": "Best rechecked score 60. Moving multiplication operand order to D_800E41D4 * arg0->rate dropped score to 85 due swapped mult registers. Reordering declarations changed no diff from score 60. The only mismatch in saved best is srl $s1,$t1,6 scheduled at instruction 22 rather than instruction 19 (three intervening argument setup instructions currently move earlier). Next: test relocating allocation argument computation/call into a block-local scope or rearrange the call expression/declarations to let GCC schedule srl after mfhi before argument setup.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795201979.38007,
-  "score_before": 60,
-  "score_after": 60
- },
- {
-  "function": "func_800891A8",
-  "text": "Best candidate 60d04a7be75ed3858649 scores 60 (119 insns, one scheduling mismatch). Target places srl $s1,$t1,6 after the lui/ori of the 0xAAAAAAAB magic (for /192); ours places it before. Tried: no do-while (100), split mul/div (100), size temp (70), fused expr (110), rate/192 then *192 split (195), mul-then-div split (650). Untested: signed s32 rate for the /1000 step.",
-  "by": "api-claude-haiku-5-5-9",
-  "created_at": 1795204251.753966,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "func_8011B5F0",
   "text": "Restored saved-best revision 33ffa7ee4bce4b143fe0 (score 25484 rechecked). It has many invalid/incomplete inferred declarations and pointer typing problems. One patch changing func_80016718 to one parameter failed: call sites genuinely use both one and two args, so old-style unspecified prototype is needed or a compatible variadic declaration. A separate empty-body diagnostic compile worsened exploratory candidate; saved best was restored before further work. Next agent should inspect context/matched callees and fix globals/prototypes in source while retaining original body, then compile.\nRechecked saved best; tested one-parameter func_80016718 prototype\nSignature patch failed with too-many-arguments; baseline saved best retained. Existing source has body and extern globals, so earlier startup error text was stale.",
   "by": "codex-gpt-6-luna-22",
@@ -65376,15 +65288,6 @@
   "created_at": 1795210549.300621,
   "score_before": 22794,
   "score_after": 20651
- },
- {
-  "function": "func_800891A8",
-  "text": "Only mismatch: srl $s1,$t1,6 occurs before the lui/ori for 0xAAAAAAAB; target puts it immediately after that pair. Best rechecked score 60.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795213379.149175,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
  },
  {
   "function": "func_8011B5F0",
@@ -65439,15 +65342,6 @@
   "score_after": 20021
  },
  {
-  "function": "func_800891A8",
-  "text": "Still score 60 (only srl $s1,$t1,6 vs lui/ori 0xAAAAAAAB swap). This session also tried: size temp, rate/192*192 split statements, rate - rate%192 + 192, 1000U/192U suffixes, register rate, declaration order d/i, bytes=rate<<1, D*rate operand order, signed s32 scaled with (u32) cast (100). All 60 or worse. Next step: try restructuring where the first quotient is produced (e.g. helper static inline returning /1000) or a different type for D_800E41D4 (s32 extern) to change RTL insn order.\nMany source-form variants of the two-stage /1000 then /192 division\nOutput unchanged at score 60; only srl scheduled before lui/ori",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795226898.5704708,
-  "score_before": 70,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
- },
- {
   "function": "func_8011B5F0",
   "text": "Candidate store was irrecoverably overwritten by an empty stub; historical score 20021 and m2c draft exists but no full source revision could be retrieved. Confirmed stub compile gives only 2 instructions vs target 459, score 45760. Redrafted with generic declarations; no compile attempted because m2c output contains unknown `?` types and malformed member access. No look-alikes. Next step: reconstruct valid source from m2c draft, correcting struct/function prototypes from assembly and callers, then submit whole C.",
   "by": "codex-gpt-6-luna-20",
@@ -65464,15 +65358,6 @@
   "score_before": 43241,
   "score_after": 43241,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:0ed5ea5c32b5dbaa0fc5709ed3034853e04a13a72595c1e6e4e002275e2dbecb"
- },
- {
-  "function": "func_800891A8",
-  "text": "Still 60 (srl s1,t1,6 scheduled before lui/ori magic; target after). Extra tries tied/worse: (rate/192+1)*192 (965), rate-rate%192+192 (75), commuted mult operands (60), rate/size decl swap (60), split rate/192; rate*192 statements (675). Next step: try making the first quotient go through a distinct local/cast (e.g. u32 q=(u32)((u64)scaled*0x10624DD3>>38)) or move the /192 magic constants' lui earlier by using the divisor in an earlier statement.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795230568.075228,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
  },
  {
   "function": "func_8011B5F0",
@@ -65511,33 +65396,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:125f186a5084d5d32ea0da63a0d116e51a8bf8a1de70f1586f09ed4cdf33de5e"
  },
  {
-  "function": "func_800891A8",
-  "text": "Best rechecked 60, one scheduling mismatch: target's srl $s1,$t1,6 occurs after magic divisor lui/ori; candidate schedules it before. Changing /1000 intermediate to s32 scored 660 due signed multiply and extra correction. Reformatting unchanged. Next: adjust allocation call argument setup placement while retaining unsigned math.\nChanged rate intermediate from u32 to s32; compile scored 660, worse than saved 60. Rewrote formatting; unchanged 660.\nSaved best is 60 with one scheduling mismatch; failed signed-rate candidate adds signed multiply correction and branch growth.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795246011.944941,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
- },
- {
-  "function": "func_800891A8",
-  "text": "Moving allocation before rate calculation scored 1180; factoring +192 into multiplication scored 965; reversed commutative operands scored 60 with identical remaining scheduling mismatch.\nAllocation moved before rounding; arithmetic factoring and operand reversal\nScores 1180, 965, and 60 respectively; saved best has one shift scheduled early",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795246779.14231,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
- },
- {
-  "function": "func_800891A8",
-  "text": "Score 60: only shift scheduling differs. Signed scaled worsened to 660; sizeof, operand regrouping and explicit allocator dereference left output unchanged.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795248624.281466,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
- },
- {
   "function": "func_800404F0",
   "text": "Target bounds-checks byte 0x1E against 0x14..0xCB, then reads global jtbl_800D3040. C switch creates a local jump table. Next step: explicit global table access with same selector bounds.",
   "by": "codex-gpt-6-luna-15",
@@ -65554,15 +65412,6 @@
   "score_before": 15800,
   "score_after": 15665,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:125f186a5084d5d32ea0da63a0d116e51a8bf8a1de70f1586f09ed4cdf33de5e"
- },
- {
-  "function": "func_800891A8",
-  "text": "Verified baseline 60: only shift scheduling differs. Signed rate scored 960; explicit shift/divide scored 270; regrouped multiplication unchanged. Scheduling flag diagnostics did not improve.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795261049.866643,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
  },
  {
   "function": "func_8011B5F0",
@@ -78889,5 +78738,165 @@
   "score_before": 525,
   "score_after": 255,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:c21fffb4df80e8d36fcaa3f4e4b398e3ee87e625a2e1d3372332d50cca8b171e"
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Score 70, fourteen register differences around size calculation, allocator call, and bytes; target uses s1 for size and s0 for bytes, compiler reverses. Declaration order, unsigned bytes, and moving bytes calculation before call left assembly unchanged.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795163997.317076,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Verified score 70, 119 instructions each; 14 register differences in size calculation and allocation call, notably target size in s1 and doubled byte count in s0, reversed in candidate. Local loop weighting, scalar reuse, declaration order and operand-order variants did not improve. Investigate lifetimes across allocator call or compiler scheduling.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795175814.902123,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Reverified score 70, only 14 register differences. Target computes the first /1000 result in s1, uses v1/v0 for the /192 result and scaling, then puts the rounded size in s1 and byte count in s0. Candidate uses v1 for /1000, s0 for scaling and size, and s1 for byte count. Combining rate and size in the same local scored 100. Naming only rounded-rate product separately and spelling out the byte-length expression at the second call both preserved score 70. Inlining the complete expression scored 650. Focus on a source shape that retains the rate pseudo across the allocator call while splitting the rounded multiplication's scratch pseudo, or investigate allocation-specific compiler flags.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795182716.651927,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Current verified best is score 70 at revision c5b62d27593e438a3165; move-on threshold reached (6/6). Two bounded local-repair batches explored branch orientation, scalar reuse, record layout sequence, loop weight scope, allocation schedule, CFG/integer lifetimes, declaration order, and arithmetic operand order; best stayed 70, other scores 265\u2013830. The remaining 14 displayed differences are register-only. At first mismatch target uses s1 for arg0>>6 while candidate uses v1; then the same multiplication chain propagates that register difference. Consider adjusting local lifetimes/loop index declarations based on assembly and preserve the established struct layouts.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795188347.502523,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_800891A8",
+  "text": "No match; best 70 points (99.4%), target/candidate 119 instructions, 14 register allocation differences. Candidate is extremely close; first mismatch target srl $s1,$t1,6 versus candidate srl $v1,$t1,6, with follow-on register allocation. Declaration reordering did not change instructions. Local repair families operation_scope_depth and arithmetic_operand_order were non-improving; signed loop index substantially regressed. Compiler profile trial repeated current flags at score 70. Try source scoping/temporary lifetimes around rate/size and callback allocation to steer persistent values into s1/s2; don't change loop index signedness.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795190251.335361,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Rechecked saved score 70, 119/119 instructions with 14 register mismatches. Binding byte count in the clear call ties. Separating /192 as an assignment to size followed by (size * 3 << 6) + 192 fixes downstream saved registers but schedules the allocator pointer load too early and computes /192 in s1 instead of v1 (145, 9 displayed mismatches). Writing the first /1000 result into size and staging the /192 quotient or rounded product separately computes /1000 in s2 (100, 20 register mismatches). Continue by testing source lifetimes that retain the 145 candidate\u2019s saved-register choices after jalr while making the first quotient share the final size register and the second quotient use a scratch.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795193195.193443,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Saved best score 60 remains candidate revision 60d04a7be75ed3858649; restore this source for continuation. A whole-function recompile yielded 100 (worse), then six local repairs found no improvement; candidate historical source is rechecked at 60. Remaining diff described as register allocation/order, especially target keeps computed rate in s1 then allocated output struct pointer in s2; candidate's mapping swaps s1/s2, causing remaining register differences. Another arithmetic mismatch in local repair variant 6 worsened to 240. Try small variable/declaration/address staging changes based on saved_best. No shared general knowledge found.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795197929.428666,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Rechecked 60 with exactly one scheduling displacement: target loads both halves of 0xAAAAAAAB before srl s1,t1,6; candidate shifts before that constant. All registers already match; older notes describing register differences refer to other revisions. Moving the do/while scope to the second division, wrapping both assignments, scoping only the multiply, splitting /192 into size then scaling, and rounding via +1 before multiplication did not improve. Only separately staging the first product while keeping /1000 in the do/while and splitting /192 into size tied.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795199057.569676,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Supplied draft compiled at score 60 (119 target and candidate instructions); current best unchanged. Tried equivalent explicit rate division/multiplication ordering, which scored worse (205). Saved best revision 60d04a7be75ed3858649. Only two instruction-order differences remain in the initial rounded rate expression: target places srl $s1,$t1,6 after the reciprocal multiply setup, while candidate places it before loading 0xAAAAAAAB; explore temporary/declaration/expression ordering to move that shift. Other operations match.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795201033.714283,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Best rechecked score 60. Moving multiplication operand order to D_800E41D4 * arg0->rate dropped score to 85 due swapped mult registers. Reordering declarations changed no diff from score 60. The only mismatch in saved best is srl $s1,$t1,6 scheduled at instruction 22 rather than instruction 19 (three intervening argument setup instructions currently move earlier). Next: test relocating allocation argument computation/call into a block-local scope or rearrange the call expression/declarations to let GCC schedule srl after mfhi before argument setup.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795201979.38007,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Best candidate 60d04a7be75ed3858649 scores 60 (119 insns, one scheduling mismatch). Target places srl $s1,$t1,6 after the lui/ori of the 0xAAAAAAAB magic (for /192); ours places it before. Tried: no do-while (100), split mul/div (100), size temp (70), fused expr (110), rate/192 then *192 split (195), mul-then-div split (650). Untested: signed s32 rate for the /1000 step.",
+  "by": "api-claude-haiku-5-5-9",
+  "created_at": 1795204251.753966,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Only mismatch: srl $s1,$t1,6 occurs before the lui/ori for 0xAAAAAAAB; target puts it immediately after that pair. Best rechecked score 60.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795213379.149175,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Still score 60 (only srl $s1,$t1,6 vs lui/ori 0xAAAAAAAB swap). This session also tried: size temp, rate/192*192 split statements, rate - rate%192 + 192, 1000U/192U suffixes, register rate, declaration order d/i, bytes=rate<<1, D*rate operand order, signed s32 scaled with (u32) cast (100). All 60 or worse. Next step: try restructuring where the first quotient is produced (e.g. helper static inline returning /1000) or a different type for D_800E41D4 (s32 extern) to change RTL insn order.\nMany source-form variants of the two-stage /1000 then /192 division\nOutput unchanged at score 60; only srl scheduled before lui/ori",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795226898.5704708,
+  "score_before": 70,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Still 60 (srl s1,t1,6 scheduled before lui/ori magic; target after). Extra tries tied/worse: (rate/192+1)*192 (965), rate-rate%192+192 (75), commuted mult operands (60), rate/size decl swap (60), split rate/192; rate*192 statements (675). Next step: try making the first quotient go through a distinct local/cast (e.g. u32 q=(u32)((u64)scaled*0x10624DD3>>38)) or move the /192 magic constants' lui earlier by using the divisor in an earlier statement.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795230568.075228,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Best rechecked 60, one scheduling mismatch: target's srl $s1,$t1,6 occurs after magic divisor lui/ori; candidate schedules it before. Changing /1000 intermediate to s32 scored 660 due signed multiply and extra correction. Reformatting unchanged. Next: adjust allocation call argument setup placement while retaining unsigned math.\nChanged rate intermediate from u32 to s32; compile scored 660, worse than saved 60. Rewrote formatting; unchanged 660.\nSaved best is 60 with one scheduling mismatch; failed signed-rate candidate adds signed multiply correction and branch growth.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795246011.944941,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Moving allocation before rate calculation scored 1180; factoring +192 into multiplication scored 965; reversed commutative operands scored 60 with identical remaining scheduling mismatch.\nAllocation moved before rounding; arithmetic factoring and operand reversal\nScores 1180, 965, and 60 respectively; saved best has one shift scheduled early",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795246779.14231,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Score 60: only shift scheduling differs. Signed scaled worsened to 660; sizeof, operand regrouping and explicit allocator dereference left output unchanged.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795248624.281466,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Verified baseline 60: only shift scheduling differs. Signed rate scored 960; explicit shift/divide scored 270; regrouped multiplication unchanged. Scheduling flag diagnostics did not improve.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795261049.866643,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
+ },
+ {
+  "function": "func_800891A8",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 60; 16 differing rows (1 opcode, 1 register, 2 operand, 10 reordered, 1 inserted, 1 deleted; advisory).\nTarget: \nCandidate: addu $v0, $s3, $v1\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = move $a1, $s3\n  = move $a0, $s2\no T:  | C: addu $v0, $s3, $v1\no T:  | C: lbu $v0, 0x12($v0)\no T:  | C: sll $v0, $v0, 8\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307345.518513,
+  "score_before": 42,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
  }
 ]

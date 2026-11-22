@@ -50,8 +50,7 @@ void func_800891A8(S891A8 *arg0)
     d->count = arg0->count;
     for (i = 0; i < arg0->count; i++)
     {
-      rate = (short) (((D_800E41D4 * arg0->lens[i]) / 1000) + 3);
-      d->lens[i] = rate & 0xFFFC;
+      d->lens[i] = (rate = (short) (((D_800E41D4 * arg0->lens[i]) / 1000) + 3)) & 0xFFFC;
       d->vol[i] = arg0->vol[i] << 8;
     }
 
