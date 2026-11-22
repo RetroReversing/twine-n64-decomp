@@ -23,7 +23,7 @@ extern EntryField D_800F9566[];
 extern TableEntry D_800F9560[];
 s32 func_8009811C(s32 arg0)
 {
-  volatile s32 pad[2];
+  f64 pad[2];
   u32 key;
   u32 bucket;
   s32 i;
@@ -44,14 +44,11 @@ s32 func_8009811C(s32 arg0)
   if (count != 0)
   {
     start = D_800F8D62[bucket].value;
-    for (i = 0; i < count; i++)
-    {
-      if (D_800F9564[start + i].value == key)
-      {
-        break;
-      }
-    }
-
+    i = 0;
+    if (!(unsigned short)count) goto done;
+    loop: if (D_800F9564[start + i].value == key) goto found;
+    if (++i < count) goto loop;
+    found: ;
     if (i < D_800F8D60[bucket].value)
     {
       index = start + i;
@@ -94,6 +91,6 @@ s32 func_8009811C(s32 arg0)
       }
     }
   }
-  func_8008C11C();
+done: func_8008C11C();
   return 0;
 }
