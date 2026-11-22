@@ -345,6 +345,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
             ;
             ;
             ;
+            ;
           }
           else
           {
@@ -429,8 +430,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
             kind_mask = 0xFE1FFFFF;
             var_s5 = 0x14D;
             ((Field_u8 *) (((char *) temp_s0) + 0x82))->v = 0x1EU;
-            var_v0_3 = 0x800000;
-            goto block_75;
+ do { var_v0_3 = 0x800000; goto block_75; } while (0);
 
           case 31:
             D_80113020 += 1;
@@ -582,13 +582,21 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
           case 44:
 
           case 0:
+
           case 1:
+
           case 45:
+
           case 46:
+
           case 47:
+
           case 48:
+
           case 49:
+
           case 50:
+
           default:
             var_a1_2 = 1;
             func_80077960(var_s1, var_a1_2);
@@ -728,4 +736,3 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
   return var_s1;
 
 }
-

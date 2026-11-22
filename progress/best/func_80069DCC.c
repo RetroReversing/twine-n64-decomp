@@ -1801,8 +1801,9 @@ case 2: case 3: goto out_of_line_actor;
         if (sBonusSlots[inline_fn((char *) temp_s1, 0x182) * 0xA0] == 0)
       {
         temp_v1_22 = inline_fn((char *) temp_s1, 0x17E);
-        if (((temp_v1_22 >= 0) && (temp_v1_22 >= 2)) && (temp_v1_22 < 4))
-        {
+        switch (temp_v1_22) {
+            case 0: case 1: break;
+            case 2: case 3: {
           temp_v0_6 = inline_fn((char *) temp_s1, 0x19B);
           if (temp_v0_6 != 0)
           {
@@ -1840,6 +1841,8 @@ case 2: case 3: goto out_of_line_actor;
               }
             }
           }
+        } break;
+            default: break;
         }
       }
         temp_v1_23 = *((s16 *) (((char *) arg0) + 0x7C));

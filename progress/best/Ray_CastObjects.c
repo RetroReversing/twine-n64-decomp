@@ -74,11 +74,9 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
     f32 *sp15C;
     void *sp164;
     void *sp16C;
-    f32 *sp174;
     f32 *sp17C;
     f32 *sp184;
     f32 *sp18C;
-    f32 *sp194;
     u16 sp19E;
     u16 sp1A6;
     f32 *sp1AC;
@@ -291,12 +289,12 @@ s32 __repair_phase_var_a2;
         if (var_s7 != NULL) {
             sp164 = &nearest;
             sp16C = &work.plane;
-            sp174 = &work.scratch.room.end.x;
+            sp12C = &work.scratch.room.end.x;
             sp17C = &work.scratch.room.matrix[0][0];
             sp184 = &work.scratch.room.clippedStart.x;
             sp18C = &work.scratch.room.clippedEnd.x;
-            sp194 = &work.roomDirection.x;
-
+            sp13C = &work.roomDirection.x;
+            sp1AC = &work.roomDistance16;
             do {
                 temp_s2 = M2C_FIELD(var_s7, void **, 0x3C);
                 if (!(((u32) M2C_FIELD(var_s7, u32 *, 0x5C) >> 0x17) & 0x40)) {
@@ -320,10 +318,10 @@ s32 __repair_phase_var_a2;
                             if (((u32) M2C_FIELD(var_s7, u32 *, 0x5C) >> 0x17) & 2) {
                                 func_80047E4C(var_s7, 0, sp17C);
                                 func_80083B64(sp17C, sp16C);
-                                func_80083B64(sp17C, sp174);
+                                func_80083B64(sp17C, sp12C);
                             }
                             temp_s0_4 = temp_s2 + 0x18;
-                            if (((u32)func_800488D4(temp_s0_4, sp16C, sp174) << 24) != 0) {
+                            if (((u32)func_800488D4(temp_s0_4, sp16C, sp12C) << 24) != 0) {
                                 work.scratch.room.clippedStart = work.plane.vector;
                                 work.scratch.room.clippedEnd = work.scratch.room.end;
                                 var_s4_3 = -1;
@@ -333,7 +331,7 @@ s32 __repair_phase_var_a2;
                                     sp19E = temp_v0_2 & 0xFF;
                                     sp1A6 = temp_v0_2 & 0xFF00;
                                     if (((u32) M2C_FIELD(var_s7, u32 *, 0x5C) >> 0x17) & 2) {
-                                        func_80083B64(work.scratch.room.matrix, sp194);
+                                        func_80083B64(work.scratch.room.matrix, sp13C);
                                     }
                                     var_fp = spEC;
                                     if (((u32) M2C_FIELD(var_s7, u32 *, 0x58) >> 2) & 8) {
@@ -442,5 +440,6 @@ s32 __repair_phase_var_a2;
     }
     return var_v0;
 }
+
 
 

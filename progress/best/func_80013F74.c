@@ -383,7 +383,7 @@ long_match:
   {
     var_a2 -= 1;
     var_v1 = var_a1 & 1;
-    if ((var_a2 + 1) < (0 + 1))
+    if (var_a2 < 0)
     {
       var_v1 = var_a1;
       var_a1 = var_t1;
@@ -580,14 +580,12 @@ long_match:
         var_v1 = var_a1 & 1;
         if (var_a2 < 0)
         {
-          temp_a1_9 = var_t1;
+          var_v1 = var_a1;
+          var_a1 = var_t1;
           var_t1 = *((u32 *) var_t0);
           var_t0 += 4;
-          if (1)
-          {
-            var_v1 = (var_a1 + (temp_a1_9 << (var_a2 + 1))) & 1;
-            var_a1 = temp_a1_9 >> (-var_a2);
-          }
+          var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+          var_a1 >>= -var_a2;
           var_a2 += 0x20;
         }
         else

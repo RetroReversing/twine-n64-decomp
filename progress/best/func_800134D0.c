@@ -17,7 +17,7 @@ void func_800134D0(void *arg0)
   s32 sp2C;
   s32 *var_a0_5;
   
-s32 *__repair_phase_var_a2_5;
+
   s32 temp_a1_3;
   s32 temp_s2;
   s32 temp_t5;
@@ -525,7 +525,7 @@ u32 __repair_phase_var_s3;
           {
             temp_v0_4 = var_t3_5 * 4;
             var_t8 = &(&D_800B283C)[var_t3_5];
-            __repair_phase_var_a2_5 = (s32 *) (((s8 *) (&D_800B3134)) + temp_v0_4);
+            var_a0_5 = (s32 *) (((s8 *) (&D_800B3134)) + temp_v0_4);
             var_t5_3 = (s32 *) (((s8 *) (&D_800B2CB8)) + temp_v0_4);
             do
             {
@@ -534,13 +534,13 @@ u32 __repair_phase_var_s3;
               var_a1_5 = temp_a2 >> var_s3;
               do
               {
-                (&spC[(temp_v1_5 >> 7) + temp_a1_3_arm])[var_a1_5] = ((*__repair_phase_var_a2_5) << 7) + (*var_t8);
+                (&spC[(temp_v1_5 >> 7) + temp_a1_3_arm])[var_a1_5] = ((*var_a0_5) << 7) + (*var_t8);
                 var_a1_5 += 1 << ((*var_t8) - var_s3);
               }
               while ((var_a1_5 >> ((temp_v1_5 >> 4) & 7)) == 0);
               var_a3_9 += 1;
               var_t8 += 1;
-              __repair_phase_var_a2_5++;
+              var_a0_5++;
               var_t5_3 += 1;
               var_t3_5 += 1;
             }
