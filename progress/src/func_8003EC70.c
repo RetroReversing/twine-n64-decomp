@@ -38,44 +38,15 @@ s32 func_8003EC70(s32 vert_count)
   D_800E19CC = 0;
   D_800E19CA = 0;
   D_800E19C8 = 0;
-  i = 0;
-  __repair_literal = 0;
-  if (vert_count > __repair_literal)
+  for (i = 0; i < vert_count; i++)
   {
-    offset = 0;
-    do
-    {
-      f32 x = *((f32 *) (((u8 *) clip_buffer_a) + offset));
-      f32 y;
-      if (x < D_800C0754)
-      {
-        D_800E19CE++;
-      }
-      else
-        if (D_800C0750 < x)
-      {
-        D_800E19CA++;
-      }
-      y = *((f32 *) (((u8 *) (&D_800E177C)) + offset));
-      if (y < D_800C075C)
-      {
-        D_800E19C8++;
-        if (1)
-        {
-        }
-        i++;
-      }
-      else
-      {
-        i++;
-        if (D_800C0758 < y)
-        {
-          D_800E19CC++;
-        }
-      }
-      offset += 36;
-    }
-    while (i < vert_count);
+    f32 x = clip_buffer_a[i].x;
+    f32 y;
+    if (x < D_800C0754) D_800E19CE++;
+    else if (D_800C0750 < x) D_800E19CA++;
+    y = clip_buffer_a[i].y;
+    if (y < D_800C075C) D_800E19C8++;
+    else if (D_800C0758 < y) D_800E19CC++;
   }
   if ((((D_800E19C8 + D_800E19CA) + D_800E19CC) + D_800E19CE) == 0)
   {
@@ -172,16 +143,8 @@ s32 func_8003EC70(s32 vert_count)
 
     }
 
-    if (i)
-    {
-      out_idx = 0;
-      prev_idx = vert_count - 1;
-    }
-    else
-    {
-      out_idx = 0;
-      prev_idx = vert_count - 1;
-    }
+    out_idx = 0;
+    prev_idx = vert_count - 1;
     for (in_idx = 0; in_idx < vert_count; in_idx++)
     {
       if (outside[prev_idx] != outside[in_idx])
@@ -202,13 +165,13 @@ s32 func_8003EC70(s32 vert_count)
           base = cur->y;
           do
           {
-            numerator = plane - base; fraction = numerator / (prev->y - base);
+            numerator = plane - base; base = numerator / (prev->y - base);
           }
           while (0);
           others = prev->x;
           value = cur->x;
-          new_vtx->x = value + ((others - value) * fraction);
-          new_vtx->z = cur->z + ((prev->z - cur->z) * fraction);
+          new_vtx->x = value + ((others - value) * base);
+          new_vtx->z = cur->z + ((prev->z - cur->z) * base);
         }
         if ((pass == 3) | (pass == 5))
         {
@@ -225,13 +188,13 @@ s32 func_8003EC70(s32 vert_count)
           new_vtx->x = plane;
           base = cur->x;
           numerator = plane - base;
-          fraction = numerator / (prev->x - base);
+          base = numerator / (prev->x - base);
           do
           {
-            others = prev->y; value = cur->y; new_vtx->y = value + ((others - value) * fraction);
+            others = prev->y; value = cur->y; new_vtx->y = value + ((others - value) * base);
           }
           while (0);
-          new_vtx->z = cur->z + ((prev->z - cur->z) * fraction);
+          new_vtx->z = cur->z + ((prev->z - cur->z) * base);
         }
         out_idx++;
       }
