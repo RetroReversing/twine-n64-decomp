@@ -90,7 +90,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   s32 temp_v1;
   s32 temp_v1_11;
   s32 temp_v1_2;
-  s32 temp_v1_3;
+  unsigned long temp_v1_3;
   s32 temp_v1_4;
   s32 temp_v1_6;
   s32 temp_v1_7;
@@ -102,12 +102,12 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   s32 var_v0_2;
   void *temp_a0_16;
   s32 var_v0_5;
-  u32 var_v1;
+  unsigned int var_v1;
   u16 temp_s0;
   u16 temp_v0_10;
   u16 temp_v0_11;
   u16 temp_v0_12;
-  u16 temp_v0_13;
+  register u16 temp_v0_13;
   u16 temp_v1_10;
   u16 var_v1_3;
   unsigned int temp_s0_10;
@@ -152,10 +152,10 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   u8 temp_v1_13;
   u8 temp_v1_14;
   u8 temp_v1_15;
-  u8 temp_v1_16;
+  register u8 temp_v1_16;
   u8 temp_v1_17;
   u8 temp_v1_18;
-  u8 temp_v1_19;
+  register u8 temp_v1_19;
   u8 temp_v1_20;
   u8 temp_v1_21;
   u8 var_a1;
@@ -166,7 +166,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   void *temp_a0_12;
   void *var_a0;
   s32 var_v0_4;
-  void *temp_a0_18;
+  register void *temp_a0_18;
   register void *temp_a0_20;
   void *temp_a0_22;
   register void *temp_a0_6;
@@ -248,7 +248,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     *((u8 *) (((char *) arg0) + 0xBE)) = var_a1;
     *((s32 *) (((char *) arg0) + 0x24)) = (s32) ((*((s32 *) (((char *) arg0) + 0x24))) & 8);
     {
-      u8 __repair_i;
+      register u8 __repair_i;
       for (__repair_i = 0; __repair_i < 0x10; __repair_i++)
       {
         *((u16 *) (((char *) ((__repair_i * 2) + arg0)) + 0x180)) = 0;
@@ -318,7 +318,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
 
       case 0x2:
       {
-        u32 command = *(volatile u32 *) &D_800FDB9C;
+        unsigned long command = *(volatile u32 *) &D_800FDB9C;
         if (((u16) (*((u16 *) (((char *) arg0) + 0x50)))) >= ((u8) D_800FDB9E))
       {
         temp_v0_4 = func_800982B4(command >> 0x10);
@@ -368,7 +368,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x6:
         temp_v0_6 = func_800982B4((u32) (*((u16 *) (((char *) (&D_800FDB9C)) + 0))));
         commandResult = 0;
-        if (temp_v0_6 != 0)
+        if (temp_v0_6)
       {
         temp_v0_7 = *((s32 *) (((char *) arg0) + 0));
         *((s32 *) (((char *) arg0) + 0)) = temp_v0_6;
@@ -406,7 +406,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
             {
               if ((s32) temp_a0 != invalidVoice)
               {
-                temp_v1_7 = (temp_a0 & 0xFF) * 0x1A0;
+                temp_s2_6 = (temp_a0 & 0xFF); temp_v1_7 = temp_s2_6 * 0x1A0;
                 if ((*((s32 *) (((char *) (&D_8010D784)) + temp_v1_7))) == temp_a0)
                 {
                   *((s32 *) (((char *) (&D_8010D748)) + temp_v1_7)) |= 8;
@@ -660,8 +660,8 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       }
       else
       {
-        temp_a0_4 = *((u8 *) (((char *) arg0) + 0x4A));
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) (((*((s32 *) (((char *) arg0) + 0x24))) & (~0x800)) | 0x1000);
+        temp_a0_4 = *((u8 *) (((char *) arg0) + 0x4A));
         if (temp_a0_4 != 0xFF)
         {
           func_8009692C(temp_a0_4, *((u8 *) (((char *) arg0) + 0x4B)), 0);
@@ -852,7 +852,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         temp_a0_6 = arg0 + 0xC4;
         if (temp_s0_2 < 4U)
       {
-        s32 marker;
+        u32 marker;
         *((u8 *) (((char *) arg0) + 0xD4)) = (u8) (temp_v1_13 + 1);
         marker = func_80096E1C(D_800FDB9E);
         temp_a0_6 = inline_fn2(temp_a0_6, temp_s0_2);
@@ -1077,7 +1077,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         temp_s0_11 = ((u32) D_800FDB9C) >> 8;
         scratch.value = ((u32) D_800FDB9C) >> 0x10;
         func_800957A8(&scratch.value);
-        temp_v1_22 = arg0 + ((temp_s0_11 & 0xFF) * 0xC);
+        var_a2_2 = ((temp_s0_11 & 0xFF) * 0xC); temp_v1_22 = arg0 + var_a2_2;
         if ((*((s32 *) (((char *) temp_v1_22) + 0x16C))) != 0)
       {
         *((s32 *) (((char *) temp_v1_22) + 0x168)) = 0;

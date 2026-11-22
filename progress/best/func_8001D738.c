@@ -94,19 +94,20 @@ void func_8001D738(void)
   u8 temp_v0_7;
   s32 temp_v1_2;
   s32 temp_v1_3;
+  char *table = D_800BD914;
   D_800BD690 = 1;
-  temp_s6 = findEntryPayload(D_800BD914, 0x78);
-  temp_s2 = findEntryPayload(D_800BD914, 0x79);
-  var_s1 = findEntryPayload(D_800BD914, 0x7A);
+  temp_s6 = findEntryPayload(table, 0x78);
+  temp_s2 = findEntryPayload(table, 0x79);
+  var_s1 = findEntryPayload(table, 0x7A);
   if (var_s1 == 0)
   {
-    var_s1 = findEntryPayload(D_800BD914, 0x13);
+    var_s1 = findEntryPayload(table, 0x13);
   }
-  temp_s3 = findEntryPayload(D_800BD914, 0x7B);
-  temp_s7 = findEntryPayload(D_800BD914, 0x7D);
-  temp_s4 = findEntryPayload(D_800BD914, 0x7C);
-  temp_s0 = findEntryPayload(D_800BD914, 0x162);
-  temp_s5 = findEntryPayload(D_800BD914, 0x7F);
+  temp_s3 = findEntryPayload(table, 0x7B);
+  temp_s7 = findEntryPayload(table, 0x7D);
+  temp_s4 = findEntryPayload(table, 0x7C);
+  temp_s0 = findEntryPayload(table, 0x162);
+  temp_s5 = findEntryPayload(table, 0x7F);
   if (((((temp_s6 != 0) & (temp_s2 != 0)) && ((var_s1 != 0) & (temp_s3 != 0))) && ((temp_s7 != 0) & (temp_s4 != 0))) && ((temp_s5 != 0) & (temp_s0 != 0)))
   {
     gCurrentSaveSlot = gPickupSavedByte;
@@ -277,4 +278,5 @@ void func_8001D738(void)
     func_8002AC04(gPickupSearchBox, 1);
   }
 }
+
 

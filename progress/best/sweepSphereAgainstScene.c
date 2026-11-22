@@ -81,10 +81,10 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
   void *sp14C;
   f32 *sp154;
   f32 *sp15C;
+  f32 *sp174;
   f32 *sp164;
   f32 *sp16C;
   void **sp12C;
-  f32 *sp174;
   s16 *sp17C;
   f32 *sp184;
   f32 *sp18C;
@@ -359,7 +359,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
               result.second.end.y -= ((Field_f32 *) (((char *) var_s6) + 0x28))->v;
               result.second.end.z -= ((Field_f32 *) (((char *) var_s6) + 0x2C))->v;
             }
-            if ((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x17) & 2)
+            if (((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 10) >> 13) & 2)
             {
               applyObjectRotation(var_s6, 0, sp18C);
               func_80083B64(sp18C, sp17C);
@@ -488,8 +488,16 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                         temp_v1_17 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
                         if (((func_8004D910(&scratch.point.x, &vec48.x, temp_v1_17 + ((*var_s3_6) * 0xC), temp_v1_17 + ((*((u8 *) (((char *) var_s2_7) + (-1)))) * 0xC), temp_v1_17 + (((Field_u8 *) (((char *) var_s2_7) + 0))->v * 0xC), sp19C) & 0xFF) && (spE4 >= 0.0f)) && (spE4 < var_fs0))
                         {
-                          var_s5 = temp_s4_4;
-                          var_fs0 = spE4;
+                          if (var_s6)
+                          {
+                            var_s5 = temp_s4_4;
+                            var_fs0 = spE4;
+                          }
+                          else
+                          {
+                            var_s5 = temp_s4_4;
+                            var_fs0 = spE4;
+                          }
                         }
                       }
                       var_s2_7 += 3;
@@ -597,7 +605,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
       ((Field_f32 *) (((char *) arg4) + 0))->v = (f32) (temp_ft1 + (matrix[0] - result.rotated[0]));
       ((Field_f32 *) (((char *) arg4) + 4))->v = (f32) (temp_fv0 + (matrix[1] - result.rotated[1]));
       ((Field_f32 *) (((char *) arg4) + 8))->v = (f32) (vec70.z + (matrix[2] - result.rotated[2]));
-      vec118 = *(SweepVec *) sp134;
+      vec118 = *((SweepVec *) sp134);
       vec118.x += ((Field_f32 *) (((char *) arg4) + 0))->v;
       vec118.y += ((Field_f32 *) (((char *) arg4) + 4))->v;
       vec118.z += ((Field_f32 *) (((char *) arg4) + 8))->v;

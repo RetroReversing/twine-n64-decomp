@@ -117,7 +117,7 @@ s32 func_8008FB20(void)
           }
           else
           {
-            temp_v1 = inline_fn2345(temp_a3 >> 7, 1);
+            temp_v1 = inline_fn2345(((u32)temp_a3) >> 7, 1);
             var_s4 = 4;
             if (inline_fn23(inline_fn2345(temp_v1, temp_t1 == 0)))
             {

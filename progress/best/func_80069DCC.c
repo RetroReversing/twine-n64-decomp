@@ -99,6 +99,8 @@ inline static char *inline_fn23(char *arg0, int arg1)
 
 void func_80069DCC(void *arg0)
 {
+    f32 repair_delta_input;
+    f32 repair_axis_z;
     s32 repair_signed_field;
     u32 repair_countdown_byte;
     u8 *__base_gSceneFlagsB;
@@ -1567,13 +1569,16 @@ case 2: case 3: goto out_of_line_actor;
         temp_fs0_4 = sinTableLookup(D_800E1A10 * 3.0f);
         var_fs3 = temp_fs0_4 * (cosTableLookup(D_800E1A10) * 0.1f);
         temp_fs0_5 = sinTableLookup(D_800E1A10);
-        D_800C7DC4 = temp_fs0_5 * (cosTableLookup(D_800E1A10 * 3.0f) * 0.1f);
+        repair_axis_z = temp_fs0_5 * (cosTableLookup(D_800E1A10 * 3.0f) * 0.1f);
+        D_800C7DC4 = repair_axis_z;
         *__base_D_800C7DBC = var_fs3;
         D_800E1A10 += 0.01f;
-        var_s5 += var_fs3;
         joy_phase = func_80081B44(temp_s4, 4, 5);
+        var_s5 += var_fs3;
+        var_s6 += repair_axis_z;
+        var_fs3 = joy_phase * 32.0f;
         temp_fv1_8 = *((f32 *) (((char *) temp_s1) + 0x48));
-        temp_fv0_29 = (((joy_phase * 32.0f) - temp_fv1_8) * 0.1f) + temp_fv1_8;
+        temp_fv0_29 = ((var_fs3 - temp_fv1_8) * 0.1f) + temp_fv1_8;
         *((f32 *) (((char *) temp_s1) + 0x48)) = temp_fv0_29;
         if (temp_fv0_29 < (-32.0f))
         {
@@ -1614,7 +1619,6 @@ case 2: case 3: goto out_of_line_actor;
         spherical_to_cartesian(frame.vector, *((f32 *) inline_fn23((char *) temp_s1, 0x5C)), (*((f32 *) (((char *) arg0) + 0x40))) * 0.0015339808f, (temp_fs1_2 * 0.0015339808f) - 1.5707964f);
         var_s5 += frame.vector[0];
         var_fp -= frame.vector[1];
-        var_s6 += D_800C7DC4;
         var_s6 += frame.vector[2];
         joy_stage = func_80081B44(temp_s4, 2, 3);
         temp_fv1_10 = *((f32 *) (((char *) temp_s1) + 0x50));
@@ -1769,22 +1773,15 @@ case 2: case 3: goto out_of_line_actor;
       {
         case 0: break;
         case 1:
-          if ((!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x20)) && (func_800818AC(temp_s4, 0xC) != 0))
-        {
-          temp_v0_5 = *((u8 *) (((char *) temp_s1) + 0x187));
-          *((u8 *) (((char *) temp_s1) + 0x187)) = (u8) (temp_v0_5 + 1);
-          if (((s8) temp_v0_5) >= 5)
-          {
-            goto block_444;
+          if ((!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x20)) && (func_800818AC(temp_s4, 0xC) != 0)) {
+            temp_v0_5 = *((u8 *) (((char *) temp_s1) + 0x187));
+            *((u8 *) (((char *) temp_s1) + 0x187)) = (u8) (temp_v0_5 + 1);
+            if (((s8) temp_v0_5) < 5) goto repair_advance_state;
           }
-          *((f32 *) (((char *) temp_s1) + 0xCC)) = (f32) (((f64) (*((f32 *) (((char *) temp_s1) + 0xCC)))) + D_800D45E8);
-        }
-        else
-        {
-          block_444:
           *((s8 *) (((char *) temp_s1) + 0x180)) = 2;
-
-        }
+          break;
+repair_advance_state:
+          *((f32 *) (((char *) temp_s1) + 0xCC)) = (f32) (((f64) (*((f32 *) (((char *) temp_s1) + 0xCC)))) + D_800D45E8);
           break;
         case 2:
           if ((((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8) && (func_800818AC(temp_s4, 0xC) == 0)) && (!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 1)))
@@ -1807,8 +1804,9 @@ case 2: case 3: goto out_of_line_actor;
           }
           else
           {
+            repair_delta_input = *((f32 *) (((char *) temp_s1) + 0x38));
             temp_ft1 = *((f32 *) (((char *) temp_s1) + 0x34));
-            temp_ft0 = ((*((f32 *) (((char *) temp_s1) + 0x38))) - temp_ft1) * 0.15f;
+            temp_ft0 = ((repair_delta_input) - temp_ft1) * 0.15f;
             if (((*((s16 *) (((char *) arg0) + 0x7C))) != 0) || (inline_fn((char *) temp_s1, 0x180) == 0))
             {
               temp_fv0_10 = temp_ft1 + temp_ft0;
