@@ -176,7 +176,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
       *((s32 *) (((char *) inactiveEntry) + 0x10)) = ((*var_a0_4) & colorMask) | (*((u8 *) (((char *) inactiveState) + 0x30)));
       *((s32 *) (((char *) (*((void **) (((char *) var_s4) + 8)))) + 0x10)) = (s32) (((*var_a0_4) & colorMask) | (*((u8 *) (((char *) inactiveState) + 0x30))));
       temp_v1 = *((u8 *) (((char *) gSaveMenuState) + 0x30));
-      if (temp_v1 < 0xFFU)
+      if ((temp_v1 + 1) < (0xFFU + 1))
       {
         var_s1_2 = temp_v1;
       }
@@ -212,7 +212,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
           var_ft0 += D_800D2CD0;
         }
         temp_fv1 = (*((f32 *) (((char *) arg0) + 0xC))) * ((f32) var_ft0);
-        var_v0_4 = (u32) temp_fv1 + 1;
+        var_v0_4 = ((u32) temp_fv1) + 1;
         *((u8 *) (((char *) temp_v1_2) + 0x29)) = var_v0_4;
         temp_a0 = *((void **) (((char *) var_v0) + 8));
         temp_v1_3 = *((s32 *) (((char *) var_v0) + 0x14));

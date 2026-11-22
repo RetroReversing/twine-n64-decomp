@@ -36,24 +36,22 @@ void func_8006591C(void *arg0)
         tx = F(state,0x1c);
         fx = F(state,0x24);
         tx = (tx-fx)*0.5f;
-        dx = F(state,0x28);
-        ty = (F(state,0x20)-0.05f-dx)*0.5f;
+        fy = F(state,0x28);
+        fdy = (F(state,0x20)-0.05f-fy)*0.5f;
         goto follow;
     }
     if (gGameMode == 0x19) {
         tx = F(state,0x1c);
         fx = F(state,0x24);
         tx -= fx;
-        ty = F(state,0x20);
-        dx = F(state,0x28);
+        fdy = F(state,0x20);
+        fy = F(state,0x28);
         tx *= 0.5f;
-        ty -= dx;
-        ty *= 0.5f;
+        fdy -= fy;
+        fdy *= 0.5f;
 follow:
-        fx += tx;
-        dx += ty;
-        F(state,0x24) = fx;
-        F(state,0x28) = dx;
+        F(state,0x24) = fx + tx;
+        F(state,0x28) = fy + fdy;
         return;
     }
     x = F(state,0x24);
@@ -62,9 +60,9 @@ follow:
     ty = -0.05f;
     dx = (-x) * rate;
 steer:
-    ty = (ty-y)*rate;
+    dy = (ty-y)*rate;
     x += dx;
-    y += ty;
+    y += dy;
     F(state,0x24) = x;
     F(state,0x28) = y;
 }
