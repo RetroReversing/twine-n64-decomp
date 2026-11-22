@@ -38,13 +38,14 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3)
   s32 var_a1;
   s32 var_s0;
   s32 pitchDelta;
+  s32 pitchScaled;
   long var_v0;
   s32 var_v0_2;
   s32 var_v0_4;
   s32 var_v1;
   u16 temp_v0_2;
   register u16 temp_v0_3;
-  union 
+  register union 
   {
     void *pointer;
     s32 value;
@@ -135,19 +136,19 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3)
       *((s16 *) (inline_fn(temp_v0) + 0x94)) = 0x1C2;
     }
   }
-  __repair_phase_storage.value = ((s32) (pitchDelta * arg3)) >> 7;
-  if (__repair_phase_storage.value < (-0x40))
+  var_a0 = pitchDelta * arg3; pitchScaled = var_a0 >> 7;
+  if (pitchScaled < (-0x40))
   {
-    __repair_phase_storage.value = -0x40;
+    pitchScaled = -0x40;
   }
   else
-    if (__repair_phase_storage.value >= 0x41)
+    if (pitchScaled >= 0x41)
   {
-    __repair_phase_storage.value = 0x40;
+    pitchScaled = 0x40;
   }
-  temp_v1_5 = (void *) ((arg2 * 2) + temp_s1); temp_v0_3 = (*((u16 *) (((char *) temp_v1_5) + 0x98))) + __repair_phase_storage.value;
-  *((u16 *) (inline_fn(temp_v1_5) + 0x98)) = temp_v0_3;
-  if (__repair_phase_storage.value >= 0)
+  var_v1 = ((s32) temp_s1) + (arg2 * 2); temp_v0_3 = (*((u16 *) (((char *) var_v1) + 0x98))) + pitchScaled;
+  *((u16 *) (inline_fn((void *) var_v1) + 0x98)) = temp_v0_3;
+  if (pitchScaled >= 0)
   {
     var_v0_4 = var_a1 < ((s16) temp_v0_3);
   }
@@ -157,7 +158,7 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3)
   }
   if (var_v0_4 != 0)
   {
-    *((u16 *) (((char *) temp_v1_5) + 0x98)) = (u16) var_a1;
+    *((u16 *) (((char *) var_v1) + 0x98)) = (u16) var_a1;
   }
   temp_v1_6 = (void *) (((s32) temp_s1) + (arg2 << 1));
   temp_a0_2 = *((s16 *) (inline_fn(temp_v1_6) + 0x98));
@@ -172,4 +173,5 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3)
   }
   return ((__repair_record_temp_a2 *) ((arg2 << 1) + ((s32) temp_s1)))->field_94;
 }
+
 
