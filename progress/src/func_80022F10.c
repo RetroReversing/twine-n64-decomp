@@ -5,7 +5,7 @@ typedef struct MenuSprite22F
   u32 color;
   char pad14[0xC];
   u16 x;
-  volatile u16 y;
+  u16 y;
   u32 unk24;
   u32 highFlags : 24;
   u32 mode : 6;
@@ -30,12 +30,11 @@ extern s32 sMenuItemParamTable;
 extern s32 sSaveMenuColorActive;
 extern s32 sSaveMenuColorIdle;
 extern s32 sSaveSlotTable;
-extern u8 gSaveKeyRelaxed;
+extern u8 gSaveKeyRelaxed[1];
 extern void *gSaveMenuState;
 void func_80022F10(MenuEntry22F *entry, u8 enabled)
 {
   MenuPair22F *pair;
-  register MenuSprite22F *sprite;
   s32 *color;
   if (!entry)
   {
@@ -46,11 +45,10 @@ void func_80022F10(MenuEntry22F *entry, u8 enabled)
   {
     return;
   }
-  sprite = pair->first;
-  if (sprite)
+  if (pair->first)
   {
- do { sprite->mode = 1 | ((-(enabled == 0)) & 7); pair->first->x = entry->x; pair->first->y = entry->y; } while (0);
-    if (gSaveKeyRelaxed)
+    pair->first->mode = 1 | ((-(enabled == 0)) & 7); pair->first->x = entry->x; pair->first->y = entry->y;
+    if (gSaveKeyRelaxed[0])
     {
       switch (entry->slot)
       {
@@ -85,11 +83,10 @@ void func_80022F10(MenuEntry22F *entry, u8 enabled)
       SET_COLOR(first, sSaveMenuColorIdle);
     }
   }
-  sprite = pair->second;
-  if (sprite)
+  if (pair->second)
   {
-    sprite->mode = 1 | ((-(enabled == 0)) & 7);
-    if (*(volatile u8 *)&gSaveKeyRelaxed)
+    pair->second->mode = 1 | ((-(enabled == 0)) & 7);
+    if (gSaveKeyRelaxed[0])
     {
       switch (entry->slot)
       {
@@ -135,4 +132,5 @@ void func_80022F10(MenuEntry22F *entry, u8 enabled)
   }
   func_80022B60(1);
 }
+
 
