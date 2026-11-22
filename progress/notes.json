@@ -5552,14 +5552,6 @@
   "score_after": 3688
  },
  {
-  "function": "func_80037A7C",
-  "text": "Rechecked 275; six local variants and signed byte flag did not improve. Target copies s4 into v0 before first branch whereas candidate rematerializes 1; also one branch target and two instruction orders differ. Alter initial flag lifetime/control flow rather than type alone.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795163997.174123,
-  "score_before": 275,
-  "score_after": 275
- },
- {
   "function": "func_800891A8",
   "text": "Score 70, fourteen register differences around size calculation, allocator call, and bytes; target uses s1 for size and s0 for bytes, compiler reverses. Declaration order, unsigned bytes, and moving bytes calculation before call left assembly unchanged.",
   "by": "codex-gpt-6.1-terra-4",
@@ -8614,14 +8606,6 @@
   "created_at": 1795176811.032728,
   "score_before": 270,
   "score_after": 270
- },
- {
-  "function": "func_80037A7C",
-  "text": "Verified best 275. Local loop, record, signedness and lifetime repairs did not improve; replacing initial var_v0=1 with var_s4 compiles identically. Remaining first mismatch is target move v0,s4 versus constant 1, plus later branch target/order differences. Investigate control flow/lifetimes around both loops.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795176820.186978,
-  "score_before": 275,
-  "score_after": 275
  },
  {
   "function": "func_80022290",
@@ -13550,14 +13534,6 @@
   "created_at": 1795182922.404926,
   "score_before": 85,
   "score_after": 85
- },
- {
-  "function": "func_80037A7C",
-  "text": "Verified 275 (five rows). var_v0 = var_s4 propagates literal 1, while testing var_s4 directly worsens layout. In second loop conditional clear inside the if worsens the diff, and standalone unconditional clear compiles like the comma expression (after child advance). Target places clear immediately after setup, with the condition-false branch skipping it, and copies s4 in the loop backedge slot. Next try an explicit shared continuation label after the clear with a common loop backedge.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795182923.916356,
-  "score_before": 275,
-  "score_after": 275
  },
  {
   "function": "spawnTimedEffect",
@@ -23960,14 +23936,6 @@
   "score_after": 1355
  },
  {
-  "function": "func_80037A7C",
-  "text": "Baseline b866ce8452b05e39110d rechecked at 275. Only five difference rows. First render loop initializes its branch temporary with addiu v0,zero,1 instead of move v0,s4. Assigning var_v0=var_s4, with or without explicit s16 cast and comma-assignment in the guard, still folds to literal. In second render loop the zero assignment to var_s4 is scheduled after the body instead of immediately after func_8003438C inside the if. Moving it inside gives the target branch and delay slot, but rotates the saved register allocation and scores 400. Narrowing all three flags to s16 regresses. Try making both render loops share one attachment cursor and one test temporary with the second flag clear correctly inside the if, then tune only the initial move.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795191706.105547,
-  "score_before": 275,
-  "score_after": 275
- },
- {
   "function": "func_8002FFAC",
   "text": "Saved candidate rechecked 1715; all local repair families tried (scalar storage reuse, inferred record layout, branch orientation, masked value reuse, integer lifetime CFG, signedness, declaration order, address temporary) did not improve it. Draft arithmetic for three packed color components saturates offsets around 0x10 with byte-specific upper bounds; target loads/processes packed data in 32-bit/halfword widths and branches on signed overflow. Current source remains mechanically generated and highly fragmented; next rewrite cleanly with packed-word extraction, signed overflow checks and one combined store, while preserving target's negative and upper-bound branches.",
   "by": "codex-gpt-6-luna-20",
@@ -25510,14 +25478,6 @@
   "created_at": 1795193667.057067,
   "score_before": 805,
   "score_after": 805
- },
- {
-  "function": "func_80037A7C",
-  "text": "Reacquired and recompiled candidate; score 275, matching saved historical best at 88 instructions. Five differences remain: target transfers s4 into v0 at the head of the first child loop while C emits constant 1; branch displacement differs; two reset writes are reordered, and a final move uses s4 versus zero. Tried assigning v0 from s4 and changing s4 from s32 to s16; no score/diff change. Existing candidate is strong; next explore source shape that keeps s4 live across the initial null test and yields move v0,s4.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795193667.178646,
-  "score_before": 275,
-  "score_after": 275
  },
  {
   "function": "moveActorWithCollision",
@@ -27352,14 +27312,6 @@
   "score_after": 825
  },
  {
-  "function": "func_80037A7C",
-  "text": "Improved 275 to 205 (revision 60ec2a6c0236d87082c1). Both loops share cursor/test locals and clear setup flag inside the guarded branch. Initializing flag with (var_s0 != NULL || var_s2 == var_s2) made GCC emit required move v0 from saved flag, whereas literal 1 and (var_s0 != NULL || 1) rematerialize 1. All 88 instruction positions now agree apart from register permutation: flag candidate s1 target s4, input s2\u2192s1, secondary list s3\u2192s2, outer pointer s4\u2192s3. Reordering declarations, a parameter copy and narrowing flag did not help. Try separate loop test live ranges or changing initial flag live range without eliminating that move.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795198231.378935,
-  "score_before": 275,
-  "score_after": 205
- },
- {
   "function": "func_8003FDE0",
   "text": "Original target has 87 instructions and genuine jump table jtbl_800D2FE0 (extern 12-entry table). Best historical candidate 2065; rechecked current candidate score was 2595 due changed context. Tested restoring saved best and repeated switch rewrites; behavior code remains far off and local repairs (constant_local, pointer_cast_inline, const_read, read_before_assign, unsigned_switch, assignment_at_use) did not improve. Switch lowering is semantically right but compiler emitted invalid .rodata+0 relocation, not named table; first crucial target instructions mask byte into $v1 then compare, while current C comparison omits mask because u8 semantics optimize it. Next try making opcode load through volatile or a wider signed byte/int local then explicit &0xFF to force andi, and investigate custom jump-table representation instead of C switch if relocation persists. Candidate's source shape and current mismatch recorded at 9cfd7c735c713a8b89cd; saved_best remains preferred.",
   "by": "codex-gpt-6-luna-17",
@@ -28158,14 +28110,6 @@
   "created_at": 1795199138.9953222,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_80037A7C",
-  "text": "Rechecked baseline 205; six local families tested, no improvement. Candidate\u2019s inferred loop/control flow is broadly right, but target\u2019s initial node pointer uses s3 and stores it at 0x1c($sp), while candidate allocates it as s4 at 0x20($sp); mismatch report shows 33 register and four operand differences, likely cascading from register lifetimes. Target begins after state check with stack frame 0x30; improve by reducing/reusing loop variables and making group pointer `var_s3` declaration/lifetime align with s3, and make inner object pointers align s0/s2. Potential actual semantics: `var_s4 = (var_s0 != NULL || var_s2 == var_s2)` is simply true and wrong-looking; preserve likely need-first-render flag per parent group, explicitly initialized once per group then cleared after first draw. Next inspect initial assembly for save layout and branch sequence, then test one-time flag scope and concrete record structs. Best candidate retained.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795199149.5861351,
-  "score_before": 205,
-  "score_after": 205
  },
  {
   "function": "getTextLine",
@@ -29736,14 +29680,6 @@
   "score_after": 180
  },
  {
-  "function": "func_80037A7C",
-  "text": "Restored and compiled saved best source: score 205, all 88 instructions present but 33 register/4 operand differences, largely different saved-register allocation/order. Tried matched signature for func_80037788(void*) but call site passes two args so compile fails; source evidence is inconsistent and needs caller/prototype review. Initial handwritten compact rewrite had syntax errors; no matched candidate improved. Candidate uses var_s4=(var_s0!=NULL || var_s2==var_s2), which simplifies to true whenever var_s2 expression is defined; target likely maintains a first-render/setup flag, infer by inspecting full control flow/assembly. Next try preserve baseline C with variable declarations/order adjusted to map root pointer to $s3, arg to $s1, state to $s4; remaining diffs are register allocation. No better score after six compile budget.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795201275.591368,
-  "score_before": 205,
-  "score_after": 205
- },
- {
   "function": "spawnTextNode",
   "text": "Best candidate score 845/98 instructions. One six-variant local batch plus manual rewrite and a repeated semantic rewrite produced no improvement. Variants changing array index width or callee prototypes worsened or preserved same fingerprint. Remaining 15 mismatches begin at options spacing: target loads flags to $v1, masks 0xf0 and uses likely branch-likely beql to merge zero/default; candidate uses $a0 and emits bnez plus jump. Try expressing the options nibble as a direct conditional expression that selects 1 when spacing bits are zero, then mask/shift into output, preserving a shared merge path and likely branch. Register differences follow this shape.",
   "by": "codex-gpt-6-luna-13",
@@ -31126,14 +31062,6 @@
   "created_at": 1795202252.2131882,
   "score_before": 186,
   "score_after": 170
- },
- {
-  "function": "func_80037A7C",
-  "text": "Explicit goto backedge for first row loop improved 205 to 175. Second loop backedge, typed records, signedness, call scopes and initialization did not improve; remaining differences mostly register allocation.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795202257.571415,
-  "score_before": 205,
-  "score_after": 175
  },
  {
   "function": "func_8009A4E4",
@@ -33430,14 +33358,6 @@
   "created_at": 1795204436.235784,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_80037A7C",
-  "text": "Not matched. Best saved source (score 175, rev d6f8230718bb2272a19a) uses the m2c goto/var_v0 structure. Clean while-loop rewrites (flag s4 set to 1 after loading s0/s2; separate D_80107E9C load) scored 885 and differed mainly in register allocation (s3 got s4) and prologue ordering: the target loads D_80112E40 and D_80107E9C before the sw of s3, and the flag is copied to v0 at each loop header. Untested: keep the saved_best structure, change only the initializer, and declare the outer pointer first so it lands in s3. The 0x20000 mask is hoisted into s5 before the outer loop.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795204448.155425,
-  "score_before": 175,
-  "score_after": 175
  },
  {
   "function": "func_8009ABD4",
@@ -42973,15 +42893,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
-  "function": "func_80037A7C",
-  "text": "Rechecked saved best score 110. Explicit rewrite preserved score 110; adding volatile spare frame local worsened to 118 and introduced 8-byte frame growth; a bogus sentinel guard worsened to 660. Restored/retained 110 source. Remaining 19 instruction differences, 16 registers and 3 operand/stack; core loop backedge is established. Main register allocation mismatch: candidate uses $s4 for outer node pointer where target uses $s1; candidate uses $s1 for flag where target uses $s4.\nExplicit rewrite score 110; volatile two-word local scored 118, sentinel guard scored 660; saved source restored at 110.\nSaved best has 19 differences: $s3/$s1/$s4/$s2 meanings differ, notably node head pointer and boolean flag.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795214235.352015,
-  "score_before": 110,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
- },
- {
   "function": "func_80034EFC",
   "text": "Reached six compiles without improvement. Swapping dimension load and rectangle operand order improved 695 to 635; moving the cycle store tied, integer address scored 1020, buffer staging 750, volatile command pointee 775. Early constant scheduling and buffer registers remain.",
   "by": "codex-gpt-6.2-sol-9",
@@ -49516,15 +49427,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:425b1153fdbc78ce8389da4b49c537dc5886c71b92748ffe2d665b7ecc101b1f"
  },
  {
-  "function": "func_80037A7C",
-  "text": "Verified 110, 88/88 instructions. Argument and pending-state flag occupy swapped s1/s4 with three corresponding prologue save differences. Literal 1 and comma-condition initialization each score 360.\nReuse pending-state flag for initial render-mode load and separately replace outer do-while with explicit goto.\nScores 395 and 365 respectively; retained verified baseline 110.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795223016.836212,
-  "score_before": 110,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
- },
- {
   "function": "func_8002424C",
   "text": "Session context limit. Replaced invalid inherited constant with a real switch. Candidate has all 174 instructions; the remaining issues center on argument setup surrounding func_80022A30 and distinct lifetimes of the loop's two scaled offsets.",
   "by": "codex-gpt-6.2-sol-6",
@@ -52630,15 +52532,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:def4773cc39b587730bff73adccf0051c6b9643a0ba20aeac6965a61929cccae"
  },
  {
-  "function": "func_80037A7C",
-  "text": "Still 110: only s1/s4 swap (arg0 gets s4, flag gets s1; target arg0=s1, flag=s4, s3=obj, s5=0x20000). Declaration order, copying arg0 into local, `register`, flag init variants (=1, swapped comma operands) all no change/worse. Clean for-loop rewrite with natural names (gRenderMode, emitPrimColor, emitObjectMatrix) scored 885 (no v0 copies). Note callee names now: gRenderMode, emitPrimColor (was func_8003438C), emitObjectMatrix (was func_800378C0). Next step: use the renamed symbols in saved_best and try making the flag's use-count higher than arg0's (e.g. extra uses of flag) or declare flag as u8/s8.\ndeclaration reorders, arg copy, register keyword, flag init variants\nno change, still 110 (s1/s4 swap)",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795228585.130034,
-  "score_before": 110,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
- },
- {
   "function": "func_801183F4",
   "text": "Rechecked saved 24506. Full C compile matched baseline. Corrected func_8007A9CC pointer argument prototype and simplified table index; neither changed output. Target 445 instructions, candidate 263; missing second scan and switch cases are main gaps.\nRechecked saved best 24506; candidate remains structurally partial. Tested call prototype and indexed table simplification; no assembly changes.\nScore stayed 24506 across 4 compiles; no improvement.",
   "by": "codex-gpt-6-luna-15",
@@ -54335,15 +54228,6 @@
   "score_before": 3430,
   "score_after": 3430,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
- },
- {
-  "function": "func_80037A7C",
-  "text": "Saved best stays 110. My clean C (plain pointers, do/while, first=(s0!=0||s2==s2), t=first copied at loop tail/head, callees emitPrimColor/emitObjectMatrix, gRenderMode) gives 205 with identical instruction stream except regalloc: target arg0=s1, obj=s3, first=s4, 0x20000=s5; mine first=s1,arg0=s2,obj=s4. `first` has too high priority in mine. Same-score variants: declaration order permutations. Next step: reduce uses/lifetime of `first` (e.g. fold t into first) or give obj more uses to reorder priorities.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795231185.967665,
-  "score_before": 110,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
  },
  {
   "function": "updateAirTimeGauge",
@@ -65051,15 +64935,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:ac90503fdd4ffb1873c86ff5bb12e64972beb126af7f0d00a60091de35cc65bf"
  },
  {
-  "function": "func_80037A7C",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 3; 27 differing rows (1 opcode, 21 register, 1 branch target, 2 operand, 2 reordered; advisory).\nTarget: sw $s3, 0x1c($sp)\nCandidate: sw $s1, 0x14($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lw $v0, %lo(gRenderMode)($v0)\n  = addiu $sp, $sp, -0x30\ni T: sw $s3, 0x1c($sp) | C: sw $s1, 0x14($sp)\nr T: lui $s3, %hi(gObjectListHead) | C: lui $s1, %hi(gObjectListHead)\nr T: lw $s3, %lo(gObjectListHead)($s3) | C: lw $s1, %lo(gObjectListHead)($s1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nClaim reset during final local pass. Reconstructed candidate revision cf134a344bff219730cf scored 320: explicit goto backedges in three nested loops, var_v0 = var_s4; main remaining differences are saved-register assignment and initial flag move. Scoped copy of arg0 gave unchanged output. Next try changing lifetime of the list head or flag across the initial render-mode call.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795246887.857574,
-  "score_before": 110,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
- },
- {
   "function": "func_80023EC0",
   "text": "The inherited C no longer matches: rechecked score 5808. Prototype evidence shows func_8002A980(void*) and func_8002A920(void*,s8) return integer/pointer-sized values; lookupDataEntry(s32) returns void*; func_800AB950 appears s8*(s8*,s8*). First rewrite failed at declaration line because M2C_UNK is local to the m2c draft, not shared context. A second attempt failed for the same missing typedef. No compiling attempt counted toward the six-compile stagnation threshold; release with explicit move_on per startup workflow. Next step: rerun the full candidate with declarations `extern s32 D_80107EA8;` or use shared s32 directly instead of M2C_UNK, then judge corrected callee types.",
   "by": "codex-gpt-6-luna-15",
@@ -68717,15 +68592,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:da21e0f8225b955bb7d8ccf94d420b1778cd3dbb46fb5102337f90d28460d918"
  },
  {
-  "function": "func_80037A7C",
-  "text": "Current verified best 330; flag initialized from nonnull row changes register allocation but emits sltu instead of target constant 1. Loop backedge and typed record trials did not improve.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795254547.776305,
-  "score_before": 275,
-  "score_after": 275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
- },
- {
   "function": "func_8001E898",
   "text": "Session ending. Corrected table globals to u16 and indexed by slot; target lhu and shift-by-one now align. Current score 4043, with frame, branchless flags, and switch structure still divergent. Earlier historical candidates scored better under other inputs.",
   "by": "codex-gpt-6.1-terra-5",
@@ -70608,15 +70474,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
  },
  {
-  "function": "func_80037A7C",
-  "text": "Automatic repair improved score to 275 but moves var_s4=0 outside its conditional, changing behavior; review semantics. Assigning var_v0=var_s4 retains score 275.\nAssigned var_v0 from var_s4\nScore remains 275; compiler emits immediate 1",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795260000.9484742,
-  "score_before": 275,
-  "score_after": 275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
- },
- {
   "function": "func_8009DF60",
   "text": "Saved best d057a637a100c6b33dad had historical score 60587 (36.8%), but no current verification; the latest current candidate was empty and did not compile. Target is an LZ-style bitstream decoder with repeated extraction logic; m2c draft has frame 0x38 vs target 0xf8 and recurring loop/control flow differs. Previous attempts exhausted 4/4; IDO reportedly did not compile. Next step: recover saved_best and use get_function(section=\"work\")/assembly to reconstruct the intended repeated-block loop and stack aggregates before testing a substantial rewrite.",
   "by": "codex-gpt-6-luna-15",
@@ -70919,15 +70776,6 @@
   "score_before": 60587,
   "score_after": 60587,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:cd165bf6c1990a966ab8c4e760bc6d60761fb2b010b990210ce47d7af567edb8"
- },
- {
-  "function": "func_80037A7C",
-  "text": "Best 275 candidate moves flag clearing outside guard; semantic equivalence needs review. Restoring conditional scored 400. Assigning initial flag via var_s4 unchanged; nonnull boolean scored 280.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795261186.453536,
-  "score_before": 275,
-  "score_after": 275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
  },
  {
   "function": "func_800347B0",
@@ -75388,15 +75236,6 @@
   "score_before": 150,
   "score_after": 150,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e07475cda912060e1ea6ddba0ba81d70716f466d66e6e245ebe70a1ed75ee75d"
- },
- {
-  "function": "func_80037A7C",
-  "text": "Best 110, 19 rows mostly register: target keeps arg0 in $s1, candidate uses $s4 (var_s4 allocated early). Local repairs (global type, record layout, signedness, declaration order) were equal or worse. Candidate has odd goto-based loops from the repair tool. Next step: rewrite as plain while loops, with var_s4 as a flag declared last.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795307640.2601101,
-  "score_before": 110,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
  },
  {
   "function": "func_8009ABD4",
@@ -80788,15 +80627,6 @@
   "score_before": 120,
   "score_after": 120,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
- },
- {
-  "function": "func_80037A7C",
-  "text": "Session allowance reached. Saved best rechecked at 110, with 16 register and three operand differences.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795342500.3637278,
-  "score_before": 110,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
  },
  {
   "function": "func_8008892C",
@@ -88172,5 +88002,175 @@
   "score_before": 110,
   "score_after": 110,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:542d0fe1fe103cc13906b17781b13f6db960f967aa9087961ac71fc1e7c60c76"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Rechecked 275; six local variants and signed byte flag did not improve. Target copies s4 into v0 before first branch whereas candidate rematerializes 1; also one branch target and two instruction orders differ. Alter initial flag lifetime/control flow rather than type alone.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795163997.174123,
+  "score_before": 275,
+  "score_after": 275
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Verified best 275. Local loop, record, signedness and lifetime repairs did not improve; replacing initial var_v0=1 with var_s4 compiles identically. Remaining first mismatch is target move v0,s4 versus constant 1, plus later branch target/order differences. Investigate control flow/lifetimes around both loops.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795176820.186978,
+  "score_before": 275,
+  "score_after": 275
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Verified 275 (five rows). var_v0 = var_s4 propagates literal 1, while testing var_s4 directly worsens layout. In second loop conditional clear inside the if worsens the diff, and standalone unconditional clear compiles like the comma expression (after child advance). Target places clear immediately after setup, with the condition-false branch skipping it, and copies s4 in the loop backedge slot. Next try an explicit shared continuation label after the clear with a common loop backedge.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795182923.916356,
+  "score_before": 275,
+  "score_after": 275
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Baseline b866ce8452b05e39110d rechecked at 275. Only five difference rows. First render loop initializes its branch temporary with addiu v0,zero,1 instead of move v0,s4. Assigning var_v0=var_s4, with or without explicit s16 cast and comma-assignment in the guard, still folds to literal. In second render loop the zero assignment to var_s4 is scheduled after the body instead of immediately after func_8003438C inside the if. Moving it inside gives the target branch and delay slot, but rotates the saved register allocation and scores 400. Narrowing all three flags to s16 regresses. Try making both render loops share one attachment cursor and one test temporary with the second flag clear correctly inside the if, then tune only the initial move.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795191706.105547,
+  "score_before": 275,
+  "score_after": 275
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Reacquired and recompiled candidate; score 275, matching saved historical best at 88 instructions. Five differences remain: target transfers s4 into v0 at the head of the first child loop while C emits constant 1; branch displacement differs; two reset writes are reordered, and a final move uses s4 versus zero. Tried assigning v0 from s4 and changing s4 from s32 to s16; no score/diff change. Existing candidate is strong; next explore source shape that keeps s4 live across the initial null test and yields move v0,s4.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795193667.178646,
+  "score_before": 275,
+  "score_after": 275
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Improved 275 to 205 (revision 60ec2a6c0236d87082c1). Both loops share cursor/test locals and clear setup flag inside the guarded branch. Initializing flag with (var_s0 != NULL || var_s2 == var_s2) made GCC emit required move v0 from saved flag, whereas literal 1 and (var_s0 != NULL || 1) rematerialize 1. All 88 instruction positions now agree apart from register permutation: flag candidate s1 target s4, input s2\u2192s1, secondary list s3\u2192s2, outer pointer s4\u2192s3. Reordering declarations, a parameter copy and narrowing flag did not help. Try separate loop test live ranges or changing initial flag live range without eliminating that move.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795198231.378935,
+  "score_before": 275,
+  "score_after": 205
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Rechecked baseline 205; six local families tested, no improvement. Candidate\u2019s inferred loop/control flow is broadly right, but target\u2019s initial node pointer uses s3 and stores it at 0x1c($sp), while candidate allocates it as s4 at 0x20($sp); mismatch report shows 33 register and four operand differences, likely cascading from register lifetimes. Target begins after state check with stack frame 0x30; improve by reducing/reusing loop variables and making group pointer `var_s3` declaration/lifetime align with s3, and make inner object pointers align s0/s2. Potential actual semantics: `var_s4 = (var_s0 != NULL || var_s2 == var_s2)` is simply true and wrong-looking; preserve likely need-first-render flag per parent group, explicitly initialized once per group then cleared after first draw. Next inspect initial assembly for save layout and branch sequence, then test one-time flag scope and concrete record structs. Best candidate retained.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795199149.5861351,
+  "score_before": 205,
+  "score_after": 205
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Restored and compiled saved best source: score 205, all 88 instructions present but 33 register/4 operand differences, largely different saved-register allocation/order. Tried matched signature for func_80037788(void*) but call site passes two args so compile fails; source evidence is inconsistent and needs caller/prototype review. Initial handwritten compact rewrite had syntax errors; no matched candidate improved. Candidate uses var_s4=(var_s0!=NULL || var_s2==var_s2), which simplifies to true whenever var_s2 expression is defined; target likely maintains a first-render/setup flag, infer by inspecting full control flow/assembly. Next try preserve baseline C with variable declarations/order adjusted to map root pointer to $s3, arg to $s1, state to $s4; remaining diffs are register allocation. No better score after six compile budget.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795201275.591368,
+  "score_before": 205,
+  "score_after": 205
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Explicit goto backedge for first row loop improved 205 to 175. Second loop backedge, typed records, signedness, call scopes and initialization did not improve; remaining differences mostly register allocation.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795202257.571415,
+  "score_before": 205,
+  "score_after": 175
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Not matched. Best saved source (score 175, rev d6f8230718bb2272a19a) uses the m2c goto/var_v0 structure. Clean while-loop rewrites (flag s4 set to 1 after loading s0/s2; separate D_80107E9C load) scored 885 and differed mainly in register allocation (s3 got s4) and prologue ordering: the target loads D_80112E40 and D_80107E9C before the sw of s3, and the flag is copied to v0 at each loop header. Untested: keep the saved_best structure, change only the initializer, and declare the outer pointer first so it lands in s3. The 0x20000 mask is hoisted into s5 before the outer loop.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795204448.155425,
+  "score_before": 175,
+  "score_after": 175
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Rechecked saved best score 110. Explicit rewrite preserved score 110; adding volatile spare frame local worsened to 118 and introduced 8-byte frame growth; a bogus sentinel guard worsened to 660. Restored/retained 110 source. Remaining 19 instruction differences, 16 registers and 3 operand/stack; core loop backedge is established. Main register allocation mismatch: candidate uses $s4 for outer node pointer where target uses $s1; candidate uses $s1 for flag where target uses $s4.\nExplicit rewrite score 110; volatile two-word local scored 118, sentinel guard scored 660; saved source restored at 110.\nSaved best has 19 differences: $s3/$s1/$s4/$s2 meanings differ, notably node head pointer and boolean flag.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795214235.352015,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Verified 110, 88/88 instructions. Argument and pending-state flag occupy swapped s1/s4 with three corresponding prologue save differences. Literal 1 and comma-condition initialization each score 360.\nReuse pending-state flag for initial render-mode load and separately replace outer do-while with explicit goto.\nScores 395 and 365 respectively; retained verified baseline 110.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795223016.836212,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Still 110: only s1/s4 swap (arg0 gets s4, flag gets s1; target arg0=s1, flag=s4, s3=obj, s5=0x20000). Declaration order, copying arg0 into local, `register`, flag init variants (=1, swapped comma operands) all no change/worse. Clean for-loop rewrite with natural names (gRenderMode, emitPrimColor, emitObjectMatrix) scored 885 (no v0 copies). Note callee names now: gRenderMode, emitPrimColor (was func_8003438C), emitObjectMatrix (was func_800378C0). Next step: use the renamed symbols in saved_best and try making the flag's use-count higher than arg0's (e.g. extra uses of flag) or declare flag as u8/s8.\ndeclaration reorders, arg copy, register keyword, flag init variants\nno change, still 110 (s1/s4 swap)",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795228585.130034,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Saved best stays 110. My clean C (plain pointers, do/while, first=(s0!=0||s2==s2), t=first copied at loop tail/head, callees emitPrimColor/emitObjectMatrix, gRenderMode) gives 205 with identical instruction stream except regalloc: target arg0=s1, obj=s3, first=s4, 0x20000=s5; mine first=s1,arg0=s2,obj=s4. `first` has too high priority in mine. Same-score variants: declaration order permutations. Next step: reduce uses/lifetime of `first` (e.g. fold t into first) or give obj more uses to reorder priorities.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795231185.967665,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 3; 27 differing rows (1 opcode, 21 register, 1 branch target, 2 operand, 2 reordered; advisory).\nTarget: sw $s3, 0x1c($sp)\nCandidate: sw $s1, 0x14($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lw $v0, %lo(gRenderMode)($v0)\n  = addiu $sp, $sp, -0x30\ni T: sw $s3, 0x1c($sp) | C: sw $s1, 0x14($sp)\nr T: lui $s3, %hi(gObjectListHead) | C: lui $s1, %hi(gObjectListHead)\nr T: lw $s3, %lo(gObjectListHead)($s3) | C: lw $s1, %lo(gObjectListHead)($s1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nClaim reset during final local pass. Reconstructed candidate revision cf134a344bff219730cf scored 320: explicit goto backedges in three nested loops, var_v0 = var_s4; main remaining differences are saved-register assignment and initial flag move. Scoped copy of arg0 gave unchanged output. Next try changing lifetime of the list head or flag across the initial render-mode call.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795246887.857574,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Current verified best 330; flag initialized from nonnull row changes register allocation but emits sltu instead of target constant 1. Loop backedge and typed record trials did not improve.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795254547.776305,
+  "score_before": 275,
+  "score_after": 275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Automatic repair improved score to 275 but moves var_s4=0 outside its conditional, changing behavior; review semantics. Assigning var_v0=var_s4 retains score 275.\nAssigned var_v0 from var_s4\nScore remains 275; compiler emits immediate 1",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795260000.9484742,
+  "score_before": 275,
+  "score_after": 275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Best 275 candidate moves flag clearing outside guard; semantic equivalence needs review. Restoring conditional scored 400. Assigning initial flag via var_s4 unchanged; nonnull boolean scored 280.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795261186.453536,
+  "score_before": 275,
+  "score_after": 275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Best 110, 19 rows mostly register: target keeps arg0 in $s1, candidate uses $s4 (var_s4 allocated early). Local repairs (global type, record layout, signedness, declaration order) were equal or worse. Candidate has odd goto-based loops from the repair tool. Next step: rewrite as plain while loops, with var_s4 as a flag declared last.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307640.2601101,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
+ },
+ {
+  "function": "func_80037A7C",
+  "text": "Session allowance reached. Saved best rechecked at 110, with 16 register and three operand differences.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795342500.3637278,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3252bc0cd7cfd851633954b42c9ab4eb1997543b46912eac5421504a722892cd"
  }
 ]
