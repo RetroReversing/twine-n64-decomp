@@ -131,24 +131,24 @@ void func_8002255C(void *arg0, void *arg1)
         temp_a0_4 = *((u8 *) (inline_fn2(arg0) + 8));
         if (temp_a0_4 == 0x80)
         {
+          void *st = gSaveMenuState;
+          s32 i = sSaveMenuColorIdle;
           temp_v1 = *((void **) temp_s0);
-          temp_a0_2 = gSaveMenuState;
-          f1 = sSaveMenuColorIdle;
-          *((s32 *) (((char *) temp_v1) + 0x10)) = (((f1 & (~0xFF)) | (*((u8 *) (((char *) temp_a0_2) + 0x30)))) & (~0xFF)) | (*((u8 *) (((char *) (*((void **) (((char *) temp_a0_2) + 0x1C)))) + 0x13)));
+          *((s32 *) (((char *) temp_v1) + 0x10)) = (((i & (~0xFF)) | (*((u8 *) (((char *) st) + 0x30)))) & (~0xFF)) | (*((u8 *) (((char *) (*((void **) (((char *) st) + 0x1C)))) + 0x13)));
         }
         else if (temp_a0_4 == 0x81)
         {
+          void *st = gSaveMenuState;
+          s32 i = D_800BD660;
           temp_v1 = *((void **) temp_s0);
-          temp_a0_2 = gSaveMenuState;
-          f1 = D_800BD660;
-          *((s32 *) (((char *) temp_v1) + 0x10)) = (((f1 & (~0xFF)) | (*((u8 *) (((char *) temp_a0_2) + 0x30)))) & (~0xFF)) | (*((u8 *) (((char *) (*((void **) (((char *) temp_a0_2) + 0x1C)))) + 0x13)));
+          *((s32 *) (((char *) temp_v1) + 0x10)) = (((i & (~0xFF)) | (*((u8 *) (((char *) st) + 0x30)))) & (~0xFF)) | (*((u8 *) (((char *) (*((void **) (((char *) st) + 0x1C)))) + 0x13)));
         }
         else
         {
-          temp_a0_2 = gSaveMenuState;
-          var_a1 = *((void **) temp_s0);
-          var_a0 = sSaveMenuColorIdle & (~0xFF);
-          *((s32 *) (((char *) var_a1) + 0x10)) = var_a0 | (*((u8 *) (((char *) temp_a0_2) + 0x30)));
+          void *c = *((void **) temp_s0);
+          void *st = gSaveMenuState;
+          s32 i = sSaveMenuColorIdle;
+          *((s32 *) (((char *) c) + 0x10)) = (i & (~0xFF)) | (*((u8 *) (((char *) st) + 0x30)));
         }
       }
       var_a0 = 2;
