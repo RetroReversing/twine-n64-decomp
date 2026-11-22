@@ -241,9 +241,9 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
   D_80115328 = temp_a1_4 + 0x18;
   *((s32 *) (((char *) temp_a1_4) + 0x14)) = (s32) (((((((__repair_record_arg2 *) arg2)->field_24 - 1) * 4) & 0xFFF) << 0xC) | (((((__repair_record_arg2 *) arg2)->field_28 - 1) * 4) & 0xFFF));
   temp_a0_3 = *((u32 *) (((s8 *) arg2) + 0x28));
-  var_s2 = 0;
   if ((temp_a0_3 >> 0xC) & 0xF)
   {
+    var_s2 = 0;
     sp54 = var_s1 & 0xFFFF;
     sp4C = var_s5_2 << 0x10;
     temp_a0_5 = temp_a0_3 >> 8;
@@ -392,23 +392,19 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
         while ((var_t9 & 0xFFFF) < inline_fn(*((u32 *) (((s8 *) arg2) + 0x28))));
       }
       temp_a0_5 = (u32) ((__repair_record_arg2 *) arg2)->field_28;
-      __repair_rows_:
-      {
-        do
-        {
-          do
+      do {
           {
-            var_s2 += 1;
+            do
+            {
+              do
+              {
+                var_s2 += 1;
+              }
+              while (0);
+            }
+            while (0);
           }
-          while (0);
-        }
-        while (0);
-      }
-
-      if (0)
-      {
-        goto __repair_rows_;
-      }
+      } while (0);
       var_v0_2 = temp_a0_5 >> 8;
     }
 

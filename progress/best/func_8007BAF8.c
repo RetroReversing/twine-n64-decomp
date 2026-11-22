@@ -24,18 +24,15 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
     u32 padLocal;
     u32 transform[10];
     u32 inverse[10];
-    RoutePoint corners[8];
   } frame;
-  s32 spFC;
+  RoutePoint corners[8];
+  volatile s32 padFC;
+  volatile s32 spFC;
   s32 sp104;
-  volatile s32 pad8[2];
   f32 *temp_s4;
   f32 *var_s0;
   f32 *var_s0_2;
   f32 temp_fs0;
-  f32 temp_fs0_2;
-  f32 temp_fv0;
-  f32 temp_fv0_10;
   f32 temp_fv0_11;
   f32 temp_fv0_12;
   f32 temp_fv0_2;
@@ -44,8 +41,6 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
   f32 temp_fv0_5;
   f32 temp_fv0_6;
   f32 temp_fv0_7;
-  f32 temp_fv0_8;
-  f32 temp_fv0_9;
   f32 var_fs1;
   f32 var_fs2;
   s32 temp_a1;
@@ -70,42 +65,42 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
   frame.dir.coord[0] = (*((f32 *) (((char *) arg1) + 0))) - (*((f32 *) (((char *) arg0) + 0x24)));
   frame.dir.coord[1] = (*((f32 *) (((char *) arg1) + 4))) - (*((f32 *) (((char *) arg0) + 0x28)));
   frame.dir.coord[2] = (*((f32 *) (((char *) arg1) + 8))) - (*((f32 *) (((char *) arg0) + 0x2C)));
-  temp_fv0 = func_80045764(&frame.dir.coord[0], &frame.dir.coord[0]);
+  temp_fs0 = func_80045764(&frame.dir.coord[0], &frame.dir.coord[0]);
   var_v0 = 0;
-  if (!(temp_fv0 < 0.01f))
+  if (!(temp_fs0 < 0.01f))
   {
-    if ((func_8004F430((void *) temp_s5, arg0 + 0x24, &frame.dir.coord[0], temp_fv0) << 0x18) != 0)
+    if ((func_8004F430((void *) temp_s5, arg0 + 0x24, &frame.dir.coord[0], temp_fs0) << 0x18) != 0)
     {
       temp_fv0_2 = (*((f32 *) (((char *) (*((void **) (((char *) D_80108F84) + 0x3C)))) + 0x18))) - 0.55f;
-      frame.corners[7].coord[0] = temp_fv0_2;
-      frame.corners[4].coord[0] = temp_fv0_2;
-      frame.corners[3].coord[0] = temp_fv0_2;
-      frame.corners[0].coord[0] = temp_fv0_2;
+      corners[7].coord[0] = temp_fv0_2;
+      corners[4].coord[0] = temp_fv0_2;
+      corners[3].coord[0] = temp_fv0_2;
+      corners[0].coord[0] = temp_fv0_2;
       temp_fv0_3 = (*((f32 *) (((char *) (*((void **) (((char *) D_80108F84) + 0x3C)))) + 0x1C))) + 0.55f;
-      frame.corners[6].coord[0] = temp_fv0_3;
-      frame.corners[5].coord[0] = temp_fv0_3;
-      frame.corners[2].coord[0] = temp_fv0_3;
-      frame.corners[1].coord[0] = temp_fv0_3;
+      corners[6].coord[0] = temp_fv0_3;
+      corners[5].coord[0] = temp_fv0_3;
+      corners[2].coord[0] = temp_fv0_3;
+      corners[1].coord[0] = temp_fv0_3;
       temp_fv0_4 = (*((f32 *) (((char *) (*((void **) (((char *) D_80108F84) + 0x3C)))) + 0x20))) - 0.55f;
-      frame.corners[5].coord[1] = temp_fv0_4;
-      frame.corners[4].coord[1] = temp_fv0_4;
-      frame.corners[1].coord[1] = temp_fv0_4;
-      frame.corners[0].coord[1] = temp_fv0_4;
+      corners[5].coord[1] = temp_fv0_4;
+      corners[4].coord[1] = temp_fv0_4;
+      corners[1].coord[1] = temp_fv0_4;
+      corners[0].coord[1] = temp_fv0_4;
       temp_fv0_5 = (*((f32 *) (((char *) (*((void **) (((char *) D_80108F84) + 0x3C)))) + 0x24))) + 0.55f;
-      frame.corners[7].coord[1] = temp_fv0_5;
-      frame.corners[6].coord[1] = temp_fv0_5;
-      frame.corners[3].coord[1] = temp_fv0_5;
-      frame.corners[2].coord[1] = temp_fv0_5;
+      corners[7].coord[1] = temp_fv0_5;
+      corners[6].coord[1] = temp_fv0_5;
+      corners[3].coord[1] = temp_fv0_5;
+      corners[2].coord[1] = temp_fv0_5;
       temp_fv0_6 = (*((f32 *) (((char *) (*((void **) (((char *) D_80108F84) + 0x3C)))) + 0x28))) - 0.55f;
-      frame.corners[3].coord[2] = temp_fv0_6;
-      frame.corners[2].coord[2] = temp_fv0_6;
-      frame.corners[1].coord[2] = temp_fv0_6;
-      frame.corners[0].coord[2] = temp_fv0_6;
+      corners[3].coord[2] = temp_fv0_6;
+      corners[2].coord[2] = temp_fv0_6;
+      corners[1].coord[2] = temp_fv0_6;
+      corners[0].coord[2] = temp_fv0_6;
       temp_fv0_7 = (*((f32 *) (((char *) (*((void **) (((char *) D_80108F84) + 0x3C)))) + 0x2C))) + 0.55f;
-      frame.corners[7].coord[2] = temp_fv0_7;
-      frame.corners[6].coord[2] = temp_fv0_7;
-      frame.corners[5].coord[2] = temp_fv0_7;
-      frame.corners[4].coord[2] = temp_fv0_7;
+      corners[7].coord[2] = temp_fv0_7;
+      corners[6].coord[2] = temp_fv0_7;
+      corners[5].coord[2] = temp_fv0_7;
+      corners[4].coord[2] = temp_fv0_7;
       func_80047E4C(D_80108F84, frame.transform, frame.inverse);
       frame.local = *((RoutePoint *) arg1);
       frame.local.coord[0] -= *((f32 *) (((char *) D_80108F84) + 0x24));
@@ -117,7 +112,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
       if (((func_8003D6FC(&frame.local.coord[0], D_80108F84) << 0x18) == 0) || (sp104 == 0))
       {
         var_s1 = 0;
-        var_s0 = &frame.corners[0].coord[0];
+        var_s0 = &corners[0].coord[0];
         __repair_rows:
         {
           func_80083B64(frame.transform, var_s0);
@@ -140,7 +135,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
         }
         var_s7 = -1;
         var_s6 = -1;
-        var_s0_2 = &frame.corners[0].coord[0];
+        var_s0_2 = &corners[0].coord[0];
         var_s1_2 = 0;
         __repair_rows__: {
           temp_s4 = arg0 + 0x24;
@@ -151,44 +146,36 @@ if (0) goto __repair_rows__;
           frame.dir.coord[0] = (*((f32 *) (((char *) var_s0_2) + 0))) - (*((f32 *) (((char *) arg0) + 0x24)));
           frame.dir.coord[1] = (*((f32 *) (((char *) var_s0_2) + 4))) - (*((f32 *) (((char *) arg0) + 0x28)));
           frame.dir.coord[2] = (*((f32 *) (((char *) var_s0_2) + 8))) - (*((f32 *) (((char *) arg0) + 0x2C)));
-          temp_fv0_8 = func_80045764(&frame.dir.coord[0], &frame.dir.coord[0]);
-          if (((func_8004F430((void *) temp_s5, temp_s4, &frame.dir.coord[0], temp_fv0_8) << 0x18) == 0) && ((Ray_CastObjects(&Ray_TriangleIntersect, temp_s5, temp_s4, &frame.dir.coord[0], 0, temp_fv0_8, 0, 1, 0) << 0x18) == 0))
+          temp_fs0 = func_80045764(&frame.dir.coord[0], &frame.dir.coord[0]);
+          if (((func_8004F430((void *) temp_s5, temp_s4, &frame.dir.coord[0], temp_fs0) << 0x18) == 0) && ((Ray_CastObjects(&Ray_TriangleIntersect, temp_s5, temp_s4, &frame.dir.coord[0], 0, temp_fs0, 0, 1, 0) << 0x18) == 0))
           {
             frame.dir.coord[0] = (*((f32 *) (((char *) arg1) + 0))) - (*((f32 *) (((char *) var_s0_2) + 0)));
             frame.dir.coord[1] = (*((f32 *) (((char *) arg1) + 4))) - (*((f32 *) (((char *) var_s0_2) + 4)));
             frame.dir.coord[2] = (*((f32 *) (((char *) arg1) + 8))) - (*((f32 *) (((char *) var_s0_2) + 8)));
-            temp_fv0_9 = func_80045764(&frame.dir.coord[0], &frame.dir.coord[0]);
-            if (((func_8004F430((void *) temp_s5, var_s0_2, &frame.dir.coord[0], temp_fv0_9) << 0x18) == 0) && ((Ray_CastObjects(&Ray_TriangleIntersect, temp_s5, var_s0_2, &frame.dir.coord[0], 0, temp_fv0_9, 0, 1, 0) << 0x18) == 0))
+            temp_fs0 = func_80045764(&frame.dir.coord[0], &frame.dir.coord[0]);
+            if (((func_8004F430((void *) temp_s5, var_s0_2, &frame.dir.coord[0], temp_fs0) << 0x18) == 0) && ((Ray_CastObjects(&Ray_TriangleIntersect, temp_s5, var_s0_2, &frame.dir.coord[0], 0, temp_fs0, 0, 1, 0) << 0x18) == 0))
             {
               temp_fs0 = func_800461D4(temp_s4, var_s0_2);
-              temp_fs0_2 = temp_fs0 + func_800461D4(arg1, var_s0_2);
-              if (temp_fs0_2 < var_fs2)
+              temp_fs0 = temp_fs0 + func_800461D4(arg1, var_s0_2);
+              if (temp_fs0 < var_fs2)
               {
                 var_s6 = var_s1_2;
-                var_fs2 = temp_fs0_2;
+                var_fs2 = temp_fs0;
               }
             }
             else
             {
-              temp_fv0_10 = func_800461D4(arg1, var_s0_2);
-              if (temp_fv0_10 < var_fs1)
+              temp_fs0 = func_800461D4(arg1, var_s0_2);
+              if (temp_fs0 < var_fs1)
               {
                 var_s7 = var_s1_2;
-                var_fs1 = temp_fv0_10;
+                var_fs1 = temp_fs0;
               }
             }
           }
           __repair_rows_:
           {
-            do
-            {
-              do
-              {
-                var_s1_2 += 1;
-              }
-              while (0);
-            }
-            while (0);
+            var_s1_2 += 1;
           }
 
           if (0)
@@ -200,16 +187,17 @@ if (0) goto __repair_rows__;
         while (var_s1_2 < 8);
         if (var_s6 != (-1))
         {
-          *((RoutePoint *) (((char *) temp_fp) + 0x18)) = frame.corners[var_s6];
- do { temp_fv0_11 = func_800461D4(arg0 + 0x24, frame.corners[var_s6].coord); var_a1 = spFC; } while (0);
+          *((RoutePoint *) (((char *) temp_fp) + 0x18)) = corners[var_s6];
+ do { temp_fv0_11 = func_800461D4(arg0 + 0x24, corners[var_s6].coord); var_a1 = spFC; } while (0);
           *((f32 *) (((char *) temp_fp) + 0x38)) = temp_fv0_11;
           *((f32 *) (((char *) temp_fp) + 0x34)) = temp_fv0_11;
-          goto block_25;
+          func_80077960(arg0, var_a1);
+          return 1;
         }
         if (var_s7 != var_s6)
         {
-          *((RoutePoint *) (((char *) temp_fp) + 0x18)) = frame.corners[var_s7];
-          temp_fv0_12 = func_800461D4(arg0 + 0x24, frame.corners[var_s7].coord);
+          *((RoutePoint *) (((char *) temp_fp) + 0x18)) = corners[var_s7];
+          temp_fv0_12 = func_800461D4(arg0 + 0x24, corners[var_s7].coord);
           var_a1 = spFC;
           *((f32 *) (((char *) temp_fp) + 0x38)) = temp_fv0_12;
           *((f32 *) (((char *) temp_fp) + 0x34)) = temp_fv0_12;
@@ -237,7 +225,7 @@ if (0) goto __repair_rows__;
       var_a1 = sp104;
 
       block_25:
-      func_80077960(arg0, sp104);
+      func_80077960(arg0, var_a1);
 
       block_26:
       return 1;
@@ -248,3 +236,4 @@ if (0) goto __repair_rows__;
   }
   return var_v0;
 }
+

@@ -111,11 +111,11 @@ void func_80036BBC(void *arg0)
     D_801032A0 = 1;
     if (((__repair_field_100 *) arg0)->value & 3)
     {
-      s32 command = 0xFC40FE03;
+      var_a1 = 0xFC40FE03;
       temp_v1_3 = D_80115328;
-      D_80115328 = ((s8 *) temp_v1_3) + 8;
-      ((__repair_field_0 *) temp_v1_3)->value = command;
-      *((s32 *) (((char *) temp_v1_3) + 4)) = -0xC88;
+      D_80115328 = temp_v1_3 + 2;
+      temp_v1_3[0] = var_a1;
+      temp_v1_3[1] = -0xC88;
     }
     else
     {
@@ -225,11 +225,9 @@ void func_80036BBC(void *arg0)
                   emit_first_mode:
                   var_v0 = D_80115328;
 
-                  do
                   {
                     D_80115328 = var_v0 + 2;
                   }
-                  while (0);
  do { var_v1_2 = &D_800B1D20; var_v0[0] = 0xDE000000; } while (0);
                   finish_first_mode:
                   ((s32 **) var_v0)[1] = var_v1_2;
