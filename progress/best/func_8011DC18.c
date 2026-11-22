@@ -25,12 +25,17 @@ extern s32 sBonusObjectTable;
 extern s32 sEnemyDefTable;
 extern s32 sSaveMenuColorActive;
 extern s32 sSaveSlotInfo;
+inline static char *inline_fn(int arg0, s32 *arg1)
+{
+  return arg0 + ((char *) arg1);
+}
+
 void func_8011DC18(void)
 {
   int __repair_literal;
-  register s32 var_a1;
+  s32 var_a1;
   u8 slotLabel[2];
-  register f32 temp_ft0;
+  f32 temp_ft0;
   f32 temp_fv1;
   f32 temp_fv1_2;
   f32 temp_fv1_3;
@@ -38,27 +43,27 @@ void func_8011DC18(void)
   s32 temp_v0_2;
   s32 var_a3;
   s32 temp_a0_4;
-  register s32 temp_a3;
+  s32 temp_a3;
   s32 temp_s2;
   s32 temp_s6;
-  register s32 temp_v1_6;
+  s32 temp_v1_6;
   unsigned long var_s0;
   s32 var_s2;
   s32 var_s5;
   s32 var_v0;
-  register s32 var_v0_3;
+  s32 var_v0_3;
   u32 var_v1;
   short var_s1;
   u8 temp_s0;
   void **temp_a2;
-  register void **temp_s0_5;
+  void **temp_s0_5;
   void **temp_s4;
   void *temp_a0;
-  register void *temp_a0_2;
-  register void *temp_a0_3;
+  void *temp_a0_2;
+  void *temp_a0_3;
   void *temp_a0_5;
   void *temp_a1;
-  register void *temp_s0_2;
+  void *temp_s0_2;
   void *temp_s0_3;
   void *temp_s0_4;
   void *temp_s1;
@@ -67,11 +72,11 @@ void func_8011DC18(void)
   void *temp_s3;
   void *temp_v0;
   void *temp_v0_3;
-  register void *temp_v1;
+  void *temp_v1;
   void *temp_v1_2;
   void *temp_v1_3;
   void *temp_v1_4;
-  register void *temp_v1_5;
+  void *temp_v1_5;
   void *temp_v1_7;
   var_s5 = 0;
   __repair_literal = 0;
@@ -112,7 +117,7 @@ void func_8011DC18(void)
           temp_s1 = *((void **) (((char *) (&D_8011F3D0)) + temp_s2));
           if (temp_s1 != NULL)
           {
-            *((s16 *) (((char *) temp_s1) + 0x1C)) = strlen((var_s0 * 0xC) + ((char *) (&D_8011F378)));
+            *((s16 *) (((char *) temp_s1) + 0x1C)) = strlen(inline_fn(var_s0 * 0xC, &D_8011F378));
           }
           temp_a2 = (void **) (((char *) (&D_8011F3E8)) + temp_s2);
           if (((*temp_a2) != NULL) && ((temp_a1_2 = (s16 *) (((char *) (&D_8011F3E0)) + (((u32) var_s0) * 2)), temp_v0_2 = *temp_a1_2, temp_v0_2 > 0)))
@@ -213,7 +218,7 @@ void func_8011DC18(void)
                 {
                   if (temp_a3 != var_v1)
                   {
-                    temp_s1_2 = *((void **) (temp_s6 + ((var_v1 * 0x10) + ((char *) (&D_8011F2F8)))));
+                    temp_s1_2 = *((void **) (temp_s6 + inline_fn(var_v1 * 0x10, &D_8011F2F8)));
                     if (temp_s1_2 != NULL)
                     {
                       if (((u32) ((*((u16 *) (((char *) temp_a0_5) + 0x78))) - 2)) < 2U)
@@ -243,7 +248,7 @@ void func_8011DC18(void)
                       initObjectFromBankEntry(temp_s1_2, var_a1, 0x1B);
                       if (gSceneType == 8)
                       {
-                        if ((*((u8 *) (((char *) (*((void **) (((char *) (*((void **) (((char *) (*((void **) (((var_s2 & 0xFFFF) * 4) + ((char *) (&sBonusObjectTable)))))) + 0x6C)))) + 0xB4)))) + 0x10))) != 0)
+                        if ((*((u8 *) (((char *) (*((void **) (((char *) (*((void **) (((char *) (*((void **) inline_fn((var_s2 & 0xFFFF) * 4, &sBonusObjectTable)))) + 0x6C)))) + 0xB4)))) + 0x10))) != 0)
                         {
                           *((s32 *) (((char *) temp_s1_2) + 0x10)) = (s32) D_800BD660;
                         }

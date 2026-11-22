@@ -618,18 +618,20 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                             {
                               if ((spF0 >= 0.0f) && (spF0 < var_fs2))
                               {
-                                if (!((((u32) ((Field_u32 *) (((char *) var_s7) + 0x5C))->v) >> 0x17) & 0x20))
+                                if ((((u32) ((Field_u32 *) (((char *) var_s7) + 0x5C))->v) >> 0x17) & 0x20)
+                                {
+                                  if (arg3 != NULL)
+                                  {
+                                    ((Field_f32 *) (((char *) arg3) + 0))->v = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
+                                    ((Field_f32 *) (((char *) arg3) + 4))->v = (f32) (((Field_f32 *) (((char *) arg1) + 4))->v - spF0);
+                                    D_80103F00 = var_s7;
+                                    ((Field_f32 *) (((char *) arg3) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
+                                  }
+                                }
+                                else
                                 {
                                   var_fs2 = spF0;
                                   var_s4 = temp_s1_3;
-                                }
-                                else
-                                  if (arg3 != NULL)
-                                {
-                                  ((Field_f32 *) (((char *) arg3) + 0))->v = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
-                                  ((Field_f32 *) (((char *) arg3) + 4))->v = (f32) (((Field_f32 *) (((char *) arg1) + 4))->v - spF0);
-                                  D_80103F00 = var_s7;
-                                  ((Field_f32 *) (((char *) arg3) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
                                 }
                               }
                             }
@@ -641,7 +643,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                               if (spFC > 0.5f)
                               {
                                 temp_fv0_3 = (((spF8 * sp58) + (spFC * sp5C)) + (sp100 * sp60)) + sp104;
-                                spF0 = (int) temp_fv0_3;
+                                spF0 = temp_fv0_3;
                                 if ((temp_fv0_3 >= 0.0f) && (((s32) temp_fv0_3) < var_fs2))
                                 {
                                   temp_v1_14 = ((Field_s32 *) (((char *) temp_s2_2) + 0x34))->v;
@@ -752,18 +754,20 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                             {
                               if ((sp178 >= 0.0f) && (sp178 < var_fs2))
                               {
-                                if (!((((u32) ((Field_u32 *) (((char *) var_s7) + 0x5C))->v) >> 0x17) & 0x20))
+                                if ((((u32) ((Field_u32 *) (((char *) var_s7) + 0x5C))->v) >> 0x17) & 0x20)
+                                {
+                                  if (arg3 != NULL)
+                                  {
+                                    ((Field_f32 *) (((char *) arg3) + 0))->v = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
+                                    ((Field_f32 *) (((char *) arg3) + 4))->v = (f32) (((Field_f32 *) (((char *) arg1) + 4))->v - sp178);
+                                    D_80103F00 = var_s7;
+                                    ((Field_f32 *) (((char *) arg3) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
+                                  }
+                                }
+                                else
                                 {
                                   var_fs2 = sp178;
                                   __repair_phase_storage.value = temp_s1_4;
-                                }
-                                else
-                                  if (arg3 != NULL)
-                                {
-                                  ((Field_f32 *) (((char *) arg3) + 0))->v = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
-                                  ((Field_f32 *) (((char *) arg3) + 4))->v = (f32) (((Field_f32 *) (((char *) arg1) + 4))->v - sp178);
-                                  D_80103F00 = var_s7;
-                                  ((Field_f32 *) (((char *) arg3) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
                                 }
                               }
                             }
@@ -861,18 +865,20 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                             {
                               if ((sp178 >= 0.0f) && (var_fs2 > sp178))
                               {
-                                if (!((((u32) ((Field_u32 *) (((char *) var_s7) + 0x5C))->v) >> 0x17) & 0x20))
+                                if ((((u32) ((Field_u32 *) (((char *) var_s7) + 0x5C))->v) >> 0x17) & 0x20)
+                                {
+                                  if (arg3 != NULL)
+                                  {
+                                    *((f32 *) (((char *) arg3) - (-0))) = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
+                                    ((Field_f32 *) (((char *) arg3) + 4))->v = (f32) (((Field_f32 *) (((char *) arg1) + 4))->v - sp178);
+                                    D_80103F00 = var_s7;
+                                    ((Field_f32 *) (((char *) arg3) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
+                                  }
+                                }
+                                else
                                 {
                                   var_fs2 = sp178;
                                   __repair_phase_storage.value = temp_s1_5;
-                                }
-                                else
-                                  if (arg3 != NULL)
-                                {
-                                  *((f32 *) (((char *) arg3) - (-0))) = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
-                                  ((Field_f32 *) (((char *) arg3) + 4))->v = (f32) (((Field_f32 *) (((char *) arg1) + 4))->v - sp178);
-                                  D_80103F00 = var_s7;
-                                  ((Field_f32 *) (((char *) arg3) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
                                 }
                               }
                             }

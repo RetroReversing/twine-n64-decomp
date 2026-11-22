@@ -6,7 +6,7 @@ f32 func_800461D4(f32 *, f32 *);
 void func_80047E4C(void *, void *, void *);
 s32 func_8004F430(void *, void *, void *, f32);
 s32 func_80077960(void *, s32);
-s32 func_80077E00(void *, s32, void *);
+s32 func_80077E00(void *);
 void func_80083B64(void *, void *);
 extern void *D_80108F84;
 extern s32 Ray_TriangleIntersect;
@@ -133,14 +133,11 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
         {
           goto __repair_rows;
         }
-        var_s7 = -1;
         var_s6 = -1;
-        var_s0_2 = &corners[0].coord[0];
+        var_s7 = -1;
         var_s1_2 = 0;
-        __repair_rows__: {
-          temp_s4 = arg0 + 0x24;
-        }
-if (0) goto __repair_rows__;
+        temp_s4 = arg0 + 0x24;
+        var_s0_2 = &corners[0].coord[0];
         do
         {
           frame.dir.coord[0] = (*((f32 *) (((char *) var_s0_2) + 0))) - (*((f32 *) (((char *) arg0) + 0x24)));
@@ -211,7 +208,7 @@ if (0) goto __repair_rows__;
           if (temp_a2_3 != NULL)
           {
             *((RoutePoint *) (((char *) temp_fp) + 0x18)) = *((RoutePoint *) (((char *) temp_a2_3) + 0x24));
-            if ((func_80077E00(arg0, var_s7 * 2, temp_a2_3) << 0x18) != 0)
+            if ((func_80077E00(arg0) << 0x18) != 0)
             {
               func_80002BD0(arg0, 0x14D);
               goto block_24;
@@ -236,4 +233,5 @@ if (0) goto __repair_rows__;
   }
   return var_v0;
 }
+
 
