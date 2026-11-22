@@ -4,7 +4,7 @@ void func_80013F74(void *arg0)
   s32 var_a2;
   s32 var_a3;
   s32 var_t2;
-  s32 var_t2_4;
+  
   s32 var_v1;
   s32 var_v1_d;
   char *var_t0;
@@ -115,20 +115,20 @@ void func_80013F74(void *arg0)
     var_t2 = 2;
     if (0 > var_a2)
     {
-      var_v1 = var_a1;
+      var_a3 = var_a1;
       var_a1 = var_t1;
       var_t1 = *((u32 *) var_t0);
       var_t0 += 4;
-      var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 8))) & 0xFF;
+      var_a3 = ((u32)var_a3 + (var_a1 << (var_a2 + 8))) & 0xFF;
       var_a1 >>= -var_a2;
       var_a2 += 0x20;
     }
     else
     {
-      var_v1 = var_a1 & 0xFF;
+      var_a3 = var_a1 & 0xFF;
       var_a1 = var_a1 >> 8;
     }
-    var_a3 = var_v1 + 1;
+    var_a3 += 1;
     goto block_68;
   }
   var_a2 = var_a2 - 1;
@@ -419,7 +419,7 @@ long_match:
       var_a1 = var_a1 >> 4;
     }
     temp_v0_2 = var_t2 * 4;
-    var_t2_4 = temp_v0_2 + 0xB;
+    var_t2 = temp_v0_2 + 0xB;
     if ((temp_v0_2 + 0xC) != 0)
     {
       do
@@ -442,9 +442,8 @@ long_match:
         }
         *((u8 *) var_a0) = var_v1;
         var_a0 += 1;
-        var_t2_4 -= 1;
       }
-      while ((var_t2_4 + 1) != 0);
+      while (var_t2-- != 0);
       var_a2 = var_a2 - 1;
     }
     else
@@ -612,7 +611,8 @@ long_match:
     {
       var_a1 = var_a1 >> 8;
     }
-    var_a3_2 = var_a0 - (((var_a3 << 8) + var_v1) + 1);
+    var_a3 = ((var_a3 << 8) + var_v1) + 1;
+    var_a3_2 = var_a0 - var_a3;
     if (var_t2-- != 0)
     {
       do
