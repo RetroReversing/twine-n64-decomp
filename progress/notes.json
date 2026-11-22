@@ -81125,14 +81125,6 @@
   "score_after": null
  },
  {
-  "function": "func_80034EFC",
-  "text": "Verified baseline 2665. Six trials of record layout, signedness, declaration order, address temporary, constant and call arity did not improve. Reconstruct display-list pointer increments and store ordering from target; current candidate has 63 mismatch rows and different constant scheduling.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795138431.060323,
-  "score_before": 2665,
-  "score_after": 2665
- },
- {
   "function": "func_80019690",
   "text": "Corrected the invalid double-pointer dereference to `**(s32 **)(...)`; this compiled at 3398 (historical baseline 3293 was stale). Explicit loop-backedge repair improved the current score to 2831, best revision 810d05a8b5cafe957cda. Loop repair changes do-while into a labeled body plus conditional goto. Later repair batches explored constant_local, scalar_storage_reuse, inferred_record_layout, single_field_record, branch_orientation, and narrowing; no confirmed improvement over 2831. The repair service timed out twice at 180s during continuation, so the full 8-no-improvement budget could not be confirmed; best candidate and notes are saved. Main remaining gap is branch targets and frame shape: target prologue frame 0x20, candidate frame 0x28; 72 differing rows after loop repair. A .rodata+0 relocation warning remains. Resume from best revision and inspect branch paths/source organization.",
   "by": "codex-gpt-6-luna-9",
@@ -81163,22 +81155,6 @@
   "created_at": 1795177117.124744,
   "score_before": 30926,
   "score_after": 30159
- },
- {
-  "function": "func_80034EFC",
-  "text": "Baseline with volatile command pointer 2665. Six local variants did not improve. Target schedules constants E3000A01 and E200001C early, then global halfword reads interleaved with command stores; candidate delays constants and reorders stores. Rework display-list construction to mirror target order and verify osVirtualToPhysical argument signature.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795178377.4951181,
-  "score_before": 2665,
-  "score_after": 2665
- },
- {
-  "function": "func_80034EFC",
-  "text": "Current best verified score 2665 (historical same). Reproduced the draft; tried volatile command-buffer pointer, alternative osVirtualToPhysical prototype, predeclared command constant, and reordered E2/F0A command stores. Volatile/prototype/local constant edits had no effect. Moving E2 store before F0A worsened score to 3000; restoring order returned 2665. Main gaps: constant/load scheduling at entry and register allocation through globals/command writes; later mismatch includes call to osVirtualToPhysical and D_80100304 indexed table expression. Keep `D_80100304` scalar s32 with byte offset index to obtain target shift-left-2 table load. The called routine's first argument warning indicates prototype should likely use s32/physical address integer, not void pointer.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795182782.631652,
-  "score_before": 2665,
-  "score_after": 2665
  },
  {
   "function": "func_80019690",
@@ -81293,68 +81269,12 @@
   "score_after": 9080
  },
  {
-  "function": "func_80034EFC",
-  "text": "Verified best 2580, improved from 2665 by interleaving the two dimension loads with command stores. Remaining mismatch is predominantly instruction order/register allocation; target materializes 0xE3000A01 and 0xE200001C early. Moving first dimension after command store worsened to 2800; one-argument callee prototype worsened; flag search found no better profile. Further explore staging command constants and stores while preserving incoming argument registers.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795191829.4574609,
-  "score_before": 2665,
-  "score_after": 2580
- },
- {
-  "function": "func_80034EFC",
-  "text": "Improved verified score 2580\u21921695 (e98675cacaf4a9bcc55f). Uses two-word command struct, volatile display-list cursor, one-argument osVirtualToPhysical, and rectangle word grouped as (height bits | opcode) | width bits, with explicit unsigned fields. Volatile D_8010A4EC read improves ordering but introduces an extra low-half address instruction; removing volatile worsens. Target materializes E3000A01/E200001C early, interleaves dimension loads with command stores, and subtracts one from both near the mode branch. Local constant assignments, splitting the second dimension decrement, ternary mode selection, and swapping color-command OR did not recover these. Explore using the raw dimensions until immediately before the branch and a direct volatile declaration/query that preserves the low-half load.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795193710.3634381,
-  "score_before": 2580,
-  "score_after": 1695
- },
- {
-  "function": "func_80034EFC",
-  "text": "Reverified score 1315. Raw halfwords with postponed decrements scored 2015 both with height load before and after cycle store. Staging nonvolatile mode query scored 3050, direct volatile declaration produced identical output to cast, and initializing command literals in target order worsened to 1740. Target needs direct low-half relocated lw for mode query (current extra addiu), plus scheduling of initial cycle/render constants and dimensions. Try command-pair initialization or staged raw data across cursor increments rather than more declaration permutations.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795198264.6032221,
-  "score_before": 1315,
-  "score_after": 1315
- },
- {
-  "function": "func_80034EFC",
-  "text": "Rechecked baseline 1315. Six local repairs tested (read-before-assign, assignment-at-use, initializer-placement); no improvement. Two variants merely moved cycle initializer and tied baseline, render initializer placement worsened. Early target builds command constant 0xE3000A01 into v1 first (`lui v1,0xe300`; later addiu), while candidate builds render 0xE200001C first into a1; likely C declaration/first-use ordering. Existing candidate also updates volatile display-list pointer repeatedly; target ordering should be read from assembly. Next try removing `cycle`/`render` temps and assign literals directly in the order target constructs them, or reverse command constant declaration/use order. Keep current source as best.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795199177.8947358,
-  "score_before": 1315,
-  "score_after": 1315
- },
- {
-  "function": "func_80034EFC",
-  "text": "Starting draft referenced missing symbols; attempted compact Gfx command emission and compile succeeded at score 3655 vs historical 1315. Target has specific interleaved writes to global display-list pointer, stores commands using base offsets 8,12,16,20, and call to osVirtualToPhysical. Rewrite used wrong command ordering/offsets and optimizer generated repeated pointer stores / excess prologue. Next agent should start from saved_best, examine exact target assembly and model each command as sequential Gfx pointer increments/stores; confirm globals widths/signatures and preserve call argument setup. No match.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795201211.826185,
-  "score_before": 1315,
-  "score_after": 1315
- },
- {
-  "function": "func_80034EFC",
-  "text": "Best verified score remained 1315; no exact match. Tried declaration/order variants and a volatile gate local; scores were 2545, 1795, 1595, 1905, then recovered 1315. Main issue is target's early loads/stores reordered around constants, plus D_8010A4EC compiled as address add+load rather than direct relocation load. Next investigate exact global declarations/layout, especially D_8010A4EC and source grouping/order.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795202227.8331032,
-  "score_before": 1315,
-  "score_after": 1315
- },
- {
   "function": "func_80019690",
   "text": "Repaired noncompiling machine draft's invalid dereference; u16 var_s0 reduced score to 2232. The corrected store expression is provisional and cached D_80102F2C is loaded too early; verify both against target before relying on semantics. Direct cache removal worsened.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795202699.2712462,
   "score_before": 2125,
   "score_after": 2125
- },
- {
-  "function": "func_80034EFC",
-  "text": "Best verified score 695 on revision 5a4138a6fc1ea406de11. Initial inherited compile 1315. Removing volatile from D_8010A4EC condition improved to 705 by loading lw through $a0 as target does; swapping source dimension loads to width=D_80108F80-1 then height=D_8010D6F8-1 improved to 695. Attempts to reorder cursor updates/store, and declaration/init ordering were worse (up to 1270); candidate retained at best. Target target code's mismatch mostly statement scheduling/register assignment around command constants and the two dimension globals. Verify aliases: target assembly explicitly loads D_8010D6F8 into target width register and D_80108F80 into height, while current declarations/semantics are swapped. Continue targeted temp/type and constant init ordering experiments.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795204190.239445,
-  "score_before": 1315,
-  "score_after": 695
  },
  {
   "function": "func_80019690",
@@ -81387,15 +81307,6 @@
   "created_at": 1795210006.101147,
   "score_before": 1605,
   "score_after": 1605
- },
- {
-  "function": "func_80034EFC",
-  "text": "Reached six compiles without improvement. Swapping dimension load and rectangle operand order improved 695 to 635; moving the cycle store tied, integer address scored 1020, buffer staging 750, volatile command pointee 775. Early constant scheduling and buffer registers remain.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795214252.847601,
-  "score_before": 695,
-  "score_after": 635,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
  },
  {
   "function": "func_80019690",
@@ -81443,15 +81354,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:9c62adb7ee7bfd09c5e1cdc9425bb40347756aaf4991bba8a1a96e222202203b"
  },
  {
-  "function": "func_80034EFC",
-  "text": "Best 625 (rev 9bdf957fcfbe99ff6809). Found D_8010D6F8 is WIDTH (loaded first, s1, used with &0xFFF) and D_80108F80 is HEIGHT; swapping gave 635->625. Remaining: target hoists lui/ori of 0xE3000A01 (v1) and lui 0xE200 (a1) before first cursor store; candidate schedules them after the lh loads; also a0/v1 regs differ. Tried: decl order, register qualifiers, moving cycle store earlier (735), natural-order rewrite (1070). Next step: try making the constants globals-free via a local struct/array of display-list words, or a macro-style inline helper writing a Gfx via pointer++.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795228636.4893372,
-  "score_before": 635,
-  "score_after": 625,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
- },
- {
   "function": "func_800358D4",
   "text": "Frame experiments: nonvolatile unused long long scored 7034; volatile two-word array scored 7030; expanding frame union from 144 to 152 bytes worsened to 7057. Target has many substantive missing instructions, including float conversion near display list color.",
   "by": "codex-gpt-6.1-terra-4",
@@ -81459,15 +81361,6 @@
   "score_before": 7034,
   "score_after": 7030,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
- },
- {
-  "function": "func_80034EFC",
-  "text": "Saved best 625 remains (volatile cursor, register base/cycle). Only scheduling of 3 constant loads differs (target hoists lui/ori 0xE3000A01 to v1 and lui 0xE200 to a1 before the cursor stores; ours places them after lh D_8010D6F8; modes lui/ori ordering also differs). Tried this session: register qualifiers on render/modes, initializer reordering, assigning base late (worse 835/1555), non-volatile cursor with g=cursor++ macro style (2780, worse). Next step: try different local declaration order for cycle/render/modes with only cycle register, or make D_8010D6F8/D_80108F80 loads happen before the first stores.\nregister qualifiers, init order, non-volatile cursor macro style\nno improvement over 625",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795232412.474299,
-  "score_before": 625,
-  "score_after": 625,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
  },
  {
   "function": "func_80019690",
@@ -81628,24 +81521,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:885ef806af7b37c24d0e2fec375cfa9850f906476511ff0e32f1905066e0e957"
  },
  {
-  "function": "func_80034EFC",
-  "text": "Verified 485 baseline. Assignment-order variants scored 920, float cast tied 485. Judge reached move-on threshold.\nAssign cycle before render using ordinary and register locals, and cast cycle through float.\nAssignments scored 920. Float cast tied 485 with one changed row.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795300110.957738,
-  "score_before": 485,
-  "score_after": 485,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
- },
- {
-  "function": "func_80034EFC",
-  "text": "Best verified 485. Render-before-modes scored 625 with two target sites removed; volatile gate scored 1505. Cycle literal still schedules late.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795305744.106308,
-  "score_before": 485,
-  "score_after": 485,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
- },
- {
   "function": "func_800358D4",
   "text": "Saved frame fix 4631\u21924597, now 0x110. Casting sp64 to u32 scored 6882 and added a stack reload, unlike target fs2. Simplified clamps scored 5088. Staging first wave result around RGB assignments scored 4937. Explicit pool-full return produced identical code.",
   "by": "codex-gpt-6.2-sol-6",
@@ -81653,15 +81528,6 @@
   "score_before": 6496,
   "score_after": 4597,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
- },
- {
-  "function": "func_80034EFC",
-  "text": "Stuck at 485 (100+ attempts). Local repairs all equal/worse; -fno-schedule-insns/-insns2 give 15582 (much worse). Target emits lui $v1,0xe300 first; candidate schedules constant late. Next step: write the 0xE3000A01 word via a pointer temp or reorder first store.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795307678.687797,
-  "score_before": 485,
-  "score_after": 485,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
  },
  {
   "function": "sweepSphereAgainstScene",
@@ -81691,15 +81557,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c62adb7ee7bfd09c5e1cdc9425bb40347756aaf4991bba8a1a96e222202203b"
  },
  {
-  "function": "func_80034EFC",
-  "text": "Verified 485. Six trials without improvement; the cycle constant still materializes too late.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795310764.417598,
-  "score_before": 485,
-  "score_after": 485,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
- },
- {
   "function": "func_80019690",
   "text": "Best 780 (15 rows differ, reordering around D_801002C4 load / gBorderSkipActive branch). This session's 6 local repairs (branch_orientation, signedness, unsigned_switch, volatile_reload, load_before_store, nested_guard) all equal or worse. Next step: try hoisting the D_801002C4 load before the gBorderSkipActive test.",
   "by": "claude-sonnet-low-1",
@@ -81724,24 +81581,6 @@
   "created_at": 1795311498.486092,
   "score_before": 1750,
   "score_after": 1750
- },
- {
-  "function": "func_80034EFC",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 1; 11 differing rows (5 register, 4 operand, 1 inserted, 1 deleted; advisory).\nTarget: lui $v1, 0xe300\nCandidate: lui $a1, 0xe200\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x20\ni T: lui $v1, 0xe300 | C: lui $a1, 0xe200\n  = sw $s0, 0x10($sp)\n  = lui $s0, %hi(sDisplayListCursor)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795311756.243291,
-  "score_before": 485,
-  "score_after": 265,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
- },
- {
-  "function": "func_80034EFC",
-  "text": "The judge reached 9/6 compiles without improvement. Best verified score 70. Reordering literal assignments scored 465, inlining the color-image word scored 960, and swapping its temporaries scored 85.\nSwapped render and modes assignments, inlined the color-image word, and swapped color-image temporary roles.\nScores 465, 960, and 85 against verified 70. Rows 6, 25, 26, and 30 swap constant materialization. Rows 46\u201353 differ in register allocation.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795314334.06905,
-  "score_before": 265,
-  "score_after": 70,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
  },
  {
   "function": "func_8001ADE8",
@@ -81976,15 +81815,6 @@
   "score_before": 4131,
   "score_after": 4062,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
- },
- {
-  "function": "func_80034EFC",
-  "text": "Register declarations, unused temp, and folding width into size\nDeclarations left all 12 register differences unchanged at 60, folding scored 540",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795362247.1613061,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
  },
  {
   "function": "func_80090464",
@@ -84636,5 +84466,175 @@
   "score_before": 45,
   "score_after": 45,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:aa0767e3bd7846419bb24fe21fe78f432c3471223032b9a1066da4b65d04b277"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Verified baseline 2665. Six trials of record layout, signedness, declaration order, address temporary, constant and call arity did not improve. Reconstruct display-list pointer increments and store ordering from target; current candidate has 63 mismatch rows and different constant scheduling.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795138431.060323,
+  "score_before": 2665,
+  "score_after": 2665
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Baseline with volatile command pointer 2665. Six local variants did not improve. Target schedules constants E3000A01 and E200001C early, then global halfword reads interleaved with command stores; candidate delays constants and reorders stores. Rework display-list construction to mirror target order and verify osVirtualToPhysical argument signature.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795178377.4951181,
+  "score_before": 2665,
+  "score_after": 2665
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Current best verified score 2665 (historical same). Reproduced the draft; tried volatile command-buffer pointer, alternative osVirtualToPhysical prototype, predeclared command constant, and reordered E2/F0A command stores. Volatile/prototype/local constant edits had no effect. Moving E2 store before F0A worsened score to 3000; restoring order returned 2665. Main gaps: constant/load scheduling at entry and register allocation through globals/command writes; later mismatch includes call to osVirtualToPhysical and D_80100304 indexed table expression. Keep `D_80100304` scalar s32 with byte offset index to obtain target shift-left-2 table load. The called routine's first argument warning indicates prototype should likely use s32/physical address integer, not void pointer.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795182782.631652,
+  "score_before": 2665,
+  "score_after": 2665
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Verified best 2580, improved from 2665 by interleaving the two dimension loads with command stores. Remaining mismatch is predominantly instruction order/register allocation; target materializes 0xE3000A01 and 0xE200001C early. Moving first dimension after command store worsened to 2800; one-argument callee prototype worsened; flag search found no better profile. Further explore staging command constants and stores while preserving incoming argument registers.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795191829.4574609,
+  "score_before": 2665,
+  "score_after": 2580
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Improved verified score 2580\u21921695 (e98675cacaf4a9bcc55f). Uses two-word command struct, volatile display-list cursor, one-argument osVirtualToPhysical, and rectangle word grouped as (height bits | opcode) | width bits, with explicit unsigned fields. Volatile D_8010A4EC read improves ordering but introduces an extra low-half address instruction; removing volatile worsens. Target materializes E3000A01/E200001C early, interleaves dimension loads with command stores, and subtracts one from both near the mode branch. Local constant assignments, splitting the second dimension decrement, ternary mode selection, and swapping color-command OR did not recover these. Explore using the raw dimensions until immediately before the branch and a direct volatile declaration/query that preserves the low-half load.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795193710.3634381,
+  "score_before": 2580,
+  "score_after": 1695
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Reverified score 1315. Raw halfwords with postponed decrements scored 2015 both with height load before and after cycle store. Staging nonvolatile mode query scored 3050, direct volatile declaration produced identical output to cast, and initializing command literals in target order worsened to 1740. Target needs direct low-half relocated lw for mode query (current extra addiu), plus scheduling of initial cycle/render constants and dimensions. Try command-pair initialization or staged raw data across cursor increments rather than more declaration permutations.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795198264.6032221,
+  "score_before": 1315,
+  "score_after": 1315
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Rechecked baseline 1315. Six local repairs tested (read-before-assign, assignment-at-use, initializer-placement); no improvement. Two variants merely moved cycle initializer and tied baseline, render initializer placement worsened. Early target builds command constant 0xE3000A01 into v1 first (`lui v1,0xe300`; later addiu), while candidate builds render 0xE200001C first into a1; likely C declaration/first-use ordering. Existing candidate also updates volatile display-list pointer repeatedly; target ordering should be read from assembly. Next try removing `cycle`/`render` temps and assign literals directly in the order target constructs them, or reverse command constant declaration/use order. Keep current source as best.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795199177.8947358,
+  "score_before": 1315,
+  "score_after": 1315
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Starting draft referenced missing symbols; attempted compact Gfx command emission and compile succeeded at score 3655 vs historical 1315. Target has specific interleaved writes to global display-list pointer, stores commands using base offsets 8,12,16,20, and call to osVirtualToPhysical. Rewrite used wrong command ordering/offsets and optimizer generated repeated pointer stores / excess prologue. Next agent should start from saved_best, examine exact target assembly and model each command as sequential Gfx pointer increments/stores; confirm globals widths/signatures and preserve call argument setup. No match.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795201211.826185,
+  "score_before": 1315,
+  "score_after": 1315
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Best verified score remained 1315; no exact match. Tried declaration/order variants and a volatile gate local; scores were 2545, 1795, 1595, 1905, then recovered 1315. Main issue is target's early loads/stores reordered around constants, plus D_8010A4EC compiled as address add+load rather than direct relocation load. Next investigate exact global declarations/layout, especially D_8010A4EC and source grouping/order.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795202227.8331032,
+  "score_before": 1315,
+  "score_after": 1315
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Best verified score 695 on revision 5a4138a6fc1ea406de11. Initial inherited compile 1315. Removing volatile from D_8010A4EC condition improved to 705 by loading lw through $a0 as target does; swapping source dimension loads to width=D_80108F80-1 then height=D_8010D6F8-1 improved to 695. Attempts to reorder cursor updates/store, and declaration/init ordering were worse (up to 1270); candidate retained at best. Target target code's mismatch mostly statement scheduling/register assignment around command constants and the two dimension globals. Verify aliases: target assembly explicitly loads D_8010D6F8 into target width register and D_80108F80 into height, while current declarations/semantics are swapped. Continue targeted temp/type and constant init ordering experiments.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795204190.239445,
+  "score_before": 1315,
+  "score_after": 695
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Reached six compiles without improvement. Swapping dimension load and rectangle operand order improved 695 to 635; moving the cycle store tied, integer address scored 1020, buffer staging 750, volatile command pointee 775. Early constant scheduling and buffer registers remain.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795214252.847601,
+  "score_before": 695,
+  "score_after": 635,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Best 625 (rev 9bdf957fcfbe99ff6809). Found D_8010D6F8 is WIDTH (loaded first, s1, used with &0xFFF) and D_80108F80 is HEIGHT; swapping gave 635->625. Remaining: target hoists lui/ori of 0xE3000A01 (v1) and lui 0xE200 (a1) before first cursor store; candidate schedules them after the lh loads; also a0/v1 regs differ. Tried: decl order, register qualifiers, moving cycle store earlier (735), natural-order rewrite (1070). Next step: try making the constants globals-free via a local struct/array of display-list words, or a macro-style inline helper writing a Gfx via pointer++.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795228636.4893372,
+  "score_before": 635,
+  "score_after": 625,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Saved best 625 remains (volatile cursor, register base/cycle). Only scheduling of 3 constant loads differs (target hoists lui/ori 0xE3000A01 to v1 and lui 0xE200 to a1 before the cursor stores; ours places them after lh D_8010D6F8; modes lui/ori ordering also differs). Tried this session: register qualifiers on render/modes, initializer reordering, assigning base late (worse 835/1555), non-volatile cursor with g=cursor++ macro style (2780, worse). Next step: try different local declaration order for cycle/render/modes with only cycle register, or make D_8010D6F8/D_80108F80 loads happen before the first stores.\nregister qualifiers, init order, non-volatile cursor macro style\nno improvement over 625",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795232412.474299,
+  "score_before": 625,
+  "score_after": 625,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Verified 485 baseline. Assignment-order variants scored 920, float cast tied 485. Judge reached move-on threshold.\nAssign cycle before render using ordinary and register locals, and cast cycle through float.\nAssignments scored 920. Float cast tied 485 with one changed row.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795300110.957738,
+  "score_before": 485,
+  "score_after": 485,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Best verified 485. Render-before-modes scored 625 with two target sites removed; volatile gate scored 1505. Cycle literal still schedules late.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795305744.106308,
+  "score_before": 485,
+  "score_after": 485,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Stuck at 485 (100+ attempts). Local repairs all equal/worse; -fno-schedule-insns/-insns2 give 15582 (much worse). Target emits lui $v1,0xe300 first; candidate schedules constant late. Next step: write the 0xE3000A01 word via a pointer temp or reorder first store.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307678.687797,
+  "score_before": 485,
+  "score_after": 485,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Verified 485. Six trials without improvement; the cycle constant still materializes too late.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795310764.417598,
+  "score_before": 485,
+  "score_after": 485,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 1; 11 differing rows (5 register, 4 operand, 1 inserted, 1 deleted; advisory).\nTarget: lui $v1, 0xe300\nCandidate: lui $a1, 0xe200\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x20\ni T: lui $v1, 0xe300 | C: lui $a1, 0xe200\n  = sw $s0, 0x10($sp)\n  = lui $s0, %hi(sDisplayListCursor)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795311756.243291,
+  "score_before": 485,
+  "score_after": 265,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "The judge reached 9/6 compiles without improvement. Best verified score 70. Reordering literal assignments scored 465, inlining the color-image word scored 960, and swapping its temporaries scored 85.\nSwapped render and modes assignments, inlined the color-image word, and swapped color-image temporary roles.\nScores 465, 960, and 85 against verified 70. Rows 6, 25, 26, and 30 swap constant materialization. Rows 46\u201353 differ in register allocation.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795314334.06905,
+  "score_before": 265,
+  "score_after": 70,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
+ },
+ {
+  "function": "func_80034EFC",
+  "text": "Register declarations, unused temp, and folding width into size\nDeclarations left all 12 register differences unchanged at 60, folding scored 540",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795362247.1613061,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
  }
 ]
