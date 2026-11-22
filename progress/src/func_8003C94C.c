@@ -67,19 +67,18 @@ void func_8003C94C(void *arg0, f32 *arg1, void *arg2, s32 arg3) {
         y2 = temp_fs1 * temp_fs1;
         temp_fs0 = var_ft1 - var_fs5;
         z2 = temp_fs0 * temp_fs0;
-        length2 = y2 + x2;
-        ((f32 *)arg2)[1] = var_ft2;
-        { }
-        ((f32 *)arg2)[3] = var_ft0;
-        ((f32 *)arg2)[5] = var_ft1;
-        length2 += z2;
-        ((f32 *)arg2)[0] = var_fs3;
-        ((f32 *)arg2)[2] = var_fs4;
-        ((f32 *)arg2)[4] = var_fs5;
+length2 = x2 + y2;
+((f32 *)arg2)[1] = var_ft2;
+((f32 *)arg2)[3] = var_ft0;
+do { } while (0);
+((f32 *)arg2)[5] = var_ft1;
+length2 += z2;
+((f32 *)arg2)[0] = var_fs3;
+((f32 *)arg2)[2] = var_fs4;
+((f32 *)arg2)[4] = var_fs5;
         temp_s0[3] = func_80082908(length2, var_a1, arg2, var_a3) * 0.5f;
         temp_s0[0] = var_fs3 + (temp_fs2 * 0.5f);
         temp_s0[1] = var_fs4 + (temp_fs1 * 0.5f);
         temp_s0[2] = var_fs5 + (temp_fs0 * 0.5f);
     }
 }
-
