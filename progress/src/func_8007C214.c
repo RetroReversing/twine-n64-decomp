@@ -45,13 +45,10 @@ f32 __repair_var_ft0_2_1;
                     var_ft0 = 256.0f;
                 } else {
                     if (temp_v1_2 & 0x20000000) {
-                        var_fv0 = 0.75f;
-                        var_v0 = D_80117386 * 4;
+                        var_ft0 = 0.75f * *((f32 *)((s8 *)&D_800C2E64 + (D_80117386 * 4)));
                     } else {
-                        var_fv0 = 0.25f;
-                        var_v0 = D_80117386 * 4;
+                        var_ft0 = 0.25f * *((f32 *)((s8 *)&D_800C2E64 + (D_80117386 * 4)));
                     }
-                    var_ft0 = var_fv0 * *((f32 *)((s8 *)&D_800C2E64 + var_v0));
                 }
             }
             var_ft0 *= factor;

@@ -77035,38 +77035,6 @@
   "score_after": null
  },
  {
-  "function": "func_8007C214",
-  "text": "Improved 2230 to 290 by computing factor before arg1->0x68 check and after loading arg0->0x6c, grouping the three byte additions as 0x81+(0x7f+0x80); initialized the previously undefined clamp value. A later s8 temp_v1 variant scored 270 but claim was lost as inputs changed; recheck current candidate. Remaining target differences include FPU register allocation and the byte mask after the range check.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795139039.2183712,
-  "score_before": 2230,
-  "score_after": 270
- },
- {
-  "function": "func_8007C214",
-  "text": "Current best score 270 (119 instructions), inherited and rechecked. Source build copied from candidate. Single signedness tweak s8 temp_v1 -> u8 temp_v1 worsened score to 290/118 instructions, introducing several branch target shifts and dropping explicit andi; best candidate remains 6aaa25a7345ca5e6c67e. Remaining diff starts target mul.s FPR assignment and signed byte lbu at arg1+0x82. Need restore baseline after claim recovers.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795163981.666257,
-  "score_before": 270,
-  "score_after": 270
- },
- {
-  "function": "func_8007C214",
-  "text": "Current best score 270 (119 instructions), inherited and rechecked. Source build copied from candidate. Single signedness tweak s8 temp_v1 -> u8 temp_v1 worsened score to 290/118 instructions, introducing several branch target shifts and dropping explicit andi; best candidate remains 6aaa25a7345ca5e6c67e. Remaining diff starts target mul.s FPR assignment and signed byte lbu at arg1+0x82. Need restore baseline after claim recovers.\n\nOn latest re-claim, full source copied from current queued candidate scored 2774 / 124 insns; prior session's saved best was 270 / 119 insns, but it wasn't accessible after the claim lease was lost during a long read. This source notably omitted the initial factor calculation before null checks, yielding smaller stack frame 0x40 vs target 0x50. The earlier 270 source included factor=(bytes at arg1 0x81/0x7f/0x80)*0.0013071896f before nested pointer check. Avoid using the reduced source as best. Prior signedness patch to u8 worsened 270 to 290.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795163981.666257,
-  "score_before": 270,
-  "score_after": 270
- },
- {
-  "function": "func_8007C214",
-  "text": "Improved score 270 to 215 by keeping scale-and-clamp in one float local, staging both base pointer loads after the index call, and reversing the table/scale operands. Four rows remain: lb vs lbu at +0x82, and FPR allocation for both scale constants and the indexed table load. Plain u8/s32 or explicitly masking the range operand loses the target's branch-slot andi; a volatile byte load and alternate EQ conditions were worse. Splitting the table multiply or using compound assignment tied. Next try preserving the two compare operand widths through a reconstructed dispatch, or a shape that changes allocation of the table value while preserving the branch paths.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795164237.585334,
-  "score_before": 270,
-  "score_after": 215
- },
- {
   "function": "func_800134D0",
   "text": "Stopping at session allowance; 681-instruction draft needs broad pointer-arithmetic reconstruction beyond remaining session context. Score 25281. Fixed one initial address &D_80112EE0 + 4 to + 1 (same score, corrects EEF0 to EEE4). Many u32 pointer increments +=4 erroneously advance 16 bytes; systematically change to +=1, likewise u16 +=2, and correct byte-offset table bases. Current saved best may predate the address fix; reapply it. Target frame 0x58 vs draft 0x68. Both initial trials compiled.",
   "by": "codex-gpt-6.1-terra-2",
@@ -77099,22 +77067,6 @@
   "score_after": 76952
  },
  {
-  "function": "func_8007C214",
-  "text": "Baseline 215 has only lb instead of lbu and three floating register differences. Changing temp_v1 to u8 gets lbu but removes target's subsequent andi, increasing score to 235. Six independent local repairs did not improve baseline. Seek expression preserving unsigned load and explicit narrowing after range test, then float allocation.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795178753.971373,
-  "score_before": 215,
-  "score_after": 215
- },
- {
-  "function": "func_8007C214",
-  "text": "Best score 270/119 instructions. First C build matches operation sequence except signed byte load and register choices. Tried changing temp_v1 from s8 to u8 (290, worsened branch/control-flow) then s32 (270) and explicit u8 load into s32 (290). Best source retained. Target uses lbu then andi 0xff; candidate currently has lb. Remaining differences largely FPU and GPR allocation around table scaling and callee arguments.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795183057.098421,
-  "score_before": 215,
-  "score_after": 215
- },
- {
   "function": "func_800134D0",
   "text": "Baseline 25281, one initial compile. Local repairs found explicit_loop_backedge variant improving to 25251; branch_orientation and scalar_storage_reuse worsened (25856, 25286). Best current candidate is revision 3c1a8abdec6c7fc2e055. Main remaining mismatch begins with frame size: target -0x58 and candidate -0x68; many register/stack/order differences follow. Candidate targets large static Huffman lookup tables (addresses around 0x80112EE0/EE4); verify table declarations/array element types and expressions in source. Draft has pointer type warnings.",
   "by": "codex-gpt-6-luna-11",
@@ -77137,30 +77089,6 @@
   "created_at": 1795187607.907056,
   "score_before": 22615,
   "score_after": 22615
- },
- {
-  "function": "func_8007C214",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Unable to verify or tune candidate: gcc-2.7.2-kmc toolchain became unavailable during this session. Recheck saved baseline and resume once compiler is installed in decompdecomp.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795193783.955389,
-  "score_before": 215,
-  "score_after": 215
- },
- {
-  "function": "func_8007C214",
-  "text": "Inherited candidate 31c57dd8ee1f8f4a57e1 rechecked at 270. Six local repair variants (inferred record layout, single field record, shared return tail, callee parameter width, address temporary, constant local) stayed at 270. Tested changing byte load at temp_a1+0x82 from s8 to u8; worsened to 290 and removed target andi $v1,0xFF. Restore saved best. Diff shows branch targets shifted by 4 bytes after condition; target uses lbu at 0x82 then addiu -9, sltiu 2; likely explicitly preserve unsigned byte normalization while controlling branch shape. Current move-on threshold reached.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795200194.705614,
-  "score_before": 215,
-  "score_after": 215
- },
- {
-  "function": "func_8007C214",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nContinued saved_best rev 660a8481a6cedb09ca26. Rechecked baseline 270. try_local_repairs 6 variants exhausted by unchanged limit; no improvement. Target clearly loads byte 0x82 unsigned (lbu) while candidate temp_v1 is s8 (lb); separately branches 9/10 and 11. Also first mismatch FPR allocation mul.s target $f6 vs candidate $f4, factors intertwined with early arithmetic. Need acquire claim before compile; current tool reported claim not held after repairs. Suggested next: signedness experiment changing temp_v1 to u8, then inspect full mismatch and lifetime/reg ordering.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795202130.7056808,
-  "score_before": 215,
-  "score_after": 215
  },
  {
   "function": "func_8004FF30",
@@ -77236,15 +77164,6 @@
   "score_before": 74635,
   "score_after": 74630,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29268441c29fae0aa30c7c7e1c68694aa4f6697baf390ca82b0401bd9b2cea2f"
- },
- {
-  "function": "func_8007C214",
-  "text": "Mode s32/u16 or cast scored 290; float product swaps and explicit call load locals tied 270; negated clamp scored 670. Remaining unsigned load vs mask, FPR allocation and final call load order.\nExplicit locals to order final call loads.\nScore tied baseline 270.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795213460.607331,
-  "score_before": 270,
-  "score_after": 270,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29cef0e90a0e650f17733a375aa957eb96087ad79b88571a5cf49cd40cb2bbee"
  },
  {
   "function": "func_8004FF30",
@@ -77362,15 +77281,6 @@
   "score_after": 74630
  },
  {
-  "function": "func_8007C214",
-  "text": "Improved the verified score from 270 to 215 by staging the random call and pointer loads, reusing the range float across scaling and clamp, and reversing the inner multiplication operands. The later six alternatives failed to improve it. Four differences remain: lb instead of lbu at 0x82 and the f0/f2 assignment for three loads. Widening removes the target andi.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795229425.636109,
-  "score_before": 270,
-  "score_after": 215,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:29cef0e90a0e650f17733a375aa957eb96087ad79b88571a5cf49cd40cb2bbee"
- },
- {
   "function": "func_80069DCC",
   "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 0; 1766 differing rows (18 opcode, 374 register, 39 stack, 251 branch target, 55 operand, 726 reordered, 136 inserted, 167 deleted; advisory).\nTarget: addiu $sp, $sp, -0xf8\nCandidate: addiu $sp, $sp, -0x108\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0xf8 | C: addiu $sp, $sp, -0x108\ns T: sw $s2, 0xa8($sp) | C: sw $s2, 0xb8($sp)\n  = move $s2, $a0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
   "by": "codex-gpt-6.1-terra-2",
@@ -77386,15 +77296,6 @@
   "created_at": 1795231326.9760509,
   "score_before": 74630,
   "score_after": 74630
- },
- {
-  "function": "func_8007C214",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 5; 16 differing rows (3 register, 12 branch target, 1 deleted; advisory).\nTarget: beqz $s0, 0x1c4\nCandidate: beqz $s0, 0x1c0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s0, 0x40($sp)\n  = move $s0, $a1\ni T: beqz $s0, 0x1c4 | C: beqz $s0, 0x1c0\n  = sw $ra, 0x48($sp)\n  = lbu $v0, 0x7f($s0)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795233847.951552,
-  "score_before": 215,
-  "score_after": 215,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:29cef0e90a0e650f17733a375aa957eb96087ad79b88571a5cf49cd40cb2bbee"
  },
  {
   "function": "func_800134D0",
@@ -77625,5 +77526,104 @@
   "score_before": 16768,
   "score_after": 16165,
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:826701ae6fdad90e37fd85b61d603ce11b2b90a0166f19936ff3b7708c70404a"
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Improved 2230 to 290 by computing factor before arg1->0x68 check and after loading arg0->0x6c, grouping the three byte additions as 0x81+(0x7f+0x80); initialized the previously undefined clamp value. A later s8 temp_v1 variant scored 270 but claim was lost as inputs changed; recheck current candidate. Remaining target differences include FPU register allocation and the byte mask after the range check.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795139039.2183712,
+  "score_before": 2230,
+  "score_after": 270
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Current best score 270 (119 instructions), inherited and rechecked. Source build copied from candidate. Single signedness tweak s8 temp_v1 -> u8 temp_v1 worsened score to 290/118 instructions, introducing several branch target shifts and dropping explicit andi; best candidate remains 6aaa25a7345ca5e6c67e. Remaining diff starts target mul.s FPR assignment and signed byte lbu at arg1+0x82. Need restore baseline after claim recovers.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795163981.666257,
+  "score_before": 270,
+  "score_after": 270
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Current best score 270 (119 instructions), inherited and rechecked. Source build copied from candidate. Single signedness tweak s8 temp_v1 -> u8 temp_v1 worsened score to 290/118 instructions, introducing several branch target shifts and dropping explicit andi; best candidate remains 6aaa25a7345ca5e6c67e. Remaining diff starts target mul.s FPR assignment and signed byte lbu at arg1+0x82. Need restore baseline after claim recovers.\n\nOn latest re-claim, full source copied from current queued candidate scored 2774 / 124 insns; prior session's saved best was 270 / 119 insns, but it wasn't accessible after the claim lease was lost during a long read. This source notably omitted the initial factor calculation before null checks, yielding smaller stack frame 0x40 vs target 0x50. The earlier 270 source included factor=(bytes at arg1 0x81/0x7f/0x80)*0.0013071896f before nested pointer check. Avoid using the reduced source as best. Prior signedness patch to u8 worsened 270 to 290.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795163981.666257,
+  "score_before": 270,
+  "score_after": 270
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Improved score 270 to 215 by keeping scale-and-clamp in one float local, staging both base pointer loads after the index call, and reversing the table/scale operands. Four rows remain: lb vs lbu at +0x82, and FPR allocation for both scale constants and the indexed table load. Plain u8/s32 or explicitly masking the range operand loses the target's branch-slot andi; a volatile byte load and alternate EQ conditions were worse. Splitting the table multiply or using compound assignment tied. Next try preserving the two compare operand widths through a reconstructed dispatch, or a shape that changes allocation of the table value while preserving the branch paths.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795164237.585334,
+  "score_before": 270,
+  "score_after": 215
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Baseline 215 has only lb instead of lbu and three floating register differences. Changing temp_v1 to u8 gets lbu but removes target's subsequent andi, increasing score to 235. Six independent local repairs did not improve baseline. Seek expression preserving unsigned load and explicit narrowing after range test, then float allocation.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795178753.971373,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Best score 270/119 instructions. First C build matches operation sequence except signed byte load and register choices. Tried changing temp_v1 from s8 to u8 (290, worsened branch/control-flow) then s32 (270) and explicit u8 load into s32 (290). Best source retained. Target uses lbu then andi 0xff; candidate currently has lb. Remaining differences largely FPU and GPR allocation around table scaling and callee arguments.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795183057.098421,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8007C214",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Unable to verify or tune candidate: gcc-2.7.2-kmc toolchain became unavailable during this session. Recheck saved baseline and resume once compiler is installed in decompdecomp.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795193783.955389,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Inherited candidate 31c57dd8ee1f8f4a57e1 rechecked at 270. Six local repair variants (inferred record layout, single field record, shared return tail, callee parameter width, address temporary, constant local) stayed at 270. Tested changing byte load at temp_a1+0x82 from s8 to u8; worsened to 290 and removed target andi $v1,0xFF. Restore saved best. Diff shows branch targets shifted by 4 bytes after condition; target uses lbu at 0x82 then addiu -9, sltiu 2; likely explicitly preserve unsigned byte normalization while controlling branch shape. Current move-on threshold reached.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795200194.705614,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nContinued saved_best rev 660a8481a6cedb09ca26. Rechecked baseline 270. try_local_repairs 6 variants exhausted by unchanged limit; no improvement. Target clearly loads byte 0x82 unsigned (lbu) while candidate temp_v1 is s8 (lb); separately branches 9/10 and 11. Also first mismatch FPR allocation mul.s target $f6 vs candidate $f4, factors intertwined with early arithmetic. Need acquire claim before compile; current tool reported claim not held after repairs. Suggested next: signedness experiment changing temp_v1 to u8, then inspect full mismatch and lifetime/reg ordering.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795202130.7056808,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Mode s32/u16 or cast scored 290; float product swaps and explicit call load locals tied 270; negated clamp scored 670. Remaining unsigned load vs mask, FPR allocation and final call load order.\nExplicit locals to order final call loads.\nScore tied baseline 270.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795213460.607331,
+  "score_before": 270,
+  "score_after": 270,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29cef0e90a0e650f17733a375aa957eb96087ad79b88571a5cf49cd40cb2bbee"
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Improved the verified score from 270 to 215 by staging the random call and pointer loads, reusing the range float across scaling and clamp, and reversing the inner multiplication operands. The later six alternatives failed to improve it. Four differences remain: lb instead of lbu at 0x82 and the f0/f2 assignment for three loads. Widening removes the target andi.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795229425.636109,
+  "score_before": 270,
+  "score_after": 215,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:29cef0e90a0e650f17733a375aa957eb96087ad79b88571a5cf49cd40cb2bbee"
+ },
+ {
+  "function": "func_8007C214",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 5; 16 differing rows (3 register, 12 branch target, 1 deleted; advisory).\nTarget: beqz $s0, 0x1c4\nCandidate: beqz $s0, 0x1c0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s0, 0x40($sp)\n  = move $s0, $a1\ni T: beqz $s0, 0x1c4 | C: beqz $s0, 0x1c0\n  = sw $ra, 0x48($sp)\n  = lbu $v0, 0x7f($s0)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795233847.951552,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:29cef0e90a0e650f17733a375aa957eb96087ad79b88571a5cf49cd40cb2bbee"
  }
 ]
