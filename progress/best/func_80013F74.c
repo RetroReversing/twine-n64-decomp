@@ -1,19 +1,10 @@
-unsigned long func_80013F74(void *arg0)
+void func_80013F74(void *arg0)
 {
-  s32 temp_v1;
   s32 temp_v0_2;
   s32 var_a2;
-  int temp_v1_2;
   s32 var_a3;
-  s32 var_a3_4;
-  s32 var_a3_6;
-  s32 var_t2_2;
-  s32 var_t2_3;
+  s32 var_t2;
   s32 var_t2_4;
-  s32 var_t2_5;
-  s32 var_t2_6;
-  s32 var_t2_7;
-  s32 var_t2_8;
   s32 var_v1;
   char *var_t0;
   u32 temp_a1;
@@ -50,11 +41,12 @@ unsigned long func_80013F74(void *arg0)
 
   if (0 > var_a2)
   {
-    temp_a1 = var_t1;
+    var_v1 = var_a1;
+    var_a1 = var_t1;
     var_t1 = *((u32 *) var_t0);
     var_t0 += 4;
-    var_v1 = (var_a1 + (temp_a1 << (var_a2 + 1))) & 1;
-    var_a1 = temp_a1 >> (-var_a2);
+    var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+    var_a1 >>= -var_a2;
     var_a2 += 0x20;
   }
   else
@@ -67,11 +59,12 @@ unsigned long func_80013F74(void *arg0)
     var_v1 = var_a1 & 0xFF;
     if (var_a2 < 0)
     {
-      temp_a1 = var_t1;
+      var_v1 = var_a1;
+      var_a1 = var_t1;
       var_t1 = *((u32 *) var_t0);
       var_t0 += 4;
-      var_v1 = (var_a1 + (temp_a1 << (var_a2 + 8))) & 0xFF;
-      var_a1 = temp_a1 >> (-var_a2);
+      var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 8))) & 0xFF;
+      var_a1 >>= -var_a2;
       var_a2 += 0x20;
     }
     else
@@ -86,11 +79,12 @@ unsigned long func_80013F74(void *arg0)
   var_v1 = var_a1 & 1;
   if (var_a2 < 0)
   {
-    temp_a1_3 = var_t1;
+    var_v1 = var_a1;
+    var_a1 = var_t1;
     var_t1 = *((u32 *) var_t0);
     var_t0 += 4;
-    var_v1 = (var_a1 + (temp_a1_3 << (var_a2 + 1))) & 1;
-    var_a1 = temp_a1_3 >> (-var_a2);
+    var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+    var_a1 >>= -var_a2;
     var_a2 += 0x20;
   }
   else
@@ -98,320 +92,16 @@ unsigned long func_80013F74(void *arg0)
     var_a1 = var_a1 >> 1;
   }
   var_a2 = var_a2 - 1;
-  if (var_v1 == 0)
-  {
-    temp_v1 = var_a1 & 1;
-    if (var_a2 < 0)
-    {
-      temp_a1_3 = var_t1;
-      var_t1 = *((u32 *) var_t0);
-      var_t0 += 4;
-      var_a1 = temp_a1_3 >> (-var_a2);
-      temp_v1 = (var_a1 + (temp_a1_3 << (var_a2 + 1))) & 1;
-      var_a2 += 0x20;
-    }
-    else
-    {
-      var_a1 = var_a1 >> 1;
-    }
-    var_a2 = var_a2 - 1;
-    do
-    {
-      do
-      {
-        do
-        {
-          do
-          {
-            do
-            {
-              do
-              {
-                do
-                {
-                  var_t2_2 = temp_v1 + 4;
-                }
-                while (0);
-              }
-              while (0);
-            }
-            while (0);
-          }
-          while (0);
-        }
-        while (0);
-      }
-      while (0);
-    }
-    while (0);
-    if (var_a2 < 0)
-    {
-      temp_a1_5 = var_t1;
-      var_t1 = *((u32 *) var_t0);
-      var_t0 += 4;
-      var_v1 = (var_a1 + (temp_a1_5 << (var_a2 + 1))) & 1;
-      var_a1 = temp_a1_5 >> (-var_a2);
-      var_a2 += 0x20;
-    }
-    else
-    {
-      var_v1 = var_a1 & 1;
-      var_a1 = var_a1 >> 1;
-    }
-    if (var_v1 != 0)
-    {
-      var_a2 -= 1;
-      var_v1 = var_a1 & 1;
-      if ((var_a2 + 1) < (0 + 1))
-      {
-        temp_a1_5 = var_t1;
-        var_t1 = *((u32 *) var_t0);
-        var_t0 += 4;
-        var_v1 = (var_a1 + (temp_a1_5 << (var_a2 + 1))) & 1;
-        var_a2 += 0x20;
-        var_a1 = temp_a1_5 >> (-var_a2);
-      }
-      else
-      {
-        var_a1 = var_a1 >> 1;
-      }
-      var_t2_2 = ((var_t2_2 - 1) * 2) + var_v1;
-    }
-    if (var_t2_2 == 9)
-    {
-      var_a2 = var_a2 - 4;
-      var_t2_3 = var_a1 & 0xF;
-      if (var_a2 < 0)
-      {
-        temp_a1_5 = var_t1;
-        var_t1 = *((u32 *) var_t0);
-        var_t0 += 4;
-        var_t2_3 = (var_a1 + (temp_a1_5 << (var_a2 + 4))) & 0xF;
-        var_a1 = temp_a1_5 >> (-var_a2);
-        var_a2 += 0x20;
-      }
-      else
-      {
-        var_a1 = var_a1 >> 4;
-      }
-      temp_v0_2 = var_t2_3 * 4;
-      var_t2_4 = temp_v0_2 + 0xB;
-      if ((temp_v0_2 + 0xC) != 0)
-      {
-        do
-        {
-          var_a2 -= 8;
-          var_v1 = var_a1 & 0xFF;
-          if (var_a2 < 0)
-          {
-            temp_a1_8 = var_t1;
-            var_t1 = *((u32 *) var_t0);
-            var_t0 += 4;
-            var_v1 = (var_a1 + (temp_a1_8 << (var_a2 + 8))) & 0xFF;
-            var_a1 = temp_a1_8 >> (-var_a2);
-            var_a2 += 0x20;
-          }
-          else
-          {
-            var_a1 = var_a1 >> 8;
-          }
-          *((u8 *) var_a0) = var_v1;
-          var_a0 += 1;
-          var_t2_4 -= 1;
-        }
-        while ((var_t2_4 + 1) != 0);
-        var_a2 = var_a2 - 1;
-      }
-      else
-      {
-        goto loop_1;
-      }
-    }
-    else
-    {
-      var_a2 = var_a2 - 1;
-      var_a3 = 0;
-      if (var_a2 < 0)
-      {
-        temp_a1_9 = var_t1;
-        var_t1 = *((u32 *) var_t0);
-        var_t0 += 4;
-        var_v1 = (var_a1 + (temp_a1_9 << (var_a2 + 1))) & 1;
-        var_a1 = temp_a1_9 >> (-var_a2);
-        var_a2 += 0x20;
-      }
-      else
-      {
-        var_v1 = var_a1 & 1;
-        var_a1 = var_a1 >> 1;
-      }
-      if (var_v1 != 0)
-      {
-        var_a2 = var_a2 - 1;
-        var_a3 = var_a1 & 1;
-        if (var_a2 < 0)
-        {
-          temp_a1 = var_t1;
-          var_t1 = *((u32 *) var_t0);
-          var_t0 += 4;
-          var_a3 = (var_a1 + (temp_a1 << (var_a2 + 1))) & 1;
-          var_a1 = temp_a1 >> (-var_a2);
-          var_a2 += 0x20;
-        }
-        else
-        {
-          var_a1 = var_a1 >> 1;
-        }
-        var_a2 = ((u32) var_a2) - 1;
-        var_v1 = var_a1 & 1;
-        if (var_a2 < 0)
-        {
-          temp_a1_11 = var_t1;
-          var_t1 = *((u32 *) var_t0);
-          var_t0 += 4;
-          var_v1 = (var_a1 + (temp_a1_11 << (var_a2 + 1))) & 1;
-          var_a1 = temp_a1_11 >> (-var_a2);
-          var_a2 += 0x20;
-        }
-        else
-        {
-          var_a1 = var_a1 >> 1;
-        }
-        if (var_v1 != 0)
-        {
-          var_a2 = var_a2 - 1;
-          var_v1 = var_a1 & 1;
-          if (var_a2 < 0)
-          {
-            if (temp_a1_17)
-            {
-              temp_a1_9 = var_t1;
-              var_t1 = *((u32 *) var_t0);
-              var_t0 += 4;
-              var_v1 = (var_a1 + (temp_a1_9 << (var_a2 + 1))) & 1;
-              var_a1 = temp_a1_9 >> (-var_a2);
-              var_a2 += 0x20;
-            }
-            else
-            {
-              temp_a1_9 = var_t1;
-              var_t1 = *((u32 *) var_t0);
-              var_t0 += 4;
-              var_v1 = (var_a1 + (temp_a1_9 << (var_a2 + 1))) & 1;
-              var_a1 = temp_a1_9 >> (-var_a2);
-              var_a2 += 0x20;
-            }
-          }
-          else
-          {
-            var_a1 = var_a1 >> 1;
-          }
-          var_a3 = ((var_a3 * 2) + var_v1) + 4;
-          var_a2 = var_a2 - 1;
-          if (var_a2 < 0)
-          {
-            temp_a1_13 = var_t1;
-            var_t1 = *((u32 *) var_t0);
-            var_t0 += 4;
-            var_v1 = (var_a1 + (temp_a1_13 << (var_a2 + 1))) & 1;
-            var_a1 = temp_a1_13 >> (-var_a2);
-            var_a2 += 0x20;
-          }
-          else
-          {
-            var_v1 = var_a1 & 1;
-            var_a1 = var_a1 >> 1;
-          }
-          if (!var_v1)
-          {
-            var_a2 -= 1;
-            var_v1 = var_a1 & 1;
-            if (var_a2 < 0)
-            {
-              temp_a1_9 = (int) var_t1;
-              var_t1 = *((u32 *) var_t0);
-              var_t0 += 4;
-              var_v1 = (var_a1 + (temp_a1_9 << (var_a2 + 1))) & 1;
-              var_a1 = temp_a1_9 >> (-var_a2);
-              var_a2 += 0x20;
-            }
-            else
-            {
-              var_a1 = var_a1 >> 1;
-            }
-            var_a3 = (var_a3 * 2) + var_v1;
-          }
-        }
-        else
-          if (var_a3 == 0)
-        {
-          var_a2 -= 1;
-          var_v1 = var_a1 & 1;
-          if (var_a2 < 0)
-          {
-            temp_a1_9 = var_t1;
-            var_t1 = *((u32 *) var_t0);
-            var_t0 += 4;
-            if (1)
-            {
-              var_v1 = (var_a1 + (temp_a1_9 << (var_a2 + 1))) & 1;
-              var_a1 = temp_a1_9 >> (-var_a2);
-            }
-            var_a2 += 0x20;
-          }
-          else
-          {
-            var_a1 = var_a1 >> 1;
-          }
-          var_a3 = var_v1 + 2;
-        }
-      }
-      var_a2 = var_a2 - 8;
-      var_v1 = var_a1 & 0xFF;
-      if (var_a2 < 0)
-      {
-        temp_a1_9 = var_t1;
-        var_t1 = *((u32 *) var_t0);
-        var_t0 += 4;
-        var_v1 = (var_a1 + (temp_a1_9 << (var_a2 + 8))) & 0xFF;
-        var_a1 = temp_a1_9 >> (-var_a2);
-        var_a2 += 0x20;
-      }
-      else
-      {
-        var_a1 = var_a1 >> 8;
-      }
-      var_a3_2 = var_a0 - (((var_a3 << 8) + var_v1) + 1);
-      var_t2_5 = var_t2_2 - 1;
-      if (var_t2_2 != 0)
-      {
-        do
-        {
-          temp_v0_3 = *((u8 *) var_a3_2);
-          var_a3_2 += 1;
-          temp_v1 = var_t2_5;
-          var_t2_5 -= 1;
-          *((u8 *) var_a0) = temp_v0_3;
-          var_a0 += 1;
-        }
-        while (temp_v1 != 0);
-        var_a2 = var_a2 - 1;
-      }
-      else
-      {
-        goto loop_1;
-      }
-    }
-    goto loop_2;
-  }
+  if (var_v1 == 0) goto long_match;
   var_v1 = var_a1 & 1;
   if (var_a2 < 0)
   {
-    temp_a1_17 = var_t1;
+    var_v1 = var_a1;
+    var_a1 = var_t1;
     var_t1 = *((u32 *) var_t0);
     var_t0 += 4;
-    var_v1 = (var_a1 + (temp_a1_17 << (var_a2 + 1))) & 1;
-    var_a1 = temp_a1_17 >> (-var_a2);
+    var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+    var_a1 >>= -var_a2;
     var_a2 += 0x20;
   }
   else
@@ -421,231 +111,529 @@ unsigned long func_80013F74(void *arg0)
   if (var_v1 == 0)
   {
     var_a2 = var_a2 - 8;
-    var_t2_6 = 2;
+    var_t2 = 2;
     if (0 > var_a2)
     {
-      __repair_phase_temp_a1_17 = var_t1;
+      var_v1 = var_a1;
+      var_a1 = var_t1;
       var_t1 = *((u32 *) var_t0);
       var_t0 += 4;
-      temp_v1 = (var_a1 + (__repair_phase_temp_a1_17 << (var_a2 + 8))) & 0xFF;
-      var_a1 = __repair_phase_temp_a1_17 >> (-var_a2);
+      var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 8))) & 0xFF;
+      var_a1 >>= -var_a2;
       var_a2 += 0x20;
     }
     else
     {
-      temp_v1 = var_a1 & 0xFF;
+      var_v1 = var_a1 & 0xFF;
       var_a1 = var_a1 >> 8;
     }
-    var_a3_4 = temp_v1 + 1;
-    block_68:
-    var_t2_7 = var_t2_6 - 1;
-
-    var_a3_2 = var_a0 - var_a3_4;
-    if (2 != 0)
-    {
-      do
-      {
-        temp_v0_4 = *((u8 *) var_a3_2);
-        ++var_a3_2;
-        temp_v1_2 = var_t2_7;
-        var_t2_7 -= 1;
-        *((u8 *) var_a0) = temp_v0_4;
-        var_a0 += 1;
-      }
-      while (temp_v1_2);
-      var_a2 = var_a2 - 1;
-    }
-    else
-    {
-      goto loop_1;
-    }
-    goto loop_2;
+    var_a3 = var_v1 + 1;
+    goto block_68;
   }
   var_a2 = var_a2 - 1;
   var_v1 = var_a1 & 1;
   if (var_a2 < 0)
   {
-    temp_a1_19 = var_t1;
+    var_v1 = var_a1;
+    var_a1 = var_t1;
     var_t1 = *((u32 *) var_t0);
     var_t0 += 4;
-    var_v1 = (var_a1 + (temp_a1_19 << (var_a2 + 1))) & 1;
-    var_a1 = temp_a1_19 >> (-var_a2);
+    var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+    var_a1 >>= -var_a2;
     var_a2 += 0x20;
   }
   else
   {
     var_a1 = var_a1 >> 1;
   }
-  if (var_v1 == 0)
-  {
-    var_t2_6 = 3;
-    block_37:
-    var_a2 = var_a2 - 1;
-
-    var_a3_6 = 0;
-    if (var_a2 < 0)
-    {
-      temp_a1_20 = var_t1;
-      var_t1 = *((u32 *) var_t0);
-      var_t0 += 4;
-      var_v1 = (var_a1 + (temp_a1_20 << (var_a2 + 1))) & 1;
-      var_a1 = temp_a1_20 >> (-var_a2);
-      var_a2 += 0x20;
-    }
-    else
-    {
-      var_v1 = var_a1 & 1;
-      var_a1 = var_a1 >> 1;
-    }
-    if (var_v1 != 0)
-    {
-      var_a2 = var_a2 - 1;
-      var_a3_6 = var_a1 & 1;
-      if (0 > var_a2)
-      {
-        temp_a1_20 = var_t1;
-        var_t1 = *((u32 *) var_t0);
-        var_t0 += 4;
-        var_a3_6 = (var_a1 + (temp_a1_20 << (var_a2 + 1))) & 1;
-        var_a1 = temp_a1_20 >> (-var_a2);
-        var_a2 += 0x20;
-      }
-      else
-      {
-        var_a1 = var_a1 >> 1;
-      }
-      var_a2 = var_a2 - 1;
-      var_v1 = var_a1 & 1;
-      if (var_a2 < 0)
-      {
-        temp_a1_22 = var_t1;
-        var_t1 = *((u32 *) var_t0);
-        var_t0 += 4;
-        var_v1 = (var_a1 + (temp_a1_22 << (var_a2 + 1))) & 1;
-        var_a1 = temp_a1_22 >> (-var_a2);
-        var_a2 += 0x20;
-      }
-      else
-      {
-        var_a1 = var_a1 >> 1;
-      }
-      if (var_v1)
-      {
-        var_v1 = var_a1 & 1;
-        var_a2 = var_a2 - 1;
-        if (var_a2 < 0)
-        {
-          temp_a1_20 = var_t1;
-          var_t1 = *((u32 *) var_t0);
-          var_t0 += 4;
-          var_v1 = (var_a1 + (temp_a1_20 << (var_a2 + 1))) & 1;
-          var_a1 = temp_a1_20 >> (-var_a2);
-          var_a2 += 0x20;
-        }
-        else
-        {
-          var_a1 = var_a1 >> 1;
-        }
-        var_a3_6 = ((var_a3_6 * 2) + var_v1) + 4;
-        var_a2 = var_a2 - 1;
-        if (var_a2 < 0)
-        {
-          temp_a1_20 = var_t1;
-          var_t1 = *((u32 *) var_t0);
-          var_t0 += 4;
-          var_v1 = (var_a1 + (((u32) temp_a1_20) << (var_a2 + 1))) & 1;
-          var_a1 = temp_a1_20 >> (-var_a2);
-          var_a2 += 0x20;
-        }
-        else
-          if (var_a2 || temp_a1_13)
-        {
-          var_v1 = var_a1 & 1;
-          var_a1 = var_a1 >> 1;
-        }
-        else
-        {
-          var_v1 = 1 & var_a1;
-          var_a1 = var_a1 >> 1;
-        }
-        if (var_v1 == 0)
-        {
-          var_a2 -= 1;
-          var_v1 = var_a1 & 1;
-          if (var_a2 < 0)
-          {
-            temp_a1_20 = var_t1;
-            var_t1 = *((u32 *) var_t0);
-            var_t0 += 4;
-            var_v1 = (var_a1 + (temp_a1_20 << (var_a2 + 1))) & 1;
-            var_a1 = temp_a1_20 >> (-var_a2);
-            var_a2 += 0x20;
-          }
-          else
-          {
-            var_a1 = var_a1 >> 1;
-          }
-          var_a3_6 = (var_a3_6 * 2) + var_v1;
-        }
-      }
-      else
-        if (var_a3_6 == 0)
-      {
-        var_a2 -= 1;
-        var_v1 = var_a1 & 1;
-        if (0 > var_a2)
-        {
-          temp_a1_20 = var_t1;
-          var_t1 = *((u32 *) var_t0);
-          var_t0 += 4;
-          var_v1 = (var_a1 + (temp_a1_20 << (var_a2 + 1))) & 1;
-          var_a1 = temp_a1_20 >> (-var_a2);
-          var_a2 += 0x20;
-        }
-        else
-        {
-          var_a1 = var_a1 >> 1;
-        }
-        var_a3_6 = var_v1 + 2;
-      }
-    }
-    var_a2 = var_a2 - 8;
-    var_v1 = var_a1 & 0xFF;
-    if (var_a2 < 0)
-    {
-      temp_a1_20 = var_t1;
-      var_t1 = *((u32 *) var_t0);
-      var_t0 += 4;
-      var_v1 = (var_a1 + (temp_a1_20 << (var_a2 + 8))) & 0xFF;
-      var_a1 = temp_a1_20 >> (-var_a2);
-      var_a2 += 0x20;
-    }
-    else
-    {
-      var_a1 = var_a1 >> 8;
-    }
-    var_a3_4 = ((var_a3_6 << 8) + var_v1) + 1;
-    goto block_68;
-  }
+  if (var_v1 != 0) goto read_length;
+  var_t2 = 3;
+  goto block_37;
+read_length:
   var_a2 -= 8;
-  var_t2_8 = var_a1 & 0xFF;
-  if (var_a2 < (temp_a1_8 * 0))
+  var_t2 = var_a1 & 0xFF;
+  if (var_a2 < 0)
   {
-    temp_a1_28 = var_t1;
+    var_t2 = var_a1;
+    var_a1 = var_t1;
     var_t1 = *((u32 *) var_t0);
     var_t0 += 4;
-    var_t2_8 = (var_a1 + (temp_a1_28 << (var_a2 + 8))) & 0xFF;
-    var_a1 = temp_a1_28 >> (-var_a2);
+    var_t2 = ((u32)var_t2 + (var_a1 << (var_a2 + 8))) & 0xFF;
+    var_a1 >>= -var_a2;
     var_a2 += 0x20;
   }
   else
   {
     var_a1 = var_a1 >> 8;
   }
-  var_t2_6 = var_t2_8 + 8;
-  if (var_t2_8)
-  {
-    goto block_37;
-  }
-}
+  if (var_t2 == 0) goto done;
+  var_t2 += 8;
+block_37:
+  var_a2 = var_a2 - 1;
 
+  var_a3 = 0;
+  if (var_a2 < 0)
+  {
+    var_v1 = var_a1;
+    var_a1 = var_t1;
+    var_t1 = *((u32 *) var_t0);
+    var_t0 += 4;
+    var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+    var_a1 >>= -var_a2;
+    var_a2 += 0x20;
+  }
+  else
+  {
+    var_v1 = var_a1 & 1;
+    var_a1 = var_a1 >> 1;
+  }
+  if (var_v1 != 0)
+  {
+    var_a2 = var_a2 - 1;
+    var_a3 = var_a1 & 1;
+    if (0 > var_a2)
+    {
+      var_a3 = var_a1;
+      var_a1 = var_t1;
+      var_t1 = *((u32 *) var_t0);
+      var_t0 += 4;
+      var_a3 = ((u32)var_a3 + (var_a1 << (var_a2 + 1))) & 1;
+      var_a1 >>= -var_a2;
+      var_a2 += 0x20;
+    }
+    else
+    {
+      var_a1 = var_a1 >> 1;
+    }
+    var_a2 = var_a2 - 1;
+    var_v1 = var_a1 & 1;
+    if (var_a2 < 0)
+    {
+      var_v1 = var_a1;
+      var_a1 = var_t1;
+      var_t1 = *((u32 *) var_t0);
+      var_t0 += 4;
+      var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+      var_a1 >>= -var_a2;
+      var_a2 += 0x20;
+    }
+    else
+    {
+      var_a1 = var_a1 >> 1;
+    }
+    if (var_v1)
+    {
+      var_v1 = var_a1 & 1;
+      var_a2 = var_a2 - 1;
+      if (var_a2 < 0)
+      {
+        var_v1 = var_a1;
+        var_a1 = var_t1;
+        var_t1 = *((u32 *) var_t0);
+        var_t0 += 4;
+        var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+        var_a1 >>= -var_a2;
+        var_a2 += 0x20;
+      }
+      else
+      {
+        var_a1 = var_a1 >> 1;
+      }
+      var_a3 = ((var_a3 * 2) + var_v1) + 4;
+      var_a2 = var_a2 - 1;
+      if (var_a2 < 0)
+      {
+        var_v1 = var_a1;
+        var_a1 = var_t1;
+        var_t1 = *((u32 *) var_t0);
+        var_t0 += 4;
+        var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+        var_a1 >>= -var_a2;
+        var_a2 += 0x20;
+      }
+      else
+        if (var_a2 || temp_a1_13)
+      {
+        var_v1 = var_a1 & 1;
+        var_a1 = var_a1 >> 1;
+      }
+      else
+      {
+        var_v1 = 1 & var_a1;
+        var_a1 = var_a1 >> 1;
+      }
+      if (var_v1 == 0)
+      {
+        var_a2 -= 1;
+        var_v1 = var_a1 & 1;
+        if (var_a2 < 0)
+        {
+          var_v1 = var_a1;
+          var_a1 = var_t1;
+          var_t1 = *((u32 *) var_t0);
+          var_t0 += 4;
+          var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+          var_a1 >>= -var_a2;
+          var_a2 += 0x20;
+        }
+        else
+        {
+          var_a1 = var_a1 >> 1;
+        }
+        var_a3 = (var_a3 * 2) + var_v1;
+      }
+    }
+    else
+      if (var_a3 == 0)
+    {
+      var_a2 -= 1;
+      var_v1 = var_a1 & 1;
+      if (0 > var_a2)
+      {
+        var_v1 = var_a1;
+        var_a1 = var_t1;
+        var_t1 = *((u32 *) var_t0);
+        var_t0 += 4;
+        var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+        var_a1 >>= -var_a2;
+        var_a2 += 0x20;
+      }
+      else
+      {
+        var_a1 = var_a1 >> 1;
+      }
+      var_a3 = var_v1 + 2;
+    }
+  }
+  var_a2 = var_a2 - 8;
+  var_v1 = var_a1 & 0xFF;
+  if (var_a2 < 0)
+  {
+    var_v1 = var_a1;
+    var_a1 = var_t1;
+    var_t1 = *((u32 *) var_t0);
+    var_t0 += 4;
+    var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 8))) & 0xFF;
+    var_a1 >>= -var_a2;
+    var_a2 += 0x20;
+  }
+  else
+  {
+    var_a1 = var_a1 >> 8;
+  }
+  var_a3 = ((var_a3 << 8) + var_v1) + 1;
+  goto block_68;
+
+  block_68:
+  var_a3_2 = var_a0 - var_a3;
+  if (var_t2-- != 0)
+  {
+    do
+    {
+      temp_v0_4 = *((u8 *) var_a3_2);
+      ++var_a3_2;
+      var_v1 = var_t2;
+      var_t2 -= 1;
+      *((u8 *) var_a0) = temp_v0_4;
+      var_a0 += 1;
+    }
+    while (var_v1);
+    var_a2 = var_a2 - 1;
+  }
+  else
+  {
+    goto loop_1;
+  }
+  goto loop_2;
+
+long_match:
+  var_t2 = var_a1 & 1;
+  if (var_a2 < 0)
+  {
+    var_t2 = var_a1;
+    var_a1 = var_t1;
+    var_t1 = *((u32 *) var_t0);
+    var_t0 += 4;
+    var_t2 = ((u32)var_t2 + (var_a1 << (var_a2 + 1))) & 1;
+    var_a1 >>= -var_a2;
+    var_a2 += 0x20;
+  }
+  else
+  {
+    var_a1 = var_a1 >> 1;
+  }
+  var_a2 = var_a2 - 1;
+  var_t2 += 4;
+  if (var_a2 < 0)
+  {
+    var_v1 = var_a1;
+    var_a1 = var_t1;
+    var_t1 = *((u32 *) var_t0);
+    var_t0 += 4;
+    var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+    var_a1 >>= -var_a2;
+    var_a2 += 0x20;
+  }
+  else
+  {
+    var_v1 = var_a1 & 1;
+    var_a1 = var_a1 >> 1;
+  }
+  if (var_v1 != 0)
+  {
+    var_a2 -= 1;
+    var_v1 = var_a1 & 1;
+    if ((var_a2 + 1) < (0 + 1))
+    {
+      var_v1 = var_a1;
+      var_a1 = var_t1;
+      var_t1 = *((u32 *) var_t0);
+      var_t0 += 4;
+      var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+      var_a1 >>= -var_a2;
+      var_a2 += 0x20;
+    }
+    else
+    {
+      var_a1 = var_a1 >> 1;
+    }
+    var_t2 = ((var_t2 - 1) * 2) + var_v1;
+  }
+  if (var_t2 == 9)
+  {
+    var_a2 = var_a2 - 4;
+    var_t2 = var_a1 & 0xF;
+    if (var_a2 < 0)
+    {
+      var_t2 = var_a1;
+      var_a1 = var_t1;
+      var_t1 = *((u32 *) var_t0);
+      var_t0 += 4;
+      var_t2 = ((u32)var_t2 + (var_a1 << (var_a2 + 4))) & 0xF;
+      var_a1 >>= -var_a2;
+      var_a2 += 0x20;
+    }
+    else
+    {
+      var_a1 = var_a1 >> 4;
+    }
+    temp_v0_2 = var_t2 * 4;
+    var_t2_4 = temp_v0_2 + 0xB;
+    if ((temp_v0_2 + 0xC) != 0)
+    {
+      do
+      {
+        var_a2 -= 8;
+        var_v1 = var_a1 & 0xFF;
+        if (var_a2 < 0)
+        {
+          var_v1 = var_a1;
+          var_a1 = var_t1;
+          var_t1 = *((u32 *) var_t0);
+          var_t0 += 4;
+          var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 8))) & 0xFF;
+          var_a1 >>= -var_a2;
+          var_a2 += 0x20;
+        }
+        else
+        {
+          var_a1 = var_a1 >> 8;
+        }
+        *((u8 *) var_a0) = var_v1;
+        var_a0 += 1;
+        var_t2_4 -= 1;
+      }
+      while ((var_t2_4 + 1) != 0);
+      var_a2 = var_a2 - 1;
+    }
+    else
+    {
+      goto loop_1;
+    }
+  }
+  else
+  {
+    var_a2 = var_a2 - 1;
+    var_a3 = 0;
+    if (var_a2 < 0)
+    {
+      var_v1 = var_a1;
+      var_a1 = var_t1;
+      var_t1 = *((u32 *) var_t0);
+      var_t0 += 4;
+      var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+      var_a1 >>= -var_a2;
+      var_a2 += 0x20;
+    }
+    else
+    {
+      var_v1 = var_a1 & 1;
+      var_a1 = var_a1 >> 1;
+    }
+    if (var_v1 != 0)
+    {
+      var_a2 = var_a2 - 1;
+      var_a3 = var_a1 & 1;
+      if (var_a2 < 0)
+      {
+        var_a3 = var_a1;
+        var_a1 = var_t1;
+        var_t1 = *((u32 *) var_t0);
+        var_t0 += 4;
+        var_a3 = ((u32)var_a3 + (var_a1 << (var_a2 + 1))) & 1;
+        var_a1 >>= -var_a2;
+        var_a2 += 0x20;
+      }
+      else
+      {
+        var_a1 = var_a1 >> 1;
+      }
+      var_a2 = ((u32) var_a2) - 1;
+      var_v1 = var_a1 & 1;
+      if (var_a2 < 0)
+      {
+        var_v1 = var_a1;
+        var_a1 = var_t1;
+        var_t1 = *((u32 *) var_t0);
+        var_t0 += 4;
+        var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+        var_a1 >>= -var_a2;
+        var_a2 += 0x20;
+      }
+      else
+      {
+        var_a1 = var_a1 >> 1;
+      }
+      if (var_v1 != 0)
+      {
+        var_a2 = var_a2 - 1;
+        var_v1 = var_a1 & 1;
+        if (var_a2 < 0)
+        {
+          if (temp_a1_17)
+          {
+            var_v1 = var_a1;
+            var_a1 = var_t1;
+            var_t1 = *((u32 *) var_t0);
+            var_t0 += 4;
+            var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+            var_a1 >>= -var_a2;
+            var_a2 += 0x20;
+          }
+          else
+          {
+            var_v1 = var_a1;
+            var_a1 = var_t1;
+            var_t1 = *((u32 *) var_t0);
+            var_t0 += 4;
+            var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+            var_a1 >>= -var_a2;
+            var_a2 += 0x20;
+          }
+        }
+        else
+        {
+          var_a1 = var_a1 >> 1;
+        }
+        var_a3 = ((var_a3 * 2) + var_v1) + 4;
+        var_a2 = var_a2 - 1;
+        if (var_a2 < 0)
+        {
+          var_v1 = var_a1;
+          var_a1 = var_t1;
+          var_t1 = *((u32 *) var_t0);
+          var_t0 += 4;
+          var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+          var_a1 >>= -var_a2;
+          var_a2 += 0x20;
+        }
+        else
+        {
+          var_v1 = var_a1 & 1;
+          var_a1 = var_a1 >> 1;
+        }
+        if (!var_v1)
+        {
+          var_a2 -= 1;
+          var_v1 = var_a1 & 1;
+          if (var_a2 < 0)
+          {
+            var_v1 = var_a1;
+            var_a1 = var_t1;
+            var_t1 = *((u32 *) var_t0);
+            var_t0 += 4;
+            var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 1))) & 1;
+            var_a1 >>= -var_a2;
+            var_a2 += 0x20;
+          }
+          else
+          {
+            var_a1 = var_a1 >> 1;
+          }
+          var_a3 = (var_a3 * 2) + var_v1;
+        }
+      }
+      else
+        if (var_a3 == 0)
+      {
+        var_a2 -= 1;
+        var_v1 = var_a1 & 1;
+        if (var_a2 < 0)
+        {
+          temp_a1_9 = var_t1;
+          var_t1 = *((u32 *) var_t0);
+          var_t0 += 4;
+          if (1)
+          {
+            var_v1 = (var_a1 + (temp_a1_9 << (var_a2 + 1))) & 1;
+            var_a1 = temp_a1_9 >> (-var_a2);
+          }
+          var_a2 += 0x20;
+        }
+        else
+        {
+          var_a1 = var_a1 >> 1;
+        }
+        var_a3 = var_v1 + 2;
+      }
+    }
+    var_a2 = var_a2 - 8;
+    var_v1 = var_a1 & 0xFF;
+    if (var_a2 < 0)
+    {
+      var_v1 = var_a1;
+      var_a1 = var_t1;
+      var_t1 = *((u32 *) var_t0);
+      var_t0 += 4;
+      var_v1 = ((u32)var_v1 + (var_a1 << (var_a2 + 8))) & 0xFF;
+      var_a1 >>= -var_a2;
+      var_a2 += 0x20;
+    }
+    else
+    {
+      var_a1 = var_a1 >> 8;
+    }
+    var_a3_2 = var_a0 - (((var_a3 << 8) + var_v1) + 1);
+    if (var_t2-- != 0)
+    {
+      do
+      {
+        temp_v0_3 = *((u8 *) var_a3_2);
+        var_a3_2 += 1;
+        var_v1 = var_t2;
+        var_t2 -= 1;
+        *((u8 *) var_a0) = temp_v0_3;
+        var_a0 += 1;
+      }
+      while (var_v1 != 0);
+      var_a2 = var_a2 - 1;
+    }
+    else
+    {
+      goto loop_1;
+    }
+  }
+  goto loop_2;
+done:
+  return;
+}

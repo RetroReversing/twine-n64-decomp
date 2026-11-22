@@ -161,7 +161,7 @@ u32 __repair_phase_var_s3;
     }
     else
     {
-      temp_t2_2 = var_s4;
+      var_s3 = var_s4;
       do
       {
         do
@@ -176,8 +176,8 @@ u32 __repair_phase_var_s3;
       }
       while (0);
       var_s1++;
-      temp_s2 = (var_t2 + (temp_t2_2 << (var_t4 + 0xF))); var_t1 = temp_s2 & 0x7FFF;
-      var_t2 = temp_t2_2 >> (-var_t4);
+      temp_s2 = (var_t2 + (var_s3 << (var_t4 + 0xF))); var_t1 = temp_s2 & 0x7FFF;
+      var_t2 = var_s3 >> (-var_t4);
       var_t4 += 0x20;
     }
     var_t1_2 = var_t1 - 1;
@@ -326,9 +326,9 @@ u32 __repair_phase_var_s3;
     var_a0_3 = (&D_80112EE0) + 1;
     do
     {
-      var_a3_4 = 1;
       if ((*var_a0_3) != 0)
       {
+        var_a3_4 = 1;
         var_v1_3 = &(&D_800B283C)[var_t3];
         do
         {

@@ -241,8 +241,13 @@ void func_80007958(void)
           while ((--__repair_phase_layer) >= 0);
         }
       }
-      mask = 1U << i;
-      if ((!(gTrackMarkerActiveMask & mask)) && (!(gSceneFlagsB & mask)))
+      { u32 markerMask = 1U << i;
+      if ((!(gTrackMarkerActiveMask & markerMask)) && (!(gSceneFlagsB & markerMask)))
+      {
+        goto next_view;
+      }
+      }
+      if (0)
       {
         goto next_view;
       }

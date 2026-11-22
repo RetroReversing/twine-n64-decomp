@@ -28,6 +28,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
   } frame;
   s32 spFC;
   s32 sp104;
+  volatile s32 pad8[2];
   f32 *temp_s4;
   f32 *var_s0;
   f32 *var_s0_2;
@@ -141,11 +142,10 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
         var_s6 = -1;
         var_s0_2 = &frame.corners[0].coord[0];
         var_s1_2 = 0;
-        do
-        {
+        __repair_rows__: {
           temp_s4 = arg0 + 0x24;
         }
-        while (0);
+if (0) goto __repair_rows__;
         do
         {
           frame.dir.coord[0] = (*((f32 *) (((char *) var_s0_2) + 0))) - (*((f32 *) (((char *) arg0) + 0x24)));
