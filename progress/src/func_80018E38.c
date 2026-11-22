@@ -159,7 +159,9 @@ var_a1 += 1;
 var_a2 += 1;
 do { *temp_v1_3 = temp_v0_2 - 1; } while (0);
 temp_v1_2 = *var_a1;
-do { do { t2 = __repair_byte_buffer; t2 += var_a2; *t2 = temp_v1_2; } while (0); } while (0);
+do { do { t2 = __repair_byte_buffer; } while (0); } while (0);
+if (var_s0) { t2 += var_a2; } else { t2 += var_a2; }
+*t2 = temp_v1_2;
 }
 while (temp_v1_2 != 0);
         }
