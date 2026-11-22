@@ -25,6 +25,7 @@ extern void *sTrackMarkerTable[];
 void func_800848EC(void *arg0, s32 arg1, char arg2)
 {
   s16 sp10;
+  s32 result;
   f32 temp_fs0;
   u16 var_a0;
   s32 temp_v1;
@@ -52,7 +53,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE644 + (randomIntBelow(4) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x4:
 
@@ -68,7 +69,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE65C + (randomIntBelow(2) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x45:
 
@@ -80,7 +81,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE660 + (randomIntBelow(2) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x1B:
 
@@ -111,7 +112,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) ((D_800CE69C + 4) + (randomIntBelow(2) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x30:
 
@@ -123,7 +124,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE678 + (randomIntBelow(3) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x0:
 
@@ -154,7 +155,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       goto block_40;
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x13:
 
@@ -166,7 +167,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE670 + (randomIntBelow(3) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x28:
 
@@ -201,7 +202,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE6D8 - (-(randomIntBelow(8) * 2))));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x16:
 
@@ -211,7 +212,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE6CC + (randomIntBelow(2) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x19:
 
@@ -223,7 +224,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE66C + (randomIntBelow(2) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x42:
 
@@ -236,7 +237,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) ((D_800CE6A4 - 4) + (randomIntBelow(2) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x51:
 
@@ -253,7 +254,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE6AC + (randomIntBelow(2) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x9:
 
@@ -265,7 +266,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) (D_800CE6D0 + (randomIntBelow(3) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x15:
 
@@ -290,7 +291,7 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) ((D_800CE6D0 + 8) + (randomIntBelow(8) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     case 0x2:
 
@@ -317,23 +318,24 @@ void func_800848EC(void *arg0, s32 arg1, char arg2)
     {
       var_a0 = *((u16 *) ((D_800CE6AC - 12) + (randomIntBelow(2) * 2)));
     }
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
     default:
       if ((*((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x14))) & 0x200000)
     {
       var_a0 = *((u16 *) (D_800CE654 + (randomIntBelow(3) * 2)));
-      goto play;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); goto play;
     }
       block_40:
     var_a0 = *((u16 *) (D_800CE64C + (randomIntBelow(3) * 2)));
 
-      break;
+      result = playDistanceSound(var_a0, temp_fs0, 0xFF); break;
 
   }
 
   play:
-  updateSfxPanFromMarker(playDistanceSound(var_a0, temp_fs0, 0xFF), sTrackMarkerTable[(u16) sp10], arg0 + 0x24, 0);
+  updateSfxPanFromMarker(result, sTrackMarkerTable[(u16) sp10], arg0 + 0x24, 0);
 
 }
+
 
