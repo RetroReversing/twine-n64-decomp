@@ -798,7 +798,10 @@ case 2: case 3: goto out_of_line_actor;
             *((f32 *) (((char *) temp_s1) + 0x48)) = 82.8f;
           }
           temp_v0_4 = *((void **) (((char *) arg0) + 0x68));
-          D_800E1A1C -= *((f32 *) (((char *) temp_s1) + 0x48));
+          { f32 repair_saved_axis = var_fs3;
+          var_fs3 = *((f32 *) (((char *) temp_s1) + 0x48));
+          D_800E1A1C -= var_fs3;
+          var_fs3 = repair_saved_axis; }
           if ((*((f32 *) (((char *) temp_v0_4) + 0x34))) <= 0.0f)
           {
             *((f32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x20)) = absFloat(*((f32 *) (((char *) temp_v0_4) + 0x20)));
@@ -933,7 +936,10 @@ case 2: case 3: goto out_of_line_actor;
               {
                 *((f32 *) (((char *) temp_s1) + 0x48)) = 82.8f;
               }
-              D_800E1A1C -= *((f32 *) (((char *) temp_s1) + 0x48));
+              { f32 repair_saved_axis = var_fs3;
+              var_fs3 = *((f32 *) (((char *) temp_s1) + 0x48));
+              D_800E1A1C -= var_fs3;
+              var_fs3 = repair_saved_axis; }
               var_fs3 = func_80081B44(temp_s4, 0, 1);
               absFloat(var_fs3);
               if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8)

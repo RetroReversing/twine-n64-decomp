@@ -174,8 +174,8 @@ do {
             temp_v0_2 = findOrLoadStreamSlot(M2C_FIELD(temp_s3, u8 *, 0x9E));
             if (*temp_v0_2 >= 0) {
                 spA9C = &sp120;
-                var_a1 = temp_v0_2;
                 var_s6 = 0;
+                var_a1 = temp_v0_2;
                 spAAC = spA6C;
                 do {
                     temp_s1 = (s32 *)((char *)spA9C + M2C_FIELD(var_a1, s16 *, 0) * 0x30);

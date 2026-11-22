@@ -8,7 +8,7 @@ s32 func_80067A24(void *, u16);
 s32 func_80067A7C(void *, void *, u16);
 void func_8006832C(void *, void *);
 s32 func_8007A9CC(void *, void *, s32 *, f32);
-volatile short func_800818AC(int, s32);
+char func_800818AC(int, s32);
 s32 func_8008194C(int, s32);
 s32 func_80081AA4(s32, s32);
 s32 func_80082834(s8, s32, u8);
@@ -86,18 +86,26 @@ void func_8006899C(void *arg0, u8 arg1)
   void *var_s5;
   temp_s2 = *((void **) (((char *) arg0) + 0x6C));
   temp_fp = *((s8 *) inline_fn2((char *) temp_s2, 0x182));
-  temp_v0 = &sTrackMarkerTable[temp_fp];
   {
-    void *marker = *temp_v0;
-    void *actor = *(void **)((char *)arg0 + 0x68);
-    f32 yaw = *(f32 *)((char *)marker + 0x34);
-    s32 kind = *(s8 *)((char *)actor + 0xE);
-    cameraAngles[0] = yaw;
+    void **table = sTrackMarkerTable;
+    unsigned byteOffset = ((unsigned) temp_fp) << 2;
+    void *marker;
+    void *actor;
+    temp_v0 = (void **) (((char *) table) + byteOffset);
+    actor = *((void **) (((char *) arg0) + 0x68));
     marker = *temp_v0;
-    var_s6 = 1;
-    sp37 = arg1;
-    cameraAngles[1] = *(f32 *)((char *)marker + 0x38);
-    temp_s4 = (char *)&sEnemyDefTable + kind * 0xE8;
+    {
+      f32 yaw = *((f32 *) (((char *) marker) + 0x34));
+      s32 kind = *((s8 *) (((char *) actor) + 0xE));
+      cameraAngles[0] = yaw;
+      {
+        f32 pitch = *((f32 *) (((char *) (*temp_v0)) + 0x38));
+        var_s6 = 1;
+        sp37 = arg1;
+        cameraAngles[1] = pitch;
+      }
+      temp_s4 = ((char *) (&sEnemyDefTable)) + (kind * 0xE8);
+    }
   }
   cameraAngles[2] = 0.0f;
   if (func_80081AA4(temp_fp, 0x12) != 0)
@@ -155,8 +163,11 @@ void func_8006899C(void *arg0, u8 arg1)
             switch (temp_v0_2)
             {
               case 4:
+
               case 5:
+
               case 16:
+
               case 17:
                 var_a0 &= -inline_fn234(temp_a1);
                 break;
@@ -251,22 +262,14 @@ void func_8006899C(void *arg0, u8 arg1)
   }
   if (func_8008194C(temp_fp, 0xE) == 0)
   {
-    if (var_s1 || temp_s4)
-    {
       *((u16 *) inline_fn2((char *) temp_s2, 0x17A)) = 0U;
       goto block_61;
-    }
-    else
-    {
-      *((u16 *) inline_fn2((char *) temp_s2, 0x17A)) = 0U;
-      goto block_61;
-    }
   }
   if ((func_80064860(arg0, *((u8 *) inline_fn2((char *) temp_s4, 0x81)), 0U) << 0x18) == 0)
   {
     if (((*((s8 *) inline_fn2((char *) (*((void **) inline_fn2((char *) arg0, 0x68))), 0xE))) != 0x1C) || (func_800818AC(temp_fp, 0x18) == 0))
     {
-      temp_v0_5 = (*((u8 *) inline_fn2((char *) temp_s2, 0x19A))) - 1;
+      temp_v0 = (void *) (*((u8 *) inline_fn2((char *) temp_s2, 0x19A))); temp_v0_5 = ((u32) temp_v0) - 1;
       *((u8 *) inline_fn23((char *) temp_s2, 0x19A)) = temp_v0_5;
       if (temp_v0_5 & 0x80)
       {
