@@ -7,7 +7,7 @@ void *func_80005158(s32 arg0, s32 arg1, s32 arg2)
 {
   union 
   {
-    u8 bytes[3192];
+    u8 bytes[3168];
     struct 
     {
       s32 value;
@@ -57,18 +57,8 @@ void *func_80005158(s32 arg0, s32 arg1, s32 arg2)
       u8 pad[1608];
       f32 value;
     } view_sp658;
-    struct 
-    {
-      u8 pad[3172];
-      s32 value;
-    } view_spC74;
-    struct 
-    {
-      u8 pad[3180];
-      s32 value;
-    } view_spC7C;
   } m2c_initial_frame;
-  s32 var_a2;
+  s32 var_a2; s32 lim; s32 flag; int zero;
   f32 var_fv0;
   void *var_s3;
   long temp_s2;
@@ -81,16 +71,21 @@ void *func_80005158(s32 arg0, s32 arg1, s32 arg2)
   if (temp_v0 != NULL)
   {
     var_fs3 = 0.0f; var_s1 = 0;
-    if (temp_s2 > 0)
+    zero = 0;
+    if (temp_s2 > zero)
     {
- do { do { m2c_initial_frame.view_spC74.value = temp_s2 - 1; } while (0); var_s3 = temp_v0; } while (0);
-      m2c_initial_frame.view_spC7C.value = arg1 & 1;
+      lim = temp_s2 - 1;
+      flag = arg1 & 1;
+
       do
       {
         var_a2 = var_s1 + 1;
-        if ((arg2 == 0) && (var_s1 == m2c_initial_frame.view_spC74.value))
+        if (arg2 == 0)
         {
-          var_a2 = 1;
+          if (var_s1 == lim)
+          {
+            var_a2 = 1;
+          }
         }
         {
           f32 ax;
@@ -101,29 +96,28 @@ void *func_80005158(s32 arg0, s32 arg1, s32 arg2)
           f32 bz;
           unsigned index = var_a2 - 1;
           func_800055CC(&m2c_initial_frame.view_sp20.value, arg0, var_a2, 0);
-          ay = m2c_initial_frame.view_sp2C.value;
           ax = m2c_initial_frame.view_sp28.value;
+          ay = m2c_initial_frame.view_sp2C.value;
           az = m2c_initial_frame.view_sp30.value;
           func_800055CC(&m2c_initial_frame.view_sp648.value, arg0, index, 0);
-          by = m2c_initial_frame.view_sp654.value;
           bx = m2c_initial_frame.view_sp650.value;
+          by = m2c_initial_frame.view_sp654.value;
           bz = m2c_initial_frame.view_sp658.value;
           var_fa0 = (var_fv0 = (var_fv1 = 0.0f));
+          if (flag)
+          {
+            var_fa0 = ax - bx;
+          }
           if (arg1 & 2)
           {
             var_fv0 = ay - by;
-          }
-          if (m2c_initial_frame.view_spC7C.value)
-          {
-            var_fa0 = ax - bx;
           }
           if (arg1 & 4)
           {
             var_fv1 = az - bz;
           }
         }
-        var_fs3 += func_80082908(((var_fa0 * var_fa0) + (var_fv0 * var_fv0)) + (var_fv1 * var_fv1)); var_s1 += 1;
-        *((f32 *) (((char *) var_s3) + 0xC)) = var_fs3; var_s3 = var_s3 + 4;
+        var_fs3 += func_80082908(((var_fa0 * var_fa0) + (var_fv0 * var_fv0)) + (var_fv1 * var_fv1)); ((f32 *) temp_v0)[var_s1 + 3] = var_fs3; var_s1 += 1;
       }
       while (temp_s2 > var_s1);
     }
@@ -134,3 +128,4 @@ void *func_80005158(s32 arg0, s32 arg1, s32 arg2)
   }
   return temp_v0;
 }
+
