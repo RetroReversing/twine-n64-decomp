@@ -64,41 +64,15 @@ s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *
   sp30[2] = temp_ft4;
   if (!(temp_ft0 > (-1e-10f)))
   {
-    if (temp_fs5)
-    {
-      var_v0_2 = 0;
-    }
-    else
-    {
-      var_v0_2 = 0;
-    }
+    var_v0_2 = 0;
   }
-  if (temp_ft0)
-  {
-    do
-    {
-      var_v1 = 1;
-    }
-    while (0);
-  }
-  else
-  {
-    var_v1 = 1;
-  }
+  var_v1 = 1;
   if (!(temp_ft0 < 1e-10f))
   {
  do { var_v1 = 0; } while (0);
   }
-  if (temp_fs1 || temp_ft2)
-  {
-    var_v0 = 0;
-  }
-  else
-  {
-    var_v0 = 0;
-  }
   if (var_v0_2 & var_v1)
-    return var_v0;
+    return 0;
   {
     inv = D_800D3E48 / ((f64) temp_ft0);
     temp_ft3 = (*((f32 *) (((char *) arg0) + 0))) - (*((f32 *) (((char *) arg2) + 0)));

@@ -77428,14 +77428,6 @@
   "score_after": null
  },
  {
-  "function": "Ray_TriangleIntersect",
-  "text": "Rechecked a corrected version (moved temp_ft3 calculation before sp20[0] store): score 2660 versus historical best 2535. Tried changing `!(temp_ft0 > -1e-10f)` to `temp_ft0 <= -1e-10f`, score worsened to 3045; reverted to 2660. Adding an unused Vec3 type had no effect. Main remaining issue is register/stack allocation: target preserves vector components and uses fs registers (`sub.s f26`, f22, f18) while candidate uses f28/f24/f20; conditional near row 75 compares f2 with f4 but candidate compares f2 with f8. Candidate quality bug is fixed. Next experiment should tune aggregate/local representation and order; don't rely on historical 2535 without a current recheck.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795170354.6701581,
-  "score_before": 2535,
-  "score_after": 2535
- },
- {
   "function": "func_8001F9A4",
   "text": "Verified baseline 2345; six local repairs failed to improve it. First mismatch is lookup call order: target requests 0x78 first while candidate requests 0x79 first. Try swapping the first two calls and track resulting saved-register allocation; inspect the remaining branch and indexed-byte differences. Explicit loop backedge and storage reuse worsened score.",
   "by": "codex-gpt-6.1-terra-8",
@@ -77476,14 +77468,6 @@
   "score_after": 39802
  },
  {
-  "function": "Ray_TriangleIntersect",
-  "text": "Current recheck reached 2660 (4 extra instructions) against a saved historical best of 2535; the quality-corrected reported alternative did not improve. Checked the first 40 target instructions and tested moving the uninitialized sp20[0] store after temp_ft3's calculation, marking temp_fs3 register, reordering the temp_ft0/boolean initialization, a direct combined range condition, and local layout/lifetime/signedness repairs. Most changes produced identical 2660 output; the combined range condition worsened to 2970. Candidate's opening arithmetic and stack/register allocation remain the main mismatch; target uses sub.s $f26 while candidate uses $f28, and stack argument loads/registers then drift. Inspect saved_best versus corrected candidate and re-establish valid source before tuning further; saved_best carries an uninitialized sp20[0] assignment, while correcting it produced the 2660 alternative.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795183875.055955,
-  "score_before": 2535,
-  "score_after": 2535
- },
- {
   "function": "func_800673EC",
   "text": "Rechecked saved source score 10269. Applied cached local repair families symbol_address_local, branch_orientation, inferred_record_layout, call_forwarded_arguments, call_arity, callee_parameter_width; none improved. A mistaken empty-source compile and a stub compile were exploratory errors and not meaningful candidate work; restored saved_best before repairs. Current mismatch starts with target 0x70 frame vs candidate 0x78 and extra $s2 save/use; likely C local allocation/signature mismatch. Continue from saved candidate and inspect target/callee prototypes, then tune frame/local allocation.",
   "by": "codex-gpt-6-luna-9",
@@ -77506,14 +77490,6 @@
   "created_at": 1795184317.733088,
   "score_before": 2345,
   "score_after": 2345
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Rejudged the corrected candidate (fixes sp20[0] being assigned before temp_ft3 is initialized) at 2660; historical best 2535 remains unverified. Local repair families for inferred layouts, CFG lifetimes, signedness, declaration order, address temporaries, and shared returns did not improve. Reordering the arg1+8 load was also optimized away. 8/8 no improvement. Main mismatch is FPR/register allocation and control flow: target starts sub.s into f26/f22/f18, candidate f28/f24/f20; target directly loads arg1+8 into f30 and uses bc1fl. Tune expression grouping/temporary lifetimes to reproduce those FP register lifetimes.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795184911.078976,
-  "score_before": 2535,
-  "score_after": 2535
  },
  {
   "function": "func_800134D0",
@@ -77556,22 +77532,6 @@
   "score_after": 22615
  },
  {
-  "function": "Ray_TriangleIntersect",
-  "text": "Fresh candidate scored 2660; inherited saved best historical 2535. Correcting reported sp20[0] uninitialized assignment worsened to 2801. Current candidate restored to saved-best revision aeb74d16aaf21879a681; historical score remains unverified. FPR allocation and control flow diverge around instruction 10; inspect full assembly and function similarities.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795203574.963604,
-  "score_before": 2535,
-  "score_after": 2535
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Current best usable semantically corrected candidate b7ec498fadbbff209feb scores 2660; original saved_best aeb74d16aaf21879a681 historically 2535 but contains uninitialized sp20[0]=temp_ft3 before temp_ft3 calculation. Corrected variant verified 2660. Local repair trials (shared tail, layout, CFG lifetimes, signedness, declaration order, address temporary) tied at 2660; moving arg1+8 load earlier worsened 2710; no further improvement and move-on budget exhausted. Target's first computations use FPR $f26/$f22/$f18 and loads stack args from $t1/$a3 into stack; source cannot match allocations. Suggest next try explicitly typed vector struct and split operations into arrays to induce target's sequential stack scalar stores, preserving corrected calculations.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795206642.44451,
-  "score_before": 2535,
-  "score_after": 2535
- },
- {
   "function": "func_8001F9A4",
   "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed brief and target asm without new compiles; best candidate a9581802230eb473bc27 (score 2540) inherited unchanged. Target call order: func_8002638C(...,0x78) first into s1, then 0x79 into s2, then 0x7A, optional 0x13, then 0x7B, 0x7D, 0x7C, 0x162, 0x7F. Candidate calls 0x79 first; swapping worsened to 2565 (register allocation). Function is large (490 insns) with 72+ prior attempts and 24 local repairs; no progress path identified. Untested idea: rewrite the top 4-condition block so the first two calls are sequenced via separate statements with temps declared in call order, then check whether the sprintf/format-string section (D_800D2A80 literal reuse, lb vs lw on tables) can be fixed. Releasing as move_on.",
   "by": "api-claude-haiku-5-5-5",
@@ -77586,14 +77546,6 @@
   "created_at": 1795208720.229203,
   "score_before": 39802,
   "score_after": 39802
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Rechecked active candidate at 2660; local repair sweep across inferred_record_layout/address_temporary/const_read/shared_return/read_before_assign/goto_shared_tail and a whole-function cleanup had no instruction or score improvement. The current 2660 candidate is semantically corrected (unlike older saved_best which assigned sp20[0] before temp_ft3 initialized), but remains worse than inherited historical 2535. Earliest mismatch is FPR/GPR allocation beginning at initial sub.s ($f26 target vs $f28 candidate). Later key control-flow distinction: target loads the third normal as lwc1 $f30,8($a1) and uses bc1fl; current candidate's shape introduces mtc1 and bc1t. Candidate revision 4fb20d51371ea5f08e34; if continuing, restore/inspect saved_best and reported_corrected first, then redesign scalar temporary lifetimes to keep arg1[2] in an FPR and reproduce likely likely-float conditional branch polarity.\nIndependent local repair families plus cleanup rewrite: all stayed at 2660 with unchanged diff.\nNo improvement; mismatch evidence points to temp lifetime/FPR allocation and a float branch polarity shape, not layout or final return cleanup.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795209065.398825,
-  "score_before": 2535,
-  "score_after": 2535
  },
  {
   "function": "func_80069DCC",
@@ -77683,15 +77635,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
  },
  {
-  "function": "Ray_TriangleIntersect",
-  "text": "Saved best 2535 contains an uninitialized sp20[0] assignment; correcting it scores 2660. Donor-style vector rewrite scored 8125; register qualifier and early-return form left output unchanged at 2535.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795221667.058399,
-  "score_before": 2660,
-  "score_after": 2535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
- },
- {
   "function": "func_800134D0",
   "text": "Rechecked baseline 33706. Correcting typed word pointer increments improved to 33541; correcting two +4 word base offsets retained that score. Target frame 0x58, candidate 0x60. Local loop, scalar reuse and branch orientation variants worsened.\nCorrected typed pointer increments and two base offsets\n33706 to 33541; remaining stack and register differences",
   "by": "codex-gpt-6.1-terra-4",
@@ -77699,15 +77642,6 @@
   "score_before": 33706,
   "score_after": 33541,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:826701ae6fdad90e37fd85b61d603ce11b2b90a0166f19936ff3b7708c70404a"
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Corrected candidate scored 2660; historical saved best has uninitialized temp_ft3. Reassociating determinant, register or volatile temp_fs5 did not alter output; short-circuit comparison worsened to 2800.\nShort-circuit comparison for barycentric bounds\nScore worsened from 2660 to 2800",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795228915.5757172,
-  "score_before": 2660,
-  "score_after": 2660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
  },
  {
   "function": "func_80069DCC",
@@ -77726,15 +77660,6 @@
   "score_before": 2540,
   "score_after": 1830,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f001a307e6c9983fa40f94322332d3c28efa0628c5d6aef2d8a442998ecff830"
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Current baseline candidate rechecked at 2535. Found semantic bug in current baseline: it assigns sp20[0]=temp_ft3 before temp_ft3 initialization; fixed ordering and compiled, still 2660, so keep the inherited 2535 as currently source-identical but quality issue remains reported. Assembly starts with float vectors/stack locals; key target-only op in current mismatch is lwc1 $f30, 8($a1), suggesting preserving a loaded float temporary rather than treating scalar through integer mtc1. An attempted ordering patch had no score effect. Next step: restructure arg1 as typed 3-float vector and preserve its third component in an f32 local so compiler can retain lwc1 directly in FPR; test semantically correct candidate.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795234492.297693,
-  "score_before": 2660,
-  "score_after": 2660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
  },
  {
   "function": "func_800673EC",
@@ -77761,24 +77686,6 @@
   "score_before": 69729,
   "score_after": 69729,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Compiled one fix moving sp20[0] assignment after temp_ft3 initialization; score remained 2660. Semantic initialization issue resolved but target still differs from the current candidate (target 194 vs 198 instructions; first differences are FPR allocation and missing lwc1 $f30,8($a1)). Historical saved score 2535 is a different source and not currently verified. Next step: inspect saved_best only after validating its uninitialized assignment; focus on eliminating extra MTC1 of arg3 and staging arg1[2] as float to match the target's lwc1 $f30.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795238971.8394392,
-  "score_before": 2660,
-  "score_after": 2660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Function is Moller-Trumbore (orig=a0, dir=a1, v0=a2, v1=a3, v2=sp90, out=sp94). Clean rewrite (e1,e2,p=dir x e2,det=e1.p,inv=D_800D3E48/det,t=orig-v0,u,q=t x e1,v,out=e2.q*inv) compiled at 8125 (184 vs 194 insns; worse than saved 2535 but semantically correct). Key target feature: e2 components and dir components move through integer registers (mfc1 t0 -> sw 0x10($sp); lw t3,4($a1); mtc1 t3,$f) \u2014 i.e. the original treats e2 / dir as 32-bit int words (struct copy or s32 typed temporaries), and sp arrays at 0x0,0x10,0x20,0x30,0x40 are real locals (e1,e2,t,p,q). Next step: try Vec3 struct (f32 x,y,z) by-value copies for dir and e2 (e.g. `Vec3 d = *(Vec3*)dir; e2 = ...`) to force lw/sw integer moves.\nclean float-array Moller-Trumbore\n8125 vs saved 2535; no integer-register moves",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795241181.6530628,
-  "score_before": 2660,
-  "score_after": 2660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
  },
  {
   "function": "func_8001F9A4",
@@ -77851,15 +77758,6 @@
   "score_after": 69729
  },
  {
-  "function": "Ray_TriangleIntersect",
-  "text": "Verified best 1691. Left-associated determinant matches the original FP operation order and drops 2660 to 2111. Moving the double division before the origin loads while keeping the float cast late drops 2111 to 1691. Direction z remains an integer load of arg1+8 versus target lwc1, y is compiled as lwc1 versus target lw; final comparison also differs in branch shape.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795258882.543575,
-  "score_before": 2660,
-  "score_after": 1691,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
- },
- {
   "function": "func_800134D0",
   "text": "Corrected byte-scaled addresses, word strides and DEFLATE lookup load widths. Best verified 18480. Four independent volatile-local trials each worsened it; frame remains 0x60 vs 0x58.",
   "by": "codex-gpt-6.2-sol-6",
@@ -77905,42 +77803,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:826701ae6fdad90e37fd85b61d603ce11b2b90a0166f19936ff3b7708c70404a"
  },
  {
-  "function": "Ray_TriangleIntersect",
-  "text": "Four compiles without improvement. Restored verified 1395. Direction Z still enters through lw; target uses lwc1.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795281287.446927,
-  "score_before": 1691,
-  "score_after": 1395,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Four trials without improvement. Retained verified 1395. Direction Z load class and final branch shape still differ.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795283035.615075,
-  "score_before": 1395,
-  "score_after": 1395,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Verified saved score 1395. Adapted matched rayHitsTriangleXZ donor scored 2055. Volatile source load for direction Z, register-qualified Z local, and a canonical short-circuit final rejection each reproduced the baseline output. First mismatch is missing early lwc1 for direction Z at target row 30. Target's first use of Z is the multiply by edge2.y, before the direction Y load.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795283530.089888,
-  "score_before": 1395,
-  "score_after": 1395,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Verified best 1395. Target row 30 loads direction Z directly into $f30 and first multiplies it by edge2.y before loading direction Y. Final rejection also differs in branch shape.\nStaged six cross-product multiplications in target order in three variants, then staged only direction Z times edge2.y.\nAll six-product variants scored 2380. Single-product staging scored 2866 and still emitted an integer load for direction Z. Restored saved best 1395.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795284555.4517791,
-  "score_before": 1395,
-  "score_after": 1395,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
- },
- {
   "function": "func_80069DCC",
   "text": "Both 0x410000 tests use lw at +0xC (target lines 338 and 1098); nearby low flag masks use lhu, so retain their width. The second test's u32 correction improved 58307 to 57728 and fixed the frame (0x108 to 0xF8). The first test remains semantically too narrow in saved best. The target reloads func_8006E648 arg0 from actor+0x20 at the call; direct reload improved that region but scored +100 overall.",
   "by": "codex-gpt-6.2-sol-9",
@@ -77977,15 +77839,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
  },
  {
-  "function": "Ray_TriangleIntersect",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795296724.917828,
-  "score_before": 970,
-  "score_after": 970,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
- },
- {
   "function": "func_80069DCC",
   "text": "Judge previously passed its move-on threshold. Rechecked 57488 and compared three signedness edits; none improved the score. Earliest mismatch still reorders the D_80103EB0 branch and load of temp_s1+8.",
   "by": "codex-gpt-6.2-sol-6",
@@ -78002,15 +77855,6 @@
   "score_before": 57488,
   "score_after": 57488,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
- },
- {
-  "function": "Ray_TriangleIntersect",
-  "text": "Saved score 410 from 970. A volatile direction-Z dereference fixes its load scheduling. Two final early returns of var_v0 followed by setting var_v0 on success recover the target bc1fl and delay-slot multiply. Remaining: float zero is materialized before the determinant check instead of after the u calculation, integer register allocation shifts, and success has an extra move. Literal success return or simplifying the determinant guard restored score 760.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795302432.8131762,
-  "score_before": 970,
-  "score_after": 410,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
  },
  {
   "function": "func_800134D0",
@@ -78047,6 +77891,162 @@
   "score_before": 587,
   "score_after": 352,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:c7c9db374149c780502056f47da89f10203dda69ddea3efaa4e05141c5393527"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Rechecked a corrected version (moved temp_ft3 calculation before sp20[0] store): score 2660 versus historical best 2535. Tried changing `!(temp_ft0 > -1e-10f)` to `temp_ft0 <= -1e-10f`, score worsened to 3045; reverted to 2660. Adding an unused Vec3 type had no effect. Main remaining issue is register/stack allocation: target preserves vector components and uses fs registers (`sub.s f26`, f22, f18) while candidate uses f28/f24/f20; conditional near row 75 compares f2 with f4 but candidate compares f2 with f8. Candidate quality bug is fixed. Next experiment should tune aggregate/local representation and order; don't rely on historical 2535 without a current recheck.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795170354.6701581,
+  "score_before": 2535,
+  "score_after": 2535
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Current recheck reached 2660 (4 extra instructions) against a saved historical best of 2535; the quality-corrected reported alternative did not improve. Checked the first 40 target instructions and tested moving the uninitialized sp20[0] store after temp_ft3's calculation, marking temp_fs3 register, reordering the temp_ft0/boolean initialization, a direct combined range condition, and local layout/lifetime/signedness repairs. Most changes produced identical 2660 output; the combined range condition worsened to 2970. Candidate's opening arithmetic and stack/register allocation remain the main mismatch; target uses sub.s $f26 while candidate uses $f28, and stack argument loads/registers then drift. Inspect saved_best versus corrected candidate and re-establish valid source before tuning further; saved_best carries an uninitialized sp20[0] assignment, while correcting it produced the 2660 alternative.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795183875.055955,
+  "score_before": 2535,
+  "score_after": 2535
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Rejudged the corrected candidate (fixes sp20[0] being assigned before temp_ft3 is initialized) at 2660; historical best 2535 remains unverified. Local repair families for inferred layouts, CFG lifetimes, signedness, declaration order, address temporaries, and shared returns did not improve. Reordering the arg1+8 load was also optimized away. 8/8 no improvement. Main mismatch is FPR/register allocation and control flow: target starts sub.s into f26/f22/f18, candidate f28/f24/f20; target directly loads arg1+8 into f30 and uses bc1fl. Tune expression grouping/temporary lifetimes to reproduce those FP register lifetimes.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795184911.078976,
+  "score_before": 2535,
+  "score_after": 2535
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Fresh candidate scored 2660; inherited saved best historical 2535. Correcting reported sp20[0] uninitialized assignment worsened to 2801. Current candidate restored to saved-best revision aeb74d16aaf21879a681; historical score remains unverified. FPR allocation and control flow diverge around instruction 10; inspect full assembly and function similarities.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795203574.963604,
+  "score_before": 2535,
+  "score_after": 2535
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Current best usable semantically corrected candidate b7ec498fadbbff209feb scores 2660; original saved_best aeb74d16aaf21879a681 historically 2535 but contains uninitialized sp20[0]=temp_ft3 before temp_ft3 calculation. Corrected variant verified 2660. Local repair trials (shared tail, layout, CFG lifetimes, signedness, declaration order, address temporary) tied at 2660; moving arg1+8 load earlier worsened 2710; no further improvement and move-on budget exhausted. Target's first computations use FPR $f26/$f22/$f18 and loads stack args from $t1/$a3 into stack; source cannot match allocations. Suggest next try explicitly typed vector struct and split operations into arrays to induce target's sequential stack scalar stores, preserving corrected calculations.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795206642.44451,
+  "score_before": 2535,
+  "score_after": 2535
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Rechecked active candidate at 2660; local repair sweep across inferred_record_layout/address_temporary/const_read/shared_return/read_before_assign/goto_shared_tail and a whole-function cleanup had no instruction or score improvement. The current 2660 candidate is semantically corrected (unlike older saved_best which assigned sp20[0] before temp_ft3 initialized), but remains worse than inherited historical 2535. Earliest mismatch is FPR/GPR allocation beginning at initial sub.s ($f26 target vs $f28 candidate). Later key control-flow distinction: target loads the third normal as lwc1 $f30,8($a1) and uses bc1fl; current candidate's shape introduces mtc1 and bc1t. Candidate revision 4fb20d51371ea5f08e34; if continuing, restore/inspect saved_best and reported_corrected first, then redesign scalar temporary lifetimes to keep arg1[2] in an FPR and reproduce likely likely-float conditional branch polarity.\nIndependent local repair families plus cleanup rewrite: all stayed at 2660 with unchanged diff.\nNo improvement; mismatch evidence points to temp lifetime/FPR allocation and a float branch polarity shape, not layout or final return cleanup.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795209065.398825,
+  "score_before": 2535,
+  "score_after": 2535
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Saved best 2535 contains an uninitialized sp20[0] assignment; correcting it scores 2660. Donor-style vector rewrite scored 8125; register qualifier and early-return form left output unchanged at 2535.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795221667.058399,
+  "score_before": 2660,
+  "score_after": 2535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Corrected candidate scored 2660; historical saved best has uninitialized temp_ft3. Reassociating determinant, register or volatile temp_fs5 did not alter output; short-circuit comparison worsened to 2800.\nShort-circuit comparison for barycentric bounds\nScore worsened from 2660 to 2800",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795228915.5757172,
+  "score_before": 2660,
+  "score_after": 2660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Current baseline candidate rechecked at 2535. Found semantic bug in current baseline: it assigns sp20[0]=temp_ft3 before temp_ft3 initialization; fixed ordering and compiled, still 2660, so keep the inherited 2535 as currently source-identical but quality issue remains reported. Assembly starts with float vectors/stack locals; key target-only op in current mismatch is lwc1 $f30, 8($a1), suggesting preserving a loaded float temporary rather than treating scalar through integer mtc1. An attempted ordering patch had no score effect. Next step: restructure arg1 as typed 3-float vector and preserve its third component in an f32 local so compiler can retain lwc1 directly in FPR; test semantically correct candidate.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795234492.297693,
+  "score_before": 2660,
+  "score_after": 2660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Compiled one fix moving sp20[0] assignment after temp_ft3 initialization; score remained 2660. Semantic initialization issue resolved but target still differs from the current candidate (target 194 vs 198 instructions; first differences are FPR allocation and missing lwc1 $f30,8($a1)). Historical saved score 2535 is a different source and not currently verified. Next step: inspect saved_best only after validating its uninitialized assignment; focus on eliminating extra MTC1 of arg3 and staging arg1[2] as float to match the target's lwc1 $f30.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795238971.8394392,
+  "score_before": 2660,
+  "score_after": 2660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Function is Moller-Trumbore (orig=a0, dir=a1, v0=a2, v1=a3, v2=sp90, out=sp94). Clean rewrite (e1,e2,p=dir x e2,det=e1.p,inv=D_800D3E48/det,t=orig-v0,u,q=t x e1,v,out=e2.q*inv) compiled at 8125 (184 vs 194 insns; worse than saved 2535 but semantically correct). Key target feature: e2 components and dir components move through integer registers (mfc1 t0 -> sw 0x10($sp); lw t3,4($a1); mtc1 t3,$f) \u2014 i.e. the original treats e2 / dir as 32-bit int words (struct copy or s32 typed temporaries), and sp arrays at 0x0,0x10,0x20,0x30,0x40 are real locals (e1,e2,t,p,q). Next step: try Vec3 struct (f32 x,y,z) by-value copies for dir and e2 (e.g. `Vec3 d = *(Vec3*)dir; e2 = ...`) to force lw/sw integer moves.\nclean float-array Moller-Trumbore\n8125 vs saved 2535; no integer-register moves",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795241181.6530628,
+  "score_before": 2660,
+  "score_after": 2660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Verified best 1691. Left-associated determinant matches the original FP operation order and drops 2660 to 2111. Moving the double division before the origin loads while keeping the float cast late drops 2111 to 1691. Direction z remains an integer load of arg1+8 versus target lwc1, y is compiled as lwc1 versus target lw; final comparison also differs in branch shape.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795258882.543575,
+  "score_before": 2660,
+  "score_after": 1691,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Four compiles without improvement. Restored verified 1395. Direction Z still enters through lw; target uses lwc1.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795281287.446927,
+  "score_before": 1691,
+  "score_after": 1395,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Four trials without improvement. Retained verified 1395. Direction Z load class and final branch shape still differ.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795283035.615075,
+  "score_before": 1395,
+  "score_after": 1395,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Verified saved score 1395. Adapted matched rayHitsTriangleXZ donor scored 2055. Volatile source load for direction Z, register-qualified Z local, and a canonical short-circuit final rejection each reproduced the baseline output. First mismatch is missing early lwc1 for direction Z at target row 30. Target's first use of Z is the multiply by edge2.y, before the direction Y load.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795283530.089888,
+  "score_before": 1395,
+  "score_after": 1395,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Verified best 1395. Target row 30 loads direction Z directly into $f30 and first multiplies it by edge2.y before loading direction Y. Final rejection also differs in branch shape.\nStaged six cross-product multiplications in target order in three variants, then staged only direction Z times edge2.y.\nAll six-product variants scored 2380. Single-product staging scored 2866 and still emitted an integer load for direction Z. Restored saved best 1395.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795284555.4517791,
+  "score_before": 1395,
+  "score_after": 1395,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795296724.917828,
+  "score_before": 970,
+  "score_after": 970,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "Ray_TriangleIntersect",
+  "text": "Saved score 410 from 970. A volatile direction-Z dereference fixes its load scheduling. Two final early returns of var_v0 followed by setting var_v0 on success recover the target bc1fl and delay-slot multiply. Remaining: float zero is materialized before the determinant check instead of after the u calculation, integer register allocation shifts, and success has an extra move. Literal success return or simplifying the determinant guard restored score 760.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795302432.8131762,
+  "score_before": 970,
+  "score_after": 410,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
  },
  {
   "function": "Ray_TriangleIntersect",
