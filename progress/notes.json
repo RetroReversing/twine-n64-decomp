@@ -5296,14 +5296,6 @@
   "score_after": 1780
  },
  {
-  "function": "func_8009A70C",
-  "text": "Saved historical score 210 candidate is semantically incorrect: it overwrites table pointer with fraction before indexing; reported candidate issue. Corrected rewrite revision a85edec574db09199574 scores 590; it preserves func_8009846C result as byte table. Remaining differences include missing andi after ID construction and interpolation register/order. Try narrowing ID to u16 in corrected revision and reordering interpolation operands.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795163895.2642188,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "func_800219A0",
   "text": "Reverified score 410 (50 vs 51 instructions) at the address-range -O1. Main gaps are interleaved target prologue, target store of zero in the flag branch delay slot, and target materializing constant 1 separately on both arms. Moving result initialization earlier scored 500; moving the flag load before the zero store scored 470, or 485 volatile. search_flags found no improvement. Next isolate the duplicated arm constant and identify whether a compiler profile with prologue scheduling exists for the surrounding functions.",
   "by": "codex-gpt-6.2-sol-8",
@@ -6598,14 +6590,6 @@
   "created_at": 1795164192.4468732,
   "score_before": 200,
   "score_after": 200
- },
- {
-  "function": "func_8009A70C",
-  "text": "Judge calls twice exceeded 180 s. First recorded corrected pointer-preserving rewrite 2a11b55e8d0a55956e1e (990); candidate did not change on first recheck after the second timeout. Prefer previous corrected a85edec574db09199574 (590) if retrievable over historical 210, which loses the table pointer. On corrected C restore 16-bit ID mask, stage fraction ahead of index branch and swap the fixed-point value/state saved registers to s0/s1. The second timed-out source tested explicit tableId &= 0xFFFF and a u16 fraction local used in the multiply.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795166234.172686,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "menuUpdateCursorActor",
@@ -12024,14 +12008,6 @@
   "score_after": 75
  },
  {
-  "function": "func_8009A70C",
-  "text": "Best semantically corrected C is recorded in attempt 25769849447, rev 09e5204f040ec29d724e, score 345. It preserves the table base and matches the complete interpolation body, including s1 state, s0 fixed-point, and the two addu operand orders; inherited score 210 candidate loses the table pointer. Remaining differences are the missing ID andi a0,v1,0xffff, which shifts subsequent branches, and scheduling of the initial saves/load/bnez. Explicit mask, signed-byte widening then truncation, and equivalent shift pair all optimized to the same unmasked 350 candidate. Test scheduler profiles and a different width/opaque-value constraint for the redundant ID mask.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795182187.9546611,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "func_8003EC70",
   "text": "Low progress after 28 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 390 differing rows (3 opcode, 84 register, 2 stack, 20 branch target, 14 operand, 185 reordered, 42 inserted, 40 deleted; advisory).\nTarget: addiu $sp, $sp, -0x10\nCandidate: addiu $sp, $sp, -0x18\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x10 | C: addiu $sp, $sp, -0x18\n  = move $t2, $a0\n  = lui $at, %hi(D_800E19CE)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nCurrent best score 15622, obtained from saved best by changing extern pointer globals D_800E1770/D_800E19B8..C4 from s32* to s8*, changing stack flags to u8, and widening var_t2 and var_t3 to s32 (var_t2 registered). Pointer byte typing improved score 19787\u219219302; u8 flags 19302\u219218702; var_t2 s32 18702\u219216782; var_t3 s32 16782\u219215622. var_t1 s32 was much worse; keep s16. Frame still -0x18 vs target -0x10; current C remains very far (436 vs 430 instr, 390 mismatch rows), score not a match. Tried bounded local repairs; record-layout repairs made no difference, scalar storage worsened. Explicit register on var_t1/var_t3/var_a0 no effect. Return s16 worsened to 15822; keep s32 return. Best revision 6d98647f501ec78598b5 was restored and is now saved. Remaining conspicuous diff includes target move $a0,$zero / index registers diverging; consider original source loop structure and stack/register allocation. Claim auto-ended low-progress; no further source edits compiled.",
   "by": "codex-gpt-6-luna-22",
@@ -14896,14 +14872,6 @@
   "score_after": 14276
  },
  {
-  "function": "func_8009A70C",
-  "text": "Repaired invalid interpolation pointer: retain func_8009846C return as table base, compute frac separately before range branch, load samples[1] then samples[0]. Valid draft scored 165 and verified later baseline 155 (2f5a31bdaa8179c4fd02); experimental d678d2f5854f2cfee1e7 scored 150 before concurrent candidate change. Primary difference is missing andi $a0,$v1,0xffff after the byte OR, with consequent branch/jump displacements. Remaining independent mismatch is the interpolation address add operand order; untested anchor `(u8 *)temp_v0 + temp_v1_2` -> `(u8 *)(temp_v1_2 + temp_v0)`. Explicit u16 and cast via s16 high byte still let compiler delete the ID mask. Claim transferred concurrently.\n\nFollow-up confirmed `(u8 *)(temp_v1_2 + temp_v0)` fixes the interpolation address add operand order. Combine this with the OR expression variant that scored 150. Claim ended during compilation again.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795183750.054388,
-  "score_before": 210,
-  "score_after": 150
- },
- {
   "function": "func_8008C870",
   "text": "Full interpolation reconstructed from draft with float tables; saved best 3081, revision bab49db61d318fb6f395. Local parameter width, branch orientation, operand order and frame repairs did not improve score. Remaining differences include frame size, unsigned-to-float conversion branches/constants, scheduling and register allocation. A 24-byte unused frame gives target stack size; investigate explicit staged double conversions and constant symbols.",
   "by": "codex-gpt-6.1-terra-3",
@@ -15334,14 +15302,6 @@
   "created_at": 1795183972.5986838,
   "score_before": 1330,
   "score_after": 1330
- },
- {
-  "function": "func_8009A70C",
-  "text": "Saved 540 (cbb1a41478c502e3a508), eight rendered differences. Volatile level reproduces all intermediate stores/reloads; duplicate source returns and evaluating fraction ahead of interpolation recovered the tail. First remaining operation is redundant `andi a0,v1,0xffff` after building a two-byte ID; staged u32, signed s16 and union narrowing all eliminated the mask. Second is zero-ID beql cloning the level store into its delay slot instead of regular branch to common store. Preserve current interpolation; explore differing conversion modes at the callee declaration and branch/store scheduling flags.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795183984.9193861,
-  "score_before": 150,
-  "score_after": 150
  },
  {
   "function": "func_80029C08",
@@ -18064,14 +18024,6 @@
   "score_after": 20
  },
  {
-  "function": "func_8009A70C",
-  "text": "Saved 535 (540 inherited). Signed s16 curve moves OR into v1 as required. Need andi a0,v1,0xffff before zero-test, branch-likely with duplicate level store, and swap point-address addu sources. Explicit (u16) in zero test is optimized away; signed byte high creates lb and puts mask in call delay instead. Splitting early level lifetime regressed, as did shifting high left by 24 then arithmetic right by 16. Reversing point expression or changing qualification of the early store alone had no effect.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795185384.298213,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_800278AC",
   "text": "Saved 595\u2192580 by staging scaled offset and table base separately. Four follow-ups tied (cache entry pointer, stage zero call arguments, widen arg0, subtract from base). Diagnostic -O2, -g and -fschedule-insns worsen; -O1 -fno-schedule-insns2 ties. Next inspect alternate preheader/tail lifetime shapes: target loads state into a3 before frame setup, repeats arg0 mask into v1 in both arms, and puts a0=0 in the jal delay slot.",
   "by": "codex-gpt-6.2-sol-3",
@@ -19952,14 +19904,6 @@
   "score_after": 170
  },
  {
-  "function": "func_8009A70C",
-  "text": "Rechecked baseline 540; local repairs batch tested branch_orientation (760) and signedness (535), with move-on reached at 4/4. Best is signed curve declaration candidate a78e02c2b29d46999ab6, but no verified improvement to 0. Remaining target mismatch is around curve construction/control flow: target andi $a0,$v1,0xffff; beql $a0,$zero then stores state level, candidate branches directly on curve and lacks target store sequence. Inspect assembly around mismatch and restructure zero curve branch/store ordering.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795186952.63472,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_800AC0A0",
   "text": "[Released without compiling it once; notes not checked by a compile.] Existing checked function-only KMC -O1 suggestion yields all 96 ROM bytes and awaits application. KMC -O2 with both instruction schedulers disabled was also verified exact. Under current -O2 the parameter home store is scheduled into the floating compare hazard window, accounting for the remaining score 170.",
   "by": "codex-gpt-6.2-sol-8",
@@ -21224,14 +21168,6 @@
   "score_after": 450
  },
  {
-  "function": "func_8009A70C",
-  "text": "Verified 535 inherited and hit 4/4 without improvement. Candidate preserves correct interpolation/table pointer. The only missing target instruction is andi a0,v1,0xffff between curve ID construction and branch-likely. Disjoint addition scored 875, packing bytes high and arithmetically shifting before conversion 745, XOR 735, separate wide packed local with u16 conversion and u16 zero-test 535. Diagnostic flags -fno-expensive-optimizations scored 665, -fno-peephole 535, -O1 950. Look for a type/lifetime idiom that removes compiler knowledge of upper zero bits without incurring new instructions, or diagnose compiler/profile differences. The inherited candidate does have the beql and duplicate store; some variant diff views refer to the last exploratory source.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795188888.318649,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "initObjectRecord",
   "text": "Improved verified score 3070 to 745: corrected byte-offset address calculation and float pointer increments from +4 to +1, cached the base pointer, and used three-word struct assignments to group loads/stores. Target and candidate both 65 instructions; remaining mismatches primarily prologue scheduling and registers. Diagnostic on prior revision ee9f5b58060537546a4c: -O2 scored 210, -O1 with both scheduling passes 235; no exact flag match. Try those profiles against latest source and reconstruct original record types/lifetimes.",
   "by": "codex-gpt-6.1-terra-5",
@@ -22264,14 +22200,6 @@
   "score_after": 200
  },
  {
-  "function": "func_8009A70C",
-  "text": "Best 535 unchanged. Unsigned curve types scored 540, direct volatile pointer store and explicit u16 condition did not change generated code. Remaining target andi before beql with store in delay slot; compiler merges duplicated stores and emits beqz/move. Need preserve separate early store path and force narrowing.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795189942.027711,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "audioVoiceApplyEnvelope",
   "text": "No match; best/current rechecked score 135, 98.6%, target/candidate both 100 instructions. Most body instructions match. Final tail differs in order/register allocation: target loads v->f24, loads D_800FDB84 into v1, ORs 0x20 into f24 and stores it, then stores global value to f58; candidate emits OR/store f24 before global load and uses v0 for the global value. Reordering f58 before f24 or caching old f24 made score worse (280/330); restored best candidate. Further experiment: keep original order and force statement evaluation/register lifetimes near tail.",
   "by": "codex-gpt-6-luna-19",
@@ -23296,14 +23224,6 @@
   "score_after": 252
  },
  {
-  "function": "func_8009A70C",
-  "text": "Verified baseline 535. Target first mismatch is andi a0,v1,0xffff followed by branch-likely with level store in delay slot; candidate branches directly and stores on separate path. Changing curve to u16 scored 540, unsigned frac and explicit casts scored 535. Investigate preserving narrowing at condition and shared return/store control flow without changing the fixed-point interpolation. Target byte loads and arithmetic corroborate current candidate.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795191040.923382,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_800882D0",
   "text": "Best 420 unchanged, all instructions present but prologue and final call setup reordered. Proper prototypes and embedded final store made no difference; swapping stores worsened. -O1 with both scheduling passes gives score 120, leaving only a2 zero setup versus final byte store in call delay slot; not an exact match.",
   "by": "codex-gpt-6.1-terra-3",
@@ -24070,14 +23990,6 @@
   "created_at": 1795192198.348802,
   "score_before": 10,
   "score_after": 10
- },
- {
-  "function": "func_8009A70C",
-  "text": "Verified baseline score 535. Target masks curve to u16 then branch-likely stores level in delay slot; candidate tests unmasked v1 and branches to shared store. u16 curve scored 540, explicit u16 comparison and u32 frac left score unchanged; u16 frac worsened. Restructure early return and store to generate branch-likely without disturbing interpolation.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795192202.070513,
-  "score_before": 150,
-  "score_after": 150
  },
  {
   "function": "guPerspectiveF",
@@ -26384,14 +26296,6 @@
   "score_after": 35
  },
  {
-  "function": "func_8009A70C",
-  "text": "Best 535 rechecked. Baseline major sequence matches; remaining at interpolation: target forms curve=(byte7<<8)|byte0 then andi 0xffff, branch-likely return storing level in delay slot. Candidate short-circuit test index<127 && samples!=NULL made score 760; restored saved_best. Target then passes table ptr to callee, computes idx and fractional bits, uses beqz bounds and interpolation; align source control flow to target assembly lines 31 onward.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795197473.959855,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_800ABE20",
   "text": "Small nonreturning dispatcher has target bnez $a2 followed by two direct jumps (tail calls). C model using ordinary calls or noreturn callee attributes still emits jal and prologue/epilogue (best source historical 820, current 1010). Target argument is the third parameter in $a2. Need compiler representation for tail-call/jump dispatch (perhaps callee declarations as aliases/macros) while maintaining C-only constraint. Tried no-op resubmission; unchanged. No reusable code insight.",
   "by": "codex-gpt-6-luna-13",
@@ -27344,14 +27248,6 @@
   "score_after": 1650
  },
  {
-  "function": "func_8009A70C",
-  "text": "Reverified 535. A signed-short callee prototype scored 755, wide curve 540, explicit mask in zero check and multiplication by 256 both tied 535. Current verified mismatch is at row 31: target andi a0,v1,0xffff; beql with the state store in its delay slot; candidate beqz v1 with move a0,v1 and a shared store. Explore a packing representation or compiler mode that retains narrowing before the branch and gives the zero path an independent store. The callee itself confirms only a halfword store, so signedness is not established.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795198488.153619,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_80082BD0",
   "text": "Saved best verified at score 200 (95.7%); only two extra instructions `addiu $v1,$zero,-4` and `and $v0,$v0,$v1` due C mask/alignment around output pointer. Tried changing output pointer to direct `&D_80102E74`; this produced score 1110 and wrong relocations because expressions then addressed symbols instead of common base. Restore saved best. Target is transformation of matrix at base D_80102E74, using base-0xC scalar and fields at 0x1C..0x38; performs grouped FP multiply/add then writes fields 0, global D_80102E78, offset 8. Explore making a struct overlay with base pointer computed via address relationship, preserving addressable base without explicit bitmask.",
   "by": "codex-gpt-6-luna-17",
@@ -28048,14 +27944,6 @@
   "score_after": 140
  },
  {
-  "function": "func_8009A70C",
-  "text": "Best verified score 535 (61 candidate vs 62 target instructions). Rechecked starting source, changed curve from s16 to u32 (worse, 540), restored s16 (back to 535), and made the zero-curve branch share the final store (same score). Residual mismatch begins at the assembled settings curve: target emits or $v1,$v1,$v0; andi $a0,$v1,0xffff; beql $a0,$zero with sw $s0,0x30($s1) in its delay slot. Candidate instead branches directly on v1 and omits that store. Also minor branch offsets and add operand order differ. Try a source shape that explicitly retains the 16-bit mask and places the level store in the likely/true delay slot.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795199507.185566,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_800219A0",
   "text": "Baseline score 1238; available local repair batch produced no improvements (struct layout, one-field struct, signedness, declaration order, const read tied; branch inversion worsened). A direct-globals rewrite compiled at 2795 and was worse. Target frame is 0x18; candidate frame 0x20. Target first branch specifically uses short-circuit: load D_80108400, store arg byte in D_8010A4C0 delay slot, branch if global nonzero, then andi arg 0xff / beqz. Candidate's arg0!=0 shape produced sll/sltu and changed control flow. Further work should restore saved best and preserve that exact condition shape while trimming frame. Target also uses base pointer D_8010A4E4 and accesses offsets, with -0x24 byte flag; direct global stores made large excess code.",
   "by": "codex-gpt-6-luna-13",
@@ -28726,14 +28614,6 @@
   "created_at": 1795200578.853756,
   "score_before": 45,
   "score_after": 45
- },
- {
-  "function": "func_8009A70C",
-  "text": "Best current source rechecks at 535/62 instructions. First compile recovered that score; attempted u16 curve restructure worsened to 1030 due broad register allocation changes, then restored best. Six local repair variants: target_call_arity, branch_orientation, signedness, declaration_order, callee_parameter_width, const_read; none improved. Core residual mismatch near interpolation entry: target ORs curve, ANDIs to 16 bits into a0, then beql on zero with state->level store in delay slot; candidate branches on v1, moves it to a0, and omits that store placement. Target call result is checked, then computes index/high fractional portion. Need reshape control flow to common final store with the zero-curve path branching directly to epilogue, and preserve signed s16 curve to avoid global register-allocation regression. Remaining budget exhausted; no exact match.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795200587.738668,
-  "score_before": 150,
-  "score_after": 150
  },
  {
   "function": "func_80022AD8",
@@ -29622,14 +29502,6 @@
   "created_at": 1795201712.550915,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_8009A70C",
-  "text": "Saved best 535 (61 vs target 62 instructions). Target preserves original clamped level in $s0, constructs curve from settings[7:0], masks low 16 bits then uses beql to bypass table lookup while storing original value in delay slot. Current C uses direct curve==0 early return, resulting in missing `andi $a0,$v1,0xffff`, likely no saved $s0 / delay-slot store, and downstream branches four bytes early. Casting curve test to u16 and changing early return to common store did not affect output. Branch-orientation local repair worsened to 755. Best revision 301f8e238a3e60b79bbd. Untested next step: materialize u32 curve bytes and explicitly test `(curve & 0xFFFF)==0`, then use a common final `state->level=level` store with lookup logic inside nonzero condition; force level to remain live across func_8009846C.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795201737.701899,
-  "score_before": 150,
-  "score_after": 150
  },
  {
   "function": "func_800AB880",
@@ -32256,14 +32128,6 @@
   "score_after": 35
  },
  {
-  "function": "func_8009A70C",
-  "text": "Best candidate scores 535 (saved best, revision d1f7823741fd6feb2301). Remaining diff: target does 'or $v1,$v1,$v0; andi $a0,$v1,0xffff; beql $a0,$zero' (curve masked to u16 before the zero test, with a delay-slot store of level), yours tests 'beqz $v1' unmasked. Tried: curve u16 (540, worse); (u16) casts on zero test, call arg, and combined assignment (all 535, casts elided); curve u32 (540). Untested: compute the combined value in a u32 temp and mask it explicitly before the zero test; or restructure so the zero path shares the store with the samples==NULL path.",
-  "by": "api-claude-haiku-5-5-9",
-  "created_at": 1795204022.746675,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_800A3840",
   "text": "Current candidate 1367 and saved_best restored (0842122d3d709ad544e9; historical 1367, originally improved from 1587). Latest local assignment_at_use proposal does not compile; dead_pointer_clear leaves output unchanged. At current baseline target frame is 0x40 while candidate uses 0x48 and saves s0; mismatch mostly register allocation. Earlier best omitted words[15] temporary element but still 1367. Continue exploring matrix scratch/copy layout and volatile qualifiers.",
   "by": "codex-gpt-6-luna-9",
@@ -33958,14 +33822,6 @@
   "created_at": 1795205594.601016,
   "score_before": 690,
   "score_after": 690
- },
- {
-  "function": "func_8009A70C",
-  "text": "Rechecked best 535 (61 vs 62 instructions). Zero-curve store merges with final store; target has separate beql delay-slot store plus an explicit andi before the branch. No improvement after four compiles.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795205594.61968,
-  "score_before": 150,
-  "score_after": 150
  },
  {
   "function": "func_8005E350",
@@ -41382,15 +41238,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b82f7b0cab97c89b065d2ff98c20925df0a27771d7a11fb7a8043d23b39b19c6"
  },
  {
-  "function": "func_8009A70C",
-  "text": "Saved best is 535 (61 vs target 62 instructions). u32/u16 casts around the curve zero check were identical (535); an 8-bit mask worsened to 565; hoisting func_8009846C scored 1141 and changed register allocation. Restored saved best. Remaining discrepancy: target masks curve with andi before beql and stores level in the branch delay slot.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795213159.8490062,
-  "score_before": 535,
-  "score_after": 535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
- },
- {
   "function": "func_80082BD0",
   "text": "Rechecked saved best at 200. A staged local-load rewrite scored 200 and reduced the apparent mismatch to two unnecessary address-mask instructions (addiu -4; and pointer with mask). Direct global out=&D_80102E74 regressed to 1110, so recover base candidate. Existing accepted/proposed knowledge about interleaving staged float loads applies conceptually; current best almost exactly matches.",
   "by": "codex-gpt-6-luna-6",
@@ -45297,15 +45144,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:383b5fa42765986c26a7e46292ac5360f07b43568e62043750f9b6a316883237"
  },
  {
-  "function": "func_8009A70C",
-  "text": "Still 535 (best, revision a78e02c2b29d46999ab6). Tried this session: (u16)curve on zero test and u16 curve type (535 / 540 worse). Remaining diff is the target's 'andi $a0,$v1,0xffff' before 'beql $a0,$zero' with delay-slot store of level; C emits 'beqz $v1' directly. Next step: try a zero test on a separate u32 temp that is masked (e.g. u32 key = low | (high<<8); if ((u16)key == 0) with curve assigned afterwards), or move the 'state->level = level' store into the branch delay slot via a dedicated else arm.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795216641.068225,
-  "score_before": 535,
-  "score_after": 535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
- },
- {
   "function": "func_8007AABC",
   "text": "Recovered high-scoring C (score 10) by adding the missing second angleDelta12 arg (arg1). It matches all operations; only FPR allocation differs at final add/store: target add.s f2,f2,f0/store f2; baseline uses f0,f0,f2/store f0. Reversed addition order tested, worsened score to 30 and shifted temp allocation the other way. Next step: recover saved_best and try explicit separate float temporaries to force input value in f2 and scaled delta in f0 immediately before addition.",
   "by": "codex-gpt-6-luna-11",
@@ -47989,15 +47827,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b596b3f3c7ea884cca2ee049fad605fca3901802cc7f905ecb89cd8c7731fd1c"
  },
  {
-  "function": "func_8009A70C",
-  "text": "No improvement (best 535 saved). Tried: u16 curve with if(curve!=0) else-store form (540); u32 curve + separate u16 arg var (540); u32 curve with (curve&0xffff) test and call, proto taking u32 (540). All give 'or a0,v1,v0; beqz a0' \u2014 GCC folds the mask away. Target does or v1; andi a0,v1,0xffff; beql a0 with delay sw s0. Next step: try getting curve from a halfword/composed via a struct/union or macro with a separate temp so the or result stays live in v1 beyond the call arg copy.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795221080.234955,
-  "score_before": 540,
-  "score_after": 540,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
- },
- {
   "function": "func_8011CC3C",
   "text": "Address temporary in clearing loop improved 1788 to 1783; narrower var_a0 worsened to 2323; record layouts unchanged.\nTarget frame 0x38 versus candidate 0x40, with extensive register differences.",
   "by": "codex-gpt-6.1-terra-5",
@@ -49114,15 +48943,6 @@
   "created_at": 1795223912.069343,
   "score_before": 0,
   "score_after": 0
- },
- {
-  "function": "func_8009A70C",
-  "text": "Still 540 (61 vs 62 insns). Target: or v1; andi a0,v1,0xffff; beql a0 (delay sw s0,0x30(s1)); beqz a0 after call. Tried u16/s16/u32/s32 curve, (u16)curve test, &0xffff, (s8) on byte 7 or byte 0 \u2014 no andi emitted or worse. Next step: pass the composed value through a separate non-u16 expression (e.g. macro/inline helper returning u16 from settings, or curve read via two-step u32 var then u16 copy used for the call only).",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795223921.735538,
-  "score_before": 540,
-  "score_after": 540,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
  },
  {
   "function": "func_80022AD8",
@@ -56911,15 +56731,6 @@
   "score_before": 10311,
   "score_after": 10311,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:be3bfb18986f84646e4e4452ad3173548dc392435ff9905c1d6b2bbf8be8c8a4"
- },
- {
-  "function": "func_8009A70C",
-  "text": "Verified best 405 (target/candidate both 62 instructions), improved from 535 by preserving the early store of level for the nonzero curve path: after masked curve zero check, zero arm stores level and returns; nonzero arm stores level before lookup. Adding goto structure or masking variants didn't change output; a full rewrite to symmetric if/else scored 590. Remaining diff is only three instructions around curve test: target andi $a0,$v1,0xffff; beql $a0,$zero,...; candidate beqz $v1 and move $a0,$v1. Existing earlier candidates casting u16 or assigning u32 did not help. Next step: test a separate u32 masked curve local used for both zero check and callee argument, preserving store/return structure.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795235107.845883,
-  "score_before": 535,
-  "score_after": 405,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
  },
  {
   "function": "func_80096F44",
@@ -70292,15 +70103,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
-  "function": "func_8009A70C",
-  "text": "Judge reached 4/4. Rechecked score-405 saved best, with 3 rows divergent. u16 curve scored 460, signed low cast scored 585, and commuting final sample indexing tied 405.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795267046.316426,
-  "score_before": 405,
-  "score_after": 405,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
- },
- {
   "function": "func_800882D0",
   "text": "Move-on threshold reached. Scheduling of send and the state stores remains.",
   "by": "codex-gpt-6.2-sol-6",
@@ -70479,15 +70281,6 @@
   "score_before": 210,
   "score_after": 210,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_8009A70C",
-  "text": "No improvement after testing store removal, typed store and explicit join. Each scored 535 vs saved 405, with the zero and final stores merged. CSE and thread-jump flags tied 535.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795268079.2611551,
-  "score_before": 405,
-  "score_after": 405,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
  },
  {
   "function": "func_800882D0",
@@ -70913,15 +70706,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
-  "function": "func_8009A70C",
-  "text": "Score 405 at threshold. Cast in zero guard and sinking pre-call store tied; reversed multiply/add scored 410/435. Target masks assembled curve into a0 and uses a likely branch.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795270074.561876,
-  "score_before": 405,
-  "score_after": 405,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
- },
- {
   "function": "func_800882D0",
   "text": "At threshold. Score 60 has jal too early. Third-argument comma moves call later but puts a2 setup in delay slot, score 120. Offset reuse and zero-message pointer cast tied.",
   "by": "codex-gpt-6.2-sol-6",
@@ -71136,15 +70920,6 @@
   "score_before": 5386,
   "score_after": 2866,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:d4fdff81ff1e1ec6761c123974a3a4b176a81c176e58520768b329eb9795fd33"
- },
- {
-  "function": "func_8009A70C",
-  "text": "4/4. Volatile high-byte read left exact diff unchanged (405). Widening curve scored 460, widening plus zero-only store and goto join scored 540. Target mask feeds branch and call; zero-path store is annulled on nonzero path.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795271741.725843,
-  "score_before": 405,
-  "score_after": 405,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
  },
  {
   "function": "func_800882D0",
@@ -71408,15 +71183,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0ed5ea5c32b5dbaa0fc5709ed3034853e04a13a72595c1e6e4e002275e2dbecb"
  },
  {
-  "function": "func_8009A70C",
-  "text": "Move-on limit reached; verified saved best 140, only missing andi and shifted branch targets. Explicit forwarding scores 145 because OR goes straight to a0. Flags no-expensive-optimizations 195; no-cse-follow-jumps 145. Next step: test a byte access expression that evades GCC's range inference until RTL combine.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795273848.1074271,
-  "score_before": 405,
-  "score_after": 145,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
- },
- {
   "function": "func_8007AABC",
   "text": "Rechecked 10: add.s and swc1 use f0 instead of f2; swapping sum operands or staging delta scored 30 by swapping the conversion/product allocation too. The target preserves incoming a1 in the call. Next step: test explicit a1 forwarding with the original addition order and a standalone compound assignment.\nReverse addition and materialize a delta with explicit second call argument.\nBoth scored 30; restored 10.",
   "by": "codex-gpt-6.2-sol-6",
@@ -71561,15 +71327,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
-  "function": "func_8009A70C",
-  "text": "Threshold reached. Saved 140 lacks andi of packed ID into a0. Signed high byte restores mask but changes register allocation (145); add 140, XOR 240, signed low byte 335.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795275642.099078,
-  "score_before": 145,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
- },
- {
   "function": "func_80091A24",
   "text": "Verified 465, all 93 differences register-only, with branch destinations and instruction order matching. Restored the two missing moves by copying the raw entity ID into temp_a1 in the lookups after workerLockAcquire and after func_80092F9C, using the copy in both the comparison mask and success sign bit.",
   "by": "codex-gpt-6.2-sol-9",
@@ -71692,15 +71449,6 @@
   "score_before": 210,
   "score_after": 210,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_8009A70C",
-  "text": "Tested signed high-byte shift, signed high byte with explicit forwarding, char multiply, then sign extension via paired shifts. Scores 340, 200, 340, 145; saved 140 retains only missing andi and dependent branch targets. Move-on budget exhausted.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795276608.4411929,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
  },
  {
   "function": "func_80038000",
@@ -72402,15 +72150,6 @@
   "score_before": 1905,
   "score_after": 1505,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:167a9b6760d5a51930cf5e2d05061ebc086e9000afbcc3b8a662b7db9f15a2b8"
- },
- {
-  "function": "func_8009A70C",
-  "text": "Clean struct rewrite (VolSrc {u8 lo,vol,scale,pad[3],alt,hi}; VolDst level@0x30 altLevel@0x34; u8 *func_8009846C(u16 id) \u2014 id IS passed in a0) scores 150 at revision 7b6161f1636eedca6ffe: only the 'andi a0,v1,0xffff' on the packed id is missing (GCC proves lo|hi<<8 fits 16 bits). Inner interpolation needs 'u8 *p = tbl+idx; next=p[1]; cur=p[0];' order. Next: make the id unknowable-width, e.g. read hi via a u16/s32 field or compute id in a u32 then pass (u16)id through a separate u16 local declared before.",
-  "by": "claude-opus-13",
-  "created_at": 1795289182.454444,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
  },
  {
   "function": "func_8011D3C0",
@@ -76528,15 +76267,6 @@
   "score_before": 26695,
   "score_after": 26480,
   "handoff_inputs": "4d486a3eb0041542ed1f59f4d5c8d1c990bbf747ef256be8353300f606dd3fde:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3aeea6a6ee09fd14623b15296e33aee8ee3ad68bfb7975aa0f914fd3a9fb0c93"
- },
- {
-  "function": "func_8009A70C",
-  "text": "Unmasked halfword at offset 6 before shifting preserved the target andi and instruction count (225) but emitted lhu instead of lbu. Explicitly masking that halfword to a byte before shifting restored lbu but removed the target andi even with the ID passed explicitly (145). Saved historical best 140 restored.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795314282.413504,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
  },
  {
   "function": "func_80090464",
@@ -81821,15 +81551,6 @@
   "score_before": 85,
   "score_after": 85,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b900a83ccafe736a2cf8c7352bce380f7af9c39ff1ae09e395d2cee44366bbc6"
- },
- {
-  "function": "func_8009A70C",
-  "text": "Saved best rechecked at 280 (historical 140). Normalized diff has one missing andi a0,v1,0xffff and four shifted branch targets. Reversed OR operands tied, volatile unsigned byte loads scored 300, signed high byte scored 285. Flags disabling expensive optimizations scored 330; disabling CSE jump/block options or GCSE tied at 280. A straightforward typed struct rewrite scored 810 because it also changed clamp scheduling.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795362868.680366,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
  },
  {
   "function": "func_8009ABD4",
@@ -88189,5 +87910,284 @@
   "score_before": 240,
   "score_after": 180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Saved historical score 210 candidate is semantically incorrect: it overwrites table pointer with fraction before indexing; reported candidate issue. Corrected rewrite revision a85edec574db09199574 scores 590; it preserves func_8009846C result as byte table. Remaining differences include missing andi after ID construction and interpolation register/order. Try narrowing ID to u16 in corrected revision and reordering interpolation operands.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795163895.2642188,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Judge calls twice exceeded 180 s. First recorded corrected pointer-preserving rewrite 2a11b55e8d0a55956e1e (990); candidate did not change on first recheck after the second timeout. Prefer previous corrected a85edec574db09199574 (590) if retrievable over historical 210, which loses the table pointer. On corrected C restore 16-bit ID mask, stage fraction ahead of index branch and swap the fixed-point value/state saved registers to s0/s1. The second timed-out source tested explicit tableId &= 0xFFFF and a u16 fraction local used in the multiply.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795166234.172686,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Best semantically corrected C is recorded in attempt 25769849447, rev 09e5204f040ec29d724e, score 345. It preserves the table base and matches the complete interpolation body, including s1 state, s0 fixed-point, and the two addu operand orders; inherited score 210 candidate loses the table pointer. Remaining differences are the missing ID andi a0,v1,0xffff, which shifts subsequent branches, and scheduling of the initial saves/load/bnez. Explicit mask, signed-byte widening then truncation, and equivalent shift pair all optimized to the same unmasked 350 candidate. Test scheduler profiles and a different width/opaque-value constraint for the redundant ID mask.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795182187.9546611,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Repaired invalid interpolation pointer: retain func_8009846C return as table base, compute frac separately before range branch, load samples[1] then samples[0]. Valid draft scored 165 and verified later baseline 155 (2f5a31bdaa8179c4fd02); experimental d678d2f5854f2cfee1e7 scored 150 before concurrent candidate change. Primary difference is missing andi $a0,$v1,0xffff after the byte OR, with consequent branch/jump displacements. Remaining independent mismatch is the interpolation address add operand order; untested anchor `(u8 *)temp_v0 + temp_v1_2` -> `(u8 *)(temp_v1_2 + temp_v0)`. Explicit u16 and cast via s16 high byte still let compiler delete the ID mask. Claim transferred concurrently.\n\nFollow-up confirmed `(u8 *)(temp_v1_2 + temp_v0)` fixes the interpolation address add operand order. Combine this with the OR expression variant that scored 150. Claim ended during compilation again.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795183750.054388,
+  "score_before": 210,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Saved 540 (cbb1a41478c502e3a508), eight rendered differences. Volatile level reproduces all intermediate stores/reloads; duplicate source returns and evaluating fraction ahead of interpolation recovered the tail. First remaining operation is redundant `andi a0,v1,0xffff` after building a two-byte ID; staged u32, signed s16 and union narrowing all eliminated the mask. Second is zero-ID beql cloning the level store into its delay slot instead of regular branch to common store. Preserve current interpolation; explore differing conversion modes at the callee declaration and branch/store scheduling flags.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795183984.9193861,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Saved 535 (540 inherited). Signed s16 curve moves OR into v1 as required. Need andi a0,v1,0xffff before zero-test, branch-likely with duplicate level store, and swap point-address addu sources. Explicit (u16) in zero test is optimized away; signed byte high creates lb and puts mask in call delay instead. Splitting early level lifetime regressed, as did shifting high left by 24 then arithmetic right by 16. Reversing point expression or changing qualification of the early store alone had no effect.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795185384.298213,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Rechecked baseline 540; local repairs batch tested branch_orientation (760) and signedness (535), with move-on reached at 4/4. Best is signed curve declaration candidate a78e02c2b29d46999ab6, but no verified improvement to 0. Remaining target mismatch is around curve construction/control flow: target andi $a0,$v1,0xffff; beql $a0,$zero then stores state level, candidate branches directly on curve and lacks target store sequence. Inspect assembly around mismatch and restructure zero curve branch/store ordering.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795186952.63472,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Verified 535 inherited and hit 4/4 without improvement. Candidate preserves correct interpolation/table pointer. The only missing target instruction is andi a0,v1,0xffff between curve ID construction and branch-likely. Disjoint addition scored 875, packing bytes high and arithmetically shifting before conversion 745, XOR 735, separate wide packed local with u16 conversion and u16 zero-test 535. Diagnostic flags -fno-expensive-optimizations scored 665, -fno-peephole 535, -O1 950. Look for a type/lifetime idiom that removes compiler knowledge of upper zero bits without incurring new instructions, or diagnose compiler/profile differences. The inherited candidate does have the beql and duplicate store; some variant diff views refer to the last exploratory source.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795188888.318649,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Best 535 unchanged. Unsigned curve types scored 540, direct volatile pointer store and explicit u16 condition did not change generated code. Remaining target andi before beql with store in delay slot; compiler merges duplicated stores and emits beqz/move. Need preserve separate early store path and force narrowing.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795189942.027711,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Verified baseline 535. Target first mismatch is andi a0,v1,0xffff followed by branch-likely with level store in delay slot; candidate branches directly and stores on separate path. Changing curve to u16 scored 540, unsigned frac and explicit casts scored 535. Investigate preserving narrowing at condition and shared return/store control flow without changing the fixed-point interpolation. Target byte loads and arithmetic corroborate current candidate.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795191040.923382,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Verified baseline score 535. Target masks curve to u16 then branch-likely stores level in delay slot; candidate tests unmasked v1 and branches to shared store. u16 curve scored 540, explicit u16 comparison and u32 frac left score unchanged; u16 frac worsened. Restructure early return and store to generate branch-likely without disturbing interpolation.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795192202.070513,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Best 535 rechecked. Baseline major sequence matches; remaining at interpolation: target forms curve=(byte7<<8)|byte0 then andi 0xffff, branch-likely return storing level in delay slot. Candidate short-circuit test index<127 && samples!=NULL made score 760; restored saved_best. Target then passes table ptr to callee, computes idx and fractional bits, uses beqz bounds and interpolation; align source control flow to target assembly lines 31 onward.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795197473.959855,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Reverified 535. A signed-short callee prototype scored 755, wide curve 540, explicit mask in zero check and multiplication by 256 both tied 535. Current verified mismatch is at row 31: target andi a0,v1,0xffff; beql with the state store in its delay slot; candidate beqz v1 with move a0,v1 and a shared store. Explore a packing representation or compiler mode that retains narrowing before the branch and gives the zero path an independent store. The callee itself confirms only a halfword store, so signedness is not established.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795198488.153619,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Best verified score 535 (61 candidate vs 62 target instructions). Rechecked starting source, changed curve from s16 to u32 (worse, 540), restored s16 (back to 535), and made the zero-curve branch share the final store (same score). Residual mismatch begins at the assembled settings curve: target emits or $v1,$v1,$v0; andi $a0,$v1,0xffff; beql $a0,$zero with sw $s0,0x30($s1) in its delay slot. Candidate instead branches directly on v1 and omits that store. Also minor branch offsets and add operand order differ. Try a source shape that explicitly retains the 16-bit mask and places the level store in the likely/true delay slot.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795199507.185566,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Best current source rechecks at 535/62 instructions. First compile recovered that score; attempted u16 curve restructure worsened to 1030 due broad register allocation changes, then restored best. Six local repair variants: target_call_arity, branch_orientation, signedness, declaration_order, callee_parameter_width, const_read; none improved. Core residual mismatch near interpolation entry: target ORs curve, ANDIs to 16 bits into a0, then beql on zero with state->level store in delay slot; candidate branches on v1, moves it to a0, and omits that store placement. Target call result is checked, then computes index/high fractional portion. Need reshape control flow to common final store with the zero-curve path branching directly to epilogue, and preserve signed s16 curve to avoid global register-allocation regression. Remaining budget exhausted; no exact match.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795200587.738668,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Saved best 535 (61 vs target 62 instructions). Target preserves original clamped level in $s0, constructs curve from settings[7:0], masks low 16 bits then uses beql to bypass table lookup while storing original value in delay slot. Current C uses direct curve==0 early return, resulting in missing `andi $a0,$v1,0xffff`, likely no saved $s0 / delay-slot store, and downstream branches four bytes early. Casting curve test to u16 and changing early return to common store did not affect output. Branch-orientation local repair worsened to 755. Best revision 301f8e238a3e60b79bbd. Untested next step: materialize u32 curve bytes and explicitly test `(curve & 0xFFFF)==0`, then use a common final `state->level=level` store with lookup logic inside nonzero condition; force level to remain live across func_8009846C.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795201737.701899,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Best candidate scores 535 (saved best, revision d1f7823741fd6feb2301). Remaining diff: target does 'or $v1,$v1,$v0; andi $a0,$v1,0xffff; beql $a0,$zero' (curve masked to u16 before the zero test, with a delay-slot store of level), yours tests 'beqz $v1' unmasked. Tried: curve u16 (540, worse); (u16) casts on zero test, call arg, and combined assignment (all 535, casts elided); curve u32 (540). Untested: compute the combined value in a u32 temp and mask it explicitly before the zero test; or restructure so the zero path shares the store with the samples==NULL path.",
+  "by": "api-claude-haiku-5-5-9",
+  "created_at": 1795204022.746675,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Rechecked best 535 (61 vs 62 instructions). Zero-curve store merges with final store; target has separate beql delay-slot store plus an explicit andi before the branch. No improvement after four compiles.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795205594.61968,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Saved best is 535 (61 vs target 62 instructions). u32/u16 casts around the curve zero check were identical (535); an 8-bit mask worsened to 565; hoisting func_8009846C scored 1141 and changed register allocation. Restored saved best. Remaining discrepancy: target masks curve with andi before beql and stores level in the branch delay slot.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795213159.8490062,
+  "score_before": 535,
+  "score_after": 535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Still 535 (best, revision a78e02c2b29d46999ab6). Tried this session: (u16)curve on zero test and u16 curve type (535 / 540 worse). Remaining diff is the target's 'andi $a0,$v1,0xffff' before 'beql $a0,$zero' with delay-slot store of level; C emits 'beqz $v1' directly. Next step: try a zero test on a separate u32 temp that is masked (e.g. u32 key = low | (high<<8); if ((u16)key == 0) with curve assigned afterwards), or move the 'state->level = level' store into the branch delay slot via a dedicated else arm.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795216641.068225,
+  "score_before": 535,
+  "score_after": 535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "No improvement (best 535 saved). Tried: u16 curve with if(curve!=0) else-store form (540); u32 curve + separate u16 arg var (540); u32 curve with (curve&0xffff) test and call, proto taking u32 (540). All give 'or a0,v1,v0; beqz a0' \u2014 GCC folds the mask away. Target does or v1; andi a0,v1,0xffff; beql a0 with delay sw s0. Next step: try getting curve from a halfword/composed via a struct/union or macro with a separate temp so the or result stays live in v1 beyond the call arg copy.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795221080.234955,
+  "score_before": 540,
+  "score_after": 540,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Still 540 (61 vs 62 insns). Target: or v1; andi a0,v1,0xffff; beql a0 (delay sw s0,0x30(s1)); beqz a0 after call. Tried u16/s16/u32/s32 curve, (u16)curve test, &0xffff, (s8) on byte 7 or byte 0 \u2014 no andi emitted or worse. Next step: pass the composed value through a separate non-u16 expression (e.g. macro/inline helper returning u16 from settings, or curve read via two-step u32 var then u16 copy used for the call only).",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795223921.735538,
+  "score_before": 540,
+  "score_after": 540,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Verified best 405 (target/candidate both 62 instructions), improved from 535 by preserving the early store of level for the nonzero curve path: after masked curve zero check, zero arm stores level and returns; nonzero arm stores level before lookup. Adding goto structure or masking variants didn't change output; a full rewrite to symmetric if/else scored 590. Remaining diff is only three instructions around curve test: target andi $a0,$v1,0xffff; beql $a0,$zero,...; candidate beqz $v1 and move $a0,$v1. Existing earlier candidates casting u16 or assigning u32 did not help. Next step: test a separate u32 masked curve local used for both zero check and callee argument, preserving store/return structure.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795235107.845883,
+  "score_before": 535,
+  "score_after": 405,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Judge reached 4/4. Rechecked score-405 saved best, with 3 rows divergent. u16 curve scored 460, signed low cast scored 585, and commuting final sample indexing tied 405.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795267046.316426,
+  "score_before": 405,
+  "score_after": 405,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "No improvement after testing store removal, typed store and explicit join. Each scored 535 vs saved 405, with the zero and final stores merged. CSE and thread-jump flags tied 535.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795268079.2611551,
+  "score_before": 405,
+  "score_after": 405,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Score 405 at threshold. Cast in zero guard and sinking pre-call store tied; reversed multiply/add scored 410/435. Target masks assembled curve into a0 and uses a likely branch.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795270074.561876,
+  "score_before": 405,
+  "score_after": 405,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "4/4. Volatile high-byte read left exact diff unchanged (405). Widening curve scored 460, widening plus zero-only store and goto join scored 540. Target mask feeds branch and call; zero-path store is annulled on nonzero path.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795271741.725843,
+  "score_before": 405,
+  "score_after": 405,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Move-on limit reached; verified saved best 140, only missing andi and shifted branch targets. Explicit forwarding scores 145 because OR goes straight to a0. Flags no-expensive-optimizations 195; no-cse-follow-jumps 145. Next step: test a byte access expression that evades GCC's range inference until RTL combine.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795273848.1074271,
+  "score_before": 405,
+  "score_after": 145,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Threshold reached. Saved 140 lacks andi of packed ID into a0. Signed high byte restores mask but changes register allocation (145); add 140, XOR 240, signed low byte 335.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795275642.099078,
+  "score_before": 145,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Tested signed high-byte shift, signed high byte with explicit forwarding, char multiply, then sign extension via paired shifts. Scores 340, 200, 340, 145; saved 140 retains only missing andi and dependent branch targets. Move-on budget exhausted.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795276608.4411929,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Clean struct rewrite (VolSrc {u8 lo,vol,scale,pad[3],alt,hi}; VolDst level@0x30 altLevel@0x34; u8 *func_8009846C(u16 id) \u2014 id IS passed in a0) scores 150 at revision 7b6161f1636eedca6ffe: only the 'andi a0,v1,0xffff' on the packed id is missing (GCC proves lo|hi<<8 fits 16 bits). Inner interpolation needs 'u8 *p = tbl+idx; next=p[1]; cur=p[0];' order. Next: make the id unknowable-width, e.g. read hi via a u16/s32 field or compute id in a u32 then pass (u16)id through a separate u16 local declared before.",
+  "by": "claude-opus-13",
+  "created_at": 1795289182.454444,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Unmasked halfword at offset 6 before shifting preserved the target andi and instruction count (225) but emitted lhu instead of lbu. Explicitly masking that halfword to a byte before shifting restored lbu but removed the target andi even with the ID passed explicitly (145). Saved historical best 140 restored.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795314282.413504,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Saved best rechecked at 280 (historical 140). Normalized diff has one missing andi a0,v1,0xffff and four shifted branch targets. Reversed OR operands tied, volatile unsigned byte loads scored 300, signed high byte scored 285. Flags disabling expensive optimizations scored 330; disabling CSE jump/block options or GCSE tied at 280. A straightforward typed struct rewrite scored 810 because it also changed clamp scheduling.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795362868.680366,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
  }
 ]

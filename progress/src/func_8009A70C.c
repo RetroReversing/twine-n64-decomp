@@ -1,10 +1,9 @@
-static __inline__ s32 __repair_inline(s32 a) { return a; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_8009846C();
 
 s32 func_8009A70C(void *arg0, void *arg1) {
-    s32 temp_a0;
+    u16 temp_a0;
     u32 temp_v0;
     unsigned long var_s0;
     void *temp_v0_2;
@@ -23,9 +22,10 @@ s32 func_8009A70C(void *arg0, void *arg1) {
         (*(u32 *)((char *)(arg0) + 0x30)) = 0x7F0000U;
     }
     var_s0 = (*(u32 *)((char *)(arg0) + 0x30));
-    temp_a0 = (u16)(__repair_inline(*(u8 *)arg1 | (*(u8 *)((char *)arg1 + 7) << 8)));
+    temp_a0 = (*(u8 *)arg1);
+    temp_a0 |= (*(u8 *)((char *)arg1 + 7)) << 8;
     if (temp_a0 != 0) {
-        temp_v0 = func_8009846C();
+        temp_v0 = func_8009846C(temp_a0);
         temp_v1_2 = var_s0 >> 16;
         if (temp_v0 != 0) {
             u32 frac = (u16)var_s0;
@@ -42,3 +42,4 @@ s32 func_8009A70C(void *arg0, void *arg1) {
     (*(u32 *)((char *)(arg0) + 0x30)) = var_s0;
     return 0;
 }
+
