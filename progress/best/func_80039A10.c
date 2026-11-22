@@ -1,9 +1,18 @@
 extern f64 D_800D2EF0;
 extern s32 D_8010A4E8;
+typedef struct 
+{
+  s32 v;
+} Field_s32;
+inline static int inline_fn(u32 arg0)
+{
+  return arg0 - 1;
+}
+
 void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, volatile unsigned int arg6, s32 arg7, u32 arg8, u32 arg9, u32 arg10, u32 arg11, f32 arg12, f32 arg13)
 {
-  s32 spC;
   s32 *sp4;
+  s32 spC;
   u32 sp14;
   s32 sp1C;
   s32 sp24;
@@ -65,24 +74,27 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, v
   var_t7 = (s32) arg13;
   if (var_t6 < arg11)
   {
-    temp_s5 = arg10 - 1;
-    sp2C = arg11 - 1;
-    temp_t8 = (arg2 & 7) << 0x15;
+    temp_s5 = inline_fn(arg10);
+    sp2C = inline_fn(arg11);
+    var_v1 = arg2 & 7; temp_t8 = var_v1 << 0x15;
     sp14 = arg4 >> 1;
     __repair_rows:
     {
-      var_t5 = (s32) arg12;
-      var_t4 = arg8;
+      do
+      {
+        var_t5 = (s32) arg12; var_t4 = arg8;
+      }
+      while (0);
       if (var_t4 < arg10)
       {
         var_t0 = var_t1 - 4;
-        sp1C = temp_t8 | (((sp14 - 1) & 0xFFF) | 0xFD080000);
-        sp24 = temp_t8 | (((arg4 - 1) & 0xFFF) | 0xFD080000);
+        sp1C = ((inline_fn(sp14) & 0xFFF) | 0xFD080000) | temp_t8;
+        sp24 = temp_t8 | ((inline_fn(arg4) & 0xFFF) | 0xFD080000);
         temp_ft1 = (f32) (((f64) ((f32) var_t6)) + D_800D2EF0);
-        temp_t9 = var_t7 + (arg11 - var_t6);
+        temp_a0_3 = arg11 - var_t6; temp_t9 = var_t7 + temp_a0_3;
         do
         {
-          temp_a0 = var_t4 - 1;
+          temp_a0 = inline_fn(var_t4);
           temp_t3 = temp_a0 & (((s32) (~temp_a0)) >> 0x1F);
           var_t2 = var_t4 + arg6;
           temp_fv0 = (f32) (((f64) ((f32) var_t4)) + D_800D2EF0);
@@ -97,40 +109,40 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, v
               var_t2 = temp_s5;
             }
           }
-          temp_a2 = var_t6 - 1;
+          temp_a2 = inline_fn(var_t6);
           temp_a2 = temp_a2 & (((s32) (~temp_a2)) >> 0x1F);
           var_a3 = var_t6 + arg7;
-          if (sp2C < var_a3)
+          if (inline_fn(arg11) < var_a3)
           {
             var_a3 = sp2C;
           }
           temp_t0 = var_t0 + 8;
           if (spC == 0)
           {
-            temp_a0 = ((((s32) ((((s32) ((var_t2 - temp_t3) + 1)) >> 1) + 7)) >> 3) & 0x1FF) << 9;
+            temp_a1_4 = (((s32) ((((s32) ((var_t2 - temp_t3) + 1)) >> 1) + 7)) >> 3) & 0x1FF; temp_a0 = temp_a1_4 << 9;
             temp_a1_2 = (temp_a2 * 4) & 0xFFF;
             temp_a2_3 = (var_a3 * 4) & 0xFFF;
             var_t1_2 = var_t1 + 0x38;
-            *((s32 *) (((char *) var_t0) + 8)) = arg1;
+            ((Field_s32 *) (((char *) var_t0) + 8))->v = arg1;
             *((s32 *) (((char *) temp_t0) + (-4))) = sp1C;
             temp_t0_2 = temp_t0 + 8;
             *((s32 *) (((char *) temp_t0_2) + (-4))) = (s32) (temp_t8 | (temp_a0 | 0xF5080000));
-            *((s32 *) (((char *) temp_t0) + 8)) = 0x07080200;
+            ((Field_s32 *) (((char *) temp_t0) + 8))->v = 0x07080200;
             temp_t0_3 = temp_t0_2 + 8;
             *((s32 *) (((char *) temp_t0_3) + (-4))) = 0xE6000000;
-            *((s32 *) (((char *) temp_t0_2) + 8)) = 0;
+            ((Field_s32 *) (((char *) temp_t0_2) + 8))->v = 0;
             temp_t0_4 = temp_t0_3 + 8;
             *((s32 *) (((char *) temp_t0_4) + (-4))) = (s32) ((((temp_t3 * 2) & 0xFFF) << 0xC) | (((temp_a2 * 4) & 0xFFF) | 0xF4000000));
-            *((s32 *) (((char *) temp_t0_3) + 8)) = (s32) ((((var_t2 * 2) & 0xFFF) << 0xC) | (temp_a2_3 | 0x07000000));
+            ((Field_s32 *) (((char *) temp_t0_3) + 8))->v = (s32) ((((var_t2 * 2) & 0xFFF) << 0xC) | (temp_a2_3 | 0x07000000));
             temp_t0_5 = temp_t0_4 + 8;
             *((s32 *) (((char *) temp_t0_5) + (-4))) = 0xE7000000;
-            *((s32 *) (((char *) temp_t0_4) + 8)) = 0;
+            ((Field_s32 *) (((char *) temp_t0_4) + 8))->v = 0;
             temp_t0_6 = temp_t0_5 + 8;
             *((s32 *) (((char *) temp_t0_6) + (-4))) = (s32) (temp_t8 | (temp_a0 | 0xF5000000));
-            *((s32 *) (((char *) temp_t0_5) + 8)) = 0x80200;
+            ((Field_s32 *) (((char *) temp_t0_5) + 8))->v = 0x80200;
             var_t0_2 = temp_t0_6 + 8;
             *((s32 *) (((char *) var_t0_2) + (-4))) = (s32) ((((temp_t3 * 4) & 0xFFF) << 0xC) | (((temp_a2 * 4) & 0xFFF) | 0xF2000000));
-            *((s32 *) (((char *) temp_t0_6) + 8)) = (s32) ((((var_t2 * 4) & 0xFFF) << 0xC) | temp_a2_3);
+            ((Field_s32 *) (((char *) temp_t0_6) + 8))->v = (s32) ((((var_t2 * 4) & 0xFFF) << 0xC) | temp_a2_3);
           }
           else
           {
@@ -140,37 +152,41 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, v
             temp_a0_2 = ((var_t2 * 4) & 0xFFF) << 0xC;
             temp_a3 = (var_a3 * 4) & 0xFFF;
             var_t1_2 = var_t1 + 0x38;
-            *((s32 *) (((char *) var_t0) + 8)) = arg1;
+            ((Field_s32 *) (((char *) var_t0) + 8))->v = arg1;
             *((s32 *) (((char *) temp_t0) + (-4))) = sp24;
             temp_t0_7 = temp_t0 + 8;
             *((s32 *) (((char *) temp_t0_7) + (-4))) = temp_v1;
-            *((s32 *) (((char *) temp_t0) + 8)) = 0x07080200;
+            ((Field_s32 *) (((char *) temp_t0) + 8))->v = 0x07080200;
             temp_t0_8 = temp_t0_7 + 8;
             *((s32 *) (((char *) temp_t0_8) + (-4))) = 0xE6000000;
-            *((s32 *) (((char *) temp_t0_7) + 8)) = 0;
-            temp_t0_9 = temp_t0_8 + 8;
-            *((s32 *) (((char *) temp_t0_9) + (-4))) = (s32) (temp_a1_3 | (temp_a2_4 | 0xF4000000));
-            *((s32 *) (((char *) temp_t0_8) + 8)) = (s32) (temp_a0_2 | (temp_a3 | 0x07000000));
+            ((Field_s32 *) (((char *) temp_t0_7) + 8))->v = 0;
+            ;
+            *((s32 *) (((char *) (temp_t0_8 + 8)) + (-4))) = (s32) (temp_a1_3 | (temp_a2_4 | 0xF4000000));
+            ((Field_s32 *) (((char *) temp_t0_8) + 8))->v = (s32) (temp_a0_2 | (temp_a3 | 0x07000000));
             temp_t0_10 = temp_t0_9 + 8;
             *((s32 *) (((char *) temp_t0_10) + (-4))) = 0xE7000000;
-            *((s32 *) (((char *) temp_t0_9) + 8)) = 0;
+            ((Field_s32 *) (((char *) (temp_t0_8 + 8)) + 8))->v = 0;
             temp_t0_11 = temp_t0_10 + 8;
             *((s32 *) (((char *) temp_t0_11) + (-4))) = temp_v1;
-            *((s32 *) (((char *) temp_t0_10) + 8)) = 0x80200;
+            ((Field_s32 *) (((char *) temp_t0_10) + 8))->v = 0x80200;
             var_t0_2 = temp_t0_11 + 8;
             *((s32 *) (((char *) var_t0_2) + (-4))) = (s32) (temp_a1_3 | (temp_a2_4 | 0xF2000000));
-            *((s32 *) (((char *) temp_t0_11) + 8)) = (s32) (temp_a0_2 | temp_a3);
+            ((Field_s32 *) (((char *) temp_t0_11) + 8))->v = (s32) (temp_a0_2 | temp_a3);
           }
           var_a0 = var_t5 + arg6;
-          temp_v1_2 = var_t5 + (arg10 - var_t4);
-          if (temp_v1_2 < var_a0)
+          do
           {
-            var_a0 = temp_v1_2;
+            temp_v1_2 = var_t5 + (arg10 - var_t4);
+            if (temp_v1_2 < var_a0)
+            {
+              var_a0 = temp_v1_2;
+            }
+            if (((s32) temp_v1_2) >= 0x141)
+            {
+              var_a0 = 0x140;
+            }
           }
-          if (((s32) temp_v1_2) >= 0x141)
-          {
-            var_a0 = 0x140;
-          }
+          while (0);
           var_v1 = var_t7 + arg7;
           if (temp_t9 < var_v1)
           {
@@ -188,11 +204,17 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, v
             ;
             var_fv1 = temp_fv0 * 32.0f;
             *((s32 *) (((char *) (var_t0_2 + 8)) + (-4))) = (s32) (((temp_a0_3 & 0xFFF) << 0xC) | (((temp_v1_3 * 2) & 0xFFF) | 0xE4000000));
-            *((s32 *) (((char *) var_t0_2) + 8)) = (s32) (((temp_a1_4 & 0xFFF) << 0xC) | ((var_t7 * 8) & 0xFFF));
+            ((Field_s32 *) (((char *) var_t0_2) + 8))->v = (s32) (((temp_a1_4 & 0xFFF) << 0xC) | ((var_t7 * 8) & 0xFFF));
             var_t0_3 = temp_t0_12 + 8;
             do
             {
               if (temp_t3)
+              {
+                var_t1 = var_t1_2 + 0x18;
+                var_fv0 = temp_ft1 * 32.0f;
+              }
+              else
+                if (var_v1 || var_t0_3)
               {
                 var_t1 = var_t1_2 + 0x18;
                 var_fv0 = temp_ft1 * 32.0f;
@@ -211,17 +233,17 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, v
             temp_t0_13 = var_t0_2 + 8;
             *((s32 *) (((char *) temp_t0_13) + (-4))) = (s32) (((temp_a0_3 & 0xFFF) << 0xC) | ((temp_v1_3 & 0xFFF) | 0xE4000000));
             var_fv1 = temp_fv0 * 32.0f;
-            *((s32 *) (((char *) var_t0_2) + 8)) = (s32) (((temp_a1_4 & 0xFFF) << 0xC) | ((var_t7 * 4) & 0xFFF));
+            ((Field_s32 *) (((char *) var_t0_2) + 8))->v = (s32) (((temp_a1_4 & 0xFFF) << 0xC) | ((var_t7 * 4) & 0xFFF));
             var_t0_3 = temp_t0_13 + 8;
             var_t1 = var_t1_2 + 0x18;
             var_fv0 = temp_ft1 * 32.0f;
             var_a0_2 = 0x04000400;
           }
           *((s32 *) (((char *) var_t0_3) + (-4))) = 0xE1000000;
-          *((s32 *) (((char *) var_t0_3) + 0)) = (s32) ((((s32) var_fv1) << 0x10) | (((s32) var_fv0) & 0xFFFF));
+          ((Field_s32 *) (((char *) var_t0_3) + 0))->v = (s32) ((((s32) var_fv1) << 0x10) | (((s32) var_fv0) & 0xFFFF));
           var_t0 = var_t0_3 + 8;
           *((s32 *) (((char *) var_t0) + (-4))) = 0xF1000000;
-          *((s32 *) (((char *) var_t0_3) + 8)) = var_a0_2;
+          ((Field_s32 *) (((char *) var_t0_3) + 8))->v = var_a0_2;
           var_t4 += arg6;
           var_t5 += arg6;
         }

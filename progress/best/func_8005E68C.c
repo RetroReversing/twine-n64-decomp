@@ -1,10 +1,10 @@
 s32 actorLinkToSurface(s32, void *, s32);
-s32 effectSetAnimFrame(void *, s32, s16);
-s32 func_80017490(u16, u16, u16);
+s32 effectSetAnimFrame(void *, unsigned short, int);
+u8 func_80017490(u16, u16, u16);
 s32 func_8001751C(s32, u8, void *, s32);
 void *spawnEffectObject(s32, void *, s32);
 extern s16 D_800C4478;
-extern u8 D_800C447A;
+extern short D_800C447A;
 extern s16 D_800C4706;
 extern s16 D_800C4708;
 extern s32 *gProbeObjectList;
@@ -31,7 +31,7 @@ typedef struct
   signed char field_2F;
   short field_30;
 } __repair_record_temp_s0;
-void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, volatile int arg3, s32 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, short arg10, u16 arg11, s32 arg12, u8 arg13)
+void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, short arg10, u16 arg11, s32 arg12, u8 arg13)
 {
   u16 sp16;
   u16 sp1E;
@@ -43,7 +43,7 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, volatile int arg3, s32 arg4,
   void *temp_s0;
   void *temp_v0;
   sp16 = arg2;
-  sp1E = arg4;
+  sp1E = arg4 & 0xFF;
   sp26 = arg6;
   func_8001751C(arg12, arg13, arg0, arg1);
   if ((func_80017490(arg7, arg8, arg9) << 0x18) != 0)
@@ -84,15 +84,18 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, volatile int arg3, s32 arg4,
           case 1:
             temp_v0_3 = arg5 * 0x10;
             var_a1 = *((s16 *) (((u8 *) (&D_800C4478)) + temp_v0_3));
-            var_a2 = *((&D_800C447A) + temp_v0_3);
+            var_a2 = *((s16 *) (((u8 *) (&D_800C447A)) + temp_v0_3));
             goto block_17;
 
+          case 2:
+            goto direct;
         }
 
       }
       else
       {
-        var_a1 = (s16) sp16;
+        direct:
+        var_a1 = arg2;
         var_a2 = arg3 & 0xFFFF;
         block_17:
         effectSetAnimFrame(temp_v0, var_a1, var_a2);

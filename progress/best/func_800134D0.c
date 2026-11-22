@@ -114,19 +114,16 @@ void func_800134D0(void *arg0)
   u8 temp_v1_4;
   u8 temp_v1_6;
   u8 var_a2_2;
-  union 
-  {
-    void *pointer;
-    s32 value;
-  } __repair_phase_storage;
+  void *input;
+  s32 phase;
   void *temp_v0_5;
   sp4 = arg0;
   var_fp = *((u8 **) (((char *) arg0) + 0));
   sp1C = 0;
-  __repair_phase_storage.pointer = *((void **) (((char *) arg0) + 4));
-  var_t2 = *((s32 *) (((char *) __repair_phase_storage.pointer) + 0xC));
-  var_s4 = *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x10));
-  var_s1 = __repair_phase_storage.pointer + 0x14;
+  input = *((void **) (((char *) arg0) + 4));
+  var_t2 = *((s32 *) (((char *) input) + 0xC));
+  var_s4 = *((s32 *) (((char *) input) + 0x10));
+  var_s1 = input + 0x14;
   var_t4 = 0x20;
   hoist_D_80112EE0 = &D_80112EE0;
   loop_1:
@@ -210,12 +207,12 @@ void func_800134D0(void *arg0)
     }
     goto block_124;
   }
-  __repair_phase_storage.value = 1;
+  phase = 1;
   loop_17:
   spC = &D_80108970;
 
   var_s3 = 8;
-  if ((__repair_phase_storage.value--) != 0)
+  if ((phase--) != 0)
   {
     spC = &D_801032B0;
     var_s3 = 0xA;
@@ -556,7 +553,7 @@ void func_800134D0(void *arg0)
     goto loop_74;
   }
   block_89:
-  if (__repair_phase_storage.value < 0)
+  if (phase < 0)
   {
     loop_91:
     var_v0 = var_t4 < 0xF;

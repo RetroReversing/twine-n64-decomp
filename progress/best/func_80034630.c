@@ -1,6 +1,6 @@
 extern s32 D_8010A4D4;
 extern void *sDisplayListCursor;
-void func_80034630(void *arg0, void *arg1)
+void func_80034630(const void *arg0, const void *arg1)
 {
   f32 temp_ft0;
   f32 temp_ft0_2;
@@ -70,9 +70,9 @@ void func_80034630(void *arg0, void *arg1)
   var_ft4 += 8.0f;
   temp_ft5 = (*((f32 *) (((char *) arg1) + 0x50))) + temp_ft0;
   temp_ft2 = *((f32 *) (((char *) arg1) + 0x70));
-  temp_ft5 += temp_ft2;
   temp_ft0 = (*((f32 *) (((char *) arg1) + 0x54))) + temp_ft0;
   temp_ft0_2 = *((f32 *) (((char *) arg1) + 0x74));
+  temp_ft5 += temp_ft2;
   temp_fv1 += temp_ft0_2;
   temp_ft0 -= temp_ft2;
   temp_fv0 = ((*((f32 *) (((char *) arg1) + 0x5C))) + temp_ft1) - temp_ft0_2;
@@ -111,4 +111,5 @@ void func_80034630(void *arg0, void *arg1)
     *((s32 *) (((char *) temp_a1) + 4)) = (s32) (((((s32) (var_fa1 * 4.0f)) & 0xFFF) << 0xC) | (((s32) (var_ft4 * 4.0f)) & 0xFFF));
   }
 }
+
 

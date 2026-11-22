@@ -83,11 +83,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
   s32 __repair_phase_temp_v1_6;
   s32 temp_v1_7;
   u8 var_v0;
-  union 
-  {
-    void *pointer;
-    u32 value;
-  } __repair_phase_storage;
+  void * __repair_phase_storage_pointer; u32 __repair_phase_storage_value;
   void *temp_a0_3;
   __repair_phase_temp_a0 = D_800CA338 != 0;
   if (((__repair_field_3C *) arg0)->value & 0x400000)
@@ -252,11 +248,11 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
     }
     while (0);
       temp_v0_19 = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
-      __repair_phase_storage.pointer = *((void **) (((char *) arg1) + 0x20));
+      __repair_phase_storage_pointer = *((void **) (((char *) arg1) + 0x20));
       *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((((s32) temp_v0_19) & 0xFFFF0003) | ((((temp_v0_19 >> 2) & 0x3FFF) | 0x20) * 4));
-      *((u8 *) (((char *) __repair_phase_storage.pointer) + 0x66)) = 0x80;
-      *((u8 *) (((char *) __repair_phase_storage.pointer) + 0x65)) = 0x80;
-      *((u8 *) (((char *) __repair_phase_storage.pointer) + 0x64)) = 0x80;
+      *((u8 *) (((char *) __repair_phase_storage_pointer) + 0x66)) = 0x80;
+      *((u8 *) (((char *) __repair_phase_storage_pointer) + 0x65)) = 0x80;
+      *((u8 *) (((char *) __repair_phase_storage_pointer) + 0x64)) = 0x80;
       goto block_29;
 
     case 0x46:
@@ -446,8 +442,8 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       var_v0_6 = 0x1E;
       save_alt_mode:
       *((s16 *) (((char *) arg1) + 0x58)) = var_v0_6;
-      __repair_phase_storage.value = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
-      *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((__repair_phase_storage.value & 0xFFFF0003) | ((((__repair_phase_storage.value >> 2) & 0x3FFF) | 0x800) * 4));
+      __repair_phase_storage_value = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
+      *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((__repair_phase_storage_value & 0xFFFF0003) | ((((__repair_phase_storage_value >> 2) & 0x3FFF) | 0x800) * 4));
       *arg2 = 1;
       D_800E19E0 = *((f32 *) (((char *) arg1) + 0x24));
       D_800E19E4 = *((f32 *) (((char *) arg1) + 0x28));

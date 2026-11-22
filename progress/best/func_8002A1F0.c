@@ -59,7 +59,7 @@ u8 __repair_result_var_v1;
             if (temp_v0 != 0) {
                 do {
                     temp_v0_2 = var_s1 + 1;
-                    temp_v0_5 = ((*(u8 *)((char *)(((var_s1 * 0xC) + (*(s32 *)((char *)(arg0) + 0)))) + 9))); var_a1 += temp_v0_5;
+                    var_a1 += ((*(u8 *)((char *)(((var_s1 * 0xC) + (*(s32 *)((char *)(arg0) + 0)))) + 9)));
                     var_s1 = temp_v0_2;
                 } while (temp_v0_2 < (s32) temp_v0);
             }

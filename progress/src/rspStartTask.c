@@ -25,7 +25,7 @@ u32 osVirtualToPhysical(void *);
 void func_800A0220(void *, s32);
 void func_800A9280(s32);
 s32 rsp_set_pc_if_halted(u32);
-s32 func_800A92C0(s32, u32, void *, u32);
+s32 __osSpRawStartDma(s32, u32, void *, u32);
 s32 func_800A9250(void);
 
 /* Copies the RSP task into the global work block, converts its pointers to physical addresses and boots the RSP. */ void rspStartTask(RspTask *arg0) {
@@ -67,9 +67,9 @@ s32 func_800A9250(void);
     do {
     } while (rsp_set_pc_if_halted(0x04001000) == -1);
     do {
-    } while (func_800A92C0(1, 0x04000FC0, task, 0x40) == -1);
+    } while (__osSpRawStartDma(1, 0x04000FC0, task, 0x40) == -1);
     do {
     } while (func_800A9250() != 0);
     do {
-    } while (func_800A92C0(1, 0x04001000, (void *)task->boot, task->bootSize) == -1);
+    } while (__osSpRawStartDma(1, 0x04001000, (void *)task->boot, task->bootSize) == -1);
 }

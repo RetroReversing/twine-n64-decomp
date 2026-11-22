@@ -8,9 +8,9 @@ void func_80047068(const f32 *p, const CubicWord *q, const f32 *r, const f32 *s,
     f32 qz, x, y, z, ax, bx, cx, ay, by, cy, az, bz, cz;
     f32 dx, ddx, dddx, dy, ddy, dddy, dz, ddz, dddz;
     x = p[0]; qx.i = q[0].i;
-    bx = ((x - qx.f * 2.5f) + (r[0] + r[0]) - s[0] * 0.5f) * h2;
+    y = (x - qx.f * 2.5f) + (r[0] + r[0]) - s[0] * 0.5f; bx = y * h2;
     ax = ((x * -0.5f + qx.f * 1.5f) - r[0] * 1.5f + s[0] * 0.5f) * h3;
-    cx = (x * -0.5f + r[0] * 0.5f) * h;
+    y = x * -0.5f + r[0] * 0.5f; cx = y * h;
     dx = (ax + bx) + cx;
     dddx = ax * 6.0f;
     ddx = dddx + (bx + bx);

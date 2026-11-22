@@ -22,8 +22,8 @@ extern void *D_80107E9C;
 extern s32 D_80112E40;
 
 void func_80037A7C(s32 arg0) {
-    s32 var_s4;
     s32 var_v0;
+    s32 var_s4;
     void *var_s0;
     void *var_s2;
     void *var_s3;

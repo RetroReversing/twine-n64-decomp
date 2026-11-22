@@ -1,5 +1,5 @@
 extern void bzero(void *, s32);
-extern s32 func_800A00D0(s32, s32);
+extern s32 osAiSetNextBuffer(s32, s32);
 extern void func_800A0220(s32, s32);
 extern s32 osRecvMesg(void *, u8 **, s32);
 extern u8 gWorkerMsgQueue[24];
@@ -39,14 +39,14 @@ extern u8 D_8010086C;
     quit = 0;
     func_800A0220(gAudioBufferPtrs[0], gAudioBufferCount * 0x300);
     gAudioBufferIndex = 0;
-    func_800A00D0(gAudioBufferPtrs[0], 0x300);
+    osAiSetNextBuffer(gAudioBufferPtrs[0], 0x300);
     do {
         osRecvMesg(gWorkerMsgQueue, &msg, 1);
         if (!D_800E41D8) {
             switch (*msg) {
             case 1:
                 gAudioBufferIndex = (gAudioBufferIndex + 1) % (s32)gAudioBufferCount;
-                func_800A00D0(gAudioBufferPtrs[gAudioBufferIndex], 0x300);
+                osAiSetNextBuffer(gAudioBufferPtrs[gAudioBufferIndex], 0x300);
                 break;
             case 255:
                 quit = 1;

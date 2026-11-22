@@ -1,7 +1,7 @@
 s32 func_800A9250(void);
 s32 osVirtualToPhysical(s32);
 extern volatile s32 D_A4040000;
-s32 func_800A92C0(s32 direction, s32 spAddress, s32 dramAddress, s32 length) {
+s32 __osSpRawStartDma(s32 direction, s32 spAddress, s32 dramAddress, s32 length) {
     volatile s32 *lengthRegister;
     if (func_800A9250()) return -1;
     D_A4040000 = spAddress;
