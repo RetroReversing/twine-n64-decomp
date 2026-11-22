@@ -188,21 +188,12 @@ void func_8001F9A4(void)
     temp_v1_2 = *(((u8 *) (&D_80100198)) + (D_800B7CF0 * 0x18));
     if (((s32) temp_v1_2) >= 0)
     {
-      if (temp_v1_2)
-      {
-        var_a0_7 = temp_s6 - 0x28;
-      }
-      else
-      {
-        var_a0_7 = temp_s6 - 0x28;
-      }
       if (((s32) temp_v1_2) >= 2)
       {
         if (((s32) temp_v1_2) < 6)
         {
           if (((((s32) temp_v1_2) + 1) - 1) > (4 - 1))
           {
-            var_a0_7 = temp_s6 - 0x28;
             goto block_32;
           }
           goto block_36;
@@ -210,7 +201,7 @@ void func_8001F9A4(void)
         goto block_35;
       }
       block_32:
-      func_80025E9C(var_a0_7, temp_s6, temp_fp - 0x28, sp3C - 0x28, 1, 0xD);
+      func_80025E9C(temp_s6 - 0x28, temp_s6, temp_fp - 0x28, sp3C - 0x28, 1, 0xD);
 
       if ((*((u8 *) (((char *) gSaveMenuState) + 8))) == 0xD)
       {
@@ -219,12 +210,9 @@ void func_8001F9A4(void)
     }
     else
     {
-      var_a0_7 = temp_s6 - 0x28;
       block_35:
       block_36:
-      func_80025D84(var_a0_7, temp_s6, temp_fp - 0x28, sp3C - 0x28, 0x162, 1);
-
-
+      func_80025D84(temp_s6 - 0x28, temp_s6, temp_fp - 0x28, sp3C - 0x28, 0x162, 1);
       var_a0_8 = 0xA;
       if (D_80108960 != 0)
       {
