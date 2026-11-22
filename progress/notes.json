@@ -86684,28 +86684,12 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19efe78e88efa25d9c868d6298e091bf6a11bd6cc3a4dfc219f332d512a9e72f"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Best score 3505 (revision 02f13ae52563c3a089e1, 68.1%). Key win: D_800CE354/D_800CE358 as u8 with AT(T,sym,off) byte-offset macro (off = arg1*12); 5350 -> 3505. Remaining diffs: first block's sll/lui order for D_800CE358, the second block's addiu a0,a3,0xc / addiu v1,v1,-0xc ordering, and bnez target 0xb0 vs 0xb4 (one extra insn in first block). Not tried: a single-expression nv/r2 block, reordering the arg1==0x2D return, splitting align. Declare all locals first (C89).",
-  "by": "permuter-25769805351",
-  "created_at": 1795052148.366196,
-  "score_before": 5350,
-  "score_after": 3505
- },
- {
   "function": "func_80097A40",
   "text": "Rechecked best 740/55 target instructions (86.5%). Fixes that improved it: use s32/u32 for the loaded 16-bit sentinel so GCC keeps the target's direct comparison; calculate table byte offset as `(var_a2*2 + var_a2)*4`; explicitly mask arg0 only after the sentinel check. Best still lacks target's `andi $v1,$a3,0xffff` after ori sentinel, and differs in later register allocation/branch offsets/callee scratch-pointer stack store. Reverting var_a3 to u16 or local branch/address repairs regressed/equaled. Callee `func_8008C7B8` is a matched empty stub; caller needs args despite its `(void)` signature.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795137657.5409548,
   "score_before": 1486,
   "score_after": 740
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Restored and rechecked saved best at 3400. First rewrite with cleaner u32 pointer traversal scored 4780, worse. Local repairs tested cfg_integer_lifetimes, signedness, declaration_order, address_temporary, sum_shape, shared_return; no improvement. Main remaining mismatch is global control flow/register allocation; initial branch target is bnez D_800E1A90 to 0xb0, candidate goes to 0xb4 (four instruction bytes difference), and many register/order differences remain. Best source retained.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795138161.339523,
-  "score_before": 2450,
-  "score_after": 2450
  },
  {
   "function": "func_800295F0",
@@ -86756,14 +86740,6 @@
   "score_after": 740
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Started from the saved best (3400); direct whole-function compile rechecked at 3410. A targeted change that keeps the aligned size in arg0 rather than a separate p worsened to 3455, so the saved best remains preferable. Existing major issue: target's traversal loop uses a3 for requested size and computes a0=a3+12 after adding alignment; C variations here introduced branch/layout differences. Restore/recheck saved best and focus first on matching the early critical branch offset (target bnez at 0xb0, attempt b4), then inspect raw address warnings around D_800E1AA0 vs D_800E1A9C; avoid blindly rewriting field updates. No reliable general compiler discovery.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795178223.0196779,
-  "score_before": 2450,
-  "score_after": 2450
- },
- {
   "function": "func_800347B0",
   "text": "Current best score 515 (94.5%, 94 instructions), equal to rechecked inherited best. Six compiles without improvement. Initial compilation reproduces 515; auto local pass did not improve. Tried to force the offset +4 float-bit store to integer with invalid address-of-expression (compile error), then alias through temp_fa1 caused stack growth and score 1357; restored saved best. Remaining dominant issue: target emits mfc1 $v0,$f14; sw $v0,4($s0), while candidate emits swc1 at +4; also 17 FPR allocation differences/order around the matrix products. Need recover intended float-bit transfer and order of expression evaluation while preserving target stack size 0x50.",
   "by": "codex-gpt-6-luna-9",
@@ -86786,14 +86762,6 @@
   "created_at": 1795182111.39083,
   "score_before": 740,
   "score_after": 210
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Rechecked baseline 3400. Tried cfg_integer_lifetimes, signedness, declaration_order, address_temporary, sum_shape, shared_return; no variant improved. Candidate has an added phase_blk temporary from a prior repair and still mismatches heavily. First diagnostic difference is branch target: target bnez at 0xb0, candidate at 0xb4, implying an early control-flow shape issue around D_800E1A90. Candidate compiles after previous repair despite the earlier compiler error recorded in the claim draft.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795182564.5716429,
-  "score_before": 2450,
-  "score_after": 2450
  },
  {
   "function": "func_800295F0",
@@ -86916,28 +86884,12 @@
   "score_after": 210
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Best score 115 on c53dcca86d131836b8c1, down from 2350. All 110 instructions and their scheduling match modulo 23 register differences. Preserve the explicitly interleaved counter loads, split 12-byte adjustments, reuse of newBlock for the tentative and final block pointers, and reuse of available for the final size. In arena path, candidate allocates offset/mask/inverse to a2/v1/t0, target t0/a2/v0. Heap path swaps a0/a1 for available and newBlock throughout. Explicit byte offsets, sharing mask across the two paths, C register hints, and reassigning tag were tested without improvement. The current best has only one prev store. Next try giving the alignment pad and the temporary unsigned size independent lexical lifetimes with no operand-order changes.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795189220.656258,
-  "score_before": 2350,
-  "score_after": 115
- },
- {
   "function": "func_80097A40",
   "text": "Rechecked saved score 210. Branch orientation worsened to 1155; address temporary, sum shape and constant local tied at 210. Target has an extra andi v1,a3,0xffff after initial lhu and differs in branch destinations and scheduling. Saved candidate has a correctness concern: matched-ID path does not advance to the next record; inspect target loop and fix before further tuning. Remaining local repairs available.",
   "by": "codex-gpt-6.1-terra-7",
   "created_at": 1795189880.588937,
   "score_before": 210,
   "score_after": 210
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Rechecked best 115: all 110 instructions match except 23 register operands. Register qualifiers on mask and inverse had no effect; unsigned mode byte and sum-shape local repairs worsened score. Try changing lifetimes of the tag stride, alignment mask, and available block size; target uses t0 for stride and a2 for mask, candidate swaps them. The later available size also uses a0 in target versus a1 in candidate.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795190877.812962,
-  "score_before": 115,
-  "score_after": 115
  },
  {
   "function": "func_80097A40",
@@ -86972,28 +86924,12 @@
   "score_after": 620
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Rechecked 115: 110 instructions, 23 register-only differences. Branch reversal, unsigned mode, declaration order, staged decrement, entry pointer and separated available initialization did not improve. Target first stride uses t0 and mask a2; candidate uses a2 and v1. Explore other alignment-mask and stride lifetimes without changing instruction scheduling.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795193107.190099,
-  "score_before": 115,
-  "score_after": 115
- },
- {
   "function": "func_80097A40",
   "text": "Rechecked 210. Explicit u16 cast on initial sentinel and unsigned stride locals tie; u16 key local or comparison narrows too much and worsens. Initial andi v1,a3,0xffff still absent, with two schedule shifts. Try first loading a signed halfword and keeping an independently masked unsigned key live through the initial check and loop; check both lhu and andi. Preserve all four arguments to matched empty stub.",
   "by": "codex-gpt-6.2-sol-6",
   "created_at": 1795197432.401335,
   "score_before": 210,
   "score_after": 210
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Recovered candidate builds but starts at score 115. Original draft errors were fixed conceptually by treating heap-end addresses as integer/pointer conversions; current variant generator trials did not improve. Six-compile no-improvement limit reached. First mismatch is register allocation: target computes table stride into $t0 via sll $t0,$v0,2, while C assigns it to $a2; 23 mismatches are register-classified. Next try restructuring table indexing/alignment local lifetimes to keep index in $t0, using the original full control-flow draft as base. Target is 118 instructions and function ends cleanly at jr $ra.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795197893.249241,
-  "score_before": 115,
-  "score_after": 115
  },
  {
   "function": "func_800347B0",
@@ -87020,14 +86956,6 @@
   "score_after": 210
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Best candidate remains revision 00318d77d8b03efb0973 at score 115 (110 target/candidate instructions; only 23 register allocation differences). Rechecked baseline and explored pointer aliasing to D_800CE354[tag], which generated identical instructions. Tried tag as s16; regressed to 615 because of sign-extension and shifted control flow. Target begins with tag*12 scaled offset in $t0 while mask is kept in $a2; candidate allocates that scale to $a2, causing pervasive register differences. Remaining work: restore/use saved best and investigate local ordering/types/declarations that keep scaled index in $t0 while preserving signed s32 tag semantics; do not repeat pointer alias changes.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795199046.1173928,
-  "score_before": 115,
-  "score_after": 115
- },
- {
   "function": "func_800347B0",
   "text": "Rechecked baseline score 185. Six local repair variants found no improvement; address temporary, const-read, assignment-at-use and target call arity either tied or worsened; shared-product lifetime severely worsened. Target first register mismatch in the multiply stage: target mul.s f4,f28,f22 and f6,f26,f22; candidate f14,f24,f20 and f16,f24,f0. All remaining 23 mismatches are chiefly FP registers (17 register differences), plus four operands and two reorders. Trig calls/outputs and matrix formulas appear sound. Next inspect first target/candidate FP live ranges and try reusing product locals sequentially to mirror target's f20/f22 saved trig results; no reusable compiler insight yet.",
   "by": "codex-gpt-6-luna-17",
@@ -87052,14 +86980,6 @@
   "score_after": 210
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Current saved baseline rechecked score 115. Ran all six applicable local families once: sum_shape 425, branch_orientation 1440, signed alignment 515, declaration_order tied 115, load_before_store 310, assignment_at_use 385. Target mismatch is purely 23 register differences; earliest is scaled tag offset target in $t0 versus candidate $a2. The rest arise from allocator register choice across the function. Target computes tag table address by `sll tag,1; addu tag; sll $t0,2`, loads alignment byte from D_800CE358, then subtracts 1 into $a2; candidate's layout modeled tag records and is semantically plausible. Next experiment should rewrite initial table computation explicitly as scalar pointer/index using `D_800CE358[tag*12 + 4]` byte field, with an intermediate `t0`-lifetime to match load ordering; avoid the failed generic repairs. Candidate review compiler warnings invalid `&` and pointer conversions may be stale from draft, current candidate compiles. No reusable knowledge.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795201018.6658869,
-  "score_before": 115,
-  "score_after": 115
- },
- {
   "function": "func_800295F0",
   "text": "Added candidate-local M2C_FIELD and M2C_UNK declarations so source compiles. Corrected rewrite achieved score 180/94 instructions; remaining diffs are register assignment/order, target loads active byte into s1 while candidate uses s2, target performs shift/jump scheduling in inverse order in limit handling. Tried simplifying declarations (same score / same instructions); move-on 5/6. Best attempt retained. Next: experiment with variable declarations/types/lifetimes to force initial active byte into s1 and use s2 for limit; perhaps order upper-limit assignment before lower-limit extraction. No exact match.",
   "by": "codex-gpt-6-luna-9",
@@ -87082,14 +87002,6 @@
   "created_at": 1795201765.820637,
   "score_before": 210,
   "score_after": 210
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Verified baseline score 115; 23 register differences remain.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795201937.03712,
-  "score_before": 115,
-  "score_after": 115
  },
  {
   "function": "func_800295F0",
@@ -87140,14 +87052,6 @@
   "score_after": 210
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Score 115 (110/110 insns, 23 register-only diffs). Target computes tag*12 as sll(tag,1)+addu*4 into $t0, kept live for the else-branch address; mine puts mask in $v1 and tag*12 in $a2. Tried: u32 mask, u32 inverse, (old+mask)&~mask, HeapTag *tagp hoisting: all 115 or worse (510 for one). Remaining is allocation of the tag*12 temp vs mask. Saved best is the original c54882ce3967e8c65592 (the tagp variant d2a3ee36 is equal score, not better).",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795204251.0239701,
-  "score_before": 115,
-  "score_after": 115
- },
- {
   "function": "func_800347B0",
   "text": "Math verified by hand: fs4=sin(a1), fs3=cos(a1), fs1=sin(a2), fs2=cos(a2), fs0=sin(a3), fv0=cos(a3). Stores: 0x0=c2*c3, 0x4=int bits of c2*s3 (via mfc1 from fa1), 0x8=-s2, 0xC/0x1C/0x2C=0.0 (mtc1 $zero), 0x10=(s1*s2*c3)-(c1*s3), 0x14=(s1*s2*s3)+(c3*c1) with c3*c1 spilled to stack 0x14 before the calls end, 0x18=s1*c2, 0x20=(c1*s2*c3)+(s1*s3), 0x24=(c1*s2*s3)-(c3*s1), 0x28=c1*c2, 0x30-0x38=a4-a6, 0x3C=1.0. Saved best 165 (revision 6386d51be90a29816229) is the right structure; remaining diff is register allocation and instruction order (target spills arg4-6 from caller stack, computes products in a different order). A from-scratch rewrite scored 2716 (worse): avoid the plain int 0 for word 1 and the rewrite style. Next step: work on the saved best with explicit per-product expressions in the target's mul order (see mul.s sequence in asm lines 31-51).",
   "by": "api-claude-haiku-5-5-7",
@@ -87170,14 +87074,6 @@
   "created_at": 1795205086.384147,
   "score_before": 210,
   "score_after": 210
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Verified 115, 23 register-only rows. Explicit byte offset, register mask, and -1-mask left the diff unchanged. Separating decrement scored 140; swapping final start/size add scored 120. Restored baseline.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795205872.60206,
-  "score_before": 115,
-  "score_after": 115
  },
  {
   "function": "func_8011A7C8",
@@ -87250,15 +87146,6 @@
   "created_at": 1795208728.530391,
   "score_before": 7708,
   "score_after": 7708
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Judge reached 7/6 without improvement. Best verified 115 with 23 register-only rows. Hoisting newBlock declaration, staging alignment sum, and -1-mask were identical; inverse=-alignment scored 520, predecrement 140.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795212882.893573,
-  "score_before": 520,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
  },
  {
   "function": "func_80097A40",
@@ -87351,15 +87238,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Still 115 (23 register-only rows). Target: tag*12 in $t0, mask in $a2, ~mask ($v0 nor) in bne delay slot; mine: tag*12 in $a2, mask in $v1. This session additionally tried: split mask/mask-- declarations (140), ~mask inline (510), pointer-cast tag*12 offsets for used (330/750), hoisted HeapTag *t (1005). Next step: try making the tag*12 index a distinct pseudo whose live range starts before mask (e.g. int off = tag*12 used via (u8*)D_800CE354+off for both alignment read and used) while keeping alignment read as lbu D_800CE358.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795226751.4876192,
-  "score_before": 115,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_80097A40",
   "text": "Inline scalar shapes, branch orientation and u16 cast on first sentinel comparison.\nCast and inline shapes unchanged at 210; reversed branch worsened to 1155.",
   "by": "codex-gpt-6.1-terra-4",
@@ -87376,15 +87254,6 @@
   "score_before": 180,
   "score_after": 180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Still 115 (110/110 insns, 23 register-only rows). This session: removed inverse var (compile error), inline ~mask (510), u32 tag (115 same), inverse declared before and assigned in else (310). Target keeps tag*12 in $t0 and mask in $a2 with nor in the bne delay slot; mine puts tag*12 in $a2, mask in $v1. Next step: try restructuring so mask is computed in each branch (tag==45 test before reading alignment) or use a different tag-offset expression (e.g. (tag*3)<<2 into a u32 offset var) shared between branches.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795231096.7889888,
-  "score_before": 115,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
  },
  {
   "function": "func_800347B0",
@@ -87477,15 +87346,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:45736c2a205375ad89199b4b7a38941a3e9753119b4587f04a9c668af83723fd"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Verified score 115 with 110/110 instructions and 23 register differences, first tag*12 in a2 versus t0. Block-end placement unchanged; inverse from raw alignment and reordering tag usage load were worse. Retained baseline after exceeding 6 consecutive compiles without improvement.\nMoved block-end calculation into size check, derived inverse from alignment in both directions, and moved start before usage load.\nBlock-end move unchanged at 115. Alignment rewrites scored 520 and 310; moving start scored 505.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795240826.702326,
-  "score_before": 115,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_80081D50",
   "text": "Best 2285 (rev 6b7e0d2f291d4c18df2e): changing arg1 to u8 param fixed prologue ordering (2315\u21922285). Remaining: target recomputes &E(i) (a1) after the bonus join and uses it for mask/flags/val; mine reuses s0. Target also does `andi a2,a2,0xFFFF` after bonus and (arg2&mask!=0)^(flags&1) via sltu/xor without the extra branch. Using a pointer local p for idx/flags&0x10 gave 2290 (addu operand order s0). Tried u16 a2 direct assign: worse (2385) without u8 param.\nu8 arg1, pointer local p\nu8 arg1 -2315\u21922285; p 2290",
   "by": "api-claude-sonnet-5-5-2",
@@ -87504,15 +87364,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Session ending. Starting candidate was a machine draft rather than historical 115-point C; current verified 2905. Corrected byte stride, alignment byte loads and word usage accesses. Target 110 instructions vs 106, and heap counter ordering differs.\nExplicit byte-pointer conversion for allocated-block address\nScore 2905 unchanged; target has four more instructions and different counter ordering.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795243243.249388,
-  "score_before": 115,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_800295F0",
   "text": "Current candidate ef0767ae6f2a90fe5545 scored 2345 after complete draft/source-symbol corrections; original inherited score 180 historical but current valid baseline 2345. Tried full m2c structure then external string symbols and actual matched callee signatures; local repairs found no untried applicable repairs. Diff remains extensive regalloc/control flow: initial pointers and byte stride order differ; target uses signed slt and some branch target offsets differ. Next step: try typed structs for menu state/entry and separately scoped branch locals, especially correct signed bound comparisons; compare with current verified baseline before exploratory variants.",
   "by": "codex-gpt-6-luna-15",
@@ -87520,15 +87371,6 @@
   "score_before": 180,
   "score_after": 180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked c66626b73062ec114581 at 2905. Signedness and declaration-order variants emitted unchanged instructions. Target has four more instructions and first branch differs by one instruction. Next step: reconstruct the allocation counter updates using a typed heap block and compare the two branches independently.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795243471.36687,
-  "score_before": 115,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
  },
  {
   "function": "func_8011A7C8",
@@ -87594,15 +87436,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Inherited C compiles at score 2905 (110 target, 106 candidate). Major differences are branch/control flow and register allocation. Address hints show target stores at rows 86 and 96 map to D_800E1AA0 while candidate uses D_800E1A9C. Verify globals/function name before editing. No changes.\nCompiled inherited m2c once; no source fix.\nScore 2905/73.5%. Candidate uses function name func_80083E90. Target raw addresses at rows 86/96 are D_800E1AA0; candidate uses D_800E1A9C.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795245966.96826,
-  "score_before": 2905,
-  "score_after": 2905,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_80097A40",
   "text": "Explicit loop comparison mask compiles identically, score 210. Missing mask is before initial sentinel comparison; remaining differences are branch offsets and sentinel placement.\nMask loop comparison\nNo instruction difference; score 210",
   "by": "codex-gpt-6.1-terra-5",
@@ -87610,15 +87443,6 @@
   "score_before": 210,
   "score_after": 210,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Inherited source was stale machine draft; historical score 115 source unavailable in this claim. Fixed function name and pointer cast to compile; typed byte symbols and word cast on one store scored 3785, with large remaining indexing and register differences. Next: recover historical 115-point candidate and recheck under current context.\n\nHistorical 115 candidate unavailable; current recovered draft scores 3815. Byte-offset first alignment load alone scored 4155. Earlier byte symbol and partial word-store cast scored 3785. Need recover historical source.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795247118.8380969,
-  "score_before": 2905,
-  "score_after": 2905,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
  },
  {
   "function": "func_800295F0",
@@ -87630,33 +87454,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Machine draft failed to compile historically, but compiling the supplied candidate got score 3815. Do not build that draft again: several globals need byte-sized array declarations, and its temporaries produce poor code. get_function(history) reports 115 best; saved_best currently resolves to this 3815 source under this claim/input. Historical handoff says 23 register-only differences, target holds tag*12 in t0 and computes it as shift-add; t0 remains live through else-branch address setup, while source variants allocate mask in another register. Tried the malformed full source rewrite: score 3815, substantially worse.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795249007.794254,
-  "score_before": 3815,
-  "score_after": 3815,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Changed first alignment load to byte-offset word load; score 4350 versus inherited 3815. Target uses lbu, so the alignment field is byte-sized. Candidate and claim state have repeatedly reset between sequential calls in this session.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795249685.7521899,
-  "score_before": 3815,
-  "score_after": 3815,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Cannot get closer reliably in this session: the project changed while the repair batch compiled, and the historical score-115 source is unavailable. Byte-offset and byte alignment corrections improved the current candidate to 3255; 71 rows remain.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795249815.684128,
-  "score_before": 3815,
-  "score_after": 3255,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_800295F0",
   "text": "Saved candidate rechecked at 900. Local repairs did not improve.",
   "by": "codex-gpt-6.1-terra-5",
@@ -87666,24 +87463,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 2; 74 differing rows (4 opcode, 31 register, 10 branch target, 4 operand, 4 reordered, 8 inserted, 13 deleted; advisory).\nTarget: bnez $v0, 0xb0\nCandidate: bnez $v0, 0xb4\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $v0, %hi(D_800E1A90)\n  = lb $v0, %lo(D_800E1A90)($v0)\ni T: bnez $v0, 0xb0 | C: bnez $v0, 0xb4\nr T: move $a3, $a0 | C: move $t0, $a0\n  = sll $v0, $a1, 1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 63478440142f88003310 scored 3055: byte-based table offsets and u8 alignment loads improved 3815 to 3255, reusing temp_a3 improved to 3055. Reusing it in the other branch worsened to 3080; inferred free-list layout scored 3425. Next step: correct the allocation return pointer's byte offset and compare target control flow.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795251027.842975,
-  "score_before": 3255,
-  "score_after": 3055,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Corrected return pointer byte offset improved 3055 to 3050. Struct conversion and scalar reuse worsened; algebraic regrouping of accounting and pointer casts left instructions unchanged. Target and candidate differ around accounting addresses and free-list control flow.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795251764.709153,
-  "score_before": 3055,
-  "score_after": 3050,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_80064A18",
   "text": "Local repair continuation reached revision 301a4ead117971e5f8c7, score 15350 (baseline 15740): reused temp_s0 for two scalar lifetimes and moved var_v0_4 assignment after the debug loop. Subsequent repair changed candidate and claim was lost; revision 842dd1d9c97aecf8f0fa fails due to too-few-argument prototypes for func_800162BC and func_80022DBC. Next step: recover saved best and inspect call prototypes before further repairs.",
   "by": "codex-gpt-6.1-terra-4",
@@ -87691,15 +87470,6 @@
   "score_before": 15455,
   "score_after": 15350,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Fixed pointer-mask compile error and byte-indexed globals; score 3250. The target still differs in accounting instruction order and free-list control flow. Moving on after measuring the divergent block.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795254329.3312662,
-  "score_before": 3050,
-  "score_after": 3050,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
  },
  {
   "function": "func_800295F0",
@@ -87729,15 +87499,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 560dad458a74aa981f3f rechecked at 3250. Signedness and declaration-order local repairs for temp_a0 through temp_a2 produced unchanged output; automatic unchanged-output limit released claim. Next step: inspect the control-flow and counter ordering against target assembly, rather than further declaration permutations.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795255463.026179,
-  "score_before": 3050,
-  "score_after": 3050,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_8011A7C8",
   "text": "Session capacity reached. Verified 3730 from rechecked 7890. Corrected table addressing, used signed halfword indices, and made failed scene/bonus searches and successful exits explicit. Remaining: branch-likely delay-slot increments, sentinel join and register allocation. No-strength-reduce tied on intermediate C, -O1 regressed.",
   "by": "codex-gpt-6.2-sol-9",
@@ -87765,15 +87526,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Saved candidate reads temp_t0 and temp_a0_3 before assignment; correcting their order produced 2450 and 2835 respectively, versus 2420 baseline. Unsigned temp_t2 unchanged. Candidate requires semantic repair despite score.\nCorrected both use-before-assignment sequences\nScore worsened from 2420 to 2835",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795259803.114431,
-  "score_before": 2420,
-  "score_after": 2420,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_800347B0",
   "text": "Address temporaries, split lifetime, const argument, and unused multiplication operand swap.\nBaseline 160 unchanged or worse; split lifetime scored 1761. First mismatch remains floating-point product scheduling.",
   "by": "codex-gpt-6.1-terra-2",
@@ -87790,15 +87542,6 @@
   "score_before": 390,
   "score_after": 195,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Six variants without improvement. Five unchanged, signed alignment scored 515; 23 register differences remain at 115.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795263811.759486,
-  "score_before": 115,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
  },
  {
   "function": "func_80097A40",
@@ -87897,14 +87640,6 @@
   "score_before": 7938,
   "score_after": 1310,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not worked this session. The brief's candidate C is named func_80083E90, not heapAllocTagged. Check that the saved source defines heapAllocTagged before comparing scores. Saved best 115 with 23 register rows reported.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795307229.6643999,
-  "score_before": 115,
-  "score_after": 115
  },
  {
   "function": "func_800347B0",
@@ -88029,24 +87764,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "All 23 residual rows are register assignments. Canonical name, unsigned mask and operand reordering did not lower 115. Negating alignment scored 520. Computing a tag byte offset and reusing a struct pointer scored 760, folding separately addressed relocations into one base. Next step: compute an integer tag offset while keeping per-field symbol addresses distinct at each access.\nUsed a precomputed byte offset to construct a shared HeapTag pointer in the early branch.\n760 versus 115; lost three instructions by combining tag-field relocation bases.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795318153.129775,
-  "score_before": 115,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "heapAllocTagged",
-  "text": "Rechecked saved candidate at 115, 23 register-only mismatches. Canonical name also 115. Explicit byte offset with separate field bases scored 340. Separate tentative and final block locals scored 550, or 600 with a separate allocated-size local. Inlining inverse scored 510; splitting mask initialization scored 140; sharing one function-scope register mask across paths scored 120.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795318504.24638,
-  "score_before": 115,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_80064A18",
   "text": "Four trials without improvement. Shared-store tail switch scored 6184 and added an unmatched .rodata reference. Volatile aggregate for arg2 scored 5420, padding[1] gave identical 5123 output, and padding[3] scored 5138. The saved candidate retains the correct 0x48 frame but has the wrong arg2 spill offset and saved register for arg1.",
   "by": "codex-gpt-6.2-sol-9",
@@ -88146,15 +87863,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Verified 115 with 23 register-only rows. Index and size input aliases and removing outer else produced identical diff. Shared goto return 810, swapped tag branches 1440. Debug flags 545; no-schedule-insns and no-strength-reduce both 115. Splitting allocationSize from available scored 140 but reduced differing rows to 18; app identified it as a regional alternative.\nSeparate the final allocation size from the free-block capacity local.\nScore 140 versus 115, with 18 displayed mismatch rows versus 23. Baseline retained.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795341761.0233269,
-  "score_before": 115,
-  "score_after": 115,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_80081D50",
   "text": "This session compiled its one claim. Saved best 405 from 410 by reversing the val-path OR operands with a u16 cast. Target still has direct entry address in s0 and andi a2, a2, 0xffff after the mask load.",
   "by": "codex-gpt-6.2-sol-9",
@@ -88209,15 +87917,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Best 15 (saved attempt, 99.8%): only three register rows of the tag!=45 arm remain (target: nor $v0 / addu $v1,$a1,$a2 / and $v0,$v1,$v0; ours nor $v1 / addu $v0 / and $v0,$v0,$v1).\nEdit list from the saved 115: (1) volatile removed: no change (115). (2) the complement s32 inverse = ~mask sunk from before `if (tag == 45)` into the else arm as its first statement in do { inverse = ~mask; } while (0), the arm's declarations split from their initialisers (loads after it): 115 -> 85 (mask $a2, table offset $t0 as target; without the scope 900). (3) loop block: initialised declarations split; `available = block->size;` wrapped 3 deep, `end = (u8 *)block + available;` once, `available = size + 12;` 3 deep, `heapFree = D_800E1A9C;` once: 85 -> 15 (available/newBlock registers right; each part alone 85 or worse). Both are decomp-repair families now (arm_invariant_sink, local_weight_ladder; 0.5.669).\nNot matched, reasoning (local-alloc.c/global.c): the target keeps the (old+mask) sum in $v1 and the result in $v0 (not tied: local-alloc ties and's output to its first operand when it dies). With the complement first in the arm, mask has no conflict with $v1 and takes $v1 instead of $a2. Route that reaches all target registers for the arm except two: reuse `end` for the sum (end = old + mask; start = end & inverse; end = start + size;) with the complement in a fence at the arm start: 35, leaving only old/end exchanged ($v1/$a1; old is local and takes $v1, global end takes $a1). Tried and failed: inverse before the branch (global; triple stays $v1/$a2/$t0), single result variable (extra moves), inverse reused as the result (mask back to $v1), ~250 statement orders/fences/expression forms of the arm, wrappers on every statement of the first branch (<=4 deep, pairs/triples), -O3 / -fno-schedule-insns2 (same), -fno-schedule-insns (85). Idea not yet tried: a source where end is local (one death) while the result is still not tied to the sum, or old global with lower priority than end. The delay slot's nor comes from reorg only from the arm's first instruction or from above the branch. Scaffolding in the best: the do-while(0) scopes (weights and the arm fence), declarations split into assignments.",
-  "by": "manual-eeb260e870ca43d1",
-  "created_at": 1795385189.809812,
-  "score_before": 115,
-  "score_after": 15,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_80097A40",
   "text": "Saved best stays at 210. Changing var_a3 from u32 to u16 scored 620: it adds andi instructions and shifts the loop tail. Next step: keep var_a3 as u32 and make the first compare use a separate u16 temporary, `(u16)`-cast only on the initial sentinel test.",
   "by": "claude-sonnet-low-1",
@@ -88227,15 +87926,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
-  "function": "heapAllocTagged",
-  "text": "Handed off at 15 (99.8%): three register rows of the tag!=45 arm; see the note (local-alloc tie / old-end exchange).",
-  "by": "manual-eeb260e870ca43d1",
-  "created_at": 1795385798.442527,
-  "score_before": null,
-  "score_after": null,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
   "function": "func_800295F0",
   "text": "Best 125 is revision 4de7d2890373a33ce40a. Remaining diff is 6 rows: the target does `addu $v0,$s1,$s4; move $s1,$v0; sll $v0,$v0,16`, while the candidate adds in place into $s1. Scored 320: `temp_s0 += arg0`, and a block-local s32 sum. Scored 624: volatile sum, which adds a stack slot and extra loads. Next step: from revision 4de7d2890373a33ce40a, keep the sum in an s32 local that stays live past the compares, for example by passing it to formatTextEntry in the final branch.",
   "by": "claude-sonnet-low-1",
@@ -88243,5 +87933,315 @@
   "score_before": 125,
   "score_after": 125,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Best score 3505 (revision 02f13ae52563c3a089e1, 68.1%). Key win: D_800CE354/D_800CE358 as u8 with AT(T,sym,off) byte-offset macro (off = arg1*12); 5350 -> 3505. Remaining diffs: first block's sll/lui order for D_800CE358, the second block's addiu a0,a3,0xc / addiu v1,v1,-0xc ordering, and bnez target 0xb0 vs 0xb4 (one extra insn in first block). Not tried: a single-expression nv/r2 block, reordering the arg1==0x2D return, splitting align. Declare all locals first (C89).",
+  "by": "permuter-25769805351",
+  "created_at": 1795052148.366196,
+  "score_before": 5350,
+  "score_after": 3505
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Restored and rechecked saved best at 3400. First rewrite with cleaner u32 pointer traversal scored 4780, worse. Local repairs tested cfg_integer_lifetimes, signedness, declaration_order, address_temporary, sum_shape, shared_return; no improvement. Main remaining mismatch is global control flow/register allocation; initial branch target is bnez D_800E1A90 to 0xb0, candidate goes to 0xb4 (four instruction bytes difference), and many register/order differences remain. Best source retained.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795138161.339523,
+  "score_before": 2450,
+  "score_after": 2450
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Started from the saved best (3400); direct whole-function compile rechecked at 3410. A targeted change that keeps the aligned size in arg0 rather than a separate p worsened to 3455, so the saved best remains preferable. Existing major issue: target's traversal loop uses a3 for requested size and computes a0=a3+12 after adding alignment; C variations here introduced branch/layout differences. Restore/recheck saved best and focus first on matching the early critical branch offset (target bnez at 0xb0, attempt b4), then inspect raw address warnings around D_800E1AA0 vs D_800E1A9C; avoid blindly rewriting field updates. No reliable general compiler discovery.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795178223.0196779,
+  "score_before": 2450,
+  "score_after": 2450
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Rechecked baseline 3400. Tried cfg_integer_lifetimes, signedness, declaration_order, address_temporary, sum_shape, shared_return; no variant improved. Candidate has an added phase_blk temporary from a prior repair and still mismatches heavily. First diagnostic difference is branch target: target bnez at 0xb0, candidate at 0xb4, implying an early control-flow shape issue around D_800E1A90. Candidate compiles after previous repair despite the earlier compiler error recorded in the claim draft.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795182564.5716429,
+  "score_before": 2450,
+  "score_after": 2450
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Best score 115 on c53dcca86d131836b8c1, down from 2350. All 110 instructions and their scheduling match modulo 23 register differences. Preserve the explicitly interleaved counter loads, split 12-byte adjustments, reuse of newBlock for the tentative and final block pointers, and reuse of available for the final size. In arena path, candidate allocates offset/mask/inverse to a2/v1/t0, target t0/a2/v0. Heap path swaps a0/a1 for available and newBlock throughout. Explicit byte offsets, sharing mask across the two paths, C register hints, and reassigning tag were tested without improvement. The current best has only one prev store. Next try giving the alignment pad and the temporary unsigned size independent lexical lifetimes with no operand-order changes.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795189220.656258,
+  "score_before": 2350,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Rechecked best 115: all 110 instructions match except 23 register operands. Register qualifiers on mask and inverse had no effect; unsigned mode byte and sum-shape local repairs worsened score. Try changing lifetimes of the tag stride, alignment mask, and available block size; target uses t0 for stride and a2 for mask, candidate swaps them. The later available size also uses a0 in target versus a1 in candidate.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795190877.812962,
+  "score_before": 115,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Rechecked 115: 110 instructions, 23 register-only differences. Branch reversal, unsigned mode, declaration order, staged decrement, entry pointer and separated available initialization did not improve. Target first stride uses t0 and mask a2; candidate uses a2 and v1. Explore other alignment-mask and stride lifetimes without changing instruction scheduling.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795193107.190099,
+  "score_before": 115,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Recovered candidate builds but starts at score 115. Original draft errors were fixed conceptually by treating heap-end addresses as integer/pointer conversions; current variant generator trials did not improve. Six-compile no-improvement limit reached. First mismatch is register allocation: target computes table stride into $t0 via sll $t0,$v0,2, while C assigns it to $a2; 23 mismatches are register-classified. Next try restructuring table indexing/alignment local lifetimes to keep index in $t0, using the original full control-flow draft as base. Target is 118 instructions and function ends cleanly at jr $ra.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795197893.249241,
+  "score_before": 115,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Best candidate remains revision 00318d77d8b03efb0973 at score 115 (110 target/candidate instructions; only 23 register allocation differences). Rechecked baseline and explored pointer aliasing to D_800CE354[tag], which generated identical instructions. Tried tag as s16; regressed to 615 because of sign-extension and shifted control flow. Target begins with tag*12 scaled offset in $t0 while mask is kept in $a2; candidate allocates that scale to $a2, causing pervasive register differences. Remaining work: restore/use saved best and investigate local ordering/types/declarations that keep scaled index in $t0 while preserving signed s32 tag semantics; do not repeat pointer alias changes.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795199046.1173928,
+  "score_before": 115,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Current saved baseline rechecked score 115. Ran all six applicable local families once: sum_shape 425, branch_orientation 1440, signed alignment 515, declaration_order tied 115, load_before_store 310, assignment_at_use 385. Target mismatch is purely 23 register differences; earliest is scaled tag offset target in $t0 versus candidate $a2. The rest arise from allocator register choice across the function. Target computes tag table address by `sll tag,1; addu tag; sll $t0,2`, loads alignment byte from D_800CE358, then subtracts 1 into $a2; candidate's layout modeled tag records and is semantically plausible. Next experiment should rewrite initial table computation explicitly as scalar pointer/index using `D_800CE358[tag*12 + 4]` byte field, with an intermediate `t0`-lifetime to match load ordering; avoid the failed generic repairs. Candidate review compiler warnings invalid `&` and pointer conversions may be stale from draft, current candidate compiles. No reusable knowledge.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795201018.6658869,
+  "score_before": 115,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Verified baseline score 115; 23 register differences remain.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795201937.03712,
+  "score_before": 115,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Score 115 (110/110 insns, 23 register-only diffs). Target computes tag*12 as sll(tag,1)+addu*4 into $t0, kept live for the else-branch address; mine puts mask in $v1 and tag*12 in $a2. Tried: u32 mask, u32 inverse, (old+mask)&~mask, HeapTag *tagp hoisting: all 115 or worse (510 for one). Remaining is allocation of the tag*12 temp vs mask. Saved best is the original c54882ce3967e8c65592 (the tagp variant d2a3ee36 is equal score, not better).",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795204251.0239701,
+  "score_before": 115,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Verified 115, 23 register-only rows. Explicit byte offset, register mask, and -1-mask left the diff unchanged. Separating decrement scored 140; swapping final start/size add scored 120. Restored baseline.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795205872.60206,
+  "score_before": 115,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Judge reached 7/6 without improvement. Best verified 115 with 23 register-only rows. Hoisting newBlock declaration, staging alignment sum, and -1-mask were identical; inverse=-alignment scored 520, predecrement 140.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795212882.893573,
+  "score_before": 520,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Still 115 (23 register-only rows). Target: tag*12 in $t0, mask in $a2, ~mask ($v0 nor) in bne delay slot; mine: tag*12 in $a2, mask in $v1. This session additionally tried: split mask/mask-- declarations (140), ~mask inline (510), pointer-cast tag*12 offsets for used (330/750), hoisted HeapTag *t (1005). Next step: try making the tag*12 index a distinct pseudo whose live range starts before mask (e.g. int off = tag*12 used via (u8*)D_800CE354+off for both alignment read and used) while keeping alignment read as lbu D_800CE358.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795226751.4876192,
+  "score_before": 115,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Still 115 (110/110 insns, 23 register-only rows). This session: removed inverse var (compile error), inline ~mask (510), u32 tag (115 same), inverse declared before and assigned in else (310). Target keeps tag*12 in $t0 and mask in $a2 with nor in the bne delay slot; mine puts tag*12 in $a2, mask in $v1. Next step: try restructuring so mask is computed in each branch (tag==45 test before reading alignment) or use a different tag-offset expression (e.g. (tag*3)<<2 into a u32 offset var) shared between branches.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795231096.7889888,
+  "score_before": 115,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Verified score 115 with 110/110 instructions and 23 register differences, first tag*12 in a2 versus t0. Block-end placement unchanged; inverse from raw alignment and reordering tag usage load were worse. Retained baseline after exceeding 6 consecutive compiles without improvement.\nMoved block-end calculation into size check, derived inverse from alignment in both directions, and moved start before usage load.\nBlock-end move unchanged at 115. Alignment rewrites scored 520 and 310; moving start scored 505.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795240826.702326,
+  "score_before": 115,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Session ending. Starting candidate was a machine draft rather than historical 115-point C; current verified 2905. Corrected byte stride, alignment byte loads and word usage accesses. Target 110 instructions vs 106, and heap counter ordering differs.\nExplicit byte-pointer conversion for allocated-block address\nScore 2905 unchanged; target has four more instructions and different counter ordering.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795243243.249388,
+  "score_before": 115,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked c66626b73062ec114581 at 2905. Signedness and declaration-order variants emitted unchanged instructions. Target has four more instructions and first branch differs by one instruction. Next step: reconstruct the allocation counter updates using a typed heap block and compare the two branches independently.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795243471.36687,
+  "score_before": 115,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Inherited C compiles at score 2905 (110 target, 106 candidate). Major differences are branch/control flow and register allocation. Address hints show target stores at rows 86 and 96 map to D_800E1AA0 while candidate uses D_800E1A9C. Verify globals/function name before editing. No changes.\nCompiled inherited m2c once; no source fix.\nScore 2905/73.5%. Candidate uses function name func_80083E90. Target raw addresses at rows 86/96 are D_800E1AA0; candidate uses D_800E1A9C.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795245966.96826,
+  "score_before": 2905,
+  "score_after": 2905,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Inherited source was stale machine draft; historical score 115 source unavailable in this claim. Fixed function name and pointer cast to compile; typed byte symbols and word cast on one store scored 3785, with large remaining indexing and register differences. Next: recover historical 115-point candidate and recheck under current context.\n\nHistorical 115 candidate unavailable; current recovered draft scores 3815. Byte-offset first alignment load alone scored 4155. Earlier byte symbol and partial word-store cast scored 3785. Need recover historical source.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795247118.8380969,
+  "score_before": 2905,
+  "score_after": 2905,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Machine draft failed to compile historically, but compiling the supplied candidate got score 3815. Do not build that draft again: several globals need byte-sized array declarations, and its temporaries produce poor code. get_function(history) reports 115 best; saved_best currently resolves to this 3815 source under this claim/input. Historical handoff says 23 register-only differences, target holds tag*12 in t0 and computes it as shift-add; t0 remains live through else-branch address setup, while source variants allocate mask in another register. Tried the malformed full source rewrite: score 3815, substantially worse.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795249007.794254,
+  "score_before": 3815,
+  "score_after": 3815,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Changed first alignment load to byte-offset word load; score 4350 versus inherited 3815. Target uses lbu, so the alignment field is byte-sized. Candidate and claim state have repeatedly reset between sequential calls in this session.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795249685.7521899,
+  "score_before": 3815,
+  "score_after": 3815,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Cannot get closer reliably in this session: the project changed while the repair batch compiled, and the historical score-115 source is unavailable. Byte-offset and byte alignment corrections improved the current candidate to 3255; 71 rows remain.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795249815.684128,
+  "score_before": 3815,
+  "score_after": 3255,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 2; 74 differing rows (4 opcode, 31 register, 10 branch target, 4 operand, 4 reordered, 8 inserted, 13 deleted; advisory).\nTarget: bnez $v0, 0xb0\nCandidate: bnez $v0, 0xb4\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $v0, %hi(D_800E1A90)\n  = lb $v0, %lo(D_800E1A90)($v0)\ni T: bnez $v0, 0xb0 | C: bnez $v0, 0xb4\nr T: move $a3, $a0 | C: move $t0, $a0\n  = sll $v0, $a1, 1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 63478440142f88003310 scored 3055: byte-based table offsets and u8 alignment loads improved 3815 to 3255, reusing temp_a3 improved to 3055. Reusing it in the other branch worsened to 3080; inferred free-list layout scored 3425. Next step: correct the allocation return pointer's byte offset and compare target control flow.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795251027.842975,
+  "score_before": 3255,
+  "score_after": 3055,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Corrected return pointer byte offset improved 3055 to 3050. Struct conversion and scalar reuse worsened; algebraic regrouping of accounting and pointer casts left instructions unchanged. Target and candidate differ around accounting addresses and free-list control flow.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795251764.709153,
+  "score_before": 3055,
+  "score_after": 3050,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Fixed pointer-mask compile error and byte-indexed globals; score 3250. The target still differs in accounting instruction order and free-list control flow. Moving on after measuring the divergent block.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795254329.3312662,
+  "score_before": 3050,
+  "score_after": 3050,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 560dad458a74aa981f3f rechecked at 3250. Signedness and declaration-order local repairs for temp_a0 through temp_a2 produced unchanged output; automatic unchanged-output limit released claim. Next step: inspect the control-flow and counter ordering against target assembly, rather than further declaration permutations.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795255463.026179,
+  "score_before": 3050,
+  "score_after": 3050,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Saved candidate reads temp_t0 and temp_a0_3 before assignment; correcting their order produced 2450 and 2835 respectively, versus 2420 baseline. Unsigned temp_t2 unchanged. Candidate requires semantic repair despite score.\nCorrected both use-before-assignment sequences\nScore worsened from 2420 to 2835",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795259803.114431,
+  "score_before": 2420,
+  "score_after": 2420,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Six variants without improvement. Five unchanged, signed alignment scored 515; 23 register differences remain at 115.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795263811.759486,
+  "score_before": 115,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not worked this session. The brief's candidate C is named func_80083E90, not heapAllocTagged. Check that the saved source defines heapAllocTagged before comparing scores. Saved best 115 with 23 register rows reported.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307229.6643999,
+  "score_before": 115,
+  "score_after": 115
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "All 23 residual rows are register assignments. Canonical name, unsigned mask and operand reordering did not lower 115. Negating alignment scored 520. Computing a tag byte offset and reusing a struct pointer scored 760, folding separately addressed relocations into one base. Next step: compute an integer tag offset while keeping per-field symbol addresses distinct at each access.\nUsed a precomputed byte offset to construct a shared HeapTag pointer in the early branch.\n760 versus 115; lost three instructions by combining tag-field relocation bases.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795318153.129775,
+  "score_before": 115,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Rechecked saved candidate at 115, 23 register-only mismatches. Canonical name also 115. Explicit byte offset with separate field bases scored 340. Separate tentative and final block locals scored 550, or 600 with a separate allocated-size local. Inlining inverse scored 510; splitting mask initialization scored 140; sharing one function-scope register mask across paths scored 120.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795318504.24638,
+  "score_before": 115,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Verified 115 with 23 register-only rows. Index and size input aliases and removing outer else produced identical diff. Shared goto return 810, swapped tag branches 1440. Debug flags 545; no-schedule-insns and no-strength-reduce both 115. Splitting allocationSize from available scored 140 but reduced differing rows to 18; app identified it as a regional alternative.\nSeparate the final allocation size from the free-block capacity local.\nScore 140 versus 115, with 18 displayed mismatch rows versus 23. Baseline retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795341761.0233269,
+  "score_before": 115,
+  "score_after": 115,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Best 15 (saved attempt, 99.8%): only three register rows of the tag!=45 arm remain (target: nor $v0 / addu $v1,$a1,$a2 / and $v0,$v1,$v0; ours nor $v1 / addu $v0 / and $v0,$v0,$v1).\nEdit list from the saved 115: (1) volatile removed: no change (115). (2) the complement s32 inverse = ~mask sunk from before `if (tag == 45)` into the else arm as its first statement in do { inverse = ~mask; } while (0), the arm's declarations split from their initialisers (loads after it): 115 -> 85 (mask $a2, table offset $t0 as target; without the scope 900). (3) loop block: initialised declarations split; `available = block->size;` wrapped 3 deep, `end = (u8 *)block + available;` once, `available = size + 12;` 3 deep, `heapFree = D_800E1A9C;` once: 85 -> 15 (available/newBlock registers right; each part alone 85 or worse). Both are decomp-repair families now (arm_invariant_sink, local_weight_ladder; 0.5.669).\nNot matched, reasoning (local-alloc.c/global.c): the target keeps the (old+mask) sum in $v1 and the result in $v0 (not tied: local-alloc ties and's output to its first operand when it dies). With the complement first in the arm, mask has no conflict with $v1 and takes $v1 instead of $a2. Route that reaches all target registers for the arm except two: reuse `end` for the sum (end = old + mask; start = end & inverse; end = start + size;) with the complement in a fence at the arm start: 35, leaving only old/end exchanged ($v1/$a1; old is local and takes $v1, global end takes $a1). Tried and failed: inverse before the branch (global; triple stays $v1/$a2/$t0), single result variable (extra moves), inverse reused as the result (mask back to $v1), ~250 statement orders/fences/expression forms of the arm, wrappers on every statement of the first branch (<=4 deep, pairs/triples), -O3 / -fno-schedule-insns2 (same), -fno-schedule-insns (85). Idea not yet tried: a source where end is local (one death) while the result is still not tied to the sum, or old global with lower priority than end. The delay slot's nor comes from reorg only from the arm's first instruction or from above the branch. Scaffolding in the best: the do-while(0) scopes (weights and the arm fence), declarations split into assignments.",
+  "by": "manual-eeb260e870ca43d1",
+  "created_at": 1795385189.809812,
+  "score_before": 115,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
+ },
+ {
+  "function": "heapAllocTagged",
+  "text": "Handed off at 15 (99.8%): three register rows of the tag!=45 arm; see the note (local-alloc tie / old-end exchange).",
+  "by": "manual-eeb260e870ca43d1",
+  "created_at": 1795385798.442527,
+  "score_before": null,
+  "score_after": null,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
  }
 ]

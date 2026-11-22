@@ -22,6 +22,7 @@ extern volatile u32 D_80102CB8;
 extern u32 D_80109A90;
 
 s32 heapAllocTagged(s32 size, s32 tag) {
+    u32 temp;
     if (D_800E1A90 == 0) {
         s32 mask = D_800CE354[tag].alignment - 1;
         if (tag == 45) {
@@ -39,13 +40,12 @@ s32 heapAllocTagged(s32 size, s32 tag) {
             u32 used;
             u32 start;
             u32 end;
-            u32 temp;
             u32 inverse;
             old = D_80109A90;
             used = *(u32 *)&D_800CE354[tag].used;
             temp = old + mask;
             inverse = ~mask;
-            start = inverse & temp;
+            start = temp & inverse;
             end = start + size;
             D_80109A90 = end;
             D_800CE354[tag].used = used + (end - old);
@@ -63,17 +63,16 @@ s32 heapAllocTagged(s32 size, s32 tag) {
                 if (available >= minimum) {
                     u32 mask;
                     HeapBlock *newBlock;
-                    u32 extra;
                     mask = D_800CE354[tag].alignment - 1;
                     newBlock = (HeapBlock *)((u32)end - size);
-                    extra = (u32)newBlock & mask;
-                    if (available >= minimum + extra) {
+                    temp = (u32)newBlock & mask;
+                    if (available >= minimum + temp) {
                         u32 tagUsed;
                         u32 heapUsed;
                         u32 heapFree;
                         u32 blockFree;
                         HeapBlock *head;
-                        size += extra;
+                        size += temp;
                         do { do { do { available = size + 12; } while (0); } while (0); } while (0);
                         tagUsed = D_800CE354[tag].used;
                         newBlock = (HeapBlock *)((u32)end - available);
