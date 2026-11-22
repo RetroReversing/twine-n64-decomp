@@ -28,12 +28,13 @@ void func_8011CC3C(void)
     if (gVisibleSaveSlotCount > 0) {
         do {
             flag = sSaveSlotInfo[slot & 0xffff].kind;
-            if (flag == 0) goto zero_markers;
-            marker = 0;
-            if (flag < 4) goto spawn;
-            if (flag != 5) goto clear;
-            marker = 0;
-spawn:
+            switch (flag) {
+            case 1: case 2: case 3: case 5:
+                marker = 0;
+                break;
+            default:
+                goto zero_markers;
+            }
             kind = flag;
             do {
                 if (kind == 2 && gSaveKeyRelaxed == 1) {
