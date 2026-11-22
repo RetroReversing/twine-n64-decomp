@@ -57710,14 +57710,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fc3b637fee7dc0e4341799685c3378a726b8dc1097191b8cce5209d0ec494933"
  },
  {
-  "function": "func_80096758",
-  "text": "Corrected draft global to byte type so pointer arithmetic uses byte offsets; verified score 3540. Eight local variants did not improve. Reconstruct branch-specific register lifetimes and address expressions against full target; target retains additional masks and register reuse.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795138086.659872,
-  "score_before": 1770,
-  "score_after": 1770
- },
- {
   "function": "func_80012F50",
   "text": "Candidate baseline rechecked at 7675 (historical best, same source). A no-op compile_patch call and try_local_repairs call both timed out after 180 seconds without modifying revision 54f436a44feaa11170e2. get_candidate confirmed source and revision unchanged. No compilation result or source experiment was produced. Retry compile/judge when tool service is responsive; no specific mismatch diagnosis captured.",
   "by": "codex-gpt-6-luna-20",
@@ -57806,22 +57798,6 @@
   "score_after": 7915
  },
  {
-  "function": "func_80096758",
-  "text": "Rechecked revision 8fcc2c6d43f460b84b66 at 3540. Six local repair variants for scalar reuse, inferred layout, masked reuse, narrowing, signedness and declaration order did not improve it. Main mismatch is control flow/register allocation, beginning at the two byte loads; inspect full target and restructure the condition and value lifetimes. Further local repair proposals remain.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795178070.604058,
-  "score_before": 1770,
-  "score_after": 1770
- },
- {
-  "function": "func_80096758",
-  "text": "Reverified revision a9f8c08021d2dbd4c048 at 70. Exact except first bnez should target 0x9c rather than 0x98, second beqz displacement must shrink by one, and the andi v0,v1,0xff after the pair block's base load belongs in first bnez delay slot. The second branch delay slot already has the correct same mask. Explicit goto pairs with u8 casts and assigning the index before/inside the first branch all scored 80. Next explore separate control-flow definitions of the masked destination that remain live on both branches without merging before delay-slot scheduling.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795182768.601794,
-  "score_before": 70,
-  "score_after": 70
- },
- {
   "function": "func_80117784",
   "text": "Verified revision 9cdc68dfd8be06760ee4 score 6955; nine trials including signedness, declaration order, branch orientation, nested guards, float struct copies and deferred stores did not improve. 125 diff rows remain, primarily control flow and allocation. Reconstruct path-search loop and inspect earliest target-only operation; matched func_800461D4 declaration conflicts with candidate's float-return usage and requires assembly validation.",
   "by": "codex-gpt-6.1-terra-4",
@@ -57854,70 +57830,6 @@
   "score_after": 6242
  },
  {
-  "function": "func_80096758",
-  "text": "Verified best 70, 83 instructions, four differing rows around second range check: target schedules andi v0,v1,0xff in first branch delay slot and branches to 0x9c; candidate puts it later. Changing var_v0 to s32/u32 worsened to 370; removing redundant masked assignments tied; scalar reuse worsened to 810. Investigate branching structure and delayed mask.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795187918.618948,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_80096758",
-  "text": "Rechecked best 70: only mask andi moves from first condition branch delay slot to after second test, changing two branch offsets. Explicit goto pair with repeated assignment produced same instructions; changing var_v0 from u8 to u32 worsened to 370. Flag variants did not improve. Next explore condition/lifetime formulations preserving both mask operations and forcing first into branch delay slot.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795189656.446646,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_80096758",
-  "text": "Current candidate score 70 (83 instructions), rechecked. Main remaining difference is four instructions around the pair-copy condition: target puts `andi $v0,$v1,0xff` in the delay slot of `bnez` and branches to 0x9c; candidate puts that mask later and branches to 0x98. Rewrote the combined OR as explicit sequential goto labels; score unchanged. Comma assignment and constant_local variants also left instructions unchanged (score 70). More work could alter local lifetimes/condition structure so the v1 mask schedules into the first branch delay slot. No reusable compiler rule established.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795190883.024425,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_80096758",
-  "text": "Rechecked best score 70: first conditional branch target and placement of andi v0,v1,0xff differ. Factorizing stride did not change code; volatile var_v0 adds stack traffic. Explicit goto copy_pair retains same branch placement (score 80); widening var_v0 worsens allocation. Explore making first path mask execute in branch delay while keeping separate second path mask.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795192915.8496609,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_80096758",
-  "text": "Saved baseline score 70. Local repair variants scalar storage reuse, inferred record layout, masked value reuse, signedness, declaration order, and narrowing did not improve; final structural rewrite was 2745. Four mismatches remain, mostly second conditional's branch layout and value masking: target after first condition uses `andi $v0,$v1,0xff` in first branch delay, then at second test branches to shared pair-copy only when equal to 0/1; target also has a fresh `andi $v0,$v1,0xff` at .L800967F4. Baseline has comma expression reusing var_v0, causing target and candidate branch displacement differ by one instruction and mask ordering mismatch. Try restructuring second case as nested if: if first exceptional condition { pair copy } else { if second exception { pair copy } else { single copy } }; keep branch arms explicit and repeat destination row mask. Best revision a9f8c08021d2dbd4c048.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795197779.0419781,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_80096758",
-  "text": "Best 70. Tried phase union (2000), flipped guard (2825), sum-shape (80), scalar storage reuse (810), inferred record layout (tie), masked reuse (735). Remaining 4 advisory diffs only: target branch at row 32 goes to 0x9c, candidate 0x98; target has an `andi $v0,$v1,0xff` before the guard that's reordered/absent in candidate. Reshape paired boundary checks to match condition evaluation.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795198852.404025,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_80096758",
-  "text": "70 baseline: only the first bnez delay-slot andi of destination index is sunk into the pair block after the base address setup, shifting two branch encodings. Ternary and explicit goto to labeled compound with a mask on both paths give identical output; do-while around the initial mask scores 330. Try widening var_v0 to s32/u32 so the assignments represent genuine zero extensions instead of redundant byte masks, or changing which source expression owns the pair-block destination stride.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795200921.116577,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_80096758",
-  "text": "Move-on budget reached with six compile attempts. Rechecked best score 70 (99.1%, 83 instructions); a C rewrite recovered the full best from an exploratory poor candidate but did not improve it. Remaining mismatch is around second pair of byte-range tests: target has bnez branch to +0x9c with its delay slot ANDI $v0,$v1,0xff; it evaluates the second condition, then beqz to +0xf8 with same delay-slot ANDI. Best source ORs the conditions, emitting branch to +0x98 and placing ANDI later. Two attempts to separate/update destination temp had C89 compile errors due block declarations.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795201939.0783548,
-  "score_before": 70,
-  "score_after": 70
- },
- {
   "function": "func_80117784",
   "text": "Best candidate freshly rechecked at score 6955 (revision 9cdc68dfd8be06760ee4). Valid rewrite scored same but is not saved best. Tried six local families against valid rewrite; no improvement, two worse, one compile error. Major remaining mismatch: target vector copy code uses integer lw/sw, candidate uses floating lwc1/swc1. Handoff should begin from current revision 9cdc68dfd8be06760ee4.",
   "by": "codex-gpt-6-luna-11",
@@ -57934,14 +57846,6 @@
   "score_after": 6242
  },
  {
-  "function": "func_80096758",
-  "text": "Stalled at 70 (99.1%, 83 insns, 4 differing rows). Best source: u8 idx/col locals, base pointer declared inside each branch, conditions (u32)((arg0+0x80)&0xFF)<2U || (u32)((arg0+0x7C)&0xFF)<2U, dstRow=arg1[0x63], srcRow=arg2[0x63]. Remaining diff is branch layout at the two-condition check (target bnez at 0x9c with andi v0,v1,0xff in delay slot; mine bnez at 0x98). Tried shared var=dstRow before second if and swapped conditions with early return: same score. Next idea: nested ifs or signed sum for the +0x80/+0x7C test.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795204221.589639,
-  "score_before": 70,
-  "score_after": 70
- },
- {
   "function": "func_80117784",
   "text": "Saved best rechecked at 6955. Local repairs signedness/declaration order unchanged; branch orientation worsened. Major remaining mismatch is integer word copy vs floating transfers; candidate uses f32 pointers for XYZ at offsets 0,4,8. Target prologue holds arg0 in s3, arg2 in s4, arg3 in s5 (candidate allocation differs); reserve already present. Try typed three-word integer struct assignment for each XYZ copy, then inspect later flow.",
   "by": "codex-gpt-6-luna-19",
@@ -57956,23 +57860,6 @@
   "created_at": 1795207034.918869,
   "score_before": 6242,
   "score_after": 5935
- },
- {
-  "function": "func_80096758",
-  "text": "Reverified score 70. Ternary, comma assignments in both short-circuit arms, plain OR and explicit goto to the pair block all left the four diff rows unchanged. Target first bnez goes to +0x9c with andi v0,v1,0xff in its delay slot.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795209965.245989,
-  "score_before": 70,
-  "score_after": 70
- },
- {
-  "function": "func_80096758",
-  "text": "Inherited best recompiled at score 70/83 instructions. Remaining four differences: target bnez at offset 0x9c, andi delay slot, and beqz encoding +0x18; candidate bnez at 0x98 and andi after branch, beqz +0x19. Ternary/comma, plain OR, explicit goto attempts previously unchanged; my attempted goto labels failed to compile due to scope/C89 declaration placement. Restored/rechecked inherited source. No better score.\nRepeated inherited candidate compile confirmed score 70; explicit label/branch edit failed compile due to C89 declarations and labels.\nScore remained 70; exact branch layout mismatch described above.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795213616.7701828,
-  "score_before": 8100,
-  "score_after": 70,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
  },
  {
   "function": "func_80012F50",
@@ -58000,33 +57887,6 @@
   "score_before": 5490,
   "score_after": 5490,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:24f388798c8c8c353b0d53229002d2ae86900d9aa980bdc846f383e8e88c8b2f"
- },
- {
-  "function": "func_80096758",
-  "text": "Stays at 70. Only branch delay slot differs: target has andi v0,v1,0xff in delay slots of BOTH the first bnez and second beqz (probably stolen from start of block 2/3 by reorg); mine leaves the first slot unfilled and keeps a redundant andi at block 2 start. A clean rewrite with array D_800F2720[] and (u8)(arg0+0x80)<2 scored 1610 (compiler emits addiu -0x80, different) - keep the (arg0+0x80)&0xFF form. Next step: try making block-2 index computation textually different (e.g. dst row read as (u8) of a separate variable than block 3) so reorg treats the andi as non-redundant.\nternary, comma, goto, nested, u8 array rewrite\nno change at 70; array rewrite worse",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795225760.058845,
-  "score_before": 70,
-  "score_after": 70,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
- },
- {
-  "function": "func_80096758",
-  "text": "Stays at 70 (rev 0198dd8d with u8* pointers instead of M2C_FIELD; same score). Only delay-slot hoisting of 'andi v0,v1,0xff' into the first bnez slot differs. Tried: removing initial var_v0 assignment (390), (u8) casts for conditions (80), dropping !=0 (70 same). Whole-function clean rewrite with base hoisted scored 900. Next step: try making the L block's idx computation come from a variable declared before the first condition used only in the pair block, or vary which block gets its dstRow*0x86 computed first.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795229862.007437,
-  "score_before": 900,
-  "score_after": 70,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
- },
- {
-  "function": "func_80096758",
-  "text": "Current candidate scored 70/332, same as inherited best. Remaining four rows only: target bnez to +0x9c, then andi v0,v1,0xff in delay slot; candidate branch to +0x98 and later andi, causing following beqz displacement by one instruction. Prior agents tried ternary, comma assignments, plain OR, explicit goto and various locals without effect. A further attempt to insert statement into local declaration region failed parsing and was discarded. Next step: restructure the second condition so the byte mask expression is evaluated in branch delay via a u8 temporary assignment before the logical OR, preserving short circuit.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795237574.908753,
-  "score_before": 70,
-  "score_after": 70,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
  },
  {
   "function": "func_80117784",
@@ -58062,15 +57922,6 @@
   "score_before": 1780,
   "score_after": 1780,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:24f388798c8c8c353b0d53229002d2ae86900d9aa980bdc846f383e8e88c8b2f"
- },
- {
-  "function": "func_80096758",
-  "text": "Six local trials: record shapes unchanged at 70; pointer union 585/2000 and scalar reuse 810.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795248504.7773929,
-  "score_before": 70,
-  "score_after": 70,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
  },
  {
   "function": "func_80117784",
@@ -58109,15 +57960,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24f388798c8c8c353b0d53229002d2ae86900d9aa980bdc846f383e8e88c8b2f"
  },
  {
-  "function": "func_80096758",
-  "text": "Best 70 (4 rows). Target's first bnez jumps to +0x9c with `andi $v0,$v1,0xff` in its delay slot; ours omits it. Dropping the comma-assign var_v0 in the second || operand: no change. Next step: set var_v0 inside the first operand's comma expression instead of before the if.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795307041.0979378,
-  "score_before": 70,
-  "score_after": 70,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
- },
- {
   "function": "func_80117784",
   "text": "Verified 525 (saved 640 historical differs). try_local_repairs: none improved; branch flip 1075. Remaining 20 rows: in the reset loop the target materializes -1.0f (lui $at,0xbf80) before the sSearchEntries load; candidate loads sSearchEntries first. Next step: load sSearchEntries into the loop pointer after writing a -1.0f float local, i.e. declare `f32 neg = -1.0f;` before `e = sSearchEntries` and store `neg`.",
   "by": "claude-sonnet-low-1",
@@ -58141,24 +57983,6 @@
   "created_at": 1795312951.811213,
   "score_before": 1110,
   "score_after": 1110
- },
- {
-  "function": "func_80096758",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 32; 4 differing rows (1 branch target, 1 operand, 2 reordered; advisory).\nTarget: bnez $v0, 0x9c\nCandidate: bnez $v0, 0x98\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = andi $v0, $v0, 0xff\n  = sltiu $v0, $v0, 2\ni T: bnez $v0, 0x9c | C: bnez $v0, 0x98\no T: andi $v0, $v1, 0xff | C: \n  = addiu $v0, $a0, 0x7c\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nWarning on saved 40 (cb07fb0a): the goto enters after the pair-table base initializer, leaving it uninitialized in C. Do not inherit that shape as valid C. Moving the initializer to the target label and restoring the positive 0x80 recovered a valid 70 with the original delay-slot diff. Assigning the base through temp_a2 scored 325. Next step: start with valid 860e122d, use an outer initialized pair base before the first conditional and test explicit branch splitting against it.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795314990.016777,
-  "score_before": 70,
-  "score_after": 40,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
- },
- {
-  "function": "func_80096758",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 32; 4 differing rows (1 branch target, 1 operand, 2 reordered; advisory).\nTarget: bnez $v0, 0x9c\nCandidate: bnez $v0, 0x98\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = andi $v0, $v0, 0xff\n  = sltiu $v0, $v0, 2\ni T: bnez $v0, 0x9c | C: bnez $v0, 0x98\no T: andi $v0, $v1, 0xff | C: \n  = addiu $v0, $a0, 0x7c\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795315957.512469,
-  "score_before": 40,
-  "score_after": 30,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
  },
  {
   "function": "func_80117784",
@@ -84422,5 +84246,199 @@
   "score_before": 25,
   "score_after": 25,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:eacd88871da0a8cbb8e330e096d007863b7dbd7c41190b865142a671488078ad"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Corrected draft global to byte type so pointer arithmetic uses byte offsets; verified score 3540. Eight local variants did not improve. Reconstruct branch-specific register lifetimes and address expressions against full target; target retains additional masks and register reuse.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795138086.659872,
+  "score_before": 1770,
+  "score_after": 1770
+ },
+ {
+  "function": "func_80096758",
+  "text": "Rechecked revision 8fcc2c6d43f460b84b66 at 3540. Six local repair variants for scalar reuse, inferred layout, masked reuse, narrowing, signedness and declaration order did not improve it. Main mismatch is control flow/register allocation, beginning at the two byte loads; inspect full target and restructure the condition and value lifetimes. Further local repair proposals remain.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795178070.604058,
+  "score_before": 1770,
+  "score_after": 1770
+ },
+ {
+  "function": "func_80096758",
+  "text": "Reverified revision a9f8c08021d2dbd4c048 at 70. Exact except first bnez should target 0x9c rather than 0x98, second beqz displacement must shrink by one, and the andi v0,v1,0xff after the pair block's base load belongs in first bnez delay slot. The second branch delay slot already has the correct same mask. Explicit goto pairs with u8 casts and assigning the index before/inside the first branch all scored 80. Next explore separate control-flow definitions of the masked destination that remain live on both branches without merging before delay-slot scheduling.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795182768.601794,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Verified best 70, 83 instructions, four differing rows around second range check: target schedules andi v0,v1,0xff in first branch delay slot and branches to 0x9c; candidate puts it later. Changing var_v0 to s32/u32 worsened to 370; removing redundant masked assignments tied; scalar reuse worsened to 810. Investigate branching structure and delayed mask.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795187918.618948,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Rechecked best 70: only mask andi moves from first condition branch delay slot to after second test, changing two branch offsets. Explicit goto pair with repeated assignment produced same instructions; changing var_v0 from u8 to u32 worsened to 370. Flag variants did not improve. Next explore condition/lifetime formulations preserving both mask operations and forcing first into branch delay slot.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795189656.446646,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Current candidate score 70 (83 instructions), rechecked. Main remaining difference is four instructions around the pair-copy condition: target puts `andi $v0,$v1,0xff` in the delay slot of `bnez` and branches to 0x9c; candidate puts that mask later and branches to 0x98. Rewrote the combined OR as explicit sequential goto labels; score unchanged. Comma assignment and constant_local variants also left instructions unchanged (score 70). More work could alter local lifetimes/condition structure so the v1 mask schedules into the first branch delay slot. No reusable compiler rule established.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795190883.024425,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Rechecked best score 70: first conditional branch target and placement of andi v0,v1,0xff differ. Factorizing stride did not change code; volatile var_v0 adds stack traffic. Explicit goto copy_pair retains same branch placement (score 80); widening var_v0 worsens allocation. Explore making first path mask execute in branch delay while keeping separate second path mask.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795192915.8496609,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Saved baseline score 70. Local repair variants scalar storage reuse, inferred record layout, masked value reuse, signedness, declaration order, and narrowing did not improve; final structural rewrite was 2745. Four mismatches remain, mostly second conditional's branch layout and value masking: target after first condition uses `andi $v0,$v1,0xff` in first branch delay, then at second test branches to shared pair-copy only when equal to 0/1; target also has a fresh `andi $v0,$v1,0xff` at .L800967F4. Baseline has comma expression reusing var_v0, causing target and candidate branch displacement differ by one instruction and mask ordering mismatch. Try restructuring second case as nested if: if first exceptional condition { pair copy } else { if second exception { pair copy } else { single copy } }; keep branch arms explicit and repeat destination row mask. Best revision a9f8c08021d2dbd4c048.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795197779.0419781,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Best 70. Tried phase union (2000), flipped guard (2825), sum-shape (80), scalar storage reuse (810), inferred record layout (tie), masked reuse (735). Remaining 4 advisory diffs only: target branch at row 32 goes to 0x9c, candidate 0x98; target has an `andi $v0,$v1,0xff` before the guard that's reordered/absent in candidate. Reshape paired boundary checks to match condition evaluation.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795198852.404025,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "70 baseline: only the first bnez delay-slot andi of destination index is sunk into the pair block after the base address setup, shifting two branch encodings. Ternary and explicit goto to labeled compound with a mask on both paths give identical output; do-while around the initial mask scores 330. Try widening var_v0 to s32/u32 so the assignments represent genuine zero extensions instead of redundant byte masks, or changing which source expression owns the pair-block destination stride.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795200921.116577,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Move-on budget reached with six compile attempts. Rechecked best score 70 (99.1%, 83 instructions); a C rewrite recovered the full best from an exploratory poor candidate but did not improve it. Remaining mismatch is around second pair of byte-range tests: target has bnez branch to +0x9c with its delay slot ANDI $v0,$v1,0xff; it evaluates the second condition, then beqz to +0xf8 with same delay-slot ANDI. Best source ORs the conditions, emitting branch to +0x98 and placing ANDI later. Two attempts to separate/update destination temp had C89 compile errors due block declarations.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795201939.0783548,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Stalled at 70 (99.1%, 83 insns, 4 differing rows). Best source: u8 idx/col locals, base pointer declared inside each branch, conditions (u32)((arg0+0x80)&0xFF)<2U || (u32)((arg0+0x7C)&0xFF)<2U, dstRow=arg1[0x63], srcRow=arg2[0x63]. Remaining diff is branch layout at the two-condition check (target bnez at 0x9c with andi v0,v1,0xff in delay slot; mine bnez at 0x98). Tried shared var=dstRow before second if and swapped conditions with early return: same score. Next idea: nested ifs or signed sum for the +0x80/+0x7C test.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795204221.589639,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Reverified score 70. Ternary, comma assignments in both short-circuit arms, plain OR and explicit goto to the pair block all left the four diff rows unchanged. Target first bnez goes to +0x9c with andi v0,v1,0xff in its delay slot.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795209965.245989,
+  "score_before": 70,
+  "score_after": 70
+ },
+ {
+  "function": "func_80096758",
+  "text": "Inherited best recompiled at score 70/83 instructions. Remaining four differences: target bnez at offset 0x9c, andi delay slot, and beqz encoding +0x18; candidate bnez at 0x98 and andi after branch, beqz +0x19. Ternary/comma, plain OR, explicit goto attempts previously unchanged; my attempted goto labels failed to compile due to scope/C89 declaration placement. Restored/rechecked inherited source. No better score.\nRepeated inherited candidate compile confirmed score 70; explicit label/branch edit failed compile due to C89 declarations and labels.\nScore remained 70; exact branch layout mismatch described above.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795213616.7701828,
+  "score_before": 8100,
+  "score_after": 70,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Stays at 70. Only branch delay slot differs: target has andi v0,v1,0xff in delay slots of BOTH the first bnez and second beqz (probably stolen from start of block 2/3 by reorg); mine leaves the first slot unfilled and keeps a redundant andi at block 2 start. A clean rewrite with array D_800F2720[] and (u8)(arg0+0x80)<2 scored 1610 (compiler emits addiu -0x80, different) - keep the (arg0+0x80)&0xFF form. Next step: try making block-2 index computation textually different (e.g. dst row read as (u8) of a separate variable than block 3) so reorg treats the andi as non-redundant.\nternary, comma, goto, nested, u8 array rewrite\nno change at 70; array rewrite worse",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795225760.058845,
+  "score_before": 70,
+  "score_after": 70,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Stays at 70 (rev 0198dd8d with u8* pointers instead of M2C_FIELD; same score). Only delay-slot hoisting of 'andi v0,v1,0xff' into the first bnez slot differs. Tried: removing initial var_v0 assignment (390), (u8) casts for conditions (80), dropping !=0 (70 same). Whole-function clean rewrite with base hoisted scored 900. Next step: try making the L block's idx computation come from a variable declared before the first condition used only in the pair block, or vary which block gets its dstRow*0x86 computed first.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795229862.007437,
+  "score_before": 900,
+  "score_after": 70,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Current candidate scored 70/332, same as inherited best. Remaining four rows only: target bnez to +0x9c, then andi v0,v1,0xff in delay slot; candidate branch to +0x98 and later andi, causing following beqz displacement by one instruction. Prior agents tried ternary, comma assignments, plain OR, explicit goto and various locals without effect. A further attempt to insert statement into local declaration region failed parsing and was discarded. Next step: restructure the second condition so the byte mask expression is evaluated in branch delay via a u8 temporary assignment before the logical OR, preserving short circuit.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795237574.908753,
+  "score_before": 70,
+  "score_after": 70,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Six local trials: record shapes unchanged at 70; pointer union 585/2000 and scalar reuse 810.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795248504.7773929,
+  "score_before": 70,
+  "score_after": 70,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Best 70 (4 rows). Target's first bnez jumps to +0x9c with `andi $v0,$v1,0xff` in its delay slot; ours omits it. Dropping the comma-assign var_v0 in the second || operand: no change. Next step: set var_v0 inside the first operand's comma expression instead of before the if.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307041.0979378,
+  "score_before": 70,
+  "score_after": 70,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 32; 4 differing rows (1 branch target, 1 operand, 2 reordered; advisory).\nTarget: bnez $v0, 0x9c\nCandidate: bnez $v0, 0x98\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = andi $v0, $v0, 0xff\n  = sltiu $v0, $v0, 2\ni T: bnez $v0, 0x9c | C: bnez $v0, 0x98\no T: andi $v0, $v1, 0xff | C: \n  = addiu $v0, $a0, 0x7c\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nWarning on saved 40 (cb07fb0a): the goto enters after the pair-table base initializer, leaving it uninitialized in C. Do not inherit that shape as valid C. Moving the initializer to the target label and restoring the positive 0x80 recovered a valid 70 with the original delay-slot diff. Assigning the base through temp_a2 scored 325. Next step: start with valid 860e122d, use an outer initialized pair base before the first conditional and test explicit branch splitting against it.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795314990.016777,
+  "score_before": 70,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 32; 4 differing rows (1 branch target, 1 operand, 2 reordered; advisory).\nTarget: bnez $v0, 0x9c\nCandidate: bnez $v0, 0x98\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = andi $v0, $v0, 0xff\n  = sltiu $v0, $v0, 2\ni T: bnez $v0, 0x9c | C: bnez $v0, 0x98\no T: andi $v0, $v1, 0xff | C: \n  = addiu $v0, $a0, 0x7c\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795315957.512469,
+  "score_before": 40,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Score 30 has undefined C on the first pair path: goto skips base initialization and emitted branch skips its lui/addiu. Moving base initialization below the shared label yields defined C (8a01585460c528439f74, score 70), with both branches now selecting a valid address. It loses the first delay-slot andi and places the one shared mask after the second branch. Explicit cast/mask and declaration variants were neutral on 70.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795316911.4531388,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_80096758",
+  "text": "Ending session at 12/20 judged attempts. Saved score-30 source skips base initialization. Defined base-after-label variant with widened input byte scored 70 (a37450879814c3737d1f); widened destination plus explicit mask scored 600, explicit single-path goto 735.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795341375.291271,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
  }
 ]

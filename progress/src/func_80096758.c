@@ -47,10 +47,13 @@ void func_80096758(s32 arg0, void *arg1, void *arg2) {
     }
     var_v0 = temp_v1;
     if ((u8)(arg0 + 0x7C) < 2) {
-        u8 *base = &D_800F2720;
+        u8 *base;
+        s32 idx;
         s32 dst;
         s32 src;
-        pair_entry: dst = var_v0 * 0x86;
+        pair_entry: idx = var_v0;
+        base = &D_800F2720;
+        dst = idx * 0x86;
         temp_a1_2 = arg0 & 0xFE;
         src = (temp_a3 & 0xFF) * 0x86;
         temp_v0_2 = base + src + temp_a1_2;
@@ -68,4 +71,6 @@ void func_80096758(s32 arg0, void *arg1, void *arg2) {
         *to = *from;
     }
 }
+
+
 
