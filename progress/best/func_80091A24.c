@@ -255,10 +255,14 @@ loop_51:
                                     goto negative_var_v0_2;
 found_62: var_v0_3 = var_a0_5 | (temp_a1 & 0x80000000); goto join_62;
 negative_var_v0_2:
-                                    var_a1_2 = (var_a1_2 & 0x7FFFFFFF) * 0xFF8;
-                                    (*(s32 *)((char *)(&D_800E6AA8) + var_a1_2)) = temp_a3;
-                                    (*(s32 *)((char *)(&D_800E6AAC) + var_a1_2)) = temp_t0;
-                                    (*(u8 *)((char *)(&D_800E6AB2) + var_a1_2)) = (*(u8 *)((char *)(&D_800E6AB2) + var_a1_2)) | 0x10;
+                                    {
+                                    s32 stride;
+                                    var_a1_2 &= 0x7FFFFFFF;
+                                    stride = var_a1_2 * 0xFF8;
+                                    (*(s32 *)((char *)(&D_800E6AA8) + stride)) = temp_a3;
+                                    (*(s32 *)((char *)(&D_800E6AAC) + stride)) = temp_t0;
+                                    (*(u8 *)((char *)(&D_800E6AB2) + stride)) = (*(u8 *)((char *)(&D_800E6AB2) + stride)) | 0x10;
+                                    }
                                 }
                             }
                         }
@@ -375,8 +379,8 @@ setup_options:
                 temp_v0_7 = func_80092F9C((*(u16 *)((char *)(arg0) + 0x14)), (*(u16 *)((char *)(arg0) + 0x16)), (*(s32 *)((char *)(arg0) + 0x10)), &options.flags, 1);
                 *arg1 = temp_v0_7;
                 if ((temp_v0_7 != -1) && ((*(u8 *)((char *)(arg0) + 0x26)) & 0x80)) {
-                    var_a0_7 = 0;
                     temp_a1 = temp_v0_7;
+                    var_a0_7 = 0;
                     temp_v0_8 = temp_a1 & 0x7FFFFFFF;
                     var_v1_8 = 0;
 loop_100:

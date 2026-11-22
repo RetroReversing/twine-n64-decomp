@@ -258,6 +258,7 @@ void func_80069DCC(void *arg0)
   s32 var_v0_7;
   s32 var_v0_8;
   s32 var_v0_9;
+  s32 repair_first_inverted;
   s32 var_v1;
   s32 var_v1_10;
   s32 var_v1_11;
@@ -555,12 +556,13 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v1 = 0;
             }
+            repair_first_inverted = var_v1 ^ 1;
             var_v0 = 1;
             if (!(var_fs3 >= (-0.0002f)))
             {
               var_v0 = 0;
             }
-            if (((var_v0 ^ 1) | (var_v1 ^ 1)) != 0)
+            if (((var_v0 ^ 1) | repair_first_inverted) != 0)
             {
               temp_fv0 = var_fs3 * var_fs3;
               if (var_fs3 > 0.0f)
@@ -1458,9 +1460,9 @@ case 2: case 3: goto out_of_line_actor;
         }
           break;
         case 1: {
-          temp_fv0_24 = func_80063758(*((f32 *) (((char *) arg0) + 0x40)), D_800E19F8 + 2048.0f, 64.0f);
-          *((f32 *) (((char *) arg0) + 0x40)) = (f32) ((*((f32 *) (((char *) arg0) + 0x40))) + temp_fv0_24);
-          if (temp_fv0_24 == 0.0f)
+          var_fs3 = func_80063758(*((f32 *) (((char *) arg0) + 0x40)), D_800E19F8 + 2048.0f, 64.0f);
+          *((f32 *) (((char *) arg0) + 0x40)) = (f32) ((*((f32 *) (((char *) arg0) + 0x40))) + var_fs3);
+          if (var_fs3 == 0.0f)
           {
             goto block_362;
           }

@@ -56,6 +56,11 @@ typedef struct
 {
   u8 v;
 } Field_u8;
+inline static u32 inline_fn2()
+{
+  return (u32) (*((s32 *) (&sMatrixPoolUsed)));
+}
+
 void func_800358D4(void *arg0)
 {
   union 
@@ -256,10 +261,7 @@ void func_800358D4(void *arg0)
   }
   if (!(temp_v1_3 & 4))
   {
-    m2c_initial_frame.view_spAF.value = 0;
-    temp_fv0 = func_800357C8(0.1f);
-    m2c_initial_frame.view_sp9F.value = 0;
-    m2c_initial_frame.view_spA7.value = 0xFF;
+ { m2c_initial_frame.view_spAF.value = 0; temp_fv0 = func_800357C8(0.1f); m2c_initial_frame.view_sp9F.value = 0; m2c_initial_frame.view_spA7.value = 0xFF; }
     var_fv0 = temp_fv0 + 3.0f;
     block_10:
     m2c_initial_frame.view_sp94.value = var_fv0;
@@ -276,7 +278,7 @@ void func_800358D4(void *arg0)
           {
             if (((((((u32) ((Field_s32 *) (((char *) var_s3) + 0x58))->v) >> 2) & 1) && (((temp_v0 = ((Field_u8 *) (((char *) var_s3) + 0x54))->v, temp_s1 = var_s3 + 0x24, temp_v0 == 0)) || ((*((u8 *) (((s8 *) (&gTrackMarkerDone)) + temp_v0))) != ((Field_u8 *) (((char *) var_s3) + 0x55))->v))) && ((IsSphereVisible(temp_s1, ((Field_s32 *) (((char *) var_s3) + 0x4C))->v, var_fp, arg0) << 0x18) != 0)) && ((func_80034928(arg0, 2), func_800452E0(temp_s1, arg0 + 0x1C, &m2c_initial_frame.view_sp28.value), rotateVec3ByMat3(arg0 + 0xB8, &m2c_initial_frame.view_sp28.value), m2c_initial_frame.view_sp30.value > 0.0f)))
             {
-              if (((u32) (*((s32 *) (&sMatrixPoolUsed)))) < ((u32) (*((s32 *) (&sMatrixPoolLimit)))))
+              if (inline_fn2() < ((u32) (*((s32 *) (&sMatrixPoolLimit)))))
               {
                 temp_v0_2 = (*((s32 *) (&sMatrixPoolUsed))) + 1;
                 *((s32 *) (&sMatrixPoolUsed)) = temp_v0_2;
@@ -468,4 +470,3 @@ void func_800358D4(void *arg0)
     }
   }
 }
-
