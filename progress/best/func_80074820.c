@@ -58,6 +58,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
   u8 *var_s0;
   u8 var_a0;
   char var_v1;
+  char current;
   void **var_a0_3;
   void *temp_v0_4;
   void *temp_v0_5;
@@ -76,7 +77,8 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       {
         for (;;)
         {
-          if (((s8) var_v1) != 0)
+          current = var_v1;
+          if (current != 0)
           {
             var_a2 = 0;
             if ((((inline_fn(var_v1) == 0x2E) | (inline_fn23(var_v1) == 0x21)) != 0) || (((s8) var_v1) == 0x3F))
@@ -108,17 +110,17 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
               var_s0 += 1;
 
               block_14:
-              *var_t0 = (s8) var_v1;
+              *var_t0 = current;
 
               temp_v0 = __repair_inline(*var_s0);
               var_t0 += 1;
               var_a3 += 1;
-              var_v1 = temp_v0;
               if (temp_v0 == 0)
               {
               }
               else
               {
+                var_v1 = temp_v0;
                 continue;
               }
             }
@@ -233,4 +235,5 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
     }
   }
 }
+
 

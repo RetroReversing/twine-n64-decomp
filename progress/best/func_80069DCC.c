@@ -526,9 +526,10 @@ case 2: case 3: goto out_of_line_actor;
    f32 var_s5 = 0.0f;
    speed_delta = roll.number;
    D_800E1A1C = 0.0f;
-   var_fp = 0.0f;
    var_s6 = 0.0f;
    func_80065D90(arg0);
+   roll.bits = (roll.bits >> 16) << 16;
+   var_fp = roll.number;
    if (gWheelsGrounded != 0)
    {
      temp_v0 = ((u16) gAirTimeGauge) + 8;

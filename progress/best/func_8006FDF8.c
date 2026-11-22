@@ -99,10 +99,10 @@ void func_8006FDF8(void *arg0, s32 arg1)
     s32 offset = sp2C * 4;
     s16 width;
     s16 height;
+    marker = (s32 *)(offset + (char *)base);
     var_s4 = D_800C7E08;
     var_s3 = (s8 *)&positions;
     var_s1 = arg0;
-    marker = (s32 *)(offset + (char *)base);
     width = var_s7;
     positions.x.half[1] = width;
     positions.x.half[3] = width;
@@ -282,4 +282,5 @@ void func_8006FDF8(void *arg0, s32 arg1)
     }
   }
 }
+
 

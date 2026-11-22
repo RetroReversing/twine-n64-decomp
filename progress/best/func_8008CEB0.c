@@ -18,7 +18,8 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     register s32 temp_fp;
     s32 temp_a0, temp_a1_2, temp_a2, temp_a2_2, temp_hi;
     s32 var_s4, var_s5, var_s7;
-    u16 temp_a1;
+    u16 temp_a1, previous_pitch;
+    u8 pitch_low;
     register u32 var_s3;
     u8 temp_a3;
     void *temp_s2, *var_s0;
@@ -39,18 +40,20 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
             {
                 temp_a0 = M2C_FIELD(var_s0, s32 *, 0);
                 if ((temp_a0 & 0x10) && ((temp_a0 & 0x40000008) != 8) && (audioVoiceIsActive(var_s3) & 0xFF)) {
+                    temp_a2 = M2C_FIELD(var_s0, s8 *, 0x9C) << 0x10;
+                    previous_pitch = M2C_FIELD(var_s0, volatile u16 *, 0x2C);
                     temp_a3 = M2C_FIELD(var_s0, u8 *, 0x2B);
                     temp_s2 = var_s7 + (s8 *)__base_D_8010D724;
-                    temp_a2 = M2C_FIELD(var_s0, s8 *, 0x9C) << 0x10;
+                    pitch_low = M2C_FIELD(var_s0, u8 *, 0x2D);
                     temp_hi = temp_a2 / 100;
-                    temp_a1 = M2C_FIELD(var_s0, u16 *, 0x2C);
+                    temp_a1 = M2C_FIELD(var_s0, volatile u16 *, 0x2C);
                     var_s1 = var_s6;
                     M2C_FIELD(var_s0, s16 *, 0x2A) = temp_fp;
                     M2C_FIELD(var_s0, s8 *, 0x9C) = 0;
                     M2C_FIELD(var_s0, s32 *, 0x68) = 0;
-                    M2C_FIELD(var_s0, s8 *, 0x9D) = (s8) M2C_FIELD(var_s0, u16 *, 0x2C);
+                    M2C_FIELD(var_s0, s8 *, 0x9D) = (s8) previous_pitch;
                     temp_a2_2 = temp_a2 >> 0x1F;
-                    M2C_FIELD(var_s0, u16 *, 0x2C) = (u16) (temp_fp + (M2C_FIELD(var_s0, u8 *, 0x2D) - temp_a3));
+                    M2C_FIELD(var_s0, u16 *, 0x2C) = (u16) (temp_fp + (pitch_low - temp_a3));
                     M2C_FIELD(var_s0, s32 *, 0) = (s32) (M2C_FIELD(var_s0, s32 *, 0) | 0x80800);
                     temp_a1_2 = (temp_a1 << 0x10); temp_a1_2 += temp_hi;
                     M2C_FIELD(var_s0, s32 *, 0x70) = temp_a1_2;

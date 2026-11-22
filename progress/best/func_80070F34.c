@@ -93,7 +93,7 @@ void func_80070F34(void *arg0)
   s32 var_s5;
   register s32 var_v0;
   s32 var_v0_2;
-  register unsigned char var_v1;
+  u32 var_v1;
   s32 var_v1_2;
   s32 var_v1_3;
   s32 var_v1_4;
@@ -240,14 +240,15 @@ void func_80070F34(void *arg0)
         temp_a1 = *((void **) (((char *) temp_v1) + 0x418));
         temp_fv1_3 = ((2.0f * var_fs2) - 66.0f) - 8.0f;
         *((s32 *) (((char *) temp_a1) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_a1) + 0x28))) & (~0xFC)) | 0x10);
+        temp_a0 = *((void **) (((char *) temp_v1) + 0x418));
         if (!(temp_fv1_3 >= 2147483648.0f))
           var_v1 = (s32)temp_fv1_3;
         else
           var_v1 = ((s32)(temp_fv1_3 - 2147483648.0f)) | 0x80000000U;
         var_fv1 = 2.0f * var_fs1;
         temp_fv1_4 = var_fv1 - 48.0f;
-        *((s16 *) (((char *) (*((void **) (((char *) ((void *) ((((int) var_s3) * 4) + ((s32) temp_s2)))) + 0x418)))) + 0x20)) = (s16) var_v1;
-        temp_a0 = *((void **) (((char *) ((var_s3 * 4) + temp_s2)) + 0x418));
+        *((s16 *) (((char *) temp_a0) + 0x20)) = (s16) var_v1;
+        temp_a0 = *((void **) (((char *) temp_v1) + 0x418));
         *((s16 *) (((char *) temp_a0) + 0x22)) = (u16) ((u32) temp_fv1_4);
         temp_v1_2 = (void *) ((var_s3 * 4) + ((s32) temp_s2));
         *((s32 *) (((char *) (*((void **) (((char *) temp_v1_2) + 0x418)))) + 0x10)) = -0x60;
