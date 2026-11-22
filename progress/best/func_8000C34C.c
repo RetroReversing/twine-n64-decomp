@@ -146,6 +146,7 @@ void func_8000C34C(char *actor, char *viewer)
     i = 0;
     if (inline_fn(0, count))
     {
+      f32 bias = D_800AE4D8;
       out = points;
       pointOffset = 0;
       do
@@ -155,9 +156,9 @@ void func_8000C34C(char *actor, char *viewer)
         out->x = x;
         out->z = (*((BeamPoint *) (pointOffset + ((char *) MODEL->points)))).z;
         model = MODEL;
-        out->x += sn * (((*((BeamPoint *) (pointOffset + ((char *) model->points)))).y - D_800AE4D8) - model->height);
+        out->x += sn * (((*((BeamPoint *) (pointOffset + ((char *) model->points)))).y - bias) - model->height);
         model = (unsigned) MODEL;
-        out->z += cs * (((*((BeamPoint *) (pointOffset + ((char *) model->points)))).y - D_800AE4D8) - model->height);
+        out->z += cs * (((*((BeamPoint *) (pointOffset + ((char *) model->points)))).y - bias) - model->height);
         pointOffset += 12;
         ++i;
         out++;
@@ -168,9 +169,10 @@ void func_8000C34C(char *actor, char *viewer)
     base = (char *) points;
     if (inline_fn(i, count))
     {
-      f32 unit = 64.0f;
-      p = points + 1;
+      f32 unit;
       matrix = &D_80112F90;
+      unit = 64.0f;
+      p = points + 1;
       linkOffset = 8;
       do
       {
@@ -247,4 +249,5 @@ void func_8000C34C(char *actor, char *viewer)
     }
   }
 }
+
 

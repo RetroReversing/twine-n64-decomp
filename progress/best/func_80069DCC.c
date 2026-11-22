@@ -1358,7 +1358,8 @@ case 2: case 3: goto out_of_line_actor;
             block_333:
             temp_fv0_26 = *((f32 *) (((char *) temp_s1) + 0x48));
 
-            temp_fv1_6 = (((var_fs3_8 * 32.0f) - temp_fv0_26) * 0.1f) + temp_fv0_26;
+            temp_fv1_6 = var_fs3_8 * 32.0f;
+            temp_fv1_6 = ((temp_fv1_6 - temp_fv0_26) * 0.1f) + temp_fv0_26;
             *((f32 *) (((char *) temp_s1) + 0x48)) = temp_fv1_6;
             if (temp_fv1_6 < (-32.0f))
             {

@@ -159,8 +159,16 @@ void *func_801183F4(void *arg0, u8 arg1)
         }
         if ((((var_fs0 < 50.0f) && (((var_fs0 < 6.0f) || (temp_s4 & 1)) || (((func_8007A9CC(arg0, (*var_s0) + 0x24, &sp38, 0x448E38E4) << 22) << 2) != 0))) && ((func_800158A4(((char *) sTrackMarkerTable[*((s8 *) (((char *) temp_s3) + 0x182))]) + 0x10, (*var_s0) + 0x24, *((s32 *) (((char *) arg0) + 0x20)), &sp28, 0, 0, 0x20000, 1, 0) << 24) != 0)) && (var_fs0 < var_fs2))
         {
-          var_fs2 = var_fs0;
-          var_s7 = *var_s0;
+          if (var_s0)
+          {
+            var_fs2 = var_fs0;
+            var_s7 = *var_s0;
+          }
+          else
+          {
+            var_fs2 = var_fs0;
+            var_s7 = *var_s0;
+          }
         }
       }
     }
