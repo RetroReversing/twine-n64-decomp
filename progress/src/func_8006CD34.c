@@ -59,7 +59,7 @@ void func_8006CD34(void *arg0)
   void *temp_v0_4;
   void *temp_v1;
   void *var_v0;
-  f32 c1;
+  f32 c1; void *pv;
   void *var_v0_2;
   temp_s2 = *((void **) (((char *) arg0) + 0x6C));
   temp_s4 = *((s32 *) (((char *) arg0) + 0x20));
@@ -162,13 +162,13 @@ void func_8006CD34(void *arg0)
       sp58[1] = (s16) ((s32) (*((f32 *) (((char *) temp_s2) + 0x40))));
       sp58[2] = (s16) ((s32) (*((f32 *) (((char *) temp_s2) + 0x44))));
       buildRotationMatrixS16(sp58, sp28);
- do { arg0 = sp18; } while (0);
-      rotateVec3ByMat3(sp28, arg0);
+      pv = sp18;
+      rotateVec3ByMat3(sp28, pv);
       sp18[0] += *((f32 *) (((char *) temp_s2) + 0x24));
       do
       {
         sp18[1] += *((f32 *) (((char *) temp_s2) + 0x28)); temp_s0_4 = (temp_s3 * 4) + D_80109688; sp18[2] += *((f32 *) (((char *) temp_s2) + 0x2C));
-        func_80045290(arg0, (*temp_s0_4) + 0x10);
+        func_80045290(pv, (*temp_s0_4) + 0x10);
         *((f32 *) (((char *) (*temp_s0_4)) + 0x34)) = (f32) ((*((f32 *) (((char *) temp_s2) + 0x3C))) * 0.0015339808f);
         *((f32 *) (((char *) (*temp_s0_4)) + 0x38)) = (f32) (((*((f32 *) (((char *) temp_s2) + 0x40))) * 0.0015339808f) + 3.1415927f);
         *((f32 *) (((char *) (*temp_s0_4)) + 0x3C)) = (f32) (((*((f32 *) (((char *) temp_s2) + 0x44))) * 0.0015339808f) + 3.1415927f);
