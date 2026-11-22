@@ -54,7 +54,7 @@ void func_8008B824(u32 *arg0, s32 arg1, s32 arg2, s32 arg3)
   temp_a2 = arg2 & 0xFFFF;
   if (temp_a2 != 0)
   {
-    var_s0 = ((((((u32) temp_v0) * temp_a2) / 1000) >> 6) / 3) * 0xC0; temp_a2_2 = var_s0 + 0xC0;
+    u32 q = (((u32) temp_v0) * temp_a2) / 1000; var_s0 = ((q / 3) >> 6) * 0xC0; temp_a2_2 = var_s0 + 0xC0;
     D_800E4230 = 0;
     D_800E423C = temp_a2_2;
     D_800E4238 = gDataBankAlloc(temp_a2_2 * 2, 0, temp_a2_2);
@@ -107,4 +107,5 @@ void func_8008B824(u32 *arg0, s32 arg1, s32 arg2, s32 arg3)
   }
   D_8010319E[var_a1 & 0xFF] = 0;
 }
+
 

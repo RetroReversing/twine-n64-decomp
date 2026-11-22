@@ -1,6 +1,6 @@
 typedef struct 
 {
-  u32 base;
+  s32 base;
   u32 pc;
   u8 pad[0x178];
   s16 regs[16];

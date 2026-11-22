@@ -88,12 +88,12 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
             if (var_t1 != 0)
             {
               var_s0 += 1;
-              if (var_a2 == 0)
+              if (var_a2 != 0)
               {
+                goto block_14;
               }
               else
               {
-                goto block_14;
               }
             }
             else

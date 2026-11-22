@@ -109,7 +109,7 @@ void func_8007092C(void *arg0, s8 arg1)
         if ((temp_s2[0x1FE] != 0) && ((func_80063D38(temp_s4, savedIndex) << 0x18) != 0))
         {
           temp_s2[0x1FE] = 0;
-          (*((u8 **) (((u8 *) arg0) + 0x68)))[0xF] = temp_a1;
+          temp_v1_5 = *((u8 **) (((u8 *) arg0) + 0x68)); do { do { temp_v1_5[0xF] = temp_a1; } while (0); } while (0);
         }
         else
         {
@@ -140,4 +140,5 @@ void func_8007092C(void *arg0, s8 arg1)
   }
 
 }
+
 
