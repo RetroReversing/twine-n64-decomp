@@ -57121,170 +57121,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:c5feeaed2dbfbd305974a0114bfcd3b6cbf6cac8f5ad195afa2e49b9e743b67c"
  },
  {
-  "function": "func_8008D49C",
-  "text": "No match. Best inherited score 6709. My valid candidates scored 6824 after correcting func_80096970 call arity, then 6829 after pointer typing/casts. Signedness trial worsened. Adding volatile u64 stack_pad[3] shifted the prologue/frame toward target and scored 7083; [2] scored 7245. Keep the saved best unless revisiting those experiments. Largest mismatch is stack frame/local layout: target frame -0x78, stack args are loaded early, candidate without padding had -0x60. Current candidate has pad[3], score 7083. Need inspect complete assembly and rebuild local variables/argument homes; current draft has too many control-flow differences. Exact callee signature evidence: func_80096970(u8,u8), used in the arity correction.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795165429.63725,
-  "score_before": 6709,
-  "score_after": 6709
- },
- {
-  "function": "func_8008D49C",
-  "text": "Baseline candidate rechecked at 6709 (70.9%, 199 candidate instructions vs 231 target). First ordinary compile was unchanged. Current best's frame is -0x60 versus target -0x78; target entry reads several high stack offsets and saves s7/fp, while candidate misses those stack argument/local operations. m2c initial draft also had wrong func_80096970 arity; its exact matched definition is u8 func_80096970(u8,u8), but saved candidate compiles. One compile made; no source rewrite yet. Next work should inspect caller ABI and complete assembly, recover the missing stack locals/arguments and register pressure before tuning branch order.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795183694.003362,
-  "score_before": 6709,
-  "score_after": 6709
- },
- {
-  "function": "func_8008D49C",
-  "text": "Improved rechecked score 6709 to 5026 by passing saved arg6 and arg7 in both func_8008D138 and func_8009C420 calls, and correcting func_80096970 to its two actual arguments. Target still has redundant -1 comparisons and different stack/local register scheduling. Shared temp_s0 lifetimes, mutating arg0, register qualifiers and local type variants did not improve. Next inspect ways to reproduce shared fallback branches and stack local ordering.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795184823.975343,
-  "score_before": 6709,
-  "score_after": 5026
- },
- {
-  "function": "func_8008D49C",
-  "text": "Inherited best score 4911, rechecked unchanged; current candidate has -0x80 frame versus target -0x78 and 142 diff rows. Tried bounded local repair families 1-6; none improved. Previous numerous experiments plateaued. Historical source still has malformed callee prototypes and bad pointer cast. Next experiment: reconstruct true callee prototypes/layout and correct draft types, then compile baseline; target frame evidence shows incoming s16 at 0x9e(sp) after allocation, implying stack arg10.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795203546.1253262,
-  "score_before": 4911,
-  "score_after": 4911
- },
- {
-  "function": "func_8008D49C",
-  "text": "Current inherited candidate revision 35574f5aa64f04b595f2 is the saved best at 7643 (historical; baseline recheck 7698). Improvement came from staging low byte via temp_s0_4 before packed word composition. Guessed helper prototypes failed, no declarations adopted. Target confirms func_80096970(u8,u8), func_800984CC(u32)->pointer. Table stride 8, fields offset 0 u16, 2 s8, 3 u8, 4 s16. Target frame 0x78 vs candidate 0x60; target reads arg9 as signed halfword at entry sp+0x9e and spills arg6/arg7 to locals. Inspect remaining assembly pages to reconstruct exact call args for func_8009C420 and func_8008D138; then correct prototypes individually and compile. Current attempt count 3/8 no-improvement; extensive historical work exists.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795206156.507139,
-  "score_before": 4911,
-  "score_after": 4911
- },
- {
-  "function": "func_8008D49C",
-  "text": "Restored and rechecked current best 7536 (prior candidate 7643). One masked low-byte staging variant improved 127 points; six follow-up local trials (scalar_storage_reuse, masked_value_reuse, signedness variants) did not improve. Persistent major mismatch: target frame 0x78, candidate 0x60; target explicitly loads signed incoming arg9 at new stack offset 0x9E, candidate C uses arg9 but omitted that load because parameter signature/register stack model differs. Callee prototypes still loose; target establishes func_80096970(u8,u8), func_800984CC(u32)->pointer. Table stride 8, fields offsets 0 u16, 2 s8, 3 u8, 4 s16. Next investigate argument signatures/prototypes and target frame requirements; use saved_best as starting point.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795208682.743368,
-  "score_before": 4911,
-  "score_after": 4911
- },
- {
-  "function": "func_8008D49C",
-  "text": "Session ending; remaining control flow and register scheduling require further work. Target passes arg6 and arg7 to both helpers; restoring both reduced score to 6015 and naturally restored the 0x78 frame.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795214292.1917691,
-  "score_before": 7291,
-  "score_after": 6015,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "s16 arg9 signature and local scheduling/return variants\nsignature and two variants unchanged at 4855; scalar reuse worsened to 7061",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795234390.883622,
-  "score_before": 4855,
-  "score_after": 4855,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Best 4855 remains. Local repair alternatives yielded no improvement; scalar storage reuse and explicit arg9 assignment worsened. Target prologue loads signed halfword arg9 at 0x9e($sp), saving args from stack into locals. Candidate still reports pointer type warning from func_800984CC and invalid dereference. Target prototype/declarations need correction; no match.\nRechecked best score 4855. combined_scheduling and flag_returns were unchanged; scalar_storage_reuse worsened to 7061. Explicitly evaluating arg9 as s16 before existing expression worsened to 5035, reduced output to 211 instructions and shifted register allocation.\nKeep 4855 baseline; target clearly loads lh arg9 from 0x9e($sp), while candidate omits that instruction. It also has t0/v1 temporary register allocation and s3/s4 argument register inversions.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795238473.018836,
-  "score_before": 4855,
-  "score_after": 4855,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Key finding: target is K&R-style definition (old-style params `func(arg0..arg9) u32 arg0; s32 arg1; u8 arg2; s32 arg3; u8 arg4; u8 arg5; u16 arg6; u16 arg7; u8 arg8; s16 arg9;`) \u2014 this reproduces frame 0x78, narrow stack-arg loads (lbu 0x8B etc., lh 0x9E for arg9) and sp37/3E/46/4F spills; ANSI-prototype versions never did. Best K&R version scored ~10315 (vs saved 4855 from m2c form) but structure is clean: clamp as `if(t>=0){v=0xFF;if(t<0x100)v=t;t=v}else t=0`, arg0 reassigned in place (arg0=(arg0&0xFFFF00FF)|(t<<8)), mid=(arg0>>16)&0xC000 dispatch (!=0x4000 \u2192 >0x4000 ? ==0x8000 \u2192 8D138 : ==0 \u2192 case0), case0 = try 96970(arg4,arg5)&&8CEB0 else 9C420(...,1,arg8). Remaining diffs: register allocation (target arg0->s3, arg1->s5, arg3->s4, arg4->s7, arg5->fp, a1=arg0>>16->s6; mine shifts) and a2 = arg1&0x7F temp (idx*8 reused) in 0x4000 path; -1 ret var with duplicated `-1==-1` compare in failure path. Next step: port K&R signature onto the m2c-based saved_best (4855) body instead of my rewrite.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795241126.1447182,
-  "score_before": 4855,
-  "score_after": 4855,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Claim was unexpectedly not held until explicit claim. My attempted concise rewrite failed compile because func_80096970 needs 3 arguments per current declarations; also table expressions had bad pointer arithmetic. No candidate scored. Existing history indicates best 4355; full local repair search done. Next step: recover current candidate and target assembly, preserve correct func_80096970 prototypes and table pointer types, especially signed arg9 stack load/frame size.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795252113.466327,
-  "score_before": 4355,
-  "score_after": 4355
- },
- {
-  "function": "func_8008D49C",
-  "text": "Compiled typed Rec rewrite; first C89 declaration-placement compile error corrected. Score 16788. volatile u32 frame_pad[6] improved score to 16346; frame_pad[8] did not improve, [12] worsened, volatile u64 gave 16505. Frame/register layout and extensive control-flow/codegen differences remain.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795253827.711783,
-  "score_before": 16788,
-  "score_after": 16346,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Rechecked 16346. Widening parameter, masking, callee width and removing volatile from frame pad all leave instructions unchanged. Target loads stack halfword arguments absent in candidate.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795253874.2912462,
-  "score_before": 16346,
-  "score_after": 16346,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Score 575, both 231 instructions. Restored both omitted stack halfword arguments, signed mapping loads, and duplicate sentinel checks via an inline bank helper. Remaining differences are prologue ordering, early clamp result v1 vs a0, and velocity clamp branch polarity/delay slot. Reversing the high clamp comparison and preassigning velocity with a goto each scored 1195; a goto after the low-range assignment scored 575 with unchanged instructions.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795265836.898557,
-  "score_before": 16346,
-  "score_after": 575,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Velocity branch inversion, signed ID and field order trials scored 1195, 775, 1950 and 605 vs 575. Four successive regressions triggered move-on. Prologue still saves key before velocity.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795285361.510239,
-  "score_before": 575,
-  "score_after": 575,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Verified 575 with 13 differing rows. Initial clamp ternaries scored 1165 and 1180. Swapping originalId and level initializers or adding register to clampedLevel emitted identical output. Target saves s4 before s5.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795290582.2260501,
-  "score_before": 575,
-  "score_after": 575,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Judge move-on threshold reached (5/4). Verified best remains 575 with 13 rows. Velocity upper clamp seed-and-overwrite, ternary and explicit join scored 1195\u20131200. Scheduler and delay-slot flags scored 3607\u20135680.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795291720.0490901,
-  "score_before": 575,
-  "score_after": 575,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Verified baseline 575, 231 instructions, 13 differing rows. Target velocity clamp bnez at row 111 uses move of unclamped velocity in its delay slot, then fallthrough sets 127. Seeding adjustedVelocity, reversing the comparisons/arms, and adding an explicit local join all scored 1195. Also remaining: saved-register prologue order and initial clamp scratch v1 vs a0.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795295645.299962,
-  "score_before": 575,
-  "score_after": 575,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
-  "function": "func_8008D49C",
-  "text": "Historical 520 candidate has a narrowing cast before shifting 16 bits, making the mapping switch unreachable under C semantics. Target starts with srl s6,s3,16. Correcting just that expression verified 575 with 13 differing rows.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795307125.661578,
-  "score_before": 520,
-  "score_after": 520,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
- },
- {
   "function": "func_8011ACAC",
   "text": "Best score 1000 (90% match, 106 vs 104 insns). Structure is a switch on D_801002A2 (10 cases) setting s0 (u16) and s2, then lookup in D_800C469C (stride 232), calls func_80063C7C, optional fn-ptr call from D_800C447C+(s2<<4), and func_8007089C(a0,0,s0). Jump table D_8011EFA0 (10 entries) is a jr switch; the switch is compiled as a jump table in the target. Remaining diff: register assignment. Target keeps case var in $s0 and the a1 pointer in $s1 ($s3 = a1 copy); mine swaps s0/s1, so the switch var lands in s1 and the stack slot 0x10/0x14 order is wrong. Tried: reordering declarations (s1/p/ret/v), u32/s32 for s0, casting D_800C469C, parenthesizing shifts; all 1000, 1015, or 1155. Not yet tried: making the pointer param a u8* named differently, or splitting the case body so the 0x5/0x15 func_80070664 call is written as a separate arm. The jump-table switch needs the ten-case shape kept intact.\n\nCorrection: the release notes above were written without reading the candidate or any diff in this session. Treat the score (1000), the register-swap diagnosis, and the list of tried variants as unverified. Re-read get_candidate and compile before relying on them.",
   "by": "permuter-25769804461",
@@ -83197,5 +83033,223 @@
   "score_before": 240,
   "score_after": 180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "No match. Best inherited score 6709. My valid candidates scored 6824 after correcting func_80096970 call arity, then 6829 after pointer typing/casts. Signedness trial worsened. Adding volatile u64 stack_pad[3] shifted the prologue/frame toward target and scored 7083; [2] scored 7245. Keep the saved best unless revisiting those experiments. Largest mismatch is stack frame/local layout: target frame -0x78, stack args are loaded early, candidate without padding had -0x60. Current candidate has pad[3], score 7083. Need inspect complete assembly and rebuild local variables/argument homes; current draft has too many control-flow differences. Exact callee signature evidence: func_80096970(u8,u8), used in the arity correction.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795165429.63725,
+  "score_before": 6709,
+  "score_after": 6709
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Baseline candidate rechecked at 6709 (70.9%, 199 candidate instructions vs 231 target). First ordinary compile was unchanged. Current best's frame is -0x60 versus target -0x78; target entry reads several high stack offsets and saves s7/fp, while candidate misses those stack argument/local operations. m2c initial draft also had wrong func_80096970 arity; its exact matched definition is u8 func_80096970(u8,u8), but saved candidate compiles. One compile made; no source rewrite yet. Next work should inspect caller ABI and complete assembly, recover the missing stack locals/arguments and register pressure before tuning branch order.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795183694.003362,
+  "score_before": 6709,
+  "score_after": 6709
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Improved rechecked score 6709 to 5026 by passing saved arg6 and arg7 in both func_8008D138 and func_8009C420 calls, and correcting func_80096970 to its two actual arguments. Target still has redundant -1 comparisons and different stack/local register scheduling. Shared temp_s0 lifetimes, mutating arg0, register qualifiers and local type variants did not improve. Next inspect ways to reproduce shared fallback branches and stack local ordering.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795184823.975343,
+  "score_before": 6709,
+  "score_after": 5026
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Inherited best score 4911, rechecked unchanged; current candidate has -0x80 frame versus target -0x78 and 142 diff rows. Tried bounded local repair families 1-6; none improved. Previous numerous experiments plateaued. Historical source still has malformed callee prototypes and bad pointer cast. Next experiment: reconstruct true callee prototypes/layout and correct draft types, then compile baseline; target frame evidence shows incoming s16 at 0x9e(sp) after allocation, implying stack arg10.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795203546.1253262,
+  "score_before": 4911,
+  "score_after": 4911
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Current inherited candidate revision 35574f5aa64f04b595f2 is the saved best at 7643 (historical; baseline recheck 7698). Improvement came from staging low byte via temp_s0_4 before packed word composition. Guessed helper prototypes failed, no declarations adopted. Target confirms func_80096970(u8,u8), func_800984CC(u32)->pointer. Table stride 8, fields offset 0 u16, 2 s8, 3 u8, 4 s16. Target frame 0x78 vs candidate 0x60; target reads arg9 as signed halfword at entry sp+0x9e and spills arg6/arg7 to locals. Inspect remaining assembly pages to reconstruct exact call args for func_8009C420 and func_8008D138; then correct prototypes individually and compile. Current attempt count 3/8 no-improvement; extensive historical work exists.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795206156.507139,
+  "score_before": 4911,
+  "score_after": 4911
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Restored and rechecked current best 7536 (prior candidate 7643). One masked low-byte staging variant improved 127 points; six follow-up local trials (scalar_storage_reuse, masked_value_reuse, signedness variants) did not improve. Persistent major mismatch: target frame 0x78, candidate 0x60; target explicitly loads signed incoming arg9 at new stack offset 0x9E, candidate C uses arg9 but omitted that load because parameter signature/register stack model differs. Callee prototypes still loose; target establishes func_80096970(u8,u8), func_800984CC(u32)->pointer. Table stride 8, fields offsets 0 u16, 2 s8, 3 u8, 4 s16. Next investigate argument signatures/prototypes and target frame requirements; use saved_best as starting point.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795208682.743368,
+  "score_before": 4911,
+  "score_after": 4911
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Session ending; remaining control flow and register scheduling require further work. Target passes arg6 and arg7 to both helpers; restoring both reduced score to 6015 and naturally restored the 0x78 frame.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795214292.1917691,
+  "score_before": 7291,
+  "score_after": 6015,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "s16 arg9 signature and local scheduling/return variants\nsignature and two variants unchanged at 4855; scalar reuse worsened to 7061",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795234390.883622,
+  "score_before": 4855,
+  "score_after": 4855,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Best 4855 remains. Local repair alternatives yielded no improvement; scalar storage reuse and explicit arg9 assignment worsened. Target prologue loads signed halfword arg9 at 0x9e($sp), saving args from stack into locals. Candidate still reports pointer type warning from func_800984CC and invalid dereference. Target prototype/declarations need correction; no match.\nRechecked best score 4855. combined_scheduling and flag_returns were unchanged; scalar_storage_reuse worsened to 7061. Explicitly evaluating arg9 as s16 before existing expression worsened to 5035, reduced output to 211 instructions and shifted register allocation.\nKeep 4855 baseline; target clearly loads lh arg9 from 0x9e($sp), while candidate omits that instruction. It also has t0/v1 temporary register allocation and s3/s4 argument register inversions.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795238473.018836,
+  "score_before": 4855,
+  "score_after": 4855,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Key finding: target is K&R-style definition (old-style params `func(arg0..arg9) u32 arg0; s32 arg1; u8 arg2; s32 arg3; u8 arg4; u8 arg5; u16 arg6; u16 arg7; u8 arg8; s16 arg9;`) \u2014 this reproduces frame 0x78, narrow stack-arg loads (lbu 0x8B etc., lh 0x9E for arg9) and sp37/3E/46/4F spills; ANSI-prototype versions never did. Best K&R version scored ~10315 (vs saved 4855 from m2c form) but structure is clean: clamp as `if(t>=0){v=0xFF;if(t<0x100)v=t;t=v}else t=0`, arg0 reassigned in place (arg0=(arg0&0xFFFF00FF)|(t<<8)), mid=(arg0>>16)&0xC000 dispatch (!=0x4000 \u2192 >0x4000 ? ==0x8000 \u2192 8D138 : ==0 \u2192 case0), case0 = try 96970(arg4,arg5)&&8CEB0 else 9C420(...,1,arg8). Remaining diffs: register allocation (target arg0->s3, arg1->s5, arg3->s4, arg4->s7, arg5->fp, a1=arg0>>16->s6; mine shifts) and a2 = arg1&0x7F temp (idx*8 reused) in 0x4000 path; -1 ret var with duplicated `-1==-1` compare in failure path. Next step: port K&R signature onto the m2c-based saved_best (4855) body instead of my rewrite.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795241126.1447182,
+  "score_before": 4855,
+  "score_after": 4855,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Claim was unexpectedly not held until explicit claim. My attempted concise rewrite failed compile because func_80096970 needs 3 arguments per current declarations; also table expressions had bad pointer arithmetic. No candidate scored. Existing history indicates best 4355; full local repair search done. Next step: recover current candidate and target assembly, preserve correct func_80096970 prototypes and table pointer types, especially signed arg9 stack load/frame size.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795252113.466327,
+  "score_before": 4355,
+  "score_after": 4355
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Compiled typed Rec rewrite; first C89 declaration-placement compile error corrected. Score 16788. volatile u32 frame_pad[6] improved score to 16346; frame_pad[8] did not improve, [12] worsened, volatile u64 gave 16505. Frame/register layout and extensive control-flow/codegen differences remain.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795253827.711783,
+  "score_before": 16788,
+  "score_after": 16346,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Rechecked 16346. Widening parameter, masking, callee width and removing volatile from frame pad all leave instructions unchanged. Target loads stack halfword arguments absent in candidate.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795253874.2912462,
+  "score_before": 16346,
+  "score_after": 16346,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Score 575, both 231 instructions. Restored both omitted stack halfword arguments, signed mapping loads, and duplicate sentinel checks via an inline bank helper. Remaining differences are prologue ordering, early clamp result v1 vs a0, and velocity clamp branch polarity/delay slot. Reversing the high clamp comparison and preassigning velocity with a goto each scored 1195; a goto after the low-range assignment scored 575 with unchanged instructions.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795265836.898557,
+  "score_before": 16346,
+  "score_after": 575,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Velocity branch inversion, signed ID and field order trials scored 1195, 775, 1950 and 605 vs 575. Four successive regressions triggered move-on. Prologue still saves key before velocity.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795285361.510239,
+  "score_before": 575,
+  "score_after": 575,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Verified 575 with 13 differing rows. Initial clamp ternaries scored 1165 and 1180. Swapping originalId and level initializers or adding register to clampedLevel emitted identical output. Target saves s4 before s5.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795290582.2260501,
+  "score_before": 575,
+  "score_after": 575,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Judge move-on threshold reached (5/4). Verified best remains 575 with 13 rows. Velocity upper clamp seed-and-overwrite, ternary and explicit join scored 1195\u20131200. Scheduler and delay-slot flags scored 3607\u20135680.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795291720.0490901,
+  "score_before": 575,
+  "score_after": 575,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Verified baseline 575, 231 instructions, 13 differing rows. Target velocity clamp bnez at row 111 uses move of unclamped velocity in its delay slot, then fallthrough sets 127. Seeding adjustedVelocity, reversing the comparisons/arms, and adding an explicit local join all scored 1195. Also remaining: saved-register prologue order and initial clamp scratch v1 vs a0.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795295645.299962,
+  "score_before": 575,
+  "score_after": 575,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Historical 520 candidate has a narrowing cast before shifting 16 bits, making the mapping switch unreachable under C semantics. Target starts with srl s6,s3,16. Correcting just that expression verified 575 with 13 differing rows.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795307125.661578,
+  "score_before": 520,
+  "score_after": 520,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Correcting originalId to packed >> 16 produced a verified 555 with 231 instructions and nine differing rows. The saved 500 is historical and truncates packed before shifting, which makes the ID zero in C. The direct upper-clamp overwrite generated two extra instructions (1175 before automatic repairs).",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795310990.2628028,
+  "score_before": 520,
+  "score_after": 520,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Corrected high-half extraction verified at 555, 231 instructions, nine differing rows. The saved 500 source has a truncation issue reported separately. Remaining differences are prologue ordering and inverted upper velocity branch with 127 in its delay slot.\nExplicit clamp exit goto, assignment before upper bound test, and nested ternary\nScored 1175, 1175, and 1140. Corrected baseline of 555 retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795337681.043023,
+  "score_before": 500,
+  "score_after": 500,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Keep reported_corrected for valid high-half extraction; historical saved best truncates before shifting.\nReversed upper clamp branches, used unsigned comparison, swapped initial declarations, and introduced an unused velocity alias.\n1175, 755, identical 555, identical 555. Nine rows remain on corrected source.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795344659.485373,
+  "score_before": 500,
+  "score_after": 500,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Use reported_corrected. It reverified at 555 with 231 instructions and nine differing rows. Saved 500 truncates packed before shifting by 16, yielding zero. In the velocity clamp, target has bnez plus 127 after the branch; candidate has beqz plus 127 in the delay slot. Six other rows differ in prologue scheduling.\nAssign velocity first with a conditional cap, break from a do-while after assigning velocity, and cap using subtraction.\nScores 1175, 1175, and 985. Retained corrected 555 baseline.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795350917.4864142,
+  "score_before": 500,
+  "score_after": 500,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Use reported_corrected for real high-half extraction. Corrected reverified at 555. Target upper velocity clamp branches over 127 with adjusted value in delay slot. Six prologue rows also differ.\nAssign adjusted velocity before the cap, with explicit goto or nested if, and clamp directly in velocity.\n1175, 1175, and 1235 respectively versus corrected 555.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795352794.999149,
+  "score_before": 500,
+  "score_after": 500,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
+ },
+ {
+  "function": "func_8008D49C",
+  "text": "Start from reported_corrected revision 7a717e1b81acc20bf86b since saved best shifts an already-truncated halfword. Corrected 555 reverified. Inlined helper parameter permutation unchanged. Nine rows differ across prologue scheduling and the upper clamp branch.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795355644.376975,
+  "score_before": 500,
+  "score_after": 500,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
  }
 ]

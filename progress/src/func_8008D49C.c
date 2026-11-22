@@ -11,7 +11,7 @@ extern s32 func_8008D138(u32, u32, s32, u8, s32, s32, s32, u16, u16, u8);
 extern s32 func_80096970(s32, s32);
 extern const SoundMapping *func_800984CC(u32);
 extern s32 func_8009C420(u32, u32, s32, u8, s32, s32, s32, u16, u16, s32, u8);
-inline static s32 tryMappedBank(s32 key, u8 bank, u8 channel)
+inline static s32 tryMappedBank(u8 key, u8 bank, u8 channel)
 {
   s32 bankIndex = bank & 0xff;
   s32 channelIndex;
@@ -29,15 +29,16 @@ inline static s32 tryMappedBank(s32 key, u8 bank, u8 channel)
   return -1;
 }
 
-s32 func_8008D49C(u32 packed, s32 key, u8 mode, s32 velocity, u8 bank, u8 channel, u16 param6, u16 param7, u8 param8, s16 adjustment)
+s32 func_8008D49C(u32 packed, u8 key, u8 mode, s32 velocity, u8 bank, u8 channel, u16 param6, u16 param7, u8 param8, s16 adjustment)
 {
-  u32 originalId = ((unsigned short) packed) >> 16;
+  u16 originalId = packed >> 16;
   s32 level = ((packed >> 8) & 0xff) + adjustment;
   s32 result;
   s32 clampedLevel;
   s32 clampedLevel_arm;
   s32 clampedKey;
   s32 adjustedVelocity;
+  s32 inRange;
   s32 loadedId;
   s32 mappedKey;
   s32 index;
@@ -65,7 +66,7 @@ s32 func_8008D49C(u32 packed, s32 key, u8 mode, s32 velocity, u8 bank, u8 channe
     {
       goto done;
     }
-      return func_8009C420(packed, packed >> 16, key & 0xff, mode, velocity & 0xff, bank, channel, param6, param7, 1, param8);
+      return func_8009C420(packed, packed >> 16, key, mode, velocity & 0xff, bank, channel, param6, param7, 1, param8);
 
     case 0x4000:
       mapping = func_800984CC(originalId);
@@ -81,21 +82,9 @@ s32 func_8008D49C(u32 packed, s32 key, u8 mode, s32 velocity, u8 bank, u8 channe
     }
       if (!(mapping[index].velocity & 0x80))
     {
-      adjustedVelocity = mapping[key & 0xff].velocity - 0x40;
+      adjustedVelocity = mapping[key].velocity - 0x40;
       adjustedVelocity += velocity & 0xff;
-      if (adjustedVelocity < 0)
-      {
-        velocity = 0;
-      }
-      else
-        if (adjustedVelocity < 0x80)
-      {
-        velocity = adjustedVelocity;
-      }
-      else
-      {
-        velocity = 0x7f;
-      }
+      inRange = adjustedVelocity < 0x80; if (adjustedVelocity < 0) velocity = 0; else if (!inRange) velocity = 0x7f; else velocity = adjustedVelocity;
     }
     else
     {
@@ -136,7 +125,7 @@ s32 func_8008D49C(u32 packed, s32 key, u8 mode, s32 velocity, u8 bank, u8 channe
       return func_8008D138(packed, originalId, (mappedKey | (key & 0x80)) & 0xff, mode, velocity & 0xff, bank, channel, param6, param7, param8);
 
     case 0x8000:
-      return func_8008D138(packed, packed >> 16, key & 0xff, mode, velocity & 0xff, bank, channel, param6, param7, param8);
+      return func_8008D138(packed, packed >> 16, key, mode, velocity & 0xff, bank, channel, param6, param7, param8);
 
     default:
       return -1;
