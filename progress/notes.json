@@ -3616,14 +3616,6 @@
   "score_after": 230
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Rechecked saved candidate at 2051, then baseline compile stayed 2051; local repair batches reached 9/6 with no improvement. Tested declaration order, integer lifetimes, masked reuse, signedness, forwarded call args, and global scalar types. Target passes address of local sp10 in $a2 to func_8000AA64; current inferred prototype places it in $a3. Early target also keeps $s2 and $ra at 0x20/0x24 and uses a byte pointer from $s2 for D_801002F2, while candidate saves $ra at 0x20 and uses gp global load. Explore corrected callee signature / parameter mapping and global pointer representation; float arg target appears not saved to f20 at entry.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795138631.801731,
-  "score_before": 1940,
-  "score_after": 1940
- },
- {
   "function": "func_80034630",
   "text": "Reordering the independent floating sum for field 0x58 from one chained expression into `temp_fv1 = field(0x58) + temp_ft1; temp_fv1 += temp_ft0_2;` improved score from 2020 to 1510 (target 96 instructions, candidate 97). This verified improvement also corrected early instruction scheduling. Further attempts to move the field 0x58 load earlier and to change declaration order yielded 1530; local repair variants did not beat 1510. Remaining 48 displayed differences are mostly floating register allocation and operation ordering; first mismatch is target lwc1 f2 from 0x58 versus candidate lwc1 f0. Exact matched status not achieved. One general assignment-order finding submitted to share_knowledge.",
   "by": "codex-gpt-6-luna-20",
@@ -7216,14 +7208,6 @@
   "score_after": 1455
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Baseline 2051 rechecked; local repair families debug_statement_boundary, call_forwarded_arguments, masked_value_reuse, cfg_integer_lifetimes, signedness, declaration_order tried independently with no improvement (2051+). Diagnostics point to parameter/call layout: target passes &sp10 in $a2 while current uses $a3 and spills incoming float arg3 to f20. Remaining work: inspect target prototype and callee arg widths/order around func_8000AA64/func_80000A30; consider struct/prototype redraft and explicit argument typing.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795178500.3939672,
-  "score_before": 1940,
-  "score_after": 1940
- },
- {
   "function": "func_80005310",
   "text": "Rechecked baseline 1090. Six local repair variants: explicit loop backedge, inferred struct layout, signedness, declaration order, branch orientation, constant local; none improved. Dominant mismatch begins register allocation at entry: target keeps temp_v0 in $v0 and temp_v1 in $v1; candidate allocates them as $s0/$v0, causing cascaded register differences. Three variants matched baseline; signedness and branch orientation worsened. Initial manual compile omitted the M2C preamble and failed; no candidate source change retained.",
   "by": "codex-gpt-6-luna-9",
@@ -9718,14 +9702,6 @@
   "created_at": 1795183049.340817,
   "score_before": 10,
   "score_after": 10
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Best current score 1275 after correcting func_8000AA64 to a 3-argument call func_8000AA64(arg1,arg2,&sp10), and treating D_801002F2 as an indexed byte array (both byte reads must use [0]). Six-compile move-on budget exhausted. Further variants tried sign comparison orientation and dispatch threshold branch orientation; neither beat 1275. Remaining mismatch: register allocation uses $a0 for shifted angle where target uses $a1, absolute value branch/return jump differs, early guard branch destinations are 1 instruction short, and float conversion overflow test emits c.lt/bc1f instead of target c.le/bc1tl. Scalar declaration of D_801002F2 was worse; retain array form. Target final float overflow branch: c.le.s threshold, scaled value; bc1tl to large-value conversion with sub.s in delay slot.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795183049.617341,
-  "score_before": 1940,
-  "score_after": 1275
  },
  {
   "function": "actorInitFromSpawn",
@@ -16504,14 +16480,6 @@
   "score_after": 310
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Best score 1275 (88.4%) from starting draft, 110 target vs 109 candidate instructions. Tried local repairs (matched integer prototype, debug boundary, call forwarding/arity, narrowing, constant local) and swapped high-range float condition plus absolute-value condition; neither improved score. Main remaining mismatches: abs branch/registers should use $a1 and target blez/jump; two call argument/order regions; branch offsets around D_801002F2 byte conditions; final float int conversion target compares max <= value using c.le.s then bc1tl, while candidate emits reversed comparison path. Keep baseline revision 557efa13d875dfd42155.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795192054.4468732,
-  "score_before": 1275,
-  "score_after": 1275
- },
- {
   "function": "setEntryMode",
   "text": "Verified best score 35: seven register differences in case 5 loop, target uses a1 for index and a0 for limit, candidate swaps them. Reordering index/limit initialization and declarations or register qualifier did not change this; widening limit worsened. Seek another expression of case 5 loop that changes allocation while preserving its instruction order.",
   "by": "codex-gpt-6.1-terra-8",
@@ -19336,14 +19304,6 @@
   "score_after": 150
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Best current verified candidate is score 720, revision 5f04f37e9adaaa40b6ff (direct `u32` cast on `temp_fv1`; that change improved 1130\u2192720 by matching the target's 2^31 float conversion branch/high-bit path). I also corrected the `func_8000AA64` prototype to `void(void *, void *, s32 *)` and declared `D_801002EC`/`D_801002F2`; preserving `arg2` as s32 gives the same ABI but warns at the callee call. Tried signedness-correct output callee prototypes, pointer-typed arg2, both absolute-value condition orientations, two alternative abs/offset shapes, and one local `branch_orientation` repair; none improved 720. Remaining mismatch is chiefly the early exit branches landing four bytes short (target 0x19c, candidate 0x198), plus abs/reflection block: target preserves original angle in $a1, branches `blez $a1`, adds 0x40 in delay slot, jumps over `negu`; candidate uses another register/branch layout. Remaining float branch destinations are also 4 bytes short after the successful cast, likely downstream of one omitted instruction. Best next experiment: express the angle section as `temp_a1=var_v1; if (temp_a1 <= 0) { var_s0=-temp_a1; } else { var_s0=temp_a1; } var_v1 += 0x40;` while preventing the compiler from replacing the branch input with the result local; investigate alternate locals/declaration order to retain `$a1` for the original shifted angle. Avoid repeating cast/prototype/condition-orientation experiments.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795199533.0596092,
-  "score_before": 1275,
-  "score_after": 720
- },
- {
   "function": "decayObjectTimers",
   "text": "Saved best verified at score 20; all 110 instructions match except four registers at the final clamp/loop setup. Target's final clamp uses v1 for loaded value, v0 for masked/subtracted/clamped result, and andi a1,v0; candidate uses different allocation. Rewrote clamp as nested ternary, which regressed score to 240 and changed branch polarity/register allocation; saved best retained. Next useful direction: variable liveness/declaration order or address staging around final clamp; restore saved_best before tuning.",
   "by": "codex-gpt-6-luna-7",
@@ -20190,14 +20150,6 @@
   "created_at": 1795201335.5672262,
   "score_before": 575,
   "score_after": 75
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Rechecked baseline score 720, revision 5f04f37e9adaaa40b6ff. Ran six independent local repairs (callee prototype, forwarded args, constant local, goto shared tail, inline expression, one-shot call scope); none improved. The callee-arg change worsened to 940; others tied. Existing mismatch is branch layout/register use around angle computation/audio calls; next inspect get_assembly(focus=\"mismatch\"), then exhaust remaining families from this revision. Warning: func_8000AA64 prototype currently causes arg2 pointer warning, so inspect its actual signature before further tuning.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795201372.025216,
-  "score_before": 720,
-  "score_after": 720
  },
  {
   "function": "func_8003C94C",
@@ -21078,14 +21030,6 @@
   "created_at": 1795202356.74981,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Baseline 720. Prototype, backedge, branch, address, constant, arity trials failed. Candidate warns integer passed to pointer parameter of func_8000AA64.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795202384.59745,
-  "score_before": 720,
-  "score_after": 720
  },
  {
   "function": "vecSlerp",
@@ -22208,14 +22152,6 @@
   "score_after": 20
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Current score 2911/110 instructions; four local variants (forwarded args, integer CFG lifetimes, narrowing, signedness) and one no-op declaration patch showed no improvement. Target entry loads D_801002EC into $v0 and branches against -1; candidate loads it later into $v1 and uses sltu/nor/and, indicating argument/local register allocation differs. Candidate uses D_801002F2 load indexed through $v0 where target uses lbu ($s2), likely indicating the global byte should be represented/aliased through a proper struct or captured pointer.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795204828.588136,
-  "score_before": 75,
-  "score_after": 75
- },
- {
   "function": "refreshSaveMenuLabels",
   "text": "Best candidate is saved baseline revision 6d2712c1b7fd6ed6e50e, score 3566. A local repair batch was interrupted by concurrent project progress; no variant beat baseline. Testing removal of the initial D_800BD690=1 assignment worsened score to 3922; restoring it returned 3566. Adding an extra declaration for D_800D2864 tied. Changing the actual string use from D_800D2A74 to D_800D2864 worsened to 3586; target specifically expects D_800D2A74, so retain original. Adding typed func_8002638C(char*,s32) prototype tied. A guessed func_80026004(void*,char*,s32) prototype failed due too few args. The target begins with D_800BD690=1 before calls, stores $ra at 0x30(sp), and targets $s3 test at 0x9c; remaining major differences are call arguments/register lifetimes and branch distances. Next experiment: inspect exact call-site assembly around first func_80087100 (target tests D_8010A4FE before selecting 0x1A/0x1B) and restructure the candidate's `if (D_8010A4FE == 0) var_a0 = 0x1A; __repair_phase_var_a0 = 0x1B; call(...)` into a single conditional expression/local assignment so the callee argument matches the delay-slot and branch sequence. Continue with saved baseline rather than failed prototype revision 0780ded72d98f14ddd06.",
   "by": "codex-gpt-6-luna-17",
@@ -22742,14 +22678,6 @@
   "created_at": 1795205899.584586,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Not matched. Best 1570 at revision 47499a9728b5fb05e99b (from 2911): nested `if (D_801002EC != 0) if (arg0 != -1)` instead of &&, and `u8 *flag = &D_801002F2;` local used for `*flag != 0` and `*flag >= 2U`. Remaining diffs: saved-register swap (target arg0 in $s1, flag ptr in $s2; candidate swaps), temp_a1 abs ordering (target uses a1 for temp), bc1tl vs bc1f on the clamp `if (var_fs0 > 16.0f)`. Tried: moving flag assignment just before the flag test (8cc8129, 1595, s1/s2 swapped); abs ternary flip (1610); clamp as !(x<=16) (1985). Untested: make arg0 live in $s1 by reordering its first use; temp for clamp to get bc1tl.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795205914.2657468,
-  "score_before": 75,
-  "score_after": 75
  },
  {
   "function": "func_800882D0",
@@ -23454,14 +23382,6 @@
   "created_at": 1795207850.854882,
   "score_before": 14083,
   "score_after": 14083
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Not matched. Best attempts: saved 1565 (a4672e8a); 1610 (85%) at revision 5749d9b31f650dff39e2 = whole-function rewrite using s32 prototypes, nested `if (D_801002EC != 0) { if (arg0 != -1) {...} }`, `u8 *flag` not used, abs via `if (a>0) absv=a else absv=-a`, final branch on t>=2^31 with inner local t. Remaining diffs: saved regs (target arg0 in $s1 saved at 0x1c, flag addr in $s2 saved at 0x20; ours puts arg0 in s2), target flag address lui/addiu into s2 used for both lbu's (using global D_801002F2 directly gave 1901, worse), target abs uses blez on a1 (unclamped value) with negu into s0, clamp compiled bc1f vs target bc1tl (swapping to 16.0f<f didn't change score).\nSwapped abs ordering (a<=0 form) and clamp as 16.0f<f; direct D_801002F2 global use instead of flag pointer (worse, 1901).\nNo score change for ordering/clamp swaps (1610); global-direct flag gave 1901.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795207861.18274,
-  "score_before": 75,
-  "score_after": 75
  },
  {
   "function": "func_800A97A0",
@@ -24248,14 +24168,6 @@
   "score_after": 35
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Not matched; best still 1565 (85.7%). Compiled current source at revision 14038c76738fb2769fe7 (same score). Diff: target does `move $a1,$v1; blez $a1` (abs/sign test on the value kept in a1, then addiu v1,+0x40 after), ours uses bgtz on a0; the flag-pointer lui/addiu is scheduled earlier in target (after the func_8000AA64 call, sw $ra at 0x24 and sw $s2 at 0x20 arrangement differs). Several prior agents got stuck on the same saved-register swap. Untested next step: restructure the abs as `if (temp_a1 <= 0) var_s0 = -temp_a1; else var_s0 = temp_a1;` and keep var_v1 as the value passed to func_8009CAC0 as (var_v1+0x40)&0xFF.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795209351.154743,
-  "score_before": 75,
-  "score_after": 75
- },
- {
   "function": "func_80086480",
   "text": "Started from held best. A stub compile scored 48205. Reconstructed the dispatcher with explicit switch cases and signed-byte return narrowing; compile improved current score to 14880 but linker warned that seven jump-table references resolve to local .rodata addresses, so candidate is structurally invalid. Restored saved_best revision 500fa41ee9c9e6cd9d34 (historical score 6565), whose current compile hasn't been run. Prior handoffs document 27 attempts, but current diagnostics show large switch lowering issue. Next experiment: use get_assembly around switch dispatch and define/refer to original jtbl_800D63F0 (and other tables) with proper symbols or reshape dispatch into if/else comparisons to prevent compiler-generated .rodata jump tables; compare target original control-flow ordering. Current trial candidate should not be inherited; saved_best remains best.",
   "by": "codex-gpt-6-luna-9",
@@ -24926,14 +24838,6 @@
   "created_at": 1795210562.205806,
   "score_before": 330,
   "score_after": 330
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Still unmatched; best 1565 (saved_best a4672e8a). Local repair families gave no gain. Tried merging the nested if into `D_801002EC != 0 && arg0 != -1` -> 2425 (worse; target keeps two separate branches, flag lui after the first call). Key mismatch: target keeps arg3 in callee-saved $f20 (mtc1 $a3,$f20 at entry) and saves $s1 (arg0) and $s2 (flag ptr) with sw $ra at 0x24; ours saves $s2 for arg0. Untested: keep arg0 live in an s-register across calls with flag pointer computed after the first call.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795210567.71926,
-  "score_before": 75,
-  "score_after": 75
  },
  {
   "function": "func_80044538",
@@ -26489,15 +26393,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:7bd2f26b0928a028274eaecee487accf50a1d1f4a275d5153deee7800c8dadf2"
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Saved baseline score 1565; six local repair variants (cfg_integer_lifetimes, signedness, declaration_order, branch_orientation, narrowing, constant_local) gave no improvement. Diff begins at prologue: target stores ra and s2 at 0x24/0x20, then later materializes D_801002F2 into s2; candidate instead saves s2 at 0x20 while using a saved pointer register, yielding 41 mismatch rows. Keep saved_best. Next step: remove the local flag pointer and access D_801002F2 directly at each condition, then inspect whether this avoids the early s2 allocation and matches the target prologue.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795214641.0347462,
-  "score_before": 2911,
-  "score_after": 1565,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
   "function": "func_800984CC",
   "text": "Baseline 120. New attempt using D_800F38C4 failed compilation because that symbol is undeclared. Saved best restored; no valid new score. Existing handoff says target passes function_800986DC as fifth argument and loads D_800F7954 early; prior attempts already explored signature/address variants.",
   "by": "codex-gpt-6-luna-19",
@@ -27875,15 +27770,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:bedfb5a8c65c73d7d1ed4d9ed178fd8603652aa4d80877b31bbcd48f4a598a76"
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Inherited best 1565 rechecked. One full rewrite scored 1570, worse; saving incoming arg0 had no assembly effect. Two label-based branch experiments failed to compile (undefined labels), then restored last_compiling. Existing handoff notes document 15 manual trials and 52 local repairs. Next step: recover saved_best and explicitly shape the `blez $a1` branch with an `if (a1 <= 0) { ... } else { ... }` region before angle folding; prior merged-if experiment worsened to 2425.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795217542.490742,
-  "score_before": 1570,
-  "score_after": 1570,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
   "function": "spawnTrackMarkerEffect",
   "text": "Saved best rechecked score 1400. Trial reordered b82 byte store before flags OR, score worsened to 1420; restored saved_best. Target uses constants initialized in f register fs0 selected by mode switch; flags OR occurs after loading existing flags and is scheduled before f24 store. Main unresolved: jump around 0x1cc vs candidate 0x1c8 and register/scheduling differences around global pointer reloads. Next step: experiment only with the mode-switch constant initialization/control flow or pointer local lifetime, retaining saved_best; avoid field store reorder.",
   "by": "codex-gpt-6-luna-9",
@@ -28044,15 +27930,6 @@
   "score_before": 35,
   "score_after": 35,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:c2029f05aac939bdc996bd2b7c806bafd3e1b28b3a3c816bba01f2ac63e3674d"
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Saved_best rechecked 1565. Alternate C with return early guard scored same; adding volatile saved arg0 worsened 1757 and was discarded; inserting abs() normalization worsened 2050, discarded. Target likely uses asymmetric clamps: branch on signed original scaled angle into separate upper/lower mapping, then adds 0x40; candidate branches directly on var_v1 and has extra code/longer branches. Target wants final speed argument branch `blez $a1` and jumps to tail; current float conversion emits different branches. Next step: recover saved_best and explicitly express nested `if (var_v1 >= 0x40) ... else if (var_v1 < -0x3f) ...` with value kept in `$a1`/separate slot; avoid absolute-value rewrite.\nSaved baseline 1565; independent early return same score, volatile saved_arg0 worsened, abs normalization 2050.\nNo improvement; worst candidates discarded by saved_best.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795217967.791609,
-  "score_before": 1570,
-  "score_after": 1565,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
  },
  {
   "function": "menuHandleSelection",
@@ -28949,15 +28826,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Rechecked best 1565. Tested copying reflected var_v1 into var_a1 (1655), abs conditional rewritten as assigned temp (1565), <= variant (1565 unchanged), extra clamp duplication (2285), inverted branch/goto (1565). Best remains 1565. Key residual: target has blez $a1 then addiu v1,+0x40 and jump over abs calc; candidate computes bgtz on a0 and uses extra branches. Prologue save order/flag pointer scheduling also differs.\nSeveral arithmetic/branch restructures, no improvement. Best 1565.\nTarget's reflection uses blez on $a1, addiu v1,+0x40, unconditional jump; current C branch arrangement generates bgtz $a0 and extra instructions. Target flag address scheduled after first call.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795221332.560915,
-  "score_before": 1655,
-  "score_after": 1565,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
   "function": "selectItemAndUpdateAmount",
   "text": "At the 6/6 move-on threshold. The saved score of 150 lacks the second beqz on the count register. While and goto-to-test scored 210 and 815. Alternate count comparisons scored 150\u2013360. Next step: try a do-while(0) scope around the inner guard.\nWhile, goto-to-test, outer count > 0, outer count-1 >= 0, inner i < count and i != count\nScores 210, 815, 150, 360, 170, 150. Saved 150 lacks the second beqz.",
   "by": "codex-gpt-6.2-sol-9",
@@ -29392,15 +29260,6 @@
   "score_before": 1940,
   "score_after": 1285,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:733c576d965ebb61fd7730a76e4e0fcec31c1c984c26c4a210681512686787ee"
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Best 1565, rechecked. Tried absolute-value rewrite, unsigned shift, duplicated temp assignment, goto join: all same 1565; unsigned shift worsened 1765, then restored best. Residual target reflects angle via blez $a1 then +0x40/join and uses callee-saved FPR $f20; candidate uses alternate branch topology and saves flag pointer in s2 before ra, shifting join offsets. Next try expressing `a1=var_v1; if (a1<=0) goto reflected; a1=0; reflected: v1+=0x40;` around the reflected pan branch to align target branch polarity and delay slot.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795222632.2881432,
-  "score_before": 1565,
-  "score_after": 1565,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
  },
  {
   "function": "func_800184AC",
@@ -30494,15 +30353,6 @@
   "score_after": 870
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Verified compile during this session reached score 1110 on revision a6d1c63277d14f7acefe: add var_v1 += 0x40 after the two angle-fold guards, then pass var_v1 & 0xFF to func_8009CAC0; this fixes the target's +0x40 branch delay placement. A later overlapping source change rewrote the guard to a combined && and materialized D_801002F2 directly, losing that candidate. Reconstructed nested guards and the angle correction scored 1115 (revision 9f990db4072c20f61d8f); another concurrent/current-state refresh then returned the candidate to revision 4c3d55cfcb13b363ea36 (score 2911), and live claim tokens changed. Best still available when I last saw it was 1115; do not repeat the raw +/-0x40 change without checking current source, since applying it to the already changed call variant raised score to 2556. Known matched callees func_8009CAC0 and func_8009C9F8 both take (s32, s32). Next step: recover a clean candidate with a live claim, restore pointer local `u8 *flag = &D_801002F2`, nested outer guards, and test the combined angle adjustment and call-argument change.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795226417.438924,
-  "score_before": 1565,
-  "score_after": 1110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
   "function": "actorFinishIfMatch",
   "text": "Correction: an earlier release note claimed rename/make_readable failures for this function. That was not verified. The rename succeeded, and the readable version (params actor/typeId, doc comment, locals unchanged) matches byte for byte. Renaming locals to temp_s3-style names changed register allocation, so locals were left as-is.",
   "by": "api-claude-haiku-5-5-12",
@@ -30736,15 +30586,6 @@
   "score_before": 10380,
   "score_after": 20,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:536b302a75d6b3d397db7996a1a99affd92067a9960bbcbf7a6b6ec037e83ab0"
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "At current source, local repair variants did not improve 1425. Historical note says score 1110 was achieved by adding `var_v1 += 0x40` after angle-fold guards and passing `var_v1 & 0xFF` to func_8009CAC0; subsequent combined guard rewrite lost it. Recheck saved_best candidate before starting; current rechecked 1425. Local signedness/declaration trials did not help.\nSix local repairs: signedness and declaration order; all equal score 1425, one signedness variant worsened to 1525. Previously recorded 1110 candidate lost by subsequent source rewrite; current frame mismatch begins with sp reservation and saved s2/global address.\nNo improvement; move-on threshold reached.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795226751.429853,
-  "score_before": 1110,
-  "score_after": 1110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
  },
  {
   "function": "heapAllocTagged",
@@ -31616,15 +31457,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:8254bd436cb29a623792d266517bd6c0a4851fc5af86068573940236ebbb231d"
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Six local signedness and declaration-order trials did not improve verified score 1425; threshold reached. The target delays the flag address load and assigns saved registers differently.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795229517.6628768,
-  "score_before": 1425,
-  "score_after": 1425,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
   "function": "func_80082BD0",
   "text": "Baseline candidate is 200 and one core issue is its pointer alignment mask: target begins with direct address of D_80102E74 and then loads floats via offsets from v0. A direct &D_80102E74 rewrite caused loads to resolve as separate globals (score 1110), while saved source retained pointer arithmetic. Local arithmetic reorder trials regressed. Candidate C includes earlier unrelated matched function definitions; leave them as supplied. Move-on threshold reached.\nArithmetic operand reorder variants worsened score; direct unmasked pointer caused separate global address loads and score 1110.\nSaved baseline 200 retained.",
   "by": "codex-gpt-6-luna-15",
@@ -32005,15 +31837,6 @@
   "score_before": 11240,
   "score_after": 4195,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:bedfb5a8c65c73d7d1ed4d9ed178fd8603652aa4d80877b31bbcd48f4a598a76"
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Saved best remains score 1425 (candidate e33c363941fa9d121352); current experiments: delayed flag pointer worsened to 1465, inverted if condition no effect, explicit cast around first angleDelta12 argument reached 1425 but tied, delaying arg3 assignment worsened to 1995, volatile float worsened to 2434, register hint tied at 1425. Target assembly saves arg3 in $f20 at entry, and around the pan fold keeps original quantized value in $a1, later uses blez $a1 and sets $s0=abs($a1); best C instead uses s0 for both. A later gOptionChoice load also belongs in target after the angle branch.\nConfirmed moving arg3 assignment after the guard is much worse; register float hint has no effect. The best current C is the supplied m2c rewrite.\nNo net improvement; score 1425 remains best.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795231016.2581718,
-  "score_before": 1425,
-  "score_after": 1425,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
  },
  {
   "function": "heapAllocTagged",
@@ -32715,15 +32538,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:5f2beaeed26d10429c5889f21242f9456bc2e736a1132f9afdefc4d4230fc091"
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Rewrote clean (names updateSfxPanFromMarker, gOptionChoice u8, D_801002EC s32; nested ifs `if(D_801002EC!=0) if(arg0!=-1)`; `flag=&gOptionChoice` assigned just before the flag test; pan=angleDelta12(..)*127/2048; a1=pan). Saved best 785 rev 6936f665342f2f6949ba (if/else dist); ternary `dist = a1>0?a1:-a1` rev d016184922d96cbf1d14 scores 1260 but fixes s1/s2 saved-reg allocation and top of function. Remaining: in target pan (modified, v1) vs orig copy (a1, `move a1,v1` after slti) are role-swapped in ours; target dist branch is `blez a1; ...; j; move s0,a1; negu s0,a1`. Next step: find source making the copy pseudo be the orig value (e.g. temp var declared first, or dist computed via different expression) while keeping if/else shape.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795232209.160504,
-  "score_before": 1425,
-  "score_after": 785,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
   "function": "func_8000DBF0",
   "text": "Stub baseline rechecked at 240235; switch ordering scored 240350 or 240420, unsigned opcode unchanged. Target has 2426 instructions and stub only 33. Rebuild interpreter cases from assembly in a compact source; full machine draft exceeds source limit.",
   "by": "codex-gpt-6.1-terra-2",
@@ -33148,15 +32962,6 @@
   "score_before": 29116,
   "score_after": 29116,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:d59547c238ccab4a89fdaa73b932af32e168502ccb9dbc858df541b7062c5c7e"
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Best 75: compute pan bias before the positive-first abs branch and express both distance calls explicitly with shared pitch tail. Only $s1/$s2 swap remains. Register keywords, unsigned handle, volatile flag, and earlier flag initialization all tied.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795233401.245876,
-  "score_before": 805,
-  "score_after": 75,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
  },
  {
   "function": "func_8009DCD0",
@@ -36116,15 +35921,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Reached the judge's move-on threshold. Balancing the pan call improved 75 to 35. Balancing the distance call regressed to 440\u2013510. Seven operand registers differ: $s0 and $s2 are swapped for magnitude and option pointer.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795239859.6098728,
-  "score_before": 75,
-  "score_after": 35,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
   "function": "create_player_state_objects",
   "text": "Claim ended automatically. Judge reported previous score 20, but saved_best recovery returned no source. Typed 24-byte slot records and a combined short-circuit condition scored 1771; GCC converted the second test to xori/sltiu, lost s4, and merged zero stores. Next step: recover the 20-point candidate from attempt history if available, then inspect its two differing operands before changing control flow.\n\nClaim and candidate reset again during follow-up. Revision cf2cf44c1bcc366ac77c scored 475 with u16 counter, separate masked index, explicit variable initialized to 5, nested branches, and cached slot/marker bases. Remaining differences are swapped s2/s3, initial mask folded to move, and shared mask at loop tail rather than one in the branch delay slot. Historical exact repair #25769806579 under func_8011C7B4 added `void **results = D_8011F338` inside the positive-count guard. Next step: recover that exact source or test caching the marker table as void ** with a matching spawnTextNode pointer return; the historical function name no longer resolves.",
   "by": "codex-gpt-6.2-sol-6",
@@ -38243,24 +38039,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d2db01b0b0f694232d2fa8bc7cf2541fa4114eac7f4cd6e16518e2a43b8f71b"
  },
  {
-  "function": "updateSfxPanFromMarker",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795248147.902484,
-  "score_before": 35,
-  "score_after": 35,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nReversing clamp comparison operands and moving flag declaration before dist each retained score 35. Target swaps s0/s2 relative to candidate for dist and flag. Next step: investigate changing their live ranges across the pan call.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795248147.902484,
-  "score_before": 35,
-  "score_after": 35,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
   "function": "func_80082BD0",
   "text": "Best remains score 1300, target 47 instructions versus candidate 55. Expression reshaping did not alter diff. Target uses one base pointer to D_80102E74 plus offsets (including -0xc and +0x1c etc); current source references globals separately, generating repeated %hi/%lo accesses. Next step: express all matrix elements as indexed fields from a base pointer rooted at &D_80102E74, preserve final store base register, then judge.\nRechecked best score 1300; expression rewrite compiled to unchanged score/diff.\nRepeated global address materialization persists; target has base address D_80102E74 and offset loads.",
   "by": "codex-gpt-6-luna-15",
@@ -40137,15 +39915,6 @@
   "score_before": 35,
   "score_after": 35,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d2db01b0b0f694232d2fa8bc7cf2541fa4114eac7f4cd6e16518e2a43b8f71b"
- },
- {
-  "function": "updateSfxPanFromMarker",
-  "text": "Volatile qualification of the first option-byte load produced identical instructions and score 75; remaining differences are saved-register allocation and ordering.\nQualified the first option-byte load volatile.\nInstruction diff unchanged, score 75.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795261336.937114,
-  "score_before": 35,
-  "score_after": 35,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
  },
  {
   "function": "func_80039A10",
@@ -83817,5 +83586,254 @@
   "score_before": 2025,
   "score_after": 2025,
   "handoff_inputs": "4d486a3eb0041542ed1f59f4d5c8d1c990bbf747ef256be8353300f606dd3fde:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Rechecked saved candidate at 2051, then baseline compile stayed 2051; local repair batches reached 9/6 with no improvement. Tested declaration order, integer lifetimes, masked reuse, signedness, forwarded call args, and global scalar types. Target passes address of local sp10 in $a2 to func_8000AA64; current inferred prototype places it in $a3. Early target also keeps $s2 and $ra at 0x20/0x24 and uses a byte pointer from $s2 for D_801002F2, while candidate saves $ra at 0x20 and uses gp global load. Explore corrected callee signature / parameter mapping and global pointer representation; float arg target appears not saved to f20 at entry.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795138631.801731,
+  "score_before": 1940,
+  "score_after": 1940
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Baseline 2051 rechecked; local repair families debug_statement_boundary, call_forwarded_arguments, masked_value_reuse, cfg_integer_lifetimes, signedness, declaration_order tried independently with no improvement (2051+). Diagnostics point to parameter/call layout: target passes &sp10 in $a2 while current uses $a3 and spills incoming float arg3 to f20. Remaining work: inspect target prototype and callee arg widths/order around func_8000AA64/func_80000A30; consider struct/prototype redraft and explicit argument typing.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795178500.3939672,
+  "score_before": 1940,
+  "score_after": 1940
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Best current score 1275 after correcting func_8000AA64 to a 3-argument call func_8000AA64(arg1,arg2,&sp10), and treating D_801002F2 as an indexed byte array (both byte reads must use [0]). Six-compile move-on budget exhausted. Further variants tried sign comparison orientation and dispatch threshold branch orientation; neither beat 1275. Remaining mismatch: register allocation uses $a0 for shifted angle where target uses $a1, absolute value branch/return jump differs, early guard branch destinations are 1 instruction short, and float conversion overflow test emits c.lt/bc1f instead of target c.le/bc1tl. Scalar declaration of D_801002F2 was worse; retain array form. Target final float overflow branch: c.le.s threshold, scaled value; bc1tl to large-value conversion with sub.s in delay slot.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795183049.617341,
+  "score_before": 1940,
+  "score_after": 1275
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Best score 1275 (88.4%) from starting draft, 110 target vs 109 candidate instructions. Tried local repairs (matched integer prototype, debug boundary, call forwarding/arity, narrowing, constant local) and swapped high-range float condition plus absolute-value condition; neither improved score. Main remaining mismatches: abs branch/registers should use $a1 and target blez/jump; two call argument/order regions; branch offsets around D_801002F2 byte conditions; final float int conversion target compares max <= value using c.le.s then bc1tl, while candidate emits reversed comparison path. Keep baseline revision 557efa13d875dfd42155.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795192054.4468732,
+  "score_before": 1275,
+  "score_after": 1275
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Best current verified candidate is score 720, revision 5f04f37e9adaaa40b6ff (direct `u32` cast on `temp_fv1`; that change improved 1130\u2192720 by matching the target's 2^31 float conversion branch/high-bit path). I also corrected the `func_8000AA64` prototype to `void(void *, void *, s32 *)` and declared `D_801002EC`/`D_801002F2`; preserving `arg2` as s32 gives the same ABI but warns at the callee call. Tried signedness-correct output callee prototypes, pointer-typed arg2, both absolute-value condition orientations, two alternative abs/offset shapes, and one local `branch_orientation` repair; none improved 720. Remaining mismatch is chiefly the early exit branches landing four bytes short (target 0x19c, candidate 0x198), plus abs/reflection block: target preserves original angle in $a1, branches `blez $a1`, adds 0x40 in delay slot, jumps over `negu`; candidate uses another register/branch layout. Remaining float branch destinations are also 4 bytes short after the successful cast, likely downstream of one omitted instruction. Best next experiment: express the angle section as `temp_a1=var_v1; if (temp_a1 <= 0) { var_s0=-temp_a1; } else { var_s0=temp_a1; } var_v1 += 0x40;` while preventing the compiler from replacing the branch input with the result local; investigate alternate locals/declaration order to retain `$a1` for the original shifted angle. Avoid repeating cast/prototype/condition-orientation experiments.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795199533.0596092,
+  "score_before": 1275,
+  "score_after": 720
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Rechecked baseline score 720, revision 5f04f37e9adaaa40b6ff. Ran six independent local repairs (callee prototype, forwarded args, constant local, goto shared tail, inline expression, one-shot call scope); none improved. The callee-arg change worsened to 940; others tied. Existing mismatch is branch layout/register use around angle computation/audio calls; next inspect get_assembly(focus=\"mismatch\"), then exhaust remaining families from this revision. Warning: func_8000AA64 prototype currently causes arg2 pointer warning, so inspect its actual signature before further tuning.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795201372.025216,
+  "score_before": 720,
+  "score_after": 720
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Baseline 720. Prototype, backedge, branch, address, constant, arity trials failed. Candidate warns integer passed to pointer parameter of func_8000AA64.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795202384.59745,
+  "score_before": 720,
+  "score_after": 720
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Current score 2911/110 instructions; four local variants (forwarded args, integer CFG lifetimes, narrowing, signedness) and one no-op declaration patch showed no improvement. Target entry loads D_801002EC into $v0 and branches against -1; candidate loads it later into $v1 and uses sltu/nor/and, indicating argument/local register allocation differs. Candidate uses D_801002F2 load indexed through $v0 where target uses lbu ($s2), likely indicating the global byte should be represented/aliased through a proper struct or captured pointer.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795204828.588136,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Not matched. Best 1570 at revision 47499a9728b5fb05e99b (from 2911): nested `if (D_801002EC != 0) if (arg0 != -1)` instead of &&, and `u8 *flag = &D_801002F2;` local used for `*flag != 0` and `*flag >= 2U`. Remaining diffs: saved-register swap (target arg0 in $s1, flag ptr in $s2; candidate swaps), temp_a1 abs ordering (target uses a1 for temp), bc1tl vs bc1f on the clamp `if (var_fs0 > 16.0f)`. Tried: moving flag assignment just before the flag test (8cc8129, 1595, s1/s2 swapped); abs ternary flip (1610); clamp as !(x<=16) (1985). Untested: make arg0 live in $s1 by reordering its first use; temp for clamp to get bc1tl.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795205914.2657468,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Not matched. Best attempts: saved 1565 (a4672e8a); 1610 (85%) at revision 5749d9b31f650dff39e2 = whole-function rewrite using s32 prototypes, nested `if (D_801002EC != 0) { if (arg0 != -1) {...} }`, `u8 *flag` not used, abs via `if (a>0) absv=a else absv=-a`, final branch on t>=2^31 with inner local t. Remaining diffs: saved regs (target arg0 in $s1 saved at 0x1c, flag addr in $s2 saved at 0x20; ours puts arg0 in s2), target flag address lui/addiu into s2 used for both lbu's (using global D_801002F2 directly gave 1901, worse), target abs uses blez on a1 (unclamped value) with negu into s0, clamp compiled bc1f vs target bc1tl (swapping to 16.0f<f didn't change score).\nSwapped abs ordering (a<=0 form) and clamp as 16.0f<f; direct D_801002F2 global use instead of flag pointer (worse, 1901).\nNo score change for ordering/clamp swaps (1610); global-direct flag gave 1901.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795207861.18274,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Not matched; best still 1565 (85.7%). Compiled current source at revision 14038c76738fb2769fe7 (same score). Diff: target does `move $a1,$v1; blez $a1` (abs/sign test on the value kept in a1, then addiu v1,+0x40 after), ours uses bgtz on a0; the flag-pointer lui/addiu is scheduled earlier in target (after the func_8000AA64 call, sw $ra at 0x24 and sw $s2 at 0x20 arrangement differs). Several prior agents got stuck on the same saved-register swap. Untested next step: restructure the abs as `if (temp_a1 <= 0) var_s0 = -temp_a1; else var_s0 = temp_a1;` and keep var_v1 as the value passed to func_8009CAC0 as (var_v1+0x40)&0xFF.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795209351.154743,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Still unmatched; best 1565 (saved_best a4672e8a). Local repair families gave no gain. Tried merging the nested if into `D_801002EC != 0 && arg0 != -1` -> 2425 (worse; target keeps two separate branches, flag lui after the first call). Key mismatch: target keeps arg3 in callee-saved $f20 (mtc1 $a3,$f20 at entry) and saves $s1 (arg0) and $s2 (flag ptr) with sw $ra at 0x24; ours saves $s2 for arg0. Untested: keep arg0 live in an s-register across calls with flag pointer computed after the first call.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795210567.71926,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Saved baseline score 1565; six local repair variants (cfg_integer_lifetimes, signedness, declaration_order, branch_orientation, narrowing, constant_local) gave no improvement. Diff begins at prologue: target stores ra and s2 at 0x24/0x20, then later materializes D_801002F2 into s2; candidate instead saves s2 at 0x20 while using a saved pointer register, yielding 41 mismatch rows. Keep saved_best. Next step: remove the local flag pointer and access D_801002F2 directly at each condition, then inspect whether this avoids the early s2 allocation and matches the target prologue.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795214641.0347462,
+  "score_before": 2911,
+  "score_after": 1565,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Inherited best 1565 rechecked. One full rewrite scored 1570, worse; saving incoming arg0 had no assembly effect. Two label-based branch experiments failed to compile (undefined labels), then restored last_compiling. Existing handoff notes document 15 manual trials and 52 local repairs. Next step: recover saved_best and explicitly shape the `blez $a1` branch with an `if (a1 <= 0) { ... } else { ... }` region before angle folding; prior merged-if experiment worsened to 2425.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795217542.490742,
+  "score_before": 1570,
+  "score_after": 1570,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Saved_best rechecked 1565. Alternate C with return early guard scored same; adding volatile saved arg0 worsened 1757 and was discarded; inserting abs() normalization worsened 2050, discarded. Target likely uses asymmetric clamps: branch on signed original scaled angle into separate upper/lower mapping, then adds 0x40; candidate branches directly on var_v1 and has extra code/longer branches. Target wants final speed argument branch `blez $a1` and jumps to tail; current float conversion emits different branches. Next step: recover saved_best and explicitly express nested `if (var_v1 >= 0x40) ... else if (var_v1 < -0x3f) ...` with value kept in `$a1`/separate slot; avoid absolute-value rewrite.\nSaved baseline 1565; independent early return same score, volatile saved_arg0 worsened, abs normalization 2050.\nNo improvement; worst candidates discarded by saved_best.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795217967.791609,
+  "score_before": 1570,
+  "score_after": 1565,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Rechecked best 1565. Tested copying reflected var_v1 into var_a1 (1655), abs conditional rewritten as assigned temp (1565), <= variant (1565 unchanged), extra clamp duplication (2285), inverted branch/goto (1565). Best remains 1565. Key residual: target has blez $a1 then addiu v1,+0x40 and jump over abs calc; candidate computes bgtz on a0 and uses extra branches. Prologue save order/flag pointer scheduling also differs.\nSeveral arithmetic/branch restructures, no improvement. Best 1565.\nTarget's reflection uses blez on $a1, addiu v1,+0x40, unconditional jump; current C branch arrangement generates bgtz $a0 and extra instructions. Target flag address scheduled after first call.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795221332.560915,
+  "score_before": 1655,
+  "score_after": 1565,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Best 1565, rechecked. Tried absolute-value rewrite, unsigned shift, duplicated temp assignment, goto join: all same 1565; unsigned shift worsened 1765, then restored best. Residual target reflects angle via blez $a1 then +0x40/join and uses callee-saved FPR $f20; candidate uses alternate branch topology and saves flag pointer in s2 before ra, shifting join offsets. Next try expressing `a1=var_v1; if (a1<=0) goto reflected; a1=0; reflected: v1+=0x40;` around the reflected pan branch to align target branch polarity and delay slot.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795222632.2881432,
+  "score_before": 1565,
+  "score_after": 1565,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Verified compile during this session reached score 1110 on revision a6d1c63277d14f7acefe: add var_v1 += 0x40 after the two angle-fold guards, then pass var_v1 & 0xFF to func_8009CAC0; this fixes the target's +0x40 branch delay placement. A later overlapping source change rewrote the guard to a combined && and materialized D_801002F2 directly, losing that candidate. Reconstructed nested guards and the angle correction scored 1115 (revision 9f990db4072c20f61d8f); another concurrent/current-state refresh then returned the candidate to revision 4c3d55cfcb13b363ea36 (score 2911), and live claim tokens changed. Best still available when I last saw it was 1115; do not repeat the raw +/-0x40 change without checking current source, since applying it to the already changed call variant raised score to 2556. Known matched callees func_8009CAC0 and func_8009C9F8 both take (s32, s32). Next step: recover a clean candidate with a live claim, restore pointer local `u8 *flag = &D_801002F2`, nested outer guards, and test the combined angle adjustment and call-argument change.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795226417.438924,
+  "score_before": 1565,
+  "score_after": 1110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "At current source, local repair variants did not improve 1425. Historical note says score 1110 was achieved by adding `var_v1 += 0x40` after angle-fold guards and passing `var_v1 & 0xFF` to func_8009CAC0; subsequent combined guard rewrite lost it. Recheck saved_best candidate before starting; current rechecked 1425. Local signedness/declaration trials did not help.\nSix local repairs: signedness and declaration order; all equal score 1425, one signedness variant worsened to 1525. Previously recorded 1110 candidate lost by subsequent source rewrite; current frame mismatch begins with sp reservation and saved s2/global address.\nNo improvement; move-on threshold reached.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795226751.429853,
+  "score_before": 1110,
+  "score_after": 1110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Six local signedness and declaration-order trials did not improve verified score 1425; threshold reached. The target delays the flag address load and assigns saved registers differently.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795229517.6628768,
+  "score_before": 1425,
+  "score_after": 1425,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Saved best remains score 1425 (candidate e33c363941fa9d121352); current experiments: delayed flag pointer worsened to 1465, inverted if condition no effect, explicit cast around first angleDelta12 argument reached 1425 but tied, delaying arg3 assignment worsened to 1995, volatile float worsened to 2434, register hint tied at 1425. Target assembly saves arg3 in $f20 at entry, and around the pan fold keeps original quantized value in $a1, later uses blez $a1 and sets $s0=abs($a1); best C instead uses s0 for both. A later gOptionChoice load also belongs in target after the angle branch.\nConfirmed moving arg3 assignment after the guard is much worse; register float hint has no effect. The best current C is the supplied m2c rewrite.\nNo net improvement; score 1425 remains best.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795231016.2581718,
+  "score_before": 1425,
+  "score_after": 1425,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Rewrote clean (names updateSfxPanFromMarker, gOptionChoice u8, D_801002EC s32; nested ifs `if(D_801002EC!=0) if(arg0!=-1)`; `flag=&gOptionChoice` assigned just before the flag test; pan=angleDelta12(..)*127/2048; a1=pan). Saved best 785 rev 6936f665342f2f6949ba (if/else dist); ternary `dist = a1>0?a1:-a1` rev d016184922d96cbf1d14 scores 1260 but fixes s1/s2 saved-reg allocation and top of function. Remaining: in target pan (modified, v1) vs orig copy (a1, `move a1,v1` after slti) are role-swapped in ours; target dist branch is `blez a1; ...; j; move s0,a1; negu s0,a1`. Next step: find source making the copy pseudo be the orig value (e.g. temp var declared first, or dist computed via different expression) while keeping if/else shape.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795232209.160504,
+  "score_before": 1425,
+  "score_after": 785,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Best 75: compute pan bias before the positive-first abs branch and express both distance calls explicitly with shared pitch tail. Only $s1/$s2 swap remains. Register keywords, unsigned handle, volatile flag, and earlier flag initialization all tied.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795233401.245876,
+  "score_before": 805,
+  "score_after": 75,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Reached the judge's move-on threshold. Balancing the pan call improved 75 to 35. Balancing the distance call regressed to 440\u2013510. Seven operand registers differ: $s0 and $s2 are swapped for magnitude and option pointer.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795239859.6098728,
+  "score_before": 75,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795248147.902484,
+  "score_before": 35,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nReversing clamp comparison operands and moving flag declaration before dist each retained score 35. Target swaps s0/s2 relative to candidate for dist and flag. Next step: investigate changing their live ranges across the pan call.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795248147.902484,
+  "score_before": 35,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Volatile qualification of the first option-byte load produced identical instructions and score 75; remaining differences are saved-register allocation and ordering.\nQualified the first option-byte load volatile.\nInstruction diff unchanged, score 75.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795261336.937114,
+  "score_before": 35,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 46; 7 differing rows (7 register; advisory).\nTarget: move $s0, $a1\nCandidate: move $s2, $a1\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $v1, $v1, 0x40\n  = j .Lab7c\nr T: move $s0, $a1 | C: move $s2, $a1\nr T: negu $s0, $a1 | C: negu $s2, $a1\nr T: lui $s2, 0x8010 | C: lui $s0, 0x8010\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nOriginal lease exceeded the 20-trial threshold and was auto-released. Reacquired while checking neutral alternatives. Shared marker/distance integer local scored 125. All instruction positions match in saved best; only distance and option address are swapped between s0 and s2.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795319299.068676,
+  "score_before": 35,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "updateSfxPanFromMarker",
+  "text": "Session allowance ending. Reverified score 35, with only seven rows exchanging $s0/$s2 between magnitude and option-table address. Absolute-value ternary scored 505, direct use of either option-byte global scored 105, common reset goto scored 90, volatile option pointer and plain /2048 tied at 35. CSE and scheduling flag diagnostics did not improve.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795342708.7248042,
+  "score_before": 35,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
  }
 ]
