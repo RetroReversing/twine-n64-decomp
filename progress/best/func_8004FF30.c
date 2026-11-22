@@ -156,11 +156,11 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
   f32 *sp1CC;
   f32 *sp1C4;
   f32 *sp1D4;
-  u16 sp1DE;
   u16 sp1E6;
+  u16 sp1DE;
   f32 *sp1EC;
-  f32 *sp1F4;
   f32 *sp1FC;
+  f32 *sp1F4;
   f32 temp_fs0;
   f32 temp_fs0_2;
   f32 temp_fs0_3;
@@ -346,7 +346,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                 scratch.vsp88.values[1] = (s16) ((s32) (*((f32 *) (((char *) var_s4) + 0x40))));
                 scratch.vsp88.values[2] = (s16) ((s32) (*((f32 *) (((char *) var_s4) + 0x44))));
                 buildRotationMatrixS16(sp1A4, scratch.vsp58.values);
-                temp_s1_4 = (void *) (*((u8 *) (((char *) temp_v1) + 0x48))); temp_v1_2 = (u32) temp_s1_4 & 4;
+                temp_s1_4 = (void *) (*((u8 *) (((char *) temp_v1) + 0x48))); temp_v1_2 = ((u32) temp_s1_4) & 4;
                 if (temp_v1_2)
                 {
                   var_fp = *((u16 **) (((char *) temp_v1) + 0x3C));
@@ -438,24 +438,27 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           scratch.correction.values[1] = temp_fv1;
                           scratch.vsp18[2] += temp_fv0_3;
                           scratch.vsp18[1] += temp_fv1;
-                            goto block_37;
-                          }
-                          goto block_37_done;
-                          block_37_plane:
-                          var_fa0 = arg3 - temp_fs0;
-                          temp_ft1 = var_fa0 * scratch.vsp90.values[0];
-                          temp_ft0 = var_fa0 * scratch.vsp90.values[1];
-                          temp_fv0 = var_fa0 * scratch.vsp90.values[2];
-                          scratch.correction.values[0] = temp_ft1;
-                          scratch.correction.values[1] = temp_ft0;
-                          scratch.correction.values[2] = temp_fv0;
-                          scratch.vsp18[0] += temp_ft1;
-                          scratch.vsp18[1] += temp_ft0;
-                          scratch.vsp18[2] += temp_fv0;
-                          {
-                            block_37:
+                          rotateVec3ByMat3(scratch.vsp58.values, &scratch.correction.values[0]);
+                          goto block_37_after_call;
+                        }
+                        goto block_37_done;
+                        block_37_plane:
+                        var_fa0 = arg3 - temp_fs0;
+
+                        temp_ft1 = var_fa0 * scratch.vsp90.values[0];
+                        temp_ft0 = var_fa0 * scratch.vsp90.values[1];
+                        temp_fv0 = var_fa0 * scratch.vsp90.values[2];
+                        scratch.correction.values[0] = temp_ft1;
+                        scratch.correction.values[1] = temp_ft0;
+                        scratch.correction.values[2] = temp_fv0;
+                        scratch.vsp18[0] += temp_ft1;
+                        scratch.vsp18[1] += temp_ft0;
+                        scratch.vsp18[2] += temp_fv0;
+                        {
+                          block_37:
                           rotateVec3ByMat3(scratch.vsp58.values, &scratch.correction.values[0]);
 
+                          block_37_after_call:
                           if (arg6)
                           {
                             *((f32 *) (((char *) arg1) + 0)) = (f32) ((*((f32 *) (((char *) arg1) + 0))) + scratch.correction.values[0]);
@@ -472,7 +475,11 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                             sp187 = 1;
                             *((s32 *) (((char *) var_s4) + 0x60)) = (s32) ((*((s32 *) (((char *) var_s4) + 0x60))) | arg4);
                           }
-                          block_37_done: ;
+
+                          block_37_done:
+                          ;
+
+                          ;
                         }
                       }
                       sp196 += 1;
@@ -484,7 +491,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                 }
                 else
                 {
-                  var_fp_2 = *((u8 **) (((char *) temp_v1) + 0x3C));
+                  temp_s4 = *((u8 **) (((char *) temp_v1) + 0x3C)); var_fp_2 = (u8 *) temp_s4;
                   if (temp_v1_2 < ((u16) (*((u16 *) (((char *) temp_v1) + 0x40)))))
                   {
                     u16 __block_sp196;
@@ -574,35 +581,42 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           scratch.vspF0.values[1] = temp_fv1_2;
                           scratch.vsp18[1] += temp_fv1_2;
                           scratch.vsp18[2] += temp_fv0_6;
-                            goto block_65;
-                          }
-                          goto block_65_done;
-                          block_65_plane:
-                          var_fa0_3 = arg3 - temp_fs0_3;
-                          temp_ft1_2 = var_fa0_3 * scratch.vsp90.values[0];
-                          temp_ft0_3 = var_fa0_3 * scratch.vsp90.values[1];
-                          temp_fv0_4 = var_fa0_3 * scratch.vsp90.values[2];
-                          scratch.vspF0.values[0] = temp_ft1_2;
-                          scratch.vspF0.values[1] = temp_ft0_3;
-                          scratch.vspF0.values[2] = temp_fv0_4;
-                          scratch.vsp18[0] += temp_ft1_2;
-                          scratch.vsp18[1] += temp_ft0_3;
-                          scratch.vsp18[2] += temp_fv0_4;
-                          {
-                            block_65:
+                          rotateVec3ByMat3(scratch.vsp58.values, &scratch.vspF0.values[0]);
+                          goto block_65_after_call;
+                        }
+                        goto block_65_done;
+                        block_65_plane:
+                        var_fa0_3 = arg3 - temp_fs0_3;
+
+                        temp_ft1_2 = var_fa0_3 * scratch.vsp90.values[0];
+                        temp_ft0_3 = var_fa0_3 * scratch.vsp90.values[1];
+                        temp_fv0_4 = var_fa0_3 * scratch.vsp90.values[2];
+                        scratch.vspF0.values[0] = temp_ft1_2;
+                        scratch.vspF0.values[1] = temp_ft0_3;
+                        scratch.vspF0.values[2] = temp_fv0_4;
+                        scratch.vsp18[0] += temp_ft1_2;
+                        scratch.vsp18[1] += temp_ft0_3;
+                        scratch.vsp18[2] += temp_fv0_4;
+                        {
+                          block_65:
                           rotateVec3ByMat3(scratch.vsp58.values, &scratch.vspF0.values[0]);
 
+                          block_65_after_call:
                           *((f32 *) (((char *) arg1) + 0)) = (f32) ((*((f32 *) (((char *) arg1) + 0))) + scratch.vspF0.values[0]);
+
                           *((f32 *) (((char *) arg1) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) + scratch.vspF0.values[1]);
                           *((f32 *) (((char *) arg1) + 8)) = (f32) ((*((f32 *) (((char *) arg1) + 8))) + scratch.vspF0.values[2]);
                           sp187 = 1;
                           *((s32 *) (((char *) var_s4) + 0x60)) = (s32) ((*((s32 *) (((char *) var_s4) + 0x60))) | arg4);
                         }
-                        block_65_done: ;
+                        block_65_done:
+                        ;
+
+                        ;
                       }
-                      __block_sp196 += 1;
-                      var_fp_2 += 3;
                       var_s5_2 += 3;
+                      var_fp_2 += 3;
+                      __block_sp196 += 1;
                     }
                     while (__block_sp196 < ((u16) (*((u16 *) (((char *) temp_v1) + 0x40)))));
                   }
@@ -747,25 +761,29 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                             scratch.vsp158.values[1] = temp_fv1_3;
                             scratch.vsp28.values[1] += temp_fv1_3;
                             scratch.vsp28.values[2] += temp_fv0_9;
-                              goto block_106;
-                            }
-                            goto block_106_done;
-                            block_106_plane:
-                            var_fa0_5 = arg3 - temp_fs0_5;
-                            temp_ft1_3 = var_fa0_5 * scratch.vspC8.values[0];
-                            temp_ft0_5 = var_fa0_5 * scratch.vspC8.values[1];
-                            temp_fv0_7 = var_fa0_5 * scratch.vspC8.values[2];
-                            scratch.vsp158.values[0] = temp_ft1_3;
-                            scratch.vsp158.values[1] = temp_ft0_5;
-                            scratch.vsp158.values[2] = temp_fv0_7;
-                            scratch.vsp28.values[0] += temp_ft1_3;
-                            scratch.vsp28.values[1] += temp_ft0_5;
-                            scratch.vsp28.values[2] += temp_fv0_7;
-                            {
-                              block_106:
+                            func_80083B64(scratch.vsp100.values, &scratch.vsp158.values[0]);
+                            goto block_106_after_call;
+                          }
+                          goto block_106_done;
+                          block_106_plane:
+                          var_fa0_5 = arg3 - temp_fs0_5;
+
+                          temp_ft1_3 = var_fa0_5 * scratch.vspC8.values[0];
+                          temp_ft0_5 = var_fa0_5 * scratch.vspC8.values[1];
+                          temp_fv0_7 = var_fa0_5 * scratch.vspC8.values[2];
+                          scratch.vsp158.values[0] = temp_ft1_3;
+                          scratch.vsp158.values[1] = temp_ft0_5;
+                          scratch.vsp158.values[2] = temp_fv0_7;
+                          scratch.vsp28.values[0] += temp_ft1_3;
+                          scratch.vsp28.values[1] += temp_ft0_5;
+                          scratch.vsp28.values[2] += temp_fv0_7;
+                          {
+                            block_106:
                             func_80083B64(scratch.vsp100.values, &scratch.vsp158.values[0]);
 
+                            block_106_after_call:
                             *((f32 *) (((char *) arg1) + 0)) = (f32) ((*((f32 *) (((char *) arg1) + 0))) + scratch.vsp158.values[0]);
+
                             *((f32 *) (((char *) arg1) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) + scratch.vsp158.values[1]);
                             *((f32 *) (((char *) arg1) + 8)) = (f32) ((*((f32 *) (((char *) arg1) + 8))) + scratch.vsp158.values[2]);
                             temp_v1_8 = *((u32 *) (((char *) var_s6) + 0x5C));
@@ -782,7 +800,10 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                             }
                             sp187 = 1;
                           }
-                          block_106_done: ;
+                          block_106_done:
+                          ;
+
+                          ;
                         }
                       }
                       var_s5_4 += 1;
@@ -882,25 +903,29 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           scratch.vsp168.values[1] = temp_fv1_4;
                           scratch.vsp28.values[1] += temp_fv1_4;
                           scratch.vsp28.values[2] += temp_fv0_12;
-                            goto block_141;
-                          }
-                          goto block_141_done;
-                          block_141_plane:
-                          var_fa0_7 = arg3 - temp_fs0_7;
-                          temp_ft1_4 = var_fa0_7 * scratch.vspC8.values[0];
-                          temp_ft0_7 = var_fa0_7 * scratch.vspC8.values[1];
-                          temp_fv0_10 = var_fa0_7 * scratch.vspC8.values[2];
-                          scratch.vsp168.values[0] = temp_ft1_4;
-                          scratch.vsp168.values[1] = temp_ft0_7;
-                          scratch.vsp168.values[2] = temp_fv0_10;
-                          scratch.vsp28.values[0] += temp_ft1_4;
-                          scratch.vsp28.values[1] += temp_ft0_7;
-                          scratch.vsp28.values[2] += temp_fv0_10;
-                          {
-                            block_141:
+                          func_80083B64(scratch.vsp100.values, &scratch.vsp168.values[0]);
+                          goto block_141_after_call;
+                        }
+                        goto block_141_done;
+                        block_141_plane:
+                        var_fa0_7 = arg3 - temp_fs0_7;
+
+                        temp_ft1_4 = var_fa0_7 * scratch.vspC8.values[0];
+                        temp_ft0_7 = var_fa0_7 * scratch.vspC8.values[1];
+                        temp_fv0_10 = var_fa0_7 * scratch.vspC8.values[2];
+                        scratch.vsp168.values[0] = temp_ft1_4;
+                        scratch.vsp168.values[1] = temp_ft0_7;
+                        scratch.vsp168.values[2] = temp_fv0_10;
+                        scratch.vsp28.values[0] += temp_ft1_4;
+                        scratch.vsp28.values[1] += temp_ft0_7;
+                        scratch.vsp28.values[2] += temp_fv0_10;
+                        {
+                          block_141:
                           func_80083B64(scratch.vsp100.values, &scratch.vsp168.values[0]);
 
+                          block_141_after_call:
                           *((f32 *) (((char *) arg1) + 0)) = (f32) ((*((f32 *) (((char *) arg1) + 0))) + scratch.vsp168.values[0]);
+
                           *((f32 *) (((char *) arg1) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) + scratch.vsp168.values[1]);
                           *((f32 *) (((char *) arg1) + 8)) = (f32) ((*((f32 *) (((char *) arg1) + 8))) + scratch.vsp168.values[2]);
                           temp_v1_11 = *((u32 *) (((char *) var_s6) + 0x5C));
@@ -931,7 +956,10 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           }
                           sp187 = 1;
                         }
-                        block_141_done: ;
+                        block_141_done:
+                        ;
+
+                        ;
                       }
                     }
                     var_s5_4 += 1;

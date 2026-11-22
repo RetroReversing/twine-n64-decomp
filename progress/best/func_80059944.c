@@ -147,7 +147,7 @@ void func_80059944(void *arg0)
 
       goto block_257;
       start_negative:
-    var_v0_3 = advanceActorMotion(arg0, -1) << 0x18;
+    var_v0_3 = (advanceActorMotion(arg0, -1) << 16) << 8;
 
       if (var_v0_3 != 0)
     {
@@ -556,7 +556,7 @@ void func_80059944(void *arg0)
       else
       {
         block_140:
-        temp_v0_9 = *inline_fn(temp_s0, 0x36);
+        temp_v0_9 = (*inline_fn(temp_s0, 0x36)) & 0xFF;
 
         if (temp_v0_9 != 0)
         {
@@ -680,8 +680,12 @@ void func_80059944(void *arg0)
         break;
 
       case 7:
+
       case 9:
-        if (temp_v1_9 == 7) goto block_shared_state_7;
+        if (temp_v1_9 == 7)
+      {
+        goto block_shared_state_7;
+      }
         goto block_shared_state_9;
 
     }
@@ -942,6 +946,4 @@ void func_80059944(void *arg0)
 
   *((s32 *) (((char *) arg0) + 0x60)) = (s32) ((*((s32 *) (((char *) arg0) + 0x60))) & 1);
 }
-
-
 

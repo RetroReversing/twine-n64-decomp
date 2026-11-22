@@ -671,7 +671,7 @@ case 2: case 3: goto out_of_line_actor;
          var_s5 = 0.0f + (temp_fs3 * sinAngle(*((f32 *) (((char *) arg0) + 0x40))));
          var_s6 += (temp_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40))));
          *((f32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x34)) = temp_fs3;
-         temp_fs2 = absFloat(temp_fs3);
+         temp_fs0_2 = absFloat(temp_fs3);
          func_800452E0(temp_s1 + 0x128, arg0 + 0x24, &frame.collision.x);
          *((CopyVec3 *) (((char *) temp_s1) + 0x128)) = *((CopyVec3 *) (((char *) arg0) + 0x24));
          frame.collision.y = roll.number;
@@ -685,7 +685,7 @@ case 2: case 3: goto out_of_line_actor;
          }
          else
          {
-           var_fs1 = temp_fs2 * 5.0f;
+           var_fs1 = temp_fs0_2 * 5.0f;
            var_v0_5 = 1;
            if (!(var_fs1 <= 0.0002f))
            {
@@ -837,14 +837,14 @@ case 2: case 3: goto out_of_line_actor;
            }
          }
        }
-       temp_fs2 = 0.01f;
+       temp_fs2_2 = 0.01f;
        var_fs3 = func_80081B44(temp_s4, 2, 3) * 0.15f;
        if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8)
        {
-         temp_fs2 = 0.2f;
+         temp_fs2_2 = 0.2f;
        }
        temp_fv0_8 = *((f32 *) (((char *) temp_s1) + 0x50));
-       temp_fa0_2 = ((var_fs3 - temp_fv0_8) * temp_fs2) + temp_fv0_8;
+       temp_fa0_2 = ((var_fs3 - temp_fv0_8) * temp_fs2_2) + temp_fv0_8;
        var_v0_10 = 1;
        *((f32 *) (((char *) temp_s1) + 0x50)) = temp_fa0_2;
        if (!(var_fs3 <= 0.0002f))
@@ -1703,10 +1703,10 @@ case 2: case 3: goto out_of_line_actor;
          *inline_fn2(temp_s1) = 0.15f;
        }
        spherical_to_cartesian(frame.vector, *((f32 *) (((char *) temp_s1) + 0x4C)), (*((f32 *) (((char *) arg0) + 0x40))) * 0.0015339808f, temp_fs1_2 * 0.0015339808f);
-       x_frame = frame.vector[0];
-       y_frame = frame.vector[1];
-       z_frame = frame.vector[2];
-       temp_v1_34 = *((void **) (((char *) arg0) + 0x68));
+       x_frame = ((volatile float *) frame.vector)[0];
+       y_frame = ((volatile float *) frame.vector)[1];
+       z_frame = ((volatile float *) frame.vector)[2];
+       temp_v1_34 = *((void * volatile *) (((char *) arg0) + 0x68));
        *((f32 *) (((char *) temp_v1_34) + 0x34)) = 0.0f;
        var_s5 += x_frame;
        var_fs3 = (*((f32 *) (((char *) (*((void **) (((char *) frame.roads) + 0x20)))) + 0x5C))) - 0.3f;

@@ -1,90 +1,65 @@
-extern f32 D_800C0740;
-extern s32 D_800C46AC;
-extern f32 D_800C7C9C;
-extern s32 D_80115089;
+extern f32 D_800C0740, D_800C7C9C, D_800C46AC;
+extern u8 D_80115089;
 extern s32 gGameMode;
 extern void *sTrackMarkerTable[];
+#define F(p,o) (*(f32 *)((char *)(p)+(o)))
+#define P(p,o) (*(void **)((char *)(p)+(o)))
 void func_8006591C(void *arg0)
 {
-  f32 var_ft0;
-  f32 var_ft0_2;
-  f32 __repair_var_ft0_2_1;
-  f32 var_ft2;
-  f32 __repair_var_ft2_2;
-  f32 var_fv0;
-  f32 var_fv0_2;
-  f32 var_fv1;
-  f32 var_fv1_2;
-  s32 temp_a2;
-  void *temp_a1;
-  f32 var_fv1_3;
-  void *temp_v0;
-  temp_a1 = *((void **) (((char *) arg0) + 0x6C));
-  temp_a2 = *((s8 *) (((char *) temp_a1) + 0x182));
-  var_fv1 = (*((f32 *) (((char *) (&D_800C46AC)) + ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) * 0xE8)))) * D_800C7C9C;
-  if (gGameMode == 0x19)
-  {
-    var_fv1 = D_800C0740;
-  }
-  if ((*((u8 *) (((char *) (&D_80115089)) + (temp_a2 * 0xA0)))) != 0)
-  {
-    temp_v0 = sTrackMarkerTable[temp_a2];
-    if ((*((f32 *) (((char *) temp_v0) + 0x11C))) != var_fv1)
-    {
-      var_fv0 = (-(*((f32 *) (((char *) temp_v0) + 0x114)))) / (*((f32 *) (((char *) temp_v0) + 0x7C)));
-      var_ft0 = (*((f32 *) (((char *) temp_v0) + 0x110))) / (*((f32 *) (((char *) temp_v0) + 0x78)));
-      if (var_ft0 < (-1.0f))
-      {
-        var_ft0 = -1.0f;
-      }
-      else
-        if (var_ft0 > 1.0f)
-      {
-        var_ft0 = 1.0f;
-      }
-      var_fv1_2 = -1.0f;
-      if ((var_fv0 < (-1.0f)) || ((var_fv1_2 = 1.0f, var_fv0 > 1.0f)))
-      {
-        if (var_ft0 || var_ft2)
-        {
-          var_fv0 = var_fv1_2;
+    void *state = P(arg0, 0x6c);
+    s32 slot = *(s8 *)((char *)state+0x182);
+    f32 target = F(&D_800C46AC, *(s8 *)((char *)P(arg0,0x68)+0xe)*0xe8)*D_800C7C9C;
+    f32 x, y, dx, dy, tx, ty, rate;
+    f32 fx, fy, fdx, fdy;
+    void *marker;
+    if (gGameMode == 0x19)
+        target = D_800C0740;
+    if (*(&D_80115089 + slot*0xa0)) {
+        marker = sTrackMarkerTable[slot];
+        if (F(marker,0x11c) != target) {
+            tx = F(marker,0x110)/F(marker,0x78);
+            ty = -F(marker,0x114)/F(marker,0x7c);
+            if (tx < -1.0f) tx = -1.0f;
+            else if (tx > 1.0f) tx = 1.0f;
+            if (ty < -1.0f) ty = -1.0f;
+            else if (ty > 1.0f) ty = 1.0f;
+            rate = 0.5f;
+            if (gGameMode == 0x19) rate = 1.01f;
+            x = F(state,0x24);
+            dx = (tx-x)*rate;
+            y = F(state,0x28);
+            goto steer;
         }
-        else
-        {
-          var_fv0 = var_fv1_2;
-        }
-      }
-      var_ft2 = 0.5f;
-      if (gGameMode == 0x19)
-      {
-        var_ft2 = 1.01f;
-      }
-      var_fv1_3 = (var_ft0 - (*((f32 *) (((char *) temp_a1) + 0x24)))) * var_ft2;
-      goto block_20;
     }
-  }
-  if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 1)
-  {
-    var_ft0_2 = ((*((f32 *) (((char *) temp_a1) + 0x1C))) - (*((f32 *) (((char *) temp_a1) + 0x24)))) * 0.5f;
-    *((f32 *) (((char *) temp_a1) + 0x24)) = (f32) ((*((f32 *) (((char *) temp_a1) + 0x24))) + var_ft0_2);
-    var_fv0_2 = (((*((f32 *) (((char *) temp_a1) + 0x20))) - 0.05f) - (*((f32 *) (((char *) temp_a1) + 0x28)))) * 0.5f;
-    *((f32 *) (((char *) temp_a1) + 0x28)) = (f32) ((*((f32 *) (((char *) temp_a1) + 0x28))) + var_fv0_2);
-    return;
-  }
-  if (gGameMode == 0x19)
-  {
-    __repair_var_ft0_2_1 = ((*((f32 *) (((char *) temp_a1) + 0x1C))) - (*((f32 *) (((char *) temp_a1) + 0x24)))) * 0.5f;
-    *((f32 *) (((char *) temp_a1) + 0x24)) = (f32) ((*((f32 *) (((char *) temp_a1) + 0x24))) + __repair_var_ft0_2_1);
-    var_fv0_2 = ((*((f32 *) (((char *) temp_a1) + 0x20))) - (*((f32 *) (((char *) temp_a1) + 0x28)))) * 0.5f;
-    *((f32 *) (((char *) temp_a1) + 0x28)) = (f32) ((*((f32 *) (((char *) temp_a1) + 0x28))) + var_fv0_2);
-    return;
-  }
-  var_fv0 = -0.05f;
-  __repair_var_ft2_2 = 0.5f;
-  var_fv1_3 = (-(*((f32 *) (((char *) temp_a1) + 0x24)))) * 0.5f;
-  block_20:
-  *((f32 *) (((char *) temp_a1) + 0x24)) = (f32) ((*((f32 *) (((char *) temp_a1) + 0x24))) + var_fv1_3);
-
-  *((f32 *) (((char *) temp_a1) + 0x28)) = (f32) ((*((f32 *) (((char *) temp_a1) + 0x28))) + ((var_fv0 - (*((f32 *) (((char *) temp_a1) + 0x28)))) * __repair_var_ft2_2));
+    if (*(u16 *)((char *)P(arg0,0x68)+0xc)&1) {
+        fdx = F(state,0x1c);
+        fx = F(state,0x24);
+        fdx = (fdx-fx)*0.5f;
+        fy = F(state,0x28);
+        fdy = (F(state,0x20)-0.05f-fy)*0.5f;
+        goto follow;
+    }
+    if (gGameMode == 0x19) {
+        fx = F(state,0x24);
+        fy = F(state,0x28);
+        fdx = (F(state,0x1c)-fx)*0.5f;
+        fdy = (F(state,0x20)-fy)*0.5f;
+follow:
+        fx += fdx;
+        fy += fdy;
+        F(state,0x24) = fx;
+        F(state,0x28) = fy;
+        return;
+    }
+    x = F(state,0x24);
+    rate = 0.5f;
+    y = F(state,0x28);
+    ty = -0.05f;
+    dx = -x*rate;
+steer:
+    dy = (ty-y)*rate;
+    F(state,0x24) = x+dx;
+    F(state,0x28) = y+dy;
 }
-
+#undef F
+#undef P
