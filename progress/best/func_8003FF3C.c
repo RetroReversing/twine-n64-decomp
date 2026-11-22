@@ -36,10 +36,12 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   u32 sp10[3];
   u32 unused[2];
   register unsigned long tmp8;
-  u16 t16;
+  u16 t16_2;
+  u16 t16_default;
   long t16_arm;
   u16 __repair_result_t16;
-  u16 t16b;
+  u16 t16b_2;
+  u16 t16b_default;
   u16 t16b_arm;
   u16 __repair_result_t16b;
   u16 t16c;
@@ -157,16 +159,16 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
                 }
 
                 case 2:
-                  t16 = BE16(var_s1 + (var_s0[0] * 2));
-                  *var_s6 = t16;
-                  t16b = BE16(var_s1 + (var_s2[((s32) (var_fp * 3)) - 1] * 2));
-                  var_s4[inline_fn2()] = t16b;
-                  a2 = t16 & 0xFFFF;
+                  t16_2 = BE16(var_s1 + (var_s0[0] * 2));
+                  *var_s6 = t16_2;
+                  t16b_2 = BE16(var_s1 + (var_s2[((s32) (var_fp * 3)) - 1] * 2));
+                  var_s4[inline_fn2()] = t16b_2;
+                  a2 = t16_2 & 0xFFFF;
                   var_s6 += 3;
                   tmp8 = var_s2[var_fp * 3];
                   t16c = BE16(var_s1 + (tmp8 * 2));
                   v1_2 = t16c & 0xFFFF;
-                  a2_c = t16b & 0xFFFF;
+                  a2_c = t16b_2 & 0xFFFF;
                   var_s4[0] = t16c;
                   var_s4 += 3;
                   break;
@@ -187,15 +189,15 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
                 }
 
                 default:
-                  t16 = BE16(var_s1 + (var_s0[0] * 6));
-                  *var_s6 = t16;
-                  t16b = BE16(var_s1 + (var_s2[((s32) (var_fp * 3)) - 1] * 6));
-                  var_s4[inline_fn2()] = t16b;
-                  a2 = t16 & 0xFFFF;
+                  t16_default = BE16(var_s1 + (var_s0[0] * 6));
+                  *var_s6 = t16_default;
+                  t16b_default = BE16(var_s1 + (var_s2[((s32) (var_fp * 3)) - 1] * 6));
+                  var_s4[inline_fn2()] = t16b_default;
+                  a2 = t16_default & 0xFFFF;
                   var_s6 += 3;
                   tmp8 = var_s2[var_fp * 3] * 3;
                   t16c = BE16(var_s1 + (tmp8 * 2));
-                  a2_c = t16b & 0xFFFF;
+                  a2_c = t16b_default & 0xFFFF;
                   v1_2 = t16c & 0xFFFF;
                   var_s4[0] = t16c;
                   var_s4 += 3;

@@ -94,14 +94,22 @@ void func_8006FDF8(void *arg0, s32 arg1)
   full_size:
   var_s2 = 0;
 
-  marker = inline_fn() + sp2C;
-  var_s4 = D_800C7E08;
-  var_s3 = (s8 *) (&positions);
-  var_s1 = arg0;
-  positions.x.half[1] = var_s7;
-  positions.x.half[3] = var_s7;
-  positions.y.half[2] = var_s6;
-  positions.y.half[3] = var_s6;
+  {
+    s32 *base = inline_fn();
+    s32 offset = sp2C * 4;
+    s16 width;
+    s16 height;
+    var_s4 = D_800C7E08;
+    var_s3 = (s8 *)&positions;
+    var_s1 = arg0;
+    marker = (s32 *)(offset + (char *)base);
+    width = var_s7;
+    positions.x.half[1] = width;
+    positions.x.half[3] = width;
+    height = var_s6;
+    positions.y.half[2] = height;
+    positions.y.half[3] = height;
+  }
   do
   {
     {
@@ -109,7 +117,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
     }
     if (((*((void * volatile *) (((char *) var_s1) + 0x3D4))) != NULL) || ((temp_v0 = func_80015F0C(), *((void * volatile *) (((char *) var_s1) + 0x3D4)) = temp_v0, temp_v0 != NULL)))
     {
-      temp_s0 = *((void * volatile *) (((char *) var_s1) + 0x3D4));
+      temp_s0 = *((void * volatile *) (((char *) var_s1) - (-0x3D4)));
       initObjectFromBankEntry(temp_s0, sp24, 0x2A);
       {
         s32 flags = *((s32 *) (((char *) temp_s0) + 0x28));
@@ -262,7 +270,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
           var_s2 = var_s6 * 2; var_v1 = var_s2 - 0x57;
           var_s1_3 |= 0x100;
         }
-        *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0_2) + 0x3E4)))) + 0x20)) = var_a0;
+ do { *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0_2) + 0x3E4)))) + 0x20)) = var_a0; } while (0);
         *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0_2) + 0x3E4)))) + 0x22)) = var_v1;
         *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0_2) + 0x3E4)))) + 0x1E)) = (s16) (var_s1_3 | 2);
         temp_a0_2 = *((void * volatile *) (((char *) var_s0_2) + 0x3E4));

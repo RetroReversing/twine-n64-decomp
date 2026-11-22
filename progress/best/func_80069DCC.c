@@ -44,7 +44,7 @@ s32 func_80081D00(s32);
 s32 func_80081D20(s32, s32);
 s32 func_80119DB4(void *, void *);
 s32 func_8011A234(void *, void *, f32, f32, s32, s32);
-void *getObjectListHead(s8);
+s32 getObjectListHead(void);
 s32 listUnlinkFree(s32);
 f32 probeTrackSteerAngle(void *, void *);
 s32 requestSound(s32);
@@ -1135,7 +1135,7 @@ case 2: case 3: goto out_of_line_actor;
            if (!(temp_a0_7 & 0x40))
          {
            var_fs3 = func_80081B44(temp_s4, 0, 1);
-           temp_fv0_18 = var_fs3;
+           temp_fs2_2 = var_fs3;
            var_fs3 = var_fs3 * 0.04f;
            if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x200)
            {
@@ -1176,7 +1176,7 @@ case 2: case 3: goto out_of_line_actor;
                  *((u16 *) (((char *) temp_v1_32) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_32) + 0xC))) | 0x40);
                  *((s8 *) (((char *) temp_s1) + 0x181)) = 2;
                  *((s8 *) (((char *) temp_s1) + 0x17E)) = 2;
-                 func_800698D8(arg0, temp_fv0_18, 0.0f);
+                 func_800698D8(arg0, temp_fs2_2, 0.0f);
                  *((s8 *) (((char *) temp_s1) + 0x19B)) = 8;
                }
                else
@@ -1200,14 +1200,14 @@ case 2: case 3: goto out_of_line_actor;
                *((f32 *) (((char *) arg0) + 0x28)) = temp_fv0_21;
                *((s8 *) (((char *) temp_s1) + 0x181)) = 3;
                *((s8 *) (((char *) temp_s1) + 0x17E)) = 2;
-               func_800698D8(arg0, temp_fv0_18, 0.0f);
+               func_800698D8(arg0, temp_fs2_2, 0.0f);
              }
              else
              {
                *((f32 *) (((char *) arg0) + 0x28)) = temp_fs0_3;
                func_80002BD0(arg0, 0x295);
-               var_a2 = func_80069998(temp_fv0_18);
-               func_800698D8(arg0, temp_fv0_18, var_a2);
+               var_a2 = func_80069998(temp_fs2_2);
+               func_800698D8(arg0, temp_fs2_2, var_a2);
              }
              
            }
@@ -1523,7 +1523,7 @@ case 2: case 3: goto out_of_line_actor;
      if (var_v0_25 == NULL)
      {
        var_s3 = 1;
-       var_s0_2 = getObjectListHead(temp_s4);
+       var_s0_2 = (void *) getObjectListHead();
        goto block_371;
      }
 
@@ -1552,7 +1552,8 @@ case 2: case 3: goto out_of_line_actor;
        var_s3 = 1;
      }
        block_371:
-     if (var_s3 != 0)
+     var_v0_25 = (void *) var_s3;
+     if (var_v0_25 != 0)
      {
        var_v0_25 = NULL;
        if (var_s0_2 != NULL)
@@ -1612,13 +1613,13 @@ case 2: case 3: goto out_of_line_actor;
        temp_fs0_4 = sinTableLookup(D_800E1A10 * 3.0f);
        var_fs3 = temp_fs0_4 * (cosTableLookup(D_800E1A10) * 0.1f);
        temp_fs0_5 = sinTableLookup(D_800E1A10);
-       repair_axis_z = temp_fs0_5 * (cosTableLookup(D_800E1A10 * 3.0f) * 0.1f);
-       D_800C7DC4 = repair_axis_z;
+       temp_fs2_2 = temp_fs0_5 * (cosTableLookup(D_800E1A10 * 3.0f) * 0.1f);
+       D_800C7DC4 = temp_fs2_2;
        *__base_D_800C7DBC = var_fs3;
        D_800E1A10 += 0.01f;
        joy_phase = func_80081B44(temp_s4, 4, 5);
        var_s5 += var_fs3;
-       var_s6 += repair_axis_z;
+       var_s6 += temp_fs2_2;
        var_fs3 = joy_phase * 32.0f;
        temp_fv1_8 = *((f32 *) (((char *) temp_s1) + 0x48));
        temp_fv0_29 = ((var_fs3 - temp_fv1_8) * 0.1f) + temp_fv1_8;
