@@ -40,26 +40,27 @@ void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     u32 firstSound = arg0 & 0xFF;
     if (arg2 >= 0)
     {
+      unsigned char *cursor;
       var_s0 = (u32)arg2 << 9;
       var_s0 -= arg2;
       var_s0 <<= 3;
       func_8008EB80(firstSound, arg1 & 0xFFFF, *(D_800E6A88 + var_s0), arg3 & 0xFF, originalKey);
       do
       {
- do { __repair_phase_temp_a2_2 = var_s0; var_s0 = __repair_phase_temp_a2_2 + (u32) D_800E5FEC; } while (0);
-        temp_s2 = (void *) (var_s0 + 0x40);
+ do { __repair_phase_temp_a2_2 = var_s0; cursor = D_800E5FEC + __repair_phase_temp_a2_2; } while (0);
+        temp_s2 = (void *) (cursor + 0x40);
       }
       while (0);
       do
       {
-        temp_a2 = *((u8 *) var_s0);
+        temp_a2 = *cursor;
         if (temp_a2 != (*(D_800E6A88 + __repair_phase_temp_a2_2)))
         {
           func_8008EB80(arg0 & 0xFF, arg1 & 0xFFFF, temp_a2, 0, 0);
         }
-        var_s0 += 1;
+        cursor += 1;
       }
-      while (((u32) var_s0) < ((u32) temp_s2));
+      while (((u32) cursor) < ((u32) temp_s2));
     }
     else
     {
@@ -95,5 +96,6 @@ void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   }
 
 }
+
 
 
