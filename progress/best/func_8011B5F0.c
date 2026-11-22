@@ -105,7 +105,7 @@ void func_8011B5F0(void *arg0)
   temp_s0 = temp_s6 & 0xFF;
   *((s32 *) (inline_fn2(arg0) + 0x58)) = (s32) ((*((s32 *) (inline_fn2(arg0) + 0x58))) | 1);
   temp_a0 = temp_s0 * 4;
-  temp_s3 = (void **) (((u8 *) (&sProbeOriginTable)) + temp_a0);
+  temp_s3 = (void **) (((u8 *) (&sProbeOriginTable)) + (temp_s0 * 4));
   temp_v0 = *temp_s3;
   var_s5 = 0;
   if (temp_v0 != NULL)
@@ -127,8 +127,8 @@ void func_8011B5F0(void *arg0)
   else
   {
     sceneTwo = 2;
-    sp34 = (s32 *) inline_fn(&sProbeHandles, temp_a0);
-    temp_s7 = (void **) (((u8 *) (&sProbeStates)) + temp_a0);
+    sp34 = (s32 *) inline_fn(&sProbeHandles, (temp_s0 * 4));
+    temp_s7 = (void **) (((u8 *) (&sProbeStates)) + (temp_s0 * 4));
     sp3C = temp_s3;
     var_v0 = 0 & 0xFFFF;
     loop_6:

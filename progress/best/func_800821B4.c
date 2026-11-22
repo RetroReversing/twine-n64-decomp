@@ -57,7 +57,7 @@ void func_800821B4(void)
   s32 temp_a3;
   s32 temp_s0_5;
   s32 temp_s0_6;
-  register volatile unsigned char temp_s0_7;
+  register volatile unsigned int temp_s0_7;
   unsigned int temp_s0_8;
   long temp_t0;
   s32 temp_t1;
@@ -127,40 +127,43 @@ void func_800821B4(void)
         {
           var_s0_2 = 0x10000;
         }
-        *((&(*((s32 *) 0x8011510c))) + var_s1) = var_s0_2;
-        *((&D_80115110) + ((int) var_s1)) = var_s0_2 - (*((&D_80115108) + var_s1)); var_s0_2 = (s16) (*((&D_8010D434) + var_s4)); temp_v0 = func_800828EC(var_s0_2 & (-((func_800828D8((s32) var_s0_2) + 1) > 0x21)));
-        if (temp_v0 != (*((&D_80115120) + ((s32) var_s1))))
+        do
         {
-          *((&D_80115120) + var_s1) = temp_v0;
-          *((&D_80115118) + var_s1) = temp_v0;
+          *((&(*((s32 *) 0x8011510c))) + var_s1) = var_s0_2;
+          *((&D_80115110) + ((int) var_s1)) = var_s0_2 - (*((&D_80115108) + var_s1)); var_s0_2 = (s16) (*((&D_8010D434) + var_s4)); temp_v0 = func_800828EC(var_s0_2 & (-((func_800828D8((s32) var_s0_2) + 1) > 0x21)));
+          if (temp_v0 != (*((&D_80115120) + ((s32) var_s1))))
+          {
+            *((&D_80115120) + var_s1) = temp_v0;
+            *((&D_80115118) + var_s1) = temp_v0;
+          }
+          else
+          {
+            *((&D_80115118) + var_s1) = 0;
+          }
+          temp_s0_3 = *var_s2;
+          if ((temp_s0_3 + 1) >= (0 + 1))
+          {
+            var_s0_3 = temp_s0_3 - 4; var_v0_2 = ((s32) (~var_s0_3)) >> 0x1F;
+          }
+          else
+          {
+            var_s0_3 = temp_s0_3 + 4; var_v0_2 = -(1 > var_s0_3);
+          }
+          var_s0_4 = (((var_s0_3 & var_v0_2) << 9) << 7) / 76;
+          if (var_s0_4 < (-0x10000))
+          {
+            var_s0_4 = -0x10000;
+          }
+          else
+            if (var_s0_4 > 0x10000)
+          {
+            var_s0_4 = 0x10000;
+          }
+          *((&D_80115114) + var_s1) = var_s0_4 - (*var_a0_2);
+          *var_a0_2 = var_s0_4;
         }
-        else
-        {
-          *((&D_80115118) + var_s1) = 0;
-        }
-        temp_s0_3 = *var_s2;
-        if ((temp_s0_3 + 1) >= (0 + 1))
-        {
-          var_s0_3 = temp_s0_3 - 4; var_v0_2 = ((s32) (~var_s0_3)) >> 0x1F;
-        }
-        else
-        {
-          var_s0_3 = temp_s0_3 + 4; var_v0_2 = -(1 > var_s0_3);
-        }
-        var_s0_4 = (((var_s0_3 & var_v0_2) << 9) << 7) / 76;
-        if (var_s0_4 < (-0x10000))
-        {
-          var_s0_4 = -0x10000;
-        }
-        else
-          if (var_s0_4 > 0x10000)
-        {
-          var_s0_4 = 0x10000;
-        }
-        *((&D_80115114) + var_s1) = var_s0_4 - (*var_a0_2);
-        *var_a0_2 = var_s0_4; var_s0_4 = (s16) (*var_s2);
-        temp_v0_2 = func_800828EC(var_s0_4 & (-(func_800828D8(var_s0_4) >= ((int) 0x21))));
-        var_s2 += 4;
+        while (0);
+        var_s0_4 = (s16) (*var_s2); temp_v0_2 = func_800828EC(var_s0_4 & (-(func_800828D8(var_s0_4) >= 0x21))); var_s2 += 4;
         if (temp_v0_2 != (*((&D_80115124) + var_s1)))
         {
           *((&D_80115124) + var_s1) = temp_v0_2;
@@ -342,7 +345,7 @@ void func_800821B4(void)
             {
               goto block_75;
             }
-              break;
+ do { break; } while (0);
 
             case 6:
               if (temp_a2 == 0)
@@ -358,7 +361,7 @@ void func_800821B4(void)
             case 7:
               if (temp_a3 == 0)
             {
-              var_a0 = temp_t1 & 0xB;
+              var_a0 = 0xB & temp_t1;
             }
             else
             {
@@ -473,4 +476,3 @@ void func_800821B4(void)
     while (__block_var_s6 < ((s16) sp16));
   }
 }
-

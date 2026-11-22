@@ -78,7 +78,14 @@ s32 func_8009C420(u32 arg0_in, s32 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8
         {
           if (1)
           {
-            return func_800988D8(temp_s0);
+            if (var_v0)
+            {
+              return func_800988D8(temp_s0);
+            }
+            else
+            {
+              return func_800988D8(temp_s0);
+            }
           }
         }
         return *((s32 *) (temp_s0 + 0x60));
