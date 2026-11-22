@@ -581,7 +581,7 @@ case 2: case 3: goto out_of_line_actor;
                var_fs3 = (temp_fv0 * (-0.1f)) - 0.01f;
              }
            }
-           var_fs2 = 0.2f;
+           temp_fs2_2 = 0.2f;
          }
          else
          {
@@ -615,7 +615,7 @@ case 2: case 3: goto out_of_line_actor;
                var_fs3 = temp_fv1_2 * (-0.1f);
              }
            }
-           var_fs2 = 0.01f;
+           temp_fs2_2 = 0.01f;
          }
          temp_v1_17 = *((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC));
          if (temp_v1_17 & 4)
@@ -627,7 +627,7 @@ case 2: case 3: goto out_of_line_actor;
            var_fs3 *= *((f32 *) (((char *) temp_s1) + 0x94));
          }
          temp_fv0_2 = *((f32 *) (((char *) temp_s1) + 0x4C));
-         temp_fa0 = ((var_fs3 - temp_fv0_2) * var_fs2) + temp_fv0_2;
+         temp_fa0 = ((var_fs3 - temp_fv0_2) * temp_fs2_2) + temp_fv0_2;
          var_v0_3 = 1;
          *((f32 *) (((char *) temp_s1) + 0x4C)) = temp_fa0;
          if (!(var_fs3 <= 0.0002f))
@@ -984,11 +984,11 @@ case 2: case 3: goto out_of_line_actor;
                    var_fs3 = (temp_fv0_13 * (-0.045f)) - 0.01f;
                  }
                }
-               var_fs2_3 = 0.2f;
+               temp_fs2_2 = 0.2f;
              }
              else
              {
-               var_fs2_3 = 0.01f;
+               temp_fs2_2 = 0.01f;
              }
              temp_v1_30 = *((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC));
              if (temp_v1_30 & 4)
@@ -1000,7 +1000,7 @@ case 2: case 3: goto out_of_line_actor;
                var_fs3 = var_fs3 * (*((f32 *) (((char *) temp_s1) + 0x94)));
              }
              temp_fv0_14 = *((f32 *) (((char *) temp_s1) + 0x4C));
-             temp_fa0_3 = ((var_fs3 - temp_fv0_14) * var_fs2_3) + temp_fv0_14;
+             temp_fa0_3 = ((var_fs3 - temp_fv0_14) * temp_fs2_2) + temp_fv0_14;
              var_v0_14 = 1;
              *inline_fn2(temp_s1) = temp_fa0_3;
              if (!(var_fs3 <= 0.0002f))
@@ -1077,14 +1077,14 @@ case 2: case 3: goto out_of_line_actor;
            }
          }
        }
-       temp_fs2 = 0.01f;
+       temp_fs2_2 = 0.01f;
        var_fs3 = func_80081B44(temp_s4, 2, 3) * 0.075f;
        if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8)
        {
-         temp_fs2 = 0.2f;
+         temp_fs2_2 = 0.2f;
        }
        temp_fv0_16 = *((f32 *) (((char *) temp_s1) + 0x50));
-       temp_fa0_4 = ((var_fs3 - temp_fv0_16) * temp_fs2) + temp_fv0_16;
+       temp_fa0_4 = ((var_fs3 - temp_fv0_16) * temp_fs2_2) + temp_fv0_16;
        var_v0_17 = 1;
        *((f32 *) (((char *) temp_s1) + 0x50)) = temp_fa0_4;
        if (!(var_fs3 <= 0.0002f))
@@ -1648,8 +1648,10 @@ case 2: case 3: goto out_of_line_actor;
        {
          var_s0_3 = -1;
        }
+       var_fs3 = (f32) var_s0_3;
+       var_fs3 *= 0.05f;
        temp_fv1_9 = *((f32 *) (((char *) temp_s1) + 0x5C));
-       temp_fv0_30 = (((((f32) var_s0_3) * 0.05f) - temp_fv1_9) * 0.05f) + temp_fv1_9;
+       temp_fv0_30 = ((var_fs3 - temp_fv1_9) * 0.05f) + temp_fv1_9;
        *((f32 *) (((char *) temp_s1) + 0x5C)) = temp_fv0_30;
        if (temp_fv0_30 < (-0.05f))
        {
@@ -1665,8 +1667,9 @@ case 2: case 3: goto out_of_line_actor;
        var_fp -= frame.vector[1];
        var_s6 += frame.vector[2];
        joy_stage = func_80081B44(temp_s4, 2, 3);
+       var_fs3 = (joy_stage * 0.05f);
        temp_fv1_10 = *((f32 *) (((char *) temp_s1) + 0x50));
-       temp_fv0_31 = (((joy_stage * 0.05f) - temp_fv1_10) * 0.05f) + temp_fv1_10;
+       temp_fv0_31 = ((var_fs3 - temp_fv1_10) * 0.05f) + temp_fv1_10;
        *((f32 *) (((char *) temp_s1) + 0x50)) = temp_fv0_31;
        if (temp_fv0_31 < (-0.05f))
        {

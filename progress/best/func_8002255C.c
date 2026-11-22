@@ -81,8 +81,7 @@ void func_8002255C(void *arg0, void *arg1)
           else
           {
             child = *((void * volatile *) (((char *) temp_s0) + 4));
-            var_v1 = *((s32 *) (((char *) child) + 0x28));
-            var_v1 = var_v1 & mask;
+ do { var_v1 = *((s32 *) (((char *) child) + 0x28)); var_v1 = var_v1 & mask; } while (0);
             var_v0_2 = inline_fn(temp_s2);
             var_v0_2 &= 7;
             var_v0_2 |= 2;
@@ -190,4 +189,3 @@ void func_8002255C(void *arg0, void *arg1)
     }
   }
 }
-

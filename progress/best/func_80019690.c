@@ -21,7 +21,7 @@ extern s8 D_801002A3;
 extern u8 D_801002A4;
 extern s8 D_801002AC;
 extern s8 D_801002AD;
-extern volatile s32 gSaveTotalSlots;
+extern int gSaveTotalSlots;
 extern s32 D_801002C4;
 extern s32 D_801002C8;
 extern s32 D_801002CC;
@@ -43,6 +43,11 @@ inline static u8 *inline_fn(int arg0)
   return (u8 *) (((char *) gSaveMenuState) + arg0);
 }
 
+inline static char *inline_fn2(void *arg0)
+{
+  return (char *) arg0;
+}
+
 void func_80019690(void)
 {
   char *__base_D_800C3CF8;
@@ -50,8 +55,8 @@ void func_80019690(void)
   s32 i;
   unsigned k;
   register s32 sw;
-  p = *((void **) (((char *) gSaveMenuState) + 0x18));
-  *((u8 *) (((char *) p) + 0x1C)) |= 0x10;
+  p = *((void **) (inline_fn2(gSaveMenuState) + 0x18));
+  *((u8 *) (inline_fn2(p) + 0x1C)) |= 0x10;
   if (func_80027C60(0x23) & 0xFF)
   {
     *((u8 *) (((char *) gSaveMenuState) + 0x2C)) = 1;
@@ -62,15 +67,15 @@ void func_80019690(void)
     updateActiveMenuState();
     return;
   }
-  if (((*((s32 *) (((char *) (*((void **) (((char *) gSaveMenuState) + 0x18)))) + 0x14))) != 0) && (gSaveTotalSlots < 2))
+  if (((*((s32 *) (inline_fn2(*((void **) (((char *) gSaveMenuState) + 0x18))) + 0x14))) != 0) && (gSaveTotalSlots < 2))
   {
     *inline_fn(0x2C) = 0;
     requestSound(0xEA);
     return;
   }
-  if ((sActiveMenu != NULL) && ((*((s16 *) (((char *) sActiveMenu) + 0x7A))) != 0xF))
+  if ((sActiveMenu != NULL) && ((*((s16 *) (inline_fn2(sActiveMenu) + 0x7A))) != 0xF))
   {
-    if ((*((s16 *) (((char *) sActiveMenu) + 0x7A))) != 0xE)
+    if ((*((s16 *) (inline_fn2(sActiveMenu) + 0x7A))) != 0xE)
     {
       *((s16 *) (((char *) sActiveMenu) + 0x7A)) = 0xE;
       gSaveStatus = 0x60;
@@ -82,10 +87,10 @@ void func_80019690(void)
   {
     func_8003099C(D_80102EE0, D_80102EE8);
     D_80102EDD = 1;
-    p = *((void **) (((char *) gSaveMenuState) + 0x18));
-    if ((*((s32 *) (((char *) p) + 0x10))) != 0)
+    p = *((void **) (inline_fn2(gSaveMenuState) + 0x18));
+    if ((*((s32 *) (inline_fn2(p) + 0x10))) != 0)
     {
-      gBorderSkipFlag = *((s32 *) (((char *) p) + 0x14));
+      gBorderSkipFlag = *((s32 *) (inline_fn2(p) + 0x14));
     }
     if (gBorderSkipFlag != 0)
     {

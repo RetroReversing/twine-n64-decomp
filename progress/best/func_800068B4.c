@@ -184,7 +184,7 @@ void func_800068B4(void)
           var_a0 = 0xA;
           if (D_800B19F0 == 0xB)
           {
-            D_800B19F0 = var_a0;
+            D_800B19F0 = (double) var_a0;
           }
         }
         else
@@ -265,7 +265,28 @@ void func_800068B4(void)
 
     case 14:
       ((__repair_record_D_80109688 *) D_80109688)->field_12C = (f32) (((__repair_record_D_80109688 *) D_80109688)->field_12C + D_800DC734);
- do { if (((temp_fv1 = ((__repair_record_D_80109688 *) (*((void * volatile *) (&D_80109688))))->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f)) { if (temp_fv1 < 0.0f) { ((__repair_record_D_80109688 *) D_80109688)->field_12C = 0.0f; } else if (temp_fv1 > 1.0f) { ((__repair_record_D_80109688 *) D_80109688)->field_12C = 1.0f; } if ((D_800DC730--) <= 0) { D_80103EB0 = D_800DC739; func_800066A0(D_800DC738); } } goto block_39; } while (0);
+      do
+    {
+      if (((temp_fv1 = ((__repair_record_D_80109688 *) (*((void * volatile *) (&D_80109688))))->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f))
+      {
+        if (temp_fv1 < 0.0f)
+        {
+          ((__repair_record_D_80109688 *) D_80109688)->field_12C = 0.0f;
+        }
+        else
+          if (temp_fv1 > 1.0f)
+        {
+          ((__repair_record_D_80109688 *) D_80109688)->field_12C = 1.0f;
+        }
+        if ((D_800DC730--) <= 0)
+        {
+          D_80103EB0 = D_800DC739;
+          func_800066A0(D_800DC738);
+        }
+      }
+      goto block_39;
+    }
+    while (0);
 
     case 13:
       D_800DC734 = 0.06666667f;
@@ -292,3 +313,4 @@ void func_800068B4(void)
   }
 
 }
+

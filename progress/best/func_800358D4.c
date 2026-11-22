@@ -5,7 +5,7 @@ s32 func_80032630(s32, void *);
 s32 func_80034928(void *, s32);
 f32 func_800357C8(f32);
 s32 func_80039068();
-s32 func_80043FA0(s32 *, void *);
+s32 func_80043FA0(void);
 s32 func_8004478C(s32, s32);
 s32 vec3Add(f32 *, f32 *, f32 *);
 s32 func_800452E0(f32 *, f32 *, f32 *);
@@ -280,7 +280,7 @@ void func_800358D4(void *arg0)
             {
               if (inline_fn2() < ((u32) (*((s32 *) (&sMatrixPoolLimit)))))
               {
-                temp_v0_2 = (*((s32 *) (&sMatrixPoolUsed))) + 1;
+                temp_a1_2 = (void *) (*((s32 *) (&sMatrixPoolUsed))); temp_v0_2 = (u32) temp_a1_2 + 1;
                 *((s32 *) (&sMatrixPoolUsed)) = temp_v0_2;
                 var_s4 = temp_v0_2 << 6; D_8010D538 = ((Field_s32 *) (((char *) sRenderState) + 0x74C))->v + var_s4;
                 func_800083DC(&D_80112F90, m2c_initial_frame.view_sp28.value * 64.0f, m2c_initial_frame.view_sp2C.value * 64.0f, m2c_initial_frame.view_sp30.value * 64.0f, m2c_initial_frame.view_sp94.value);
@@ -389,7 +389,7 @@ void func_800358D4(void *arg0)
                         }
                         ((Field_s32 *) (((char *) temp_a1_2) + 4))->v = (s32) (((((*((u8 *) (((s8 *) (&D_800C06D0)) + var_s1))) << 0x18) | ((*((u8 *) (((s8 *) (&D_800C06DC)) + var_s1))) << 0x10)) | ((*((u8 *) (((s8 *) (&D_800C06E8)) + var_s1))) << 8)) | var_v0);
                         temp_a0 = *((s32 **) (((char *) (&(&m2c_initial_frame.view_sp28.value)[*var_s2])) + 0x10));
-                        if (((*temp_a0) != 0) || ((func_80043FA0(temp_a0, temp_a1_2), (*(*((s32 **) (((char *) (&(&m2c_initial_frame.view_sp28.value)[*var_s2])) + 0x10)))) != 0)))
+                        if (((*temp_a0) != 0) || ((func_80043FA0(), (*(*((s32 **) (((char *) (&(&m2c_initial_frame.view_sp28.value)[*var_s2])) + 0x10)))) != 0)))
                         {
                           temp_v1_5 = *((void **) (((char *) (&(&m2c_initial_frame.view_sp28.value)[*var_s2])) + 0x10));
                           if (!(((Field_u8 *) (((char *) temp_v1_5) + 0x46))->v & 0x80))
