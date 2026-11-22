@@ -17,7 +17,7 @@ s32 osVirtualToPhysical(s32);                       /* extern */
 extern u8 D_800CFDC0;
 extern s32 D_A4500000;
 
-s32 osAiSetNextBuffer(s32 arg0, s32 arg1) {
+s32 func_800A00D0(s32 arg0, s32 arg1) {
     s32 var_a0;
 
     if (ai_fifo_full() == 0) {
