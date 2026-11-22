@@ -35,6 +35,7 @@ s32 func_8008D49C(u32 packed, s32 key, u8 mode, s32 velocity, u8 bank, u8 channe
   s32 level = ((packed >> 8) & 0xff) + adjustment;
   s32 result;
   s32 clampedLevel;
+  s32 clampedLevel_arm;
   s32 clampedKey;
   s32 adjustedVelocity;
   s32 loadedId;
@@ -113,15 +114,15 @@ s32 func_8008D49C(u32 packed, s32 key, u8 mode, s32 velocity, u8 bank, u8 channe
       level += mapping[index].adjustment;
       if (level < 0x100)
     {
-      clampedLevel = level & ((~level) >> 31);
+      clampedLevel_arm = level & ((~level) >> 31);
     }
     else
     {
-      clampedLevel = 0xff;
+      clampedLevel_arm = 0xff;
     }
       packed &= 0xff;
       mappedId = *((const volatile u16 *) (&mapping[index].id));
-      packed |= clampedLevel << 8;
+      packed |= clampedLevel_arm << 8;
       packed |= ((u32) mappedId) << 16;
       if (!(mappedId & 0xc000))
     {

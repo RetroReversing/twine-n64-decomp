@@ -120,12 +120,13 @@ loop_1:
     if (var_t0 != -1) {
         temp_v1 = (*(u8 *)((char *)(arg0) + 0x26));
         if (temp_v1 & 4) {
-            var_a3 = (var_t0 * 0xFF8) + (u8 *)&D_800E6A8C;
-            *(SoundRequest *)var_a3 = *(SoundRequest *)arg0;
-            temp_v0 = var_t0 * 0xFF8;
-            (*(u8 *)((char *)(&D_800E6AB8) + temp_v0)) = 1;
-            (*(s32 * *)((char *)(&D_800E6AB4) + temp_v0)) = arg1;
-            (*(u8 *)((char *)(&D_800E6AB2) + temp_v0)) = (*(u8 *)((char *)(&D_800E6AB2) + temp_v0)) & 0xFB;
+            s32 stride;
+            SoundRequest *dest = (SoundRequest *)((var_t0 * 0xFF8) + (u8 *)&D_800E6A8C);
+            *dest = *(SoundRequest *)arg0;
+            stride = var_t0 * 0xFF8;
+            (*(u8 *)((char *)(&D_800E6AB8) + stride)) = 1;
+            (*(s32 * *)((char *)(&D_800E6AB4) + stride)) = arg1;
+            (*(u8 *)((char *)(&D_800E6AB2) + stride)) = (*(u8 *)((char *)(&D_800E6AB2) + stride)) & 0xFB;
             *arg1 = (*(s32 *)((char *)(arg0) + 0)) | 0x80000000;
             return;
         }

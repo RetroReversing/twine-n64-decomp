@@ -147,20 +147,21 @@ s32 __repair_phase_var_s4;
         spA50[2] = (s16) (s32) M2C_FIELD(arg0, f32 *, 0x44);
         D_800D9420(spA50, spC0);
         if (M2C_FIELD(arg0, f32 *, 0x54) != 1.0f) {
+            char *scale_row;
             var_a2 = 0;
-            var_a1 = sp10;
+            scale_row = sp10;
             do {
 u32 __block_var_a0;
 
                 __block_var_a0 = 0;
-                var_v1 = var_a1 + 0xB0;
+                var_v1 = scale_row + 0xB0;
 do {
                 __block_var_a0 += 1;
                 *(f32 *)var_v1 *= M2C_FIELD(arg0, f32 *, 0x54);
                 var_v1 += 4;
                 } while (__block_var_a0 < 3U);
                 var_a2 += 1;
-                var_a1 += 0xC;
+                scale_row += 0xC;
             } while (var_a2 < 3U);
         }
         spA74 = &spC0;
@@ -175,12 +176,12 @@ do {
                 spA9C = &sp120;
                 var_a1 = temp_v0_2;
                 var_s6 = 0;
-                spAAC = (char *)spA6C + 0x10;
+                spAAC = spA6C;
                 do {
                     temp_s1 = (s32 *)((char *)spA9C + M2C_FIELD(var_a1, s16 *, 0) * 0x30);
                     if (spA94 == 0) {
                         temp_v1_4 = *(u32 *)(((spA8C + __repair_phase_var_s4) * 4) + spA6C);
-                        var_a2 = (temp_v1_4 >> 0x16); spA58[0] = var_a2 * 4;
+                        spA58[0] = (temp_v1_4 >> 0x16) * 4;
                         spA58[1] = (temp_v1_4 >> 0xA) & 0xFFE;
                         spA58[2] = (temp_v1_4 * 2) & 0xFFE;
                         D_800D9420(spA58, temp_s1);
@@ -232,7 +233,7 @@ block_42:
                             if (temp_v0_3 != 0) {
                                 temp_v0_4 = temp_v0_3 - 4;
                                 M2C_FIELD(var_fp, s16 *, 0x17C) = temp_v0_4;
-                                if (temp_v0_4 & 0x8000) {
+                                if (temp_v0_4 < 0) {
                                     M2C_FIELD(var_fp, s16 *, 0x17C) = 0;
                                 }
                                 spA58[1] = 0;
@@ -247,9 +248,9 @@ block_42:
                         sp20[1] = M2C_FIELD(var_a1, f32 *, 8);
                         var_fv0 = M2C_FIELD(var_a1, f32 *, 0xC);
                     } else {
-                        sp20[0] = M2C_FIELD(spAAC, f32 *, -8);
-                        sp20[1] = M2C_FIELD(spAAC, f32 *, -4);
-                        var_fv0 = M2C_FIELD(spAAC, f32 *, 0);
+                        sp20[0] = M2C_FIELD(spAAC, f32 *, 8);
+                        sp20[1] = M2C_FIELD(spAAC, f32 *, 0xC);
+                        var_fv0 = M2C_FIELD(spAAC, f32 *, 0x10);
                     }
                     sp20[2] = var_fv0;
                     if (__repair_phase_var_s4 == 0) {
@@ -315,12 +316,12 @@ s32 *temp_s0;
                         sp50[2] = M2C_FIELD(temp_s1, f32 *, 0x18) * 0.015625f;
                         sp50[6] = M2C_FIELD(temp_s1, f32 *, 0x1C) * 0.015625f;
                         var_a0 = sMatrixPoolUsed + 1;
-                        temp_s1_2 = M2C_FIELD(sRenderState, s32 *, 0x74C) + (var_a0 << 6);
                         sMatrixPoolUsed = var_a0;
+                        temp_s1_2 = M2C_FIELD(sRenderState, s32 *, 0x74C) + (var_a0 << 6);
+                        sp50[10] = M2C_FIELD(temp_s1, f32 *, 0x20) * 0.015625f;
                         sp50[12] = sp10[0] * 64.0f;
                         sp50[13] = sp10[1] * 64.0f;
                         sp50[14] = sp10[2] * 64.0f;
-                        sp50[10] = M2C_FIELD(temp_s1, f32 *, 0x20) * 0.015625f;
                         guMtxF2L(sp50, temp_s1_2);
                         ((__repair_field_0 *)D_80115328)->value = 0xDA380003;
                         M2C_FIELD(D_80115328, s32 *, 4) = (s32) (temp_s1_2 - 0x80000000);

@@ -701,11 +701,11 @@ void func_80065D90(void *arg0)
         var_v1_8 = 0;
       }
       var_v0_7 = 1;
-      if (!(var_fs0_3 >= (-0.0002f)))
+      if (!(var_fs0_3 >= (-((int) 0.0002f))))
       {
         var_v0_7 = 0;
       }
-      if (((var_v0_7 ^ 1) | (var_v1_8 ^ 1)) != 0)
+      if (((var_v1_8 ^ 1) | (var_v0_7 ^ 1)) != 0)
       {
         if (D_80115088[temp_s3].f0 != 0)
         {

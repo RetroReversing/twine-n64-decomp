@@ -90,7 +90,7 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
       f32 z;
       coords[0] = (packed[0] * cache->scale[0]) + cache->offset[0];
       coords[1] = (packed[1] * cache->scale[1]) + cache->offset[1];
-      z = (cache->scale[2] * packed[2]) + cache->offset[2];
+      z = cache->offset[2] + (cache->scale[2] * packed[2]);
       i++;
       packed += 3;
       coords[2] = z;
@@ -105,10 +105,23 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
   if (expand)
   {
     i = 0;
-    if (count > 0)
+    if (0 < count)
     {
       dstIndex = totalWords;
- do { do { u32 word = out[coordWords + i]; decoded[0] = (f32) ((f64) ((word >> 22) * 4U)); decoded[1] = (f32) ((f64) ((word >> 10) & 0xffeU)); decoded[2] = (f32) ((f64) ((word << 1) & 0xffeU)); D_800D9424(decoded, out + dstIndex); dstIndex += 4; i++; } while (i < count); } while (0);
+      do
+      {
+        do
+        {
+          u32 word = out[coordWords + i];
+          decoded[0] = (f32) ((f64) ((word >> 22) * 4U)); decoded[1] = (f32) ((f64) ((word >> 10) & 0xffeU)); decoded[2] = (f32) ((f64) ((word << 1) & 0xffeU));
+          D_800D9424(decoded, out + dstIndex);
+          dstIndex += 4;
+          i++;
+        }
+        while (i < count);
+      }
+      while (0);
     }
   }
 }
+
