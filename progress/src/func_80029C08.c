@@ -28,6 +28,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
   void *inactiveState;
   void *inactiveEntry;
   s32 colorMask;
+  s32 colorWord;
   s32 temp_s0;
   s32 temp_v0;
   s32 temp_v0_2;
@@ -37,6 +38,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
   s32 var_s1;
   s32 var_v0_2;
   s32 var_v1;
+  s32 temp_sum;
   u8 temp_s6;
   u8 temp_v1;
   u8 var_s1_2;
@@ -164,7 +166,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
       {
         inactiveEntry = *((void **) (((char *) var_s3) + 8));
         inactiveState = gSaveMenuState;
-        var_a0_4 = (s32 *) (((char *) (&D_800BD660)) - 0x14);
+        var_a0_4 = (s32 *) (((char *) (&D_800BD660)) - 0);
       }
       else
       {
@@ -176,7 +178,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
       *((s32 *) (((char *) inactiveEntry) + 0x10)) = ((*var_a0_4) & colorMask) | (*((u8 *) (((char *) inactiveState) + 0x30)));
       *((s32 *) (((char *) (*((void **) (((char *) var_s4) + 8)))) + 0x10)) = (s32) (((*var_a0_4) & colorMask) | (*((u8 *) (((char *) inactiveState) + 0x30))));
       temp_v1 = *((u8 *) (((char *) gSaveMenuState) + 0x30));
-      if ((temp_v1 + 1) < (0xFFU + 1))
+      if (temp_v1 < 0xFF)
       {
         var_s1_2 = temp_v1;
       }
@@ -185,7 +187,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
         var_s1_2 = 0xFF;
       }
       temp_s3 = *((void **) (((char *) var_s3) + 8));
-      colorMask = *((s32 *) (((char *) temp_s3) + 0x10)); temp_s0 = colorMask & (~0xFF);
+      colorMask = 0; colorWord = *((s32 *) (((char *) temp_s3) + 0x10)); temp_s0 = colorWord & (~0xFF);
       if (func_8002AB54(arg0) & 0xFF)
       {
         var_v0_2 = var_s1_2 | temp_s0;
@@ -207,13 +209,14 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
       {
         temp_v0 = *((s32 *) (((char *) var_v0) + 0x14));
         var_ft0 = (f64) temp_v0;
+        temp_a0 = temp_v1_2;
         if (temp_v0 < 0)
         {
           var_ft0 += D_800D2CD0;
         }
         temp_fv1 = (*((f32 *) (((char *) arg0) + 0xC))) * ((f32) var_ft0);
         var_v0_4 = ((u32) temp_fv1) + 1;
-        *((u8 *) (((char *) temp_v1_2) + 0x29)) = var_v0_4;
+        *((u8 *) (((char *) temp_a0) + 0x29)) = var_v0_4;
         temp_a0 = *((void **) (((char *) var_v0) + 8));
         temp_v1_3 = *((s32 *) (((char *) var_v0) + 0x14));
         if (((u32) temp_v1_3) < ((u8) (*((u8 *) (((char *) temp_a0) + 0x29)))))
@@ -236,10 +239,12 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
         {
           var_v1 = ((s32) (temp_fv1_2 - 2147483648.0f)) | 0x80000000;
         }
-        *((s16 *) (((char *) temp_a0) + 0x22)) = (s16) (var_v1 + (*((u16 *) (((char *) var_v0) + 0x1A))));
+        temp_sum = var_v1 + (*((u16 *) (((char *) var_v0) + 0x1A)));
+        *((s16 *) (((char *) temp_a0) + 0x22)) = (s16) temp_sum;
       }
     }
     return temp_s6 != (*((u8 *) (((char *) arg0) + 0x18)));
   }
 }
+
 
