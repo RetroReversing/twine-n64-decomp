@@ -44,6 +44,7 @@ extern void **D_80108F84;
 s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, f32 *arg2, f32 *arg3, void *arg4, f32 arg5, RayPlane *arg6, u8 arg7, void *arg8) {
     RayVec end;
     RayVec nearest;
+    f32 __compare_load0;
     struct {
         RayScratch scratch;
         u8 pad9C[4];
@@ -57,10 +58,8 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
         RayPlane roomPlane;
         f32 roomDistance8;
     } work;
-    s32 (*spEC)(f32 *, f32 *, s32, s32, s32, f32 *);
-    f32 *spF4;
-    f32 *spFC;
     u8 sp107;
+    f32 sp_tx;
     void **sp10C;
     void *sp114;
     void *sp11C;
@@ -74,9 +73,11 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
     f32 *sp15C;
     void *sp164;
     void *sp16C;
+    f32 *sp174;
     f32 *sp17C;
     f32 *sp184;
     f32 *sp18C;
+    f32 *sp194;
     u16 sp19E;
     u16 sp1A6;
     f32 *sp1AC;
@@ -88,7 +89,7 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
     s32 temp_s5;
     
     s32 temp_v0;
-    s32 temp_v0_2;
+    u16 temp_v0_2;
     s32 temp_v1;
     s32 temp_v1_12;
     s32 temp_v1_15;
@@ -98,18 +99,18 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
     s32 var_a1;
     s32 var_a1_2;
     s32 var_a2;
-s32 __repair_phase_var_a2;
     
     s32 var_s0;
     s32 var_s0_2;
     s32 var_s0_3;
-    s32 var_s0_4;
+    f32 *roomDistance8;
     s32 var_s4_3;
+    s32 var_s5_3;
+    u16 *var_s4_u16;
     s32 var_s6;
     s32 var_v0;
     u16 *var_s3_2;
     u8 *var_s3_3;
-    union { u16 * pointer; s32 value; } __repair_phase_storage;
     u8 *var_s4_2;
     u16 *var_s5;
     u16 *var_s5_2;
@@ -138,18 +139,24 @@ s32 __repair_phase_var_a2;
     void *var_s2;
     void *var_s2_2;
     void *var_s3;
+    void *link;
+    f32 dz;
 
-    spEC = arg0;
-    spF4 = arg2;
-    spFC = arg3;
-    var_fs1 = arg5;
+    do {
+    sp_tx = *arg3;
     sp107 = arg7;
-    end.x = *arg2 + (*arg3 * var_fs1);
-    end.y = M2C_FIELD(spF4, f32 *, 4) + (M2C_FIELD(spFC, f32 *, 4) * var_fs1);
+    var_fs1 = arg5;
+    end.x = *arg2 + (sp_tx * var_fs1);
+    end.y = M2C_FIELD(arg2, f32 *, 4) + (M2C_FIELD(arg3, f32 *, 4) * var_fs1);
+    dz = M2C_FIELD(arg3, f32 *, 8) * var_fs1;
+    do {
+    end.z = M2C_FIELD(arg2, f32 *, 8) + dz;
     var_s7 = arg1;
-    end.z = (M2C_FIELD(spFC, f32 *, 8) * var_fs1) + M2C_FIELD(spF4, f32 *, 8);
+    } while (0);
+    link = M2C_FIELD(var_s7, void **, 0x20);
     sp10C = var_s7;
-    sp114 = M2C_FIELD(M2C_FIELD(var_s7, void **, 0x20), void **, 0x58);
+    } while (0);
+    sp114 = M2C_FIELD(link, void **, 0x58);
     D_80108788 = NULL;
     D_80108F84 = NULL;
     if (var_s7 != NULL) {
@@ -174,11 +181,11 @@ s32 __repair_phase_var_a2;
                                 var_fs0 = M2C_FIELD(var_s3, f32 *, 0x64) * M2C_FIELD(var_s3, f32 *, 0x54);
                             }
                             temp_s0 = var_s3 + 0x24;
-                            func_800455CC(sp11C, spF4, &end.x, temp_s0);
+                            func_800455CC(sp11C, arg2, &end.x, temp_s0);
                             temp_fv0 = func_80045540(temp_s0, sp11C);
                             work.distance8 = temp_fv0;
                             if (temp_fv0 < var_fs0) {
-                                work.scratch.object.trans = *(RayVec *)spF4;
+                                work.scratch.object.trans = *(RayVec *)arg2;
                                 work.scratch.object.endLocal = end;
                                 work.scratch.object.angles.x = (s16) (s32) -M2C_FIELD(var_s3, f32 *, 0x3C);
                                 work.scratch.object.angles.y = (s16) (s32) -M2C_FIELD(var_s3, f32 *, 0x40);
@@ -194,78 +201,70 @@ s32 __repair_phase_var_a2;
                                 temp_s0_2 = temp_s1 + 0x18;
                                 func_80083A6C(sp134, sp12C);
                                 if (((u32)func_800488D4(temp_s0_2, sp124, sp12C) << 24) != 0) {
-                                    work.scratch.object.direction = *(RayVec *)spFC;
+                                    work.scratch.object.direction = *(RayVec *)arg3;
                                     temp_v0 = func_8004E418(temp_s0_2, sp124, sp12C) & 0xFFFF;
                                     var_s0 = temp_v0 & 0xFF;
     sp146 = var_s0;
                                     sp14E = temp_v0 & 0xFF00;
                                     func_80083A6C(sp134, sp13C);
                                     temp_v1_2 = M2C_FIELD(temp_s1, u8 *, 0x48) & 4;
-                                    var_fp = spEC;
+                                    var_fp = arg0;
                                     var_s6 = -1;
                                     if (temp_v1_2 >= 4) {
-                                        __repair_phase_storage.pointer = M2C_FIELD(temp_s1, u16 **, 0x3C);
+                                        var_s4_u16 = M2C_FIELD(temp_s1, u16 **, 0x3C);
                                         var_s0 = 0;
                                         if (M2C_FIELD(temp_s1, u16 *, 0x40) != 0) {
-                                            var_s2 = (u8 *)__repair_phase_storage.pointer + 4;
+                                            var_s2 = (u8 *)var_s4_u16 + 4;
                                             do {
-                                                var_s0_3 = var_s0 & 0xFFFF;
-    var_s0_2 = var_s0_3;
-    var_s4_3 = var_s0_2;
-                                                temp_v1_3 = M2C_FIELD(temp_s1, u16 **, 0x38)[var_s4_3];
+                                                var_s5_3 = var_s0 & 0xFFFF;
+                                                temp_v1_3 = M2C_FIELD(temp_s1, u16 **, 0x38)[var_s5_3];
                                                 if ((temp_v1_3 & sp146) && (temp_v1_3 & sp14E)) {
-                                                    u32 firstVertex = *__repair_phase_storage.pointer;
+                                                    u32 firstVertex = *var_s4_u16;
                                                     temp_v1_4 = M2C_FIELD(temp_s1, s32 *, 0x34);
                                                     if ((var_fp(&work.scratch.object.trans.x, &work.scratch.object.direction.x, temp_v1_4 + (firstVertex * 0xC), temp_v1_4 + (M2C_FIELD(var_s2, u16 *, -2) * 0xC), temp_v1_4 + (M2C_FIELD(var_s2, u16 *, 0) * 0xC), sp154) & 0xFF)) {
                                                         temp_fv0 = 0.0f;
                                                         if (work.distance16 >= temp_fv0 && work.distance16 < var_fs1) {
-                                                        var_s6 = var_s4_3;
+                                                        var_s6 = var_s5_3;
                                                         var_fs1 = work.distance16;
                                                         }
                                                     }
                                                 }
                                                 var_s2 = (void *)((u8 *)var_s2 + 6);
-                                                __repair_phase_storage.pointer = (void *)((u8 *)__repair_phase_storage.pointer + 6);
+                                                var_s4_u16 = (void *)((u8 *)var_s4_u16 + 6);
                                             } while ((u16) ++var_s0 < (u16) M2C_FIELD(temp_s1, u16 *, 0x40));
                                         }
                                     } else {
                                         var_s4_2 = M2C_FIELD(temp_s1, u8 **, 0x3C);
-                                        var_s0_2 = 0;
+                                        var_s0 = 0;
                                         if (temp_v1_2 < (u16) M2C_FIELD(temp_s1, u16 *, 0x40)) {
                                             var_s2_2 = (u8 *)var_s4_2 + 2;
                                             do {
-                                                __repair_phase_storage.value = var_s0_2 & 0xFFFF;
-                                                temp_v1_5 = M2C_FIELD(temp_s1, u16 **, 0x38)[__repair_phase_storage.value];
+                                                var_s5_3 = var_s0 & 0xFFFF;
+                                                temp_v1_5 = M2C_FIELD(temp_s1, u16 **, 0x38)[var_s5_3];
                                                 if ((temp_v1_5 & sp146) && (temp_v1_5 & sp14E)) {
                                                     u32 firstVertex = *(u8 *)var_s4_2;
                                                     temp_v1_6 = M2C_FIELD(temp_s1, s32 *, 0x34);
                                                     if ((var_fp(&work.scratch.object.trans.x, &work.scratch.object.direction.x, temp_v1_6 + (firstVertex * 0xC), temp_v1_6 + (M2C_FIELD(var_s2_2, u8 *, -1) * 0xC), temp_v1_6 + (M2C_FIELD(var_s2_2, u8 *, 0) * 0xC), sp15C) & 0xFF)) {
                                                         temp_fv0 = 0.0f;
                                                         if (work.distance8 >= temp_fv0 && work.distance8 < var_fs1) {
-                                                        var_s6 = __repair_phase_storage.value;
+                                                        var_s6 = var_s5_3;
                                                         var_fs1 = work.distance8;
                                                         }
                                                     }
                                                 }
                                                 var_s2_2 = (void *)((u8 *)var_s2_2 + 3);
                                                 var_s4_2 = (void *)((u8 *)var_s4_2 + 3);
-                                            } while ((u16) ++var_s0_2 < (u16) M2C_FIELD(temp_s1, u16 *, 0x40));
+                                            } while ((u16) ++var_s0 < (u16) M2C_FIELD(temp_s1, u16 *, 0x40));
                                         }
                                     }
                                     if (var_s6 != -1) {
                                         if (M2C_FIELD(temp_s1, u8 *, 0x48) & 4) {
-                                            temp_v1_7 = M2C_FIELD(temp_s1, u8 **, 0x3C) + (var_s6 * 6);
-                                            var_a1 = M2C_FIELD(temp_s1, s32 *, 0x34) + (M2C_FIELD(temp_v1_7, u16 *, 0) * 0xC);
-                                            var_a2 = M2C_FIELD(temp_v1_7, u16 *, 2) * 3;
-                                            var_v0_2 = M2C_FIELD(temp_v1_7, u16 *, 4);
-                                        
-                                        func_800458C0(&work.plane.plane, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));} else {
-                                            temp_v1_8 = M2C_FIELD(temp_s1, u8 **, 0x3C) + (var_s6 * 3);
-                                            var_a1 = M2C_FIELD(temp_s1, s32 *, 0x34) + (M2C_FIELD(temp_v1_8, u8 *, 0) * 0xC);
-                                            __repair_phase_var_a2 = M2C_FIELD(temp_v1_8, u8 *, 1) * 3;
-                                            var_v0_2 = (u16) M2C_FIELD(temp_v1_8, u8 *, 2);
-                                        
-                                        func_800458C0(&work.plane.plane, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (__repair_phase_var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));}
+                                            u16 *tri = (u16 *)M2C_FIELD(temp_s1, u8 **, 0x3C) + var_s6 * 3;
+                                            func_800458C0(&work.plane.plane, (s32)(M2C_FIELD(temp_s1, f32 **, 0x34) + tri[0] * 3), (s32)(M2C_FIELD(temp_s1, f32 **, 0x34) + tri[1] * 3), (s32)(M2C_FIELD(temp_s1, f32 **, 0x34) + tri[2] * 3));
+                                        } else {
+                                            u8 *tri = (u8 *)M2C_FIELD(temp_s1, u8 **, 0x3C) + var_s6 * 3;
+                                            func_800458C0(&work.plane.plane, (s32)(M2C_FIELD(temp_s1, f32 **, 0x34) + tri[0] * 3), (s32)(M2C_FIELD(temp_s1, f32 **, 0x34) + tri[1] * 3), (s32)(M2C_FIELD(temp_s1, f32 **, 0x34) + tri[2] * 3));
+                                        }
                                         D_80108788 = var_s3;
                                         D_80108F84 = NULL;
                                         if (arg6 != NULL) {
@@ -287,8 +286,6 @@ s32 __repair_phase_var_a2;
             }
         } while (sp10C != NULL);
         if (var_s7 != NULL) {
-            f32 *sp174;
-            f32 *sp194;
             sp164 = &nearest;
             sp16C = &work.plane;
             sp174 = &work.scratch.room.end.x;
@@ -303,11 +300,12 @@ s32 __repair_phase_var_a2;
                     temp_v1_9 = M2C_FIELD(var_s7, s32 *, 0x50);
                     if ((temp_v1_9 & 0x400) && (!(temp_v1_9 & 0x800) || (func_80045CF8(2) != 0) || (sp107 != 0))) {
                         temp_s0_3 = (void **)((u8 *)var_s7 + 0x40);
-                        func_800455CC(sp164, spF4, &end.x, temp_s0_3);
+                        func_800455CC(sp164, arg2, &end.x, temp_s0_3);
                         temp_fv0_2 = func_80045540(temp_s0_3, sp164);
+                        __compare_load0 = M2C_FIELD(var_s7, f32 *, 0x4C);
                         work.distance8 = temp_fv0_2;
-                        if (temp_fv0_2 < M2C_FIELD(var_s7, f32 *, 0x4C)) {
-                            work.plane.vector = *(RayVec *)spF4;
+                        if (temp_fv0_2 < __compare_load0) {
+                            work.plane.vector = *(RayVec *)arg2;
                             work.scratch.room.end = end;
                             if (((u32) M2C_FIELD(var_s7, u32 *, 0x5C) >> 0x17) & 1) {
                                 work.plane.vector.x -= M2C_FIELD(var_s7, f32 *, 0x24);
@@ -326,16 +324,16 @@ s32 __repair_phase_var_a2;
                             if (((u32)func_800488D4(temp_s0_4, sp16C, sp174) << 24) != 0) {
                                 work.scratch.room.clippedStart = work.plane.vector;
                                 work.scratch.room.clippedEnd = work.scratch.room.end;
-                                var_s4_3 = -1;
                                 if (((u32)func_8004DEE0(var_s7, sp184, sp18C) << 24) != 0) {
-                                    work.roomDirection = *(RayVec *)spFC;
+                                    var_s4_3 = -1;
+                                    work.roomDirection = *(RayVec *)arg3;
                                     temp_v0_2 = func_8004E418(temp_s0_4, sp184, sp18C);
                                     sp19E = temp_v0_2 & 0xFF;
                                     sp1A6 = temp_v0_2 & 0xFF00;
                                     if (((u32) M2C_FIELD(var_s7, u32 *, 0x5C) >> 0x17) & 2) {
                                         func_80083B64(work.scratch.room.matrix, sp194);
                                     }
-                                    var_fp = spEC;
+                                    var_fp = arg0;
                                     if (((u32) M2C_FIELD(var_s7, u32 *, 0x58) >> 2) & 8) {
                                         var_fp = func_8004DBD8;
                                     }
@@ -348,7 +346,7 @@ s32 __repair_phase_var_a2;
                                             var_s1 = (u8 *)var_s3_2 + 4;
                                             do {
                                                 temp_v1_11 = *var_s5;
-                                                if ((temp_v1_11 & sp19E) && (temp_v1_11 & sp1A6)) {
+                                                if ((sp19E & temp_v1_11) && (sp1A6 & temp_v1_11)) {
                                                     u32 firstVertex = *var_s3_2;
                                                     temp_v1_12 = M2C_FIELD(temp_s2, s32 *, 0x34);
                                                     if ((var_fp(&work.plane.vector.x, &work.roomDirection.x, temp_v1_12 + (firstVertex * 0xC), temp_v1_12 + (M2C_FIELD(var_s1, u16 *, -2) * 0xC), temp_v1_12 + (M2C_FIELD(var_s1, u16 *, 0) * 0xC), sp1AC) & 0xFF) && (work.roomDistance16 >= 0.0f) && (work.roomDistance16 < var_fs1)) {
@@ -366,58 +364,48 @@ s32 __repair_phase_var_a2;
                                             D_80108F84 = var_s7;
                                             if (arg6 != NULL) {
                                                 if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
-                                                    
-                                                    var_a2 = M2C_FIELD((M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 6)), u16 *, 2) * 3;
-                                                    var_v0_3 = M2C_FIELD((M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 6)), u16 *, 4);
-                                                    var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD((M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 6)), u16 *, 0) * 0xC);
+                                                    u16 *tri = (u16 *)M2C_FIELD(temp_s2, u8 **, 0x3C) + var_s4_3 * 3;
+                                                    func_800458C0(&work.roomPlane, (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[0] * 3), (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[1] * 3), (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[2] * 3));
                                                 } else {
-                                                    temp_v1_17 = M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 3);
-                                                    var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD(temp_v1_17, u8 *, 0) * 0xC);
-                                                    var_a2 = M2C_FIELD(temp_v1_17, u8 *, 1) * 3;
-                                                    var_v0_3 = (u16) M2C_FIELD(temp_v1_17, u8 *, 2);
+                                                    u8 *tri = (u8 *)M2C_FIELD(temp_s2, u8 **, 0x3C) + var_s4_3 * 3;
+                                                    func_800458C0(&work.roomPlane, (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[0] * 3), (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[1] * 3), (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[2] * 3));
                                                 }
-                                                func_800458C0(&work.roomPlane, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
                                                 *arg6 = work.roomPlane;
                                             }
                                         }
                                     } else {
-                                        f32 *roomDistance8 = &work.roomDistance8;
                                         var_s3_3 = M2C_FIELD(temp_s2, u8 **, 0x3C);
                                         var_s5_2 = M2C_FIELD(temp_s2, u16 **, 0x38);
-                                        var_s0_4 = 0;
+                                        var_s0_3 = 0;
                                         if (temp_v1_10 < (u16) M2C_FIELD(temp_s2, u16 *, 0x40)) {
+                                            roomDistance8 = &work.roomDistance8;
                                             var_s1_2 = (u8 *)var_s3_3 + 2;
                                             do {
                                                 temp_v1_14 = *var_s5_2;
-                                                if ((temp_v1_14 & sp19E) && (temp_v1_14 & sp1A6)) {
+                                                if ((sp19E & temp_v1_14) && (sp1A6 & temp_v1_14)) {
                                                     u32 firstVertex = *(u8 *)var_s3_3;
                                                     temp_v1_15 = M2C_FIELD(temp_s2, s32 *, 0x34);
                                                     if ((var_fp(&work.plane.vector.x, &work.roomDirection.x, temp_v1_15 + (firstVertex * 0xC), temp_v1_15 + (M2C_FIELD(var_s1_2, u8 *, -1) * 0xC), temp_v1_15 + (M2C_FIELD(var_s1_2, u8 *, 0) * 0xC), roomDistance8) & 0xFF) && (work.roomDistance8 >= 0.0f) && (work.roomDistance8 < var_fs1)) {
                                                         var_fs1 = work.roomDistance8;
-                                                        var_s4_3 = var_s0_4 & 0xFFFF;
+                                                        var_s4_3 = var_s0_3 & 0xFFFF;
                                                     }
                                                 }
                                                 var_s1_2 += 3;
                                                 var_s3_3 = (void *)((u8 *)var_s3_3 + 3);
                                                 var_s5_2++;
-                                            } while ((u16) ++var_s0_4 < (u16) M2C_FIELD(temp_s2, u16 *, 0x40));
+                                            } while ((u16) ++var_s0_3 < (u16) M2C_FIELD(temp_s2, u16 *, 0x40));
                                         }
                                         if (var_s4_3 != -1) {
                                             D_80108788 = NULL;
                                             D_80108F84 = var_s7;
                                             if (arg6 != NULL) {
                                                 if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
-                                                    temp_v1_16 = M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 6);
-                                                    var_a2 = M2C_FIELD(temp_v1_16, u16 *, 2) * 3;
-                                                    var_v0_3 = M2C_FIELD(temp_v1_16, u16 *, 4);
-                                                    var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD(temp_v1_16, u16 *, 0) * 0xC);
+                                                    u16 *tri = (u16 *)M2C_FIELD(temp_s2, u8 **, 0x3C) + var_s4_3 * 3;
+                                                    func_800458C0(&work.roomPlane, (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[0] * 3), (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[1] * 3), (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[2] * 3));
                                                 } else {
-                                                    temp_v1_17 = M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 3);
-                                                    var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD(temp_v1_17, u8 *, 0) * 0xC);
-                                                    var_a2 = M2C_FIELD(temp_v1_17, u8 *, 1) * 3;
-                                                    var_v0_3 = (u16) M2C_FIELD(temp_v1_17, u8 *, 2);
+                                                    u8 *tri = (u8 *)M2C_FIELD(temp_s2, u8 **, 0x3C) + var_s4_3 * 3;
+                                                    func_800458C0(&work.roomPlane, (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[0] * 3), (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[1] * 3), (s32)(M2C_FIELD(temp_s2, f32 **, 0x34) + tri[2] * 3));
                                                 }
-                                                func_800458C0(&work.roomPlane, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
                                                 *arg6 = work.roomPlane;
                                             }
                                         }
@@ -435,9 +423,9 @@ s32 __repair_phase_var_a2;
     if (var_fs1 < arg5) {
         var_v0 = 1;
         if (arg4 != NULL) {
-            M2C_FIELD(arg4, f32 *, 0) = (f32) (M2C_FIELD(spF4, f32 *, 0) + (var_fs1 * M2C_FIELD(spFC, f32 *, 0)));
-            M2C_FIELD(arg4, f32 *, 4) = (f32) (M2C_FIELD(spF4, f32 *, 4) + (var_fs1 * M2C_FIELD(spFC, f32 *, 4)));
-            M2C_FIELD(arg4, f32 *, 8) = (f32) (M2C_FIELD(spF4, f32 *, 8) + (var_fs1 * M2C_FIELD(spFC, f32 *, 8)));
+            M2C_FIELD(arg4, f32 *, 0) = (f32) (M2C_FIELD(arg2, f32 *, 0) + (var_fs1 * M2C_FIELD(arg3, f32 *, 0)));
+            M2C_FIELD(arg4, f32 *, 4) = (f32) (M2C_FIELD(arg2, f32 *, 4) + (var_fs1 * M2C_FIELD(arg3, f32 *, 4)));
+            M2C_FIELD(arg4, f32 *, 8) = (f32) (M2C_FIELD(arg2, f32 *, 8) + (var_fs1 * M2C_FIELD(arg3, f32 *, 8)));
         }
     }
     return var_v0;
