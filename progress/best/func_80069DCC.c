@@ -207,7 +207,6 @@ void func_80069DCC(void *arg0)
   f32 var_fs2_3;
   f32 var_fs3;
   f32 var_fs3_6;
-  f32 var_fs3_7;
   f32 var_fs3_8;
   f32 var_fv0;
   f32 var_fv1;
@@ -219,7 +218,7 @@ void func_80069DCC(void *arg0)
   union { u32 bits; f32 number; } roll;
   f32 var_s5;
   f32 var_s6;
-  s16 temp_v0;
+  s16 temp_v0 = 0;
   s16 temp_v1;
   s32 temp_v1_15;
   s16 temp_v1_16;
@@ -1297,29 +1296,29 @@ case 2: case 3: goto out_of_line_actor;
         }
         switch (D_800E1A0C) {
         case 0: {
-          var_fs3_7 = -func_80081B44(temp_s4, 4, 5);
+          var_fs3_8 = -func_80081B44(temp_s4, 4, 5);
           var_v0_18 = 1;
-          if (!(var_fs3_7 <= 0.0002f))
+          if (!(var_fs3_8 <= 0.0002f))
           {
             var_v0_18 = 0;
           }
           var_v1_17 = 1;
-          if (!(var_fs3_7 >= (-0.0002f)))
+          if (!(var_fs3_8 >= (-0.0002f)))
           {
             var_v1_17 = 0;
           }
           if (var_v0_18 & var_v1_17)
           {
-            var_fs3_7 = func_80081B44(temp_s4, 2, 3);
+            var_fs3_8 = func_80081B44(temp_s4, 2, 3);
           }
           temp_fs2_2 = func_80081B44(temp_s4, 0, 1);
           var_v1_18 = 1;
-          if (!(var_fs3_7 <= 0.0002f))
+          if (!(var_fs3_8 <= 0.0002f))
           {
             var_v1_18 = 0;
           }
           var_v0_19 = 1;
-          if (!(var_fs3_7 >= (-0.0002f)))
+          if (!(var_fs3_8 >= (-0.0002f)))
           {
             var_v0_19 = 0;
           }
@@ -1364,7 +1363,7 @@ case 2: case 3: goto out_of_line_actor;
             block_333:
             temp_fv0_26 = *((f32 *) (((char *) temp_s1) + 0x48));
 
-            temp_fv1_6 = (((var_fs3_7 * 32.0f) - temp_fv0_26) * 0.1f) + temp_fv0_26;
+            temp_fv1_6 = (((var_fs3_8 * 32.0f) - temp_fv0_26) * 0.1f) + temp_fv0_26;
             *((f32 *) (((char *) temp_s1) + 0x48)) = temp_fv1_6;
             if (temp_fv1_6 < (-32.0f))
             {

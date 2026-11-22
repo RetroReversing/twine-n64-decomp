@@ -107,6 +107,11 @@ inline static u16 inline_fn(s32 arg0, void *arg1)
   return *((u16 *) ((arg0 * 2) + (*((s32 *) (((char *) arg1) + 0x38)))));
 }
 
+inline static int inline_fn2(s32 arg0, s32 arg1)
+{
+  return arg0 & arg1;
+}
+
 s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, s32 *arg9, void **arg10, void **arg11)
 {
   void **__base_gPlayerActor;
@@ -352,12 +357,12 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     {
       do
       {
-        if ((var_s5 != sp194) && ((*((s32 *) (((char *) var_s5) + 0x5C))) & 0x200))
+        if ((var_s5 != sp194) && inline_fn2(*((s32 *) (((char *) var_s5) + 0x5C)), 0x200))
         {
           temp_s1 = (*((s32 *) (((char *) var_s5) + 0x58))) & 0x400;
           if (temp_s1 != 0)
           {
-            if ((((*((s32 *) (((char *) sp194) + 0x58))) & 0x400) && ((*((s32 *) (((char *) sp194) + 0x5C))) & 0x200)) && (absFloat((*((f32 *) (((char *) arg3) + 4))) - (*((f32 *) (((char *) var_s5) + 0x28)))) < 1.5f))
+            if ((inline_fn2(*((s32 *) (((char *) sp194) + 0x58)), 0x400) && inline_fn2(*((s32 *) (((char *) sp194) + 0x5C)), 0x200)) && (absFloat((*((f32 *) (((char *) arg3) + 4))) - (*((f32 *) (((char *) var_s5) + 0x28)))) < 1.5f))
             {
               {
                 const void *actorPosition = ((const char *) var_s5) + 0x24;
@@ -366,7 +371,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
               do
               {
                 var_fs1 = 2.0f * arg5;
-                if (((*((u16 *) (((char *) var_s5) + 0x78))) == 1) && (((*((s32 *) (((char *) (*((void **) (((char *) var_s5) + 0x6C)))) + 0x88))) & 0x01E00000) == 0x400000))
+                if (((*((u16 *) (((char *) var_s5) + 0x78))) == 1) && (inline_fn2(*((s32 *) (((char *) (*((void **) (((char *) var_s5) + 0x6C)))) + 0x88)), 0x01E00000) == 0x400000))
                 {
                   var_fs1 = (f32) (2.0 * (((f64) arg5) * D_800D3E90));
                 }
@@ -421,7 +426,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                 {
                   spC8 += arg5; temp_v0 = func_8004E418(temp_s7 + 0x18, &spB0, &spC0); sp98 = (s16) ((s32) (*((f32 *) (((char *) var_s5) + 0x3C)))); sp1DE = temp_v0 & 0xFF; sp1E6 = temp_v0 & 0xFF00; sp9A = (s16) ((s32) (*((f32 *) (((char *) var_s5) + 0x40)))); sp9C = (s16) ((s32) (*((f32 *) (((char *) var_s5) + 0x44)))); D_80108404 = var_s5;
                   buildRotationMatrixS16(sp1D4, &sp68);
-                  temp_v1 = (*((u8 *) (((char *) temp_s7) + 0x48))) & 4;
+                  temp_v1 = inline_fn2(*((u8 *) (((char *) temp_s7) + 0x48)), 4);
                   if (temp_v1 != 0)
                   {
                     temp_t2 = *((u16 **) (((char *) temp_s7) + 0x3C)); sp1C6 = 0; sp1EC = temp_t2;
@@ -431,7 +436,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       do
                       {
                         temp_v1_2 = inline_fn(sp1C6, temp_s7);
-                        if ((sp1DE & temp_v1_2) && (sp1E6 & temp_v1_2))
+                        if (inline_fn2(sp1DE, temp_v1_2) && (sp1E6 & temp_v1_2))
                         {
                           temp_v1_3 = *((s32 *) (((char *) temp_s7) + 0x34));
                           buildPlaneFromPoints(sp1F4, temp_v1_3 + ((*sp1EC) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_fp) + (-2)))) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_fp) + 0))) * 0xC));
@@ -481,7 +486,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                               {
                                 var_v1_3 = 0;
                               }
-                              if (var_v0_3 & var_v1_3)
+                              if (inline_fn2(var_v0_3, var_v1_3))
                               {
                                 *((Vec3Copy *) (&spD0)) = *((Vec3Copy *) (&spF0)); var_fa0 = temp_fs1;
                               }
@@ -497,7 +502,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                                 {
                                   var_v1_4 = 0;
                                 }
-                                if (var_v0_4 & var_v1_4)
+                                if (inline_fn2(var_v0_4, var_v1_4))
                                 {
                                   *((Vec3Copy *) (&spD0)) = *((Vec3Copy *) (&sp100)); var_fa0 = temp_fv0_2;
                                 }
@@ -533,7 +538,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       do
                       {
                         temp_v1_4 = inline_fn(sp1C6, temp_s7);
-                        if ((sp1DE & temp_v1_4) && (sp1E6 & temp_v1_4))
+                        if ((sp1DE & temp_v1_4) && inline_fn2(sp1E6, temp_v1_4))
                         {
                           temp_v1_5 = *((s32 *) (((char *) temp_s7) + 0x34));
                           buildPlaneFromPoints(sp1F4, temp_v1_5 + ((*sp204) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_fp_2) + (-1)))) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_fp_2) + 0))) * 0xC));
@@ -547,7 +552,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                           {
                             var_v1_5 = 0;
                           }
-                          if (var_v0_5 & var_v1_5)
+                          if (inline_fn2(var_v0_5, var_v1_5))
                           {
                             *((f32 *) (((char *) arg4) + 0)) = (f32) (sp28 - (temp_fs0_5 * spA0));
                             *((f32 *) (((char *) arg4) + 4)) = (f32) (sp2C - (temp_fs0_5 * spA4));
@@ -583,7 +588,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                               {
                                 var_v1_6 = 0;
                               }
-                              if (var_v0_6 & var_v1_6)
+                              if (inline_fn2(var_v0_6, var_v1_6))
                               {
                                 *((Vec3Copy *) (&spD0)) = *((Vec3Copy *) (&spF0)); var_fa0_2 = temp_fs1_2;
                               }
@@ -644,7 +649,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   {
     temp_v0_2 = var_s6 != NULL;
     var_s6 = sp214;
-    if (sp20F & temp_v0_2)
+    if (inline_fn2(sp20F, temp_v0_2))
     {
       var_s6 = *((void **) (((char *) var_s6) + 0x14));
     }
@@ -654,7 +659,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
       temp_v1_6 = *((s32 *) (((char *) var_s6) + 0x50));
 
       temp_s5 = *((void **) (((char *) var_s6) + 0x3C));
-      if ((!(temp_v1_6 & 0x20000000)) && (temp_v1_6 & 0x200))
+      if ((!inline_fn2(temp_v1_6, 0x20000000)) && inline_fn2(temp_v1_6, 0x200))
       {
         temp_s0 = (((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 0x20;
         if ((temp_s0 == 0) && ((Sphere_OverlapsPoint(var_s6 + 0x40, arg3, arg5) << 0x18) != 0))
@@ -670,7 +675,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
             spE4 -= *((f32 *) (((char *) var_s6) + 0x28));
             spE8 -= *((f32 *) (((char *) var_s6) + 0x2C));
           }
-          if ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2)
+          if (inline_fn2(((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17, 2))
           {
             applyObjectRotation(var_s6, &sp38, (f32 *) sp1D4);
             func_80083B64((f32 *) sp1D4, &spD0);
@@ -685,9 +690,9 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
             sp130 += arg5;
             sp138 += arg5;
             temp_v0_3 = func_8004E418(temp_s5 + 0x18, &sp120, &sp130);
-            sp21E = temp_v0_3 & 0xFF;
-            temp_v1_7 = (*((u8 *) (((char *) temp_s5) + 0x48))) & 4;
-            sp226 = temp_v0_3 & 0xFF00;
+            sp21E = inline_fn2(temp_v0_3, 0xFF);
+            temp_v1_7 = inline_fn2(*((u8 *) (((char *) temp_s5) + 0x48)), 4);
+            sp226 = inline_fn2(temp_v0_3, 0xFF00);
             if (temp_v1_7 != 0)
             {
               do
@@ -698,11 +703,11 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
               if (temp_s0 < ((u16) (*((u16 *) (((char *) temp_s5) + 0x40)))))
               {
                 loop_145:
-                temp_v1_8 = var_fp_3 & 0xFFFF;
+                temp_v1_8 = inline_fn2(var_fp_3, 0xFFFF);
 
                 temp_a0 = inline_fn(temp_v1_8, temp_s5);
                 temp_a2 = (*((s32 *) (((char *) temp_s5) + 0x3C))) + (temp_v1_8 * 6);
-                if ((sp21E & temp_a0) && (sp226 & temp_a0))
+                if ((sp21E & temp_a0) && inline_fn2(sp226, temp_a0))
                 {
                   temp_a3_3 = *((s32 *) (((char *) temp_s5) + 0x34));
                   temp_s3_3 = temp_a3_3 + ((*((u16 *) (((char *) temp_a2) + 0))) * 0xC);
@@ -828,7 +833,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                         {
                           if (arg9 != NULL)
                           {
-                            *arg9 = (temp_v1_9 >> 0x11) & 0x3F;
+                            *arg9 = inline_fn2(temp_v1_9 >> 0x11, 0x3F);
                           }
                           if (arg10 != ((s32) NULL))
                           {
@@ -923,7 +928,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                         {
                           var_v1_10 = 0;
                         }
-                        if (var_v0_10 & var_v1_10)
+                        if (inline_fn2(var_v0_10, var_v1_10))
                         {
                           *((Vec3Copy *) (&sp140)) = *((Vec3Copy *) (&sp160));
                           var_fa0_5 = temp_fs1_4;
@@ -976,7 +981,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       spD4 += temp_fv1_34;
                       spD8 += temp_fv0_14;
                       block_260:
-                      if ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2)
+                      if (inline_fn2(((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17, 2))
                       {
                         func_80083B64(&sp38, &sp18);
                       }
@@ -989,7 +994,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       {
                         if (arg9 != NULL)
                         {
-                          *arg9 = (temp_v1_11 >> 0x11) & 0x3F;
+                          *arg9 = inline_fn2(temp_v1_11 >> 0x11, 0x3F);
                         }
                         if (arg10 != NULL)
                         {

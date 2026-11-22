@@ -31,8 +31,8 @@ inline static int inline_fn(s32 arg0)
 
 char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-  s32 temp_a0;
   s32 __repair_phase_temp_a0;
+  s32 temp_a0;
   s32 __repair_phase___repair_phase_temp_a0;
   s32 temp_t0;
   s32 var_t8;
@@ -40,6 +40,7 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   s32 temp_v1_2;
   s32 temp_t0_2;
   s32 var_v0;
+  u32 used;
   s32 var_v0_10;
   s32 var_v0_11;
   s32 var_v0_12;
@@ -70,13 +71,15 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   {
     if (arg3 & 0xFF)
     {
+      used = D_8010A930;
       var_v1 = D_801007C0;
-      var_v0 = ((u8) D_8010A930) < var_v1;
+      var_v0 = used < var_v1;
     }
     else
     {
+      used = D_8010D720;
       var_v1 = D_801005B0;
-      var_v0 = ((u8) D_8010D720) < var_v1;
+      var_v0 = used < var_v1;
     }
     var_t8 = 0;
     if (var_v0 == 0)
@@ -372,4 +375,5 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   return -1U;
 
 }
+
 

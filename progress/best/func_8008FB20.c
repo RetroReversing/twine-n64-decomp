@@ -49,6 +49,11 @@ inline static void *inline_fn234(u8 arg0)
   return (void *) (arg0 * 8);
 }
 
+inline static int inline_fn2345(s32 arg0, int arg1)
+{
+  return arg0 & arg1;
+}
+
 s32 func_8008FB20(void)
 {
   unsigned char temp_a0;
@@ -106,27 +111,27 @@ s32 func_8008FB20(void)
           temp_a3 = ((Field_u8 *) (((char *) temp_v0) + 2))->v;
           temp_a1 = ((Field_u8 *) (((char *) var_a2) + 0x58C))->v;
           temp_t1 = ((Field_u8 *) (((char *) temp_v0) + 3))->v;
-          if ((temp_a3 == 0xFF) & (temp_t1 == 0xFF))
+          if (inline_fn2345(temp_a3 == 0xFF, temp_t1 == 0xFF))
           {
             *((void **) (((char *) var_a2) + 0x574)) = NULL;
           }
           else
           {
-            temp_v1 = (temp_a3 >> 7) & 1;
+            temp_v1 = inline_fn2345(temp_a3 >> 7, 1);
             var_s4 = 4;
-            if (inline_fn23(temp_v1 & (temp_t1 == 0)))
+            if (inline_fn23(inline_fn2345(temp_v1, temp_t1 == 0)))
             {
-              temp_a1_2 = temp_a1 & 0xFF;
-              temp_a0 = temp_a3 & 0x7F;
-              if ((temp_a1 & 0xFF) != 9)
+              temp_a1_2 = inline_fn2345(temp_a1, 0xFF);
+              temp_a0 = inline_fn2345(temp_a3, 0x7F);
+              if (inline_fn2345(temp_a1, 0xFF) != 9)
               {
-                temp_a0_2 = *((u8 *) (((char *) ((temp_a3 & 0x7F) + temp_t0)) + 8));
+                temp_a0_2 = *((u8 *) (((char *) (inline_fn2345(temp_a3, 0x7F) + temp_t0)) + 8));
                 if (temp_a0_2 != 0xFF)
                 {
                   do
                   {
                     temp_v0_2 = inline_fn234(temp_a0_2); temp_v0_2 = (void *) (((char *) temp_v0_2) + ((s32) (*((char **) (((char *) temp_t0) + 4)))));
-                    *((s32 *) (((char *) (((temp_a1 & 0xFF) * 4) + temp_t0)) + 0xF80)) = (s32) (((((Field_u16 *) (((char *) temp_v0_2) + 0))->v << 0x10) | (((Field_u8 *) (((char *) temp_v0_2) + 2))->v << 8)) | ((Field_u8 *) (((char *) temp_v0_2) + 3))->v);
+                    *((s32 *) (((char *) ((inline_fn2345(temp_a1, 0xFF) * 4) + temp_t0)) + 0xF80)) = (s32) (((Field_u8 *) (((char *) temp_v0_2) + 3))->v | ((((Field_u16 *) (((char *) temp_v0_2) + 0))->v << 0x10) | (((Field_u8 *) (((char *) temp_v0_2) + 2))->v << 8)));
                   }
                   while (0);
                 }
@@ -144,12 +149,12 @@ s32 func_8008FB20(void)
             else
             {
               var_a0 = 0x82;
-              if (temp_v1 & inline_fn2(temp_t1))
+              if (inline_fn2345(temp_v1, inline_fn2(temp_t1)))
               {
-                voiceStoreParam(var_a0, temp_a1, D_800EDA87, temp_a3 & 0x7F);
+                voiceStoreParam(var_a0, temp_a1, D_800EDA87, inline_fn2345(temp_a3, 0x7F));
               }
               else
-                if ((temp_a3 & 0x80) && ((var_a0 = temp_t1 & 0x7F, (temp_t1 & 0x80) != 0)))
+                if (inline_fn2345(temp_a3, 0x80) && ((var_a0 = inline_fn2345(temp_t1, 0x7F), inline_fn2345(temp_t1, 0x80) != 0)))
               {
                 if (var_a0 == 0x68)
                 {
@@ -161,7 +166,7 @@ s32 func_8008FB20(void)
                 }
                 else
                 {
-                  voiceStoreParam(var_a0, temp_a1, D_800EDA87, temp_a3 & 0x7F);
+                  voiceStoreParam(var_a0, temp_a1, D_800EDA87, inline_fn2345(temp_a3, 0x7F));
                 }
               }
               else
@@ -196,7 +201,7 @@ s32 func_8008FB20(void)
                 {
                   var_v0 = ((s32) temp_t2) + 0x1F;
                 }
-                if ((*((s32 *) (((char *) (((((s32) var_v0) >> 5) * 4) + temp_t0)) + 0x110))) & ((unsigned short) (1 << (temp_t2 & 0x1F))))
+                if (inline_fn2345(*((s32 *) (((char *) (((((s32) var_v0) >> 5) * 4) + temp_t0)) + 0x110)), (unsigned short) (1 << inline_fn2345(temp_t2, 0x1F))))
                 {
                   temp_a0_4 = *((s32 *) (((char *) ((temp_a1 * 4) + temp_t0)) + 0xF80));
                   if (temp_a0_4 != (-1))
@@ -204,7 +209,7 @@ s32 func_8008FB20(void)
                     temp_a3 = temp_a3 + ((Field_s8 *) (((char *) temp_t0_2) + 0x58E))->v;
                     if (temp_a3 < 0x80)
                     {
-                      var_v1 = temp_a3 & (((s32) (~temp_a3)) >> 0x1F);
+                      var_v1 = inline_fn2345(temp_a3, ((s32) (~temp_a3)) >> 0x1F);
                     }
                     else
                     {
@@ -213,7 +218,7 @@ s32 func_8008FB20(void)
                     temp_t1_2 = temp_t1 + (*((s8 *) (((char *) (gSeqPlayer + var_s2)) + 0x58D)));
                     if (temp_t1_2 < 0x80)
                     {
-                      var_v0_2 = temp_t1_2 & (((s32) (~temp_t1_2)) >> 0x1F);
+                      var_v0_2 = inline_fn2345(temp_t1_2, ((s32) (~temp_t1_2)) >> 0x1F);
                     }
                     else
                     {
@@ -236,7 +241,7 @@ s32 func_8008FB20(void)
                         }
                       }
                       *((void ***) (((char *) temp_t0_3) + 4)) = NULL;
-                      temp_v1_2 = *((void **) (((char *) gSeqPlayer) + 0xF78)); temp_v0_5=(void *)temp_v1_2;
+                      temp_v1_2 = *((void **) (((char *) gSeqPlayer) + 0xF78)); temp_v0_5 = (void *) temp_v1_2;
                       *((void **) (((char *) temp_t0_3) + 0)) = temp_v0_5;
                       if (temp_v0_5 != NULL)
                       {
@@ -246,7 +251,7 @@ s32 func_8008FB20(void)
                     }
                     if (temp_t0_3 != ((u32) NULL))
                     {
-                      temp_v0_6 = func_8008D49C(temp_a0_4, var_v1 & 0xFF, var_v0_2 & 0xFF, 0x40, temp_a1, D_800EDA87, 0, temp_t2, *((u8 *) ((((char *) gSeqPlayer) + 0x528) + temp_t2)), (D_800EDA88) ? (-1) : (0));
+                      temp_v0_6 = func_8008D49C(temp_a0_4, inline_fn2345(var_v1, 0xFF), inline_fn2345(var_v0_2, 0xFF), 0x40, temp_a1, D_800EDA87, 0, temp_t2, *((u8 *) ((((char *) gSeqPlayer) + 0x528) + temp_t2)), (D_800EDA88) ? (-1) : (0));
                       if (temp_v0_6 != (-1))
                       {
                         ((Field_s32 *) (((char *) temp_t0_3) + 8))->v = temp_v0_6;
