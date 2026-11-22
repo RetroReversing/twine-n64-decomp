@@ -43,39 +43,32 @@ s32 func_80097B1C(s32 arg0)
     var_s4 = 0;
     if (((u16) var_a0) != 0xFFFF)
     {
-      if (sKeyTableCount)
-      {
-        var_s0 = var_s1 + 2;
-      }
-      else
-      {
-        var_s0 = var_s1 + 2;
-      }
+      do {
       do
       {
         if (var_a0 == wanted)
         {
-          temp_v0 = (*((u16 *) (((char *) var_s0) + 0))) - 1;
-          *((u16 *) (((char *) var_s0) + 0)) = temp_v0;
+          temp_v0 = (*((u16 *) (var_s1 + 2))) - 1;
+          *((u16 *) (var_s1 + 2)) = temp_v0;
           if (temp_v0 & 0xFFFF)
           {
             var_a1 = 1;
           }
           else
           {
-            func_8008C7C0(var_s1 + 0xC, *((s32 *) (((char *) var_s0) + 2)));
+            func_8008C7C0(var_s1 + 0xC, *((s32 *) (var_s1 + 4)));
             var_a1 = 1;
           }
         }
-        if ((*((u16 *) (((char *) var_s0) + 0))) != 0)
+        if ((*((u16 *) (var_s1 + 2))) != 0)
         {
           var_s4 = 1;
         }
         var_s1 += 0x1C;
         var_a0 = *((u16 *) var_s1);
-        var_s0 += 0x1C;
       }
       while (var_a0 != 0xFFFF);
+      } while (0);
     }
     do
     {
@@ -121,8 +114,9 @@ s32 func_80097B1C(s32 arg0)
         return 1;
 
       }
-      var_s3 += 1; var_s2 += 3;
-      if (var_s3 >= ((u32) sKeyTableCount))
+      var_v0 = sKeyTableCount;
+      do { var_s3 += 1; var_s2 += 3; } while (0);
+      if (var_s3 >= ((u32) var_v0))
       {
         goto block_24;
       }
@@ -135,4 +129,5 @@ s32 func_80097B1C(s32 arg0)
 
   return var_v0;
 }
+
 
