@@ -71,7 +71,8 @@ void *func_801183F4(void *arg0, u8 arg1)
   temp_s3 = *((void **) (0x6C + ((char *) arg0)));
   sp47 = arg1;
   var_fs1 = 65536.0f;
-  temp_s6 = D_8011ECB0[(*((u16 *) (((char *) D_800BF688) + (SLOT_INDEX() * 12)))) & 3];
+  var_s1 = FIELD(D_800BF688, u16, SLOT_INDEX() * 12) & 3;
+  temp_s6 = D_8011ECB0[var_s1];
   temp_v1 = SLOT_INDEX();
   var_s7 = NULL;
   sp4C = NULL;
@@ -311,10 +312,10 @@ void *func_801183F4(void *arg0, u8 arg1)
 
         if (var_v0_6 != 0)
         {
-          temp_fs0 = approxDistance(arg0 + 0x24, var_s0_2 + 0x24) * var_fs0_2;
-          if (temp_fs0 < var_fs1)
+          var_fs0_2 = approxDistance(arg0 + 0x24, var_s0_2 + 0x24) * var_fs0_2;
+          if (var_fs0_2 < var_fs1)
           {
-            var_fs1 = temp_fs0;
+            var_fs1 = var_fs0_2;
             var_s7 = var_s0_2;
           }
         }

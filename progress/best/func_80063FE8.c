@@ -41,20 +41,12 @@ void func_80063FE8(void *arg0)
     {
       for (;;)
       {
-        if ((var_s0 == (*((s8 *) (((char *) temp_s3) + 0x182)))) || (!(approxDistance(((short) (inline_fn(temp_s1) * 0xC)) + ((char *) (&gTrackMarkerPosTable)), (&gBonusObjects)[var_s0] + 0x24) < 3.0f)))
-        {
-          temp_v0 = var_s0 + 1;
-          var_s0 = temp_v0;
-          if (temp_v0 < gSaveTotalSlots)
-          {
-            continue;
-          }
-        }
-        else
-        {
-          goto loop_1;
-        }
-        break;
+        if ((var_s0 == (*((s8 *) (((char *) temp_s3) + 0x182))))) { temp_v0 = var_s0 + 1; goto next_slot; }
+        temp_v0 = var_s0 + 1;
+        if (!(!(approxDistance((inline_fn(temp_s1) * 0xC) + ((char *) (&gTrackMarkerPosTable)), (&gBonusObjects)[var_s0] + 0x24) < 3.0f))) goto loop_1;
+        next_slot:
+        var_s0 = temp_v0;
+        if (temp_v0 >= gSaveTotalSlots) break;
       }
 
     }

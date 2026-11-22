@@ -136,18 +136,18 @@ void func_80041F68(void *arg0)
     do
     {
       temp_a0_2 = var_t0 + (*((u8 **) (((char *) arg0) + 0x18)));
-      __repair_phase_storage.value = (*((u16 *) (((char *) temp_a0_2) + 4))) + 1;
+      var_a0 = (*((u16 *) (((char *) temp_a0_2) + 4))) + 1;
       temp_a1 = *((u8 *) (((char *) temp_a0_2) + 6));
       temp_a3 = *((u8 **) (((char *) temp_a0_2) + 8));
       imageWidth = (*((u16 *) (((char *) temp_a0_2) + 2))) + 1;
       if (temp_a1 >= 2U)
       {
-        __repair_phase_storage.value *= temp_a1;
+        var_a0 *= temp_a1;
       }
-      temp_v1_4 = ((u32) (__repair_phase_storage.value * imageWidth)) >> 1;
+      temp_v1_4 = ((u32) (var_a0 * imageWidth)) >> 1;
       if (!((*((u8 *) (((char *) temp_a0_2) + 0))) & 1))
       {
-        if (((int) (((u32) (__repair_phase_storage.value * imageWidth)) >> 1)) != 0)
+        if (((int) (((u32) (var_a0 * imageWidth)) >> 1)) != 0)
         {
           var_a0_4 = temp_a3;
           do
@@ -156,7 +156,7 @@ void func_80041F68(void *arg0)
             *var_a0_4 = (temp_v0_4 >> 4) | ((temp_v0_4 & 0xF) * 0x10);
             ++var_a0_4;
           }
-          while (((u32) var_a0_4) < ((u32) ((((u32) (__repair_phase_storage.value * imageWidth)) >> 1) + temp_a3)));
+          while (((u32) var_a0_4) < ((u32) ((((u32) (var_a0 * imageWidth)) >> 1) + temp_a3)));
         }
       }
       var_s1_4 += 1;

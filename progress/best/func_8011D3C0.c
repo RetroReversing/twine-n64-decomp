@@ -170,26 +170,11 @@ void func_8011D3C0(void)
                   if (temp_s0 == 2)
                   {
                     temp_fv1 = ((2.0f * var_fs2) - 16.0f) + ((f32) ((s16) sp1E));
-                    if (!(temp_fv1 >= 2.1474836e9f))
-                    {
-                      var_fv1 = 2.0f * var_fs0;
-                      var_a2 = (s32) temp_fv1;
-                    }
-                    else
-                    {
-                      var_a2 = (s32) (temp_fv1 - 2.1474836e9f); var_a2 = var_a2 | 0x80000000;
-                      var_fv1 = 2.0f * var_fs0;
-                    }
+                    var_a2 = (u32) temp_fv1;
+                    var_fv1 = 2.0f * var_fs0;
                     temp_fv1_2 = var_fv1 - 24.0f;
                     var_a2_2 = var_a2 & 0xFFFF;
-                    if (!(temp_fv1_2 >= 2.1474836e9f))
-                    {
-                      var_a3 = (s32) temp_fv1_2;
-                    }
-                    else
-                    {
-                      var_a3 = (s32) (temp_fv1_2 - 2.1474836e9f); var_a3 = var_a3 | 0x80000000;
-                    }
+                    var_a3 = (u32) temp_fv1_2;
                     var_a0_2 = *((s32 *) (((char *) temp_s5) + 0x420));
                     var_a1 = temp_s5 + 0x458;
                     goto block_62;
@@ -201,31 +186,11 @@ void func_8011D3C0(void)
                   if (!temp_s0)
                   {
                     temp_fv1_3 = ((2.0f * var_fs2) - 16.0f) + ((f32) ((s16) sp1E));
-                    if (temp_fv1_3 >= 2.1474836e9f)
-                    {
-                      var_a2_3 = (s32) (temp_fv1_3 - 2.1474836e9f); var_a2_3 = var_a2_3 | 0x80000000;
-                      var_fv1_2 = 2.0f * var_fs0;
-                    }
-                    else
-                    {
-                      var_a2_3 = (u32) temp_fv1_3;
-                      var_fv1_2 = 2.0f * var_fs0;
-                    }
+                    var_a2_3 = (u32) temp_fv1_3;
+                    var_fv1_2 = 2.0f * var_fs0;
                     temp_fv1_4 = var_fv1_2 - 34.0f;
                     var_a2_2 = var_a2_3 & 0xFFFF;
-                    if (!((temp_fv1_4 - 1) >= (2.1474836e9f - 1)))
-                    {
-                      var_a3 = (s32) temp_fv1_4;
-                    }
-                    else
-                    {
-                      var_a3 = (s32) (temp_fv1_4 - 2.1474836e9f);
-                      do
-                      {
-                        var_a3 = var_a3 | 0x80000000;
-                      }
-                      while (0);
-                    }
+                    var_a3 = (u32) temp_fv1_4;
                     var_a1 = var_s1;
                     var_a0_2 = *__repair_phase_storage.pointer;
                     goto block_62;
@@ -239,14 +204,7 @@ void func_8011D3C0(void)
               else
               {
                 temp_fv1_5 = (2.0f * var_fs0) - 34.0f;
-                if (temp_fv1_5 >= 2.1474836e9f)
-                {
-                  var_a3 = (s32) (temp_fv1_5 - 2.1474836e9f); var_a3 = var_a3 | 0x80000000;
-                }
-                else
-                {
-                  var_a3 = temp_fv1_5;
-                }
+                var_a3 = (u32) temp_fv1_5;
                 var_a1 = var_a0;
                 var_a0_2 = *sp3C;
                 var_a2_2 = 0x16;
@@ -361,4 +319,6 @@ void func_8011D3C0(void)
     while ((var_fp & 0xFFFF) < D_801002C0);
   }
 }
+
+
 
