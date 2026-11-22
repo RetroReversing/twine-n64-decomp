@@ -15,6 +15,7 @@ void *func_8007847C(void *arg0) {
     s32 found;
     void *s5, *s0, *s2, *s4, *n, *a0, *v1;
     u16 stamp;
+    void *v3, *c0;
 
     s5 = F(arg0, void *, 0x6C);
     sp10 = NULL;
@@ -50,13 +51,13 @@ void *func_8007847C(void *arg0) {
     found = 0;
     if (D_80108F72 != 0) {
         F(arg0, s32, 0x60) &= 0xFFFE8FFF;
-        s0 = F(arg0, void *, 0x20);
-        F(F(s0, void *, 0x20), u16, 0x60) = stamp;
-        if ((findNearestMatchingObject(s0, arg0, &sp10, &sp14) << 24) != 0) {
+        c0 = F(arg0, void *, 0x20);
+        F(F(c0, void *, 0x20), u16, 0x60) = stamp;
+        if ((findNearestMatchingObject(c0, arg0, &sp10, &sp14) << 24) != 0) {
             found = 1;
             F(arg0, s32, 0x60) |= 0x1000;
         }
-        s4 = F(F(s0, void *, 0x20), void *, 0x58);
+        s4 = F(F(c0, void *, 0x20), void *, 0x58);
         while ((s4 != NULL) & NF) {
             if (F(s4, u16, 0x26) & 0x2000) {
                 a0 = F(s4, void *, 8);
@@ -82,9 +83,9 @@ void *func_8007847C(void *arg0) {
                                 while ((s0 != NULL) & NF) {
                                     if (F(s0, u16, 0x26) & 0x2000) {
                                         a0 = F(s0, void *, 8);
-                                        v1 = F(a0, void *, 0x20);
-                                        if (F(v1, u16, 0x60) != gSurfaceQueryStamp) {
-                                            F(v1, u16, 0x60) = gSurfaceQueryStamp;
+                                        v3 = F(a0, void *, 0x20);
+                                        if (F(v3, u16, 0x60) != gSurfaceQueryStamp) {
+                                            F(v3, u16, 0x60) = gSurfaceQueryStamp;
                                             if ((findNearestMatchingObject(a0, arg0, &sp10, &sp14) << 24) != 0) {
                                                 found = 1;
                                                 F(arg0, s32, 0x60) |= 0x8000;
