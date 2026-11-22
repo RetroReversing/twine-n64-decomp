@@ -35,7 +35,6 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
       }
       limit = remaining;
     }
-    do
     {
       entry = (u8 *) entries;
       scan:
@@ -47,7 +46,7 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
 
       id = *((u16 *) (entry + 2));
     }
-    while (0);
+    
     if (id == 0)
     {
       return 0;
@@ -87,3 +86,4 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
   while (0);
   return 0;
 }
+

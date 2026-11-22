@@ -70900,14 +70900,6 @@
   "score_after": null
  },
  {
-  "function": "func_8007AEA4",
-  "text": "Improved the current verified score from 1043 to 577 (91.3%) and exhausted the 6-compile move-on budget. Corrected dataflow: *(u8 *)(arg1 + arg2*4 - 4) is passed through a stack slot to func_80045CF8 each outer iteration; func_8007ADD0 receives arg0 and its result is tested via <<24; the table scan checks byte +4, then u16 +2, writes byte +1 to *(arg0+0x6C)+0x7F and invokes func_80002BD0. Best candidate uses a volatile saved s32 and volatile pad array to influence frame/register allocation. Remaining differences are mainly saved-register allocation/stack slots, the loop's branch-likely offsets, conditional return shaping, and one extra candidate instruction. Reordering the initial temp_v0 computation and changing call signatures/casts did not improve. Continue from saved_best/current 577 candidate; target begins by saving arg0 as $s2, arg1 as $s6, arg2 as $s7, whereas candidate allocated these to different callee-saved registers.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795138965.759455,
-  "score_before": 1043,
-  "score_after": 577
- },
- {
   "function": "func_8000237C",
   "text": "Session context allowance reached. Candidate is incomplete: 107 vs 392 instructions; it omits most loops and calls. Changing memset argument worsened score. Reconstruct missing body from assembly or repair the full m2c draft before tuning.",
   "by": "codex-gpt-6.1-terra-8",
@@ -70932,60 +70924,12 @@
   "score_after": 76952
  },
  {
-  "function": "func_8007AEA4",
-  "text": "Rechecked baseline 577 (historical best matched current). Six independent local repairs: callee parameter width, shared returns, backward-loop rewrite, callee arity, dead-pointer clear, shared return; none improved. Some worsened to 1047\u20131132. Main mismatch begins stack/register allocation: target saves $s2 at 0x28 and uses $s2 for arg0, candidate uses $s4 at 0x30; several other saved register/stack offsets differ. No new source retained.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795178539.6816242,
-  "score_before": 577,
-  "score_after": 577
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Rechecked baseline 577. Tried callee parameter width, shared return, loop restructuring, target call arity, and dead pointer clear variants; none improved, and several degraded scores. Remaining mismatch is stack/register allocation: target frame -0x48 and saves s2 at +0x28, candidate differs at its prologue (s4 at +0x30), with 38 mismatches total. Candidate retained at 50d027f044969fd0d1cc; next pass should reconstruct local lifetimes and stack shape from assembly before tuning branch code.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795182868.1569211,
-  "score_before": 577,
-  "score_after": 577
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Improved 577 to 517 with ABI-correct calls and explicit scan/retry control flow. func_80045CF8 takes the saved s32 weight; func_8007ADD0 receives actor and loaded u16 ID promoted to s32; func_80002BD0 receives actor and the reloaded promoted ID. Remaining differences: actor and retry counter swap s2/s3, saved weight is at sp+0x18 instead of +0x14, and scan limit check lacks the target's branch-likely increment slot. The compiler tool twice reported gcc-2.7.2-kmc is not installed after the 517 build. The proposed pad split is untested.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795193786.63975,
-  "score_before": 577,
-  "score_after": 517
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Saved best score 517 (92.2%, 67 target vs 65 candidate instructions). Tried loop pointer update rewritten as entries[index] (regressed to 952), signed index (917), and unsigned count (returned to 517); register keyword was ineffective, volatile index caused major stack/frame regression. Target keeps actor in $s2, entries in $s6, index in $s3; candidate allocation differs, plus target uses branch-likely tests. Best source retained; prioritize local lifetimes/register allocation and loop CFG to recover the 2 missing instructions and likely branch-likely form.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795199863.2207942,
-  "score_before": 517,
-  "score_after": 517
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Rechecked baseline 517. Six independent local repairs did not improve it; signed weight and reordered fields worsened, const/shared return/forward else unchanged, do-loop worsened. Remaining mismatch primarily saved-register allocation and branch layout.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795201751.304956,
-  "score_before": 517,
-  "score_after": 517
- },
- {
   "function": "func_8000237C",
   "text": "Fresh candidate compile hit an existing signature conflict: memset has 3 arguments in current header, while stale candidate declares/calls a four-argument form. Restored best saved candidate revision 029ad5bfc91098653d8c, which has an explicit quality warning: 107 generated instructions vs 392 target and omits repeated calls/loops. No valid corrected source or score obtained. Next agent should reconstruct the missing loop/function body from full target assembly before tuning. Avoid treating a lower score as repair; examine current memset signature and wrapper contract for func_8002BC4C (matched declaration is void(void), wrapper behavior needs callers/downstream).",
   "by": "codex-gpt-6-luna-11",
   "created_at": 1795203853.9290931,
   "score_before": 30606,
   "score_after": 30606
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Best score 517 (92%) with candidate af664f03e34c12c89aaf (goto-based scan loop, volatile spare[2] before weight). Target: actor in s2 (saved first at 0x28), weight at 0x14($sp), index s1, attempt s3, limit s4, entry s0, threshold s5. Mine: actor lands in s3, weight at 0x18, so stack/regalloc are off by one slot. Tried: spare[1] (535), no spare (537), spare[3]/pad (517 unchanged), decl reorder with details after weight (1266). Untested next step: rewrite loop with for/while instead of gotos, or change declaration order of entry/id to move actor into s2.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795204941.325365,
-  "score_before": 517,
-  "score_after": 517
  },
  {
   "function": "func_8000237C",
@@ -71062,15 +71006,6 @@
   "score_before": 23750,
   "score_after": 23750,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:6de05907ea930a9a1744e4d11e02b096f67e27e436d83ff9ff49e4fead3ac75c"
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Best remains 517/67 (candidate 65 instructions). Main mismatch is saved-register/frame layout: target saves actor in s2 at 0x28(sp), candidate s3 at 0x2c(sp); target weight at 0x14, candidate 0x18. Also branch-delay/loop flow differs. A no-op compile verified baseline; `register` qualifiers on actor and weight did not change diff. Replacing volatile spare[2] with volatile s64 or volatile two-s32 struct produced identical output. Prior handoff documents spare-size and control-flow trials. No repair verified.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795214410.158226,
-  "score_before": 1690,
-  "score_after": 517,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
  },
  {
   "function": "func_8000237C",
@@ -71162,15 +71097,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
  },
  {
-  "function": "func_8007AEA4",
-  "text": "Move-on limit reached at 7/6. Hoisting the index increment, moving the pointer increment, and aliasing actor worsened score to 1255, 885, and 545. A three-word volatile array with weight in slot 1 tied baseline 515. Actor/retry registers, stack slot, and branching differ.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795227040.89682,
-  "score_before": 357,
-  "score_after": 357,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
- },
- {
   "function": "func_8000237C",
   "text": "Saved best score 23450 is an invalid/incomplete reconstruction; fresh corrected rewrite scored 28614. Corrected compile exposed assembly facts: count=D_800C3CF4[arg1*3], byte count=D_800C3928[count*4], allocation helper called with constant 0x21; original stores base+0xB8 then region pointers, and func_80002098 receives stack output pointers plus value,index,arg0. Call-arity local repair to func_800060B0 worsened 23765; two signature variants had redeclaration compile errors. No better in 3/4 compiles after baseline restored.",
   "by": "codex-gpt-6-luna-20",
@@ -71207,15 +71133,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:6de05907ea930a9a1744e4d11e02b096f67e27e436d83ff9ff49e4fead3ac75c"
  },
  {
-  "function": "func_8007AEA4",
-  "text": "Best stays 515 (saved goto version). Structured nested for-loops (entry[1].weight / u8* entry += 4, weight non-volatile) score 1205-1609: loop optimizer strength-reduces to entry+2/entry+4 bases (lhu 0(s0), lbu 2(s0)) and frame shrinks to 0x40 (no weight spill); target keeps s0=entry with offsets 4/2/1 and weight spilled at sp+0x14 (all 9 s-regs used: actor s2, entries s6, count s7, details fp, attempt s3, index s1, thresh s5, limit s4, entry s0). So the goto form (which defeats loop.c) is needed; remaining diffs: actor/attempt s2<->s3 swap, beql/bnel branch-likely forms, spill. Next step: keep gotos but make weight a plain local (not volatile) with an extra live value to force the spill, and try to raise actor's priority (more uses of actor before the loop).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795233062.220651,
-  "score_before": 515,
-  "score_after": 515,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
- },
- {
   "function": "func_80069DCC",
   "text": "Baseline 69729. Removing unused_stack[4] fixes frame size but shifts live stack locals 16 bytes too low, score 69845. Signedness and branch inversion worsened; declaration order tied. Linker reports unresolved rodata offsets 0 and 0xc8.",
   "by": "codex-gpt-6.1-terra-5",
@@ -71249,42 +71166,6 @@
   "score_before": 23450,
   "score_after": 23450,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:6de05907ea930a9a1744e4d11e02b096f67e27e436d83ff9ff49e4fead3ac75c"
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nChanged limit test to count == 1 before computing limit, improving 515 to 355 and matching instruction count. Remaining differences mainly saved-register allocation and the comparison constant. Shared return and signed variant tied; structured loop worsened to 735. Next step: try separating count-1 into a short-lived temporary before the branch while retaining the later limit assignment.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795248187.3469481,
-  "score_before": 515,
-  "score_after": 355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Rechecked score 1690. Local repairs tried constant_local, inferred_record_layout, address_temporary, const_read, shared_return, goto_backward_loop; no improvement, goto_backward_loop worsened to 2081. Frame is 0x40 versus target 0x48; saved registers are 8 bytes lower and allocation differs.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795250570.283809,
-  "score_before": 355,
-  "score_after": 355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Warning: saved score 620 revision 01eff73fd7e16c80d49a uses uninitialized temp_v0 and is invalid. Corrected revision 460583db8c3ea4c72b2b scored 750. Volatile sp14 between two scalar pads recovered the frame and stack slot; scan control flow and register allocation still differ.\nCorrectly assigning count-1 inside branch scored 750; assignment before branch 825; local return and const edits unchanged.\nBranch likely and saved-register allocation remain divergent.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795251514.082274,
-  "score_before": 355,
-  "score_after": 355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Unable to resolve scan branching and register allocation. Precomputing count before retry while retaining branch assignment leaves assembly unchanged at 750.\nPrecompute count before retry\nAssembly unchanged at 750.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795254681.5270798,
-  "score_before": 355,
-  "score_after": 355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
  },
  {
   "function": "func_80069DCC",
@@ -71358,39 +71239,12 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
  },
  {
-  "function": "func_8007AEA4",
-  "text": "After six scored follow-up variants, initialization order, aliases, cast changes and alternate weight addressing did not improve the 100 baseline. Only saved-register allocation remains.\nSplit tested remaining count from saved limit. Removed duplicate success arm.\nSplit improved 275 to 100. Removing duplicate arm tied and fixed count/details but cycled actor, attempt, threshold and limit.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795301945.117913,
-  "score_before": 275,
-  "score_after": 100,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Stuck at 60 (saved-reg allocation s2/s3 swap). Local repairs (s8 weight, decl order, branch flip, const, shared return, arity) were all equal or worse. Next step: change the order of first use of actor/entries/count to swap s2/s3.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795307846.208352,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
- },
- {
   "function": "func_8000237C",
   "text": "No new compile this session. Inherited C is machine-draft noise (do/while(0) wrappers, repair casts); best 5450 after 37+ local repairs. Remaining diff: saved-register order swap ($s6/$fp). Next step: rewrite from scratch with clean structs (stream slot, entity+0x68 sub-struct) instead of more local repairs.",
   "by": "claude-sonnet-low-1",
   "created_at": 1795311641.694417,
   "score_before": 5450,
   "score_after": 5450
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Still 60 (s2/s3 swap, 10 rows). This session's local repairs: s8 variant, decl order, u32/s32 id equal; shared return and inline deref worse. Next step: per-iteration local alias of actor around the two calls.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795312478.9391448,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
  },
  {
   "function": "func_80069DCC",
@@ -71526,24 +71380,6 @@
   "score_before": 3015,
   "score_after": 2170,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 3; 7 differing rows (5 register, 2 operand; advisory).\nTarget: sw $s6, 0x38($sp)\nCandidate: sw $s5, 0x34($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s2, 0x28($sp)\n  = move $s2, $a0\ni T: sw $s6, 0x38($sp) | C: sw $s5, 0x34($sp)\nr T: move $s6, $a1 | C: move $s5, $a1\n  = sw $s7, 0x3c($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 8f7fa164de61381c1959: funneling both retry paths through one source increment moved 60\u219245. Actor/attempt now match; entries/threshold are swapped $s5/$s6 (7 rows). Typed next-entry load, initial entries[index], and signed threshold were unchanged; changing the redundant branch condition to reference threshold scored 80. Next step: try a single success block to change the reference weights before register allocation.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795338092.9640808,
-  "score_before": 60,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
- },
- {
-  "function": "func_8007AEA4",
-  "text": "Low progress after 31 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 3; 7 differing rows (5 register, 2 operand; advisory).\nTarget: sw $s6, 0x38($sp)\nCandidate: sw $s5, 0x34($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s2, 0x28($sp)\n  = move $s2, $a0\ni T: sw $s6, 0x38($sp) | C: sw $s5, 0x34($sp)\nr T: move $s6, $a1 | C: move $s5, $a1\n  = sw $s7, 0x3c($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAuto-release at verified 45. lreg/greg for 8f7fa164de61381c1959 gives entries pseudo 73 at 7 refs/35 live (priority .400) vs threshold pseudo 84 at 4/21 (.381). Only s5/s6 are swapped. register storage and && kept identical diff; pointer equality 90, entry-only condition 765. Next step: shorten threshold lifetime or remove one weighted entries use while preserving other live ranges; inspect lreg/greg for any changed-diff candidate.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795339765.55278,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
  },
  {
   "function": "func_80069DCC",
@@ -84333,5 +84169,169 @@
   "score_before": 605,
   "score_after": 455,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ee7bcdb0688a247affd0ee8bab8b272873a6961d8a3b0bac8df75f23ab586e6b"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Improved the current verified score from 1043 to 577 (91.3%) and exhausted the 6-compile move-on budget. Corrected dataflow: *(u8 *)(arg1 + arg2*4 - 4) is passed through a stack slot to func_80045CF8 each outer iteration; func_8007ADD0 receives arg0 and its result is tested via <<24; the table scan checks byte +4, then u16 +2, writes byte +1 to *(arg0+0x6C)+0x7F and invokes func_80002BD0. Best candidate uses a volatile saved s32 and volatile pad array to influence frame/register allocation. Remaining differences are mainly saved-register allocation/stack slots, the loop's branch-likely offsets, conditional return shaping, and one extra candidate instruction. Reordering the initial temp_v0 computation and changing call signatures/casts did not improve. Continue from saved_best/current 577 candidate; target begins by saving arg0 as $s2, arg1 as $s6, arg2 as $s7, whereas candidate allocated these to different callee-saved registers.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795138965.759455,
+  "score_before": 1043,
+  "score_after": 577
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Rechecked baseline 577 (historical best matched current). Six independent local repairs: callee parameter width, shared returns, backward-loop rewrite, callee arity, dead-pointer clear, shared return; none improved. Some worsened to 1047\u20131132. Main mismatch begins stack/register allocation: target saves $s2 at 0x28 and uses $s2 for arg0, candidate uses $s4 at 0x30; several other saved register/stack offsets differ. No new source retained.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795178539.6816242,
+  "score_before": 577,
+  "score_after": 577
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Rechecked baseline 577. Tried callee parameter width, shared return, loop restructuring, target call arity, and dead pointer clear variants; none improved, and several degraded scores. Remaining mismatch is stack/register allocation: target frame -0x48 and saves s2 at +0x28, candidate differs at its prologue (s4 at +0x30), with 38 mismatches total. Candidate retained at 50d027f044969fd0d1cc; next pass should reconstruct local lifetimes and stack shape from assembly before tuning branch code.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795182868.1569211,
+  "score_before": 577,
+  "score_after": 577
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Improved 577 to 517 with ABI-correct calls and explicit scan/retry control flow. func_80045CF8 takes the saved s32 weight; func_8007ADD0 receives actor and loaded u16 ID promoted to s32; func_80002BD0 receives actor and the reloaded promoted ID. Remaining differences: actor and retry counter swap s2/s3, saved weight is at sp+0x18 instead of +0x14, and scan limit check lacks the target's branch-likely increment slot. The compiler tool twice reported gcc-2.7.2-kmc is not installed after the 517 build. The proposed pad split is untested.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795193786.63975,
+  "score_before": 577,
+  "score_after": 517
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Saved best score 517 (92.2%, 67 target vs 65 candidate instructions). Tried loop pointer update rewritten as entries[index] (regressed to 952), signed index (917), and unsigned count (returned to 517); register keyword was ineffective, volatile index caused major stack/frame regression. Target keeps actor in $s2, entries in $s6, index in $s3; candidate allocation differs, plus target uses branch-likely tests. Best source retained; prioritize local lifetimes/register allocation and loop CFG to recover the 2 missing instructions and likely branch-likely form.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795199863.2207942,
+  "score_before": 517,
+  "score_after": 517
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Rechecked baseline 517. Six independent local repairs did not improve it; signed weight and reordered fields worsened, const/shared return/forward else unchanged, do-loop worsened. Remaining mismatch primarily saved-register allocation and branch layout.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795201751.304956,
+  "score_before": 517,
+  "score_after": 517
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Best score 517 (92%) with candidate af664f03e34c12c89aaf (goto-based scan loop, volatile spare[2] before weight). Target: actor in s2 (saved first at 0x28), weight at 0x14($sp), index s1, attempt s3, limit s4, entry s0, threshold s5. Mine: actor lands in s3, weight at 0x18, so stack/regalloc are off by one slot. Tried: spare[1] (535), no spare (537), spare[3]/pad (517 unchanged), decl reorder with details after weight (1266). Untested next step: rewrite loop with for/while instead of gotos, or change declaration order of entry/id to move actor into s2.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795204941.325365,
+  "score_before": 517,
+  "score_after": 517
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Best remains 517/67 (candidate 65 instructions). Main mismatch is saved-register/frame layout: target saves actor in s2 at 0x28(sp), candidate s3 at 0x2c(sp); target weight at 0x14, candidate 0x18. Also branch-delay/loop flow differs. A no-op compile verified baseline; `register` qualifiers on actor and weight did not change diff. Replacing volatile spare[2] with volatile s64 or volatile two-s32 struct produced identical output. Prior handoff documents spare-size and control-flow trials. No repair verified.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795214410.158226,
+  "score_before": 1690,
+  "score_after": 517,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Move-on limit reached at 7/6. Hoisting the index increment, moving the pointer increment, and aliasing actor worsened score to 1255, 885, and 545. A three-word volatile array with weight in slot 1 tied baseline 515. Actor/retry registers, stack slot, and branching differ.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795227040.89682,
+  "score_before": 357,
+  "score_after": 357,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Best stays 515 (saved goto version). Structured nested for-loops (entry[1].weight / u8* entry += 4, weight non-volatile) score 1205-1609: loop optimizer strength-reduces to entry+2/entry+4 bases (lhu 0(s0), lbu 2(s0)) and frame shrinks to 0x40 (no weight spill); target keeps s0=entry with offsets 4/2/1 and weight spilled at sp+0x14 (all 9 s-regs used: actor s2, entries s6, count s7, details fp, attempt s3, index s1, thresh s5, limit s4, entry s0). So the goto form (which defeats loop.c) is needed; remaining diffs: actor/attempt s2<->s3 swap, beql/bnel branch-likely forms, spill. Next step: keep gotos but make weight a plain local (not volatile) with an extra live value to force the spill, and try to raise actor's priority (more uses of actor before the loop).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795233062.220651,
+  "score_before": 515,
+  "score_after": 515,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nChanged limit test to count == 1 before computing limit, improving 515 to 355 and matching instruction count. Remaining differences mainly saved-register allocation and the comparison constant. Shared return and signed variant tied; structured loop worsened to 735. Next step: try separating count-1 into a short-lived temporary before the branch while retaining the later limit assignment.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795248187.3469481,
+  "score_before": 515,
+  "score_after": 355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Rechecked score 1690. Local repairs tried constant_local, inferred_record_layout, address_temporary, const_read, shared_return, goto_backward_loop; no improvement, goto_backward_loop worsened to 2081. Frame is 0x40 versus target 0x48; saved registers are 8 bytes lower and allocation differs.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795250570.283809,
+  "score_before": 355,
+  "score_after": 355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Warning: saved score 620 revision 01eff73fd7e16c80d49a uses uninitialized temp_v0 and is invalid. Corrected revision 460583db8c3ea4c72b2b scored 750. Volatile sp14 between two scalar pads recovered the frame and stack slot; scan control flow and register allocation still differ.\nCorrectly assigning count-1 inside branch scored 750; assignment before branch 825; local return and const edits unchanged.\nBranch likely and saved-register allocation remain divergent.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795251514.082274,
+  "score_before": 355,
+  "score_after": 355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Unable to resolve scan branching and register allocation. Precomputing count before retry while retaining branch assignment leaves assembly unchanged at 750.\nPrecompute count before retry\nAssembly unchanged at 750.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795254681.5270798,
+  "score_before": 355,
+  "score_after": 355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "After six scored follow-up variants, initialization order, aliases, cast changes and alternate weight addressing did not improve the 100 baseline. Only saved-register allocation remains.\nSplit tested remaining count from saved limit. Removed duplicate success arm.\nSplit improved 275 to 100. Removing duplicate arm tied and fixed count/details but cycled actor, attempt, threshold and limit.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795301945.117913,
+  "score_before": 275,
+  "score_after": 100,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Stuck at 60 (saved-reg allocation s2/s3 swap). Local repairs (s8 weight, decl order, branch flip, const, shared return, arity) were all equal or worse. Next step: change the order of first use of actor/entries/count to swap s2/s3.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307846.208352,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Still 60 (s2/s3 swap, 10 rows). This session's local repairs: s8 variant, decl order, u32/s32 id equal; shared return and inline deref worse. Next step: per-iteration local alias of actor around the two calls.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795312478.9391448,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 3; 7 differing rows (5 register, 2 operand; advisory).\nTarget: sw $s6, 0x38($sp)\nCandidate: sw $s5, 0x34($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s2, 0x28($sp)\n  = move $s2, $a0\ni T: sw $s6, 0x38($sp) | C: sw $s5, 0x34($sp)\nr T: move $s6, $a1 | C: move $s5, $a1\n  = sw $s7, 0x3c($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 8f7fa164de61381c1959: funneling both retry paths through one source increment moved 60\u219245. Actor/attempt now match; entries/threshold are swapped $s5/$s6 (7 rows). Typed next-entry load, initial entries[index], and signed threshold were unchanged; changing the redundant branch condition to reference threshold scored 80. Next step: try a single success block to change the reference weights before register allocation.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795338092.9640808,
+  "score_before": 60,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
+ },
+ {
+  "function": "func_8007AEA4",
+  "text": "Low progress after 31 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 3; 7 differing rows (5 register, 2 operand; advisory).\nTarget: sw $s6, 0x38($sp)\nCandidate: sw $s5, 0x34($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s2, 0x28($sp)\n  = move $s2, $a0\ni T: sw $s6, 0x38($sp) | C: sw $s5, 0x34($sp)\nr T: move $s6, $a1 | C: move $s5, $a1\n  = sw $s7, 0x3c($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAuto-release at verified 45. lreg/greg for 8f7fa164de61381c1959 gives entries pseudo 73 at 7 refs/35 live (priority .400) vs threshold pseudo 84 at 4/21 (.381). Only s5/s6 are swapped. register storage and && kept identical diff; pointer equality 90, entry-only condition 765. Next step: shorten threshold lifetime or remove one weighted entries use while preserving other live ranges; inspect lreg/greg for any changed-diff candidate.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795339765.55278,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
  }
 ]
