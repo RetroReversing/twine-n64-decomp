@@ -99,6 +99,7 @@ inline static char *inline_fn23(char *arg0, int arg1)
 
 void func_80069DCC(void *arg0)
 {
+    typedef struct { unsigned char repair_sign_padding[0x34]; f32 repair_sign_sample; } RepairSignRecord;
    f32 repair_delta_input;
    f32 repair_axis_z;
    s32 repair_signed_field;
@@ -817,7 +818,7 @@ case 2: case 3: goto out_of_line_actor;
          var_fs3 = *((f32 *) (((char *) temp_s1) + 0x48));
          D_800E1A1C -= var_fs3;
          var_fs3 = repair_saved_axis; }
-         if ((*((f32 *) (((char *) temp_v0_4) + 0x34))) <= 0.0f)
+         if (((RepairSignRecord *) temp_v0_4)->repair_sign_sample <= 0.0f)
          {
            *((f32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x20)) = absFloat(*((f32 *) (((char *) temp_v0_4) + 0x20)));
          }
@@ -860,10 +861,13 @@ case 2: case 3: goto out_of_line_actor;
          *((f32 *) (((char *) temp_s1) + 0x50)) = 0.0f;
        }
        temp_fv0_9 = *((f32 *) (((char *) temp_s1) + 0x50));
-       var_fv1_2 = -0.15f;
-       if ((temp_fv0_9 < (-0.15f)) || ((var_fv1_2 = 0.15f, temp_fv0_9 > 0.15f)))
+       if (temp_fv0_9 < (-0.15f))
        {
-         *((f32 *) (((char *) temp_s1) + 0x50)) = var_fv1_2;
+         *((f32 *) (((char *) temp_s1) + 0x50)) = -0.15f;
+       }
+       else if (temp_fv0_9 > 0.15f)
+       {
+         *((f32 *) (((char *) temp_s1) + 0x50)) = 0.15f;
        }
        var_fs3 = *((f32 *) (((char *) temp_s1) + 0x50));
        var_s5 += var_fs3 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f);

@@ -346,7 +346,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                 scratch.vsp88.values[1] = (s16) ((s32) (*((f32 *) (((char *) var_s4) + 0x40))));
                 scratch.vsp88.values[2] = (s16) ((s32) (*((f32 *) (((char *) var_s4) + 0x44))));
                 buildRotationMatrixS16(sp1A4, scratch.vsp58.values);
-                temp_v1_2 = (*((u8 *) (((char *) temp_v1) + 0x48))) & 4;
+                temp_s1_4 = (void *) (*((u8 *) (((char *) temp_v1) + 0x48))); temp_v1_2 = (u32) temp_s1_4 & 4;
                 if (temp_v1_2)
                 {
                   var_fp = *((u16 **) (((char *) temp_v1) + 0x3C));

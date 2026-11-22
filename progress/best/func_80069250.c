@@ -72,15 +72,15 @@ void func_80069250(void *arg0)
   volatile long long pad;
   f32 sp98[2];
   s32 spA8;
-  f32 spB0[3];
   f32 spC0[3];
-  s32 spDC;
+  f32 spB0[3];
+  void *spD4;
   volatile s32 framePad[2];
   f32 cameraAim;
   f32 temp_a0;
   f32 temp_a1;
   f32 temp_a2;
-  void *spD4;
+  s32 spDC;
   f32 temp_fa0;
   f32 temp_fs0;
   f32 temp_fs0_2;
@@ -246,5 +246,4 @@ void func_80069250(void *arg0)
     }
   }
 }
-
 

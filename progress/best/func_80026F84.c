@@ -1,6 +1,6 @@
 void copyStateTablesToRam();
 u16 countValidSaveSlots(u16);
-void func_8002D240();
+volatile char func_8002D240();
 s32 func_80081828(s32);
 extern s32 sSaveMenuFlagsB;
 extern s32 sSaveMenuColorIdle;
@@ -52,45 +52,31 @@ void func_80026F84(u8 arg0)
     copyStateTablesToRam();
   }
   gValidSaveSlotCount = countValidSaveSlots(0xA3);
- do { D_80102ED4 = 1; if ((p = gSaveMenuState) != NULL) { p[7] = 0; p = gSaveMenuState; p[0x2F] = 0; q = gSaveMenuState; *((s32 *) (p + 0x20)) = 0; *((s32 *) (p + 0x24)) = 0; *((u16 *) (p + 0x14)) = 0; *((u16 *) (p + 0x16)) = 0; q[0x28] = 0; p = gSaveMenuState; *((s32 *) q) = 0; p[0x29] = 0; p = gSaveMenuState; p[0x2C] = 0; q = gSaveMenuState; *((u16 *) (p + 0x2A)) = 0x1D; q[0x2D] = 0; p = gSaveMenuState; *((s32 *) (p + 0x1C)) = 0; *((s32 *) (p + 0x10)) = 0; *((s32 **) (p + 0xC)) = &D_800BD8C4; } slot = arg0; } while (0);
-  D_801002AE = 0;
-  gMenuNeedsRedraw = 1;
-  if (sBonusObjectTable[slot] != 0)
+  D_80102ED4 = 1;
+  if ((p = gSaveMenuState) != NULL)
   {
-    gMenuSlot = arg0;
+    p[7] = 0;
+    p = gSaveMenuState;
+    p[0x2F] = 0;
+    q = gSaveMenuState;
+    *((s32 *) (p + 0x20)) = 0;
+    *((s32 *) (p + 0x24)) = 0;
+    *((u16 *) (p + 0x14)) = 0;
+    *((u16 *) (p + 0x16)) = 0;
+    q[0x28] = 0;
+    p = gSaveMenuState;
+    *((s32 *) q) = 0;
+    p[0x29] = 0;
+    p = gSaveMenuState;
+    p[0x2C] = 0;
+    q = gSaveMenuState;
+    *((u16 *) (p + 0x2A)) = 0x1D;
+    q[0x2D] = 0;
+    p = gSaveMenuState;
+    *((s32 *) (p + 0x1C)) = 0;
+    *((s32 *) (p + 0x10)) = 0;
+    *((s32 **) (p + 0xC)) = &D_800BD8C4;
   }
-  else
-  {
-    gMenuSlot = 0;
-  }
-  gMenuParamB = func_80081828(gMenuSlot);
-  if (gMenuUseTextList != 0)
-  {
-    if (1)
-    {
-      if (gSaveMenuState)
-      {
-        v = 4;
-      }
-      else
-      {
-        v = 4;
-      }
-    }
-    if (gBorderSkipActive == 0)
-    {
-    }
-  }
-  else
-  {
-    v = gMenuSlot;
-  }
-  sMenuListKind = v;
-  do
-  {
-    D_80102EC0 = D_800BD664;
-    gMenuSoundParams = sSaveMenuColorIdle;
-    sMenuDefaultSoundParams = sSaveMenuFlagsB;
-  }
-  while (0);
+  slot = arg0;
+ do { D_801002AE = 0; gMenuNeedsRedraw = 1; if (sBonusObjectTable[slot] != 0) { gMenuSlot = arg0; } else { gMenuSlot = 0; } gMenuParamB = func_80081828(gMenuSlot); if (gMenuUseTextList != 0) { if (1) { if (gSaveMenuState) { v = 4; } else { v = 4; } } if (gBorderSkipActive == 0) { } } else if (1) { v = gMenuSlot; } sMenuListKind = v; do { D_80102EC0 = D_800BD664; gMenuSoundParams = sSaveMenuColorIdle; sMenuDefaultSoundParams = sSaveMenuFlagsB; } while (0); } while (0);
 }

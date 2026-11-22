@@ -12,7 +12,7 @@ void listUnlinkFree(s32);
 s32 lookupDataEntry(s32);
 s32 objectListInsert(void *, s32);
 s32 requestSound(s32);
-volatile long long setActorStatusBits(s32);
+void setActorStatusBits(void *);
 extern int sprintf(char *, const char *, ...);
 s16 timerGetTotalSeconds(s32 *);
 s32 unlinkNode(void *, void *, void *);
@@ -81,9 +81,9 @@ void func_8011B5F0(void *arg0)
   s32 var_a0_2;
   s32 var_a0_3;
   s32 var_a0_4;
-  u16 var_s5;
+  s32 var_s5;
   s32 sceneTwo;
-  unsigned char var_v0;
+  u16 var_v0;
   u16 temp_v0_4;
   u8 temp_s6;
   union 
@@ -118,7 +118,11 @@ void func_8011B5F0(void *arg0)
       *((ProbeTriple *) (((char *) arg0) + 0x3C)) = *((ProbeTriple *) (inline_fn2(temp_v0_3) + 0x3C));
       if (gSceneType != 3)
       {
-        *((f32 *) (inline_fn2(arg0) + 0x40)) = (f32) ((*((f32 *) (inline_fn2(arg0) + 0x40))) + 1024.0f);
+        do
+        {
+          *((f32 *) (inline_fn2(arg0) + 0x40)) = (f32) ((*((f32 *) (inline_fn2(arg0) + 0x40))) + 1024.0f);
+        }
+        while (0);
       }
       actorUnlinkFromSurface(arg0);
       objectListInsert(arg0, *((s32 *) (inline_fn2(*temp_s3) + 0x20)));
@@ -127,7 +131,7 @@ void func_8011B5F0(void *arg0)
   else
   {
     sceneTwo = 2;
-    sp34 = (s32 *) inline_fn(&sProbeHandles, (temp_s0 * 4));
+    sp34 = (s32 *) inline_fn(&sProbeHandles, temp_s0 * 4);
     temp_s7 = (void **) (((u8 *) (&sProbeStates)) + (temp_s0 * 4));
     sp3C = temp_s3;
     var_v0 = 0 & 0xFFFF;
@@ -186,7 +190,14 @@ void func_8011B5F0(void *arg0)
         {
           if (temp_s0 == 0)
           {
-            var_a2_2 = 0xC;
+            if (temp_s7)
+            {
+              var_a2_2 = 0xC;
+            }
+            else
+            {
+              var_a2_2 = 0xC;
+            }
           }
           sprintf(inline_fn2(&D_8011F170), (char *) (&D_8011EFE0), var_a2_2, temp_s3_3, temp_s0_6, temp_v0_7);
           requestSound(0x219);
@@ -206,7 +217,7 @@ void func_8011B5F0(void *arg0)
         *((s32 *) (inline_fn2(arg0) + 0x3C)) = 0;
         *((f32 *) (inline_fn2(arg0) + 0x40)) = 0.0f;
         *((s32 *) (inline_fn2(arg0) + 0x44)) = 0;
-        setActorStatusBits(*((s32 *) (inline_fn2(&sProbeActors) + (temp_s0 * 4))));
+        setActorStatusBits(*((void **) (inline_fn2(&sProbeActors) + (temp_s0 * 4))));
         temp_a0_4 = *((void **) (((u8 *) (&sProbeStates)) + temp_s1_3));
         *((s32 *) (((char *) temp_a0_4) + 0x28)) = (s32) (((*((s32 *) (inline_fn2(temp_a0_4) + 0x28))) & (~0xFC)) | 0x1C);
         return;
@@ -292,8 +303,9 @@ void func_8011B5F0(void *arg0)
       *temp_s0_5 = 0;
       actorUnlinkFromSurface(arg0);
       objectListInsert(arg0, *((s32 *) (inline_fn2(*((void **) (((char *) (&sProbeObjects)) + temp_s1_2))) + 0x20)));
-      setActorStatusBits(*((s32 *) (inline_fn2(&sProbeActors) + temp_s1_2)));
+      setActorStatusBits(*((void **) (inline_fn2(&sProbeActors) + temp_s1_2)));
     }
   }
 }
+
 
