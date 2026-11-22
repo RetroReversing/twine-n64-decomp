@@ -8,9 +8,9 @@ typedef s32 M2C_UNK; typedef struct { s32 x,y,z; } Vec3Copy; typedef s8 M2C_UNK8
 #define M2C_OVERFLOW(a) (0)
 #endif
 M2C_UNK actorLinkToSurface(s32,void *,M2C_UNK); M2C_UNK effectSetAnimFrame(void *,u16,s16); void *spawnEffectObject(M2C_UNK); extern s32 *gProbeObjectList;
-void *func_800592D0(s32 arg0,s32 unused1,s32 unused2,void *arg3,void *arg4,u8 arg5,u16 arg6) {
-f32 temp_fv0; s16 var_v0; s32 temp_a0; u8 temp_v0_2; void *temp_s0; void *temp_v0;
-temp_v0=spawnEffectObject(0x50);
+void *func_800592D0(s32 arg0,s32 unused1,s32 unused2,void *arg3_in,void *arg4,u8 arg5,u16 arg6) {
+f32 temp_fv0; s16 var_v0; s32 temp_a0; u8 temp_v0_2; void *temp_s0; void *temp_v0; void *arg3;
+arg3=arg3_in;arg3_in=0;temp_v0=spawnEffectObject(0x50);
 if(temp_v0!=NULL){temp_s0=M2C_FIELD(temp_v0,void **,0x6C); effectSetAnimFrame(temp_v0,M2C_FIELD(arg3,u16 *,0),*M2C_FIELD(arg3,s16 **,0x28));
 temp_a0=M2C_FIELD(temp_s0,s32 *,0x4C)&~0x40; M2C_FIELD(temp_s0,s32 *,0x4C)=temp_a0;
 if(M2C_FIELD(arg3,s32 *,0x3C)&0x200000) M2C_FIELD(temp_s0,s32 *,0x4C)=temp_a0|0x40;
