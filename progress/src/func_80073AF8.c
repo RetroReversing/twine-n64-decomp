@@ -69,13 +69,10 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
   u8 sp12F;
   u8 sp137;
   void *sp13C;
-  u16 sp14E;
   s32 *temp_s6;
-  union 
-  {
-    s32 *pointer;
-    s32 value;
-  } __repair_phase_storage;
+  s32 *pstr;
+  s32 var_a1;
+  s32 sflag;
   f32 temp_fv0;
   f64 var_fv1;
   register s16 temp_v0;
@@ -96,14 +93,14 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
   var_s7 = arg8;
   sp126 = arg4;
   sp12F = arg5;
-  __repair_phase_storage.pointer = arg2;
+  pstr = arg2;
   var_s5 = 0;
   sp114 = arg1;
   sp11E = arg3;
   sp137 = arg7;
-  if (__repair_phase_storage.pointer == NULL)
+  if (pstr == NULL)
   {
-    __repair_phase_storage.pointer = D_800C7EE0;
+    pstr = D_800C7EE0;
   }
   sp13C = sp114;
   if (gBorderSkipActive != 0)
@@ -127,9 +124,10 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
   temp_s3 = spawnEffectObject(0x138, 0, 0);
 
   var_fp = 0;
-  func_800AB880(sp10, __repair_phase_storage.pointer);
+  func_800AB880(sp10, pstr);
   if (temp_s3 != NULL)
   {
+    u16 sp14E;
     temp_s1 = *((void **) (((char *) temp_s3) + 0x6C));
     temp_v0_2 = strlen(sp10);
     ((Field_s32 *) (((char *) temp_s1) + 0x20))->v = (s32) gTrackMarkerSerial;
@@ -157,13 +155,14 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
       case 3:
         ((Field_s8 *) (((char *) temp_s1) + 0x135))->v = 0;
         var_fp = 0x96;
-        if (((s8) sp12F) == 0)
+        sflag = (s8) sp12F;
+        if (sflag == 0)
       {
         ((Field_s8 *) (((char *) temp_s1) + 0x136))->v = 1;
       }
         var_s4 = 0xA0;
         var_s2 = 0x24;
-        if (((s8) sp12F) != 0)
+        if (sflag != 0)
       {
         var_s2 = 0x30;
       }
@@ -208,7 +207,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         {
           if (gBorderFlipFlag != 1)
           {
-            ((Field_s8 *) (((char *) temp_s1) + 0x135))->v = 0;
+            goto block_34;
           }
           else
           {
@@ -245,7 +244,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
       default:
         var_fp = 0x1E;
         ((Field_s8 *) (((char *) temp_s1) + 0x135))->v = 0;
-        __repair_phase_storage.value = 0xA0;
+        var_a1 = 0xA0;
         var_a0 = 0x78;
         if (gBorderSkipActive != 0)
       {
@@ -255,7 +254,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
           {
             if (5 > gVisibleSaveSlotCount)
             {
-              __repair_phase_storage.value = 0x50;
+              var_a1 = 0x50;
               var_a0 = 0x3C;
             }
           }
@@ -263,7 +262,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         else
           if (gBorderFlipFlag == 1)
         {
-          __repair_phase_storage.value = 0x50;
+          var_a1 = 0x50;
         }
         else
         {
@@ -274,7 +273,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         {
           var_s2 = (var_a0 * 2) - 0x18;
           var_s5 = 0x840;
-          func_800AB9B0(sp10, __repair_phase_storage.value);
+          func_800AB9B0(sp10, var_a1);
         }
         else
         {
@@ -294,7 +293,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         else
         {
           var_s2 = var_a0 - 0x20;
-          var_s4 = __repair_phase_storage.value & 0xFFFF;
+          var_s4 = var_a1 & 0xFFFF;
           goto block_50;
         }
       }
@@ -368,8 +367,8 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
       }
       scale = ((f64) (0.0625f / ((Field_f32 *) (((char *) temp_s3) + 0x64))->v)) * D_800D4868;
       ((__repair_field_24 *) temp_s3)->value = 0;
-      ((Field_s32 *) (((char *) temp_s3) + 0x3C))->v = 0;
       ((Field_s32 *) (((char *) temp_s3) + 0x28))->v = 0;
+      ((Field_s32 *) (((char *) temp_s3) + 0x3C))->v = 0;
       ((Field_s32 *) (((char *) temp_s3) + 0x40))->v = 0;
       ((Field_s16 *) (((char *) temp_s3) + 0x7A))->v = 0;
       ((Field_s32 *) (((char *) temp_s3) + 0x20))->v = 0;
@@ -382,12 +381,11 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
     {
       ((Field_s32 *) (((char *) temp_s1) + 0))->v = 0;
     }
-    ((Field_s32 *) (((char *) temp_s1) + 0x18))->v = D_8010D2C0[((Field_u8 *) (((char *) temp_s1) + 0x33))->v][inline_fn(temp_s1)];
+    ((Field_s32 *) (((char *) temp_s1) + 0x18))->v = D_8010D2C0[((Field_u8 *) (((char *) temp_s1) + 0x33))->v][((Field_u8 *) (((char *) temp_s1) + 0x34))->v];
     if (sp12F != 0)
     {
       ((Field_s32 *) (((char *) temp_s1) + 0x1C))->v = (s32) (((Field_s32 *) (((char *) temp_s1) + 0x1C))->v | 1);
-      temp_v1_2 = &D_8010D2C0[((Field_u8 *) (((char *) temp_s1) + 0x33))->v][inline_fn(temp_s1)];
-      *temp_v1_2 += 1;
+      D_8010D2C0[((Field_u8 *) (((char *) temp_s1) + 0x33))->v][((Field_u8 *) (((char *) temp_s1) + 0x34))->v] += 1;
     }
   }
   return temp_s3;
