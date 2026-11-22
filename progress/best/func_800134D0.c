@@ -41,7 +41,6 @@ s32 __repair_phase_var_t3_3;
   s32 __repair_phase_var_t3_4;
   unsigned var_t3_5;
   s32 var_t4;
-  s32 var_t4_2;
   s32 var_t5_2;
   s32 var_t6;
   s32 var_t7;
@@ -109,7 +108,6 @@ u32 __repair_phase_var_s3;
   u32 var_t1_5;
   unsigned var_t1_6;
   u32 var_t2;
-  u32 var_t2_2;
   u32 var_v1_6;
   u32 var_v1_7;
   u8 *var_a0_6;
@@ -133,8 +131,9 @@ u32 __repair_phase_var_s3;
   var_t2 = *((s32 *) (((char *) __repair_phase_storage.pointer) + 0xC));
   var_s4 = *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x10));
   var_s1 = __repair_phase_storage.pointer + 0x14;
-  var_t4 = 0x1F;
+  var_t4 = 0x20;
   loop_1:
+  --var_t4;
   var_a2 = var_t2 & 1;
 
   if (var_t4 < 0)
@@ -143,20 +142,20 @@ u32 __repair_phase_var_s3;
     var_s4 = *var_s1;
     var_s1++;
     temp_v0_2 = (var_t2 + (__repair_phase_var_s3 << (var_t4 + 1))); var_a2 = temp_v0_2 & 1;
-    var_t2_2 = __repair_phase_var_s3 >> (-var_t4);
+    var_t2 = __repair_phase_var_s3 >> (-var_t4);
     var_t4 += 0x20;
   }
   else
   {
-    var_t2_2 = var_t2 >> 1;
+    var_t2 = var_t2 >> 1;
   }
   if (((s32) var_a2) == 0)
   {
     var_t4 -= 0xF;
     if (var_t4 >= 0)
     {
-      var_t1 = var_t2_2 & 0x7FFF;
-      var_t2_2 = var_t2_2 >> 0xF;
+      var_t1 = var_t2 & 0x7FFF;
+      var_t2 = var_t2 >> 0xF;
     }
     else
     {
@@ -175,8 +174,8 @@ u32 __repair_phase_var_s3;
       }
       while (0);
       var_s1++;
-      var_t1 = (var_t2_2 + (temp_t2_2 << (var_t4 + 0xF))) & 0x7FFF;
-      var_t2_2 = temp_t2_2 >> (-var_t4);
+      var_t1 = (var_t2 + (temp_t2_2 << (var_t4 + 0xF))) & 0x7FFF;
+      var_t2 = temp_t2_2 >> (-var_t4);
       var_t4 += 0x20;
     }
     var_t1_2 = var_t1 - 1;
@@ -185,26 +184,26 @@ u32 __repair_phase_var_s3;
       do
       {
         var_t4 -= 8;
-        var_a2_2 = var_t2_2 & 0xFF;
+        var_a2_2 = var_t2 & 0xFF;
         if (var_t4 < 0)
         {
           temp_t2_3 = var_s4;
           var_s4 = *var_s1;
           var_s1++;
-          var_a2_2 = (var_t2_2 + (temp_t2_3 << (var_t4 + 8))) & 0xFF;
-          var_t2_2 = temp_t2_3 >> (-var_t4);
+          var_a2_2 = (var_t2 + (temp_t2_3 << (var_t4 + 8))) & 0xFF;
+          var_t2 = temp_t2_3 >> (-var_t4);
           var_t4 += 0x20;
         }
         else
         {
-          var_t2_2 = var_t2_2 >> 8;
+          var_t2 = var_t2 >> 8;
         }
         *var_fp = var_a2_2;
         ++var_fp;
         var_t1_2 -= 1;
       }
       while (var_t1_2 != 0);
-      var_t4_2 = var_t4 - 1;
+      --var_t4;
     }
     else
     {
@@ -223,19 +222,19 @@ u32 __repair_phase_var_s3;
     var_s3 = 0xA;
   }
   var_t4 -= 9;
-  var_a2_3 = var_t2_2 & 0x1FF;
+  var_a2_3 = var_t2 & 0x1FF;
   if (var_t4 < 0)
   {
     temp_t2_4 = var_s4;
     var_s4 = *var_s1;
     var_s1++;
-    var_a2_3 = (var_t2_2 + (temp_t2_4 << (var_t4 + 9))) & 0x1FF;
-    var_t2_2 = temp_t2_4 >> (-var_t4);
+    var_a2_3 = (var_t2 + (temp_t2_4 << (var_t4 + 9))) & 0x1FF;
+    var_t2 = temp_t2_4 >> (-var_t4);
     var_t4 += 0x20;
   }
   else
   {
-    var_t2_2 = var_t2_2 >> 9;
+    var_t2 = var_t2 >> 9;
   }
   if (var_a2_3 != 0)
   {
@@ -253,37 +252,37 @@ u32 __repair_phase_var_s3;
     do
     {
       var_t4--;
-      var_a2 = var_t2_2 & 1;
+      var_a2 = var_t2 & 1;
       if (var_t4 < 0)
       {
         temp_t2_5 = var_s4;
         var_s4 = *var_s1;
         var_s1++;
-        var_a2 = (var_t2_2 + (temp_t2_5 << (var_t4 + 1))) & 1;
-        var_t2_2 = temp_t2_5 >> (-var_t4);
+        var_a2 = (var_t2 + (temp_t2_5 << (var_t4 + 1))) & 1;
+        var_t2 = temp_t2_5 >> (-var_t4);
         var_t4 += 0x20;
       }
       else
       {
-        var_t2_2 = var_t2_2 >> 1;
+        var_t2 = var_t2 >> 1;
       }
       if (var_a2 == 1)
       {
         var_t4 -= 4;
         if (var_t4 < 0)
         {
-          sp1C = var_t2_2;
+          sp1C = var_t2;
           temp_t2_6 = var_s4;
           var_s4 = *var_s1;
           var_s1++;
           sp1C = (sp1C + (temp_t2_6 << (var_t4 + 4))) & 0xF;
-          var_t2_2 = temp_t2_6 >> (-var_t4);
+          var_t2 = temp_t2_6 >> (-var_t4);
           var_t4 += 0x20;
         }
         else
         {
-          sp1C = var_t2_2 & 0xF;
-          var_t2_2 = var_t2_2 >> 4;
+          sp1C = var_t2 & 0xF;
+          var_t2 = var_t2 >> 4;
         }
       }
       *var_a0 = sp1C;
@@ -563,11 +562,11 @@ u32 __repair_phase_var_s3;
     loop_92:
     if (((unsigned) var_v0) != 0)
     {
-      var_v1_6 = var_t2_2 + (var_s4 << var_t4);
+      var_v1_6 = var_t2 + (var_s4 << var_t4);
     }
     else
     {
-      var_v1_6 = var_t2_2;
+      var_v1_6 = var_t2;
     }
 
     var_t1_7 = (&D_801032B0)[var_v1_6 & 0x3FF];
@@ -578,13 +577,13 @@ u32 __repair_phase_var_s3;
       var_v0_2 = var_t1_7 & 0xF;
     }
     var_t4 -= var_v0_2;
-    var_t2_2 = var_t2_2 >> var_v0_2;
+    var_t2 = var_t2 >> var_v0_2;
     if (var_t4 < 0)
     {
       temp_t2_7 = var_s4;
       var_s4 = *var_s1;
       var_s1++;
-      var_t2_2 = temp_t2_7 >> (-var_t4);
+      var_t2 = temp_t2_7 >> (-var_t4);
       var_t4 += 0x20;
     }
     temp_t1 = var_t1_7 >> 7;
@@ -606,24 +605,24 @@ u32 __repair_phase_var_s3;
           temp_t2_8 = var_s4;
           var_s4 = *var_s1;
           var_s1++;
-          var_a2_8 = (var_t2_2 + (temp_t2_8 << (var_t4 + temp_v1_6))) & ((1 << temp_v1_6) - 1);
-          var_t2_2 = temp_t2_8 >> (-var_t4);
+          var_a2_8 = (var_t2 + (temp_t2_8 << (var_t4 + temp_v1_6))) & ((1 << temp_v1_6) - 1);
+          var_t2 = temp_t2_8 >> (-var_t4);
           var_t4 += 0x20;
         }
         else
         {
-          var_a2_8 = var_t2_2 & ((1 << temp_v1_6) - 1);
-          var_t2_2 = var_t2_2 >> temp_v1_6;
+          var_a2_8 = var_t2 & ((1 << temp_v1_6) - 1);
+          var_t2 = var_t2 >> temp_v1_6;
         }
       }
       var_t1_8 = ((*((u8 *) (((s8 *) (&D_800B269F)) + temp_t1))) + var_a2_8) + 3;
       if (var_t4 < 0xF)
       {
-        var_v1_7 = var_t2_2 + (var_s4 << var_t4);
+        var_v1_7 = var_t2 + (var_s4 << var_t4);
       }
       else
       {
-        var_v1_7 = var_t2_2;
+        var_v1_7 = var_t2;
       }
       var_a1_6 = (&D_80108970)[var_v1_7 & 0xFF];
       var_v0_3 = var_a1_6 & 0xF;
@@ -633,13 +632,13 @@ u32 __repair_phase_var_s3;
         var_v0_3 = var_a1_6 & 0xF;
       }
       var_t4 -= var_v0_3;
-      var_t2_2 = var_t2_2 >> var_v0_3;
+      var_t2 = var_t2 >> var_v0_3;
       if (var_t4 < 0)
       {
         temp_t2_9 = var_s4;
         var_s4 = *var_s1;
         var_s1++;
-        var_t2_2 = ((unsigned) temp_t2_9) >> (-var_t4);
+        var_t2 = ((unsigned) temp_t2_9) >> (-var_t4);
         var_t4 += 0x20;
       }
       temp_a1_2 = var_a1_6 >> 7;
@@ -653,14 +652,14 @@ u32 __repair_phase_var_s3;
           var_s3 = var_s4;
           var_s4 = *var_s1;
           var_s1++;
-          var_a2_8 = (var_t2_2 + (var_s3 << (var_t4 + temp_v1_7))) & ((1 << temp_v1_7) - 1);
-          var_t2_2 = var_s3 >> (-var_t4);
+          var_a2_8 = (var_t2 + (var_s3 << (var_t4 + temp_v1_7))) & ((1 << temp_v1_7) - 1);
+          var_t2 = var_s3 >> (-var_t4);
           var_t4 += 0x20;
         }
         else
         {
-          var_a2_8 = var_t2_2 & ((1 << temp_v1_7) - 1);
-          var_t2_2 = var_t2_2 >> temp_v1_7;
+          var_a2_8 = var_t2 & ((1 << temp_v1_7) - 1);
+          var_t2 = var_t2 >> temp_v1_7;
         }
       }
       temp_a1_3 = ((u16 *) (&D_800B27E0))[temp_a1_2] + var_a2_8;
@@ -693,25 +692,24 @@ u32 __repair_phase_var_s3;
       goto loop_92;
     }
     block_123:
-    var_t4_2 = var_t4 - 1;
+    var_t4 = var_t4 - 1;
 
     block_124:
-    var_a2_10 = var_t2_2 & 1;
+    var_a2_10 = var_t2 & 1;
 
-    if (var_t4_2 < 0)
+    if (var_t4 < 0)
     {
       var_s3 = var_s4;
       var_s4 = *var_s1;
       var_s1++;
-      var_a2_10 = (var_t2_2 + (var_s3 << (var_t4_2 + 1))) & 1;
-      var_t2 = var_s3 >> (-var_t4_2);
-      var_t4_2 += 0x20;
+      var_a2_10 = (var_t2 + (var_s3 << (var_t4 + 1))) & 1;
+      var_t2 = var_s3 >> (-var_t4);
+      var_t4 += 0x20;
     }
     else
     {
-      var_t2 = var_t2_2 >> 1;
+      var_t2 = var_t2 >> 1;
     }
-    var_t4 = var_t4_2 - 1;
     if (var_a2_10 != 0)
     {
       return;
@@ -721,4 +719,5 @@ u32 __repair_phase_var_s3;
 
   goto loop_17;
 }
+
 

@@ -313,7 +313,16 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
         temp_a0_5 = temp_a1_5 * sPrimTintR;
         temp_v0_5 = temp_a1_5 * sPrimTintG;
         var_a0_2 = D_80115328;
- do { { long long phantom_wide = arg2; } var_a2 = sPrimTintB; D_80115328 = var_a0_2 + 2; ((__repair_field_0 *) var_a0_2)->value = 0xFA000000; var_a1 = (temp_a1_5 * var_a2) & 0xFF00; *((s32 *) (((char *) var_a0_2) + 4)) = (s32) (((((temp_a0_5 >> 8) << 0x18) | (((temp_v0_5 >> 8) & 0xFF) << 0x10)) | var_a1) | (*((u8 *) (((char *) arg0) + 0x82)))); } while (0);
+        do
+        {
+          {
+            long long phantom_wide = arg2;
+          }
+          var_a2 = sPrimTintB; D_80115328 = var_a0_2 + 2;
+          ((__repair_field_0 *) var_a0_2)->value = 0xFA000000; var_a1 = (temp_a1_5 * var_a2) & 0xFF00;
+          *((s32 *) (((char *) var_a0_2) + 4)) = (s32) (((((temp_a0_5 >> 8) << 0x18) | (((temp_v0_5 >> 8) & 0xFF) << 0x10)) | var_a1) | (*((u8 *) (((char *) arg0) + 0x82))));
+        }
+        while (0);
       }
       else
         if (temp_v1_8 & 1)
@@ -334,145 +343,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
         var_v0_2 = (((var_a2 << 0x18) | (var_a1 << 0x10)) | (var_a3_2 << 8)) | 0x80;
         *((s32 *) (((char *) var_a0_2) + 4)) = var_v0_2;
       }
-      if (((__repair_field_58 *) arg0)->value & 0x1000)
-      {
-        if (gRenderMode != 1)
-        {
-          gRenderMode = 1;
-          func_80038FA4(arg1, var_a1, var_a2, (s32 *) var_a3_2);
-        }
-        temp_v0_7 = (*((s32 *) (&sMatrixPoolUsed))) + 1;
-        if (inline_fn2(sMatrixPoolUsed) < inline_fn2(sMatrixPoolLimit))
-        {
-          sMatrixPoolUsed = temp_v0_7;
-          D_8010D538 = (*((s32 *) (((char *) sRenderState) + 0x74C))) + (temp_v0_7 << 6);
-          if (((__repair_field_58 *) arg0)->value & 0x8000)
-          {
-            func_80008434(arg0, 0.015625f);
-            {
-              volatile f32 *scaleX = &D_80112FB0;
-              *scaleX *= *((f32 *) (((char *) arg0) + 0x54));
-            }
-            D_80112FB4 *= *((f32 *) (((char *) arg0) + 0x54));
-            D_80112FB8 *= *((f32 *) (((char *) arg0) + 0x54));
-          }
-          else
-          {
-            func_80008434(arg0, *((f32 *) (((char *) arg0) + 0x54)));
-          }
-          if (((__repair_field_58 *) arg0)->value & 0x4000)
-          {
-            {
-              volatile f32 *matrixX = &D_80112F90;
-              *matrixX = -(*matrixX);
-            }
-            D_80112F94 = -D_80112F94;
-            D_80112F98 = -D_80112F98;
-            if (D_8010A924 != 0xB)
-            {
-              temp_v1_9 = D_80115328;
-              D_8010A924 = 0xB;
-              D_80115328 = temp_v1_9 + 2;
-              ((__repair_field_0 *) temp_v1_9)->value = 0xDE000000;
-              *((s32 **) (((char *) temp_v1_9) + 4)) = D_800B1A50;
-            }
-          }
-          func_80008598(temp_s1);
-          if (((__repair_field_58 *) arg0)->value & 0x4000)
-          {
-            temp_v1_10 = D_80115328;
-            D_80115328 = temp_v1_10 + 2;
-            D_80115328 = temp_v1_10 + 4;
-            ((__repair_field_0 *) temp_v1_10)->value = 0xD9FFFDFF;
-            *((s32 *) (((char *) temp_v1_10) + 4)) = 0;
-            *((s32 *) (((char *) temp_v1_10) + 8)) = 0xD9FFFFFF;
-            *((s32 *) (((char *) temp_v1_10) + 0xC)) = 0x400;
-          }
-          goto block_72;
-        }
-      }
-      else
-      {
-        temp_a0_6 = sMatrixPoolUsed;
-        if (temp_a0_6 < inline_fn2(sMatrixPoolLimit))
-        {
-          temp_v0_8 = temp_a0_6 + 1;
-          D_8010D538 = (*((s32 *) (((char *) sRenderState) + 0x74C))) + (temp_v0_8 << 6);
-          sMatrixPoolUsed = temp_v0_8;
-          temp_v0_9 = *((u8 *) (((char *) arg0) + 0x7E));
-          switch (temp_v0_9)
-          {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-
-            default:
-              if (gRenderMode)
-            {
-              gRenderMode = 0;
-              emit_projection_viewport_commands(temp_a0_6, var_a1, var_a2, (s32 *) var_a3_2);
-            }
-              temp_v1_11 = ((__repair_field_58 *) arg0)->value;
-              if (temp_v1_11 & 0x40000)
-            {
-              cacheObjectTransform(arg0);
-            }
-            else
-              if ((arg3 << 0x18) != 0)
-            {
-              func_800084C0(arg0, temp_s4);
-            }
-            else
-              if (temp_v1_11 & 0x8000)
-            {
-              func_80008434(arg0, 0.015625f);
-              {
-                volatile f32 *scaleX = &D_80112FB0;
-                *scaleX *= *((f32 *) (((char *) arg0) + 0x54));
-              }
-              D_80112FB4 *= *((f32 *) (((char *) arg0) + 0x54));
-              D_80112FB8 *= *((f32 *) (((char *) arg0) + 0x54));
-            }
-            else
-            {
-              func_80008434(arg0, *((f32 *) (((char *) arg0) + 0x54)));
-            }
-              break;
-
-            case 2:
-
-            case 4:
-
-            case 6:
-
-            case 9:
-              if (gRenderMode != 2)
-            {
-              gRenderMode = 2;
-              func_80039068(arg1);
-            }
-              sp30[0] = (*((f32 *) (((char *) arg0) + 0x24))) - (*((f32 *) (((char *) arg1) + 0x10)));
-              sp30[1] = (*((f32 *) (((char *) arg0) + 0x28))) - (*((f32 *) (((char *) arg1) + 0x14)));
-              sp30[2] = (*((f32 *) (((char *) arg0) + 0x2C))) - (*((f32 *) (((char *) arg1) + 0x18)));
-              rotateVec3ByMat3(arg1 + 0xB8, sp30);
-              guPositionF(&D_80112F90, 0, 0, (*((f32 *) (((char *) arg0) + 0x44))) * 0.087890625f, *((f32 *) (((char *) arg0) + 0x54)), sp30[0] * 64.0f, sp30[1] * 64.0f, sp30[2] * 64.0f);
-              break;
-
-          }
-
-          func_80008598(temp_s1);
-          goto block_72;
-        }
-      }
+ do { if (((__repair_field_58 *) arg0)->value & 0x1000) { if (gRenderMode != 1) { gRenderMode = 1; func_80038FA4(arg1, var_a1, var_a2, (s32 *) var_a3_2); } temp_v0_7 = (*((s32 *) (&sMatrixPoolUsed))) + 1; if (inline_fn2(sMatrixPoolUsed) < inline_fn2(sMatrixPoolLimit)) { sMatrixPoolUsed = temp_v0_7; D_8010D538 = (*((s32 *) (((char *) sRenderState) + 0x74C))) + (temp_v0_7 << 6); if (((__repair_field_58 *) arg0)->value & 0x8000) { func_80008434(arg0, 0.015625f); { volatile f32 *scaleX = &D_80112FB0; *scaleX *= *((f32 *) (((char *) arg0) + 0x54)); } D_80112FB4 *= *((f32 *) (((char *) arg0) + 0x54)); D_80112FB8 *= *((f32 *) (((char *) arg0) + 0x54)); } else { func_80008434(arg0, *((f32 *) (((char *) arg0) + 0x54))); } if (((__repair_field_58 *) arg0)->value & 0x4000) { { volatile f32 *matrixX = &D_80112F90; *matrixX = -(*matrixX); } D_80112F94 = -D_80112F94; D_80112F98 = -D_80112F98; if (D_8010A924 != 0xB) { temp_v1_9 = D_80115328; D_8010A924 = 0xB; D_80115328 = temp_v1_9 + 2; ((__repair_field_0 *) temp_v1_9)->value = 0xDE000000; *((s32 **) (((char *) temp_v1_9) + 4)) = D_800B1A50; } } func_80008598(temp_s1); if (((__repair_field_58 *) arg0)->value & 0x4000) { temp_v1_10 = D_80115328; D_80115328 = temp_v1_10 + 2; D_80115328 = temp_v1_10 + 4; ((__repair_field_0 *) temp_v1_10)->value = 0xD9FFFDFF; *((s32 *) (((char *) temp_v1_10) + 4)) = 0; *((s32 *) (((char *) temp_v1_10) + 8)) = 0xD9FFFFFF; *((s32 *) (((char *) temp_v1_10) + 0xC)) = 0x400; } goto block_72; } } else { temp_a0_6 = sMatrixPoolUsed; if (temp_a0_6 < inline_fn2(sMatrixPoolLimit)) { temp_v0_8 = temp_a0_6 + 1; D_8010D538 = (*((s32 *) (((char *) sRenderState) + 0x74C))) + (temp_v0_8 << 6); sMatrixPoolUsed = temp_v0_8; temp_v0_9 = *((u8 *) (((char *) arg0) + 0x7E)); switch (temp_v0_9) { case 1: case 3: case 5: case 7: case 8: case 10: case 11: case 12: case 13: case 14: case 15: case 16: default: if (gRenderMode) { gRenderMode = 0; emit_projection_viewport_commands(temp_a0_6, var_a1, var_a2, (s32 *) var_a3_2); } temp_v1_11 = ((__repair_field_58 *) arg0)->value; if (temp_v1_11 & 0x40000) { cacheObjectTransform(arg0); } else if ((arg3 << 0x18) != 0) { func_800084C0(arg0, temp_s4); } else if (temp_v1_11 & 0x8000) { func_80008434(arg0, 0.015625f); { volatile f32 *scaleX = &D_80112FB0; *scaleX *= *((f32 *) (((char *) arg0) + 0x54)); } D_80112FB4 *= *((f32 *) (((char *) arg0) + 0x54)); D_80112FB8 *= *((f32 *) (((char *) arg0) + 0x54)); } else { func_80008434(arg0, *((f32 *) (((char *) arg0) + 0x54))); } break; case 2: case 4: case 6: case 9: if (gRenderMode != 2) { gRenderMode = 2; func_80039068(arg1); } sp30[0] = (*((f32 *) (((char *) arg0) + 0x24))) - (*((f32 *) (((char *) arg1) + 0x10))); sp30[1] = (*((f32 *) (((char *) arg0) + 0x28))) - (*((f32 *) (((char *) arg1) + 0x14))); sp30[2] = (*((f32 *) (((char *) arg0) + 0x2C))) - (*((f32 *) (((char *) arg1) + 0x18))); rotateVec3ByMat3(arg1 + 0xB8, sp30); guPositionF(&D_80112F90, 0, 0, (*((f32 *) (((char *) arg0) + 0x44))) * 0.087890625f, *((f32 *) (((char *) arg0) + 0x54)), sp30[0] * 64.0f, sp30[1] * 64.0f, sp30[2] * 64.0f); break; } func_80008598(temp_s1); goto block_72; } } } while (0);
     }
     else
     {
@@ -489,4 +360,3 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
     }
   }
 }
-

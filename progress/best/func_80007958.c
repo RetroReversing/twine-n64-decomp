@@ -57,7 +57,7 @@ extern u16 sMatrixPoolSlotCount;
 extern f32 D_800B1D78;
 extern u64 D_800DD750[];
 extern u64 D_800DD768[];
-extern u64 D_8010A398;
+extern volatile u64 D_8010A398;
 extern u8 *sRenderState;
 extern u8 *D_8010A928;
 extern u8 *D_80109CB8;
@@ -156,7 +156,7 @@ void func_80007958(void)
   {
     return;
   }
-  D_8010A398 = (unsigned long) osGetTime();
+  D_8010A398 = osGetTime();
   func_80034DD0();
   renderMode = &D_8010A4E4;
   if ((*renderMode) == 0)
