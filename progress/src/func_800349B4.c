@@ -48,7 +48,7 @@ inline static char *inline_fn2(void *arg0)
   return ((char *) arg0) + 0x145;
 }
 
-inline static int inline_fn23(s32 arg0, s32 arg1, int arg2, s32 arg3, int arg4, s32 arg5, short arg6, int arg7, s32 arg8)
+inline static int inline_fn23(s32 arg0, s32 arg1, int arg2, s32 arg3, int arg4, s32 arg5, short arg6, int arg7, unsigned short arg8)
 {
   return inline_fn(arg0, ((arg1 << arg2) - arg3) * arg4) | ((((arg5 - (arg6 << 4)) * arg7) + arg8) & 0xFFFF);
 }
@@ -182,5 +182,4 @@ volatile unsigned short func_800349B4(void *arg0)
   *((s32 *) (((char *) temp_a0) + 0)) = 0xF8000000;
   *((s32 *) (((char *) temp_a0) + 4)) = (s32) ((((var_s2 << 0x18) | ((var_s1 & 0xFF) << 0x10)) | (var_s3 << 8)) | ((unsigned short) 0xFF));
 }
-
 
