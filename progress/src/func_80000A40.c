@@ -177,11 +177,8 @@ do {
             temp_v0_2 = findOrLoadStreamSlot(M2C_FIELD(temp_s3, u8 *, 0x9E));
             if (*temp_v0_2 >= 0) {
                 spA9C = &sp120;
-                /*__repair_loop_weight*/do { var_s6_b1 = 0; } while (0);
-                spAAC = spA6C;
-                var_a1 = temp_v0_2;
                 do {
-                    temp_s1 = (s32 *)((char *)spA9C + M2C_FIELD(var_a1, s16 *, 0) * 0x30);
+                    temp_s1 = (s32 *)((char *)spA9C + M2C_FIELD(((char *)temp_v0_2 + __repair_phase_var_s4 * 0x20), s16 *, 0) * 0x30);
                     if (spA94 == 0) {
                         temp_v1_4 = *(u32 *)(((spA8C + __repair_phase_var_s4) * 4) + spA6C);
                         spA58[0] = (temp_v1_4 >> 0x16) * 4;
@@ -242,13 +239,13 @@ do {
                         }
                     }
                     if (spA7C == 0) {
-                        sp20[0] = M2C_FIELD(var_a1, f32 *, 4);
-                        sp20[1] = M2C_FIELD(var_a1, f32 *, 8);
-                        var_fv0 = M2C_FIELD(var_a1, f32 *, 0xC);
+                        sp20[0] = M2C_FIELD(((char *)temp_v0_2 + __repair_phase_var_s4 * 0x20), f32 *, 4);
+                        sp20[1] = M2C_FIELD(((char *)temp_v0_2 + __repair_phase_var_s4 * 0x20), f32 *, 8);
+                        var_fv0 = M2C_FIELD(((char *)temp_v0_2 + __repair_phase_var_s4 * 0x20), f32 *, 0xC);
                     } else {
-                        sp20[0] = M2C_FIELD(spAAC, f32 *, 8);
-                        sp20[1] = M2C_FIELD(spAAC, f32 *, 0xC);
-                        var_fv0 = M2C_FIELD(spAAC, f32 *, 0x10);
+                        sp20[0] = M2C_FIELD(((char *)spA6C + __repair_phase_var_s4 * 0xC), f32 *, 8);
+                        sp20[1] = M2C_FIELD(((char *)spA6C + __repair_phase_var_s4 * 0xC), f32 *, 0xC);
+                        var_fv0 = M2C_FIELD(((char *)spA6C + __repair_phase_var_s4 * 0xC), f32 *, 0x10);
                     }
                     sp20[2] = var_fv0;
                     if (__repair_phase_var_s4 == 0) {
@@ -269,7 +266,7 @@ s32 *temp_s0;
                     } else {
 s32 *temp_s0;
 
-                        temp_s0 = (s32 *)((char *)spA9C + M2C_FIELD(var_a1, s16 *, 2) * 0x30);
+                        temp_s0 = (s32 *)((char *)spA9C + M2C_FIELD(((char *)temp_v0_2 + __repair_phase_var_s4 * 0x20), s16 *, 2) * 0x30);
                         func_800839F0(temp_s0, sp20, (char *)temp_s1 + 0x24);
                         M2C_FIELD(temp_s1, f32 *, 0x24) += M2C_FIELD(temp_s0, f32 *, 0x24);
                         M2C_FIELD(temp_s1, f32 *, 0x28) += M2C_FIELD(temp_s0, f32 *, 0x28);
@@ -293,16 +290,16 @@ s32 *temp_s0;
                         sp10[1] = (M2C_FIELD(temp_s1, f32 *, 0x28) - M2C_FIELD(arg0, f32 *, 0x28)) + temp_fv1_2 + temp_fv1_2;
                     } else {
                         sp10[1] = M2C_FIELD(temp_s1, f32 *, 0x28) + M2C_FIELD(arg0, f32 *, 0x28);
-                        sp20[0] = M2C_FIELD(var_a1, f32 *, 0x10);
-                        sp20[1] = M2C_FIELD(var_a1, f32 *, 0x14);
-                        sp20[2] = M2C_FIELD(var_a1, f32 *, 0x18);
+                        sp20[0] = M2C_FIELD(((char *)temp_v0_2 + __repair_phase_var_s4 * 0x20), f32 *, 0x10);
+                        sp20[1] = M2C_FIELD(((char *)temp_v0_2 + __repair_phase_var_s4 * 0x20), f32 *, 0x14);
+                        sp20[2] = M2C_FIELD(((char *)temp_v0_2 + __repair_phase_var_s4 * 0x20), f32 *, 0x18);
                         rotateVec3ByMat3(temp_s1, sp20);
-                        *(f32 *)(var_s6_b1 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)) = sp10[0];
-                        M2C_FIELD((var_s6_b1 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)), f32 *, 4) = sp10[1];
-                        M2C_FIELD((var_s6_b1 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)), f32 *, 8) = sp10[2];
-                        *(f32 *)(var_s6_b1 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4)) = sp10[0] + sp20[0];
-                        M2C_FIELD((var_s6_b1 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4)), f32 *, 4) = (f32) (sp10[1] + sp20[1]);
-                        M2C_FIELD((var_s6_b1 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4)), f32 *, 8) = (f32) (sp10[2] + sp20[2]);
+                        *(f32 *)((__repair_phase_var_s4 * 0xC) + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)) = sp10[0];
+                        M2C_FIELD(((__repair_phase_var_s4 * 0xC) + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)), f32 *, 4) = sp10[1];
+                        M2C_FIELD(((__repair_phase_var_s4 * 0xC) + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)), f32 *, 8) = sp10[2];
+                        *(f32 *)((__repair_phase_var_s4 * 0xC) + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4)) = sp10[0] + sp20[0];
+                        M2C_FIELD(((__repair_phase_var_s4 * 0xC) + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4)), f32 *, 4) = (f32) (sp10[1] + sp20[1]);
+                        M2C_FIELD(((__repair_phase_var_s4 * 0xC) + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4)), f32 *, 8) = (f32) (sp10[2] + sp20[2]);
                     }
                     if (!(M2C_FIELD(arg0, s32 *, 0x58) & 8) && ((u32) sMatrixPoolUsed < (u32) sMatrixPoolLimit)) {
                         __repair_field_base = M2C_FIELD(sRenderState, s32 *, 0x74C);
@@ -383,11 +380,8 @@ s32 *temp_s0;
                             }
                         }
                     }
-                    var_a1 += 0x20;
-                    var_s6_b1 += 0xC;
                     __repair_phase_var_s4 += 1;
-                    spAAC += 0xC;
-                } while (*(s16 *)var_a1 >= 0);
+                } while (*(s16 *)((char *)temp_v0_2 + __repair_phase_var_s4 * 0x20) >= 0);
             }
             var_v1_2 = M2C_FIELD(temp_s3, s32 *, 0);
             if (var_v1_2 & 0x80000) {
