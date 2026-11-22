@@ -1,3 +1,4 @@
+static __inline__ int __repair_inline(s32 a, s32 b) { return a > b; }
 typedef struct 
 {
   s16 frameCount;
@@ -48,8 +49,7 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
   shape &= 0x8000;
   header = ((u32) count) << 16;
   if (shape)
-  {
-    coordWords = count * 3;
+  {{ s32 __repair_value; __repair_value = count * 3; coordWords = __repair_value; }
     if (expand)
     {
       header |= 3;
@@ -81,7 +81,7 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
   i = 0;
   romDmaRead((s32) out, (s32) (romBase + validFrame), totalWords * 4);
   packedStart = (u16 *) (((char *) out) + packedBytes);
-  if (vectors > 0)
+  if (__repair_inline(vectors, 0))
   {
     coords = (f32 *) out;
     packed = packedStart;
@@ -90,7 +90,7 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
       f32 z;
       coords[0] = (packed[0] * cache->scale[0]) + cache->offset[0];
       coords[1] = (packed[1] * cache->scale[1]) + cache->offset[1];
-      z = cache->offset[2] + (cache->scale[2] * packed[2]);
+      z = (packed[2] * cache->scale[2]) + cache->offset[2];
       i++;
       packed += 3;
       coords[2] = z;

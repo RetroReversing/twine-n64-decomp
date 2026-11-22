@@ -11,6 +11,7 @@ extern u8 D_80108FA0;
 extern u32 D_80112EE0;
 void func_800134D0(void *arg0)
 {
+    u32 *hoist_D_80112EE0;
   u16 *spC;
   void *sp4;
   u32 sp1C;
@@ -127,6 +128,7 @@ void func_800134D0(void *arg0)
   var_s4 = *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x10));
   var_s1 = __repair_phase_storage.pointer + 0x14;
   var_t4 = 0x20;
+  hoist_D_80112EE0 = &D_80112EE0;
   loop_1:
   --var_t4;
 
@@ -237,7 +239,7 @@ void func_800134D0(void *arg0)
   {
     s32 temp_a1_3_arm;
     var_a3 = 1;
-    var_v1 = (&D_80112EE0) + 1;
+    var_v1 = (hoist_D_80112EE0) + 1;
     do
     {
       *var_v1 = 0;
@@ -284,13 +286,13 @@ void func_800134D0(void *arg0)
         }
       }
       *var_a0 = sp1C;
-      temp_v1 = &(&D_80112EE0)[sp1C];
+      temp_v1 = &(hoist_D_80112EE0)[sp1C];
       *temp_v1 += 1;
       var_a3_2 += 1;
       var_a0++;
     }
     while (var_a2_3 > var_a3_2);
-    *((s32 *) (&D_80112EE0)) = 0;
+    *((s32 *) (hoist_D_80112EE0)) = 0;
     var_t3 = 0;
     var_a3_3 = 1;
     do
@@ -318,7 +320,7 @@ void func_800134D0(void *arg0)
     }
     while (var_a3_3 < 0x10U);
     var_t3 = 0;
-    var_a0_3 = (&D_80112EE0) + 1;
+    var_a0_3 = (hoist_D_80112EE0) + 1;
     do
     {
       if ((*var_a0_3) != 0)
@@ -395,12 +397,12 @@ void func_800134D0(void *arg0)
       if (var_s1)
       {
         var_t7 = 4;
-        var_t6_2 = (&D_80112EE0) + 1;
+        var_t6_2 = (hoist_D_80112EE0) + 1;
       }
       else
       {
         var_t7 = 4;
-        var_t6_2 = (&D_80112EE0) + 1;
+        var_t6_2 = (hoist_D_80112EE0) + 1;
       }
       do
       {
@@ -433,7 +435,7 @@ void func_800134D0(void *arg0)
             var_a0_4++;
             ++var_t3_3;
           }
-          while (((u32) (*((u32 *) (((s8 *) (&D_80112EE0)) + var_t7)))) >= var_a3_6);
+          while (((u32) (*((u32 *) (((s8 *) (hoist_D_80112EE0)) + var_t7)))) >= var_a3_6);
         }
         var_t7 += 4;
         var_t1_5 += 1;
@@ -445,7 +447,7 @@ void func_800134D0(void *arg0)
     if (var_t1_5 < 0x10U)
     {
       var_t5_2 = var_t1_5 * 4;
-      var_t6_3 = &(&D_80112EE0)[var_t1_5];
+      var_t6_3 = &(hoist_D_80112EE0)[var_t1_5];
       do
       {
         var_a3_7 = 1;
@@ -466,7 +468,7 @@ void func_800134D0(void *arg0)
             var_a0_5++;
             var_t3_3 += 1;
           }
-          while (((u32) (*((u32 *) (((s8 *) (&D_80112EE0)) + var_t5_2)))) >= var_a3_7);
+          while (((u32) (*((u32 *) (((s8 *) (hoist_D_80112EE0)) + var_t5_2)))) >= var_a3_7);
         }
         var_t5_2 += 4;
         var_t1_5 += 1;
@@ -512,7 +514,7 @@ void func_800134D0(void *arg0)
         temp_a1_3_arm = 1 << var_t1_6;
         sp2C = temp_a1_3_arm - 1;
         var_t9 = var_t1_6 * 4;
-        var_s2 = &(&D_80112EE0)[var_t1_6];
+        var_s2 = &(hoist_D_80112EE0)[var_t1_6];
         do
         {
           var_a3_9 = 1;
@@ -539,7 +541,7 @@ void func_800134D0(void *arg0)
               var_t5_3 += 1;
               var_t3_5 += 1;
             }
-            while (((u32) (*((u32 *) (((s8 *) (&D_80112EE0)) + var_t9)))) >= var_a3_9);
+            while (((u32) (*((u32 *) (((s8 *) (hoist_D_80112EE0)) + var_t9)))) >= var_a3_9);
           }
           var_t9 += 4;
           var_t1_6 += 1;

@@ -49,6 +49,11 @@ inline static int inline_fn234(s32 arg0)
   return inline_fn(arg0) * 0x18;
 }
 
+inline static u8 *inline_fn2345(int arg0, unsigned char arg1, u8 *arg2)
+{
+  return arg0 + inline_fn23(arg1 * 8, arg2 + 0x18);
+}
+
 void func_8001C6CC(void)
 {
   s16 temp_s0_4;
@@ -89,10 +94,10 @@ void func_8001C6CC(void)
     do
     {
       temp_s0_2 = inline_fn23((func_800316B8() & 0xFFFF) * 8, &D_80117410);
-      func_8002B2FC(temp_s0_2, ((__repair_phase_temp_s0 & 0xFFFF) * 0x18) + inline_fn23(inline_fn(func_800316B8()) * 8, (&D_80117410) + 0x18));
+      func_8002B2FC(temp_s0_2, inline_fn2345((__repair_phase_temp_s0 & 0xFFFF) * 0x18, inline_fn(func_800316B8()), &D_80117410));
       __repair_phase_temp_s0 += 1;
     }
-    while (((u32) ((temp_s0 = temp_v0 = __repair_phase_temp_s0) & 0xFFFF)) < 0xEU);
+    while (((u32) ((temp_s0 = (temp_v0 = __repair_phase_temp_s0)) & 0xFFFF)) < 0xEU);
     temp_s0_3 = inline_fn(var_s2);
     if (((u8) (*((&D_801176C8) + temp_s0_3))) < ((u32) inline_fn(func_800316B8())))
     {
@@ -154,11 +159,18 @@ void func_8001C6CC(void)
         case 2:
           if ((func_800316B8() & 0xFFFF) == 1)
         {
-          func_8002BC68(5, 1);
-          var_v0 = 0x2AF;
-          block_59:
-          D_80102CBC = var_v0;
-
+          if (p_ee0)
+          {
+            func_8002BC68(5, 1);
+            var_v0 = 0x2AF;
+            goto block_59;
+          }
+          else
+          {
+            func_8002BC68(5, 1);
+            var_v0 = 0x2AF;
+            goto block_59;
+          }
         }
           break;
 
@@ -294,5 +306,9 @@ void func_8001C6CC(void)
 
     }
   }
+  return;
+  block_59:
+  D_80102CBC = var_v0;
+
 }
 

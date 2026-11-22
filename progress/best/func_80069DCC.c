@@ -646,7 +646,7 @@ case 2: case 3: goto out_of_line_actor;
           {
             var_v0_4 = 0;
           }
-          if (((var_v1_4 ^ 1) | (var_v0_4 ^ 1)) == 0)
+          if (((var_v0_4 ^ 1) | (var_v1_4 ^ 1)) == 0)
           {
             D_800E1A28 |= 0x80000;
           }
@@ -1321,7 +1321,7 @@ case 2: case 3: goto out_of_line_actor;
           {
             var_v0_19 = 0;
           }
-          if (((var_v1_18 ^ 1) | (var_v0_19 ^ 1)) == 0)
+          if (((var_v0_19 ^ 1) | (var_v1_18 ^ 1)) == 0)
           {
             var_v1_19 = 1;
             if (!(temp_fs2_2 <= 0.0002f))
@@ -1333,7 +1333,7 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v0_20 = 0;
             }
-            if (((var_v1_19 ^ 1) | (var_v0_20 ^ 1)) != 0)
+            if (((var_v0_20 ^ 1) | (var_v1_19 ^ 1)) != 0)
             {
               goto block_327;
             }
@@ -1386,7 +1386,7 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v0_22 = 0;
             }
-            if (((var_v1_21 ^ 1) | (var_v0_22 ^ 1)) != 0)
+            if (((var_v0_22 ^ 1) | (var_v1_21 ^ 1)) != 0)
             {
               *((f32 *) (((char *) arg0) + 0x40)) = (f32) (temp_fv1_7 + 2048.0f);
             }
