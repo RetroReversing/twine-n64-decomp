@@ -32,6 +32,7 @@ void func_8002255C(void *arg0, void *arg1)
   void *temp_s2;
   void *temp_v1;
   void *var_a1;
+  s32 f1, f2; void *f3, *f4;
   temp_s0 = *((void **) (((char *) arg0) + 0));
   temp_s2 = arg1;
   if (temp_s0 != NULL)
@@ -117,11 +118,7 @@ void func_8002255C(void *arg0, void *arg1)
       temp_a0_2 = *((void **) (inline_fn2(temp_s0) + 0));
       if (temp_a0_2 != NULL)
       {
-        var_v0_3 = 0xA0;
-        if ((*((u8 *) (((char *) arg0) + 8))) != 0xFF)
-        {
-          var_v0_3 = *((u16 *) (((char *) arg0) + 4));
-        }
+        if ((*((u8 *) (((char *) arg0) + 8))) == 0xFF) { var_v0_3 = 0xA0; } else { var_v0_3 = *((u16 *) (((char *) arg0) + 4)); }
         *((u16 *) (((char *) temp_a0_2) + 0x20)) = var_v0_3;
         *((u16 *) (inline_fn2(*((void **) (inline_fn2(temp_s0) + 0))) + 0x22)) = (u16) (*((u16 *) (((char *) arg0) + 6)));
         {
@@ -136,21 +133,15 @@ void func_8002255C(void *arg0, void *arg1)
         {
           temp_v1 = *((void **) temp_s0);
           temp_a0_2 = gSaveMenuState;
-          var_v0_5 = sSaveMenuColorIdle;
-          goto block_26;
+          f1 = sSaveMenuColorIdle;
+          *((s32 *) (((char *) temp_v1) + 0x10)) = (((f1 & (~0xFF)) | (*((u8 *) (((char *) temp_a0_2) + 0x30)))) & (~0xFF)) | (*((u8 *) (((char *) (*((void **) (((char *) temp_a0_2) + 0x1C)))) + 0x13)));
         }
-        if (temp_a0_4 == 0x81)
+        else if (temp_a0_4 == 0x81)
         {
           temp_v1 = *((void **) temp_s0);
           temp_a0_2 = gSaveMenuState;
-          do
-          {
-            var_v0_5 = D_800BD660;
-            block_26:
-            *((s32 *) (((char *) temp_v1) + 0x10)) = (((var_v0_5 & (~0xFF)) | (*((u8 *) (((char *) temp_a0_2) + 0x30)))) & (~0xFF)) | (*((u8 *) (((char *) (*((void **) (((char *) temp_a0_2) + 0x1C)))) + 0x13)));
-
-          }
-          while (0);
+          f1 = D_800BD660;
+          *((s32 *) (((char *) temp_v1) + 0x10)) = (((f1 & (~0xFF)) | (*((u8 *) (((char *) temp_a0_2) + 0x30)))) & (~0xFF)) | (*((u8 *) (((char *) (*((void **) (((char *) temp_a0_2) + 0x1C)))) + 0x13)));
         }
         else
         {
@@ -176,3 +167,4 @@ void func_8002255C(void *arg0, void *arg1)
     }
   }
 }
+

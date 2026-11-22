@@ -139,10 +139,13 @@ block_9:
                 packet[1] = temp_v1_10;
                 return;
             } else {
-                temp_v1_5 = sDisplayListCursor;
-                sDisplayListCursor = temp_v1_5 + 8;
-                (((__repair_field_0 *)temp_v1_5)->value) = 0xFC40FE03;
-                (*(s32 *)((char *)(temp_v1_5) + 4)) = -0xC88;
+                {
+                    s32 *cmd = sDisplayListCursor;
+                    u32 first = 0xFC40FE03;
+                    sDisplayListCursor = cmd + 2;
+                    cmd[0] = first;
+                    cmd[1] = -0xC88;
+                }
                 return;
             }
         } else {
@@ -162,10 +165,13 @@ block_9:
             s32 flags = *(s32 *)((char *)arg0 + 0x100);
             D_801032A0 = 1;
             if (flags & 3) {
-                temp_v1_5 = sDisplayListCursor;
-                sDisplayListCursor = temp_v1_5 + 8;
-                (((__repair_field_0 *)temp_v1_5)->value) = 0xFC40FE03;
-                (*(s32 *)((char *)(temp_v1_5) + 4)) = -0xC88;
+                {
+                    s32 *cmd = sDisplayListCursor;
+                    u32 first = 0xFC40FE03;
+                    sDisplayListCursor = cmd + 2;
+                    cmd[0] = first;
+                    cmd[1] = -0xC88;
+                }
                 return;
             }
             var_a1_2 = 0xFC40FE03;
@@ -497,6 +503,3 @@ block_9:
         break;
     }
 }
-
-
-
