@@ -20,6 +20,7 @@ s32 __repair_phase_temp_v1;
     s32 var_s5;
     s32 var_s6;
     s32 var_s1;
+    s32 var_k;
     u16 temp_a1;
     u16 temp_a2_2;
     u32 *temp_a0;
@@ -50,8 +51,9 @@ void *__repair_phase_temp_a2;
     var_s4 = 1;
     var_s6 = 0;
     var_s1 = 0;
-    var_s5 = 0;
+    var_k = 0xFF;
     var_s2 = 0;
+    var_s5 = 0;
     do {
         temp_t0 = gSeqPlayer;
         temp_v0 = temp_t0 + var_s2;
@@ -67,7 +69,6 @@ void *temp_a0_2;
                     temp_a3 = (*(void **)((char *)(var_a0) + 0x12C));
                     temp_a1 = (*(u16 *)((char *)(temp_a3) + 8));
                     if (temp_a1 == 0xFFFE) goto rewind;
-                    __repair_phase___repair_phase_instrumentOffset = temp_a1 * 4;
                     if (temp_a1 != 0xFFFF) goto play;
                     (*(void **)((char *)(var_a0) + 0x12C)) = NULL;
                     goto next_track;
@@ -77,8 +78,8 @@ rewind:
                             (*(void **)((char *)(var_a0) + 0x12C)) = NULL;
                             goto next_track;
                         }
-                    __repair_phase___repair_phase_instrumentOffset = (u16)((*(u16 *)((char *)(temp_a3) + 0xA)));
-                    (*(void **)((char *)(var_a0) + 0x12C)) = (void *) ((*(s32 *)((char *)(var_a0) + 0x128)) + (__repair_phase___repair_phase_instrumentOffset * 0xC));
+                    temp_a2_3 = (u16)((*(u16 *)((char *)(temp_a3) + 0xA)));
+                    (*(void **)((char *)(var_a0) + 0x12C)) = (void *) ((*(s32 *)((char *)(var_a0) + 0x128)) + (temp_a2_3 * 0xC));
                     (*(s32 *)((char *)(var_a0) + 0x134)) = (s32) (*(s32 *)((char *)((*(void **)((char *)(temp_t0) + 0x10C))) + 0x14));
                     (*(s32 *)((char *)(var_a0) + 0x130)) = 0;
                     if (var_s4 & 0xFF) {
@@ -90,16 +91,16 @@ rewind:
                     }
 play:
                       temp_a0_2 = (*(void **)((char *)(temp_t0) + 0x10C));
-                      instrumentOffset = (*(s32 *)((char *)((u8 *)temp_a0_2 + (*(s32 *)((char *)(temp_a0_2) + 4))) + __repair_phase___repair_phase_instrumentOffset));
+                      { u32 q = *(s32 *)((u8*)temp_a0_2 + 4) + (u32)temp_a0_2; instrumentOffset = *(s32 *)((temp_a1 << 2) + q); }
                       temp_a1_2 = temp_t0 + var_s0;
                       (*(s32 *)((char *)(temp_a1_2) + 0x56C)) = 0;
                       (*(s32 *)((char *)(temp_a1_2) + 0x568)) = 0;
                       (*(s32 *)((char *)(temp_a1_2) + 0x570)) = 0;
-                      temp_a2 = (u8 *)temp_a0_2 + instrumentOffset;
+                      temp_a2 = (void*)(instrumentOffset + (s32)temp_a0_2);
                       (*(void **)((char *)(temp_a1_2) + 0x574)) = (void *) (temp_a2 + 0xC);
                       __repair_phase_temp_v1 = (*(s32 *)((char *)(temp_a2) + 4));
                       if (__repair_phase_temp_v1) {
-                          (*(void **)((char *)(temp_a1_2) + 0x578)) = (void *) (__repair_phase_temp_v1 + (*(void **)((char *)(temp_t0) + 0x10C)));
+                          (*(void **)((char *)(temp_a1_2) + 0x578)) = (void *) ((u32)__repair_phase_temp_v1 + (u32)(*(void **)((char *)(temp_t0) + 0x10C)));
                       } else {
                           (*(void **)((char *)(temp_a1_2) + 0x578)) = (s32)NULL;
                       }
@@ -108,7 +109,7 @@ play:
                       (*(s16 *)((char *)(temp_a0_3) + 0x580)) = 0x2000;
                       __repair_phase___repair_phase___repair_phase_instrumentOffset = (*(s32 *)((char *)(temp_a2) + 8));
                       if (__repair_phase___repair_phase___repair_phase_instrumentOffset != 0) {
-                          (*(s32 *)((char *)(temp_a0_3) + 0x57C)) = (s32) (__repair_phase___repair_phase___repair_phase_instrumentOffset + (*(void **)((char *)(gSeqPlayer) + 0x10C)));
+                          (*(s32 *)((char *)(temp_a0_3) + 0x57C)) = (s32) ((u32)__repair_phase___repair_phase___repair_phase_instrumentOffset + (u32)(*(void **)((char *)(gSeqPlayer) + 0x10C)));
                       } else {
                           (*(s32 *)((char *)(temp_a0_3) + 0x57C)) = 0;
                       }
@@ -116,30 +117,30 @@ play:
                       (*(s32 *)((char *)(temp_a0_4) + 0x588)) = 0;
                       (*(s16 *)((char *)(temp_a0_4) + 0x582)) = 0;
                       temp_v1_3 = (*(void **)((char *)(gSeqPlayer) + 0x10C));
-                      (*(u8 *)((char *)(temp_a0_4) + 0x58C)) = (*(u8 *)((char *)(temp_v1_3) + (*(s32 *)((char *)(temp_v1_3) + 8)) + var_s1));
+                      (*(u8 *)((char *)(temp_a0_4) + 0x58C)) = (*(u8 *)((u32)(*(s32 *)((char *)(temp_v1_3) + 8)) + (u32)temp_v1_3 + var_s1));
                       (*(u8 *)((char *)((gSeqPlayer + var_s0)) + 0x58D)) = (u8) (*(u8 *)((char *)(temp_a3) + 0xB));
                       (*(u8 *)((char *)((gSeqPlayer + var_s0)) + 0x58E)) = (u8) (*(u8 *)((char *)(temp_a3) + 0xA));
                       (*(s8 *)((char *)((gSeqPlayer + var_s0)) + 0x58F)) = var_s1;
                       temp_v1_4 = (*(u8 *)((char *)(temp_a3) + 4));
-                      if (temp_v1_4 != 0xFF) {
+                      if (temp_v1_4 != var_k) {
                           temp_a1_3 = (*(u8 *)((char *)((gSeqPlayer + var_s0)) + 0x58C));
-                          temp_v0_2 = gSeqPlayer + temp_v1_4;
                           if (temp_a1_3 != 9) {
+                              temp_v0_2 = gSeqPlayer + temp_v1_4;
                               temp_v0_3 = (*(u8 *)((char *)(temp_v0_2) + 8));
-                              if (temp_v0_3 != 0xFF) {
-                                  temp_v0_4 = (temp_v0_3 * 8) + (*(u8 **)((char *)(gSeqPlayer) + 4));
-                                  (*(s32 *)((char *)(((temp_a1_3 * 4) + gSeqPlayer)) + 0xF80)) = (s32) (((*(u16 *)((char *)(temp_v0_4) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_v0_4) + 2)) << 8) | (*(u8 *)((char *)(temp_v0_4) + 3)));
+                              if (temp_v0_3 != var_k) {
+                                                                    (*(s32 *)((char *)(((temp_a1_3 * 4) + gSeqPlayer)) + 0xF80)) = (s32) (((*(u16 *)((char *)((u8*)((temp_v0_3 * 8) + (*(u8 **)((char *)(gSeqPlayer) + 4)))) + 0)) << 0x10) | ((*(u8 *)((char *)((u8*)((temp_v0_3 * 8) + (*(u8 **)((char *)(gSeqPlayer) + 4)))) + 2)) << 8) | (*(u8 *)((char *)((u8*)((temp_v0_3 * 8) + (*(u8 **)((char *)(gSeqPlayer) + 4)))) + 3)));
                               }
                           } else {
+                              temp_v0_2 = gSeqPlayer + temp_v1_4;
                               temp_v0_5 = (*(u8 *)((char *)(temp_v0_2) + 0x8C));
-                              if (temp_v0_5 != 0xFF) {
+                              if (temp_v0_5 != var_k) {
                                   __repair_phase_temp_a2 = (void *) (*(u8 **)((char *)(gSeqPlayer) + 0x88)); temp_v0_6 = (temp_v0_5 * 8) + (u32) __repair_phase_temp_a2;
                                   (*(s32 *)((char *)(gSeqPlayer) + 0xFA4)) = (s32) (((*(u16 *)((char *)(temp_v0_6) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_v0_6) + 2)) << 8) | (*(u8 *)((char *)(temp_v0_6) + 3)));
                               }
                           }
                       }
                       temp_a3_2 = (*(u8 *)((char *)(temp_a3) + 5));
-                      if (temp_a3_2 != 0xFF) {
+                      if (temp_a3_2 != var_k) {
                           voiceStoreParam(7, (*(u8 *)((char *)((gSeqPlayer + var_s0)) + 0x58C)), D_800EDA87, temp_a3_2);
                       }
                       temp_v1_5 = gSeqPlayer + var_s2;
@@ -158,9 +159,10 @@ void *temp_a0_2;
 
 block_30:
                 temp_a0_2 = gSeqPlayer + var_s2;
-                __repair_phase___repair_phase_instrumentOffset = (*(s32 *)((char *)(temp_a0_2) + 0x130)); temp_a2_3 = __repair_phase___repair_phase_instrumentOffset + (*(s32 *)((char *)(gSeqPlayer) + 0x118));
+                temp_a2_3 = (*(s32 *)((char *)(temp_a0_2) + 0x130)) + (*(s32 *)((char *)(gSeqPlayer) + 0x118));
                 (*(s32 *)((char *)(temp_a0_2) + 0x130)) = (s32) (temp_a2_3 & 0xFFFF);
-                (*(s32 *)((char *)(temp_a0_2) + 0x134)) = (s32) ((*(s32 *)((char *)(temp_a0_2) + 0x134)) + ((temp_a2_3 >> 0x10) + (*(s32 *)((char *)(gSeqPlayer) + 0x11C))));
+                temp_a2_3 >>= 0x10;
+ (*(s32 *)((char *)(temp_a0_2) + 0x134)) = (s32) ((*(s32 *)((char *)(temp_a0_2) + 0x134)) + (temp_a2_3 + (*(s32 *)((char *)(gSeqPlayer) + 0x11C))));
             }
         }
 next_track:
@@ -170,3 +172,4 @@ next_track:
     } while (var_s1 < 0x40);
     return var_s6;
 }
+
