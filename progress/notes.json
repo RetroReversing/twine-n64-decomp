@@ -61117,14 +61117,6 @@
   "score_after": 3073
  },
  {
-  "function": "func_80035060",
-  "text": "Rechecked saved candidate score 7230, then added missing extern declarations (same score). Tried volatile D_80115328, worsened to 7815; current candidate retained as exploratory. Local narrow_widening/signedness/declaration_order variants did not help. Target early branch is at +0x52c after call to func_80034EFC; draft jumps to +0x508. Main remaining mismatch is control flow and output pointer handling; inspect instructions around +0x52c and restructure initial float calculations to reproduce target's interleaved loads/additions. Ensure compile uses the claim's -G0 profile; current diff diagnostics mention unconfigured $gp due mismatch in effective setup.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795172471.5017679,
-  "score_before": 7010,
-  "score_after": 7010
- },
- {
   "function": "func_800055CC",
   "text": "Resumed baseline revision 2e7f73fad347b90dac5b at fresh score 3338; ran six independent local repair variants (constant_local, scalar_storage_reuse, inferred_record_layout, branch_orientation, cfg_integer_lifetimes, signedness). None improved; scalar storage and branch orientation regressed. Target requires 0x68 frame and saves fs0 at sp+0x60; baseline candidate frame is 0x60, with sp+0x58 occupancy likely missing/too compact local storage. Target prologue also saves s3 at +0x44, all s regs through s7, fp, ra, and fs0. Next investigate local/frame representation, especially sp10 float array + pointer temps/64-bit temporaries; retain reference target assembly via get_assembly. Do not repeat listed repair variants.",
   "by": "codex-gpt-6-luna-18",
@@ -61133,140 +61125,12 @@
   "score_after": 3073
  },
  {
-  "function": "func_80035060",
-  "text": "Session handoff: local inferred record layouts improved 7230 to 5910, revision 998ac753156712e146eb. Still 176 mismatch rows, especially register allocation, call scheduling and display-list stores. Linker warns R_MIPS_LITERAL requires unconfigured target gp; inspect literal handling and target before trusting exact comparison. Further local proposals remain; continue from saved candidate.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795184118.7969978,
-  "score_before": 7010,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Rechecked inherited candidate at 9965 under active -G8 profile. The brief maps this range to gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2; try_compiler on the inherited source under that profile scored 10025, improving 60 but still far from match. Local repairs (call scope, lifetime/storage reuse, inferred layout, masked reuse, signedness) produced no improvement or worse, and returned baseline retained. Main early mismatch is frame/register allocation (target saves arg pointer in $s2; candidate uses $s1), followed by missing/misordered floating loads and command buffer writes. Resume with real configured -G0 judge and inspect early target sequence, then prioritize restructuring startup computations/order. suggest rejected because candidate isn't exact under proposed profile.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795184195.2426329,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
   "function": "func_800055CC",
   "text": "Corrected the undeclared data symbols to the actual D_000F8D70, D_800C3928 and D_800D2008 names/types; draft then compiled at score 3073, equal to saved best. This address range is flagged by compiler map as -G0, while the candidate was prepared with -G8; judge reports generated R_MIPS_LITERAL requiring $gp, so next step should try the recommended GCC 2.7.2 -G0 profile before source tuning. Current assembly mismatch is predominantly save set/frame layout (target -0x68; candidate -0x60) and register assignment. Avoid source tuning until compiler profile is corrected.",
   "by": "codex-gpt-6-luna-9",
   "created_at": 1795184409.448459,
   "score_before": 3073,
   "score_after": 3073
- },
- {
-  "function": "func_80035060",
-  "text": "Best achieved score 7880 (77.0%) in attempt 25769868352. Key experiments: (1) byte-address the table load as `*((s32 *)((char *)&D_80100304 + D_8010A4B0*4))`, improving 9965\u21929565 and removing bad scaling instructions; (2) moved the initial command-buffer setup block (D_80115328 / E7000000 / FE000000 writes) after float-derived coordinate calculations, improving 9565\u21927880. Current candidate revision be8d41bc21b65585118d is the best source. Remaining major mismatches: target keeps arg0 in $s2 while candidate uses $s1; target loads D_80109A54 after the first two float loads and then performs float arithmetic in a specific order; candidate still has R_MIPS_LITERAL link diagnostic under its effective -G8 profile, while compiler map suggests -G0 (trial G0 was slightly worse at 10025). Local repairs and simple rewrites yielded no gains. Continue from this saved candidate, inspect source command ordering/lifetimes and use G0 only if testing further.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795185305.061252,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Rechecked draft score 9565, then corrected osVirtualToPhysical from unprototyped declaration to s32 osVirtualToPhysical(s32), removing extra source arguments at two call sites; judged improvement to 9260. Further six independent local repair variants were equal/worse, no current candidate saved beyond this improvement. Main remaining mismatch starts with register/stack allocation ($s2 vs $s1 for arg0) and command buffer operations; target shows repeated address loads from D_80109A54 and command cursor stores (`addiu $v0,$s1,8; sw $v0,($s1)`) absent in current draft. Candidate has relocation warning R_MIPS_LITERAL requiring target $gp, despite current profile -G0; inspect gp dependency/target before tuning. Continue with saved best revision e8a712950b28353ccdc2, recheck if resumed.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795185436.6962318,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Volatile D_80115328 improved score 9260 to 8770 by preserving display-list pointer stores. Target begins coordinate computations and D_80109A54 load before display-list writes; restructure that block and inspect float scheduling. Reordering duplicate expressions or variable type changes did not improve. Linker warns R_MIPS_LITERAL needs unconfigured gp. Release token became stale after trials.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795185488.096388,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Concurrent claim ended while compiling. Candidate be8d41bc has too-few-argument errors for osVirtualToPhysical; replacing its prototype with an unprototyped declaration compiled at 9965, worse than historical 7010. Reconcile call signatures and saved candidate before further tuning.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795185543.4554062,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Corrected candidate 8860 uses volatile display-list pointer, removes artificial arguments to second osVirtualToPhysical, and corrects D_80100304 lookup to byte offset index*4 (target shifts index by 2). Local-repair variant 8850 omitted shift and is semantically wrong; do not restore it. Target uses lui/mtc1 for 1.0 but build reports R_MIPS_LITERAL without configured gp. Remaining FP scheduling, display-list store order and branches. Duplicate early coordinate calculations are optimized away.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795185708.6016388,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Changed osVirtualToPhysical prototype to unprototyped to permit the existing calls; compiled score 9965, but claim ended during compile. Remaining differences include display-list pointer updates and call argument scheduling.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795185724.821238,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Rechecked current candidate at 8770 (74.4%, target/candidate both 343 insns); improved historical 9260\u21928770. Target begins float field loads in order 0x60, 0x50, then global D_80109A54, then 0x54, 0x64, 0x58, with additions interleaved. Candidate currently loads 0x60 and 0x64 first and omits the early computations. Mismatch starts at instruction 20 (target lwc1 f2, candidate f10). No source correction yet.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795185829.5908191,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Trial d1d77977d70911b08ac3 scored 9200: volatile D_80115328, unprototyped osVirtualToPhysical, and remove extra arguments from its second call. Correcting D_80100304 pointer index from *4 to direct index produced target sll by 2 and same score (revision b6012e958fa741242fed). Candidate unexpectedly reverted between sequential calls; verify claim before proceeding.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795185900.589937,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Changing osVirtualToPhysical to an old-style declaration allowed the draft to compile and scored 9965; claim/candidate reverted immediately afterward. Next reconstruct D_80115328 display-list updates and byte indexing of D_80100304, and pass actual incoming arg0 to func_80034EFC.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795185938.6570969,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Claim state reset after a compile: changing osVirtualToPhysical prototype to unspecified arguments scored 9965, but subsequent patch saw old revision and get_claims reported no claim. Compare volatile display-list pointer and recover a currently verified baseline; historical best differs.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795185997.64963,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Machine draft failed due to osVirtualToPhysical prototype requiring four arguments. An unprototyped declaration compiles, score 9965, but tool reports historical better 8860 and ended claim during compile. Recover saved best and verify; inspect D_80100304 indexing and display-list pointer scheduling.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795185997.844342,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "The m2c draft compiles after changing osVirtualToPhysical to an unprototyped declaration; score 9965. The claim disappeared immediately after that compile. Next try removing the invented extra arguments to its calls, and correct D_80100304 indexing to word-sized entries.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795186071.4146821,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Rechecked score 9965. Corrected D_80100304 indexing from index * 4 on s32 pointer to index, same score but changes shift to 2. Claim ownership disappeared before further work. Target reloads D_80115328 between groups while candidate folds pointer updates; try volatile pointer global. Profile is -G8 with unresolved gp literal warning; compiler map suggests -G0.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795186246.52931,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_80035060",
-  "text": "Session capacity ending. Verified best 7865: moved coordinate calculations before display-list writes, corrected osVirtualToPhysical prototype and arguments and D_80100304 index. Volatile D_80115328 generated correct instruction count and fixed initial saved register but scored 8660; reordering x2 before y1 further regressed to 9350. Next investigate selective volatile display-list updates and early D_80109A54 load; target uses -G0 per compiler map while effective build is -G8 and emits unresolved gp literal for 1.0f. Previous -G0 trial on original candidate was 10025, not a match.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795186418.8210518,
-  "score_before": 5910,
-  "score_after": 5910
  },
  {
   "function": "func_800055CC",
@@ -61285,14 +61149,6 @@
   "score_after": 2955
  },
  {
-  "function": "func_80035060",
-  "text": "Recovered saved_best revision 27b2107c371f1ef15642; verified baseline 8040. Ran try_local_repairs families target_call_arity, signedness, declaration_order, branch_orientation, nested_guard, source_variable_reuse. No variant improved; move-on threshold reached 10/10. Existing notes indicate major float load/order mismatch early (target offsets 0x60,0x50, global, etc.; candidate loads 0x60/0x64 first). Next step: recover candidate and inspect early assembly to reconstruct scheduling/expressions.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795203997.758962,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
   "function": "func_800055CC",
   "text": "Rechecked baseline 2955; explicit signed-to-double conversions with conditional D_800D2008 removed anonymous relocation and improved to 2740. Assigning masked index back to arg2 improved to 2730. Register allocation and loop structure still differ. Removing register or volatile qualifiers and stride rearrangement did not change code; replacing second mask with arg2 worsened it.",
   "by": "codex-gpt-6.1-terra-2",
@@ -61307,14 +61163,6 @@
   "created_at": 1795207203.225174,
   "score_before": 2730,
   "score_after": 2730
- },
- {
-  "function": "func_80035060",
-  "text": "Inherited saved_best 27b2107c... rechecked 8040; my best 9ade45fa9846909fa0c3 now rechecks at 7715 (344 candidate vs 343 target instructions). Reordered coordinate calculations before display-list writes, improving 8040\u21927715. Further pointer type change and no-ops tied; wrapping pointer advance in do/while or marking volatile worsened. Local repairs (call arity, signedness, declaration order, branch orientation, split integer lifetime, nested guard) didn't improve. Residual early difference: target loads 0x60, 0x50, global pointer, computes x then loads 0x54, then 0x64/0x58; candidate schedules 0x54 and 0x64 before global pointer, yielding different FP regs/scheduler. Repeated repair calls exhausted move-on at 5/4. Next experiment: use typed fields for the 0x50..0x64 coordinate record and schedule explicit scalar arithmetic in target order, ensuring D_80109A54 global pointer load occurs between first and second float adds.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795207447.523037,
-  "score_before": 5910,
-  "score_after": 5910
  },
  {
   "function": "func_800055CC",
@@ -61349,33 +61197,6 @@
   "score_before": 8712,
   "score_after": 2730,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:be4a52e5c19fe5f4a9f6d9621f9a62427b6061d846e94c9272eb44c3aa33015f"
- },
- {
-  "function": "func_80035060",
-  "text": "Inherited 7570 best; confirmed with compile. Added missing extern declarations (no score change). Major mismatch remains early guard/save ordering, float and display-list global ordering, then register/branch drift. Prior function history documents 202+ trials; don't repeat. Next step: inspect full diff around target early instructions and test arg0 record layout/volatility to address initial 0x100 guard and float load scheduling.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795216202.325939,
-  "score_before": 9825,
-  "score_after": 7570,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
- },
- {
-  "function": "func_80035060",
-  "text": "Split coordinate lifetimes worsened; signedness and declaration ordering did not improve. Move-on threshold reached.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795227190.658124,
-  "score_before": 7570,
-  "score_after": 7570,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
- },
- {
-  "function": "func_80035060",
-  "text": "Saved candidate 720a926a47948bd7183d rechecked at 7570 (343 target vs 344 candidate instructions). A no-op patch also scored 7570. Candidate has D_80109A54 correctly declared s32, yet diff reports target raw address 0x80109A54 vs candidate 0x80115328; likely collision with incorrect sDisplayListCursor type/address in candidate (declared void * volatile but data address is 0x80115328; mismatch associated with cursor/global scheduling). Target begins prologue frame 0x38; early sequence loads object flags, then float fields and D_80109A54 before cursor; candidate loads cursor too early. Handoff notes also report best prior 7715 after reordered coordinate calculations; saved current best remains 7570. Next step: try a genuinely typed actor struct for fields flags@0x100, floats@0x50..0x64, s16@0x140 and type sDisplayListCursor as volatile u32 pointer/global cursor representation; test one systematic source variant. Watch name/address mismatches in diff.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795234946.014415,
-  "score_before": 7570,
-  "score_after": 7570,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
  },
  {
   "function": "func_800055CC",
@@ -61430,15 +61251,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:be4a52e5c19fe5f4a9f6d9621f9a62427b6061d846e94c9272eb44c3aa33015f"
  },
  {
-  "function": "func_80035060",
-  "text": "Fresh draft initially had incompatible osVirtualToPhysical calls. Single-argument calls and a word-indexed image table compiled at 9610. Volatile cursor and coordinate staging reached 8070; staging framebuffer/cursor around the conversion calls reached 6665; changing the late color branch reached 6325. Moving the fill declaration assignment below the first guard measured 5980. The app supplied a higher-scoring permuter candidate, restored before release.\nStaged cursor and conversion return values explicitly, then moved fill setup below the early guard. Tried unsigned RGB temps and a different late packing join.\nBest manual trial 5980. Unsigned RGB tied its 6325 base and late packing join scored 6330. The saved permuter revision reports historical 5815. Early rectangle scheduling and late color branches still differ.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795269490.6192079,
-  "score_before": 6035,
-  "score_after": 5980,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
- },
- {
   "function": "func_800055CC",
   "text": "[Released without compiling it once; notes not checked by a compile.] No compile this session. Saved best 2730 is heavily hacked (volatile pads, register local, do/while(0) wrappers). Next step: clean reconstruction with a typed struct for the cache block (s16 count at 0, s16 id at 2, data ptr at 4, f32 scale at 8/0xC/0x10, offset at 0x14/0x18/0x1C) and plain for-loops, then run compiler_experiments for -fno-strength-reduce.",
   "by": "claude-sonnet-low-1",
@@ -61454,14 +61266,6 @@
   "score_before": 1988,
   "score_after": 490,
   "handoff_inputs": "2dd4b92ca36f1e5eda25500cb4072dc92c895407546c84808d0c5ad632bbaa9a:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:be4a52e5c19fe5f4a9f6d9621f9a62427b6061d846e94c9272eb44c3aa33015f"
- },
- {
-  "function": "func_80035060",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Far from match (best ~5910); not attempted this session. Needs structural rewrite.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795310634.62211,
-  "score_before": 3337,
-  "score_after": 3337
  },
  {
   "function": "func_800055CC",
@@ -61480,33 +61284,6 @@
   "score_before": 195,
   "score_after": 195,
   "handoff_inputs": "2dd4b92ca36f1e5eda25500cb4072dc92c895407546c84808d0c5ad632bbaa9a:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:be4a52e5c19fe5f4a9f6d9621f9a62427b6061d846e94c9272eb44c3aa33015f"
- },
- {
-  "function": "func_80035060",
-  "text": "Improved 3337 -> 3202 by dropping volatile on local 'blue'. Remaining: frame 0x40 vs 0x38 (try dropping volatile on modeFlag too), D_80109A54 loaded via lui/lw in target vs lui/ori in candidate (read as s32 value not address), D_801007CF/D0 load order. Next step: remove volatile from modeFlag.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795313161.356578,
-  "score_before": 5980,
-  "score_after": 3202,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
- },
- {
-  "function": "func_80035060",
-  "text": "Recompiled saved best at 2490, 343 instructions on both sides. First mismatch is FPR assignment for arg0+0x60. Both framebuffer arguments already use the matched s32 prototype and value loads. No similar functions found.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795323155.855703,
-  "score_before": 3000,
-  "score_after": 2490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
- },
- {
-  "function": "func_80035060",
-  "text": "Judge reached its move-on threshold after expression-order, scheduling, and type trials. Verified baseline 2480; first mismatch is FPR f2 vs f4 at +0x60.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795323262.916509,
-  "score_before": 2490,
-  "score_after": 2480,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
  },
  {
   "function": "func_800055CC",
@@ -84164,5 +83941,237 @@
   "score_before": 379,
   "score_after": 379,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6b51b63aba6316416b00639149deece5165e44c2c74268e991f51ffa42ff2161"
+ },
+ {
+  "function": "func_80035060",
+  "text": "Rechecked saved candidate score 7230, then added missing extern declarations (same score). Tried volatile D_80115328, worsened to 7815; current candidate retained as exploratory. Local narrow_widening/signedness/declaration_order variants did not help. Target early branch is at +0x52c after call to func_80034EFC; draft jumps to +0x508. Main remaining mismatch is control flow and output pointer handling; inspect instructions around +0x52c and restructure initial float calculations to reproduce target's interleaved loads/additions. Ensure compile uses the claim's -G0 profile; current diff diagnostics mention unconfigured $gp due mismatch in effective setup.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795172471.5017679,
+  "score_before": 7010,
+  "score_after": 7010
+ },
+ {
+  "function": "func_80035060",
+  "text": "Session handoff: local inferred record layouts improved 7230 to 5910, revision 998ac753156712e146eb. Still 176 mismatch rows, especially register allocation, call scheduling and display-list stores. Linker warns R_MIPS_LITERAL requires unconfigured target gp; inspect literal handling and target before trusting exact comparison. Further local proposals remain; continue from saved candidate.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795184118.7969978,
+  "score_before": 7010,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Rechecked inherited candidate at 9965 under active -G8 profile. The brief maps this range to gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2; try_compiler on the inherited source under that profile scored 10025, improving 60 but still far from match. Local repairs (call scope, lifetime/storage reuse, inferred layout, masked reuse, signedness) produced no improvement or worse, and returned baseline retained. Main early mismatch is frame/register allocation (target saves arg pointer in $s2; candidate uses $s1), followed by missing/misordered floating loads and command buffer writes. Resume with real configured -G0 judge and inspect early target sequence, then prioritize restructuring startup computations/order. suggest rejected because candidate isn't exact under proposed profile.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795184195.2426329,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Best achieved score 7880 (77.0%) in attempt 25769868352. Key experiments: (1) byte-address the table load as `*((s32 *)((char *)&D_80100304 + D_8010A4B0*4))`, improving 9965\u21929565 and removing bad scaling instructions; (2) moved the initial command-buffer setup block (D_80115328 / E7000000 / FE000000 writes) after float-derived coordinate calculations, improving 9565\u21927880. Current candidate revision be8d41bc21b65585118d is the best source. Remaining major mismatches: target keeps arg0 in $s2 while candidate uses $s1; target loads D_80109A54 after the first two float loads and then performs float arithmetic in a specific order; candidate still has R_MIPS_LITERAL link diagnostic under its effective -G8 profile, while compiler map suggests -G0 (trial G0 was slightly worse at 10025). Local repairs and simple rewrites yielded no gains. Continue from this saved candidate, inspect source command ordering/lifetimes and use G0 only if testing further.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795185305.061252,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Rechecked draft score 9565, then corrected osVirtualToPhysical from unprototyped declaration to s32 osVirtualToPhysical(s32), removing extra source arguments at two call sites; judged improvement to 9260. Further six independent local repair variants were equal/worse, no current candidate saved beyond this improvement. Main remaining mismatch starts with register/stack allocation ($s2 vs $s1 for arg0) and command buffer operations; target shows repeated address loads from D_80109A54 and command cursor stores (`addiu $v0,$s1,8; sw $v0,($s1)`) absent in current draft. Candidate has relocation warning R_MIPS_LITERAL requiring target $gp, despite current profile -G0; inspect gp dependency/target before tuning. Continue with saved best revision e8a712950b28353ccdc2, recheck if resumed.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795185436.6962318,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Volatile D_80115328 improved score 9260 to 8770 by preserving display-list pointer stores. Target begins coordinate computations and D_80109A54 load before display-list writes; restructure that block and inspect float scheduling. Reordering duplicate expressions or variable type changes did not improve. Linker warns R_MIPS_LITERAL needs unconfigured gp. Release token became stale after trials.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795185488.096388,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Concurrent claim ended while compiling. Candidate be8d41bc has too-few-argument errors for osVirtualToPhysical; replacing its prototype with an unprototyped declaration compiled at 9965, worse than historical 7010. Reconcile call signatures and saved candidate before further tuning.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795185543.4554062,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Corrected candidate 8860 uses volatile display-list pointer, removes artificial arguments to second osVirtualToPhysical, and corrects D_80100304 lookup to byte offset index*4 (target shifts index by 2). Local-repair variant 8850 omitted shift and is semantically wrong; do not restore it. Target uses lui/mtc1 for 1.0 but build reports R_MIPS_LITERAL without configured gp. Remaining FP scheduling, display-list store order and branches. Duplicate early coordinate calculations are optimized away.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795185708.6016388,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Changed osVirtualToPhysical prototype to unprototyped to permit the existing calls; compiled score 9965, but claim ended during compile. Remaining differences include display-list pointer updates and call argument scheduling.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795185724.821238,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Rechecked current candidate at 8770 (74.4%, target/candidate both 343 insns); improved historical 9260\u21928770. Target begins float field loads in order 0x60, 0x50, then global D_80109A54, then 0x54, 0x64, 0x58, with additions interleaved. Candidate currently loads 0x60 and 0x64 first and omits the early computations. Mismatch starts at instruction 20 (target lwc1 f2, candidate f10). No source correction yet.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795185829.5908191,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Trial d1d77977d70911b08ac3 scored 9200: volatile D_80115328, unprototyped osVirtualToPhysical, and remove extra arguments from its second call. Correcting D_80100304 pointer index from *4 to direct index produced target sll by 2 and same score (revision b6012e958fa741242fed). Candidate unexpectedly reverted between sequential calls; verify claim before proceeding.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795185900.589937,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Changing osVirtualToPhysical to an old-style declaration allowed the draft to compile and scored 9965; claim/candidate reverted immediately afterward. Next reconstruct D_80115328 display-list updates and byte indexing of D_80100304, and pass actual incoming arg0 to func_80034EFC.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795185938.6570969,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Claim state reset after a compile: changing osVirtualToPhysical prototype to unspecified arguments scored 9965, but subsequent patch saw old revision and get_claims reported no claim. Compare volatile display-list pointer and recover a currently verified baseline; historical best differs.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795185997.64963,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Machine draft failed due to osVirtualToPhysical prototype requiring four arguments. An unprototyped declaration compiles, score 9965, but tool reports historical better 8860 and ended claim during compile. Recover saved best and verify; inspect D_80100304 indexing and display-list pointer scheduling.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795185997.844342,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "The m2c draft compiles after changing osVirtualToPhysical to an unprototyped declaration; score 9965. The claim disappeared immediately after that compile. Next try removing the invented extra arguments to its calls, and correct D_80100304 indexing to word-sized entries.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795186071.4146821,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Rechecked score 9965. Corrected D_80100304 indexing from index * 4 on s32 pointer to index, same score but changes shift to 2. Claim ownership disappeared before further work. Target reloads D_80115328 between groups while candidate folds pointer updates; try volatile pointer global. Profile is -G8 with unresolved gp literal warning; compiler map suggests -G0.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795186246.52931,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Session capacity ending. Verified best 7865: moved coordinate calculations before display-list writes, corrected osVirtualToPhysical prototype and arguments and D_80100304 index. Volatile D_80115328 generated correct instruction count and fixed initial saved register but scored 8660; reordering x2 before y1 further regressed to 9350. Next investigate selective volatile display-list updates and early D_80109A54 load; target uses -G0 per compiler map while effective build is -G8 and emits unresolved gp literal for 1.0f. Previous -G0 trial on original candidate was 10025, not a match.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795186418.8210518,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Recovered saved_best revision 27b2107c371f1ef15642; verified baseline 8040. Ran try_local_repairs families target_call_arity, signedness, declaration_order, branch_orientation, nested_guard, source_variable_reuse. No variant improved; move-on threshold reached 10/10. Existing notes indicate major float load/order mismatch early (target offsets 0x60,0x50, global, etc.; candidate loads 0x60/0x64 first). Next step: recover candidate and inspect early assembly to reconstruct scheduling/expressions.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795203997.758962,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Inherited saved_best 27b2107c... rechecked 8040; my best 9ade45fa9846909fa0c3 now rechecks at 7715 (344 candidate vs 343 target instructions). Reordered coordinate calculations before display-list writes, improving 8040\u21927715. Further pointer type change and no-ops tied; wrapping pointer advance in do/while or marking volatile worsened. Local repairs (call arity, signedness, declaration order, branch orientation, split integer lifetime, nested guard) didn't improve. Residual early difference: target loads 0x60, 0x50, global pointer, computes x then loads 0x54, then 0x64/0x58; candidate schedules 0x54 and 0x64 before global pointer, yielding different FP regs/scheduler. Repeated repair calls exhausted move-on at 5/4. Next experiment: use typed fields for the 0x50..0x64 coordinate record and schedule explicit scalar arithmetic in target order, ensuring D_80109A54 global pointer load occurs between first and second float adds.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795207447.523037,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_80035060",
+  "text": "Inherited 7570 best; confirmed with compile. Added missing extern declarations (no score change). Major mismatch remains early guard/save ordering, float and display-list global ordering, then register/branch drift. Prior function history documents 202+ trials; don't repeat. Next step: inspect full diff around target early instructions and test arg0 record layout/volatility to address initial 0x100 guard and float load scheduling.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795216202.325939,
+  "score_before": 9825,
+  "score_after": 7570,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
+ },
+ {
+  "function": "func_80035060",
+  "text": "Split coordinate lifetimes worsened; signedness and declaration ordering did not improve. Move-on threshold reached.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795227190.658124,
+  "score_before": 7570,
+  "score_after": 7570,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
+ },
+ {
+  "function": "func_80035060",
+  "text": "Saved candidate 720a926a47948bd7183d rechecked at 7570 (343 target vs 344 candidate instructions). A no-op patch also scored 7570. Candidate has D_80109A54 correctly declared s32, yet diff reports target raw address 0x80109A54 vs candidate 0x80115328; likely collision with incorrect sDisplayListCursor type/address in candidate (declared void * volatile but data address is 0x80115328; mismatch associated with cursor/global scheduling). Target begins prologue frame 0x38; early sequence loads object flags, then float fields and D_80109A54 before cursor; candidate loads cursor too early. Handoff notes also report best prior 7715 after reordered coordinate calculations; saved current best remains 7570. Next step: try a genuinely typed actor struct for fields flags@0x100, floats@0x50..0x64, s16@0x140 and type sDisplayListCursor as volatile u32 pointer/global cursor representation; test one systematic source variant. Watch name/address mismatches in diff.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795234946.014415,
+  "score_before": 7570,
+  "score_after": 7570,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
+ },
+ {
+  "function": "func_80035060",
+  "text": "Fresh draft initially had incompatible osVirtualToPhysical calls. Single-argument calls and a word-indexed image table compiled at 9610. Volatile cursor and coordinate staging reached 8070; staging framebuffer/cursor around the conversion calls reached 6665; changing the late color branch reached 6325. Moving the fill declaration assignment below the first guard measured 5980. The app supplied a higher-scoring permuter candidate, restored before release.\nStaged cursor and conversion return values explicitly, then moved fill setup below the early guard. Tried unsigned RGB temps and a different late packing join.\nBest manual trial 5980. Unsigned RGB tied its 6325 base and late packing join scored 6330. The saved permuter revision reports historical 5815. Early rectangle scheduling and late color branches still differ.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795269490.6192079,
+  "score_before": 6035,
+  "score_after": 5980,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
+ },
+ {
+  "function": "func_80035060",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Far from match (best ~5910); not attempted this session. Needs structural rewrite.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795310634.62211,
+  "score_before": 3337,
+  "score_after": 3337
+ },
+ {
+  "function": "func_80035060",
+  "text": "Improved 3337 -> 3202 by dropping volatile on local 'blue'. Remaining: frame 0x40 vs 0x38 (try dropping volatile on modeFlag too), D_80109A54 loaded via lui/lw in target vs lui/ori in candidate (read as s32 value not address), D_801007CF/D0 load order. Next step: remove volatile from modeFlag.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795313161.356578,
+  "score_before": 5980,
+  "score_after": 3202,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
+ },
+ {
+  "function": "func_80035060",
+  "text": "Recompiled saved best at 2490, 343 instructions on both sides. First mismatch is FPR assignment for arg0+0x60. Both framebuffer arguments already use the matched s32 prototype and value loads. No similar functions found.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795323155.855703,
+  "score_before": 3000,
+  "score_after": 2490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
+ },
+ {
+  "function": "func_80035060",
+  "text": "Judge reached its move-on threshold after expression-order, scheduling, and type trials. Verified baseline 2480; first mismatch is FPR f2 vs f4 at +0x60.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795323262.916509,
+  "score_before": 2490,
+  "score_after": 2480,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
+ },
+ {
+  "function": "func_80035060",
+  "text": "Best 2480. Plain s16 image global restores target lh and sll (2490), with scheduling differences. Volatile s16 yields lhu and two shifts (2795). Swapping width/index reads scored 2495. Reusing coordinate temporaries scored 2870.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795342429.94504,
+  "score_before": 2480,
+  "score_after": 2480,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
  }
 ]
