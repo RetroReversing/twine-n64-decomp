@@ -101,7 +101,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
               }
               else
               {
-                s1 = a2 | (arg2 & E(i).val);
+                s1 = (arg2 & E(i).val) | (u16) a2;
               }
               if (E(i).flags & 8)
               {

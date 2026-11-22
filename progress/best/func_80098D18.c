@@ -64,7 +64,7 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   u8 var_t0_3;
   u8 var_t0_4;
   s32 var_t1;
-  u8 var_v1;
+  u32 var_v1;
   void *temp_a0_2;
   arg2 &= 0xFFFF;
   if (D_80112DC0 == 0)
@@ -162,11 +162,9 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
         __repair_phase_temp_a0 = arg1 & 0xFF;
         if ((var_t2 & 0xFFFF) != 0xFFFF)
         {
-          var_v0_6 = ((unsigned) temp_a0) < temp_t0;
-          for (;;)
+          do
           {
-            if (var_v0_6)
-            {
+            if (temp_a0 >= temp_t0) goto block_58;
               var_v0_7 = var_t2 & 0xFFFF;
               var_t0_3 = *(D_8010957D + var_v0_7);
               var_v0_7 = var_t2 * 4;
@@ -192,16 +190,8 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
                 var_v0_7 = var_t2 * 4;
               }
               var_t2 = *((u16 *) (D_8010A51A + var_v0_7));
-              var_v0_6 = temp_a0 < temp_t0;
-              if (var_t2 == 0xFFFF)
-              {
-                var_v0_5 = arg1 & 0xFF;
-                goto block_36;
-              }
-              continue;
-            }
-            break;
-          }
+          } while (var_t2 != 0xFFFF);
+          goto block_36;
 
           goto block_58;
         }
@@ -315,14 +305,7 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
               {
                 D_801002EA = *((u8 *) (1 + ((char *) temp_a0_2)));
               }
-              if (var_t8 || D_80112DC0)
-              {
-                temp_t0_3 = *((u8 *) (((char *) temp_a0_2) + 1));
-              }
-              else
-              {
-                temp_t0_3 = *((u8 *) (((char *) temp_a0_2) + 1));
-              }
+              temp_t0_3 = *((u8 *) (((char *) temp_a0_2) + 1));
               if (temp_t0_3 != 0xFF)
               {
                 *(D_80117388 + (temp_t0_3 * 4)) = *((u8 *) (((char *) temp_a0_2) + 0));
@@ -357,9 +340,11 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
             if (var_v0_13 != 0)
             {
               D_8010A930 += 1;
-              return var_t1;
             }
-            D_8010D720 += 1;
+            else
+            {
+              D_8010D720 += 1;
+            }
             return var_t1;
           }
           goto block_77;

@@ -15,7 +15,7 @@ void func_800134D0(void *arg0)
   u16 *spC;
   register void *sp4;
   u32 sp1C;
-  volatile s32 sp2C;
+  s32 sp2C;
   s32 *var_a0_5;
   s32 temp_a1_3;
   s32 temp_s2;
@@ -528,8 +528,8 @@ void func_800134D0(void *arg0)
             var_t5_3 = (s32 *) (((s8 *) (&D_800B2CB8)) + temp_v0_4);
             do
             {
-              temp_v1_5 = spC[temp_a2 & sp2C];
               temp_a2 = *var_t5_3;
+              temp_v1_5 = spC[temp_a2 & (u32)sp2C];
               var_a1_5 = temp_a2 >> var_s3;
               do
               {
@@ -721,4 +721,5 @@ void func_800134D0(void *arg0)
 
   goto loop_17;
 }
+
 

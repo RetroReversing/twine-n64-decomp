@@ -232,7 +232,7 @@ void func_8011D3C0(void)
         sprintf(temp_s0_2, &D_8011F018);
         *((s16 *) (((char *) temp_v0) + 0x1C)) = 1;
         D_8011F3D0[(unsigned short) temp_s0] = temp_v0;
-        var_a0_3 = (u32) var_fs2;
+        var_a0_3 = (u16)(u32) var_fs2;
         if (!(var_fs0 >= 2.1474836e9f))
         {
           var_a1_2 = (s32) var_fs0;

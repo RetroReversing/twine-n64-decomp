@@ -126,8 +126,6 @@ void func_80069DCC(void *arg0)
    union { CopyVec3 value; unsigned int words[3]; } collision;
    u32 after_collision[2];
    volatile f32 speed;
-   u32 after_speed;
-   void * roads;
    
   } frame;
   f32 motion_24;
@@ -350,7 +348,6 @@ void func_80069DCC(void *arg0)
   entry_road = *((void **) (((char *) arg0) + 0x20));
   temp_s1 = *((void **) (((char *) arg0) + 0x6C));
   entry_mode = D_80103EB0;
-  frame.roads = entry_road;
   temp_s4 = inline_fn((char *) temp_s1, 0x182);
 
   if (entry_mode == 0)
@@ -526,7 +523,7 @@ case 2: case 3: goto out_of_line_actor;
    actor_in_motion:
 
    roll.bits = (u32)arg0 & ~(u32)arg0;
-   frame.speed = 0.0f;
+   frame.speed = roll.number;
    D_800E1A1C = 0.0f;
    {
    f32 var_s5 = 0.0f;
@@ -759,7 +756,7 @@ case 2: case 3: goto out_of_line_actor;
              *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x30)) = 0;
            }
          }
-         func_800698D8(arg0, temp_fs5, probeTrackSteerAngle(frame.roads, arg0));
+         func_800698D8(arg0, temp_fs5, probeTrackSteerAngle(entry_road, arg0));
          if (func_800818AC(temp_s4, 0xC) != 0)
          {
            if ((inline_fn((char *) temp_s1, 0x180) == 0) && (!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x20)))
@@ -912,13 +909,13 @@ case 2: case 3: goto out_of_line_actor;
        if (!(((s32) (*((u32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC)))) & 0x410000))
        {
          var_fs3 = func_80081B44(temp_s4, 0, 1);
-         func_800698D8(arg0, var_fs3, probeTrackSteerAngle(frame.roads, arg0));
+         func_800698D8(arg0, var_fs3, probeTrackSteerAngle(entry_road, arg0));
          temp_v1_28 = *((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC));
          if (!(temp_v1_28 & 1))
          {
            if ((temp_v1_28 & 8) && ((func_800819EC((s32) temp_s4, 0xD) != 0) || (func_800819EC((s32) temp_s4, 0xC) != 0)))
            {
-             if ((func_8004BCC0(frame.roads, arg0 + 0x24, &frame.collision.value.x, 2.0f) << 0x18) == 0)
+             if ((func_8004BCC0(entry_road, arg0 + 0x24, &frame.collision.value.x, 2.0f) << 0x18) == 0)
              {
                frame.collision.value = *((CopyVec3 *) (((char *) arg0) + 0x24));
                frame.collision.value.y += 2.0f;
@@ -926,7 +923,7 @@ case 2: case 3: goto out_of_line_actor;
              if (((*((f32 *) (((char *) arg0) + 0x28))) + 1.46f) < frame.collision.value.y)
              {
                func_80002D50(arg0, 0x177);
-               func_800635BC(arg0, 0);
+               func_800635BC(arg0, (s32) roll.bits);
                temp_v1_29 = *((void **) (((char *) arg0) + 0x68));
                *((u16 *) (((char *) temp_v1_29) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_29) + 0xC))) | 0x40);
              }
@@ -1153,7 +1150,7 @@ case 2: case 3: goto out_of_line_actor;
            else
              if ((*((f32 *) (((char *) temp_s1) + 0x14))) < temp_fs0_3)
            {
-             if ((func_8004BCC0(frame.roads, arg0 + 0x24, &frame.collision.value.x, 2.0f) << 0x18) == 0)
+             if ((func_8004BCC0(entry_road, arg0 + 0x24, &frame.collision.value.x, 2.0f) << 0x18) == 0)
              {
                frame.collision.value = *((CopyVec3 *) (((char *) arg0) + 0x24));
                frame.collision.value.y += 2.0f;
@@ -1233,7 +1230,7 @@ case 2: case 3: goto out_of_line_actor;
          {
            *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x30)) = 0;
            func_80002BD0(arg0, 0x159);
-           func_800635BC(arg0, 0);
+           func_800635BC(arg0, (s32) roll.bits);
          }
            break;
 
@@ -1308,7 +1305,7 @@ case 2: case 3: goto out_of_line_actor;
          var_fs3 = var_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40)));
          *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
          *((s8 *) (((char *) temp_s1) + 0x188)) = 0x14;
-         func_800635BC(arg0, 0);
+         func_800635BC(arg0, (s32) roll.bits);
          *((f32 *) (((char *) temp_s1) + 0x38)) = 0.0f;
          var_s6 = var_fs3;
          *((s8 *) (((char *) temp_s1) + 0x17E)) = (unsigned char) 2;
@@ -1526,7 +1523,7 @@ case 2: case 3: goto out_of_line_actor;
      {
        *((void **) (((char *) temp_s1) + 0xBC)) = NULL;
        *((s8 *) (((char *) temp_s1) + 0x184)) = 0;
-       func_800635BC(arg0, 0);
+       func_800635BC(arg0, (s32) roll.bits);
        temp_v1_33 = *((void **) (((char *) arg0) + 0x68));
        *((u8 *) (((char *) temp_v1_33) + 0x10)) = (u8) (*((u8 *) (((char *) temp_v1_33) + 0xE)));
        *((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xF)) = (s8) (*((u16 *) (((char *) temp_s1) + 0x134)));
@@ -1591,10 +1588,10 @@ case 2: case 3: goto out_of_line_actor;
      case 4:
        temp_fs1_2 = (*((f32 *) (((char *) arg0) + 0x3C))) - ((*((f32 *) (((char *) temp_s1) + 0x34))) * 1024.0f);
        temp_fs5 = func_80081B44(temp_s4, 0, 1);
-       if (((*((f32 *) (((char *) (*((void **) (((char *) frame.roads) + 0x20)))) + 0x5C))) + 0.3f) <= (*((f32 *) (((char *) arg0) + 0x28))))
+       if (((*((f32 *) (((char *) (*((void **) (((char *) entry_road) + 0x20)))) + 0x5C))) + 0.3f) <= (*((f32 *) (((char *) arg0) + 0x28))))
      {
        frame.speed = 0.0f;
-       func_800635BC(arg0, 0);
+       func_800635BC(arg0, (s32) roll.bits);
        *((f32 *) (((char *) arg0) + 0x3C)) = frame.speed;
        *((s8 *) (((char *) temp_s1) + 0x17E)) = 2;
      }
@@ -1701,7 +1698,7 @@ case 2: case 3: goto out_of_line_actor;
        temp_v1_34 = *((void * volatile *) (((char *) arg0) + 0x68));
        *((f32 *) (((char *) temp_v1_34) + 0x34)) = 0.0f;
        var_s5 += x_frame;
-       var_fs3 = (*((f32 *) (((char *) (*((void **) (((char *) frame.roads) + 0x20)))) + 0x5C))) - 0.3f;
+       var_fs3 = (*((f32 *) (((char *) (*((void **) (((char *) entry_road) + 0x20)))) + 0x5C))) - 0.3f;
        var_fp -= y_frame;
        temp_fv1_12 = *((f32 *) (((char *) arg0) + 0x28));
        var_s6 += z_frame;
@@ -1778,7 +1775,7 @@ case 2: case 3: goto out_of_line_actor;
 
        case 2:
          frame.speed = 0.0f;
-         func_800635BC(arg0, 0);
+         func_800635BC(arg0, (s32) roll.bits);
          *((f32 *) (((char *) arg0) + 0x3C)) = frame.speed;
          *((s16 *) (((char *) (*((void **) (((char *) temp_s1) + 0xBC)))) + 0x7A)) = 5;
          temp_v1_36 = *((void **) (((char *) arg0) + 0x68));
@@ -1971,7 +1968,7 @@ case 4:
 
        }
 
-       func_800179E8(arg0 + 0x24, frame.roads, D_800E1A28, D_800E1A2C);
+       func_800179E8(arg0 + 0x24, entry_road, D_800E1A28, D_800E1A2C);
              break;
 case 2:
 case 3:
