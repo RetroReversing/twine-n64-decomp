@@ -225,32 +225,28 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
     }
     var_s1_4 = 0;
     *((s8 *) (((char *) temp_s2) + 0xFC5)) = 0;
-    var_a0_6 = temp_s2;
-    var_v1_2 = temp_s2;
     var_a1_3 = (void *) ((*((s32 *) (((char *) arg3) + 0))) + ((s32) arg3));
     do
     {
       *((&D_80102FDC) + var_s1_4) = 0x7F;
-      *((s32 *) (((char *) var_v1_2) + 0x130)) = 0;
-      *((s32 *) (((char *) var_v1_2) + 0x134)) = 0;
-      *((s32 *) (((char *) var_a0_6) + 0x574)) = 0;
-      *((s32 *) (((char *) var_a0_6) + 0x578)) = 0;
-      *((s32 *) (((char *) var_a0_6) + 0x57C)) = 0;
+      *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x130)) = 0;
+      *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x134)) = 0;
+      *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x28) + 0x574)) = 0;
+      *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x28) + 0x578)) = 0;
+      *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x28) + 0x57C)) = 0;
       temp_v0_4 = *var_a1_3;
       temp_v0_5 = (void *) (temp_v0_4 + ((s32) arg3));
       if (temp_v0_4 != 0)
       {
-        *((void **) (((char *) var_v1_2) + 0x128)) = temp_v0_5;
-        *((void **) (((char *) var_v1_2) + 0x12C)) = temp_v0_5;
+        *((void **) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x128)) = temp_v0_5;
+        *((void **) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x12C)) = temp_v0_5;
       }
       else
       {
- do { *((void **) (((char *) var_v1_2) + 0x128)) = NULL; *((void **) (((char *) var_v1_2) + 0x12C)) = NULL; } while (0);
+ do { *((void **) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x128)) = NULL; *((void **) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x12C)) = NULL; } while (0);
       }
       var_a1_3 = (s32 *) (((u8 *) var_a1_3) + 4);
-      var_a0_6 += 0x28;
       var_s1_4 += 1;
-      var_v1_2 += 0x10;
     }
     while (var_s1_4 < 0x40);
     var_s1_5 = 0;
@@ -382,3 +378,4 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
   }
   return -1;
 }
+

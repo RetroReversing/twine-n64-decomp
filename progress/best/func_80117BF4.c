@@ -34,7 +34,7 @@ typedef struct SearchRow
 } SearchRow;
 extern SearchMap func_8011EB60[];
 extern s16 D_8011EB60;
-extern u8 D_0054D910[];
+extern u8 D_54D910[];
 extern SearchRow *sSearchEntries;
 extern s32 sSearchEntryCount;
 extern void dmaRomToRamUnaligned(u8 *, s32, u32);
@@ -65,24 +65,21 @@ void func_80117BF4(s32 map)
     s32 key = (s16) map;
     s32 sentinel = -1;
     s16 *entry = (s16 *) func_8011EB60;
-    s32 id;
     map = 0;
-    id = *entry;
     do
     {
-      entry += 4;
-      if (key == id)
+      if (*entry == key)
       {
         offset = *((s32 *) (0x8011EB64 + map));
         goto found;
       }
-      id = *entry;
+      entry += 4;
       map += 8;
     }
-    while (id != sentinel);
+    while (*entry != sentinel);
   }
   found:
-  base = (s32) D_0054D910;
+  base = (s32) D_54D910;
 
   dmaRomToRamUnaligned((u8 *) (&header), offset + base, 16);
   *((SearchRow **) 0x8011F068) = heapAllocTagged(0xB000, 0x34);
@@ -100,7 +97,7 @@ void func_80117BF4(s32 map)
     i = 0;
     do
     {
-      SearchRow *row = (SearchRow *) (i + ((u8 *) sSearchEntries));
+      SearchRow *row = &sSearchEntries[i];
       u8 *cursor = ((u8 *) row) + 0x3C;
       void *object;
       row->point = points;
@@ -111,13 +108,13 @@ void func_80117BF4(s32 map)
         cursor -= 4;
       }
       while ((--j) >= 0);
-      object = probeFindNearestObject(((SearchRow *) (i + ((u8 *) sSearchEntries)))->point);
+      object = probeFindNearestObject(sSearchEntries[i].point);
       points++;
-      ((SearchRow *) (i + ((u8 *) sSearchEntries)))->object = object;
+      sSearchEntries[i].object = object;
       sSearchEntryCount++;
-      i += sizeof(SearchRow);
+      i++;
     }
-    while (i < (pointCount * ((s32) (sizeof(SearchRow)))));
+    while (i < pointCount);
   }
   {
     s32 k = 0;
@@ -127,13 +124,13 @@ void func_80117BF4(s32 map)
       SearchEdge *edge = edges;
       do
       {
-        s16 a = edge->a;
-        s16 b = inline_fn(edge->b);
+        s16 a = inline_fn(edge->a);
+        s16 b = edge->b;
         SearchRow *to;
         u8 *cursor;
         j = 0;
-        cursor = (u8 *) (&rows[a]);
         to = &rows[b];
+        cursor = (u8 *) (&rows[a]);
         forward:
         j++;
 

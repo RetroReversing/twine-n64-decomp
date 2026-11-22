@@ -125,6 +125,10 @@ void func_80069DCC(void *arg0)
   f32 motion_44;
   s32 init_mode;
   void *obj_local;
+  f32 var_fs3_z;
+  f32 joy_phase;
+  f32 joy_stage;
+  f32 x_frame, y_frame, z_frame;
   f32 temp_fa0;
   f32 temp_fa0_2;
   f32 temp_fa0_3;
@@ -1569,8 +1573,9 @@ case 2: case 3: goto out_of_line_actor;
         D_800C7DC4 = temp_fs0_5 * (cosTableLookup(D_800E1A10 * 3.0f) * 0.1f);
         *__base_D_800C7DBC = var_fs3;
         D_800E1A10 += 0.01f;
+        joy_phase = func_80081B44(temp_s4, 4, 5);
         temp_fv1_8 = *((f32 *) (((char *) temp_s1) + 0x48));
-        temp_fv0_29 = (((func_80081B44(temp_s4, 4, 5) * 32.0f) - temp_fv1_8) * 0.1f) + temp_fv1_8;
+        temp_fv0_29 = (((joy_phase * 32.0f) - temp_fv1_8) * 0.1f) + temp_fv1_8;
         *((f32 *) (((char *) temp_s1) + 0x48)) = temp_fv0_29;
         if (temp_fv0_29 < (-32.0f))
         {
@@ -1609,9 +1614,11 @@ case 2: case 3: goto out_of_line_actor;
           *((f32 *) (((char *) temp_s1) + 0x5C)) = 0.05f;
         }
         spherical_to_cartesian(frame.vector, *((f32 *) inline_fn23((char *) temp_s1, 0x5C)), (*((f32 *) (((char *) arg0) + 0x40))) * 0.0015339808f, (temp_fs4 * 0.0015339808f) - 1.5707964f);
-        var_fp = 0.0f - frame.vector[1];
+        var_s5 = (temp_s5 + var_fs3) + frame.vector[0];
+        var_fp -= frame.vector[1];
+        joy_stage = func_80081B44(temp_s4, 2, 3);
         temp_fv1_10 = *((f32 *) (((char *) temp_s1) + 0x50));
-        temp_fv0_31 = (((func_80081B44(temp_s4, 2, 3) * 0.05f) - temp_fv1_10) * 0.05f) + temp_fv1_10;
+        temp_fv0_31 = (((joy_stage * 0.05f) - temp_fv1_10) * 0.05f) + temp_fv1_10;
         *((f32 *) (((char *) temp_s1) + 0x50)) = temp_fv0_31;
         if (temp_fv0_31 < (-0.05f))
         {
@@ -1627,10 +1634,10 @@ case 2: case 3: goto out_of_line_actor;
           *((f32 *) (((char *) temp_s1) + 0x50)) = 0.05f;
         }
         var_fs3_8 = *((f32 *) (((char *) temp_s1) + 0x50));
-        var_s5 = ((temp_s5 + var_fs3) + frame.vector[0]) + (var_fs3_8 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
+        var_s5 += (var_fs3_8 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
+        var_s6 = ((temp_s6 + D_800C7DC4) + frame.vector[2]) + (var_fs3_8 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         temp_ft1_2 = *inline_fn2(temp_s1);
         temp_fv1_11 = (((temp_fs5_2 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
-        var_s6 = ((temp_s6 + D_800C7DC4) + frame.vector[2]) + (var_fs3_8 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         *((f32 *) (((char *) temp_s1) + 0x4C)) = (((temp_fs5_2 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
         if (temp_fv1_11 < (-0.15f))
         {
@@ -1642,13 +1649,16 @@ case 2: case 3: goto out_of_line_actor;
           *inline_fn2(temp_s1) = 0.15f;
         }
         spherical_to_cartesian(frame.vector, *((f32 *) (((char *) temp_s1) + 0x4C)), (*((f32 *) (((char *) arg0) + 0x40))) * 0.0015339808f, temp_fs4 * 0.0015339808f);
+        x_frame = frame.vector[0];
+        y_frame = frame.vector[1];
+        z_frame = frame.vector[2];
         temp_v1_34 = *((void **) (((char *) arg0) + 0x68));
         *((f32 *) (((char *) temp_v1_34) + 0x34)) = 0.0f;
-        var_s5 = var_s5 + frame.vector[0];
+        var_s5 += x_frame;
         var_fs3 = (*((f32 *) (((char *) (*((void **) (((char *) frame.roads) + 0x20)))) + 0x5C))) - 0.3f;
-        var_fp -= frame.vector[1];
+        var_fp -= y_frame;
         temp_fv1_12 = *((f32 *) (((char *) arg0) + 0x28));
-        var_s6 = var_s6 + frame.vector[2];
+        var_s6 += z_frame;
         if (temp_fv1_12 < var_fs3)
         {
           if (var_fs3 < (temp_fv1_12 + var_fp))

@@ -88,14 +88,17 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
         while (0);
         if (temp_v1 & 0x1000)
         {
-          var_a1 = *((volatile u16 *) (((char *) var_s0) + 0x22));
-          var_a3 = *((volatile u8 *) (((char *) var_s0) + 0x28));
-          if (gHiResScreen)
+          u16 top = *(volatile u16 *) ((char *) var_s0 + 0x22);
+          u32 bottom = *(volatile u8 *) ((char *) var_s0 + 0x28);
+          int hiRes = *(int *) &gHiResScreen;
+          u32 left = *(u16 *) ((char *) var_s0 + 0x20);
+          u32 right = *(u16 *) ((char *) var_s0 + 0x24);
+          if (hiRes)
           {
-            var_a3 *= 2;
-            var_a1 *= 2;
+            bottom <<= 1;
+            top <<= 1;
           }
-          SetScissorRect(*((u16 *) (((char *) var_s0) + 0x20)), var_a1 & 0xFFFF, *((u16 *) (((char *) var_s0) + 0x24)), var_a3);
+          SetScissorRect(left, top & 0xFFFF, right, bottom);
         }
         else
           if (temp_v1 & 0x2000)

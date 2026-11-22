@@ -1,5 +1,5 @@
 s32 func_80048794(unsigned int, s32);
-s32 func_800820B0(s32);
+unsigned int func_800820B0(s32);
 extern f64 D_800D48B0;
 extern f64 D_800D48B8;
 extern f64 D_800D48C0;
@@ -32,6 +32,7 @@ void func_8007560C(void)
 {
   s32 var_a0;
   f32 temp_fs0_2;
+f32 __repair_phase_temp_fs0_2;
   f32 temp_fs0_3;
   u32 temp_v1;
   f32 temp_fs0_5;
@@ -44,6 +45,7 @@ void func_8007560C(void)
   register f32 temp_fs4;
   f32 var_a1;
   f32 var_a2;
+  f32 __repair_var_a2_1;
   register f32 var_a3;
   f64 temp_fs0;
   f64 var_fv0;
@@ -57,9 +59,9 @@ void func_8007560C(void)
   void *temp_s4;
   void *temp_v1_2;
   void *var_a0_2;
-  volatile s32 offsetSeed = 0;
+  unsigned long offsetSeed;
   unsigned int xOffset;
-  unsigned int yOffset = offsetSeed;
+  unsigned int yOffset = 0;
   f32 height;
   xOffset = offsetSeed;
   {
@@ -74,7 +76,14 @@ void func_8007560C(void)
   }
   if (gMenuRootObject == NULL)
   {
-    func_80048794(4, gProbeObjectList);
+    if (sTrackMarkerTable)
+    {
+      func_80048794(4, gProbeObjectList);
+    }
+    else
+    {
+      func_80048794(4, gProbeObjectList);
+    }
   }
   func_8004844C(gMenuRootObject, 160.0f, 120.0f, 320.0f, 240.0f, (f32) (var_fv1 = (f64) xOffset), (f32) yOffset);
   *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) & 0xEF);
@@ -84,7 +93,7 @@ void func_8007560C(void)
   {
     func_80048794(5, gProbeObjectList);
   }
-  func_8004844C(D_8010969C, 160.0f, 120.0f, 320.0f, 240.0f, (f32) (var_fv1_2 = (f64) xOffset), (f32) yOffset);
+  func_8004844C(D_8010969C, 160.0f, 120.0f, 320.0f, 240.0f, (f32) (var_fv1_2 = (f64) xOffset), (f32) 0);
   *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) & 0xDF);
   *((u8 *) (((char *) (&D_8010A4C3)) + (-2))) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + (-2)))) & 0xDF);
   gSceneFlagsB |= 0x20;
@@ -95,10 +104,20 @@ void func_8007560C(void)
     {
       func_80048794(0, gProbeObjectList);
     }
-    var_fv1_3 = (f64) 0;
-    func_8004844C(sTrackMarkerTable[0], 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
-    var_a0 = 1;
-    goto block_75;
+    if (gMenuRootObject)
+    {
+      var_fv1_3 = (f64) 0;
+      func_8004844C(sTrackMarkerTable[0], 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
+      var_a0 = 1;
+      goto block_75;
+    }
+    else
+    {
+      var_fv1_3 = (f64) 0;
+      func_8004844C(sTrackMarkerTable[0], 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
+      var_a0 = 1;
+      goto block_75;
+    }
   }
   if ((0 - 1) < (gSaveTotalSlots - 1))
   {
@@ -179,11 +198,11 @@ void func_8007560C(void)
     }
       if (gBorderFlipFlag == 1)
     {
-      temp_fs0_2 = inline_fn(160.0f, 0.5f);
-      func_8004844C(sTrackMarkerTable[0], temp_fs0_2, 120.0f, 160.0f, inline_fn(2.0f, 120.0f), inline_fn2(), 1.0f);
+      __repair_phase_temp_fs0_2 = inline_fn(160.0f, 0.5f);
+      func_8004844C(sTrackMarkerTable[0], __repair_phase_temp_fs0_2, 120.0f, 160.0f, inline_fn(2.0f, 120.0f), inline_fn2(), 1.0f);
       var_a0_2 = sTrackMarkerTable[1];
       var_a2 = 120.0f;
-      var_a1 = 160.0f + temp_fs0_2;
+      var_a1 = 160.0f + __repair_phase_temp_fs0_2;
       var_a3 = 160.0f;
       height = 240.0f;
     }
@@ -195,10 +214,10 @@ void func_8007560C(void)
       var_a1 = 160.0f;
       var_a3 = temp_fs2;
       height = 120.0f;
-      var_a2 = 120.0f + temp_fs0_3;
+      __repair_var_a2_1 = 120.0f + temp_fs0_3;
     }
       block_74:
-    func_8004844C(var_a0_2, var_a1, var_a2, var_a3, height, 1.0f, 1.0f);
+    func_8004844C(var_a0_2, var_a1, __repair_var_a2_1, var_a3, height, 1.0f, 1.0f);
 
       var_a0 = 0;
       block_75:
@@ -225,11 +244,11 @@ void func_8007560C(void)
     }
       ;
       temp_fs0_2 = inline_fn(120.0f, 0.5f);
-      func_8004844C(sTrackMarkerTable[0], inline_fn(160.0f, 0.5f), temp_fs0_2, 160.0f, 120.0f, 1.0f, 1.0f);
+      func_8004844C(sTrackMarkerTable[0], inline_fn(160.0f, (long) 0.5f), temp_fs0_2, 160.0f, 120.0f, 1.0f, 1.0f);
       temp_fs3 = temp_fs2_2 + 160.0f;
       func_8004844C(sTrackMarkerTable[1], temp_fs3, temp_fs0_2, 160.0f, 120.0f, 1.0f, (double) 1.0f);
       func_8004844C(sTrackMarkerTable[2], inline_fn(160.0f, 0.5f), temp_fs0_2, 160.0f, 120.0f, 1.0f, 1.0f);
-      {
+    {
       temp_fs0_2 = 120.0f + temp_fs0_2; var_a0_2 = sTrackMarkerTable[3]; var_a1 = temp_fs3; var_a3 = 160.0f; var_a2 = temp_fs0_2; height = 120.0f;
     }
       goto block_74;
@@ -254,9 +273,9 @@ void func_8007560C(void)
       ;
       temp_fs4 = inline_fn(120.0f, 0.5f);
       temp_fs1 = inline_fn(120.0f, 0.5f);
-      func_8004844C(sTrackMarkerTable[0], inline_fn(160.0f, 0.5f), temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
-      temp_fs3_2 = temp_fs2_3 + 160.0f;
-      func_8004844C(sTrackMarkerTable[1], temp_fs3_2, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
+      func_8004844C(sTrackMarkerTable[0], inline_fn(160.0f, (short) 0.5f), temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
+      ;
+      func_8004844C(sTrackMarkerTable[1], temp_fs2_3 + 160.0f, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
       func_8004844C(sTrackMarkerTable[2], inline_fn(160.0f, 0.5f), (char) (120.0f + temp_fs4), 160.0f, 120.0f, 1.0f, 1.0f);
       var_a0_2 = sTrackMarkerTable[3];
       var_a1 = temp_fs3_2;
