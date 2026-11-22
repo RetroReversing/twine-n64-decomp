@@ -160,12 +160,21 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
     var_a1 = temp_a0_2;
     if (0 > temp_a0_2)
     {
- do { var_a1 = temp_t0 + 0x10; } while (0);
+      do
+      {
+        var_a1 = temp_t0 + 0x10;
+      }
+      while (0);
     }
     temp_v0_4 = var_a1 >> 4;
     if (temp_v0_4 > 0)
     {
       var_a1 = (var_a2 / temp_v0_4) & 0xFFF;
+    }
+    else
+      if (temp_t2_3)
+    {
+      var_a1 = var_a2 & 0xFFF;
     }
     else
     {
@@ -429,3 +438,4 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
     ((__repair_field_4 *) temp_v0_6)->value = 0;
   }
 }
+

@@ -73,19 +73,12 @@ void func_800740D0(void *arg0)
         entry += *((u8 *) ((char *) temp_s1 + 0x34));
         temp_v1_8 = entry;
       }
-      if (*temp_v1_8 == *((s32 *) ((char *) temp_s1 + 0x18)))
+      if (*(volatile s32 *)temp_v1_8 == *((s32 *) ((char *) temp_s1 + 0x18)))
     {
       temp_s3 = *((void **) (((char *) temp_s1) + 4));
       if (((*((f32 *) (((char *) temp_s1) + 0xC))) != 65536.0f) && (func_80045590(temp_s1 + 8, sBonusObjectTable + 0x24) > (2.0f * (*((f32 *) (((char *) temp_s1) + 0x28))))))
       {
-        if (temp_v1_8)
-        {
-          var_s0 = getObjectListHead();
-        }
-        else
-        {
-          var_s0 = getObjectListHead();
-        }
+        var_s0 = getObjectListHead();
         while (var_s0 != NULL)
         {
           if (((*((u16 *) (((char *) var_s0) + 0x78))) == 0x19) && ((*((s32 *) (((char *) (*((void **) (((char *) var_s0) + 0x6C)))) + 0x20))) == (*((s32 *) (((char *) temp_s1) + 0x20)))))
@@ -197,9 +190,10 @@ void func_800740D0(void *arg0)
           temp_v1_5 = *((s32 *) (((char *) temp_s1) + 0x24));
           if (temp_v1_5 != 0)
           {
-            temp_v1_6 = temp_v1_5 & 0xFF;
             if (temp_v1_5 >= 0)
             {
+              temp_v1_5 &= 0xFF;
+              temp_v1_6 = temp_v1_5;
               gTrackMarkerDone[temp_v1_6] = gTrackMarkerDone[temp_v1_6] ^ 1;
             }
           }
@@ -231,7 +225,7 @@ void func_800740D0(void *arg0)
       temp_a1_3 = temp_a1_2;
       if (temp_a1_2 != 0)
     {
-      temp_v0_7 = (*((u8 *) (((char *) temp_s1) + 0x33))) * 7;
+      temp_v1_5 = (*((u8 *) (((char *) temp_s1) + 0x33))); temp_v0_7 = temp_v1_5 * 7;
       temp_v1_8 = &D_8010D380;
       temp_v1_8 += temp_v0_7;
       temp_v1_8 += temp_a1_3;

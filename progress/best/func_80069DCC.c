@@ -272,6 +272,7 @@ void func_80069DCC(void *arg0)
   s32 var_v1_18;
   s32 var_v1_19;
   s32 var_v1_20;
+  s32 repair_guard_fold_bits;
   s32 var_v1_21;
   s32 var_v1_22;
   s32 var_v1_23;
@@ -923,14 +924,15 @@ case 2: case 3: goto out_of_line_actor;
               if ((*((s16 *) (((char *) arg0) + 0x7C))) != 0)
             {
               var_fs3 = func_80081B44(temp_s4, 4, 5);
-              temp_fv0_11 = var_fs3;
+              temp_fv1_4 = var_fs3;
               var_fs3 = var_fs3 * var_fs3;
-              if (temp_fv0_11 < 0.0f)
+              if (temp_fv1_4 < 0.0f)
               {
                 var_fs3 = -var_fs3;
               }
+              var_fs3 *= 82.8f;
               temp_fv0_12 = *((f32 *) (((char *) temp_s1) + 0x48));
-              temp_fv1_4 = (((var_fs3 * 82.8f) - temp_fv0_12) * 0.8f) + temp_fv0_12;
+              temp_fv1_4 = ((var_fs3 - temp_fv0_12) * 0.8f) + temp_fv0_12;
               *((f32 *) (((char *) temp_s1) + 0x48)) = temp_fv1_4;
               if (temp_fv1_4 < (-82.8f))
               {
@@ -1091,9 +1093,9 @@ case 2: case 3: goto out_of_line_actor;
         {
           *((f32 *) (((char *) temp_s1) + 0x50)) = var_fv1_5;
         }
-        temp_fs1_2 = *((f32 *) (((char *) temp_s1) + 0x50));
-        var_s5 += temp_fs1_2 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f);
-        var_s6 += temp_fs1_2 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f);
+        temp_fs1 = *((f32 *) (((char *) temp_s1) + 0x50));
+        var_s5 += temp_fs1 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f);
+        var_s6 += temp_fs1 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f);
       }
         goto block_430;
 
@@ -1392,12 +1394,13 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v1_21 = 0;
             }
+            repair_guard_fold_bits = var_v1_21 ^ 1;
             var_v0_22 = 1;
             if (!(var_fs3 >= (-0.0002f)))
             {
               var_v0_22 = 0;
             }
-            if (((var_v0_22 ^ 1) | (var_v1_21 ^ 1)) != 0)
+            if (((var_v0_22 ^ 1) | repair_guard_fold_bits) != 0)
             {
               *((f32 *) (((char *) arg0) + 0x40)) = (f32) (temp_fv1_7 + 2048.0f);
             }
@@ -1656,9 +1659,10 @@ case 2: case 3: goto out_of_line_actor;
         var_fs3 = *((f32 *) (((char *) temp_s1) + 0x50));
         var_s5 += (var_fs3 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         var_s6 += (var_fs3 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
+        var_fs3 = temp_fs5 * 0.15f;
         temp_ft1_2 = *inline_fn2(temp_s1);
-        temp_fv1_11 = (((temp_fs5 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
-        *((f32 *) (((char *) temp_s1) + 0x4C)) = (((temp_fs5 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
+        temp_fv1_11 = ((var_fs3 - temp_ft1_2) * 0.05f) + temp_ft1_2;
+        *((f32 *) (((char *) temp_s1) + 0x4C)) = ((var_fs3 - temp_ft1_2) * 0.05f) + temp_ft1_2;
         if (temp_fv1_11 < (-0.15f))
         {
           *((f32 *) (((char *) temp_s1) + 0x4C)) = -0.15f;
