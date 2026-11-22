@@ -5,7 +5,7 @@ s32 buildRotationMatrixCopy(s16 *, f32 *);
 s32 buildRotationMatrixS16(s16 *, f32 *);
 s32 buildRotationMatrixS16Copy(s16 *, f32 *);
 f32 func_80047AB0(f32 *, f32 *);
-s8 func_800487F0(void *, void *, f32);
+s32 func_800487F0(void *, void *, f32);
 s32 func_8004E418(void *, f32 *, f32 *);
 f32 func_80082908(f32);
 s32 func_80083B64(f32 *, f32 *);
@@ -331,7 +331,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
             if (temp_v1 != NULL)
             {
               temp_s1_6 = (void *) (*((s32 *) (((char *) var_s4) + 0x58))); temp_s0 = ((u32) temp_s1_6) & 0x400;
-              if (((temp_s0 == 0) && ((*((s32 *) (((char *) var_s4) + 0x5C))) & 0x200)) && (func_800487F0(var_s4, arg1, arg3) != 0))
+              if (((temp_s0 == 0) && ((*((s32 *) (((char *) var_s4) + 0x5C))) & 0x200)) && ((s8) func_800487F0(var_s4, arg1, arg3) != 0))
               {
                 *((SurfaceVec3 *) scratch.vsp18) = *((SurfaceVec3 *) arg1);
                 scratch.vsp88.values[0] = (s16) ((s32) (-(*((f32 *) (((char *) var_s4) + 0x3C)))));
@@ -646,10 +646,10 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                 {
                   if (temp_s1_3 < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))))
                   {
-                    var_s5_3 = 0;
+                    var_s5_4 = 0;
                     do
                     {
-                      temp_v1_6 = var_s5_3 & 0xFFFF;
+                      temp_v1_6 = var_s5_4 & 0xFFFF;
                       temp_s1_4 = (*((s32 *) (((char *) temp_s4) + 0x3C))) + (temp_v1_6 * 6);
                       temp_a0 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_v1_6 * 2)));
                       if ((sp1DE & temp_a0) && (sp1E6 & temp_a0))
@@ -771,9 +771,9 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           }
                         }
                       }
-                      var_s5_3 += 1;
+                      var_s5_4 += 1;
                     }
-                    while (((u32) (var_s5_3 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))));
+                    while (((u32) (var_s5_4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))));
                   }
                 }
                 else
@@ -984,4 +984,5 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
   return (s8) sp187;
 
 }
+
 

@@ -157,7 +157,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
   }
   else
   {
-    resolveBorderCollision(arg1);
+    resolveBorderCollision(arg1, arg0);
     temp_s1 = *((s32 *) (((char *) arg0) + 0x70));
     func_80008750(arg1, *((u8 *) (((char *) arg0) + 0x7E)), arg3);
     temp_v1_3 = ((__repair_field_58 *) arg0)->value;

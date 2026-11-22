@@ -66,9 +66,9 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
   var_a0 = *var_s0;
   if (inline_fn23(*var_s0) != 0)
   {
-    var_t0 = sp30;
     do
     {
+      var_t0 = sp30;
       var_t1 = 0;
       var_a3 = 0;
       var_v1 = var_a0;
@@ -135,7 +135,6 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       }
       func_800AB6C0(sp230, sp30);
       var_a0 = (u8) (*var_s0);
-      var_t0 = sp30;
     }
     while ((*((s8 *) var_s0)) != 0);
   }
@@ -159,7 +158,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       temp_s0 = var_s1 - temp_a1;
 
       memcpy(buffer, temp_a1, temp_s0);
-      buffer[var_s1 - temp_a1] = 0;
+      buffer[temp_s0] = 0;
       gTrackMarkerSerial++;
       temp_v0_3 = func_80073AF8(0, arg0, buffer, -1, -1, 1, 0, 0, arg5 & 0xFF, 0, 0x1E);
       {

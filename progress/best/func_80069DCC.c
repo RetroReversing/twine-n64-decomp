@@ -114,6 +114,7 @@ void func_80069DCC(void *arg0)
     volatile f32 speed;
     u32 after_speed;
     void * roads;
+    u32 trailing[1];
     
   } frame;
   f32 motion_24;
@@ -295,7 +296,7 @@ void func_80069DCC(void *arg0)
   u8 temp_v0_5;
   u8 temp_v1_20;
   u8 temp_v1_35;
-  u8 var_s0;
+  s32 var_s0;
   void *temp_a0_10;
   void *temp_a0_2;
   void *temp_a0_3;
