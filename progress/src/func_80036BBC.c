@@ -221,26 +221,27 @@ void func_80036BBC(void *arg0)
               {
                 D_8010A924 = 5; sel_a = ((__repair_field_100 *) arg0)->value & 7;
                 if (sel_a == 1)
-                {
-                  goto emit_first_mode;
-                }
-                if (sel_a == 2)
-                {
+{
+                  s32 *c1 = D_80115328;
+                  D_80115328 = c1 + 2;
+                  c1[0] = 0xDE000000;
+                  c1[1] = (s32) &D_800B1D20;
+}
+else if (sel_a == 2)
+{
                   s32 *c2 = D_80115328;
                   D_80115328 = c2 + 2;
                   c2[0] = 0xDE000000;
                   c2[1] = (s32) &D_800B1D48;
-                }
-                else if (sel_a == 4)
-                {
-                  s32 *c1;
-                  emit_first_mode:
-                  c1 = D_80115328;
-                  D_80115328 = c1 + 2;
-                  c1[0] = 0xDE000000;
-                  c1[1] = (s32) &D_800B1D20;
-                }
-              }
+}
+else if (sel_a == 4)
+{
+                  s32 *c3 = D_80115328;
+                  D_80115328 = c3 + 2;
+                  c3[0] = 0xDE000000;
+                  c3[1] = (s32) &D_800B1D20;
+}
+}
               if (D_801032A0 != 4)
               {
                 D_801032A0 = 4; temp_v1_9 = ((__repair_field_100 *) arg0)->value & 7;
