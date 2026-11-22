@@ -188,7 +188,7 @@ __repair_literal = 2;
         enemyOffset = temp_v1_3 * 0xE8;
         temp_s4 = enemyOffset + sEnemyDefTable;
         temp_s3_2 = M2C_FIELD(temp_s4, u8 *, 0x80);
-        if ((u8) M2C_FIELD((temp_s1 + (temp_v1_3 * 8)), u8 *, 0x1FC) < (u8) *(D_800C46A1 + enemyOffset)) {
+        if ((u8) *(u8 *)((u32)temp_s1 + (temp_v1_3 << 3) + 0x1FC) < (u8) *(D_800C46A1 + enemyOffset)) {
             gTrackMarkerSerial += 1;
             func_80073AF8(0, *(s32 *)(sTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), lookupDataEntry(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x6000), -1, -1, 1, 0, 0, 0, 0, 0);
             temp_v1_4 = temp_s1 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 8);
@@ -202,17 +202,17 @@ __repair_literal = 2;
             goto block_45;
         }
         var_v0 = 0;
-        if (M2C_FIELD((temp_s1 + (temp_s3_2 * 2)), s16 *, 0x1BC) < *(s16 *)(D_800C7C16 + (temp_s3_2 * 4))) {
+        if (*(s16 *)((u32)temp_s1 + (temp_s3_2 << 1) + 0x1BC) < *(s16 *)(D_800C7C16 + (temp_s3_2 * 4))) {
             temp_s0_3 = lookupDataEntry(temp_s3_2 | 0x9000);
             sprintf(&sp30, D_800D41E0, temp_s0_3, lookupDataEntry(0x16A));
             gTrackMarkerSerial += 1;
             func_80073AF8(0, *(s32 *)(sTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
             var_a0_4 = 0xD8;
-            if (M2C_FIELD(arg0, u16 *, 0x78) != 3) {
-                requestSound(0xD8U);
-            } else {
+            if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
 block_43:
                 func_80084338(var_a0_4, arg0 + 0x24);
+            } else {
+                ((void (*)(u32))requestSound)(0xD8U);
             }
 block_45:
             if (M2C_FIELD((temp_s1 + ((s32) (func_80063C7C((s16) M2C_FIELD(temp_s2, u16 *, 0x3E)) << 0x10) >> 0xD)), s8 *, 0x1FF) == 0) {
@@ -235,12 +235,13 @@ block_45:
                 temp_a0_3 = M2C_FIELD(temp_s2, u16 *, 0x3E);
                 tableByte = *(u8 *)(D_800C471C + ((temp_a0_3 + temp_a1_2) * 0xE8));
                 if (tableByte != M2C_FIELD(temp_s4, u8 *, 0x80)) {
+                    u8 quantity = 2;
                     temp_v1_6 = tableByte;
                     if (M2C_FIELD((temp_s1 + ((s32) (func_80063C7C((s16) (temp_a0_3 + temp_a1_2)) << 0x10) >> 0xD)), s8 *, 0x1FF) == 0) {
-                        M2C_FIELD((temp_s1 + ((s32) (func_80063C7C((s16) (M2C_FIELD(temp_s2, u16 *, 0x3E) + (s8) (u8) M2C_FIELD(temp_s4, s8 *, 4))) << 0x10) >> 0xD)), s8 *, 0x1FF) = 2;
+                        M2C_FIELD((temp_s1 + ((s32) (func_80063C7C((s16) (M2C_FIELD(temp_s2, u16 *, 0x3E) + (s8) (u8) M2C_FIELD(temp_s4, s8 *, 4))) << 0x10) >> 0xD)), s8 *, 0x1FF) = quantity;
                     } else {
                         temp_v1_7 = temp_s1 + (temp_v1_6 * 2);
-                        M2C_FIELD(temp_v1_7, u16 *, 0x1BC) += 2;
+                        M2C_FIELD(temp_v1_7, u16 *, 0x1BC) += quantity;
                     }
                     temp_a0_4 = temp_s1 + (temp_v1_6 * 2);
                     temp_v0_9 = *(s16 *)(D_800C7C16 + (temp_v1_6 * 4));
@@ -282,5 +283,6 @@ block_66:
     var_v0 = 1;
     return var_v0;
 }
+
 
 
