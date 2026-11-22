@@ -100,7 +100,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
   s32 temp_s1;
   s32 temp_v1_19;
   s32 var_a1;
-  s32 var_s1;
+  unsigned short var_s1;
   s32 var_s5;
   register s32 var_v0_2;
   s32 var_v0_3;
@@ -109,7 +109,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
   s32 var_v1_4;
   s8 var_v1_3;
   u16 temp_a0;
-  u16 temp_s1_3;
+  unsigned int temp_s1_3;
   u16 temp_s2;
   u32 var_s0;
   u8 temp_v1_18;
@@ -232,7 +232,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
         while (0);
         var_v1 = temp_v0;
       }
-      while (temp_v0 < 4);
+      while ((temp_v0 + 1) <= 4);
       var_v1_2 = 0;
       do
       {
@@ -244,10 +244,10 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
       *((s32 *) (((char *) temp_s3) + 0x3FC)) = 0;
       *((s32 *) (((char *) temp_s3) + 0x400)) = 0;
       *((s16 *) (((char *) temp_s3) + 0x520)) = 0x706;
-      D_800C7D74 = (s16) ((s8) (*((u8 *) (((char *) temp_s3) + 0x182))));
       temp_s1_2 = &D_800C7D74;
+      *((volatile s16 *) temp_s1_2) = (s16) ((s8) (*((u8 *) (((char *) temp_s3) + 0x182))));
       D_800C7D98 = (s16) ((s8) (*((u8 *) (((char *) temp_s3) + 0x182))));
-      temp_s0_2 = (s16 *)((char *)temp_s1_2 + 4);
+      temp_s0_2 = (s16 *) (((char *) temp_s1_2) + 4);
       *((void **) (((char *) temp_s3) + 0x404)) = spawnTextNode(temp_s1_2);
       *((void **) (((char *) temp_s3) + 0x408)) = spawnTextNode(temp_s0_2);
       *((void **) (((char *) temp_s3) + 0x478)) = spawnTextNode(temp_s1_2);

@@ -1070,7 +1070,7 @@ case 2: case 3: goto out_of_line_actor;
                func_80002BD0(arg0, 0x183);
                *((f32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x34)) = var_fs3;
                var_s5 += (var_fs3 * sinAngle(*((f32 *) (((char *) arg0) + 0x40))));
-               var_s6 = 0.0f + (var_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40))));
+               var_s6 += (var_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40))));
              }
            }
          }

@@ -52,32 +52,7 @@ void func_80026F84(u8 arg0)
     copyStateTablesToRam();
   }
   gValidSaveSlotCount = countValidSaveSlots(0xA3);
-  D_80102ED4 = 1;
-  if ((p = gSaveMenuState) != NULL)
-  {
-    p[7] = 0;
-    p = gSaveMenuState;
-    p[0x2F] = 0;
-    q = gSaveMenuState;
-    *((s32 *) (p + 0x20)) = 0;
-    *((s32 *) (p + 0x24)) = 0;
-    *((u16 *) (p + 0x14)) = 0;
-    *((u16 *) (p + 0x16)) = 0;
-    q[0x28] = 0;
-    p = gSaveMenuState;
-    *((s32 *) q) = 0;
-    p[0x29] = 0;
-    p = gSaveMenuState;
-    p[0x2C] = 0;
-    q = gSaveMenuState;
-    *((u16 *) (p + 0x2A)) = 0x1D;
-    q[0x2D] = 0;
-    p = gSaveMenuState;
-    *((s32 *) (p + 0x1C)) = 0;
-    *((s32 *) (p + 0x10)) = 0;
-    *((s32 **) (p + 0xC)) = &D_800BD8C4;
-  }
-  slot = arg0;
+ do { D_80102ED4 = 1; if ((p = gSaveMenuState) != NULL) { p[7] = 0; p = gSaveMenuState; p[0x2F] = 0; q = gSaveMenuState; *((s32 *) (p + 0x20)) = 0; *((s32 *) (p + 0x24)) = 0; *((u16 *) (p + 0x14)) = 0; *((u16 *) (p + 0x16)) = 0; q[0x28] = 0; p = gSaveMenuState; *((s32 *) q) = 0; p[0x29] = 0; p = gSaveMenuState; p[0x2C] = 0; q = gSaveMenuState; *((u16 *) (p + 0x2A)) = 0x1D; q[0x2D] = 0; p = gSaveMenuState; *((s32 *) (p + 0x1C)) = 0; *((s32 *) (p + 0x10)) = 0; *((s32 **) (p + 0xC)) = &D_800BD8C4; } slot = arg0; } while (0);
   D_801002AE = 0;
   gMenuNeedsRedraw = 1;
   if (sBonusObjectTable[slot] != 0)
@@ -119,4 +94,3 @@ void func_80026F84(u8 arg0)
   }
   while (0);
 }
-

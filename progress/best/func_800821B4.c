@@ -57,7 +57,7 @@ void func_800821B4(void)
   s32 temp_a3;
   s32 temp_s0_5;
   s32 temp_s0_6;
-  register volatile unsigned int temp_s0_7;
+  register volatile unsigned short temp_s0_7;
   unsigned int temp_s0_8;
   long temp_t0;
   s32 temp_t1;
@@ -81,10 +81,10 @@ void func_800821B4(void)
   s32 var_s6;
   s32 var_s2_2;
   s32 var_t8;
-  s32 temp_fp;
   register s32 temp_v1;
   void *temp_s1;
   register void *temp_s5;
+  s32 temp_fp;
   func_80011950();
   do
   {
@@ -149,7 +149,7 @@ void func_800821B4(void)
           {
             var_s0_3 = temp_s0_3 + 4; var_v0_2 = -(1 > var_s0_3);
           }
-          var_s0_4 = (((var_s0_3 & var_v0_2) << 9) << 7) / 76;
+          var_a1 = ((var_s0_3 & var_v0_2) << 9) << 7; var_s0_4 = var_a1 / 76;
           if (var_s0_4 < (-0x10000))
           {
             var_s0_4 = -0x10000;
@@ -345,7 +345,11 @@ void func_800821B4(void)
             {
               goto block_75;
             }
- do { break; } while (0);
+              do
+            {
+              break;
+            }
+            while (0);
 
             case 6:
               if (temp_a2 == 0)
@@ -396,6 +400,8 @@ void func_800821B4(void)
             break;
 
           case 1:
+            ;
+            ;
             ;
             ;
             ;
@@ -476,3 +482,4 @@ void func_800821B4(void)
     while (__block_var_s6 < ((s16) sp16));
   }
 }
+
