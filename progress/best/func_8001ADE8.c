@@ -132,11 +132,11 @@ void func_8001ADE8(void)
       markers = D_80102F48;
       do
       {
-        var_s0 = (u16)var_s2;
+        var_s0 = (u16) var_s2;
         temp_s3 = getSaveSlotIndex(var_s0);
         temp_v0 = spawnTrackMarker(sMenuListKind);
-        var_s0 = (s32)&markers[var_s0];
-        *(s32 *) var_s0 = temp_v0;
+        var_s0 = (s32) (&markers[var_s0]);
+        *((s32 *) var_s0) = temp_v0;
         if (temp_v0 != 0)
         {
           temp_s1 = lookupDataEntry((var_s2 + 0x4008) & 0xFFFF);
@@ -328,9 +328,7 @@ void func_8001ADE8(void)
       *((u8 *) (((char *) gPickupActor) + 0x81)) = 0xFF;
       *((f32 *) (((char *) gPickupActor) + 0x24)) = 1.25f;
       *((f32 *) (((char *) gPickupActor) + 0x28)) = 0.15f;
-      *((f32 *) (((char *) gPickupActor) + 0x2C)) = -3.0f;
-      func_8002B8AC();
-      actorLinkToSurface(*gProbeObjectList, *((s32 *) actorSlot), 1);
+ do { *((f32 *) (((char *) gPickupActor) + 0x2C)) = -3.0f; func_8002B8AC(); actorLinkToSurface(*gProbeObjectList, *((s32 *) actorSlot), 1); } while (0);
       savedByteLate = &gPickupSavedByte;
       temp_v1_4 = *((u16 *) (*((u16 **) (((u8 *) (&D_800C3CF8)) + (func_8002B9CC(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)))) * 0xC)))));
       gSharedItemArg = -1;
@@ -357,4 +355,3 @@ void func_8001ADE8(void)
     }
   }
 }
-

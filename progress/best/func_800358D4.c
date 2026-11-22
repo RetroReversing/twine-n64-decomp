@@ -115,11 +115,7 @@ void func_800358D4(void *arg0)
       unsigned char pad[56];
       f32 value;
     } view_sp60;
-    struct 
-    {
-      unsigned char pad[60];
-      f32 value;
-    } view_sp64;
+    f32 view_sp64_value;
     struct 
     {
       unsigned char pad[64];
@@ -300,7 +296,7 @@ void func_800358D4(void *arg0)
                   var_s2 = &D_800C06C4;
                   var_s4 = 0;
                   m2c_initial_frame.view_sp60.value = 0.0f;
-                  m2c_initial_frame.view_sp64.value = 0.0f;
+                  m2c_initial_frame.view_sp64_value = 0.0f;
                   m2c_initial_frame.view_sp68.value = 25.0f;
                   m2c_initial_frame.view_sp28.value *= temp_fv0_3;
                   m2c_initial_frame.view_sp30.value *= temp_fv0_3;

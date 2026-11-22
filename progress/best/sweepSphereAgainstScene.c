@@ -47,12 +47,26 @@ inline static float inline_fn(f32 *arg0, f32 arg1)
 
 s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void *arg4, void *arg5, s32 arg6, s32 arg7)
 {
+  f32 zero;
   f32 sp18[3];
   SweepVec vec28;
   SweepVec vec38;
   SweepVec vec48;
-  f32 matrix[9];
-  s16 sp68[3];
+  union
+  {
+    f32 matrix[9];
+    struct
+    {
+      char pad0[0x10];
+      s16 angles[3];
+    } a;
+    struct
+    {
+      char pad1[0x18];
+      SweepVec v;
+    } b;
+    char pad[0x30];
+  } u1;
   union 
   {
     s16 angles[3];
@@ -63,7 +77,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
       SweepVec direction;
     } first;
   } scratch;
-  f32 spA0;
+  f32 spA0[2];
   SweepVec vecA8;
   SweepVec vecB8;
   union 
@@ -75,21 +89,18 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
       SweepVec end;
     } second;
   } result;
-  f32 spE0;
-  SweepVec vec70;
-  register f32 spE4;
-  f32 spE8[9];
+  f32 spE0[2];
+  f32 spE8[11];
   SweepVec vec118;
   void *sp134;
   void *sp13C;
-  volatile s32 sp144;
+  s32 sp144;
   void *sp14C;
   f32 *sp154;
   f32 *sp15C;
   f32 *sp174;
   f32 *sp164;
   f32 *sp16C;
-  void **sp12C;
   s16 *sp17C;
   f32 *sp184;
   f32 *sp18C;
@@ -160,33 +171,32 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
   void *var_s2_5;
   void *var_s2_6;
   void *var_s2_7;
-  sp12C = arg0;
   sp134 = arg1;
   sp13C = arg2;
   D_80108F84 = NULL;
   gPlayerActor = NULL;
   var_fs0 = arg3;
-  if (sp12C != NULL)
+  if (arg0 != NULL)
   {
     sp18[0] = 0.0f;
     sp18[1] = 0.0f;
     sp18[2] = 0.0f;
     vec28.x = ((Field_f32 *) (((char *) sp134) + 0))->v;
     vec28.y = ((Field_f32 *) (((char *) sp134) + 4))->v - var_fs0;
-    sp154 = matrix;
+    sp154 = u1.matrix;
     sp15C = &vec38.x;
     vec28.z = ((Field_f32 *) (((char *) sp134) + 8))->v;
     sp16C = &scratch.first.direction.x;
     sp164 = &vec48.x;
-    sp144 = *((s32 *) (((char *) (*((void **) (((char *) sp12C) + 0x20)))) + 0x58));
+    sp144 = *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x20)))) + 0x58));
     do
     {
-      var_s6 = sp12C;
-      var_a0 = sp12C;
-      sp14C = *((void **) (((char *) (*((void **) (((char *) sp12C) + 0x20)))) + 0x58));
-      if (sp12C != NULL)
+      var_s6 = arg0;
+      var_a0 = arg0;
+      sp14C = *((void **) (((char *) (*((void **) (((char *) arg0) + 0x20)))) + 0x58));
+      if (arg0 != NULL)
       {
-        sp174 = &spA0;
+        sp174 = &spA0[0];
         do
         {
           var_s1 = *var_a0;
@@ -276,9 +286,9 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                             temp_v1_5 = ((Field_s32 *) (((char *) temp_s4) + 0x34))->v;
                             sp1A0 = var_t2;
                             var_t2 = sp1A0;
-                            if (((func_8004D910(&(&vec38)->x, &scratch.first.direction.x, temp_v1_5 + ((*var_s3) * 0xC), temp_v1_5 + ((*((u16 *) (((char *) var_s2_2) + (-2)))) * 0xC), temp_v1_5 + (((Field_u16 *) (((char *) var_s2_2) + 0))->v * 0xC), sp174) & 0xFF) && (spA0 >= 0.0f)) && (spA0 < var_fs0))
+                            if (((func_8004D910(&(&vec38)->x, &scratch.first.direction.x, temp_v1_5 + ((*var_s3) * 0xC), temp_v1_5 + ((*((u16 *) (((char *) var_s2_2) + (-2)))) * 0xC), temp_v1_5 + (((Field_u16 *) (((char *) var_s2_2) + 0))->v * 0xC), sp174) & 0xFF) && (zero = 0.0f, spA0[0] >= zero)) && (spA0[0] < var_fs0))
                             {
-                              var_fs0 = spA0;
+                              var_fs0 = spA0[0];
                               var_s7 = temp_s5;
                             }
                           }
@@ -305,9 +315,9 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                             temp_v1_7 = ((Field_s32 *) (((char *) temp_s4) + 0x34))->v;
                             sp1A0 = var_t2;
                             var_t2 = sp1A0;
-                            if (((func_8004D910(&vec38.x, &scratch.first.direction.x, temp_v1_7 + ((*var_s3_2) * 0xC), ((u32) temp_v1_7) + ((*((u8 *) (((char *) var_s2_3) + (-1)))) * 0xC), temp_v1_7 + (((Field_u8 *) (((char *) var_s2_3) + 0))->v * 0xC), sp174) & 0xFF) && ((spA0 + 1) >= (0.0f + 1))) && (spA0 < var_fs0))
+                            if (((func_8004D910(&vec38.x, &scratch.first.direction.x, temp_v1_7 + ((*var_s3_2) * 0xC), ((u32) temp_v1_7) + ((*((u8 *) (((char *) var_s2_3) + (-1)))) * 0xC), temp_v1_7 + (((Field_u8 *) (((char *) var_s2_3) + 0))->v * 0xC), sp174) & 0xFF) && (zero = 0.0f, spA0[0] >= zero)) && (spA0[0] < var_fs0))
                             {
-                              var_fs0 = spA0;
+                              var_fs0 = spA0[0];
                               var_s7 = temp_s5_2;
                             }
                           }
@@ -345,8 +355,8 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
         sp17C = (s16 *) (&scratch.point);
         sp184 = &result.second.end.x;
         sp18C = &vecA8.x;
-        sp194 = &spE0;
-        sp19C = &spE4;
+        sp194 = &spE0[0];
+        sp19C = &spE0[1];
         do
         {
           if (((((Field_s32 *) (((char *) var_s6) + 0x50))->v & 0x200) && (((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x11) & 0x3F) & arg7)) && ((Sphere_OverlapsPoint((void **) (((u8 *) var_s6) + 0x40), sp134, arg3) << 0x18) != 0))
@@ -393,9 +403,9 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                       if ((temp_fp_2 & temp_v1_9) && (temp_s7 & temp_v1_9))
                       {
                         temp_v1_10 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                        if (((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, temp_v1_10 + ((*var_s3_3) * 0xC), temp_v1_10 + ((*((u16 *) (((char *) var_s2_4) + (-2)))) * 0xC), temp_v1_10 + (((Field_u16 *) (((char *) var_s2_4) + 0))->v * 0xC), sp194) & 0xFF) && (spE0 >= 0.0f)) && (spE0 < var_fs0))
+                        if (((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, temp_v1_10 + ((*var_s3_3) * 0xC), temp_v1_10 + ((*((u16 *) (((char *) var_s2_4) + (-2)))) * 0xC), temp_v1_10 + (((Field_u16 *) (((char *) var_s2_4) + 0))->v * 0xC), sp194) & 0xFF) && (zero = 0.0f, spE0[0] >= zero)) && (spE0[0] < var_fs0))
                         {
-                          var_fs0 = spE0;
+                          var_fs0 = spE0[0];
                         }
                       }
                       var_s2_4 += 6;
@@ -419,9 +429,9 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                       if ((temp_fp_2 & temp_v1_11) && (temp_s7 & temp_v1_11))
                       {
                         temp_v1_12 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                        if (((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, temp_v1_12 + ((*var_s3_4) * 0xC), temp_v1_12 + ((*((u8 *) (((char *) var_s2_5) + (-1)))) * 0xC), temp_v1_12 + (((Field_u8 *) (((char *) var_s2_5) + 0))->v * 0xC), sp194) & 0xFF) && ((spE0 - 1) >= (0.0f - 1))) && (var_fs0 > spE0))
+                        if (((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, temp_v1_12 + ((*var_s3_4) * 0xC), temp_v1_12 + ((*((u8 *) (((char *) var_s2_5) + (-1)))) * 0xC), temp_v1_12 + (((Field_u8 *) (((char *) var_s2_5) + 0))->v * 0xC), sp194) & 0xFF) && (zero = 0.0f, spE0[0] >= zero)) && (var_fs0 > spE0[0]))
                         {
-                          var_fs0 = spE0;
+                          var_fs0 = spE0[0];
                           var_s5 = temp_s4_2;
                         }
                       }
@@ -464,9 +474,9 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                       if ((temp_fp_2 & temp_v1_14) && (temp_s7 & temp_v1_14))
                       {
                         temp_v1_15 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                        if (((func_8004D910(&scratch.point.x, &vec48.x, temp_v1_15 + ((*var_s3_5) * 0xC), temp_v1_15 + ((*((u16 *) (((char *) var_s2_6) + (-2)))) * 0xC), temp_v1_15 + (((Field_u16 *) (((char *) var_s2_6) + 0))->v * 0xC), sp19C) & 0xFF) && (spE4 >= 0.0f)) && (spE4 < var_fs0))
+                        if (((func_8004D910(&scratch.point.x, &vec48.x, temp_v1_15 + ((*var_s3_5) * 0xC), temp_v1_15 + ((*((u16 *) (((char *) var_s2_6) + (-2)))) * 0xC), temp_v1_15 + (((Field_u16 *) (((char *) var_s2_6) + 0))->v * 0xC), sp19C) & 0xFF) && (zero = 0.0f, spE0[1] >= zero)) && (spE0[1] < var_fs0))
                         {
-                          var_fs0 = spE4;
+                          var_fs0 = spE0[1];
                           var_s5 = temp_s4_3;
                         }
                       }
@@ -491,17 +501,17 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                       if ((temp_fp_2 & temp_v1_16) && (temp_s7 & temp_v1_16))
                       {
                         temp_v1_17 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                        if (((func_8004D910(&scratch.point.x, &vec48.x, temp_v1_17 + ((*var_s3_6) * 0xC), temp_v1_17 + ((*((u8 *) (((char *) var_s2_7) + (-1)))) * 0xC), temp_v1_17 + (((Field_u8 *) (((char *) var_s2_7) + 0))->v * 0xC), sp19C) & 0xFF) && (spE4 >= 0.0f)) && (spE4 < var_fs0))
+                        if (((func_8004D910(&scratch.point.x, &vec48.x, temp_v1_17 + ((*var_s3_6) * 0xC), temp_v1_17 + ((*((u8 *) (((char *) var_s2_7) + (-1)))) * 0xC), temp_v1_17 + (((Field_u8 *) (((char *) var_s2_7) + 0))->v * 0xC), sp19C) & 0xFF) && (zero = 0.0f, spE0[1] >= zero)) && (spE0[1] < var_fs0))
                         {
                           if (var_s6)
                           {
                             var_s5 = temp_s4_4;
-                            var_fs0 = spE4;
+                            var_fs0 = spE0[1];
                           }
                           else
                           {
                             var_s5 = temp_s4_4;
-                            var_fs0 = spE4;
+                            var_fs0 = spE0[1];
                           }
                         }
                       }
@@ -524,13 +534,13 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
         }
         while (var_s6 != NULL);
       }
-      if ((sp144 != 0) && ((sp144 = 0, temp_v0_3 = func_80047B44(sp12C, sp134, &vec28.x, &result.second.end.x), temp_v0_3 != NULL)))
+      if ((sp144 != 0) && ((sp144 = 0, temp_v0_3 = func_80047B44(arg0, sp134, &vec28.x, &result.second.end.x), temp_v0_3 != NULL)))
       {
         if (((Field_u16 *) (((char *) temp_v0_3) + 0x26))->v & 0x1000)
         {
           temp_fv1 = ((Field_f32 *) (((char *) sp134) + 4))->v - result.second.end.y;
           var_v0 = 1;
-          if (!(temp_fv1 >= 0.0f))
+          if (!(zero = 0.0f, temp_fv1 >= zero))
           {
             var_v0 = 0;
           }
@@ -546,14 +556,14 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
             D_80108F84 = NULL;
           }
         }
-        sp12C = *((void ***) (((char *) temp_v0_3) + 8));
+        arg0 = *((void ***) (((char *) temp_v0_3) + 8));
       }
       else
       {
-        sp12C = NULL;
+        arg0 = NULL;
       }
     }
-    while (sp12C != NULL);
+    while (arg0 != NULL);
     if (var_fs0 == arg3)
     {
       if (1)
@@ -592,24 +602,24 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
       vecB8.x = sp18[0];
       vecB8.y = sp18[1];
       vecB8.z = sp18[2];
-      sp68[0] = (s16) ((s32) ((Field_f32 *) (((char *) gPlayerActor) + 0x3C))->v);
-      sp68[1] = (s16) ((s32) ((Field_f32 *) (((char *) gPlayerActor) + 0x40))->v);
-      sp68[2] = (s16) ((s32) ((Field_f32 *) (((char *) gPlayerActor) + 0x44))->v);
-      buildRotationMatrixS16(sp68, spE8);
+      u1.a.angles[0] = (s16) ((s32) ((Field_f32 *) (((char *) gPlayerActor) + 0x3C))->v);
+      u1.a.angles[1] = (s16) ((s32) ((Field_f32 *) (((char *) gPlayerActor) + 0x40))->v);
+      u1.a.angles[2] = (s16) ((s32) ((Field_f32 *) (((char *) gPlayerActor) + 0x44))->v);
+      buildRotationMatrixS16(u1.a.angles, spE8);
       func_800839F0(spE8, &vecB8.x, result.rotated);
-      sp68[0] = (s16) ((s32) (((Field_f32 *) (((char *) gPlayerActor) + 0x3C))->v + vecA8.x));
-      sp68[1] = (s16) ((s32) (((Field_f32 *) (((char *) gPlayerActor) + 0x40))->v + vecA8.y));
-      sp68[2] = (s16) ((s32) (((Field_f32 *) (((char *) gPlayerActor) + 0x44))->v + vecA8.z));
-      buildRotationMatrixS16(sp68, spE8);
-      func_800839F0(spE8, &vecB8.x, matrix);
+      u1.a.angles[0] = (s16) ((s32) (((Field_f32 *) (((char *) gPlayerActor) + 0x3C))->v + vecA8.x));
+      u1.a.angles[1] = (s16) ((s32) (((Field_f32 *) (((char *) gPlayerActor) + 0x40))->v + vecA8.y));
+      u1.a.angles[2] = (s16) ((s32) (((Field_f32 *) (((char *) gPlayerActor) + 0x44))->v + vecA8.z));
+      buildRotationMatrixS16(u1.a.angles, spE8);
+      func_800839F0(spE8, &vecB8.x, u1.matrix);
       temp_ft1 = ((Field_f32 *) (((char *) gPlayerActor) + 0x24))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x30))->v;
-      vec70.x = temp_ft1;
+      u1.b.v.x = temp_ft1;
       temp_fv0 = ((Field_f32 *) (((char *) gPlayerActor) + 0x28))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x34))->v;
-      vec70.y = temp_fv0;
-      vec70.z = ((Field_f32 *) (((char *) gPlayerActor) + 0x2C))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x38))->v;
-      ((Field_f32 *) (((char *) arg4) + 0))->v = (f32) (temp_ft1 + (matrix[0] - result.rotated[0]));
-      ((Field_f32 *) (((char *) arg4) + 4))->v = (f32) (temp_fv0 + inline_fn(matrix, result.rotated[1]));
-      ((Field_f32 *) (((char *) arg4) + 8))->v = (f32) (vec70.z + (matrix[2] - result.rotated[2]));
+      u1.b.v.y = temp_fv0;
+      u1.b.v.z = ((Field_f32 *) (((char *) gPlayerActor) + 0x2C))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x38))->v;
+      ((Field_f32 *) (((char *) arg4) + 0))->v = (f32) (temp_ft1 + (u1.matrix[0] - result.rotated[0]));
+      ((Field_f32 *) (((char *) arg4) + 4))->v = (f32) (temp_fv0 + inline_fn(u1.matrix, result.rotated[1]));
+      ((Field_f32 *) (((char *) arg4) + 8))->v = (f32) (u1.b.v.z + (u1.matrix[2] - result.rotated[2]));
       vec118 = *((SweepVec *) sp134);
       vec118.x += ((Field_f32 *) (((char *) arg4) + 0))->v;
       vec118.y += ((Field_f32 *) (((char *) arg4) + 4))->v;

@@ -38,7 +38,7 @@ void func_80034EFC(void)
     size = ((-(gHiResScreen == 0)) & 3) | 2;
   }
   size <<= 19;
-  modes = (width & 0xFFF) | 0xFF000000;
+  render = (width & 0xFFF); modes = render | 0xFF000000;
   buffer = D_8010A4B0;
   base[3].w0 = size | modes;
   sDisplayListCursor = base + 4; base[3].w1 = osVirtualToPhysical(D_80100304[buffer]);
