@@ -795,9 +795,9 @@ case 2: case 3: goto out_of_line_actor;
            }
          }
          var_fs3 = func_80081B44(temp_s4, 4, 5);
-         temp_fv0_6 = var_fs3;
+         temp_fs2_2 = var_fs3;
          var_fs3 = (var_fs3 * var_fs3) * 82.8f;
-         if (temp_fv0_6 < 0.0f)
+         if (temp_fs2_2 < 0.0f)
          {
            var_fs3 = -var_fs3;
          }
@@ -934,9 +934,9 @@ case 2: case 3: goto out_of_line_actor;
              if ((*((s16 *) (((char *) arg0) + 0x7C))) != 0)
            {
              var_fs3 = func_80081B44(temp_s4, 4, 5);
-             temp_fv1_4 = var_fs3;
+             temp_fs2_2 = var_fs3;
              var_fs3 = var_fs3 * var_fs3;
-             if (temp_fv1_4 < 0.0f)
+             if (temp_fs2_2 < 0.0f)
              {
                var_fs3 = -var_fs3;
              }

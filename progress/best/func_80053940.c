@@ -394,50 +394,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                     do
                     {
                       temp_v1_6 = *((u16 *) (((char *) (*((void **) (((char *) temp_s1) + 0x38)))) + ((var_s4_2 & 0xFFFF) * 2)));
-                      if ((sp12E & temp_v1_6) && (temp_v1_6 & sp136))
-                      {
-                        temp_v1_7 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                        buildPlaneFromPoints(sp13C, temp_v1_7 + ((*var_s6_2) * 0xC), temp_v1_7 + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), temp_v1_7 + (((Field_u8 *) (((char *) var_s3_2) + 0))->v * 0xC));
-                        temp_fs0_3 = ((workspace.data[4] * sp28Buf[2]) + ((workspace.data[2] * sp28Buf[0]) + (workspace.data[3] * sp28Buf[1]))) + workspace.data[5];
-                        var_v0_3 = 1;
-                        if (!(temp_fs0_3 < arg5))
-                        {
-                          var_v0_3 = 0;
-                        }
-                        var_v1_3 = 1;
-                        if (!(temp_fs0_3 > 0.0f))
-                        {
-                          var_v1_3 = 0;
-                        }
-                        if (var_v0_3 & var_v1_3)
-                        {
-                          ((Field_f32 *) (((char *) arg4) + 0))->v = (f32) (sp28Buf[0] - (temp_fs0_3 * workspace.data[2]));
-                          ((Field_f32 *) (((char *) arg4) + 4))->v = (f32) (sp28Buf[1] - (temp_fs0_3 * workspace.data[3]));
-                          ((Field_f32 *) (((char *) arg4) + 8))->v = (f32) (sp28Buf[2] - (temp_fs0_3 * workspace.data[4]));
-                          temp_v1_8 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                          if ((triangleContainsPoint(arg4, temp_v1_8 + ((*var_s6_2) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), temp_v1_8 + (((Field_u8 *) (((char *) var_s3_2) + 0))->v * 0xC), sp13C) << 0x18) != 0)
-                          {
-                            temp_fs0_3 = arg5 - temp_fs0_3;
-                            temp_ft1_2 = temp_fs0_3 * workspace.data[2];
-                            temp_ft0_2 = temp_fs0_3 * workspace.data[3];
-                            temp_fv0_3 = temp_fs0_3 * workspace.data[4];
-                            sp18Buf[0] = temp_ft1_2;
-                            sp18Buf[1] = temp_ft0_2;
-                            sp18Buf[2] = temp_fv0_3;
-                            sp28Buf[0] += temp_ft1_2;
-                            sp28Buf[1] += temp_ft0_2;
-                            sp28Buf[2] += temp_fv0_3;
-                            rotateVec3ByMat3((s32 *) geometry.matrix, &sp18Buf[0]);
-                            ((Field_f32 *) (((char *) arg3) + 0))->v = (f32) (((Field_f32 *) (((char *) arg3) + 0))->v + sp18Buf[0]);
-                            ((Field_f32 *) (((char *) arg3) + 4))->v = (f32) (((Field_f32 *) (((char *) arg3) + 4))->v + sp18Buf[1]);
-                            gPlayerActor = var_s0_2;
-                            sp104 = var_s2;
-                            spF7 = 1;
-                            ((Field_f32 *) (((char *) arg3) + 8))->v = (f32) (((Field_f32 *) (((char *) arg3) + 8))->v + sp18Buf[2]);
-                          }
-                        }
-                      }
-                      var_s3_2 += 3;
+ do { if ((sp12E & temp_v1_6) && (temp_v1_6 & sp136)) { temp_v1_7 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v; buildPlaneFromPoints(sp13C, temp_v1_7 + ((*var_s6_2) * 0xC), temp_v1_7 + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), temp_v1_7 + (((Field_u8 *) (((char *) var_s3_2) + 0))->v * 0xC)); temp_fs0_3 = ((workspace.data[4] * sp28Buf[2]) + ((workspace.data[2] * sp28Buf[0]) + (workspace.data[3] * sp28Buf[1]))) + workspace.data[5]; var_v0_3 = 1; if (!(temp_fs0_3 < arg5)) { var_v0_3 = 0; } var_v1_3 = 1; if (!(temp_fs0_3 > 0.0f)) { var_v1_3 = 0; } if (var_v0_3 & var_v1_3) { ((Field_f32 *) (((char *) arg4) + 0))->v = (f32) (sp28Buf[0] - (temp_fs0_3 * workspace.data[2])); ((Field_f32 *) (((char *) arg4) + 4))->v = (f32) (sp28Buf[1] - (temp_fs0_3 * workspace.data[3])); ((Field_f32 *) (((char *) arg4) + 8))->v = (f32) (sp28Buf[2] - (temp_fs0_3 * workspace.data[4])); temp_v1_8 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v; if ((triangleContainsPoint(arg4, temp_v1_8 + ((*var_s6_2) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), temp_v1_8 + (((Field_u8 *) (((char *) var_s3_2) + 0))->v * 0xC), sp13C) << 0x18) != 0) { temp_fs0_3 = arg5 - temp_fs0_3; temp_ft1_2 = temp_fs0_3 * workspace.data[2]; temp_ft0_2 = temp_fs0_3 * workspace.data[3]; temp_fv0_3 = temp_fs0_3 * workspace.data[4]; sp18Buf[0] = temp_ft1_2; sp18Buf[1] = temp_ft0_2; sp18Buf[2] = temp_fv0_3; sp28Buf[0] += temp_ft1_2; sp28Buf[1] += temp_ft0_2; sp28Buf[2] += temp_fv0_3; rotateVec3ByMat3((s32 *) geometry.matrix, &sp18Buf[0]); ((Field_f32 *) (((char *) arg3) + 0))->v = (f32) (((Field_f32 *) (((char *) arg3) + 0))->v + sp18Buf[0]); ((Field_f32 *) (((char *) arg3) + 4))->v = (f32) (((Field_f32 *) (((char *) arg3) + 4))->v + sp18Buf[1]); gPlayerActor = var_s0_2; sp104 = var_s2; spF7 = 1; ((Field_f32 *) (((char *) arg3) + 8))->v = (f32) (((Field_f32 *) (((char *) arg3) + 8))->v + sp18Buf[2]); } } } var_s3_2 += 3; } while (0);
                       var_s6_2 += 3;
                       var_s4_2 += 1;
                     }
@@ -772,6 +729,9 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     }
   }
 
+  {
+  void *neighbor = var_fp;
+  #define var_fp neighbor
   if (var_fp != NULL)
   {
     loop_159:
@@ -812,6 +772,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   }
   block_167:
   return (s8) spF7;
+  #undef var_fp
+  }
 
 }
-

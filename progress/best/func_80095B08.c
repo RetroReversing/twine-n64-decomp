@@ -172,13 +172,13 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
       if (D_800F2720)
       {
         groupBase = inline_fn2(D_800EE420, temp_a2);
-        rowOffset = (arg1 & 0xFF) * 134;
+        temp_a0 = (arg1 & 0xFF); rowOffset = temp_a0 * 134;
         var_v0 = inline_fn(groupBase, rowOffset);
       }
       else
       {
         groupBase = inline_fn2(D_800EE420, temp_a2);
-        rowOffset = (arg1 & 0xFF) * 134;
+        temp_a0 = (arg1 & 0xFF); rowOffset = temp_a0 * 134;
         var_v0 = inline_fn(groupBase, rowOffset);
       }
     }
@@ -202,7 +202,7 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
   if (temp_a2 != 0xFF)
   {
     groupBase = inline_fn2345(D_800EE420, temp_a2);
-    rowOffset = (arg1 & 0xFF) * 134;
+    temp_a0 = (arg1 & 0xFF); rowOffset = temp_a0 * 134;
     var_v0 = inline_fn(groupBase, rowOffset);
   }
   else

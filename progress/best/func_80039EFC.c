@@ -81,9 +81,9 @@ void func_80039EFC(u32 **arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
   ratioX = ((f32) ((u32) arg6)) / ((f32) ((u32) arg4));
   ratioY = ((f32) ((u32) arg7)) / ((f32) ((u32) arg5));
   temp_fv1 = (s32) (((f32) ((u32) arg8)) * ratioX);
-  var_t5 = arg11;
   var_t8 = arg15;
   sp2C = (s32) (((f32) ((u32) arg9)) * ratioY);
+  var_t5 = arg11;
   if ((arg13 + 1) > (var_t5 + 1))
   {
     temp_s1 = arg12 - 1;
