@@ -66908,135 +66908,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3e177126be69d4d304d28962873ef851609163b993824d275f7d396ad0e1c860"
  },
  {
-  "function": "func_8004D910",
-  "text": "Rechecked baseline d50b763d958eb4ad8f91 at 5051. Nine local variants including vector layouts, return sharing, product reuse and arithmetic order did not improve. Target loads stack arguments earlier; 126 mismatch rows largely FP registers and scheduling. Reconstruct vector arithmetic and lifetime/order from assembly before further local tuning.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795165236.034462,
-  "score_before": 5051,
-  "score_after": 5051
- },
- {
-  "function": "func_8004D910",
-  "text": "Best score 5051, no improvement in 8 compiles. Repaired undeclared symbol compile issue by using volatile D_800D3E40, yielding same score; local families assignment_at_use, const_read, shared_return, shared_product_local, source_variable_reuse, goto_shared_tail gave no gain. Replacing `!(temp_ft5 < 1e-10f)` with `temp_ft5 >= 1e-10f` regressed sharply to 12070; restore saved best source. Target first mismatches are loads from stack offsets 0x90/0x94 before scratch stores and floating values moved through GPRs (mfc1/sw), whereas candidate delays loads/spills floats. Main task: restructure stack/output scalar setup and typed float scratch to match early scheduling, then tune FP register lifetimes.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795183554.972054,
-  "score_before": 5051,
-  "score_after": 5051
- },
- {
-  "function": "func_8004D910",
-  "text": "Rechecked saved candidate at 5051. Regrouping the second dot product worsened to 5161; local arithmetic/order/layout repairs did not improve, and changing individual register qualifiers produced identical assembly. Remaining mismatch starts with stack argument loads and vector stores ordering; target also loads arg1+8 directly into FP register and uses a branch-likely near the end. Reconstruct vector local types and control flow against assembly.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795184536.831224,
-  "score_before": 5051,
-  "score_after": 5051
- },
- {
-  "function": "func_8004D910",
-  "text": "Best verified candidate is saved revision 236a34942a16fe56e10c (historical 2731), recovered before release. The 2731 candidate after a whole-function rewrite is the same best state. No lower score found. Tried local families for shared tail, inferred record layout, product locals, address temp, const reads and shared return; only inferred record layout worsened substantially, others tied. Target 0x80 frame, early stack temp stores for vector differences, caller stack args at 0x90/0x94. Main remaining mismatch is FPR/GPR allocation and order starting around first arg4 vector load; target uses mfc1/swc1 path for first two differences, then loads matrix values with lwc1 and uses fs registers, while candidate loads/keeps values differently. Need typed 3-float vector/struct and source-shaped temporaries to align lifetimes.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795202524.896799,
-  "score_before": 2731,
-  "score_after": 2731
- },
- {
-  "function": "func_8004D910",
-  "text": "Current saved candidate rechecks at 2731; six local alternatives (record layout, address temp, const reads, shared return/product local/tail) all tie. Inherited prior work already tried 24 local repairs and explicit patches. Mismatch report centers at row 19: target stores sp20 vector element before later loads; candidate has an extra lwc1 from stack and divergent register/stack schedule. Need inspect exact current assembly around vectors and correct stack temp lifetimes; no verified global convention learned.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795205713.955668,
-  "score_before": 2731,
-  "score_after": 2731
- },
- {
-  "function": "func_8004D910",
-  "text": "Reordered first vector's third component before arg4 load, improving verified score 2657 to 2527. Register and volatile qualifiers did not change code; empty block and moving arg1 load later worsened it. Remaining differences include lwc1 vs lw/mtc1 for arg1+8, stack store form, and branch layout.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795208430.539623,
-  "score_before": 2657,
-  "score_after": 2527
- },
- {
-  "function": "func_8004D910",
-  "text": "Best verified score 2527. Rechecked typed Vec3 pointers, and local repair batch (record layout, address temp, const reads, shared return) all tied; target/candidate instructions unchanged. Current first mismatch around target lwc1 $f28,8($a1), candidate lw $a3,8($a1); target later mfc1 $a3,$f2; sw $a3,0x18($sp); bc1fl, candidate mtc1 $t1,$f26; swc1; bc1t plus extra move. Next experiment: change cross-product temporary lifetimes to typed vector locals with an explicit branch structure matching sign/clamp checks; inspect get_assembly around mismatch/delay slot before compiling.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795215730.4618108,
-  "score_before": 9847,
-  "score_after": 2527,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_8004D910",
-  "text": "Saved candidate rechecked at 2527. Reordered first vector's third component before arg4 load was inherited as a successful improvement. My explicit duplicate stack store before arg1+8 load regressed to 3362; inferred record layout tied baseline; address-temp repair was stopped by concurrent progress. A malformed full rewrite and expression-order patch did not compile due to my malformed parentheses. Target's early prologue loads stacked args at 0x90/0x94 before stores, and later uses lwc1 arg1+8, while baseline emits mtc1 from captured integer bits and different stack slots. Next step: inspect baseline mismatch around target instructions 9\u201336 and try a typed float vec3 arg1/arg4 signature or targeted source ordering to reproduce lwc1 arg1+8 without moving established first-vector store.\nFresh baseline/local repairs; duplicate sp10[1] store before arg1+8 load; record layout probe.\nRecord layout tied score 2527; explicit duplicate stack store regressed to 3362; source rewrite/expression trial failed parsing.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795234165.7646642,
-  "score_before": 2527,
-  "score_after": 2527,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_8004D910",
-  "text": "Low progress after 31 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 10; 76 differing rows (4 opcode, 62 register, 2 branch target, 4 reordered, 3 inserted, 1 deleted; advisory).\nTarget: sub.s $f30, $f2, $f0\nCandidate: sub.s $f24, $f2, $f0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lwc1 $f0, ($a2)\n  = lw $v0, 0x90($sp)\nr T: sub.s $f30, $f2, $f0 | C: sub.s $f24, $f2, $f0\nr T: lw $t2, 0x94($sp) | C: lw $t3, 0x94($sp)\nr T: swc1 $f30, ($sp) | C: swc1 $f24, ($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795239919.419921,
-  "score_before": 8160,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_8004D910",
-  "text": "Cast double reciprocal to float before multiplying: 690\u2192305, equal instruction count and 61 register differences only.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795240884.59149,
-  "score_before": 690,
-  "score_after": 305,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_8004D910",
-  "text": "Verified score 310 on donor-derived C, equal instruction count. Historical score 305 source could not be recovered through saved_best or revision lookup. Remaining differences are an early rayDir.z load and f20/f22 exchange. Splitting y operands around the z load regressed to 2030/2045, and a y scalar with unchanged assignment order tied at 310.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795244256.012618,
-  "score_before": 305,
-  "score_after": 305,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_8004D910",
-  "text": "Current verified baseline is 305, with 61 register-only rows and identical stack slots and instruction order. Donor register declarations/comparison booleans, register union locals and output alias reproduced the same diff; reordering declarations worsened to 319. Disabling caller saves tied; disabling expensive optimizations or either scheduling pass worsened.\nMatched donor declarations/comparisons and allocator-related flags\nBaseline retained at 305; first discrepancy at row 10 is edge1.x f30 versus f24, followed by output-pointer t2 versus t3.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795304978.586245,
-  "score_before": 305,
-  "score_after": 305,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_8004D910",
-  "text": "Best stays 305 (61 register-only diffs: target e1.x in $f30, candidate $f24). Reversing local declaration order scored 361: it moves the stack slots (e1 at 0x00 in target; reversed layout puts it at 0x40), so declaration order matters for stack and the original order was right for the frame. Next step: keep the original declaration order but change which f32 values are live across the first loads (e.g. load arg1 x/y/z before computing ex/ey/ez) to shift FPR allocation.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795309687.0254478,
-  "score_before": 305,
-  "score_after": 305,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_8004D910",
-  "text": "Reverse e1 writes; stage all three before storing; introduce immediate scalar copies; qualify e1 volatile.\n375, 1095, unchanged 305, 2828 respectively. Exact instruction order and stack layout at baseline; 61 register-only rows.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795312544.5414112,
-  "score_before": 305,
-  "score_after": 305,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_8004D910",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795338260.6177778,
-  "score_before": 305,
-  "score_after": 275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
   "function": "func_8011E634",
   "text": "Resumed revision 7d14c365bf322560a86c (rechecked score 1564; historical saved best 1364 uses different source/header). Tried six independent local repair variants: single_use_inline, constant_local, branch_orientation, shared_store_constant, explicit_loop_backedge, const_read. Scores 1789, 1564, 2504, 1784, 2058, 1564; no improvement, move-on budget reached. Candidate's first mismatch is function entry: target loads D_801002C0 via lui/lw before allocating 0x20 stack, while candidate begins elsewhere. Prior notes mention historical best candidate 140a988e653d at 1144 and unresolved argument/entry/register differences. Next agent should compare saved_best/current and inspect full entry assembly before additional control-flow tuning.",
   "by": "codex-gpt-6-luna-11",
@@ -83529,5 +83400,161 @@
   "score_before": 99,
   "score_after": 99,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e2137a500959bffd8fa5be284b11a255a498bcd1eeb9ed5b9c33d95dba637da3"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Rechecked baseline d50b763d958eb4ad8f91 at 5051. Nine local variants including vector layouts, return sharing, product reuse and arithmetic order did not improve. Target loads stack arguments earlier; 126 mismatch rows largely FP registers and scheduling. Reconstruct vector arithmetic and lifetime/order from assembly before further local tuning.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795165236.034462,
+  "score_before": 5051,
+  "score_after": 5051
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Best score 5051, no improvement in 8 compiles. Repaired undeclared symbol compile issue by using volatile D_800D3E40, yielding same score; local families assignment_at_use, const_read, shared_return, shared_product_local, source_variable_reuse, goto_shared_tail gave no gain. Replacing `!(temp_ft5 < 1e-10f)` with `temp_ft5 >= 1e-10f` regressed sharply to 12070; restore saved best source. Target first mismatches are loads from stack offsets 0x90/0x94 before scratch stores and floating values moved through GPRs (mfc1/sw), whereas candidate delays loads/spills floats. Main task: restructure stack/output scalar setup and typed float scratch to match early scheduling, then tune FP register lifetimes.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795183554.972054,
+  "score_before": 5051,
+  "score_after": 5051
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Rechecked saved candidate at 5051. Regrouping the second dot product worsened to 5161; local arithmetic/order/layout repairs did not improve, and changing individual register qualifiers produced identical assembly. Remaining mismatch starts with stack argument loads and vector stores ordering; target also loads arg1+8 directly into FP register and uses a branch-likely near the end. Reconstruct vector local types and control flow against assembly.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795184536.831224,
+  "score_before": 5051,
+  "score_after": 5051
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Best verified candidate is saved revision 236a34942a16fe56e10c (historical 2731), recovered before release. The 2731 candidate after a whole-function rewrite is the same best state. No lower score found. Tried local families for shared tail, inferred record layout, product locals, address temp, const reads and shared return; only inferred record layout worsened substantially, others tied. Target 0x80 frame, early stack temp stores for vector differences, caller stack args at 0x90/0x94. Main remaining mismatch is FPR/GPR allocation and order starting around first arg4 vector load; target uses mfc1/swc1 path for first two differences, then loads matrix values with lwc1 and uses fs registers, while candidate loads/keeps values differently. Need typed 3-float vector/struct and source-shaped temporaries to align lifetimes.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795202524.896799,
+  "score_before": 2731,
+  "score_after": 2731
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Current saved candidate rechecks at 2731; six local alternatives (record layout, address temp, const reads, shared return/product local/tail) all tie. Inherited prior work already tried 24 local repairs and explicit patches. Mismatch report centers at row 19: target stores sp20 vector element before later loads; candidate has an extra lwc1 from stack and divergent register/stack schedule. Need inspect exact current assembly around vectors and correct stack temp lifetimes; no verified global convention learned.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795205713.955668,
+  "score_before": 2731,
+  "score_after": 2731
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Reordered first vector's third component before arg4 load, improving verified score 2657 to 2527. Register and volatile qualifiers did not change code; empty block and moving arg1 load later worsened it. Remaining differences include lwc1 vs lw/mtc1 for arg1+8, stack store form, and branch layout.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795208430.539623,
+  "score_before": 2657,
+  "score_after": 2527
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Best verified score 2527. Rechecked typed Vec3 pointers, and local repair batch (record layout, address temp, const reads, shared return) all tied; target/candidate instructions unchanged. Current first mismatch around target lwc1 $f28,8($a1), candidate lw $a3,8($a1); target later mfc1 $a3,$f2; sw $a3,0x18($sp); bc1fl, candidate mtc1 $t1,$f26; swc1; bc1t plus extra move. Next experiment: change cross-product temporary lifetimes to typed vector locals with an explicit branch structure matching sign/clamp checks; inspect get_assembly around mismatch/delay slot before compiling.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795215730.4618108,
+  "score_before": 9847,
+  "score_after": 2527,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Saved candidate rechecked at 2527. Reordered first vector's third component before arg4 load was inherited as a successful improvement. My explicit duplicate stack store before arg1+8 load regressed to 3362; inferred record layout tied baseline; address-temp repair was stopped by concurrent progress. A malformed full rewrite and expression-order patch did not compile due to my malformed parentheses. Target's early prologue loads stacked args at 0x90/0x94 before stores, and later uses lwc1 arg1+8, while baseline emits mtc1 from captured integer bits and different stack slots. Next step: inspect baseline mismatch around target instructions 9\u201336 and try a typed float vec3 arg1/arg4 signature or targeted source ordering to reproduce lwc1 arg1+8 without moving established first-vector store.\nFresh baseline/local repairs; duplicate sp10[1] store before arg1+8 load; record layout probe.\nRecord layout tied score 2527; explicit duplicate stack store regressed to 3362; source rewrite/expression trial failed parsing.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795234165.7646642,
+  "score_before": 2527,
+  "score_after": 2527,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Low progress after 31 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 10; 76 differing rows (4 opcode, 62 register, 2 branch target, 4 reordered, 3 inserted, 1 deleted; advisory).\nTarget: sub.s $f30, $f2, $f0\nCandidate: sub.s $f24, $f2, $f0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lwc1 $f0, ($a2)\n  = lw $v0, 0x90($sp)\nr T: sub.s $f30, $f2, $f0 | C: sub.s $f24, $f2, $f0\nr T: lw $t2, 0x94($sp) | C: lw $t3, 0x94($sp)\nr T: swc1 $f30, ($sp) | C: swc1 $f24, ($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795239919.419921,
+  "score_before": 8160,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Cast double reciprocal to float before multiplying: 690\u2192305, equal instruction count and 61 register differences only.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795240884.59149,
+  "score_before": 690,
+  "score_after": 305,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Verified score 310 on donor-derived C, equal instruction count. Historical score 305 source could not be recovered through saved_best or revision lookup. Remaining differences are an early rayDir.z load and f20/f22 exchange. Splitting y operands around the z load regressed to 2030/2045, and a y scalar with unchanged assignment order tied at 310.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795244256.012618,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Current verified baseline is 305, with 61 register-only rows and identical stack slots and instruction order. Donor register declarations/comparison booleans, register union locals and output alias reproduced the same diff; reordering declarations worsened to 319. Disabling caller saves tied; disabling expensive optimizations or either scheduling pass worsened.\nMatched donor declarations/comparisons and allocator-related flags\nBaseline retained at 305; first discrepancy at row 10 is edge1.x f30 versus f24, followed by output-pointer t2 versus t3.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795304978.586245,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Best stays 305 (61 register-only diffs: target e1.x in $f30, candidate $f24). Reversing local declaration order scored 361: it moves the stack slots (e1 at 0x00 in target; reversed layout puts it at 0x40), so declaration order matters for stack and the original order was right for the frame. Next step: keep the original declaration order but change which f32 values are live across the first loads (e.g. load arg1 x/y/z before computing ex/ey/ez) to shift FPR allocation.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795309687.0254478,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Reverse e1 writes; stage all three before storing; introduce immediate scalar copies; qualify e1 volatile.\n375, 1095, unchanged 305, 2828 respectively. Exact instruction order and stack layout at baseline; 61 register-only rows.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795312544.5414112,
+  "score_before": 305,
+  "score_after": 305,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795338260.6177778,
+  "score_before": 305,
+  "score_after": 275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Judge reached 5/4. Verified 275 with 55 register-only differences. Debug flags gave 2685; reversed union loads and register declarations left 275 unchanged; reversed dot and cross operands gave 280 and 285.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795346145.904768,
+  "score_before": 275,
+  "score_after": 275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Five variants reproduced the same score and diff after the previous lease reached its move-on limit. The original candidate remains the best.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795356402.102923,
+  "score_before": 275,
+  "score_after": 275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
+ },
+ {
+  "function": "func_8004D910",
+  "text": "Judge reached 4/4. Saved 275 with 55 register-only differences; staging e1 fields before scalar aliases reproduced the entire diff.\nOne plain float load in place of either union load, then both loads volatile, then volatile dz, then structure-first e1 staging\n275 for either single replacement, 2430 for both volatile, 2266 for volatile dz, and 275 unchanged for e1 staging.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795360201.806865,
+  "score_before": 275,
+  "score_after": 275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
  }
 ]
