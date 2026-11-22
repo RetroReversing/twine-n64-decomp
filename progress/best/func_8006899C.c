@@ -87,11 +87,18 @@ void func_8006899C(void *arg0, u8 arg1)
   temp_s2 = *((void **) (((char *) arg0) + 0x6C));
   temp_fp = *((s8 *) inline_fn2((char *) temp_s2, 0x182));
   temp_v0 = &sTrackMarkerTable[temp_fp];
-  cameraAngles[0] = *((f32 *) (((char *) (*temp_v0)) + 0x34));
-  var_s6 = 1;
-  sp37 = arg1;
-  temp_v0_6 = ((*((s8 *) (((char *) (*((void **) inline_fn2((char *) arg0, 0x68)))) + 0xE))) * 0xE8); temp_s4 = temp_v0_6 + ((char *) (&sEnemyDefTable));
-  cameraAngles[1] = *((f32 *) inline_fn2((char *) (*temp_v0), 0x38));
+  {
+    void *marker = *temp_v0;
+    void *actor = *(void **)((char *)arg0 + 0x68);
+    f32 yaw = *(f32 *)((char *)marker + 0x34);
+    s32 kind = *(s8 *)((char *)actor + 0xE);
+    cameraAngles[0] = yaw;
+    marker = *temp_v0;
+    var_s6 = 1;
+    sp37 = arg1;
+    cameraAngles[1] = *(f32 *)((char *)marker + 0x38);
+    temp_s4 = (char *)&sEnemyDefTable + kind * 0xE8;
+  }
   cameraAngles[2] = 0.0f;
   if (func_80081AA4(temp_fp, 0x12) != 0)
   {

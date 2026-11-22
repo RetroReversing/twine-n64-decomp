@@ -135,6 +135,11 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
               var_v1 = inline_fn234(D_800E1564, 1);
             }
             else
+              if (D_800E156C || D_800E1568)
+            {
+              var_v1 = D_800E1564 + 1;
+            }
+            else
             {
               var_v1 = D_800E1564 + 1;
             }
@@ -170,7 +175,8 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
             temp_fv1 = ((f32) temp_v1_4) * 0.24691357f;
             *inline_fn23(inline_fn() + 0) = temp_v1_4;
             var_v1 = (u32) temp_fv1;
-            __repair_phase_var_v1 = var_v1 & 0xFF;
+            temp_v1_5 = var_v1 & 0xFF;
+            __repair_phase_var_v1 = temp_v1_5;
             temp_v1_5 = __repair_phase_var_v1;
             *inline_fn23(inline_fn() + 4) = temp_v1_5;
             *(temp_s0 + inline_fn234(D_800E1564, D_800E1568 * D_800E156C)) = (s8) __repair_phase_var_v1;

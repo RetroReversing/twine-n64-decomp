@@ -40,7 +40,6 @@ void func_80070F34(void *arg0)
 {
   s16 *__base_D_800C7E10;
   void *sp1C;
-  volatile s32 frameSpace[2];
   char *temp_s0;
   f32 temp_fs0;
   f32 temp_ft0;
@@ -330,8 +329,8 @@ void func_80070F34(void *arg0)
         temp_v0_5 = *((void **) (((char *) (*((void **) (((char *) temp_s2) + 0x418)))) + 0x18));
         *((s8 *) (((char *) temp_v0_5) + 0)) = (s8) (*((s8 *) (((char *) (&D_800D47A0)) + 0)));
         *((s8 *) (((char *) temp_v0_5) + 1)) = (s8) (*((s8 *) (((char *) (&D_800D47A0)) + 1)));
-        *((s8 *) (((char *) temp_v0_6) + 0)) = (s8) (*((s8 *) (((char *) (&D_800D47A0)) + 0)));
         temp_v0_6 = *((void **) (((char *) (*((void **) (((char *) temp_s2) + 0x41C)))) + 0x18));
+        *((s8 *) (((char *) temp_v0_6) + 0)) = (s8) (*((s8 *) (((char *) (&D_800D47A0)) + 0)));
         *((s8 *) (((char *) temp_v0_6) + 1)) = (s8) (*((s8 *) (((char *) (&D_800D47A0)) + 1)));
       }
       else

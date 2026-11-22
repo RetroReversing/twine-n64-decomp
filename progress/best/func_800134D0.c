@@ -16,8 +16,6 @@ void func_800134D0(void *arg0)
   u32 sp1C;
   s32 sp2C;
   s32 *var_a0_5;
-  
-
   s32 temp_a1_3;
   s32 temp_s2;
   s32 temp_t5;
@@ -28,16 +26,13 @@ void func_800134D0(void *arg0)
   s32 temp_v1_3;
   s32 var_a2;
   s32 var_a2_10;
-  
   s32 var_a2_8;
-  
   s32 var_t1;
   s32 var_t1_2;
   s32 var_t1_8;
   s32 var_t3;
   s32 var_t3_3;
-s32 __repair_phase_var_t3_3;
-  
+  s32 __repair_phase_var_t3_3;
   s32 __repair_phase_var_t3_4;
   unsigned var_t3_5;
   s32 var_t4;
@@ -101,7 +96,7 @@ s32 __repair_phase_var_t3_3;
   u32 var_a3_8;
   u32 var_a3_9;
   u32 var_s3;
-u32 __repair_phase_var_s3;
+  u32 __repair_phase_var_s3;
   u32 var_s4;
   u32 var_t1_3;
   u32 var_t1_4;
@@ -134,16 +129,16 @@ u32 __repair_phase_var_s3;
   var_t4 = 0x20;
   loop_1:
   --var_t4;
-  var_a2 = var_t2 & 1;
 
+  var_a2 = var_t2 & 1;
   if (var_t4 < 0)
   {
     u32 temp_t2_arm;
     s32 temp_v0_2_arm;
     temp_t2_arm = var_t2;
     var_t2 = var_s4;
-    var_s4 = *var_s1++;
-    temp_v0_2_arm = (temp_t2_arm + (var_t2 << (var_t4 + 1))); var_a2 = temp_v0_2_arm & 1;
+    var_s4 = *(var_s1++);
+    temp_v0_2_arm = temp_t2_arm + (var_t2 << (var_t4 + 1)); var_a2 = temp_v0_2_arm & 1;
     var_t2 >>= -var_t4;
     var_t4 += 0x20;
   }
@@ -176,7 +171,7 @@ u32 __repair_phase_var_s3;
       }
       while (0);
       var_s1++;
-      temp_s2 = (var_t2 + (var_s3 << (var_t4 + 0xF))); var_t1 = temp_s2 & 0x7FFF;
+      temp_s2 = var_t2 + (var_s3 << (var_t4 + 0xF)); var_t1 = temp_s2 & 0x7FFF;
       var_t2 = var_s3 >> (-var_t4);
       var_t4 += 0x20;
     }
@@ -191,7 +186,7 @@ u32 __repair_phase_var_s3;
         {
           temp_t2 = var_t2;
           var_t2 = var_s4;
-          var_s4 = *var_s1++;
+          var_s4 = *(var_s1++);
           var_a2_2 = (temp_t2 + (var_t2 << (var_t4 + 8))) & 0xFF;
           var_t2 >>= -var_t4;
           var_t4 += 0x20;
@@ -218,7 +213,7 @@ u32 __repair_phase_var_s3;
   spC = &D_80108970;
 
   var_s3 = 8;
-  if (__repair_phase_storage.value-- != 0)
+  if ((__repair_phase_storage.value--) != 0)
   {
     spC = &D_801032B0;
     var_s3 = 0xA;
@@ -229,7 +224,7 @@ u32 __repair_phase_var_s3;
   {
     temp_t2 = var_t2;
     var_t2 = var_s4;
-    var_s4 = *var_s1++;
+    var_s4 = *(var_s1++);
     var_a2_3 = (temp_t2 + (var_t2 << (var_t4 + 9))) & 0x1FF;
     var_t2 >>= -var_t4;
     var_t4 += 0x20;
@@ -260,7 +255,7 @@ u32 __repair_phase_var_s3;
       {
         temp_t2 = var_t2;
         var_t2 = var_s4;
-        var_s4 = *var_s1++;
+        var_s4 = *(var_s1++);
         var_a2 = (temp_t2 + (var_t2 << (var_t4 + 1))) & 1;
         var_t2 >>= -var_t4;
         var_t4 += 0x20;
@@ -277,7 +272,7 @@ u32 __repair_phase_var_s3;
           sp1C = var_t2;
           temp_t2 = var_t2;
           var_t2 = var_s4;
-          var_s4 = *var_s1++;
+          var_s4 = *(var_s1++);
           sp1C = (sp1C + (var_t2 << (var_t4 + 4))) & 0xF;
           var_t2 >>= -var_t4;
           var_t4 += 0x20;
@@ -576,7 +571,7 @@ u32 __repair_phase_var_s3;
     var_v0_2 = var_t1_7 & 0xF;
     if (var_v0_2 == 0)
     {
-      var_t1_7 = ((&D_801032B0) + 0x400)[((var_v1_6 >> 0xA) & ((1 << ((var_t1_7 >> 4) & 7)) - 1)) + (var_t1_7 >> 7)];
+      var_t1_7 = ((&D_801032B0) + 0x400)[((var_v1_6 >> 0xA) & ((1 << ((var_t1_7 >> 4) & 7)) - 1)) + ((var_t1_7 >> 4) >> 3)];
       var_v0_2 = var_t1_7 & 0xF;
     }
     var_t4 -= var_v0_2;
@@ -607,7 +602,7 @@ u32 __repair_phase_var_s3;
         {
           temp_t2 = var_t2;
           var_t2 = var_s4;
-          var_s4 = *var_s1++;
+          var_s4 = *(var_s1++);
           var_a2_8 = (temp_t2 + (var_t2 << (var_t4 + temp_v1_6))) & ((1 << temp_v1_6) - 1);
           var_t2 >>= -var_t4;
           var_t4 += 0x20;
@@ -654,7 +649,7 @@ u32 __repair_phase_var_s3;
         {
           temp_t2 = var_t2;
           var_t2 = var_s4;
-          var_s4 = *var_s1++;
+          var_s4 = *(var_s1++);
           var_a2_8 = (temp_t2 + (var_t2 << (var_t4 + temp_v1_7))) & ((1 << temp_v1_7) - 1);
           var_t2 >>= -var_t4;
           var_t4 += 0x20;
@@ -704,7 +699,7 @@ u32 __repair_phase_var_s3;
     {
       temp_t2 = var_t2;
       var_t2 = var_s4;
-      var_s4 = *var_s1++;
+      var_s4 = *(var_s1++);
       var_a2_10 = (temp_t2 + (var_t2 << (var_t4 + 1))) & 1;
       var_t2 >>= -var_t4;
       var_t4 += 0x20;
@@ -722,5 +717,4 @@ u32 __repair_phase_var_s3;
 
   goto loop_17;
 }
-
 
