@@ -31,6 +31,7 @@ Gfx *__repair_phase_dl;
     u32 sel;
     u32 cnt;
     u32 w0;
+    Gfx *nx;
     
 
     rec = (Rec *)D_801007BC;
@@ -92,7 +93,8 @@ skip_cmd:
                         do { guMtxF2L(&D_80112F90, D_8010D538); } while (0);
                         dl = D_80115328;
                         sel = D_8010D538;
-                        D_80115328 = dl + 1;
+                        nx = dl + 1;
+                        D_80115328 = nx;
                         dl->w0 = 0xDA380003;
                         sel -= 0x80000000;
                     } else {
@@ -102,7 +104,8 @@ skip_cmd:
                     dl = D_80115328;
                     dl->w0 = 0xDA380003;
                     sel = *(s32 *)((char *)sRenderState + 0x74C);
-                    D_80115328 = dl + 1;
+                    nx = dl + 1;
+                    D_80115328 = nx;
                     sel -= 0x80000000;
                 }
                 ((u32 *)dl)[1] = sel;
@@ -115,5 +118,6 @@ skip_cmd:
         }
     }
 }
+
 
 

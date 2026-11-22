@@ -60915,28 +60915,12 @@
   "handoff_inputs": "2dd4b92ca36f1e5eda25500cb4072dc92c895407546c84808d0c5ad632bbaa9a:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:be4a52e5c19fe5f4a9f6d9621f9a62427b6061d846e94c9272eb44c3aa33015f"
  },
  {
-  "function": "func_800371E0",
-  "text": "Started from scored draft (2180), fixed the first command-buffer pointer advance to byte arithmetic and reached 2175. Switch-as-if rewrite, partial pointer-byte adjustment for a switch output, and generated local repair variants did not beat the saved best. Residual: first mismatch is the early null-exit branch target (target 0x2b4 vs candidate 0x2bc); mode switch contains register allocation and case-layout differences, then later loop/control-flow and float-call setup differ. Investigate exact pointer arithmetic in both switch paths and inspect assembly from line 70 onward. Compiler warned about literal relocation needing target $gp; profile is O1 and original candidate also emitted that warning.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795164413.783154,
-  "score_before": 2150,
-  "score_after": 2150
- },
- {
   "function": "func_800740D0",
   "text": "Improved rechecked 5999 to 4232 by correcting D_8010D380/D_8010D2C0 table reads to s32 and D_800E1A70 entries to pointer-sized reads and writes, and adding a volatile stack slot. Target frame is 0x40 while candidate is 0x48 due to saved f20; target forms full table base addresses while candidate folds relocations into loads. Switch reordering, branch inversion, signedness, and other local repairs did not improve. Continue with full-address formation and FPR/stack allocation.",
   "by": "codex-gpt-6.1-terra-1",
   "created_at": 1795172810.433644,
   "score_before": 5924,
   "score_after": 4232
- },
- {
-  "function": "func_800371E0",
-  "text": "Baseline 2175 retained. Correcting both switch display-list paths to write the old pointer and increment by two words yields 2180, but fixes likely semantic error in saved candidate (which increments by 32 and writes the advanced pointer). Revision d60d1c11589747879d87 has that correction. Unsigned switch, default/case 3, and local type variants did not improve. Target switch tests 1 then 2/4; investigate control structure and float literal relocation ($gp is unconfigured).",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795183419.621793,
-  "score_before": 2150,
-  "score_after": 2150
  },
  {
   "function": "func_800740D0",
@@ -60947,14 +60931,6 @@
   "score_after": 3195
  },
  {
-  "function": "func_800371E0",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 12; 73 differing rows (22 register, 12 branch target, 17 operand, 6 reordered, 9 inserted, 7 deleted; advisory).\nTarget: beqz $s1, 0x2b4\nCandidate: beqz $s1, 0x2bc\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s0, 0x20($sp)\n  = sdc1 $f20, 0x40($sp)\ni T: beqz $s1, 0x2b4 | C: beqz $s1, 0x2bc\n  = move $s4, $zero\n  = jal func_80034560\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRechecked saved baseline revision 765c319d9b113bc1f855 at score 2175. Local repairs tried: call_one_shot_scope, branch_pointer_declarations, cfg_integer_lifetimes, signedness, declaration_order, address_temporary (twice batches); all equal or worse, no improved candidate. No new matching discovery. First mismatch is early CFG: target beqz $s1 to 0x2b4, candidate to 0x2bc. Explore source restructuring/control flow or inspect assembly; baseline retained.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795184467.9569778,
-  "score_before": 2150,
-  "score_after": 2150
- },
- {
   "function": "func_800740D0",
   "text": "Rechecked best revision 2438dde30903ad188a76 at 3195. Branch inversion, integer signedness/lifetime reuse, const reads, and removing volatile stack pad did not improve. Inspect target table address construction D_8010D380: target explicitly materializes base and loads via pointer, candidate uses relocation indexed loads. Five target instructions remain missing; investigate case 0 control flow.",
   "by": "codex-gpt-6.1-terra-3",
@@ -60963,44 +60939,12 @@
   "score_after": 3195
  },
  {
-  "function": "func_800371E0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] compile_and_diff cannot run because gcc-2.7.2-kmc is not installed in this session. The supplied draft check also reports undeclared globals; first restore compiler/context, then obtain current candidate and target mismatch before tuning. Only a minimal stub compile was attempted; no candidate edits or match claims.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795194058.130555,
-  "score_before": 2150,
-  "score_after": 2150
- },
- {
-  "function": "func_800371E0",
-  "text": "Restored and read saved-best candidate revision 854bb60fdabb7ecd5729 (saved score 2035). Tried full rewrite plus six local repairs; no improvement. Target raw immediate diagnostics show likely two command constants differ, but verify exact case associations from assembly. Loop branch targets and display-list pointer registers also differ.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795202378.003245,
-  "score_before": 2035,
-  "score_after": 2035
- },
- {
   "function": "func_800740D0",
   "text": "No real implementation trials completed. Empty and stub submissions were accidental; restored saved_best revision 40455f9ad12501660fb0, historical score 2070. Please continue from this restored draft.",
   "by": "codex-gpt-6-luna-6",
   "created_at": 1795203842.290015,
   "score_before": 2070,
   "score_after": 2070
- },
- {
-  "function": "func_800371E0",
-  "text": "Rechecked best 2035. Added undeclared globals so candidate now compiles, score unchanged. Diff indicates target branch on state global uses addiu $a0,8 and target literal values differ: target has 0xFC121824 and 0xFF32FF7F at points where draft uses 0xFC119823 and 0xFF33FFFF. This suggests switch cases/constants are reconstructed incorrectly before register tuning. Next: revise state switch cases/constants based on target immediate sequence, then address condition/control flow.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795204850.179862,
-  "score_before": 2035,
-  "score_after": 2035
- },
- {
-  "function": "func_800371E0",
-  "text": "Best now 635 (96.5%) at revision 0546d79d9b1fa91f27ea. Key wins: rewrote switch on (*(s32*)(arg0+0x100))&7 as flat if/else with sel==1 body and sel==2/4 body, loading dl=D_80115328 inside each arm before shared tail (D_80115328=dl+1; dl->w0=w0; dl->w1=w1); loop uses temp_s0 var_s4 pattern and a per-arm DA380003 store. Remaining diffs: register allocation only (target puts dl in $v1 for case1 and w1 in $a0; mine swaps v1/a0), and one extra instruction (184 vs 183) likely from duplicated sel==2 and sel==4 arms; the merged `sel==2 || sel==4` form costs more (1910) and the duplicated form currently wins. Untried: frame of target is 0x48 with s0..s5 saved; keep temp_s0 named var.\nflat switch arms with dl loaded per arm, merged sel==2||sel==4 (worse 1910) vs duplicated arms (635 best)\nscore 1305->635 from per-arm dl load; merged arms raise to 1910",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795207619.0810409,
-  "score_before": 2035,
-  "score_after": 635
  },
  {
   "function": "func_800740D0",
@@ -61017,23 +60961,6 @@
   "created_at": 1795208871.5509,
   "score_before": 1765,
   "score_after": 1765
- },
- {
-  "function": "func_800371E0",
-  "text": "Best 535 (97.0%) at revision 40db8c1f7d7fd3db9f78 (flat if/else on sel=(arg0+0x100)&7, shared tail, per-arm dl load). Remaining diff is register allocation: target keeps dl in $v1 and w1 in $a0 (and constant 8 in $a0 for the D_8010A924 compare), mine swaps v1/a0 in every block; first branch 'beqz $s1' target 0x2b4 vs mine 0x2b8 is a consequence of one extra instruction (184 vs 183). Tried this session: try_local_repairs 6 families (branch_orientation, load_before_store, cfg_integer_lifetimes, copy_register_reuse, signedness, declaration_order) - none better; compile_variants: sel-as-w0 variant 955, moving w0 assignment before dl load in arm variant 2 -> 1300 (other variant broke the build due to a stale __repair_value line).",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795209595.254996,
-  "score_before": 535,
-  "score_after": 535
- },
- {
-  "function": "func_800371E0",
-  "text": "Restore saved score-535 candidate; do not use my score-935 version. Target main remaining register differences include a0 constant 8 vs candidate v1 and target v1 display list vs candidate a0. Prior handoffs mention correcting selector cases/literals (target 0xFC121824, 0xFF32FF7F in certain arms); inspect target lines and address before any reorder.\nInherited best score 535/183 instructions; a rewritten switch/constants draft scored 935/184 and introduced extra instruction; no-op condition patch unchanged.\nSaved best is already much better. Handoff notes suggest target keeps display-list pointer in v1 and constant 8 in a0; constants/switch choices must be correct before tuning. My rewrite preserved constants from one earlier note but was one instruction longer.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795215698.4918568,
-  "score_before": 535,
-  "score_after": 535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
  },
  {
   "function": "func_800740D0",
@@ -61054,15 +60981,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:79de09efcd3cc708aa3eee786404cc30cacc0f8b87a2305cfbb98a5877f0e64e"
  },
  {
-  "function": "func_800371E0",
-  "text": "Shared lower display-list w1 store recovered target join and all early register allocations, 535 to 285, now 183 instructions. Remaining discrepancies are lower command cursor/value allocation and scheduling around sCurrentMatrixSlot and the render-state field load.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795230921.210978,
-  "score_before": 535,
-  "score_after": 285,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
- },
- {
   "function": "func_800740D0",
   "text": "Current saved baseline 4757. Initial no-op compile confirmed baseline. Changing actor state read at +0x7A from s16 to s8 worsened to 4897; changing it to s32 returned 4757. Adding volatile s32 stack gap worsened to 4771. Target frame 0x40, candidate 0x48 baseline, with saved floating callee register ($f20) accounting for extra frame space. Main repeated differences are table indexing: target uses sll index,2 plus base D_8010D380 and addu; candidate has sll index,4 and inline base-offset addressing. Existing handoff already warns case 8 has an uninitialized base pointer; direct global update was worse historically. Next step: restore baseline, replace only one D_8010D380 expression in case 8 with byte-base pointer arithmetic and explicit u32 byte indices, preserving the other block to see if the table stride maps correctly.",
   "by": "codex-gpt-6-luna-15",
@@ -61070,23 +60988,6 @@
   "score_before": 4757,
   "score_after": 4757,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:79de09efcd3cc708aa3eee786404cc30cacc0f8b87a2305cfbb98a5877f0e64e"
- },
- {
-  "function": "func_800371E0",
-  "text": "Candidate restoration failed: compile_and_diff replaces the current source with the supplied source; the empty-source attempt erased the inherited complete draft. A subsequent redraft was not retained, and later compiles supplied only externs, producing no function. Historical best was score 285-535; remaining issue register allocation in list loop. Next step: get_function(section=\"brief\") and redo a full candidate compile with the entire C definition in source, then continue from measured diff.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795251639.24159,
-  "score_before": 285,
-  "score_after": 285
- },
- {
-  "function": "func_800371E0",
-  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 130 differing rows (1 opcode, 46 register, 3 stack, 8 branch target, 11 operand, 16 reordered, 23 inserted, 22 deleted; advisory).\nTarget: addiu $sp, $sp, -0x48\nCandidate: addiu $sp, $sp, -0x40\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x48 | C: addiu $sp, $sp, -0x40\ns T: sw $s1, 0x24($sp) | C: sw $s1, 0x2c($sp)\n  = lui $s1, %hi(D_801007BC)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 332ece4b8edf6cb70637 rechecked 6073. Four-word volatile padding matched frame size but misplaced saved registers (6278); two words improved score to 6073 but frame is 0x40 vs target 0x48. Explicit switch case 0 improved 6278 to 6093. Local symbol address, signedness and case relocation did not improve. Next step: reconstruct the missing saved-register/float lifetimes rather than adding padding; target saves s0-s5 and f20.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795257391.491986,
-  "score_before": 6279,
-  "score_after": 6073,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
  },
  {
   "function": "func_800740D0",
@@ -61098,14 +60999,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:79de09efcd3cc708aa3eee786404cc30cacc0f8b87a2305cfbb98a5877f0e64e"
  },
  {
-  "function": "func_800371E0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Best 265 after 100 attempts across 8 agents; no new work this session. Earlier notes say switch cases/constants were reconstructed wrongly. Next step: re-derive the switch jump table cases and constants from assembly before more register repairs.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795309347.759944,
-  "score_before": 265,
-  "score_after": 265
- },
- {
   "function": "func_800740D0",
   "text": "Stuck at 675. Tried: 6 local-repair variants (u16 global, hoist D_800C7EC4, s8 base, decl order, typed temp, branch flip) and case-8 first-block load order (0x33 before 0x34): no change. Remaining: first case-8 block, target loads 0x33($s1) first with base in $a0 and a final `lw` where the candidate emits `lbu`; candidate uses $s0 as base. Next step: rewrite case 8 with a local u8 *row = D_8010D380-as-byte-array indexed [b33*7 + b34] and see the load widths.",
   "by": "claude-sonnet-low-1",
@@ -61115,15 +61008,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:79de09efcd3cc708aa3eee786404cc30cacc0f8b87a2305cfbb98a5877f0e64e"
  },
  {
-  "function": "func_800371E0",
-  "text": "Best 265, 15 rows differ (13 register). try_local_repairs: u32 global, u32 temp_s0, goto-loop, hoist, sel-for-w0 all equal or worse (variant 5 compile error). Next step: swap register use around sDisplayListCursor/sCurrentMatrixSlot loads (target uses $a0 for cursor, $v1 for slot) by reordering those two loads in C.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795312463.990651,
-  "score_before": 265,
-  "score_after": 265,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
- },
- {
   "function": "func_800740D0",
   "text": "Improved 675\u2192520 by staging row pointer in case 0, then 520\u2192330 by fixing case-8 D_8010D2C0 word load with two staged byte offsets. Both word loads now present. Remaining: 26 register rows plus inserted/deleted rows. Local repairs and reversed pointer addition did not improve.",
   "by": "codex-gpt-6.2-sol-6",
@@ -61131,24 +61015,6 @@
   "score_before": 675,
   "score_after": 330,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:79de09efcd3cc708aa3eee786404cc30cacc0f8b87a2305cfbb98a5877f0e64e"
- },
- {
-  "function": "func_800371E0",
-  "text": "Reverified 265 and improved to 155 by loading the current matrix address between cursor load and cursor update; retained that source. Remaining differences are 19 register and 2 reordered rows. Next step: introduce a local for the 8 used in the render-state test and reuse it in its assignment, then check early register allocation.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795318447.625456,
-  "score_before": 265,
-  "score_after": 155,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
- },
- {
-  "function": "func_800371E0",
-  "text": "Reverified score 115 and saved score 60. The selector-local reuse for the display-list cursor eliminated all 11 register rows. Only matrix-path scheduling remains: target addiu $v0,$a0,8 precedes subu $v1,$v1,$s5; candidate has the reverse. The app directed move-on.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795325270.47555,
-  "score_before": 155,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
  },
  {
   "function": "func_800561BC",
@@ -84324,5 +84190,148 @@
   "score_before": 25,
   "score_after": 25,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9482edf9e382eb9f79825a14e65a6bd44d9059bbd33d883fe0d1a61ed1b3d77d"
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Started from scored draft (2180), fixed the first command-buffer pointer advance to byte arithmetic and reached 2175. Switch-as-if rewrite, partial pointer-byte adjustment for a switch output, and generated local repair variants did not beat the saved best. Residual: first mismatch is the early null-exit branch target (target 0x2b4 vs candidate 0x2bc); mode switch contains register allocation and case-layout differences, then later loop/control-flow and float-call setup differ. Investigate exact pointer arithmetic in both switch paths and inspect assembly from line 70 onward. Compiler warned about literal relocation needing target $gp; profile is O1 and original candidate also emitted that warning.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795164413.783154,
+  "score_before": 2150,
+  "score_after": 2150
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Baseline 2175 retained. Correcting both switch display-list paths to write the old pointer and increment by two words yields 2180, but fixes likely semantic error in saved candidate (which increments by 32 and writes the advanced pointer). Revision d60d1c11589747879d87 has that correction. Unsigned switch, default/case 3, and local type variants did not improve. Target switch tests 1 then 2/4; investigate control structure and float literal relocation ($gp is unconfigured).",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795183419.621793,
+  "score_before": 2150,
+  "score_after": 2150
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 12; 73 differing rows (22 register, 12 branch target, 17 operand, 6 reordered, 9 inserted, 7 deleted; advisory).\nTarget: beqz $s1, 0x2b4\nCandidate: beqz $s1, 0x2bc\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s0, 0x20($sp)\n  = sdc1 $f20, 0x40($sp)\ni T: beqz $s1, 0x2b4 | C: beqz $s1, 0x2bc\n  = move $s4, $zero\n  = jal func_80034560\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRechecked saved baseline revision 765c319d9b113bc1f855 at score 2175. Local repairs tried: call_one_shot_scope, branch_pointer_declarations, cfg_integer_lifetimes, signedness, declaration_order, address_temporary (twice batches); all equal or worse, no improved candidate. No new matching discovery. First mismatch is early CFG: target beqz $s1 to 0x2b4, candidate to 0x2bc. Explore source restructuring/control flow or inspect assembly; baseline retained.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795184467.9569778,
+  "score_before": 2150,
+  "score_after": 2150
+ },
+ {
+  "function": "func_800371E0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] compile_and_diff cannot run because gcc-2.7.2-kmc is not installed in this session. The supplied draft check also reports undeclared globals; first restore compiler/context, then obtain current candidate and target mismatch before tuning. Only a minimal stub compile was attempted; no candidate edits or match claims.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795194058.130555,
+  "score_before": 2150,
+  "score_after": 2150
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Restored and read saved-best candidate revision 854bb60fdabb7ecd5729 (saved score 2035). Tried full rewrite plus six local repairs; no improvement. Target raw immediate diagnostics show likely two command constants differ, but verify exact case associations from assembly. Loop branch targets and display-list pointer registers also differ.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795202378.003245,
+  "score_before": 2035,
+  "score_after": 2035
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Rechecked best 2035. Added undeclared globals so candidate now compiles, score unchanged. Diff indicates target branch on state global uses addiu $a0,8 and target literal values differ: target has 0xFC121824 and 0xFF32FF7F at points where draft uses 0xFC119823 and 0xFF33FFFF. This suggests switch cases/constants are reconstructed incorrectly before register tuning. Next: revise state switch cases/constants based on target immediate sequence, then address condition/control flow.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795204850.179862,
+  "score_before": 2035,
+  "score_after": 2035
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Best now 635 (96.5%) at revision 0546d79d9b1fa91f27ea. Key wins: rewrote switch on (*(s32*)(arg0+0x100))&7 as flat if/else with sel==1 body and sel==2/4 body, loading dl=D_80115328 inside each arm before shared tail (D_80115328=dl+1; dl->w0=w0; dl->w1=w1); loop uses temp_s0 var_s4 pattern and a per-arm DA380003 store. Remaining diffs: register allocation only (target puts dl in $v1 for case1 and w1 in $a0; mine swaps v1/a0), and one extra instruction (184 vs 183) likely from duplicated sel==2 and sel==4 arms; the merged `sel==2 || sel==4` form costs more (1910) and the duplicated form currently wins. Untried: frame of target is 0x48 with s0..s5 saved; keep temp_s0 named var.\nflat switch arms with dl loaded per arm, merged sel==2||sel==4 (worse 1910) vs duplicated arms (635 best)\nscore 1305->635 from per-arm dl load; merged arms raise to 1910",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795207619.0810409,
+  "score_before": 2035,
+  "score_after": 635
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Best 535 (97.0%) at revision 40db8c1f7d7fd3db9f78 (flat if/else on sel=(arg0+0x100)&7, shared tail, per-arm dl load). Remaining diff is register allocation: target keeps dl in $v1 and w1 in $a0 (and constant 8 in $a0 for the D_8010A924 compare), mine swaps v1/a0 in every block; first branch 'beqz $s1' target 0x2b4 vs mine 0x2b8 is a consequence of one extra instruction (184 vs 183). Tried this session: try_local_repairs 6 families (branch_orientation, load_before_store, cfg_integer_lifetimes, copy_register_reuse, signedness, declaration_order) - none better; compile_variants: sel-as-w0 variant 955, moving w0 assignment before dl load in arm variant 2 -> 1300 (other variant broke the build due to a stale __repair_value line).",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795209595.254996,
+  "score_before": 535,
+  "score_after": 535
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Restore saved score-535 candidate; do not use my score-935 version. Target main remaining register differences include a0 constant 8 vs candidate v1 and target v1 display list vs candidate a0. Prior handoffs mention correcting selector cases/literals (target 0xFC121824, 0xFF32FF7F in certain arms); inspect target lines and address before any reorder.\nInherited best score 535/183 instructions; a rewritten switch/constants draft scored 935/184 and introduced extra instruction; no-op condition patch unchanged.\nSaved best is already much better. Handoff notes suggest target keeps display-list pointer in v1 and constant 8 in a0; constants/switch choices must be correct before tuning. My rewrite preserved constants from one earlier note but was one instruction longer.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795215698.4918568,
+  "score_before": 535,
+  "score_after": 535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Shared lower display-list w1 store recovered target join and all early register allocations, 535 to 285, now 183 instructions. Remaining discrepancies are lower command cursor/value allocation and scheduling around sCurrentMatrixSlot and the render-state field load.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795230921.210978,
+  "score_before": 535,
+  "score_after": 285,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Candidate restoration failed: compile_and_diff replaces the current source with the supplied source; the empty-source attempt erased the inherited complete draft. A subsequent redraft was not retained, and later compiles supplied only externs, producing no function. Historical best was score 285-535; remaining issue register allocation in list loop. Next step: get_function(section=\"brief\") and redo a full candidate compile with the entire C definition in source, then continue from measured diff.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795251639.24159,
+  "score_before": 285,
+  "score_after": 285
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 130 differing rows (1 opcode, 46 register, 3 stack, 8 branch target, 11 operand, 16 reordered, 23 inserted, 22 deleted; advisory).\nTarget: addiu $sp, $sp, -0x48\nCandidate: addiu $sp, $sp, -0x40\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x48 | C: addiu $sp, $sp, -0x40\ns T: sw $s1, 0x24($sp) | C: sw $s1, 0x2c($sp)\n  = lui $s1, %hi(D_801007BC)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 332ece4b8edf6cb70637 rechecked 6073. Four-word volatile padding matched frame size but misplaced saved registers (6278); two words improved score to 6073 but frame is 0x40 vs target 0x48. Explicit switch case 0 improved 6278 to 6093. Local symbol address, signedness and case relocation did not improve. Next step: reconstruct the missing saved-register/float lifetimes rather than adding padding; target saves s0-s5 and f20.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795257391.491986,
+  "score_before": 6279,
+  "score_after": 6073,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
+ },
+ {
+  "function": "func_800371E0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Best 265 after 100 attempts across 8 agents; no new work this session. Earlier notes say switch cases/constants were reconstructed wrongly. Next step: re-derive the switch jump table cases and constants from assembly before more register repairs.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795309347.759944,
+  "score_before": 265,
+  "score_after": 265
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Best 265, 15 rows differ (13 register). try_local_repairs: u32 global, u32 temp_s0, goto-loop, hoist, sel-for-w0 all equal or worse (variant 5 compile error). Next step: swap register use around sDisplayListCursor/sCurrentMatrixSlot loads (target uses $a0 for cursor, $v1 for slot) by reordering those two loads in C.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795312463.990651,
+  "score_before": 265,
+  "score_after": 265,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Reverified 265 and improved to 155 by loading the current matrix address between cursor load and cursor update; retained that source. Remaining differences are 19 register and 2 reordered rows. Next step: introduce a local for the 8 used in the render-state test and reuse it in its assignment, then check early register allocation.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795318447.625456,
+  "score_before": 265,
+  "score_after": 155,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Reverified score 115 and saved score 60. The selector-local reuse for the display-list cursor eliminated all 11 register rows. Only matrix-path scheduling remains: target addiu $v0,$a0,8 precedes subu $v1,$v1,$s5; candidate has the reverse. The app directed move-on.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795325270.47555,
+  "score_before": 155,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
+ },
+ {
+  "function": "func_800371E0",
+  "text": "Judge directed move-on. Score 60 remains the reversed addiu/subu pair; staging cursor increment and swapping slot load/store do not change it.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795342264.301665,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
  }
 ]
