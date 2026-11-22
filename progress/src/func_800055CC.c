@@ -42,18 +42,20 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
   u16 *packedStart;
   char *romBase = D_000F8D70;
   s32 validFrame;
-  s32 limit;
   s32 romAddr;
   if (id >= 0x40b)
   {
     id = 0x71;
   }
   cache = findOrLoadCacheBlock(id);
-  limit = cache->frameCount;
+  do {
+  validFrame = frame < ((u32) cache->frameCount);
   shape = cache->shape;
-  do { validFrame = frame < ((u32) limit); } while (0);
+  } while (0);
   count = D_800C3928[shape & 0x7fff].count;
+  do {
   frame &= -validFrame;
+  } while (0);
   shape &= 0x8000;
   header = ((u32) count) << 16;
   if (shape)
