@@ -151,14 +151,14 @@ void func_8000C34C(char *actor, char *viewer)
       pointOffset = 0;
       do
       {
-        x = (*((BeamPoint *) (pointOffset + ((char *) MODEL->points)))).x;
+        x = (*((BeamPoint *) (pointOffset + ((s32) MODEL->points)))).x;
         out->y = h;
         out->x = x;
-        out->z = (*((BeamPoint *) (pointOffset + ((char *) MODEL->points)))).z;
+        out->z = (*((BeamPoint *) (pointOffset + ((s32) MODEL->points)))).z;
         model = MODEL;
-        out->x += sn * (((*((BeamPoint *) (pointOffset + ((char *) model->points)))).y - bias) - model->height);
-        model = (unsigned) MODEL;
-        out->z += cs * (((*((BeamPoint *) (pointOffset + ((char *) model->points)))).y - bias) - model->height);
+        out->x += sn * (((*((BeamPoint *) (pointOffset + ((s32) model->points)))).y - bias) - model->height);
+        model = MODEL;
+        out->z += cs * (((*((BeamPoint *) (pointOffset + ((s32) model->points)))).y - bias) - model->height);
         pointOffset += 12;
         ++i;
         out++;
@@ -195,9 +195,11 @@ void func_8000C34C(char *actor, char *viewer)
         x = p->x * unit;
         y = p->y * unit;
         z = p->z * unit;
-        address = *((u32 *) (D_80117728 + 0x74C));
-        D_80107EA0 = used + 1;
-        D_8010D538 = address + (((used + 1) << 1) << 5);
+        {
+          u32 pool = *((u32 *) (D_80117728 + 0x74C));
+          D_80107EA0 = used + 1;
+          D_8010D538 = pool + ((used + 1) << 6);
+        }
         func_8000BB50(matrix, x, y, z, yaw);
         m0 = (*matrix) * scale;
         m1 = D_80112FA0 * scale;
@@ -212,11 +214,13 @@ void func_8000C34C(char *actor, char *viewer)
         D_80112FA8 = m4;
         D_80112FB8 = m5;
         func_800A37C0(matrix, D_8010D538);
+        { u32 slot;
         cmd = D_8010A928;
-        address = D_8010D538;
+        slot = D_8010D538;
         D_8010A928 = cmd + 2;
         cmd[0] = 0xDA380003;
-        cmd[1] = address - 0x80000000u;
+        cmd[1] = slot - 0x80000000u;
+        }
         mode = (((*((u8 *) (actor + 0x82))) * 2) / 3) & 0xFF;
         cmd[2] = 0xFA000000;
         cmd[3] = mode;
@@ -234,11 +238,14 @@ void func_8000C34C(char *actor, char *viewer)
         {
           resource[0x46] = D_800C2B40;
         }
+        {
+          u32 dl;
         displayCmd = D_8010A928;
         displayCmd[0] = 0xDE000000;
-        address = *((u32 *) resource);
+        dl = *((u32 *) resource);
         D_8010A928 = displayCmd + 2;
-        displayCmd[1] = address;
+        displayCmd[1] = dl;
+        }
         advance:
         ++p;
 
