@@ -25,12 +25,11 @@ void func_80005868(s16 *arg0, void *arg1, void *arg2, s32 arg3)
   void *temp_s1;
   void *var_s3;
   void *var_s5;
-  var_s6 = 0;
-  {
-    u8 *base;
-    if (*(const s16 *) arg0 >= 0)
-    {
-      base = local.matrices; var_s2 = arg0; var_s3 = arg2; var_s5 = arg1;
+  var_s6 = 0;  {
+    u8 * base;
+    if ((*(const s16 *) arg0) >= 0)
+    { base = local.matrices;
+      var_s2 = arg0; var_s3 = arg2; var_s5 = arg1;
       __repair_rows:
       {
         s32 index;
