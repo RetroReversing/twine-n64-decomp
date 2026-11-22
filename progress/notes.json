@@ -62213,44 +62213,12 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bb9e0405966ac4a93b24b3eb9fc7125f2aeb112dd379cbe91c97007585fcfa1c"
  },
  {
-  "function": "func_800449A0",
-  "text": "Continued from saved best f2eff04dbbb40b742a28 (score 4180), rechecked baseline. Tried six independent local repairs: backward goto loop, explicit backedge, structured backedge, call arity, target constant, call one-shot scope. No improvement. Main mismatch starts after func_80073400: target zeroes $a2 while candidate uses $a0. Further work should inspect target assembly around that point, repair call/loop live register allocation; many operand/order mismatches remain. Prior exploratory revision ed18b2943d54e564a997 scored 4235.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795165214.895798,
-  "score_before": 2180,
-  "score_after": 2180
- },
- {
   "function": "func_80032978",
   "text": "Baseline verified at 26748 (62.5%). Tried local repair families cfg_integer_lifetimes, signedness, declaration_order; cfg lifetime worsened to 27618 and others tied. Candidate has 0x58 frame vs target 0x48. Draft contains separate sp1C and __repair_phase_sp1C, but simply reordering sp1C declaration did not change output; consider consolidating lifetime only if assembly supports it. Major mismatch is register allocation: target keeps arg0 in $s4, arg2 in $s5 and flag temps $s7/$s6; candidate uses $s7/$fp and spills temp flags. Initial draft compiler errors (undeclared globals) were resolved in current candidate. Several pointer-from-integer warnings and .rodata+0 reference warning remain. Next step: inspect target prologue and simplify pointer arithmetic/type declarations before spending more trials.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795173116.8724852,
   "score_before": 23881,
   "score_after": 23881
- },
- {
-  "function": "func_800449A0",
-  "text": "Claim transferred during local repair batch. On revision d0765eddf6db5e33fe42, changing var_a3 += 0x1C to var_a3 += 7 improved 4260 to 4250; inspect other pointer step scaling. Remaining batch stopped due to claim transfer.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795183570.102714,
-  "score_before": 410,
-  "score_after": 410
- },
- {
-  "function": "func_800449A0",
-  "text": "Rechecked baseline 4260; local pointer stride correction `var_t0 += 7` instead of `+= 0x1C` improves to 4240 and is retained (the pointer is s32*, so 7 elements preserves a 0x1C byte stride). Other loop-shape, signedness, declaration-order and call-arity variants did not improve; a reduced helper prototype worsened to 4295. Remaining 89 diff rows are dominated by constants/addresses and mismatched register args; first difference after helper calls expects `move $a2,$zero`, candidate `move $a0,$zero`. Likely inaccurate func_8003C7C4 prototype (currently four params) and global table widths/layouts are driving downstream argument allocation. Inspect target assembly pages and infer helper signature before further tuning.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795183700.401769,
-  "score_before": 410,
-  "score_after": 410
- },
- {
-  "function": "func_800449A0",
-  "text": "Baseline rechecked at 4240. Nine local variants of loop control/lifetimes, signedness, declaration order, call arity and pointer stride failed to improve it. First mismatch initializes loop counter in a0 rather than target a2; remaining mismatch dominated by global addresses/constants. Investigate loop register lifetimes and global store scheduling from target assembly; candidate revision 1ae5ed54f0abd878e687 retained.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795184659.042753,
-  "score_before": 410,
-  "score_after": 410
  },
  {
   "function": "func_80032978",
@@ -62267,64 +62235,6 @@
   "created_at": 1795186302.7619681,
   "score_before": 23881,
   "score_after": 23881
- },
- {
-  "function": "func_800449A0",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 89d2aed56f008d9cd0c4 reuses var_a2 in second loop and improves 4165 to 4150. Subsequent loop, signedness, declaration, call arity variants unchanged; automatic unchanged-output limit released claim. Next inspect global byte-store scheduling: target loads 0xff into v1 before 0xa0, candidate loads 0xa0 first; consider source ordering and shared typed constants.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795202457.001966,
-  "score_before": 410,
-  "score_after": 410
- },
- {
-  "function": "func_800449A0",
-  "text": "Best saved source score 790 (94.5%), revision def6570fefc662d42a21. Starting candidate gave 4150; one additional global store D_80100784=0xFF placed before D_801032AC=0xA0 reduced score to 790. Rechecked same score on later trials. Local families allocation_initialization_order, call_one_shot_scope, explicit_loop_backedge, structured_backedge, signedness, declaration_order did not improve. Attempts explored duplicate store insertion, char/unsigned char pointer, loop rewrites; no improvement. Remaining diff centered at row 54: target prepares 0xFF in v1 and 0xA0 in v0, followed by 0x60 and 8; candidate emits an address load/store for D_80100784 and extra instructions. Later several global stores use mismatched register/order. Best source selected before release; avoid the current duplicate-store exploratory version.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795205632.135222,
-  "score_before": 410,
-  "score_after": 410
- },
- {
-  "function": "func_800449A0",
-  "text": "Best current score is 670, freshly rechecked. Candidate uses register/pointer loops for the 6x6 clears followed by global byte stores. Removing the early D_80100784=0xFF assignment scored 4150, so retain both initial and later stores for the next pass. Removing register qualifiers from var_a3/var_t0 had identical instructions/score. A previous malformed full-source compile failed before emitting code. Local repair search found no untried applicable variants. Remaining verified differences cluster after func_8007560C: target materializes 0xFF in $v1 and stores distinct globals, while candidate reuses address bases/offsets and schedules the early D_801032AC store differently; remaining relocation/address mismatches include stores around D_80103041, D_8010302A, D_8010957C, D_80103EB1, D_80115318, D_8010A3C4, D_80110DB1. Candidate has 147 insns vs target 145.\nRemoved initial D_80100784=0xFF store; score regressed from 670 to 4150. Removed register qualifiers on var_a3 and var_t0; output unchanged at 670. Local repair suggestions were exhausted.\nBest remains score 670, 147 candidate instructions vs 145 target. Main differences occur at global store block after func_8007560C: independent target address materializations/register $v1 reuse differ from candidate's address-base reuse.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795208217.833833,
-  "score_before": 410,
-  "score_after": 410
- },
- {
-  "function": "func_800449A0",
-  "text": "Stalled at saved best 670 (rev 776df1423e4c02607e01). This session tried: swapping inner-loop store order (875), moving D_8010302C=0 after func_8003C7C4 call (870), cast on var_t0 init (670, unchanged), and a u8 local k=0xFF for the 0xFF byte stores (4210, regressed because the compiler rebuilt address pairs with lui/addiu per store). Remaining diff: target loads 0xFF into $v1 before the 0xA0 store after func_8007560C; candidate loads 0xA0 into $v0 first. Earlier agents found an early extra D_80100784=0xFF store hurts (790). Untested: keep the constant-store form, but try a single u8 pointer walk over the stores.\nLocal u8 k=0xFF for the five 0xFF stores; store-order swap; call reorder.\nk-local regressed to 4210 (per-store lui/addiu); the others were 875 and 870.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795209202.070744,
-  "score_before": 410,
-  "score_after": 410
- },
- {
-  "function": "func_800449A0",
-  "text": "Stalled at saved best 670 (rev 776df1423e4c02607e01). This pass: reordering the 0xA0/0x60/0xFF stores (790, 1630) and adding an early D_801032A4=0xFF after func_8007560C (1630) both regressed. Remaining diff: target loads 0xFF into $v1 right after func_8007560C, then stores 0xA0 via sb; candidate materialises 0xA0 in $v0 for the store. Untried: express the 0xFF value via a separate u8 local used only after the call, or split the post-call stores into a separate helper-free block.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795210171.091734,
-  "score_before": 410,
-  "score_after": 410
- },
- {
-  "function": "func_800449A0",
-  "text": "Not matched. Best remains saved_best d9ad75 (score 670); current 854915/bcb15776 are worse (4150 when the first duplicate D_80100784=0xFF store after D_8010D374 is removed: target has no store there, but removing it made the compiler rebuild many lui/addiu address pairs, so the duplicate is needed for the scheduler). Target pattern: after func_8007560C the compiler hoists 0xFF into $v1 and reuses it for the six 0xFF stores (D_801032A4, D_80108F74, D_80102F38, D_80112F88, D_80107B60, D_80100784); 0xA0/0x60/0xEF/0x40/0x10 use $v0 reloads; $a0=8 is loaded before the D_8010D374 store and reused for D_80115318/D_80110DB1; 0x80 in $v0 is loaded before D_80107E9C=0 and reused for D_80107ECD/D_80110CA8. Next step: keep the duplicate 0x0784 store, and try forcing the 0xFF group into a single expression ordering (e.g. move the 0xA0 store after the six 0xFF stores) rather than further local-variable tricks.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795215075.990889,
-  "score_before": 4200,
-  "score_after": 4150,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
- },
- {
-  "function": "func_800449A0",
-  "text": "Current rechecked best is score 670. Two tested edits did not beat it: insert D_801032A4=0xFF near initial post-call stores (1630), then reorder early stores to put D_80100784=0xFF first (790). Exact remaining concerns: target materializes 0xFF into $v1 before 0xA0/0x60 stores and later reuses it; candidate's symbol-address and pointer scheduling differs. Raw-address warnings at rows 91/93/96/98 likely reflect compiler-induced misordering around D_80103041,D_8010302A,D_8010957C,D_80103EB1 vs writes D_80115318/D_80110DB1; use actual addresses in assembly to verify aliases. Historical agents tried 60 repairs and 17 patches. No exact match.\nInserted D_801032A4 store early (1630), then reordered initial 0xFF/0xA0/0x60 stores (790).\nNeither beat the 670 saved best; early order impacts address pair materialization significantly.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795216144.0037901,
-  "score_before": 4150,
-  "score_after": 670,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
  },
  {
   "function": "func_80032978",
@@ -62353,15 +62263,6 @@
   "score_after": 19145
  },
  {
-  "function": "func_800449A0",
-  "text": "Rechecked saved candidate at 670. Target has one D_80100784 store, after D_80107B60. Removing the extra early write produced the correct instruction count (145) but scored 4150 due to store scheduling. Direct u8 declarations or register s32 constant locals on the single-write source left that assembly unchanged. Volatile byte casts increased length to 183 and score to 10740.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795231425.124994,
-  "score_before": 670,
-  "score_after": 670,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
- },
- {
   "function": "func_80032978",
   "text": "Rechecked baseline 55770. Shared-tail pointer-base patch scored 35095, but only partially corrected the writes; linker jump-table mismatch persists. Three local variants scored 55870, 56975, and 68175. Restored saved best.",
   "by": "codex-gpt-6.1-terra-5",
@@ -62369,51 +62270,6 @@
   "score_before": 46690,
   "score_after": 35095,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ea99c20939b17b5badf4726628c529e0d072138fae7fb022dc225d7aa1375636"
- },
- {
-  "function": "func_800449A0",
-  "text": "The claim attempt used wrong guessed helper/data names and failed to compile; subsequent rewrite compiled at 11055, with major errors from incorrect array aliases/addresses. Target shows gTrackMarkers and gBonusObjectTable directly, while D_8010A500-like alias resolved elsewhere and must not be guessed. Reset loops in target are nested pointer walks with stride 0x1C, and stores afterward are byte-sized (sb). Prior handoff around D_801032A4/0xFF store ordering is relevant. Next step: restore a prior viable source and compile once, then resolve exact symbols and types from the brief/assembly before continuing.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795240358.001149,
-  "score_before": 670,
-  "score_after": 670,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
- },
- {
-  "function": "func_800449A0",
-  "text": "Claim disappeared during sequential edits. Revision 23e2ce5c8fd08e716489 scored 6725: corrected nested reset stride to 0x1c, reversed stores to match target, and made D_8010302C word-sized. Current candidate reverted to a0b436bf82f62e351e3e (6845). Next: restore those edits and use a word store for gProbeObjectList; model the nested loops as pointer walks to avoid extra inner loops.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795241450.317034,
-  "score_before": 670,
-  "score_after": 670,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
- },
- {
-  "function": "func_800449A0",
-  "text": "Best 1250 (rev ea8c0d045ba4d6088163; saved_best may show 4580 variant a1809a... \u2014 use ea8c0d if retrievable). Key fixes: declare `extern s32 func_8003C7C4(void);` and call with NO args (target does not zero a0-a3); use current symbol names (gTrackMarkerSerial s32 store before call, gProbeObjectList s32, gObjectListHead s32 `sw`, D_80109CB4 s32 `sw` last, sPrimTintR/G/B, sAltPrimTintR/G/B, sMarkerMessageCount, gAnnounceCount u8); arrays `extern s32 gTrackMarkers[], sBonusObjectTable[], D_8010D2C0[], D_8010D380[]`; nested reset loop as `r1=D_8010D2C0;r2=D_8010D380; for i<6 {p=r1;q=r2; for j<6 {*q++=0;*p++=0;} r1+=7;r2+=7;}`; move `gObjectListHead = 0;` to AFTER `D_80103EB1 = 0;` gave 1250 (from 4580). Remaining: target hoists constants 0xFF->$v1, 8->$a0 right after jal func_8007560C (before first sb), and puts gObjectListHead sw right after D_8010A4B8 store; also loop reg allocation (target counters a2/a1, `move a2,zero` before `lui t0`). Next step: try moving the 0xFF and 8 byte stores earlier in source order to get constants hoisted into v1/a0.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795241596.499628,
-  "score_before": 670,
-  "score_after": 670,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
- },
- {
-  "function": "func_800449A0",
-  "text": "Saved 4580 (rev b8cd4e/8941ee same asm). Diffs: target loads 0xFF ($v1) and 8 ($a0) hoisted right after jal func_8007560C (before 0xA0 store); mine materializes at use. Local u8 ff/eight vars don't change asm. 2D-array [i][j] stride 7 form is worse (4875). Target inner loop: outer counter $a2 init before the lui's, inner $a1; stores q then p; v1 incremented in delay slot. Next: try the nested loop with inner counter declared differently / do-while forms, and the hoisted-constant puzzle (maybe constants are set via a volatile-less macro / different store order of the first few).\nlocal ff/eight vars; 2D array indexing\nno change / worse",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795241688.857356,
-  "score_before": 670,
-  "score_after": 670,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
- },
- {
-  "function": "func_800449A0",
-  "text": "Machine draft had scaled pointer increments; fixed var_v1_2 and inner increments to 1 and var_a3 to 7, then changed byte globals to u8. Score 4180; historical 670 candidate was unavailable. Remaining store order and register scheduling differ.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795253583.802083,
-  "score_before": 4180,
-  "score_after": 4180,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
  },
  {
   "function": "func_80032978",
@@ -62450,15 +62306,6 @@
   "score_before": 2940,
   "score_after": 1970,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ea99c20939b17b5badf4726628c529e0d072138fae7fb022dc225d7aa1375636"
- },
- {
-  "function": "func_800449A0",
-  "text": "Saved best 400 (4 extra insns: early D_80108F94=0xFF store pair before the do-while). Removing that store regressed to 965 (target keeps 0xFF in $v1 across the later stores, and a gObjectListHead=0 sw sits before D_801032A4 store, which the candidate lacks). Next step: add `gObjectListHead = 0` store (likely an extern s32, set after func_8007560C) and keep the early 0xFF store, check whether the existing early store is really that.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795309490.539973,
-  "score_before": 400,
-  "score_after": 400,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
  },
  {
   "function": "func_80032978",
@@ -83116,5 +82963,167 @@
   "score_before": 8355,
   "score_after": 8335,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2dd45594f35b19ba36aeabba4bb2ad8aa3cb2d1af7a3e665453baec3b0ece105"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Continued from saved best f2eff04dbbb40b742a28 (score 4180), rechecked baseline. Tried six independent local repairs: backward goto loop, explicit backedge, structured backedge, call arity, target constant, call one-shot scope. No improvement. Main mismatch starts after func_80073400: target zeroes $a2 while candidate uses $a0. Further work should inspect target assembly around that point, repair call/loop live register allocation; many operand/order mismatches remain. Prior exploratory revision ed18b2943d54e564a997 scored 4235.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795165214.895798,
+  "score_before": 2180,
+  "score_after": 2180
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Claim transferred during local repair batch. On revision d0765eddf6db5e33fe42, changing var_a3 += 0x1C to var_a3 += 7 improved 4260 to 4250; inspect other pointer step scaling. Remaining batch stopped due to claim transfer.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795183570.102714,
+  "score_before": 410,
+  "score_after": 410
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Rechecked baseline 4260; local pointer stride correction `var_t0 += 7` instead of `+= 0x1C` improves to 4240 and is retained (the pointer is s32*, so 7 elements preserves a 0x1C byte stride). Other loop-shape, signedness, declaration-order and call-arity variants did not improve; a reduced helper prototype worsened to 4295. Remaining 89 diff rows are dominated by constants/addresses and mismatched register args; first difference after helper calls expects `move $a2,$zero`, candidate `move $a0,$zero`. Likely inaccurate func_8003C7C4 prototype (currently four params) and global table widths/layouts are driving downstream argument allocation. Inspect target assembly pages and infer helper signature before further tuning.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795183700.401769,
+  "score_before": 410,
+  "score_after": 410
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Baseline rechecked at 4240. Nine local variants of loop control/lifetimes, signedness, declaration order, call arity and pointer stride failed to improve it. First mismatch initializes loop counter in a0 rather than target a2; remaining mismatch dominated by global addresses/constants. Investigate loop register lifetimes and global store scheduling from target assembly; candidate revision 1ae5ed54f0abd878e687 retained.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795184659.042753,
+  "score_before": 410,
+  "score_after": 410
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 89d2aed56f008d9cd0c4 reuses var_a2 in second loop and improves 4165 to 4150. Subsequent loop, signedness, declaration, call arity variants unchanged; automatic unchanged-output limit released claim. Next inspect global byte-store scheduling: target loads 0xff into v1 before 0xa0, candidate loads 0xa0 first; consider source ordering and shared typed constants.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795202457.001966,
+  "score_before": 410,
+  "score_after": 410
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Best saved source score 790 (94.5%), revision def6570fefc662d42a21. Starting candidate gave 4150; one additional global store D_80100784=0xFF placed before D_801032AC=0xA0 reduced score to 790. Rechecked same score on later trials. Local families allocation_initialization_order, call_one_shot_scope, explicit_loop_backedge, structured_backedge, signedness, declaration_order did not improve. Attempts explored duplicate store insertion, char/unsigned char pointer, loop rewrites; no improvement. Remaining diff centered at row 54: target prepares 0xFF in v1 and 0xA0 in v0, followed by 0x60 and 8; candidate emits an address load/store for D_80100784 and extra instructions. Later several global stores use mismatched register/order. Best source selected before release; avoid the current duplicate-store exploratory version.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795205632.135222,
+  "score_before": 410,
+  "score_after": 410
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Best current score is 670, freshly rechecked. Candidate uses register/pointer loops for the 6x6 clears followed by global byte stores. Removing the early D_80100784=0xFF assignment scored 4150, so retain both initial and later stores for the next pass. Removing register qualifiers from var_a3/var_t0 had identical instructions/score. A previous malformed full-source compile failed before emitting code. Local repair search found no untried applicable variants. Remaining verified differences cluster after func_8007560C: target materializes 0xFF in $v1 and stores distinct globals, while candidate reuses address bases/offsets and schedules the early D_801032AC store differently; remaining relocation/address mismatches include stores around D_80103041, D_8010302A, D_8010957C, D_80103EB1, D_80115318, D_8010A3C4, D_80110DB1. Candidate has 147 insns vs target 145.\nRemoved initial D_80100784=0xFF store; score regressed from 670 to 4150. Removed register qualifiers on var_a3 and var_t0; output unchanged at 670. Local repair suggestions were exhausted.\nBest remains score 670, 147 candidate instructions vs 145 target. Main differences occur at global store block after func_8007560C: independent target address materializations/register $v1 reuse differ from candidate's address-base reuse.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795208217.833833,
+  "score_before": 410,
+  "score_after": 410
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Stalled at saved best 670 (rev 776df1423e4c02607e01). This session tried: swapping inner-loop store order (875), moving D_8010302C=0 after func_8003C7C4 call (870), cast on var_t0 init (670, unchanged), and a u8 local k=0xFF for the 0xFF byte stores (4210, regressed because the compiler rebuilt address pairs with lui/addiu per store). Remaining diff: target loads 0xFF into $v1 before the 0xA0 store after func_8007560C; candidate loads 0xA0 into $v0 first. Earlier agents found an early extra D_80100784=0xFF store hurts (790). Untested: keep the constant-store form, but try a single u8 pointer walk over the stores.\nLocal u8 k=0xFF for the five 0xFF stores; store-order swap; call reorder.\nk-local regressed to 4210 (per-store lui/addiu); the others were 875 and 870.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795209202.070744,
+  "score_before": 410,
+  "score_after": 410
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Stalled at saved best 670 (rev 776df1423e4c02607e01). This pass: reordering the 0xA0/0x60/0xFF stores (790, 1630) and adding an early D_801032A4=0xFF after func_8007560C (1630) both regressed. Remaining diff: target loads 0xFF into $v1 right after func_8007560C, then stores 0xA0 via sb; candidate materialises 0xA0 in $v0 for the store. Untried: express the 0xFF value via a separate u8 local used only after the call, or split the post-call stores into a separate helper-free block.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795210171.091734,
+  "score_before": 410,
+  "score_after": 410
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Not matched. Best remains saved_best d9ad75 (score 670); current 854915/bcb15776 are worse (4150 when the first duplicate D_80100784=0xFF store after D_8010D374 is removed: target has no store there, but removing it made the compiler rebuild many lui/addiu address pairs, so the duplicate is needed for the scheduler). Target pattern: after func_8007560C the compiler hoists 0xFF into $v1 and reuses it for the six 0xFF stores (D_801032A4, D_80108F74, D_80102F38, D_80112F88, D_80107B60, D_80100784); 0xA0/0x60/0xEF/0x40/0x10 use $v0 reloads; $a0=8 is loaded before the D_8010D374 store and reused for D_80115318/D_80110DB1; 0x80 in $v0 is loaded before D_80107E9C=0 and reused for D_80107ECD/D_80110CA8. Next step: keep the duplicate 0x0784 store, and try forcing the 0xFF group into a single expression ordering (e.g. move the 0xA0 store after the six 0xFF stores) rather than further local-variable tricks.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795215075.990889,
+  "score_before": 4200,
+  "score_after": 4150,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Current rechecked best is score 670. Two tested edits did not beat it: insert D_801032A4=0xFF near initial post-call stores (1630), then reorder early stores to put D_80100784=0xFF first (790). Exact remaining concerns: target materializes 0xFF into $v1 before 0xA0/0x60 stores and later reuses it; candidate's symbol-address and pointer scheduling differs. Raw-address warnings at rows 91/93/96/98 likely reflect compiler-induced misordering around D_80103041,D_8010302A,D_8010957C,D_80103EB1 vs writes D_80115318/D_80110DB1; use actual addresses in assembly to verify aliases. Historical agents tried 60 repairs and 17 patches. No exact match.\nInserted D_801032A4 store early (1630), then reordered initial 0xFF/0xA0/0x60 stores (790).\nNeither beat the 670 saved best; early order impacts address pair materialization significantly.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795216144.0037901,
+  "score_before": 4150,
+  "score_after": 670,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Rechecked saved candidate at 670. Target has one D_80100784 store, after D_80107B60. Removing the extra early write produced the correct instruction count (145) but scored 4150 due to store scheduling. Direct u8 declarations or register s32 constant locals on the single-write source left that assembly unchanged. Volatile byte casts increased length to 183 and score to 10740.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795231425.124994,
+  "score_before": 670,
+  "score_after": 670,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "The claim attempt used wrong guessed helper/data names and failed to compile; subsequent rewrite compiled at 11055, with major errors from incorrect array aliases/addresses. Target shows gTrackMarkers and gBonusObjectTable directly, while D_8010A500-like alias resolved elsewhere and must not be guessed. Reset loops in target are nested pointer walks with stride 0x1C, and stores afterward are byte-sized (sb). Prior handoff around D_801032A4/0xFF store ordering is relevant. Next step: restore a prior viable source and compile once, then resolve exact symbols and types from the brief/assembly before continuing.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795240358.001149,
+  "score_before": 670,
+  "score_after": 670,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Claim disappeared during sequential edits. Revision 23e2ce5c8fd08e716489 scored 6725: corrected nested reset stride to 0x1c, reversed stores to match target, and made D_8010302C word-sized. Current candidate reverted to a0b436bf82f62e351e3e (6845). Next: restore those edits and use a word store for gProbeObjectList; model the nested loops as pointer walks to avoid extra inner loops.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795241450.317034,
+  "score_before": 670,
+  "score_after": 670,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Best 1250 (rev ea8c0d045ba4d6088163; saved_best may show 4580 variant a1809a... \u2014 use ea8c0d if retrievable). Key fixes: declare `extern s32 func_8003C7C4(void);` and call with NO args (target does not zero a0-a3); use current symbol names (gTrackMarkerSerial s32 store before call, gProbeObjectList s32, gObjectListHead s32 `sw`, D_80109CB4 s32 `sw` last, sPrimTintR/G/B, sAltPrimTintR/G/B, sMarkerMessageCount, gAnnounceCount u8); arrays `extern s32 gTrackMarkers[], sBonusObjectTable[], D_8010D2C0[], D_8010D380[]`; nested reset loop as `r1=D_8010D2C0;r2=D_8010D380; for i<6 {p=r1;q=r2; for j<6 {*q++=0;*p++=0;} r1+=7;r2+=7;}`; move `gObjectListHead = 0;` to AFTER `D_80103EB1 = 0;` gave 1250 (from 4580). Remaining: target hoists constants 0xFF->$v1, 8->$a0 right after jal func_8007560C (before first sb), and puts gObjectListHead sw right after D_8010A4B8 store; also loop reg allocation (target counters a2/a1, `move a2,zero` before `lui t0`). Next step: try moving the 0xFF and 8 byte stores earlier in source order to get constants hoisted into v1/a0.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795241596.499628,
+  "score_before": 670,
+  "score_after": 670,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Saved 4580 (rev b8cd4e/8941ee same asm). Diffs: target loads 0xFF ($v1) and 8 ($a0) hoisted right after jal func_8007560C (before 0xA0 store); mine materializes at use. Local u8 ff/eight vars don't change asm. 2D-array [i][j] stride 7 form is worse (4875). Target inner loop: outer counter $a2 init before the lui's, inner $a1; stores q then p; v1 incremented in delay slot. Next: try the nested loop with inner counter declared differently / do-while forms, and the hoisted-constant puzzle (maybe constants are set via a volatile-less macro / different store order of the first few).\nlocal ff/eight vars; 2D array indexing\nno change / worse",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795241688.857356,
+  "score_before": 670,
+  "score_after": 670,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Machine draft had scaled pointer increments; fixed var_v1_2 and inner increments to 1 and var_a3 to 7, then changed byte globals to u8. Score 4180; historical 670 candidate was unavailable. Remaining store order and register scheduling differ.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795253583.802083,
+  "score_before": 4180,
+  "score_after": 4180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Saved best 400 (4 extra insns: early D_80108F94=0xFF store pair before the do-while). Removing that store regressed to 965 (target keeps 0xFF in $v1 across the later stores, and a gObjectListHead=0 sw sits before D_801032A4 store, which the candidate lacks). Next step: add `gObjectListHead = 0` store (likely an extern s32, set after func_8007560C) and keep the early 0xFF store, check whether the existing early store is really that.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795309490.539973,
+  "score_before": 400,
+  "score_after": 400,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
+ },
+ {
+  "function": "func_800449A0",
+  "text": "Rechecked best 210 b62f28bacf6fc9481c01. Removing late duplicate tint store scored 610; removing early store too scored 1150; using locals with only late store scored 1350.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795341524.17137,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
  }
 ]
