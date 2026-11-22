@@ -7,7 +7,7 @@ extern void *gPlayerActor;
 
 void func_8005C8C4(void) {
     char *actor = gPlayerActor;
-    s32 done = 0;
+    s32 done = (u32)actor & ~(u32)actor;
     s32 result;
     s32 type;
     char *info;
