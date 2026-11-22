@@ -87031,14 +87031,6 @@
   "score_after": 2450
  },
  {
-  "function": "func_80034630",
-  "text": "Reordering the independent floating sum for field 0x58 from one chained expression into `temp_fv1 = field(0x58) + temp_ft1; temp_fv1 += temp_ft0_2;` improved score from 2020 to 1510 (target 96 instructions, candidate 97). This verified improvement also corrected early instruction scheduling. Further attempts to move the field 0x58 load earlier and to change declaration order yielded 1530; local repair variants did not beat 1510. Remaining 48 displayed differences are mostly floating register allocation and operation ordering; first mismatch is target lwc1 f2 from 0x58 versus candidate lwc1 f0. Exact matched status not achieved. One general assignment-order finding submitted to share_knowledge.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795138631.8570828,
-  "score_before": 1630,
-  "score_after": 1510
- },
- {
   "function": "func_8011A7C8",
   "text": "Baseline 7095; best 7090 after local inferred record layout on fields +0x78/+0x7A. Tried branch orientation, CFG integer lifetimes, signedness, address temporary, constant local, and a typed state struct; no further score gain. Current best C has the typed state struct declaration but equivalent state access; saved best is 7090 (candidate revision before signedness exploration: 0627a1d045a17ff6fb92). Target begins by materializing D_801002A0 into $a1 and using it for both state and count at +0x14. Candidate still emits a different base register and direct accesses; align the state/count object layout and simplify loop CFG. Compiler move-on count reached 7/8 before a final signedness family trial, which was worse.",
   "by": "codex-gpt-6-luna-18",
@@ -87071,28 +87063,12 @@
   "score_after": 2450
  },
  {
-  "function": "func_80034630",
-  "text": "Rechecked candidate d1c0584fd58c3a2b2bba at 1510. Ran six independent local repair variants (inline_scalar_shape, split_scalar_lifetime, pointer_local_reuse, symbol_address_local, global_scalar_type, arithmetic_operand_order); none improved baseline. Remaining diffs are heavily register/order related; first target instruction is lwc1 $f2,0x58($a1), candidate uses $f0. Continue from saved best and inspect full mismatch/assembly for operand load ordering and FPR allocation. No known reusable convention established.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795178425.104427,
-  "score_before": 1510,
-  "score_after": 1510
- },
- {
   "function": "heapAllocTagged",
   "text": "Rechecked baseline 3400. Tried cfg_integer_lifetimes, signedness, declaration_order, address_temporary, sum_shape, shared_return; no variant improved. Candidate has an added phase_blk temporary from a prior repair and still mismatches heavily. First diagnostic difference is branch target: target bnez at 0xb0, candidate at 0xb4, implying an early control-flow shape issue around D_800E1A90. Candidate compiles after previous repair despite the earlier compiler error recorded in the claim draft.",
   "by": "codex-gpt-6-luna-18",
   "created_at": 1795182564.5716429,
   "score_before": 2450,
   "score_after": 2450
- },
- {
-  "function": "func_80034630",
-  "text": "Rechecked 1510. Inferred input layout, grouped source lines, operand temporary and const reads tied; split scalar and float output stores worsened. 48 remaining rows mostly floating-register allocation and load order; target loads arg1+0x58 into f2 and +0x60 into f4 early. Consider ordered volatile input loads.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795182714.1921122,
-  "score_before": 1510,
-  "score_after": 1510
  },
  {
   "function": "func_8011A7C8",
@@ -87143,14 +87119,6 @@
   "score_after": 115
  },
  {
-  "function": "func_80034630",
-  "text": "Improved verified score 1510 to 1310 by separating initial coordinate sums from +/- 8 and combining the final fourth coordinate with +8. Remaining mismatch is primarily FP register allocation and scheduling; target computes 0x58+0x64 early in f2 and keeps it live while the four rectangle sums are formed. Early source assignment alone optimized identically; operand temporaries and local repair variants did not improve. Explore expression lifetimes or compiler scheduling.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795192040.792047,
-  "score_before": 1510,
-  "score_after": 1310
- },
- {
   "function": "heapAllocTagged",
   "text": "Rechecked 115: 110 instructions, 23 register-only differences. Branch reversal, unsigned mode, declaration order, staged decrement, entry pointer and separated available initialization did not improve. Target first stride uses t0 and mask a2; candidate uses a2 and v1. Explore other alignment-mask and stride lifetimes without changing instruction scheduling.",
   "by": "codex-gpt-6.1-terra-3",
@@ -87167,28 +87135,12 @@
   "score_after": 115
  },
  {
-  "function": "func_80034630",
-  "text": "Initial m2c draft had undeclared globals and an obviously uninitialized temp_ft1 use. Rechecked saved candidate score 1190, 96 instructions. Attempts included correcting the initial load/add order and splitting scalar lifetime; best attempt remained saved score 1190. Local repair families tested: split_scalar_lifetime, global_scalar_type, arithmetic_operand_order, inferred_record_layout, address_temporary, const_read, symbol_address_local; no improvement after move-on threshold. Early mismatch dominated FPR allocation and first loads. Further work should restart from saved_best and model the expressions in source sequence matching target: load arg1+0x64, arg1+0x58, arg0+0x20 pointer, arg1+0x60, then add center Y.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198378.4260612,
-  "score_before": 1190,
-  "score_after": 1190
- },
- {
   "function": "heapAllocTagged",
   "text": "Best candidate remains revision 00318d77d8b03efb0973 at score 115 (110 target/candidate instructions; only 23 register allocation differences). Rechecked baseline and explored pointer aliasing to D_800CE354[tag], which generated identical instructions. Tried tag as s16; regressed to 615 because of sign-extension and shifted control flow. Target begins with tag*12 scaled offset in $t0 while mask is kept in $a2; candidate allocates that scale to $a2, causing pervasive register differences. Remaining work: restore/use saved best and investigate local ordering/types/declarations that keep scaled index in $t0 while preserving signed s32 tag semantics; do not repeat pointer alias changes.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795199046.1173928,
   "score_before": 115,
   "score_after": 115
- },
- {
-  "function": "func_80034630",
-  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 0; 37 differing rows (34 register, 3 operand; advisory).\nTarget: lwc1 $f6, 0x64($a1)\nCandidate: lwc1 $f2, 0x64($a1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\nr T: lwc1 $f6, 0x64($a1) | C: lwc1 $f2, 0x64($a1)\nr T: lwc1 $f2, 0x58($a1) | C: lwc1 $f10, 0x58($a1)\n  = lw $v0, 0x20($a0)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nLow-progress tool auto-released after saving valid initialized score-200 C (from historical 1190 with uninitialized temp_ft1). First 9 assignments scoped individually, then normal margins/insets, and staged u32 packed coordinates with opcode on the left recovered all 96 instructions. Remaining diff is FPR assignment and inset instruction order: target loads 0x70 before 0x54/0x74, current delays 0x70 to after the 0x74 add. Scoping just lower X completion, only its inset load, or only upper X sum raised score. Reusing temp_ft0 for 0x74 was an equal-score but different-register result. Project flags best or tied on corrected base.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795200090.124929,
-  "score_before": 1190,
-  "score_after": 200
  },
  {
   "function": "heapAllocTagged",
@@ -87199,28 +87151,12 @@
   "score_after": 115
  },
  {
-  "function": "func_80034630",
-  "text": "Best score 200/96 instructions from direct pointer-offset float loads/stores and clamp logic; recompiles reproduce identical instruction fingerprint. Two six-variant local repair batches did not improve. Remaining diff is 34 register allocation differences and three operands, beginning with target loads into ft1/fv1/ft0 ($f6/$f2/$f4) while candidate uses $f4/$f8/$f2. A next attempt should express offset members as typed struct fields and preserve target computation sequencing, then tune variable liveness/declaration order; no arithmetic/control-flow mismatch is indicated.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795201241.7125409,
-  "score_before": 200,
-  "score_after": 200
- },
- {
   "function": "heapAllocTagged",
   "text": "Verified baseline score 115; 23 register differences remain.",
   "by": "codex-gpt-6.1-terra-5",
   "created_at": 1795201937.03712,
   "score_before": 115,
   "score_after": 115
- },
- {
-  "function": "func_80034630",
-  "text": "Reordered OR operands to match final command word, improving 200 to 185. Remaining differences include floating load scheduling and register allocation. Wrapping temp_ft2 load or temp_ft5 update in do/while introduces f20 saves and worsens score; removing the temp_fv1 block changes registers but not score.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795202324.212847,
-  "score_before": 200,
-  "score_after": 185
  },
  {
   "function": "func_8011A7C8",
@@ -87237,14 +87173,6 @@
   "created_at": 1795204251.0239701,
   "score_before": 115,
   "score_after": 115
- },
- {
-  "function": "func_80034630",
-  "text": "Best candidate 9575fb191ed3da001d1c scores 150 (96 insns, same instruction multiset; only FPR register assignment and some order differ). Structure: do-while-wrapped loads (temp_ft1 0x64, temp_fv1 0x58, temp_v0 0x20, temp_ft0 0x60), 4 bbox adds/subs by 8.0f, 4 clamps via if(a<b) a=b, then if D_8010A4D4 emits 2 words: 0xED000000|(fa0*4&0xFFF)<<12|(ft3*4&0xFFF) and (fa1*4&0xFFF)<<12|(ft4*4&0xFFF), D_80115328 advanced by 8. Tried: swapping declaration order of temp_ft0/temp_ft1, swapping the first two loads, swapping fv0/fv1 and ft2/ft2_2 declarations: no improvement (one variant 160). Without do-while wrappers it scores 2200 (spill of $f20 appears). Remaining: target gives ft1=$f6, fv1=$f2, ft0=$f4; ours ft1=$f2. Untried: rewriting the clamp chain as separate expressions or using a float local for 0x5C term order.",
-  "by": "api-claude-haiku-5-5-9",
-  "created_at": 1795204560.589963,
-  "score_before": 150,
-  "score_after": 150
  },
  {
   "function": "heapAllocTagged",
@@ -87296,15 +87224,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
  },
  {
-  "function": "func_80034630",
-  "text": "Best saved candidate is 150/96 instructions; rechecked initially at 150. Attempts removing do/while wrappers around initial f64/f58 loads had 160 score or no output change; register allocation differs from target from first instructions (target f6=arg1+0x64, f2=+0x58, f4=+0x60; candidates allocate f2/f10/f8 or reorder the first two loads), cascading across the remaining float ops. Other agents already tried many local/explicit variants; don't repeat those families. Next step: test a local source ordering/declaration variant that keeps first loads in three distinct variables but adjusts declaration order to steer FPR allocation; compare against saved candidate.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795214304.998642,
-  "score_before": 150,
-  "score_after": 150,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
- },
- {
   "function": "func_800404F0",
   "text": "Saved candidate uses var_v1_3 before assignment in case 0x42; semantic correction alone worsens match.",
   "by": "codex-gpt-6.1-terra-2",
@@ -87312,15 +87231,6 @@
   "score_before": 16790,
   "score_after": 15800,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:125f186a5084d5d32ea0da63a0d116e51a8bf8a1de70f1586f09ed4cdf33de5e"
- },
- {
-  "function": "func_80034630",
-  "text": "Move-on threshold reached at verified baseline 150. The 0x70 and 0x74 loads are swapped and 26 FPR rows differ. Volatile on both loads scored 210; swapping the independent += and -= updates kept identical output at 150; wrapping the 0x50 chain's second addition in do/while scored 910 and introduced f20 saves. Restored saved best.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795223860.537914,
-  "score_before": 150,
-  "score_after": 150,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
  },
  {
   "function": "heapAllocTagged",
@@ -87348,15 +87258,6 @@
   "score_before": 115,
   "score_after": 115,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "func_80034630",
-  "text": "Stays at 150 (register allocation only; target also loads 0x70 before 0x74, ours 0x74 first). A clean struct-based rewrite (Box/A1 structs, natural expressions) scored 910 \u2014 scheduler reorders loads; don't retry. Next step: try making 0x70/0x74 loads order explicit and altering lifetimes of clamp temporaries (target keeps fv1 f2 live across, ft2 f8).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795231444.713185,
-  "score_before": 150,
-  "score_after": 150,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
  },
  {
   "function": "func_8011A7C8",
@@ -87455,15 +87356,6 @@
   "score_before": 2905,
   "score_after": 2905,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "func_80034630",
-  "text": "Score 150: mostly FPR allocation. Swapping the two subtracts changes two rows but retains score; swapping the two adds worsens to 155. Load wrappers and commuted ft5 addition do not improve.\nReorder independent bounding adjustments and remove individual load wrappers\nScores 150 or 155; no improvement",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795248698.034731,
-  "score_before": 150,
-  "score_after": 150,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
  },
  {
   "function": "heapAllocTagged",
@@ -87572,15 +87464,6 @@
   "score_before": 2420,
   "score_after": 2420,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "func_80034630",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795260079.950782,
-  "score_before": 150,
-  "score_after": 150,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
  },
  {
   "function": "heapAllocTagged",
@@ -87752,15 +87635,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69758c3cdf7a03d680cd143cd0020d2684aa1249979c80d7e6d18670e241917d"
  },
  {
-  "function": "func_80034630",
-  "text": "Best 120, 22 rows (20 FPR register, 2 operand). Local repairs (u32 global, goto, struct, const params, temp copies) no gain. Next step: rewrite cleanly without permuter do/while wrappers and dead if(temp) branches, using plain f32 locals declared in load order.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795311225.217366,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
- },
- {
   "function": "func_800404F0",
   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
   "by": "claude-sonnet-low-1",
@@ -87777,24 +87651,6 @@
   "score_before": 1470,
   "score_after": 1470,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69758c3cdf7a03d680cd143cd0020d2684aa1249979c80d7e6d18670e241917d"
- },
- {
-  "function": "func_80034630",
-  "text": "Best stays 120 (saved_best). A clean rewrite with plain f32 locals scored 995 because the load order and add chains changed. Next step: restore saved_best and run try_local_repairs on the 20 FPR-register rows. I can't get closer by hand.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795314018.1648982,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
- },
- {
-  "function": "func_80034630",
-  "text": "Target schedules +0x70 before +0x74, candidate swaps both loads and the paired add chains. Judge move-on reached.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795315998.874309,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
  },
  {
   "function": "sweepSphereAgainstScene",
@@ -87822,15 +87678,6 @@
   "score_before": 115,
   "score_after": 115,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
- },
- {
-  "function": "func_80034630",
-  "text": "Judge move-on reached. Float add reorder tied at 120; volatile extent loads scored 320. Removing uninitialized duplicate condition scored 150. Next step: build separate scoped X and Z extent accumulators to shorten live ranges while preserving target interleaving.\nRescheduled float add chains and qualified the extent loads.\nBaseline 120 retained. +0x70/+0x74 ordering and 20 FPR rows differ.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795318609.249774,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
  },
  {
   "function": "func_8011A7C8",
@@ -87894,15 +87741,6 @@
   "score_before": 640,
   "score_after": 640,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69758c3cdf7a03d680cd143cd0020d2684aa1249979c80d7e6d18670e241917d"
- },
- {
-  "function": "func_80034630",
-  "text": "Judge ended claim. Interleaving the X/Z extent assignments with +0x74 first reproduced the same 120 diff (20 FPR rows and 2 load offsets); local pass selected 170 from a worse trial. Next step on saved best cff8fa7b91ea53791253: split the x translation into a read-only local and an X maximum accumulator, then check whether f4 survives through both box calculations.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795341289.128221,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
  },
  {
   "function": "heapAllocTagged",
@@ -88020,14 +87858,6 @@
   "score_before": 807,
   "score_after": 340,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:885ef806af7b37c24d0e2fec375cfa9850f906476511ff0e32f1905066e0e957"
- },
- {
-  "function": "func_80034630",
-  "text": "Isolated-judge result from another session (claim was held elsewhere): score 90 with no uninitialised-read scaffolding. Shape: p58 load in its own single-set temp (temp_p58 = L58; temp_fv1 = temp_p58 + t1), the four sums as single expressions with the 0x70/0x74 loads inline (E = L50 + t0 + L70; F = L54 + t0 - L70; H = (L5C + t1) - L74; then fv1 += L74), do{}while(0) around ft4 load and around the first three of the four 8.0f adjustments, plain compares. Remaining 18 rows: sched1 places the 0x74 load and fv1 += u1 above the 0x50 load (target: L50, L70, e-add, L54, L74, g-add, f-sub), then registers follow (fv1 f18 vs f2). Wrappers on the mid statements, statement order, temp vs inline for u0/u1, per-statement fold forms and wrapper groups all plateau at 90 (hill-climb over ~20k variants).",
-  "by": "manual-9b0826d930e54681",
-  "created_at": 1795383588.411154,
-  "score_before": 120,
-  "score_after": 120
  },
  {
   "function": "func_8003FDE0",
@@ -88189,5 +88019,175 @@
   "score_before": 130,
   "score_after": 130,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e07475cda912060e1ea6ddba0ba81d70716f466d66e6e245ebe70a1ed75ee75d"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Reordering the independent floating sum for field 0x58 from one chained expression into `temp_fv1 = field(0x58) + temp_ft1; temp_fv1 += temp_ft0_2;` improved score from 2020 to 1510 (target 96 instructions, candidate 97). This verified improvement also corrected early instruction scheduling. Further attempts to move the field 0x58 load earlier and to change declaration order yielded 1530; local repair variants did not beat 1510. Remaining 48 displayed differences are mostly floating register allocation and operation ordering; first mismatch is target lwc1 f2 from 0x58 versus candidate lwc1 f0. Exact matched status not achieved. One general assignment-order finding submitted to share_knowledge.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795138631.8570828,
+  "score_before": 1630,
+  "score_after": 1510
+ },
+ {
+  "function": "func_80034630",
+  "text": "Rechecked candidate d1c0584fd58c3a2b2bba at 1510. Ran six independent local repair variants (inline_scalar_shape, split_scalar_lifetime, pointer_local_reuse, symbol_address_local, global_scalar_type, arithmetic_operand_order); none improved baseline. Remaining diffs are heavily register/order related; first target instruction is lwc1 $f2,0x58($a1), candidate uses $f0. Continue from saved best and inspect full mismatch/assembly for operand load ordering and FPR allocation. No known reusable convention established.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795178425.104427,
+  "score_before": 1510,
+  "score_after": 1510
+ },
+ {
+  "function": "func_80034630",
+  "text": "Rechecked 1510. Inferred input layout, grouped source lines, operand temporary and const reads tied; split scalar and float output stores worsened. 48 remaining rows mostly floating-register allocation and load order; target loads arg1+0x58 into f2 and +0x60 into f4 early. Consider ordered volatile input loads.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795182714.1921122,
+  "score_before": 1510,
+  "score_after": 1510
+ },
+ {
+  "function": "func_80034630",
+  "text": "Improved verified score 1510 to 1310 by separating initial coordinate sums from +/- 8 and combining the final fourth coordinate with +8. Remaining mismatch is primarily FP register allocation and scheduling; target computes 0x58+0x64 early in f2 and keeps it live while the four rectangle sums are formed. Early source assignment alone optimized identically; operand temporaries and local repair variants did not improve. Explore expression lifetimes or compiler scheduling.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795192040.792047,
+  "score_before": 1510,
+  "score_after": 1310
+ },
+ {
+  "function": "func_80034630",
+  "text": "Initial m2c draft had undeclared globals and an obviously uninitialized temp_ft1 use. Rechecked saved candidate score 1190, 96 instructions. Attempts included correcting the initial load/add order and splitting scalar lifetime; best attempt remained saved score 1190. Local repair families tested: split_scalar_lifetime, global_scalar_type, arithmetic_operand_order, inferred_record_layout, address_temporary, const_read, symbol_address_local; no improvement after move-on threshold. Early mismatch dominated FPR allocation and first loads. Further work should restart from saved_best and model the expressions in source sequence matching target: load arg1+0x64, arg1+0x58, arg0+0x20 pointer, arg1+0x60, then add center Y.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198378.4260612,
+  "score_before": 1190,
+  "score_after": 1190
+ },
+ {
+  "function": "func_80034630",
+  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 0; 37 differing rows (34 register, 3 operand; advisory).\nTarget: lwc1 $f6, 0x64($a1)\nCandidate: lwc1 $f2, 0x64($a1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\nr T: lwc1 $f6, 0x64($a1) | C: lwc1 $f2, 0x64($a1)\nr T: lwc1 $f2, 0x58($a1) | C: lwc1 $f10, 0x58($a1)\n  = lw $v0, 0x20($a0)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nLow-progress tool auto-released after saving valid initialized score-200 C (from historical 1190 with uninitialized temp_ft1). First 9 assignments scoped individually, then normal margins/insets, and staged u32 packed coordinates with opcode on the left recovered all 96 instructions. Remaining diff is FPR assignment and inset instruction order: target loads 0x70 before 0x54/0x74, current delays 0x70 to after the 0x74 add. Scoping just lower X completion, only its inset load, or only upper X sum raised score. Reusing temp_ft0 for 0x74 was an equal-score but different-register result. Project flags best or tied on corrected base.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795200090.124929,
+  "score_before": 1190,
+  "score_after": 200
+ },
+ {
+  "function": "func_80034630",
+  "text": "Best score 200/96 instructions from direct pointer-offset float loads/stores and clamp logic; recompiles reproduce identical instruction fingerprint. Two six-variant local repair batches did not improve. Remaining diff is 34 register allocation differences and three operands, beginning with target loads into ft1/fv1/ft0 ($f6/$f2/$f4) while candidate uses $f4/$f8/$f2. A next attempt should express offset members as typed struct fields and preserve target computation sequencing, then tune variable liveness/declaration order; no arithmetic/control-flow mismatch is indicated.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795201241.7125409,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "func_80034630",
+  "text": "Reordered OR operands to match final command word, improving 200 to 185. Remaining differences include floating load scheduling and register allocation. Wrapping temp_ft2 load or temp_ft5 update in do/while introduces f20 saves and worsens score; removing the temp_fv1 block changes registers but not score.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795202324.212847,
+  "score_before": 200,
+  "score_after": 185
+ },
+ {
+  "function": "func_80034630",
+  "text": "Best candidate 9575fb191ed3da001d1c scores 150 (96 insns, same instruction multiset; only FPR register assignment and some order differ). Structure: do-while-wrapped loads (temp_ft1 0x64, temp_fv1 0x58, temp_v0 0x20, temp_ft0 0x60), 4 bbox adds/subs by 8.0f, 4 clamps via if(a<b) a=b, then if D_8010A4D4 emits 2 words: 0xED000000|(fa0*4&0xFFF)<<12|(ft3*4&0xFFF) and (fa1*4&0xFFF)<<12|(ft4*4&0xFFF), D_80115328 advanced by 8. Tried: swapping declaration order of temp_ft0/temp_ft1, swapping the first two loads, swapping fv0/fv1 and ft2/ft2_2 declarations: no improvement (one variant 160). Without do-while wrappers it scores 2200 (spill of $f20 appears). Remaining: target gives ft1=$f6, fv1=$f2, ft0=$f4; ours ft1=$f2. Untried: rewriting the clamp chain as separate expressions or using a float local for 0x5C term order.",
+  "by": "api-claude-haiku-5-5-9",
+  "created_at": 1795204560.589963,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_80034630",
+  "text": "Best saved candidate is 150/96 instructions; rechecked initially at 150. Attempts removing do/while wrappers around initial f64/f58 loads had 160 score or no output change; register allocation differs from target from first instructions (target f6=arg1+0x64, f2=+0x58, f4=+0x60; candidates allocate f2/f10/f8 or reorder the first two loads), cascading across the remaining float ops. Other agents already tried many local/explicit variants; don't repeat those families. Next step: test a local source ordering/declaration variant that keeps first loads in three distinct variables but adjusts declaration order to steer FPR allocation; compare against saved candidate.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795214304.998642,
+  "score_before": 150,
+  "score_after": 150,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Move-on threshold reached at verified baseline 150. The 0x70 and 0x74 loads are swapped and 26 FPR rows differ. Volatile on both loads scored 210; swapping the independent += and -= updates kept identical output at 150; wrapping the 0x50 chain's second addition in do/while scored 910 and introduced f20 saves. Restored saved best.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795223860.537914,
+  "score_before": 150,
+  "score_after": 150,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Stays at 150 (register allocation only; target also loads 0x70 before 0x74, ours 0x74 first). A clean struct-based rewrite (Box/A1 structs, natural expressions) scored 910 \u2014 scheduler reorders loads; don't retry. Next step: try making 0x70/0x74 loads order explicit and altering lifetimes of clamp temporaries (target keeps fv1 f2 live across, ft2 f8).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795231444.713185,
+  "score_before": 150,
+  "score_after": 150,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Score 150: mostly FPR allocation. Swapping the two subtracts changes two rows but retains score; swapping the two adds worsens to 155. Load wrappers and commuted ft5 addition do not improve.\nReorder independent bounding adjustments and remove individual load wrappers\nScores 150 or 155; no improvement",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795248698.034731,
+  "score_before": 150,
+  "score_after": 150,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795260079.950782,
+  "score_before": 150,
+  "score_after": 150,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Best 120, 22 rows (20 FPR register, 2 operand). Local repairs (u32 global, goto, struct, const params, temp copies) no gain. Next step: rewrite cleanly without permuter do/while wrappers and dead if(temp) branches, using plain f32 locals declared in load order.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795311225.217366,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Best stays 120 (saved_best). A clean rewrite with plain f32 locals scored 995 because the load order and add chains changed. Next step: restore saved_best and run try_local_repairs on the 20 FPR-register rows. I can't get closer by hand.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795314018.1648982,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Target schedules +0x70 before +0x74, candidate swaps both loads and the paired add chains. Judge move-on reached.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795315998.874309,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Judge move-on reached. Float add reorder tied at 120; volatile extent loads scored 320. Removing uninitialized duplicate condition scored 150. Next step: build separate scoped X and Z extent accumulators to shorten live ranges while preserving target interleaving.\nRescheduled float add chains and qualified the extent loads.\nBaseline 120 retained. +0x70/+0x74 ordering and 20 FPR rows differ.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795318609.249774,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Judge ended claim. Interleaving the X/Z extent assignments with +0x74 first reproduced the same 120 diff (20 FPR rows and 2 load offsets); local pass selected 170 from a worse trial. Next step on saved best cff8fa7b91ea53791253: split the x translation into a read-only local and an X maximum accumulator, then check whether f4 survives through both box calculations.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795341289.128221,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2cfdeffb77a8fdcada60cb3f331dafbca47e3f765caa45f8d5f876e0f3686209"
+ },
+ {
+  "function": "func_80034630",
+  "text": "Isolated-judge result from another session (claim was held elsewhere): score 90 with no uninitialised-read scaffolding. Shape: p58 load in its own single-set temp (temp_p58 = L58; temp_fv1 = temp_p58 + t1), the four sums as single expressions with the 0x70/0x74 loads inline (E = L50 + t0 + L70; F = L54 + t0 - L70; H = (L5C + t1) - L74; then fv1 += L74), do{}while(0) around ft4 load and around the first three of the four 8.0f adjustments, plain compares. Remaining 18 rows: sched1 places the 0x74 load and fv1 += u1 above the 0x50 load (target: L50, L70, e-add, L54, L74, g-add, f-sub), then registers follow (fv1 f18 vs f2). Wrappers on the mid statements, statement order, temp vs inline for u0/u1, per-statement fold forms and wrapper groups all plateau at 90 (hill-climb over ~20k variants).",
+  "by": "manual-9b0826d930e54681",
+  "created_at": 1795383588.411154,
+  "score_before": 120,
+  "score_after": 120
  }
 ]
