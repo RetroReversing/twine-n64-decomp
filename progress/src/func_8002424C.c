@@ -21,7 +21,7 @@ extern s32 func_800241F8;
 extern s8 gMenuNeedsRedraw;
 extern void *gSaveMenuState;
 extern u8 sMenuListKind;
-extern u16 sSaveMenuAction;
+extern volatile u16 sSaveMenuAction;
 extern s8 sSaveMenuRefresh;
 extern s32 sSaveMenuSpriteFirst;
 extern s32 sSaveMenuSpriteSecond;
@@ -44,7 +44,6 @@ inline static s32 inline_fn2(char *arg0, int arg1)
 
 void func_8002424C(void)
 {
-  unsigned long long __repair_constant = 3;
   int present;
   int empty;
   char *__base_D_800BD5D0;
@@ -99,44 +98,20 @@ void func_8002424C(void)
   sSaveMenuAction = 1;
   func_80022AD8(sMenuListKind);
   temp_v1 = *inline_fn(gSaveMenuState);
-  if (temp_v1 != 0x1A)
+  switch (temp_v1)
   {
-    if (0x1B > ((s32) temp_v1))
-    {
-      var_v0 = __repair_constant;
-      if (temp_v1 != 0x19)
-      {
-        var_v0 = 1;
-      }
-    }
-    else
-    {
-      if (temp_v1)
-      {
-        var_v0 = 1;
-      }
-      else
-      {
-        var_v0 = 1;
-      }
-      if (temp_v1 == 0x1B)
-      {
-        var_v0 = 3;
-      }
-    }
+    case 0x19:
+    case 0x1B:
+      var_v0 = 3;
+      break;
+    case 0x1A:
+      var_v0 = 2;
+      break;
+    default:
+      var_v0 = 1;
+      break;
   }
-  else
-  {
-    var_v0 = 2;
-  }
-  if (D_800BD5D0)
-  {
-    sSaveMenuAction = var_v0;
-  }
-  else
-  {
-    sSaveMenuAction = var_v0;
-  }
+  sSaveMenuAction = var_v0;
   do
   {
     updateSaveMenuSprites(sSaveMenuAction, D_800B81A8, D_800B81AB, 1);
