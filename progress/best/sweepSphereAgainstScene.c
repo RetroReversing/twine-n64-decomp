@@ -79,7 +79,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
   SweepVec vec70;
   register f32 spE4;
   f32 spE8[9];
-  volatile SweepVec vec118;
+  SweepVec vec118;
   void *sp134;
   void *sp13C;
   volatile s32 sp144;

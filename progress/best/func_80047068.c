@@ -1,59 +1,44 @@
-void func_80047068(const f32 *p0_in, const f32 *p1, const f32 *p2, const f32 *p3, s32 n, const void *out)
+typedef union { f32 f; s32 i; } CubicWord;
+typedef struct { s32 n; CubicWord x, dx, ddx, dddx, y, dy, ddy, dddy, z, dz, ddz, dddz; } CubicState;
+void func_80047068(const f32 *p, const CubicWord *q, const f32 *r, const f32 *s, s32 n, volatile CubicState *out)
 {
-  f32 *p0;
-  f32 frame[17];
-  f32 inv;
-  f32 inv2;
-  f32 x;
-  f32 y;
-  f32 z;
-  f32 w;
-  f32 qy;
-  f32 qz;
-  f32 rx;
-  f32 ry;
-  f32 rz;
-  f32 sx;
-  f32 qx;
-  f32 sy;
-  f32 sz;
-  p0 = p0_in;
-  ;
-  x = p0[0]; y = p0[1]; z = p0[2];
-  ;
-  w = (int) p1[0];
-  qx = p1[1]; qy = p1[2];
-  rx = p2[0]; ry = p2[1]; rz = p2[2];
-  sx = p3[0]; sy = p3[1]; sz = p3[2];
-  *((s32 *) out) = n;
-  *((f32 *) (((u8 *) out) + 4)) = w;
-  *((f32 *) (((u8 *) out) + 8)) = (((s32) ((((x - (w * 2.5f)) + (rx * 2.0f)) - (sx * 0.5f)) * ((1.0f / ((f32) n)) * (1.0f / ((f32) n))))) * ((1.0f / ((f32) n)) * (1.0f / ((f32) n)))) * (1.0f / ((f32) n));
-  *((f32 *) (((u8 *) out) + 12)) = 0.0f;
-  *((f32 *) (((u8 *) out) + 16)) = qx;
-  *((f32 *) (((u8 *) out) + 20)) = (((s32) ((((y - (qx * 2.5f)) + (ry * 2.0f)) - (sy * ((char) 0.5f))) * ((1.0f / ((f32) n)) * (1.0f / ((f32) n))))) * (inv * inv)) * (1.0f / ((f32) n));
-  *((f32 *) (((u8 *) out) + 24)) = (inv * inv) * 0.0f;
-  *((f32 *) (((u8 *) out) + 32)) = (((1.0f / ((f32) n)) * (1.0f / ((f32) n))) * ((s32) ((((z - (qy * 2.5f)) + (rz * 2.0f)) - (sz * 0.5f)) * ((1.0f / ((f32) n)) * (1.0f / ((f32) n)))))) * (1.0f / ((f32) n));
-  do
-  {
-    if (w)
-    {
-      if (qx)
-      {
-        *((f32 *) (((u8 *) out) + 36)) = 0.0f;
-        *((f32 *) (((u8 *) out) + 28)) = qy;
-      }
-      else
-      {
-        *((f32 *) (((u8 *) out) + 36)) = 0.0f;
-        *((f32 *) (((u8 *) out) + 28)) = qy;
-      }
-    }
-    else
-    {
-      *((f32 *) (((u8 *) out) + 36)) = 0.0f;
-      *((f32 *) (((u8 *) out) + 28)) = qy;
-    }
-  }
-  while (0);
+    f32 frame[10];
+    f32 h = 1.0f / (f32)n, h2 = h * h, h3 = h * h2;
+    CubicWord qx, qy;
+    f32 qz, x, y, z, ax, bx, cx, ay, by, cy, az, bz, cz;
+    f32 dx, ddx, dddx, dy, ddy, dddy, dz, ddz, dddz;
+    x = p[0]; qx.i = q[0].i;
+    bx = ((x - qx.f * 2.5f) + (r[0] + r[0]) - s[0] * 0.5f) * h2;
+    ax = ((x * -0.5f + qx.f * 1.5f) - r[0] * 1.5f + s[0] * 0.5f) * h3;
+    cx = (x * -0.5f + r[0] * 0.5f) * h;
+    dx = (ax + bx) + cx;
+    dddx = ax * 6.0f;
+    ddx = dddx + (bx + bx);
+    y = p[1]; qy.i = q[1].i;
+    by = ((y - qy.f * 2.5f) + (r[1] + r[1]) - s[1] * 0.5f) * h2;
+    ay = ((y * -0.5f + qy.f * 1.5f) - r[1] * 1.5f + s[1] * 0.5f) * h3;
+    cy = (y * -0.5f + r[1] * 0.5f) * h;
+    dy = (ay + by) + cy;
+    dddy = ay * 6.0f;
+    ddy = dddy + (by + by);
+    z = p[2]; qz = q[2].f;
+    bz = ((z - qz * 2.5f) + (r[2] + r[2]) - s[2] * 0.5f) * h2;
+    az = ((z * -0.5f + qz * 1.5f) - r[2] * 1.5f + s[2] * 0.5f) * h3;
+    cz = (z * -0.5f + r[2] * 0.5f) * h;
+    dz = (az + bz) + cz;
+    dddz = az * 6.0f;
+    ddz = dddz + (bz + bz);
+    out->n = n;
+    out->x.i = qx.i;
+    out->y.i = qy.i;
+    out->z.f = qz;
+    out->dx.f = dx;
+    out->dddx.f = dddx;
+    out->ddx.f = ddx;
+    out->dy.f = dy;
+    out->dddy.f = dddy;
+    out->ddy.f = ddy;
+    out->dddz.f = dddz;
+    out->dz.f = dz;
+    out->ddz.f = ddz;
 }
-

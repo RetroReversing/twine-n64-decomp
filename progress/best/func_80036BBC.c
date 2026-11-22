@@ -73,6 +73,12 @@ void func_80036BBC(void *arg0)
   s32 var_a0_2;
   s32 var_a1;
   s32 var_v1;
+  s32 sel_a;
+  s32 *m1;
+  s32 *m2;
+  s32 v_m1;
+  s32 v_m2;
+  void *rsp;
   u32 temp_v1_5;
   u32 temp_v1_7;
   void *temp_a0;
@@ -111,19 +117,17 @@ void func_80036BBC(void *arg0)
     D_801032A0 = 1;
     if (((__repair_field_100 *) arg0)->value & 3)
     {
-      var_a1 = 0xFC40FE03;
-      temp_v1_3 = D_80115328;
-      D_80115328 = temp_v1_3 + 2;
-      temp_v1_3[0] = var_a1;
-      temp_v1_3[1] = -0xC88;
+      s32 *e1;
+      e1 = D_80115328; D_80115328 = ((s8 *) e1) + 8;
+      ((__repair_field_0 *) e1)->value = 0xFC40FE03;
+      *((s32 *) (((char *) e1) + 4)) = -0xC88;
     }
     else
     {
-      s32 command = 0xFC40FE03;
-      __repair_phase_storage.pointer = D_80115328;
-      D_80115328 = ((s8 *) __repair_phase_storage.pointer) + 8;
-      ((__repair_field_0 *) __repair_phase_storage.pointer)->value = command;
-      *((s32 *) (((char *) __repair_phase_storage.pointer) + 4)) = 0xFF0FF37F;
+      s32 *e2;
+      e2 = D_80115328; D_80115328 = ((s8 *) e2) + 8;
+      ((__repair_field_0 *) e2)->value = 0xFC40FE03;
+      *((s32 *) (((char *) e2) + 4)) = 0xFF0FF37F;
     }
   }
   while (var_s2 != NULL)
@@ -193,45 +197,48 @@ void func_80036BBC(void *arg0)
                 guTranslateF(&D_80112F90, ((__repair_record_var_s0 *) var_s0)->field_24 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_28 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_2C * 64.0f);
               }
               guMtxF2L(&D_80112F90, D_8010D538);
-              var_a0 = D_80115328; D_80115328 = ((s8 *) var_a0) + 8; var_v1 = D_8010D538 - 0x80000000;
-              ((__repair_field_0 *) var_a0)->value = 0xDA380003;
+              m1 = D_80115328;
+              D_80115328 = m1 + 2;
+              v_m1 = D_8010D538 - 0x80000000;
+              m1[0] = 0xDA380003;
+              m1[1] = v_m1;
               goto block_34;
             }
             return;
           }
           else
           {
-            var_a0 = D_80115328;
-            ((__repair_field_0 *) var_a0)->value = 0xDA380003; var_v1_2 = (void *) (*((s32 *) (((char *) sRenderState) + 0x74C))); var_v1 = ((u32) var_v1_2) - 0x80000000; D_80115328 = ((s8 *) var_a0) + 8;
+            m2 = D_80115328;
+            rsp = (void *) sRenderState;
+            m2[0] = 0xDA380003;
+            v_m2 = ((u32) (*((s32 *) (((char *) rsp) + 0x74C)))) - 0x80000000;
+            D_80115328 = m2 + 2;
+            m2[1] = v_m2;
             block_34:
-            *((s32 *) (((char *) var_a0) + 4)) = var_v1;
-
             if ((((u32) ((__repair_record_var_s0 *) var_s0)->field_58) >> 2) & 0x400)
             {
               if (D_8010A924 != 5)
               {
-                D_8010A924 = 5; __repair_phase_storage.value = ((__repair_field_100 *) arg0)->value & 7;
-                if (__repair_phase_storage.value == 1)
+                D_8010A924 = 5; sel_a = ((__repair_field_100 *) arg0)->value & 7;
+                if (sel_a == 1)
                 {
                   goto emit_first_mode;
                 }
-                if (__repair_phase_storage.value == 2)
+                if (sel_a == 2)
                 {
-                  var_v0 = D_80115328; D_80115328 = var_v0 + 2; var_v1_2 = &D_800B1D48; var_v0[0] = 0xDE000000;
-                  goto finish_first_mode;
+                  s32 *c2 = D_80115328;
+                  D_80115328 = c2 + 2;
+                  c2[0] = 0xDE000000;
+                  c2[1] = (s32) &D_800B1D48;
                 }
-                if (__repair_phase_storage.value == 4)
+                else if (sel_a == 4)
                 {
+                  s32 *c1;
                   emit_first_mode:
-                  var_v0 = D_80115328;
-
-                  {
-                    D_80115328 = var_v0 + 2;
-                  }
- do { var_v1_2 = &D_800B1D20; var_v0[0] = 0xDE000000; } while (0);
-                  finish_first_mode:
-                  ((s32 **) var_v0)[1] = var_v1_2;
-
+                  c1 = D_80115328;
+                  D_80115328 = c1 + 2;
+                  c1[0] = 0xDE000000;
+                  c1[1] = (s32) &D_800B1D20;
                 }
               }
               if (D_801032A0 != 4)
@@ -264,21 +271,18 @@ void func_80036BBC(void *arg0)
                 D_8010A924 = 0;
                 if (((__repair_field_100 *) arg0)->value & 3)
                 {
-                  var_v0_2 = D_80115328;
-                  do
-                  {
-                    D_80115328 = var_v0_2 + 2;
-                  }
-                  while (0);
-                  var_v1_2 = &D_800B1A00;
-                  ((__repair_field_0 *) var_v0_2)->value = 0xDE000000;
+                  s32 *e3 = D_80115328;
+                  D_80115328 = e3 + 2;
+                  e3[0] = 0xDE000000;
+                  e3[1] = (s32) &D_800B1A00;
                 }
                 else
                 {
-                  var_v0_2 = D_80115328; D_80115328 = ((s8 *) var_v0_2) + 8;
-                  ((__repair_field_0 *) var_v0_2)->value = 0xDE000000; var_v1_2 = &D_800B1B18;
+                  s32 *e4 = D_80115328;
+                  D_80115328 = e4 + 2;
+                  e4[0] = 0xDE000000;
+                  e4[1] = (s32) &D_800B1B18;
                 }
-                *((s32 **) (((char *) var_v0_2) + 4)) = var_v1_2;
               }
               if (D_801032A0 != 1)
               {

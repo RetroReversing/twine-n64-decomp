@@ -79,7 +79,8 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
     {
       if (((((u32) inline_fn((__repair_field_28 *) var_s0)) >> 2) & 0x3F) == sp14)
       {
-        temp_s1 = inline_fn((__repair_field_10 *) var_s0);
+        temp_s1 = ((volatile __repair_field_10 *) var_s0)->value;
+        var_v0 = (u8)temp_s1;
         temp_v1 = *((u16 *) (((char *) var_s0) + 0x1E));
         do
         {
@@ -89,7 +90,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
         if (temp_v1 & 0x1000)
         {
           u16 top = *(volatile u16 *) ((char *) var_s0 + 0x22);
-          u32 bottom = *(volatile u8 *) ((char *) var_s0 + 0x28);
+          u32 bottom = *(u8 *) ((char *) var_s0 + 0x28);
           int hiRes = *(int *) &gHiResScreen;
           u32 left = *(u16 *) ((char *) var_s0 + 0x20);
           u32 right = *(u16 *) ((char *) var_s0 + 0x24);
@@ -106,7 +107,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
           emitScissorFromWindow(arg0);
         }
         else
-          if (((u32) (temp_s1 & 0xFF)) >= 5U)
+          if (var_v0 >= 5U)
         {
           var_v0 = temp_s1 & 0xFF;
           if (sp1F == 1)

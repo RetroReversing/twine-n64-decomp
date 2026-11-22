@@ -88,6 +88,7 @@ void func_800821B4(void)
   func_80011950();
   do
   {
+    s32 temp_a3_arm;
     temp_v1 = D_800CEEB0;
     if (((s32) temp_v1) == 1)
     {
@@ -117,7 +118,7 @@ void func_800821B4(void)
         {
           var_s0 = temp_s0 + 4; var_v0 = -(var_s0 < 1);
         }
-        temp_a3 = (var_s0 & var_v0) << 0x10; var_s0_2 = temp_a3 / 76;
+        temp_a3_arm = (var_s0 & var_v0) << 0x10; var_s0_2 = temp_a3_arm / 76;
         if ((-0x10000) > var_s0_2)
         {
           var_s0_2 = -0x10000;
@@ -278,7 +279,7 @@ void func_800821B4(void)
             else
               if (!(var_a0 & 8))
             {
-              *((&D_80112EB0) - 0x10) = 1;
+              *((s32 *)((char *)&D_80112EB0 - 0x10)) = 1;
               block_65:
               var_a0 = 0;
 
@@ -301,7 +302,7 @@ void func_800821B4(void)
             {
               if (((u32) temp_a2) != 0)
               {
-                *((&D_80112EB0) - 0xC) = 1;
+                *((s32 *)((char *)&D_80112EB0 - 0xC)) = 1;
                 var_a0 = 6;
               }
               else
@@ -319,7 +320,7 @@ void func_800821B4(void)
             {
               if (!(var_a0 & 8))
               {
-                *((&D_80112EB0) - 8) = 1;
+                *((s32 *)((char *)&D_80112EB0 - 8)) = 1;
               }
               goto block_65;
             }
@@ -369,7 +370,7 @@ void func_800821B4(void)
             }
             else
             {
-              goto block_75;
+              var_a1 = 0;
             }
               break;
 
@@ -482,4 +483,5 @@ void func_800821B4(void)
     while (__block_var_s6 < ((s16) sp16));
   }
 }
+
 
