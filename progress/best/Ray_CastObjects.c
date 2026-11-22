@@ -147,7 +147,7 @@ s32 __repair_phase_var_a2;
     end.x = *arg2 + (*arg3 * var_fs1);
     end.y = M2C_FIELD(spF4, f32 *, 4) + (M2C_FIELD(spFC, f32 *, 4) * var_fs1);
     var_s7 = arg1;
-    end.z = M2C_FIELD(spF4, f32 *, 8) + (M2C_FIELD(spFC, f32 *, 8) * var_fs1);
+    end.z = (M2C_FIELD(spFC, f32 *, 8) * var_fs1) + M2C_FIELD(spF4, f32 *, 8);
     sp10C = var_s7;
     sp114 = M2C_FIELD(M2C_FIELD(var_s7, void **, 0x20), void **, 0x58);
     D_80108788 = NULL;
@@ -203,7 +203,7 @@ s32 __repair_phase_var_a2;
                                     temp_v1_2 = M2C_FIELD(temp_s1, u8 *, 0x48) & 4;
                                     var_fp = spEC;
                                     var_s6 = -1;
-                                    if (temp_v1_2 == 4) {
+                                    if (temp_v1_2 >= 4) {
                                         __repair_phase_storage.pointer = M2C_FIELD(temp_s1, u16 **, 0x3C);
                                         var_s0 = 0;
                                         if (M2C_FIELD(temp_s1, u16 *, 0x40) != 0) {

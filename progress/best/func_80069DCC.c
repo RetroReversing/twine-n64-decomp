@@ -522,14 +522,13 @@ case 2: case 3: goto out_of_line_actor;
    goto block_474;
    actor_in_motion:
 
-   roll.bits = (u32)arg0 & ~(u32)arg0;
-   frame.speed = roll.number;
-   D_800E1A1C = 0.0f;
    {
-   f32 var_s5 = 0.0f;
-   var_s6 = roll.number;
-   func_80065D90(arg0);
-   var_fp = 0.0f;
+   f32 var_s5;
+   roll.bits = (u32)arg0 & ~(u32)arg0;
+   func_80065D90((frame.speed = roll.number, D_800E1A1C = roll.number, arg0));
+   var_s5 = 0.0f;
+   var_fp = roll.number;
+   var_s6 = 0.0f;
    if (gWheelsGrounded != 0)
    {
      temp_v0 = ((u16) gAirTimeGauge) + 8;
@@ -1305,7 +1304,7 @@ case 2: case 3: goto out_of_line_actor;
          var_fs3 = var_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40)));
          *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
          *((s8 *) (((char *) temp_s1) + 0x188)) = 0x14;
-         func_800635BC(arg0, (s32) roll.bits);
+         func_800635BC(arg0, 0);
          *((f32 *) (((char *) temp_s1) + 0x38)) = 0.0f;
          var_s6 = var_fs3;
          *((s8 *) (((char *) temp_s1) + 0x17E)) = (unsigned char) 2;
@@ -1523,7 +1522,7 @@ case 2: case 3: goto out_of_line_actor;
      {
        *((void **) (((char *) temp_s1) + 0xBC)) = NULL;
        *((s8 *) (((char *) temp_s1) + 0x184)) = 0;
-       func_800635BC(arg0, (s32) roll.bits);
+       func_800635BC(arg0, 0);
        temp_v1_33 = *((void **) (((char *) arg0) + 0x68));
        *((u8 *) (((char *) temp_v1_33) + 0x10)) = (u8) (*((u8 *) (((char *) temp_v1_33) + 0xE)));
        *((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xF)) = (s8) (*((u16 *) (((char *) temp_s1) + 0x134)));
@@ -1591,7 +1590,7 @@ case 2: case 3: goto out_of_line_actor;
        if (((*((f32 *) (((char *) (*((void **) (((char *) entry_road) + 0x20)))) + 0x5C))) + 0.3f) <= (*((f32 *) (((char *) arg0) + 0x28))))
      {
        frame.speed = 0.0f;
-       func_800635BC(arg0, (s32) roll.bits);
+       func_800635BC(arg0, 0);
        *((f32 *) (((char *) arg0) + 0x3C)) = frame.speed;
        *((s8 *) (((char *) temp_s1) + 0x17E)) = 2;
      }
@@ -1740,8 +1739,9 @@ case 2: case 3: goto out_of_line_actor;
          func_80002BD0(arg0, 0x20D);
          *((f32 *) (((char *) arg0) + 0x24)) = (f32) ((*((f32 *) (((char *) (*((void **) (((char *) temp_s1) + 0xBC)))) + 0x24))) - (sinAngle(*((f32 *) (((char *) arg0) + 0x40))) * 1.5f));
          temp_fv1_13 = (*((f32 *) (((char *) (*((void **) (((char *) temp_s1) + 0xBC)))) + 0x2C))) - (cosAngle(*((f32 *) (((char *) arg0) + 0x40))) * 1.5f);
-         D_800E1A1C = 0.0f;
-         frame.speed = 0.0f;
+         roll.bits = (u32)arg0 & ~(u32)arg0;
+         D_800E1A1C = roll.number;
+         frame.speed = roll.number;
          *((f32 *) (((char *) arg0) + 0x2C)) = temp_fv1_13;
          break;
 
@@ -1775,7 +1775,7 @@ case 2: case 3: goto out_of_line_actor;
 
        case 2:
          frame.speed = 0.0f;
-         func_800635BC(arg0, (s32) roll.bits);
+         func_800635BC(arg0, 0);
          *((f32 *) (((char *) arg0) + 0x3C)) = frame.speed;
          *((s16 *) (((char *) (*((void **) (((char *) temp_s1) + 0xBC)))) + 0x7A)) = 5;
          temp_v1_36 = *((void **) (((char *) arg0) + 0x68));
@@ -1888,16 +1888,22 @@ repair_advance_state:
        }
        temp_a0_6 = temp_s1 + 0x11C;
        func_80047B14(temp_a0_6, 0.8f, temp_a0_6);
-       motion_24 = repair_shifted_float((f32 *) (((char *) arg0) + 0x24), var_s5);
-       motion_28 = repair_shifted_float((f32 *) (((char *) arg0) + 0x28), var_fp);
-       motion_40 = (f32) ((*(f32 *) (((char *) arg0) + 0x40)) + D_800E1A1C);
-       motion_2C = repair_shifted_float((f32 *) (((char *) arg0) + 0x2C), var_s6);
-       motion_3C = repair_shifted_float((f32 *) (((char *) arg0) + 0x3C), frame.speed);
-       motion_44 = (f32) ((*(f32 *) (((char *) arg0) + 0x44)) + roll.number);
-       *((f32 *) (((char *) arg0) + 0x24)) = motion_24;
+       motion_24 = *(f32 *) (((char *) arg0) + 0x24);
+       motion_24 = (f32) (motion_24 + var_s5);
+       motion_28 = *(f32 *) (((char *) arg0) + 0x28);
+       motion_28 = (f32) (motion_28 + var_fp);
+       motion_40 = *(f32 *) (((char *) arg0) + 0x40);
+       motion_40 = (f32) (motion_40 + D_800E1A1C);
+       motion_3C = *(f32 *) (((char *) arg0) + 0x3C);
+       motion_3C = (f32) (motion_3C + frame.speed);
+       motion_2C = *(f32 *) (((char *) arg0) + 0x2C);
+       motion_2C = (f32) (motion_2C + var_s6);
+       motion_44 = *(f32 *) (((char *) arg0) + 0x44);
+       motion_44 = (f32) (motion_44 + roll.number);
+       *((f32 *) (((char *) arg0) + 0x2C)) = motion_2C;
        *((f32 *) (((char *) arg0) + 0x3C)) = motion_3C;
        *((f32 *) (((char *) arg0) + 0x40)) = motion_40;
-       *((f32 *) (((char *) arg0) + 0x2C)) = motion_2C;
+       *((f32 *) (((char *) arg0) + 0x24)) = motion_24;
        *((f32 *) (((char *) arg0) + 0x28)) = motion_28;
        *((f32 *) (((char *) arg0) + 0x44)) = motion_44;
        goto block_474;
