@@ -923,7 +923,7 @@ case 2: case 3: goto out_of_line_actor;
              if (((*((f32 *) (((char *) arg0) + 0x28))) + 1.46f) < frame.collision.value.y)
              {
                func_80002D50(arg0, 0x177);
-               func_800635BC(arg0, (s32) roll.bits);
+               func_800635BC(arg0, 0);
                temp_v1_29 = *((void **) (((char *) arg0) + 0x68));
                *((u16 *) (((char *) temp_v1_29) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_29) + 0xC))) | 0x40);
              }
@@ -1230,7 +1230,7 @@ case 2: case 3: goto out_of_line_actor;
          {
            *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x30)) = 0;
            func_80002BD0(arg0, 0x159);
-           func_800635BC(arg0, (s32) roll.bits);
+           func_800635BC(arg0, 0);
          }
            break;
 

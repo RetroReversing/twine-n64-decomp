@@ -414,9 +414,9 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
       }
       else
       {
-        var_s0_3 = 0;
         if ((*temp_s1_2) >= 0)
         {
+          var_s0_3 = 0;
           var_a0_4 = temp_s1_2;
           do
           {

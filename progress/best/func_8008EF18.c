@@ -7,8 +7,8 @@ u32 func_8008EF18(s32 arg0)
   s32 scaled = (index * 5) << 3;
   u32 result;
   u32 __repair_result_2;
-  result = *((u8 *) (((s8 *) (&D_80107EE8)) + scaled));
-  if (result == 4)
+  index = *((u8 *) (((s8 *) (&D_80107EE8)) + scaled));
+  if (index == 4)
   {
     goto __shared_return_0;
   }
@@ -19,7 +19,7 @@ u32 func_8008EF18(s32 arg0)
     return 0;
 
   }
-  if (index)
+  if (result + result == 2)
   {
     __repair_result_2 = *((u32 *) (((s8 *) (&D_80107EDC)) + scaled));
     return __repair_result_2 >> 31;

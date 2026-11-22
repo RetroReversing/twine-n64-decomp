@@ -36,7 +36,7 @@ inline static int inline_fn2345(void *arg0)
   return (*((u16 *) (((char *) arg0) + 4))) * 0x10;
 }
 
-void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
+void func_8008A52C(void *arg0, s32 arg1, s32 arg2)
 {
   u32 sp10[6];
   u8 sp28;
@@ -219,7 +219,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
       func_80089F7C(temp_s1 + 0x24, temp_a3_6 + ((sp10[0] & 0xFFFC) * 2), (((var_s3 + sp10[4]) + 3) & 0xFFFC) * 2, temp_a3_6);
       *((s8 *) (((char *) temp_s1) + 0x3C)) = 0;
       *((u8 *) (((char *) temp_s1) + 0x3E)) = var_s3;
-      *((s32 *) (((char *) temp_s1) + 0x40)) = (s16) sp10[4];
+      *((s16 *) (((char *) temp_s1) + 0x40)) = (s16) sp10[4];
     }
   }
   else
@@ -283,7 +283,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
       *((s16 *) (((char *) temp_s1) + 0x2C)) = (s16) ((((var_s3 + sp10[4]) + 3) & 0xFFFC) * 2);
       *((s8 *) (((char *) temp_s1) + 0x3C)) = 0;
       *((u8 *) (((char *) temp_s1) + 0x3E)) = var_s3;
-      *((s32 *) (((char *) temp_s1) + 0x40)) = (s16) sp10[4];
+      *((s16 *) (((char *) temp_s1) + 0x40)) = (s16) sp10[4];
     }
   }
   *((s16 *) (((char *) temp_s1) + 0x4E)) = var_s6;
@@ -365,4 +365,5 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
   advanceLoopPosition(arg0, 0xC0);
   *((u8 *) (((char *) arg0) + 0)) = sp28;
 }
+
 

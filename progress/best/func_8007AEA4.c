@@ -24,10 +24,7 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
   u32 limit;
   u8 *entry;
   unsigned short id;
-  retry:
-  index = 0;
-
-  threshold = randomIntBelow(weight);
+ do { retry: index = 0; threshold = randomIntBelow(weight); } while (0);
   do
   {
     {
@@ -81,14 +78,12 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
     }
     increment_attempt:
     ++attempt;
+
     if (attempt < 3)
     {
       goto retry;
     }
-
   }
   while (0);
   return 0;
 }
-
-
