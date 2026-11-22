@@ -1224,9 +1224,10 @@ case 2: case 3: goto out_of_line_actor;
            break;
 
          case 4:
-           *inline_fn2(temp_s1) = 0.2f;
-           var_s5 = sinAngle(*((f32 *) (((char *) arg0) + 0x40))) * 0.2f;
-           var_s6 = cosAngle(*((f32 *) (((char *) arg0) + 0x40))) * 0.2f;
+           var_fs3 = 0.2f;
+           *inline_fn2(temp_s1) = var_fs3;
+           var_s5 = sinAngle(*((f32 *) (((char *) arg0) + 0x40))) * var_fs3;
+           var_s6 = cosAngle(*((f32 *) (((char *) arg0) + 0x40))) * var_fs3;
            goto repair_shared_case_tail;
 
          case 3:
@@ -1277,12 +1278,12 @@ case 2: case 3: goto out_of_line_actor;
        temp_ft0_2 = *inline_fn2(temp_v0_8);
        *inline_fn2(temp_v0_8) = (f32) (((D_800E19F0 - temp_ft0_2) * 0.02f) + temp_ft0_2);
        temp_v0_9 = *((void **) (((char *) temp_s1) + 0xB8));
-       var_fv1_6 = 0.275f;
        temp_fv0_22 = *inline_fn2(temp_v0_9);
-       if ((temp_fv0_22 < 0.275f) || ((var_fv1_6 = 0.88000005f, temp_fv0_22 > 0.88000005f)))
-     {
-       *inline_fn2(temp_v0_9) = var_fv1_6;
-     }
+       if (temp_fv0_22 < 0.275f) {
+         *inline_fn2(temp_v0_9) = 0.275f;
+       } else if (temp_fv0_22 > 0.88000005f) {
+         *inline_fn2(temp_v0_9) = 0.88000005f;
+       }
        temp_fs2_2 = func_80081B44(temp_s4, 2, 3) * 0.2f;
        temp_fv0_23 = *((f32 *) (((char *) temp_s1) + 0x50));
        temp_fv1_5 = ((temp_fs2_2 - temp_fv0_23) * 0.3f) + temp_fv0_23;

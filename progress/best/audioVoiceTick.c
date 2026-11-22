@@ -341,9 +341,11 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
 
       }
       case 0x3:
+      {
+        unsigned long command = *(volatile u32 *) &D_800FDB9C;
         if ((*((u16 *) (((char *) arg0) + 0x30))) >= ((u8) D_800FDB9E))
       {
-        temp_v0_5 = func_800982B4(((u32) D_800FDB9C) >> 0x10);
+        temp_v0_5 = func_800982B4(command >> 0x10);
         commandResult = 0;
         if (temp_v0_5 != 0)
         {
@@ -357,6 +359,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       }
         break;
 
+      }
       case 0x4:
         commandResult = audioUpdateClipSelection(arg0, &D_800FDB9C);
         break;
