@@ -19,10 +19,10 @@ extern s16 D_8011F0EE;
 extern s32 D_8011F3A8;
 void func_8011E634(void)
 {
-  u8 *p;
   u8 *q;
+  u8 *p;
   s32 *b;
-  s32 i;
+  u16 i;
   s32 t;
   s32 s;
   D_8011F0EE = 0x78;
@@ -72,14 +72,7 @@ void func_8011E634(void)
       steerSaveSlotActors();
     }
   }
-  if (t)
-  {
-    func_8011DC18();
-  }
-  else
-  {
-    func_8011DC18();
-  }
+  func_8011DC18();
   if ((((gBorderSkipActive != 0) && (D_801002AC != 0)) || (func_8011A2A0() & 0xFFFF)) && ((t = D_8011F3A8 - 1, D_8011F3A8 = t, t <= 0)))
   {
     if (t == 0)
@@ -87,7 +80,7 @@ void func_8011E634(void)
       func_8011E894();
       i = 0;
       b = &gSaveTotalSlots;
-      if (((u32) t) < ((u32) (*b)))
+      if (t < *b)
       {
         q = ((u8 *) b) + -6;
         do
@@ -105,4 +98,5 @@ void func_8011E634(void)
     }
   }
 }
+
 
