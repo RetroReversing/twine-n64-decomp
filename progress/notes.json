@@ -43219,156 +43219,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8568b0d36d644f85f40f0578935a50588e6a2e59cb35a6a768e51456e18119ab"
  },
  {
-  "function": "buildPlaneFromPoints",
-  "text": "Session context limit: saved best remains 3097. Target supplies func_80082908 a float sum of three squared cross-product components, whereas saved candidate calls it with no argument. Explicit f32 prototype and sum-of-squares call scored 3757 due extensive scheduling/register changes; local assignment and argument variants worsened it. Target normalizes all three stack components before storing output, unlike saved draft's unnormalized output z. Start from correct call and normalize/store sequence, then tune scheduling.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795138834.488529,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Rechecked baseline best 3097; full candidate was machine draft with heavy register/order differences at -O1. Six local repair trials: float zero local, return-flag rewrite, expression assignment-at-use and branch orientation worsened (3663\u20134429); record layout, signedness unchanged. A direct vector-cross/normalize C rewrite with `func_80082908(f32)` was much worse (7486). Target assembly computes cross of (arg2-arg1) and (arg3-arg2), squares components, passes norm-square in `$fa0` to func_80082908, then uses returned norm for normalization; output vec and plane constant in arg0. Original draft declares callee no-arg and has questionable casts, so inspect callee signature and correct expression/order before deep register tuning. Exact target has 95 instructions and 0x40 frame; baseline candidate compiles 90 instructions. No reusable discovery.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795178852.352833,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "The target uses this unit's O1 profile. Recompiled saved best and reached 3097, 67.3%; no exact match. Tried simplifying the duplicate cross-product output via sp10[0]=temp_ft3 (score regressed to 3687), then restored. Changing return from long to s32 had no score effect but shifted registers. Replacing repeated subtraction with temp_fa1 * temp_ft0 regressed to 3607; restored. The current best source has a suspicious `(s32)temp_fv0 - temp_fs1` cast in temp_ft3, but removing it did not change score. Assembly target begins with careful FP scheduling and register use across arg vectors; remaining mismatch is broad (88 differing rows), with target uses mul.s/add.s where candidate emits sub.s and many FPR allocation differences. Revisit the original cross product math and locals/types, not just register permutations.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795183062.5948129,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Both compile submissions failed because decompdecomp reported gcc-2.7.2-kmc is not installed. Saved 3097 candidate has semantic gaps: func_80082908 receives squared cross-product length in fa0, and all three normal components are scaled before storing. Proposed rewrite computes cross((b-a),(c-b)), passes its squared norm, preserves pre-call and scaled stack storage and models the target's output reloads with qualified fields. Test against active profile when compiler is restored; qualifiers are codegen hypotheses.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795193801.622216,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Rechecked baseline score 3236. Six local repair variants (record layout, signedness, branch orientation, address temporary, const reads, float-zero local) found no improvement; branch reversal and float-zero local worsened. Current mismatch begins at target lwc1 f0,4(a2), while candidate opens with a 0x40-byte stack frame; broad differences include FPR/register allocation and instruction order. Target is cross-product/determinant-like floating math followed by reciprocal scaling and output writes. Best next: inspect target assembly at entry and around func_80082908 call; use a compact vector/plane representation and compare dataflow, avoiding uninitialized m2c temporaries (temp_ft3, temp_fv0_3).",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795200028.383949,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Inspected target: floating determinant/cross-product with broad mismatch; inherited score 3236 and prior six local repair variants unchanged. Tried changing func_80082908 declaration from no args to f32 per matched callee signature, but target call has no args and compile failed; restored saved best revision 0329650918aa22a47d6b. Need reconcile caller/callee ABI before tuning, no repair category.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795201957.311229,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Rechecked best is score 3236 (88 candidate instructions vs target 95). Replacing with compact Vec3 C regressed to 6159; restored best. Reordered vector loads and added a volatile local; ordering edits left output unchanged and volatile local increased frame to 0x48 and score 3658. Target begins by loading b.y before frame setup and preserves b.z/c.z then computes cross product/determinant. Best next avenue: restructure C directly in target operation order with cross products and squared magnitude; target has determinant-like magnitude, not just a generic normal.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795204291.639552,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Best saved candidate is revision 0329650918aa22a47d6b, historical 3236. Rechecked saved candidate earlier in this session at 3236; another vector rewrite was worse, and volatile scratch improved that rewrite only (3395). Current 36928d0c64c359b4135c is exploratory and worse; saved best is restored. Target assembly is 99 instructions. It computes vector differences and cross product components, accumulates squared magnitude in $fa0, spills three components at sp+0x10/+0x14/+0x18 before func_80082908, then normalizes x/y and calculates w. Existing source has m2c temporaries and array sp10[3]. Local repairs already tried by prior agent: record layout, signedness, branch orientation, address temp, const reads, float zero local.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795205352.293288,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Target: d1=p2-p1, d2=p3-p2; cross c=(dy1*dz2-dz1*dy2, dz1*dx2-dx1*dz2, dx1*dy2-dy1*dx2); len=func_80082908(cx*cx+cy*cy+cz*cz); zero branch writes out0=out1=out2=0, out3=-(out0*p1x)-(out1*p1y); else scales c by 1/len, out3=-(cx*p1x)-(cy*p1y)-(cz*p1z). Saved best 3236 remains best. Clean rewrite 5011; px/py/pz locals + sp10[3] spill 3265 (revision 72f94411b1d7d82cc456). Remaining diff: initial load order (target loads p2[0] first, p1 values into fs regs, saves fs0-fs2 at 0x28-0x38, frame 0x40). Next: reorder initial loads and keep the saved expression order.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795206380.493608,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed brief and target assembly without new compiles. Saved best 0329650918aa22a47d6b (score 3236) remains the baseline; prior sessions tried 14 local repairs plus several rewrites (clean rewrite 5011, spill variant 3265, volatile scratch 3395), none better. Remaining diff is initial load/scheduling order of the p1/p2/p3 components and the cross-product mul/sub ordering, with the sp10 spill. Untested next step: reorder the first loads to match target (lwc1 of arg3+0 / arg2+0 before arg1 loads) on the saved candidate with compile_patch, and try moving the sp10 stores to after the func_80082908 call setup.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795207650.696321,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Baseline revision 0329650918aa22a47d6b (score 3236) rechecked by prior sessions. Tried without improvement: 14 local repairs (record layout, signedness, branch orientation, address temporary, const reads, float-zero local), clean rewrite (5011), px/py/pz locals with sp10[3] spill (3265), volatile scratch (3395). Remaining diff: initial load/scheduling order of p1/p2/p3 components and the cross-product mul/sub ordering. Next step if retried: try ordering the cross-product terms so p2[0] loads first and the zero-branch out3 computed before the scale branch; otherwise leave for a fresh pass.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795209351.530949,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed brief, quality notes and target assembly only; no new compile this session. Baseline 0329650918aa22a47d6b (score 3236) unchanged. Prior sessions already tried 14 local repairs and rewrites (clean 5011, spill variant 3265, volatile scratch 3395), none better. Remaining diff: target opens with a different stack frame and FPR allocation (sdc1 fs0 spill, sw s0/ra save), and load/scheduling order of the p1/p2/p3 cross-product components differs from the candidate. Untested idea: restructure the cross products as explicit temporaries in the target's load order (arg3 loads first for the ft0/ft1 differences) and make the normalize step reuse one reciprocal per component. Low expected yield; released for a fresh attempt.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795210543.5284522,
-  "score_before": 3097,
-  "score_after": 3097
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Rechecked score 3236; six local variants did not improve. Candidate quality needs review: call prototype and vector output semantics should be checked against assembly before further register tuning.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795214513.8657222,
-  "score_before": 7474,
-  "score_after": 3236,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Rechecked baseline and compileable candidate score 3236. No meaningful improvement this session. Target initializes with vector loads from a2/a1/a3 directly, computes cross product components into FPRs, spills them to sp+0x10..0x18 immediately before func_80082908; frame is smaller than candidate's 0x40. Candidate has equivalent math but extra sp10 array/floating temps force many callee-saved FPR spills. Next step: rewrite using direct scalar fp values, write three components to `arg0`/stack in target schedule and call func_80082908 after those spills; avoid retaining redundant temp arrays.\nSubmitted inherited machine draft; rechecked score 3236, 88 insns vs target 95. No improvements tested.\nCandidate compiles but register/frame schedule differs substantially.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795217683.1017458,
-  "score_before": 3236,
-  "score_after": 3236,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "No exact match. Best saved candidate remains 3236. Reordering cross-product intermediates improved m2c-derived candidate to 3416 but still worse; don't inherit it over saved_best. Compact typed-vector rewrite scored 5455. Likely target evaluates squared cross-product norm before calling func_80082908(f32), despite caller summary incorrectly showing void; verify actual prototype before further work.\nReordered cross-product expressions to target temporary/p register schedule; score 3416 (better exploratory, saved_best remains 3236). Compact typed-vector rewrite scored 5455; redundant call-signature edit unchanged; one attempted prototype mismatch did not compile.\nTarget output begins with lwc1 f0,4(a2), -0x40 frame, preserves fs1/fs2 at 0x30/0x38. Best saved candidate is 3236; exploratory last was 3416 and should not replace it.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795218274.550239,
-  "score_before": 3236,
-  "score_after": 3236,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Current best 3236; compile was same score. Six local repairs neutral/worse; source has apparent erroneous integer cast in determinant expression `((s32)temp_fv0 - temp_fs1)` that should be corrected against vector determinant semantics before further scheduling. Target begins lwc1 before stack frame allocation, candidate starts frame/save sequence. Next step: rewrite clean determinant as three explicit cross-product components, keeping dot-product magnitude and output writes as ordered scalar operations, then compile.\nlocal repairs: inferred layout, return flag, branch orientation, signedness, address temp, const read; all no gain\ncandidate retained 3236; FPR allocation/order and opening frame mismatch remain",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795221514.634494,
-  "score_before": 3236,
-  "score_after": 3236,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Baseline score 3236 verified. Tested cast correction to determinant temp: unchanged, but eliminated suspect integer cast and reduced instruction count. Added volatile float pad worsened to 3658 (frame 0x48 vs target 0x40). Core mismatch is source local lifetimes/registers and target begins with input loads before prologue while draft starts saving regs. Next step: reconstruct matrix/vector determinant formula cleanly from target operation order, then target stack locals/frame.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795222522.320822,
-  "score_before": 3236,
-  "score_after": 3236,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Verified baseline 3236. Returned-flag, inferred-layout, branch-orientation and signedness local probes were equal/worse. A clean vector cross-product rewrite compiled 5756; removing erroneous-looking `(s32)` from the determinant expression restored 3236 but did not improve. Mismatch centers on early loads/prologue and large register scheduling/lifetimes. Next step: preserve separate edge vectors and explicitly model the target's repeated norm accumulation (`mul.s`/`add.s`) around func_80082908 call, avoiding compiler-generated division.\nClean V3 cross-product rewrite; tested removal of `(s32)` determinant cast, restoring inherited score only.\nScore remains 3236; target uses repeated multiply/add norm accumulation and 0x40 frame while candidate's order/register allocation diverges.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795224123.9874501,
-  "score_before": 3236,
-  "score_after": 3236,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
   "function": "func_8009AE24",
   "text": "Saved best 1170 kept. A clean rewrite (no volatile frame, no register qualifier, c->w0 word extracts, *(u8*)c flag, ((u8*)c)[6] invert) scored 1614: frame 0x28 vs target 0x30 (target has an 8-byte unused local; saved best fakes it with volatile u32 frame[2]) and target allocates c in $s3, s in $s1, op in $s4, r in $s2, a in $s0. Target structure: first operand tests (w0>>8)&0xff, index w0>>16; second tests lbu 0(c), index w1; invert lbu 6(c); dest w1>>16 (c->w1 reloaded after lbu). Next step: replace volatile frame with a non-volatile 8-byte unused aggregate and reorder declarations so c gets $s3.",
   "by": "api-claude-sonnet-5-5-2",
@@ -43378,15 +43228,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b596b3f3c7ea884cca2ee049fad605fca3901802cc7f905ecb89cd8c7731fd1c"
  },
  {
-  "function": "buildPlaneFromPoints",
-  "text": "Stack vector as volatile, four floats, register array, doubles, and struct-backed pointer\nVolatile scored 3395, double 8177; others unchanged at 3236. Prologue and arithmetic scheduling still differ extensively.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795228224.245804,
-  "score_before": 3236,
-  "score_after": 3236,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
   "function": "func_8000299C",
   "text": "Restored 0x10B candidate scored 1120 under both O2 and diagnostic O3. Unsigned switch worsened to 2920; unsigned t did not change output. Saved best 1110 omits 0x10B and may be semantically incomplete.",
   "by": "codex-gpt-6.1-terra-5",
@@ -43394,15 +43235,6 @@
   "score_before": 1120,
   "score_after": 1120,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Best candidate c80c5369f233c2195d3b scored 3211, improving baseline 3236. It preserves saved source with compacted single-line expressions; main diff remains wrong entry instruction ordering/frame (candidate begins prologue before target initial lwc1). Full rewrite source was 7486. Local stack_array produced no applicable repairs. Signature correction to helper f32(f32) with no call argument and adding sp10[0] argument both failed compile, so do not repeat. Next step: work on initial expression/lifetime ordering so first target load occurs before stack allocation, possibly test array/vector local representation and establish helper call semantics from actual callers.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795228947.4119492,
-  "score_before": 3211,
-  "score_after": 3211,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
  },
  {
   "function": "func_8009AE24",
@@ -43423,15 +43255,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
-  "function": "buildPlaneFromPoints",
-  "text": "Best score improved 3211 to 2886 by moving temp_fv1_3 computation into sp10[1] initializer (assignment-at-use). Inferred-record and address-temporary trials tied at 3211; inverted branch worsened to 3990. Earlier attempted extra argument to func_80082908 failed compilation because its declared prototype is void.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795230090.7645051,
-  "score_before": 3211,
-  "score_after": 2886,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
   "function": "func_8009AE24",
   "text": "Saved best 1170 (rev 5a15fc91939227db61db). `register` qualifiers on params/locals make no difference (all 1170). Plain version w/o volatile frame scored 1451 (frame 0x28 vs 0x30). Static inline helper getv(s,flag,v) scored 4785 (uses lbu/lhu narrow loads, frame 0x38). Key target observation: for a, each branch ends 'lh $v0; move $s0,$v0' and for b 'move $a0,$v0' - extra move after result, suggesting a result passed through a separate pseudo (inline/return-like). Target regs: s0=a, s1=s, s2=r, s3=c, s4=op; ours puts c in s0. Next step: try helper inline taking word values (u32 w0 loaded once) rather than Cmd fields, to avoid narrow loads, keeping volatile frame[2].",
   "by": "api-claude-sonnet-5-5-1",
@@ -43450,15 +43273,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
-  "function": "buildPlaneFromPoints",
-  "text": "Saved best remains 2886. Reordered initial arg1/arg2 float loads; compile had no instruction diff change. Local repair variants: inferred_record_layout and address_temporary tied with no diff changes; inverted branch orientation worsened to 3665. Target begins with lwc1 before frame setup; current candidate has 7 fewer instructions. Remaining target-only instructions include repeated mul.s $f10,$f14,$f8, add.s $f12,$f12,$f6, lwc1 from ($a3) and 0x10($sp). Frame/stack-pad attempts from prior session: volatile u32 pad improved to 2886, u64 pad and no pad scored 3308. Next step: reconsider sp10's representation/lifetime to produce the target's stack reload at 0x10($sp) and recover the missing repeated float operations; inspect exact early assembly before changing.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795231263.3995142,
-  "score_before": 2886,
-  "score_after": 2886,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
   "function": "func_8009AE24",
   "text": "The function's inherited best is 1170. Expanding volatile frame[2] to frame[4], then frame[3] generated 0x38 frames and left the score at 1180; removing a redundant local declaration matching the shared prototype left instructions unchanged. A speculative conflicting prototype failed compilation. Restored saved_best after the six-compile move-on limit. Remaining mismatch: prologue allocates 0x38 vs target 0x30; arg1 lands in s0 instead of target s3, with shifted callee-save offsets and branch offsets.",
   "by": "codex-gpt-6-luna-20",
@@ -43475,24 +43289,6 @@
   "score_before": 1170,
   "score_after": 1170,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b596b3f3c7ea884cca2ee049fad605fca3901802cc7f905ecb89cd8c7731fd1c"
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Saved best 2376 reverified. Targeted volatile reload of sp10[0] raised score to 3021; inverted branch worsened further; inferred record, const read and address-local variants tied. Restore saved best. Current mismatches start at initial argument float loads and include many register/order differences; target begins with lwc1 before frame setup. 17-word scratch frame widened frame and worsened; 15/16 identical.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795231952.14187,
-  "score_before": 2376,
-  "score_after": 2376,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Score 600 (from 2376). Clean rewrite with Pl{x,y,z,d}/V3 types, px/py/pz preloaded locals, ret var, zero branch order x,y,z,d; else branch stores x,y,z then d. Only remaining diff: prologue scheduling (target hoists lwc1 p2->y above addiu sp and interleaves sdc1/sw saves among loads: order f22,f24,f20,s0,ra); instructions otherwise identical, registers match. Tried decl order permutations, branch inversion, float zero local, arity: no help. Next step: find source change that makes the scheduler interleave prologue saves (e.g. different first-load ordering or n as sp10[3] array).",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795234324.288169,
-  "score_before": 2376,
-  "score_after": 600,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
  },
  {
   "function": "func_80008750",
@@ -43520,15 +43316,6 @@
   "score_before": 1110,
   "score_after": 1110,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
-  "function": "buildPlaneFromPoints",
-  "text": "Reached 6/6 without improvement. Verified 600; opening loads and callee-save stores are ordered differently. O1 with scheduling passes scored 630; explicit p2 coordinate locals scored 610 or tied.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795240136.270903,
-  "score_before": 600,
-  "score_after": 600,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
  },
  {
   "function": "func_8009AE24",
@@ -83386,5 +83173,263 @@
   "score_before": 110,
   "score_after": 105,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Session context limit: saved best remains 3097. Target supplies func_80082908 a float sum of three squared cross-product components, whereas saved candidate calls it with no argument. Explicit f32 prototype and sum-of-squares call scored 3757 due extensive scheduling/register changes; local assignment and argument variants worsened it. Target normalizes all three stack components before storing output, unlike saved draft's unnormalized output z. Start from correct call and normalize/store sequence, then tune scheduling.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795138834.488529,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Rechecked baseline best 3097; full candidate was machine draft with heavy register/order differences at -O1. Six local repair trials: float zero local, return-flag rewrite, expression assignment-at-use and branch orientation worsened (3663\u20134429); record layout, signedness unchanged. A direct vector-cross/normalize C rewrite with `func_80082908(f32)` was much worse (7486). Target assembly computes cross of (arg2-arg1) and (arg3-arg2), squares components, passes norm-square in `$fa0` to func_80082908, then uses returned norm for normalization; output vec and plane constant in arg0. Original draft declares callee no-arg and has questionable casts, so inspect callee signature and correct expression/order before deep register tuning. Exact target has 95 instructions and 0x40 frame; baseline candidate compiles 90 instructions. No reusable discovery.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795178852.352833,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "The target uses this unit's O1 profile. Recompiled saved best and reached 3097, 67.3%; no exact match. Tried simplifying the duplicate cross-product output via sp10[0]=temp_ft3 (score regressed to 3687), then restored. Changing return from long to s32 had no score effect but shifted registers. Replacing repeated subtraction with temp_fa1 * temp_ft0 regressed to 3607; restored. The current best source has a suspicious `(s32)temp_fv0 - temp_fs1` cast in temp_ft3, but removing it did not change score. Assembly target begins with careful FP scheduling and register use across arg vectors; remaining mismatch is broad (88 differing rows), with target uses mul.s/add.s where candidate emits sub.s and many FPR allocation differences. Revisit the original cross product math and locals/types, not just register permutations.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795183062.5948129,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Both compile submissions failed because decompdecomp reported gcc-2.7.2-kmc is not installed. Saved 3097 candidate has semantic gaps: func_80082908 receives squared cross-product length in fa0, and all three normal components are scaled before storing. Proposed rewrite computes cross((b-a),(c-b)), passes its squared norm, preserves pre-call and scaled stack storage and models the target's output reloads with qualified fields. Test against active profile when compiler is restored; qualifiers are codegen hypotheses.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795193801.622216,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Rechecked baseline score 3236. Six local repair variants (record layout, signedness, branch orientation, address temporary, const reads, float-zero local) found no improvement; branch reversal and float-zero local worsened. Current mismatch begins at target lwc1 f0,4(a2), while candidate opens with a 0x40-byte stack frame; broad differences include FPR/register allocation and instruction order. Target is cross-product/determinant-like floating math followed by reciprocal scaling and output writes. Best next: inspect target assembly at entry and around func_80082908 call; use a compact vector/plane representation and compare dataflow, avoiding uninitialized m2c temporaries (temp_ft3, temp_fv0_3).",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795200028.383949,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Inspected target: floating determinant/cross-product with broad mismatch; inherited score 3236 and prior six local repair variants unchanged. Tried changing func_80082908 declaration from no args to f32 per matched callee signature, but target call has no args and compile failed; restored saved best revision 0329650918aa22a47d6b. Need reconcile caller/callee ABI before tuning, no repair category.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795201957.311229,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Rechecked best is score 3236 (88 candidate instructions vs target 95). Replacing with compact Vec3 C regressed to 6159; restored best. Reordered vector loads and added a volatile local; ordering edits left output unchanged and volatile local increased frame to 0x48 and score 3658. Target begins by loading b.y before frame setup and preserves b.z/c.z then computes cross product/determinant. Best next avenue: restructure C directly in target operation order with cross products and squared magnitude; target has determinant-like magnitude, not just a generic normal.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795204291.639552,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Best saved candidate is revision 0329650918aa22a47d6b, historical 3236. Rechecked saved candidate earlier in this session at 3236; another vector rewrite was worse, and volatile scratch improved that rewrite only (3395). Current 36928d0c64c359b4135c is exploratory and worse; saved best is restored. Target assembly is 99 instructions. It computes vector differences and cross product components, accumulates squared magnitude in $fa0, spills three components at sp+0x10/+0x14/+0x18 before func_80082908, then normalizes x/y and calculates w. Existing source has m2c temporaries and array sp10[3]. Local repairs already tried by prior agent: record layout, signedness, branch orientation, address temp, const reads, float zero local.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795205352.293288,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Target: d1=p2-p1, d2=p3-p2; cross c=(dy1*dz2-dz1*dy2, dz1*dx2-dx1*dz2, dx1*dy2-dy1*dx2); len=func_80082908(cx*cx+cy*cy+cz*cz); zero branch writes out0=out1=out2=0, out3=-(out0*p1x)-(out1*p1y); else scales c by 1/len, out3=-(cx*p1x)-(cy*p1y)-(cz*p1z). Saved best 3236 remains best. Clean rewrite 5011; px/py/pz locals + sp10[3] spill 3265 (revision 72f94411b1d7d82cc456). Remaining diff: initial load order (target loads p2[0] first, p1 values into fs regs, saves fs0-fs2 at 0x28-0x38, frame 0x40). Next: reorder initial loads and keep the saved expression order.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795206380.493608,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed brief and target assembly without new compiles. Saved best 0329650918aa22a47d6b (score 3236) remains the baseline; prior sessions tried 14 local repairs plus several rewrites (clean rewrite 5011, spill variant 3265, volatile scratch 3395), none better. Remaining diff is initial load/scheduling order of the p1/p2/p3 components and the cross-product mul/sub ordering, with the sp10 spill. Untested next step: reorder the first loads to match target (lwc1 of arg3+0 / arg2+0 before arg1 loads) on the saved candidate with compile_patch, and try moving the sp10 stores to after the func_80082908 call setup.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795207650.696321,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Baseline revision 0329650918aa22a47d6b (score 3236) rechecked by prior sessions. Tried without improvement: 14 local repairs (record layout, signedness, branch orientation, address temporary, const reads, float-zero local), clean rewrite (5011), px/py/pz locals with sp10[3] spill (3265), volatile scratch (3395). Remaining diff: initial load/scheduling order of p1/p2/p3 components and the cross-product mul/sub ordering. Next step if retried: try ordering the cross-product terms so p2[0] loads first and the zero-branch out3 computed before the scale branch; otherwise leave for a fresh pass.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795209351.530949,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed brief, quality notes and target assembly only; no new compile this session. Baseline 0329650918aa22a47d6b (score 3236) unchanged. Prior sessions already tried 14 local repairs and rewrites (clean 5011, spill variant 3265, volatile scratch 3395), none better. Remaining diff: target opens with a different stack frame and FPR allocation (sdc1 fs0 spill, sw s0/ra save), and load/scheduling order of the p1/p2/p3 cross-product components differs from the candidate. Untested idea: restructure the cross products as explicit temporaries in the target's load order (arg3 loads first for the ft0/ft1 differences) and make the normalize step reuse one reciprocal per component. Low expected yield; released for a fresh attempt.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795210543.5284522,
+  "score_before": 3097,
+  "score_after": 3097
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Rechecked score 3236; six local variants did not improve. Candidate quality needs review: call prototype and vector output semantics should be checked against assembly before further register tuning.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795214513.8657222,
+  "score_before": 7474,
+  "score_after": 3236,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Rechecked baseline and compileable candidate score 3236. No meaningful improvement this session. Target initializes with vector loads from a2/a1/a3 directly, computes cross product components into FPRs, spills them to sp+0x10..0x18 immediately before func_80082908; frame is smaller than candidate's 0x40. Candidate has equivalent math but extra sp10 array/floating temps force many callee-saved FPR spills. Next step: rewrite using direct scalar fp values, write three components to `arg0`/stack in target schedule and call func_80082908 after those spills; avoid retaining redundant temp arrays.\nSubmitted inherited machine draft; rechecked score 3236, 88 insns vs target 95. No improvements tested.\nCandidate compiles but register/frame schedule differs substantially.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795217683.1017458,
+  "score_before": 3236,
+  "score_after": 3236,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "No exact match. Best saved candidate remains 3236. Reordering cross-product intermediates improved m2c-derived candidate to 3416 but still worse; don't inherit it over saved_best. Compact typed-vector rewrite scored 5455. Likely target evaluates squared cross-product norm before calling func_80082908(f32), despite caller summary incorrectly showing void; verify actual prototype before further work.\nReordered cross-product expressions to target temporary/p register schedule; score 3416 (better exploratory, saved_best remains 3236). Compact typed-vector rewrite scored 5455; redundant call-signature edit unchanged; one attempted prototype mismatch did not compile.\nTarget output begins with lwc1 f0,4(a2), -0x40 frame, preserves fs1/fs2 at 0x30/0x38. Best saved candidate is 3236; exploratory last was 3416 and should not replace it.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795218274.550239,
+  "score_before": 3236,
+  "score_after": 3236,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Current best 3236; compile was same score. Six local repairs neutral/worse; source has apparent erroneous integer cast in determinant expression `((s32)temp_fv0 - temp_fs1)` that should be corrected against vector determinant semantics before further scheduling. Target begins lwc1 before stack frame allocation, candidate starts frame/save sequence. Next step: rewrite clean determinant as three explicit cross-product components, keeping dot-product magnitude and output writes as ordered scalar operations, then compile.\nlocal repairs: inferred layout, return flag, branch orientation, signedness, address temp, const read; all no gain\ncandidate retained 3236; FPR allocation/order and opening frame mismatch remain",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795221514.634494,
+  "score_before": 3236,
+  "score_after": 3236,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Baseline score 3236 verified. Tested cast correction to determinant temp: unchanged, but eliminated suspect integer cast and reduced instruction count. Added volatile float pad worsened to 3658 (frame 0x48 vs target 0x40). Core mismatch is source local lifetimes/registers and target begins with input loads before prologue while draft starts saving regs. Next step: reconstruct matrix/vector determinant formula cleanly from target operation order, then target stack locals/frame.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795222522.320822,
+  "score_before": 3236,
+  "score_after": 3236,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Verified baseline 3236. Returned-flag, inferred-layout, branch-orientation and signedness local probes were equal/worse. A clean vector cross-product rewrite compiled 5756; removing erroneous-looking `(s32)` from the determinant expression restored 3236 but did not improve. Mismatch centers on early loads/prologue and large register scheduling/lifetimes. Next step: preserve separate edge vectors and explicitly model the target's repeated norm accumulation (`mul.s`/`add.s`) around func_80082908 call, avoiding compiler-generated division.\nClean V3 cross-product rewrite; tested removal of `(s32)` determinant cast, restoring inherited score only.\nScore remains 3236; target uses repeated multiply/add norm accumulation and 0x40 frame while candidate's order/register allocation diverges.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795224123.9874501,
+  "score_before": 3236,
+  "score_after": 3236,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Stack vector as volatile, four floats, register array, doubles, and struct-backed pointer\nVolatile scored 3395, double 8177; others unchanged at 3236. Prologue and arithmetic scheduling still differ extensively.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795228224.245804,
+  "score_before": 3236,
+  "score_after": 3236,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Best candidate c80c5369f233c2195d3b scored 3211, improving baseline 3236. It preserves saved source with compacted single-line expressions; main diff remains wrong entry instruction ordering/frame (candidate begins prologue before target initial lwc1). Full rewrite source was 7486. Local stack_array produced no applicable repairs. Signature correction to helper f32(f32) with no call argument and adding sp10[0] argument both failed compile, so do not repeat. Next step: work on initial expression/lifetime ordering so first target load occurs before stack allocation, possibly test array/vector local representation and establish helper call semantics from actual callers.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795228947.4119492,
+  "score_before": 3211,
+  "score_after": 3211,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Best score improved 3211 to 2886 by moving temp_fv1_3 computation into sp10[1] initializer (assignment-at-use). Inferred-record and address-temporary trials tied at 3211; inverted branch worsened to 3990. Earlier attempted extra argument to func_80082908 failed compilation because its declared prototype is void.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795230090.7645051,
+  "score_before": 3211,
+  "score_after": 2886,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Saved best remains 2886. Reordered initial arg1/arg2 float loads; compile had no instruction diff change. Local repair variants: inferred_record_layout and address_temporary tied with no diff changes; inverted branch orientation worsened to 3665. Target begins with lwc1 before frame setup; current candidate has 7 fewer instructions. Remaining target-only instructions include repeated mul.s $f10,$f14,$f8, add.s $f12,$f12,$f6, lwc1 from ($a3) and 0x10($sp). Frame/stack-pad attempts from prior session: volatile u32 pad improved to 2886, u64 pad and no pad scored 3308. Next step: reconsider sp10's representation/lifetime to produce the target's stack reload at 0x10($sp) and recover the missing repeated float operations; inspect exact early assembly before changing.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795231263.3995142,
+  "score_before": 2886,
+  "score_after": 2886,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Saved best 2376 reverified. Targeted volatile reload of sp10[0] raised score to 3021; inverted branch worsened further; inferred record, const read and address-local variants tied. Restore saved best. Current mismatches start at initial argument float loads and include many register/order differences; target begins with lwc1 before frame setup. 17-word scratch frame widened frame and worsened; 15/16 identical.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795231952.14187,
+  "score_before": 2376,
+  "score_after": 2376,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Score 600 (from 2376). Clean rewrite with Pl{x,y,z,d}/V3 types, px/py/pz preloaded locals, ret var, zero branch order x,y,z,d; else branch stores x,y,z then d. Only remaining diff: prologue scheduling (target hoists lwc1 p2->y above addiu sp and interleaves sdc1/sw saves among loads: order f22,f24,f20,s0,ra); instructions otherwise identical, registers match. Tried decl order permutations, branch inversion, float zero local, arity: no help. Next step: find source change that makes the scheduler interleave prologue saves (e.g. different first-load ordering or n as sp10[3] array).",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795234324.288169,
+  "score_before": 2376,
+  "score_after": 600,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Reached 6/6 without improvement. Verified 600; opening loads and callee-save stores are ordered differently. O1 with scheduling passes scored 630; explicit p2 coordinate locals scored 610 or tied.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795240136.270903,
+  "score_before": 600,
+  "score_after": 600,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Verified 480 (95/95 instructions). The diff is confined to the register-save prologue and first Y/Z loads and subtractions. Moving dy1 before dz2 scored 600; staging p2y and then both Z loads gave 605/610. Default second scheduling pass confirmed; disabling scheduling passes individually gave 2382/650. r4000 gave 480 and r4600 1640.\nMoved dy1 before dz2 with and without explicit p2y/p2z/p3z staging; tested scheduler flags and CPU tuning.\nLoad changes worsened score. None reproduced the interleaved callee saves. Baseline retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795312131.802001,
+  "score_before": 480,
+  "score_after": 480,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Judge reached 6/6 without improvement. Verified saved baseline 480. Six input-load staging and ordering variants scored 605\u2013785. Remaining differences are confined to the initial Y/Z arithmetic and placement of register saves.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795338184.785849,
+  "score_before": 480,
+  "score_after": 480,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Reached 6/6. Five initializer reorderings tied at 480 without changing displayed rows, one scored 485. Sharing a p2->z load scored 485, staging p2->y first scored 605 with a better prologue window. Two assignment variants violated C89 declaration order. Saved baseline verified at 480; first Y/Z calculations and save scheduling differ.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795352317.5076292,
+  "score_before": 480,
+  "score_after": 480,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "Six variants staging both p2 Y and Z loads, with and without separate X loads, scored 610\u2013655. Verified baseline is 480. The first p2 Y load, save placement, and subsequent Y/Z instruction order remain different.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795354270.473212,
+  "score_before": 480,
+  "score_after": 480,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
+ },
+ {
+  "function": "buildPlaneFromPoints",
+  "text": "The judge reached 6/6 without improvement. Volatile normal or output and explicit output access sequencing regressed. Interleaving cross-product terms with staged p2 Y or Y/Z loads improved part of the prologue but scored 605/610. Verified 480 retained, with the first p2 Y load, prologue saves, and Y/Z instruction scheduling still differing.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795358353.083241,
+  "score_before": 480,
+  "score_after": 480,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
  }
 ]
