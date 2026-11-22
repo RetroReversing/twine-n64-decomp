@@ -115,13 +115,13 @@ u32 func_800180D4(u8 *arg0, u16 arg1, s32 arg2, s32 arg3, u16 arg4)
                   if (ch)
                   {
                     kt = (KernTab *) ((idx * 8) + kern);
-                    p = (u8 *) (((u32) (k * 2)) - (-((u32) (*((u8 * volatile *) (&kt->pairs))))));
+                    p = (u8 *) ((*((u8 * volatile *) (&kt->pairs))) + (k * 2));
                     k++;
                   }
                   else
                   {
                     kt = (KernTab *) ((idx * 8) + kern);
-                    p = (u8 *) (((u32) (k * 2)) - (-((u32) (*((u8 * volatile *) (&kt->pairs))))));
+                    p = (u8 *) ((*((u8 * volatile *) (&kt->pairs))) + (k * 2));
                     k++;
                   }
                   if (p[0] == c)
@@ -158,4 +158,5 @@ u32 func_800180D4(u8 *arg0, u16 arg1, s32 arg2, s32 arg3, u16 arg4)
   }
   return width;
 }
+
 

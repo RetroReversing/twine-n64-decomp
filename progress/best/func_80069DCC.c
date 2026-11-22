@@ -528,7 +528,6 @@ case 2: case 3: goto out_of_line_actor;
    var_s6 = roll.number;
    func_80065D90(arg0);
    var_fp = 0.0f;
-   var_s5 = 0.0f;
    if (gWheelsGrounded != 0)
    {
      temp_v0 = ((u16) gAirTimeGauge) + 8;
@@ -538,6 +537,7 @@ case 2: case 3: goto out_of_line_actor;
        gAirTimeGauge = 0x546;
      }
    }
+   var_s5 = 0.0f;
    temp_v0_2 = *((u8 *) (((char *) temp_s1) + 0x186));
    if (temp_v0_2 != 0)
    {
@@ -646,15 +646,15 @@ case 2: case 3: goto out_of_line_actor;
          {
            *inline_fn2(temp_s1) = 0.2f;
          }
-         temp_fs3 = *((f32 *) (((char *) temp_s1) + 0x4C));
+         var_fs3 = *((f32 *) (((char *) temp_s1) + 0x4C));
          var_v1_4 = 1;
-         if (!(temp_fs3 <= 0.0002f))
+         if (!(var_fs3 <= 0.0002f))
          {
            var_v1_4 = 0;
          }
          repair_early_fold = var_v1_4 ^ 1;
          var_v0_4 = 1;
-         if (!(temp_fs3 >= (-0.0002f)))
+         if (!(var_fs3 >= (-0.0002f)))
          {
            var_v0_4 = 0;
          }
@@ -662,10 +662,10 @@ case 2: case 3: goto out_of_line_actor;
          {
            D_800E1A28 |= 0x80000;
          }
-         var_s5 = 0.0f + (temp_fs3 * sinAngle(*((f32 *) (((char *) arg0) + 0x40))));
-         var_s6 += (temp_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40))));
-         *((f32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x34)) = temp_fs3;
-         temp_fs0_2 = absFloat(temp_fs3);
+         var_s5 += (var_fs3 * sinAngle(*((f32 *) (((char *) arg0) + 0x40))));
+         var_s6 += (var_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40))));
+         *((f32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x34)) = var_fs3;
+         temp_fs2_2 = absFloat(var_fs3);
          func_800452E0(temp_s1 + 0x128, arg0 + 0x24, &frame.collision.value.x);
          *((CopyVec3 *) (((char *) temp_s1) + 0x128)) = *((CopyVec3 *) (((char *) arg0) + 0x24));
          frame.collision.words[1] = 0;
@@ -673,14 +673,13 @@ case 2: case 3: goto out_of_line_actor;
          {
            temp_fs0_2 = *((f32 *) (((char *) temp_s1) + 0x58));
            var_s0 = 1;
-           frame.repair_branch_zero = 0.0f;
-           var_fs1 = frame.repair_branch_zero;
+           var_fs1 = 0.0f;
            func_80065684(arg0);
            *((f32 *) (((char *) temp_s1) + 0x58)) = temp_fs0_2;
          }
          else
          {
-           var_fs1 = temp_fs0_2 * 5.0f;
+           var_fs1 = temp_fs2_2 * 5.0f;
            var_v0_5 = 1;
            if (!(var_fs1 <= 0.0002f))
            {
@@ -711,8 +710,7 @@ case 2: case 3: goto out_of_line_actor;
              {
                var_s0 = 4;
                var_v0_7 = 1;
-               frame.repair_branch_zero = 0.0f;
-               if (!(temp_fs5 > frame.repair_branch_zero))
+               if (!(temp_fs5 > 0.0f))
                {
                  var_v0_7 = 0;
                }

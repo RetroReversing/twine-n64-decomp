@@ -236,8 +236,8 @@ block_42:
                                 if (temp_v0_4 < 0) {
                                     M2C_FIELD(var_fp, s16 *, 0x17C) = 0;
                                 }
-                                spA58[1] = 0;
                                 spA58[2] = (u16) M2C_FIELD(var_fp, s16 *, 0x17C);
+                                spA58[1] = 0;
                                 build_yz_rotation_matrix(spA58, sp90);
                                 MatMul3x3InPlace(sp90, temp_s1);
                             }
@@ -307,6 +307,7 @@ s32 *temp_s0;
                         M2C_FIELD((var_s6 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4)), f32 *, 8) = (f32) (sp10[2] + sp20[2]);
                     }
                     if (!(M2C_FIELD(arg0, s32 *, 0x58) & 8) && ((u32) sMatrixPoolUsed < (u32) sMatrixPoolLimit)) {
+                        s32 matrix_base = M2C_FIELD(sRenderState, s32 *, 0x74C);
                         sp50[0] = M2C_FIELD(temp_s1, f32 *, 0) * 0.015625f;
                         sp50[4] = M2C_FIELD(temp_s1, f32 *, 4) * 0.015625f;
                         sp50[8] = M2C_FIELD(temp_s1, f32 *, 8) * 0.015625f;
@@ -317,7 +318,7 @@ s32 *temp_s0;
                         sp50[6] = M2C_FIELD(temp_s1, f32 *, 0x1C) * 0.015625f;
                         var_a0 = sMatrixPoolUsed + 1;
                         sMatrixPoolUsed = var_a0;
-                        temp_s1_2 = M2C_FIELD(sRenderState, s32 *, 0x74C) + (var_a0 << 6);
+                        temp_s1_2 = matrix_base + (var_a0 << 6);
                         sp50[10] = M2C_FIELD(temp_s1, f32 *, 0x20) * 0.015625f;
                         sp50[12] = sp10[0] * 64.0f;
                         sp50[13] = sp10[1] * 64.0f;
@@ -405,4 +406,5 @@ s32 *temp_s0;
         }
     }
 }
+
 

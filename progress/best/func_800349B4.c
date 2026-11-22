@@ -161,18 +161,20 @@ volatile unsigned short func_800349B4(void *arg0)
     if ((*((s32 *) (((char *) arg0) - (-0x100)))) & 8)
     {
       s32 __repair_branch_fogScale_2;
+      char *cursor;
       var_s2 = D_80100777;
       var_s1 = D_80100778;
       var_s3 = D_80100779;
-      *((s32 *) (((char *) sDisplayListCursor) + 0)) = 0xDB080000;
+      cursor = sDisplayListCursor;
+      *((s32 *) (cursor + 0)) = 0xDB080000;
       __repair_branch_fogScale_2 = D_80100774;
       fogStart = D_80100775;
       fogEnd = D_80100776;
-      *((s32 *) (((char *) sDisplayListCursor) + 4)) = (s32) inline_fn23(fogStart, __repair_branch_fogScale_2, 4, __repair_branch_fogScale_2, 8, __repair_branch_fogScale_2, __repair_branch_fogScale_2, 8, fogEnd);
+      *((s32 *) (cursor + 4)) = (s32) inline_fn23(fogStart, __repair_branch_fogScale_2, 4, __repair_branch_fogScale_2, 8, __repair_branch_fogScale_2, __repair_branch_fogScale_2, 8, fogEnd);
       D_80102F38 = D_8010077A;
-      sDisplayListCursor = sDisplayListCursor + 8;
-      D_801032A4 = D_8010077C;
+      sDisplayListCursor = cursor + 8;
       D_80108F74 = D_8010077B;
+      D_801032A4 = D_8010077C;
     }
   }
   temp_a0 = sDisplayListCursor;
@@ -180,4 +182,5 @@ volatile unsigned short func_800349B4(void *arg0)
   *((s32 *) (((char *) temp_a0) + 0)) = 0xF8000000;
   *((s32 *) (((char *) temp_a0) + 4)) = (s32) ((((var_s2 << 0x18) | ((var_s1 & 0xFF) << 0x10)) | (var_s3 << 8)) | ((unsigned short) 0xFF));
 }
+
 

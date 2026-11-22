@@ -293,24 +293,12 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
   {
     return 0;
   }
-  if (var_fa0)
-  {
-    sp19C = &scratch.vsp18[0];
-    sp1A4 = &scratch.vsp88.values[0];
-    sp1AC = &scratch.vsp28.values[0];
-    sp1B4 = &scratch.vsp90.values[0];
-    gSurfaceQueryStamp += 1;
-    sp18C = *((void **) (((char *) (*((void **) (((char *) var_s0) + 0x20)))) + 0x58));
-  }
-  else
-  {
-    sp19C = &scratch.vsp18[0];
-    sp1A4 = &scratch.vsp88.values[0];
-    sp1AC = &scratch.vsp28.values[0];
-    sp1B4 = &scratch.vsp90.values[0];
-    gSurfaceQueryStamp += 1;
-    sp18C = *((void **) (((char *) (*((void **) (((char *) var_s0) + 0x20)))) + 0x58));
-  }
+  sp19C = &scratch.vsp18[0];
+  sp1A4 = &scratch.vsp88.values[0];
+  sp1AC = &scratch.vsp28.values[0];
+  sp1B4 = &scratch.vsp90.values[0];
+  gSurfaceQueryStamp += 1;
+  sp18C = *((void **) (((char *) (*((void **) (((char *) var_s0) + 0x20)))) + 0x58));
   for (;;)
   {
     var_s6 = var_s0;
