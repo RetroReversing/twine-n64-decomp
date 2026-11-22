@@ -279,6 +279,7 @@ void func_80069DCC(void *arg0)
   s32 repair_bound_result;
   s32 var_v1_2;
   s32 var_v1_3;
+  s32 repair_early_fold;
   s32 var_v1_4;
   s32 var_v1_5;
   s32 var_v1_6;
@@ -651,17 +652,18 @@ case 2: case 3: goto out_of_line_actor;
           {
             var_v1_4 = 0;
           }
+          repair_early_fold = var_v1_4 ^ 1;
           var_v0_4 = 1;
           if (!(temp_fs3 >= (-0.0002f)))
           {
             var_v0_4 = 0;
           }
-          if (((var_v0_4 ^ 1) | (var_v1_4 ^ 1)) == 0)
+          if ((repair_early_fold | (var_v0_4 ^ 1)) == 0)
           {
             D_800E1A28 |= 0x80000;
           }
           var_s5 = 0.0f + (temp_fs3 * sinAngle(*((f32 *) (((char *) arg0) + 0x40))));
-          var_s6 = 0.0f + (temp_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40))));
+          var_s6 += (temp_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40))));
           *((f32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x34)) = temp_fs3;
           temp_fs2 = absFloat(temp_fs3);
           func_800452E0(temp_s1 + 0x128, arg0 + 0x24, &frame.collision.x);
@@ -1586,7 +1588,7 @@ case 2: case 3: goto out_of_line_actor;
       {
         __base_D_800C7DBC = &D_800C7DBC;
         var_s5 -= *__base_D_800C7DBC;
-        var_s6 = roll.number - D_800C7DC4;
+        var_s6 -= D_800C7DC4;
         temp_fs0_4 = sinTableLookup(D_800E1A10 * 3.0f);
         var_fs3 = temp_fs0_4 * (cosTableLookup(D_800E1A10) * 0.1f);
         temp_fs0_5 = sinTableLookup(D_800E1A10);

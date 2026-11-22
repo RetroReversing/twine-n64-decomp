@@ -361,8 +361,8 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                               f32 distance = spB0;
                               if ((distance >= 0.0f) && (distance < var_fs2))
                               {
-                                var_fs2 = distance;
                                 var_s6 = temp_s5;
+                                var_fs2 = distance;
                               }
                             }
                           }

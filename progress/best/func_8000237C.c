@@ -79,6 +79,7 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
   s32 var_s1_2;
   s32 var_s2;
   s32 temp_fp;
+  unsigned long sp2C;
   s32 temp_s2;
   s32 temp_s3;
   s32 temp_s5;
@@ -108,7 +109,6 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
   void *temp_v0_5;
   s16 *var_a0_4;
   void *temp_v0_7;
-  unsigned long sp2C;
   void *temp_v0_9;
   void *temp_v1;
   void *temp_v1_2;
@@ -141,8 +141,9 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
             var_v0_2 = (temp_s1 * 3) + (((u32) temp_s1) + 2);
             var_v1 = (2 * temp_s1) * 2;
             goto block_10;
+            var_v0 = temp_s1 + 5;
 
-          var_v0 = (temp_s1 + 5); default:
+          default:
             var_s2 = var_v0 * 4;
             break;
 

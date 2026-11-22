@@ -38,6 +38,11 @@ inline static int inline_fn2(u32 arg0)
   return arg0 - 0x600;
 }
 
+inline static s32 *inline_fn23(s32 *arg0)
+{
+  return arg0;
+}
+
 void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
 {
   u32 sp2C;
@@ -162,7 +167,13 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
           p[0] = s0->data + (s4 - a1);
           p[4] = s4;
           s1_2 = s0->addr + s0->len;
- do { p[2] = s1_2 - s4; s3++; s2 -= (s0->addr + s0->len) - s4; } while (0);
+          do
+          {
+            p[2] = s1_2 - s4;
+            s3++;
+            s2 -= (s0->addr + s0->len) - s4;
+          }
+          while (0);
           s4 = ((unsigned short) s0->addr) + s0->len;
           s0 = s7;
           continue;
@@ -255,7 +266,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
         e = inline_fn(&D_80103EB4[D_80108F70]);
         do
         {
-          e->b = s0->addr; e->a = s0->len; e->c = s0->data; __repair_phase_p = &sp10[(u16) s3]; __repair_phase_p[0] = s0->data + s1_2; D_80109BA0 = sp38; D_80108F70 += 1;
+          e->b = s0->addr; e->a = s0->len; e->c = s0->data; __repair_phase_p = inline_fn23(&sp10[(u16) s3]); __repair_phase_p[0] = s0->data + s1_2; D_80109BA0 = sp38; D_80108F70 += 1;
           do
           {
             s3++;
@@ -300,3 +311,4 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
     arg0->d = (s16) sp10[2];
   }
 }
+
