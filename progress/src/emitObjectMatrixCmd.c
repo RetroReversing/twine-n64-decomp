@@ -6,9 +6,10 @@ extern u32 sMatrixPoolLimit;
 extern s32 D_800E1710;
 extern u32 sMatrixPoolUsed;
 extern s32 sObjectMatrixF;
-extern void * volatile D_80115328;
+extern void * volatile sDisplayListCursor;
 extern void *sRenderState;
 
+typedef struct { unsigned char pad_0[1868]; int field_74C; } __repair_record_rs;
 typedef struct { int field_0; int field_4; } __repair_record_temp_a0;
 typedef struct { unsigned char pad_0[64]; int field_40; float field_44; float field_48; } __repair_record_arg0;
 typedef struct { int field_0; int field_4; int field_8; int field_C; int field_10; int field_14; } __repair_record_temp_v1;
@@ -20,17 +21,17 @@ void emitObjectMatrixCmd(void *arg0, f32 arg1) {
     void *base;
     s32 index;
 
-    temp_a0 = D_80115328;
-    D_80115328 = temp_a0 + 8;
+    temp_a0 = sDisplayListCursor;
+    sDisplayListCursor = temp_a0 + 8;
     (((__repair_record_temp_a0*)temp_a0)->field_0) = 0xDA380007;
     (((__repair_record_temp_a0*)temp_a0)->field_4) = (s32) ((sRenderState + ((*(s32 *)&D_800E1710) << 6)) - 0x80000000);
     if (sMatrixPoolLimit > sMatrixPoolUsed) {
         temp_v0 = sMatrixPoolUsed + 1;
-        temp_s0 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0 << 6);
+        temp_s0 = (((__repair_record_rs*)sRenderState)->field_74C) + (temp_v0 << 6);
         sMatrixPoolUsed = temp_v0;
         func_8000BBB4(&sObjectMatrixF, (((__repair_record_arg0*)arg0)->field_48) + 3.1415927f, -((((__repair_record_arg0*)arg0)->field_44) + 3.1415927f + arg1), (((__repair_record_arg0*)arg0)->field_40));
         { guMtxF2L(&sObjectMatrixF, temp_s0); }
-        temp_v1 = D_80115328;
+        temp_v1 = sDisplayListCursor;
         (((__repair_record_temp_v1*)temp_v1)->field_0) = 0xDA380005;
         (((__repair_record_temp_v1*)temp_v1)->field_4) = (s32) (temp_s0 - 0x80000000);
         (((__repair_record_temp_v1*)temp_v1)->field_8) = 0xDB0E0000;
@@ -39,8 +40,8 @@ void emitObjectMatrixCmd(void *arg0, f32 arg1) {
         (((__repair_record_temp_v1*)temp_v1)->field_C) = (s32) (*(u16 *)((char *)((base + (index * 2))) + 0x360));
         (((__repair_record_temp_v1*)temp_v1)->field_10) = 0xDA380003;
         (((__repair_record_temp_v1*)temp_v1)->field_14) = (s32) ((*(s32 *)((char *)(sRenderState) + 0x74C)) - 0x80000000);
-        D_80115328 = temp_v1 + 8;
-        D_80115328 = temp_v1 + 0x10;
-        D_80115328 = temp_v1 + 0x18;
+        sDisplayListCursor = temp_v1 + 8;
+        sDisplayListCursor = temp_v1 + 0x10;
+        sDisplayListCursor = temp_v1 + 0x18;
     }
 }
