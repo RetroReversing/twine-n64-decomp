@@ -109,14 +109,14 @@ void func_800362B4(RenderView *view)
     f32 *matrix = D_80112F90;
     f32 one = 1.0f;
     f32 scale = 64.0f;
-    do
+  loop:
     {
       if ((node->flags >> 2) & 0x200)
       {
         f32 y = 2.0f * node->detail->height;
         if (sMatrixPoolUsed >= sMatrixPoolLimit[0])
         {
-          break;
+          goto done;
         }
         emitPrimColor(node, view);
         func_80034630(node, view);
@@ -125,13 +125,15 @@ void func_800362B4(RenderView *view)
         func_800A3940(matrix, one, -1.0f, one);
         D_80112FC4 = y * scale;
         guMtxF2L(matrix, D_8010D538);
-        D_80115328->w0 = (float) 0xDA380003;
-        D_80115328->w1 = D_8010D538 - ((char) 0x80000000);
+        D_80115328->w0 = 0xDA380003;
+        D_80115328->w1 = D_8010D538 - 0x80000000;
         D_80115328++;
         func_80032630(node->detail);
       }
     }
-    while ((node = node->next) != NULL);
+    if ((node = node->next) != NULL) goto loop;
+  done:;
+
   }
 }
 
