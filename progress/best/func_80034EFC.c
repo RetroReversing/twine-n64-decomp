@@ -24,8 +24,8 @@ void func_80034EFC(void)
   s32 render;
   u32 modes;
   cycle = 0xE3000A01;
-  modes = 0x0F0A4000;
   render = 0xE200001C;
+  modes = 0x0F0A4000;
   sDisplayListCursor = base + 1; base[0].w0 = 0xE7000000;
   sDisplayListCursor = base + 2; base[1].w1 = 0x300000;
   sDisplayListCursor = base + 3; width = D_8010D6F8 - 1; height = D_80108F80 - 1;
@@ -38,11 +38,12 @@ void func_80034EFC(void)
     size = ((-(gHiResScreen == 0)) & 3) | 2;
   }
   size <<= 19;
-  render = (width & 0xFFF) | 0xFF000000;
+  modes = (width & 0xFFF) | 0xFF000000;
   buffer = D_8010A4B0;
-  base[3].w0 = size | render;
+  base[3].w0 = size | modes;
   sDisplayListCursor = base + 4; base[3].w1 = osVirtualToPhysical(D_80100304[buffer]);
   cmd = sDisplayListCursor; sDisplayListCursor = cmd + 1; cmd[0].w0 = 0xF7000000; sDisplayListCursor = cmd + 2;
   cmd[0].w1 = 0; cmd[1].w0 = (((width & 0x3FF) << 14) | 0xF6000000u) | ((height & 0x3FF) << 2); cmd[1].w1 = 0;
 }
+
 

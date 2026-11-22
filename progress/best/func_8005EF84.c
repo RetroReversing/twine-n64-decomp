@@ -66,7 +66,7 @@ s32 func_8005EF84(void *arg0, void *arg1)
   register u16 temp_v1_9;
   u8 temp_s0;
   s32 temp_s2;
-  long temp_v1_7;
+  s32 temp_v1_7;
   void *temp_a0;
   void *temp_a0_2;
   void *temp_a1_2;
@@ -77,7 +77,7 @@ s32 func_8005EF84(void *arg0, void *arg1)
   void *temp_v1_3;
   void *temp_v1_5;
   void *temp_v1_8;
-  temp_s3 = *((void **) (((char *) arg1) + 0x6C));
+  temp_a0 = *((void **) (((char *) arg1) + 0x6C)); temp_s3=(void *)temp_a0;
   temp_s1 = *((void **) (((char *) arg0) + 0x6C));
   temp_v1 = ((__repair_record_temp_s3 *) temp_s3)->field_26;
   switch (temp_v1)
@@ -217,8 +217,8 @@ s32 func_8005EF84(void *arg0, void *arg1)
             temp_v1_8 = temp_s1 + (temp_v1_7 * 2);
             *((u16 *) (((char *) temp_v1_8) + 0x1BC)) += var_s0;
           }
-          temp_a0_2 = temp_s1 + (temp_s2 * 2);
-          temp_v0_6 = D_800C7C16[temp_s2 * 2];
+          temp_a0_2 = temp_s1 + (temp_v1_7 * 2);
+          temp_v0_6 = D_800C7C16[temp_v1_7 * 2];
           if (temp_v0_6 < (*inline_fn2(temp_a0_2)))
           {
             *inline_fn2(temp_a0_2) = temp_v0_6;

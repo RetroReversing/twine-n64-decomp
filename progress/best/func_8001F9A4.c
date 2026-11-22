@@ -188,7 +188,7 @@ void func_8001F9A4(void)
     temp_v1_2 = *(((u8 *) (&D_80100198)) + (D_800B7CF0 * 0x18));
     if (((s32) temp_v1_2) >= 0)
     {
-      if (temp_v1)
+      if (temp_v1_2)
       {
         var_a0_7 = temp_s6 - 0x28;
       }
