@@ -6,7 +6,15 @@ extern u8 D_800B60EA;
 extern M2C_UNK D_800C4480;
 extern s32 D_80102EBC;
 extern M2C_UNK D_8010A500;
-extern void *gSaveMenuState;
+typedef struct SaveMenuMatch {
+    u8 pad0[0xC];
+    s32 id;
+    u8 pad10[8];
+    void * entry;
+    u8 pad1C[0x10];
+    u8 flag;
+} SaveMenuMatch;
+extern SaveMenuMatch *gSaveMenuState;
 #define gMenuState gSaveMenuState
 extern void *sActiveMenu;
 u8 func_8001F4B8(s32 arg0, s32 arg1) {
@@ -23,10 +31,12 @@ u8 func_8001F4B8(s32 arg0, s32 arg1) {
    if (arg0 == 0x13) { func_800278AC(0xA, D_80102EBC, M2C_FIELD(sActiveMenu, u16 *, 0x7A)); return var_v0; }
    var_v0 = arg1 & 0xFF;
    if (M2C_FIELD(gMenuState, void **, 0x18) != NULL) {
-    temp_v0_2 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0xC), 0xE);
-    M2C_FIELD(gMenuState, u8 *, 0x2C) = 1U;
-    M2C_FIELD(gMenuState, void **, 0x18) = temp_v0_2;
-    M2C_FIELD(*(void * volatile *)((u8 *)gMenuState + 0x18), M2C_UNK (**)(void), 4)();
+    SaveMenuMatch *menu;
+    temp_v0_2 = findEntryById(gMenuState->id, 0xE);
+    menu = gMenuState;
+    menu->flag = 1U;
+    menu->entry = temp_v0_2;
+    M2C_FIELD(*(void * volatile *)&gMenuState->entry, M2C_UNK (**)(void), 4)();
     var_v0 = arg1 & 0xFF;
    }
    return var_v0;
