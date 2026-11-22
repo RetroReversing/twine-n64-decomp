@@ -2,114 +2,38 @@ extern s32 D_8010A4D4;
 extern void *sDisplayListCursor;
 void func_80034630(const void *arg0, const void *arg1)
 {
-  f32 temp_ft0;
-  f32 temp_ft0_2;
-  f32 temp_ft1;
-  f32 temp_ft2;
-  f32 temp_ft2_2;
-  f32 temp_ft5;
-  f32 temp_fv0;
-  f32 temp_fv1;
-  f32 var_fa0;
-  f32 var_fa1;
-  f32 var_ft3;
-  f32 var_ft4;
+  f32 fa, ox, oy, x0, y0, x1, y1, a, b, c, d, e, f;
   void *temp_a1;
-  void *temp_v0;
-  do
-  {
-    temp_ft1 = *((f32 *) (((char *) arg1) + 0x64));
-  }
-  while (0);
-  do
-  {
-    if (var_ft3)
-    {
-      temp_fv1 = *((f32 *) (((char *) arg1) + 0x58));
-    }
-    else
-    {
-      temp_fv1 = *((f32 *) (((char *) arg1) + 0x58));
-    }
-  }
-  while (0);
-  do
-  {
-    temp_v0 = *((void **) (((char *) arg0) + 0x20));
-  }
-  while (0);
-  {
-    temp_ft0 = *((f32 *) (((char *) arg1) + 0x60));
-  }
-  do
-  {
-    temp_fv1 += temp_ft1;
-  }
-  while (0);
-  {
-    var_fa0 = (*((f32 *) (((char *) temp_v0) + 0))) + temp_ft0;
-  }
-  do
-  {
-    var_ft3 = (*((f32 *) (((char *) temp_v0) + 8))) + temp_ft1;
-  }
-  while (0);
-  do
-  {
-    var_fa1 = (*((f32 *) (((char *) temp_v0) + 4))) + temp_ft0;
-  }
-  while (0);
-  do
-  {
-    var_ft4 = (*((f32 *) (((char *) temp_v0) + 0xC))) + temp_ft1;
-  }
-  while (0);
-  var_fa0 -= 8.0f;
-  var_ft3 -= 8.0f;
-  var_fa1 += 8.0f;
-  var_ft4 += 8.0f;
-  temp_ft5 = (*((f32 *) (((char *) arg1) + 0x50))) + temp_ft0;
-  temp_ft2 = *((f32 *) (((char *) arg1) + 0x70));
-  temp_ft0 = (*((f32 *) (((char *) arg1) + 0x54))) + temp_ft0;
-  temp_ft0_2 = *((f32 *) (((char *) arg1) + 0x74));
-  temp_ft5 += temp_ft2;
-  temp_fv1 += temp_ft0_2;
-  temp_ft0 -= temp_ft2;
-  temp_fv0 = ((*((f32 *) (((char *) arg1) + 0x5C))) + temp_ft1) - temp_ft0_2;
-  if (var_fa0 < temp_ft5)
-  {
-    var_fa0 = temp_ft5;
-  }
-  if (temp_ft0 < var_fa1)
-  {
-    var_fa1 = temp_ft0;
-  }
-  if (var_ft3 < temp_fv1)
-  {
-    var_ft3 = temp_fv1;
-  }
-  if (temp_fv0 < var_ft4)
-  {
-    if (temp_ft1)
-    {
-      var_ft4 = temp_fv0;
-    }
-    else
-    {
-      var_ft4 = temp_fv0;
-    }
-  }
+  char *p;
+fa = *((f32 *) (((char *) arg1) + 0x58));
+  p = *((void **) (((char *) arg0) + 0x20));
+  oy = *((f32 *) (((char *) arg1) + 0x64));
+ox = *((f32 *) (((char *) arg1) + 0x60));
+fa = fa + oy;
+x0 = *(f32 *)(p + 0) + ox;
+  y0 = *(f32 *)(p + 8) + oy;
+if (arg0) { x1 = *(f32 *)(p + 4) + ox; } else { x1 = *(f32 *)(p + 4) + ox; }
+  y1 = *(f32 *)(p + 0xC) + oy;
+  x0 -= 8.0f; y0 -= 8.0f; x1 += 8.0f; y1 += 8.0f;
+c = *(f32 *)((char *)arg1 + 0x70);
+a = (*(f32 *)((char *)arg1 + 0x50) + ox) + c;
+d = *(f32 *)((char *)arg1 + 0x74);
+f = fa + d;
+b = (*(f32 *)((char *)arg1 + 0x54) + ox) - c;
+e = (*(f32 *)((char *)arg1 + 0x5C) + oy) - d;
+  if (x0 < a) x0 = a;
+  if (b < x1) x1 = b;
+  if (y0 < f) y0 = f;
+  if (e < y1) y1 = e;
   if (D_8010A4D4 != 0)
   {
     temp_a1 = sDisplayListCursor;
     sDisplayListCursor = temp_a1 + 8;
     {
-      u32 x = (((s32) (var_fa0 * 4.0f)) & 0xFFF) << 12;
-      u32 y = ((s32) (var_ft3 * 4.0f)) & 0xFFF;
+      u32 x = (((s32) (x0 * 4.0f)) & 0xFFF) << 12;
+      u32 y = ((s32) (y0 * 4.0f)) & 0xFFF;
       *((u32 *) temp_a1) = (0xED000000 | x) | y;
     }
-    *((s32 *) (((char *) temp_a1) + 4)) = (s32) (((((s32) (var_fa1 * 4.0f)) & 0xFFF) << 0xC) | (((s32) (var_ft4 * 4.0f)) & 0xFFF));
+    *((s32 *) (((char *) temp_a1) + 4)) = (s32) (((((s32) (x1 * 4.0f)) & 0xFFF) << 0xC) | (((s32) (y1 * 4.0f)) & 0xFFF));
   }
 }
-
-

@@ -27,6 +27,11 @@ typedef struct
   unsigned int flags : 9;
   unsigned int other : 23;
 } StateFields;
+inline static s16 *inline_fn2(s16 *arg0)
+{
+  return arg0;
+}
+
 void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
 {
   s16 var_v0_6;
@@ -37,7 +42,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
   long var_v0_3;
   unsigned long var_v0_4;
   int var_v0_5;
-  register unsigned int var_v1;
+  register unsigned short var_v1;
   unsigned int var_v1_2;
   unsigned var_v1_3;
   u32 temp_high_flags;
@@ -83,7 +88,8 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
   s32 __repair_phase_temp_v1_6;
   s32 temp_v1_7;
   u8 var_v0;
-  void * __repair_phase_storage_pointer; u32 __repair_phase_storage_value;
+  void *__repair_phase_storage_pointer;
+  u32 __repair_phase_storage_value;
   void *temp_a0_3;
   __repair_phase_temp_a0 = D_800CA338 != 0;
   if (((__repair_field_3C *) arg0)->value & 0x400000)
@@ -129,7 +135,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
 
     case 0x99:
       temp_v1 = *((u32 *) (((char *) arg1) + 0x5C));
-      *((s16 *) (((char *) arg1) + 0x58)) = 0x18;
+      *inline_fn2((s16 *) (((char *) arg1) + 0x58)) = 0x18;
       ;
       var_a0 = (temp_v1 & 0xFF81FFFF) | ((((temp_v1 >> 0x11) & 0x3F) | 4) << 0x11);
       *((u32 *) (((char *) arg1) + 0x5C)) = var_a0;
@@ -266,7 +272,11 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       *((u32 *) (((char *) arg1) + 0x5C)) = (u32) ((__repair_phase_temp_v0_15 & 0x7FFFFF) | (((__repair_phase_temp_v0_15 >> 0x17) | 4) << 0x17));
       D_800E19E0 = __repair_phase_saved_x;
       D_800E19E4 = *((f32 *) (((char *) arg1) + 0x28));
- do { *((f32 *) (&D_800E19E8)) = ((__repair_field_2C *) arg1)->value; zero = 0.0f; } while (0);
+      do
+    {
+      *((f32 *) (&D_800E19E8)) = ((__repair_field_2C *) arg1)->value; zero = 0.0f;
+    }
+    while (0);
       ((__repair_field_2C *) arg1)->value = zero;
       *((f32 *) (((char *) arg1) + 0x28)) = zero;
       *((f32 *) (((char *) arg1) + 0x24)) = zero;
@@ -371,38 +381,57 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       *arg3 = 0;
       temp_v1_6 = *((u8 *) (((char *) (*((void **) (((char *) arg0) + 0x24)))) + 0x1E));
       if (temp_v1_6 == 0x84)
-        goto mark_84;
-      if (temp_v1_6 < 0x85) {
-        if (temp_v1_6 == 0x1E)
-          goto mark_1e;
-        goto mode_1e;
+    {
+      goto mark_84;
+    }
+      if (temp_v1_6 < 0x85)
+    {
+      if (temp_v1_6 == 0x1E)
+      {
+        goto mark_1e;
       }
+      goto mode_1e;
+    }
       if (temp_v1_6 == 0x88)
-        goto mark_88;
-      if (temp_v1_6 < 0x89) {
-        if (temp_v1_6 == 0x85)
-          goto mode_84;
-        goto mode_1e;
+    {
+      goto mark_88;
+    }
+      if (temp_v1_6 < 0x89)
+    {
+      if (temp_v1_6 == 0x85)
+      {
+        goto mode_84;
       }
+      goto mode_1e;
+    }
       if (temp_v1_6 == 0x89)
-        goto mode_88;
+    {
+      goto mode_88;
+    }
       goto mode_1e;
       mark_1e:
-      ((StateFields *) arg1)->state |= 0x2000;
+    ((StateFields *) arg1)->state |= 0x2000;
+
       mode_1e:
-      var_v0_6 = 0x1E;
+    var_v0_6 = 0x1E;
+
       goto save_mode;
       mark_84:
-      ((StateFields *) arg1)->state |= 0x2000;
+    ((StateFields *) arg1)->state |= 0x2000;
+
       mode_84:
-      var_v0_6 = 0x84;
+    var_v0_6 = 0x84;
+
       goto save_mode;
       mark_88:
-      ((StateFields *) arg1)->state |= 0x2000;
+    ((StateFields *) arg1)->state |= 0x2000;
+
       mode_88:
-      var_v0_6 = 0x88;
+    var_v0_6 = 0x88;
+
       save_mode:
-      *((s16 *) (((char *) arg1) + 0x58)) = (int) var_v0_6;
+    *((s16 *) (((char *) arg1) + 0x58)) = (int) var_v0_6;
+
       D_800E19E0 = *((f32 *) (((char *) arg1) + 0x24));
       *((f32 *) (&D_800E19E4)) = *((f32 *) (((char *) arg1) + 0x28));
       *((f32 *) (&D_800E19E8)) = ((__repair_field_2C *) arg1)->value;
@@ -429,19 +458,29 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       temp_v1_7 = *((u8 *) (((char *) (*((void **) (((char *) arg0) + 0x24)))) + 0x1E));
       var_v0_6 = 0x1E;
       if (temp_v1_7 < 0x86)
-        goto save_alt_mode;
+    {
+      goto save_alt_mode;
+    }
       var_v0_6 = 0x84;
       if (temp_v1_7 < 0x88)
-        goto save_alt_mode;
+    {
+      goto save_alt_mode;
+    }
       if (temp_v1_7 >= 0x8C)
-        goto alt_mode_default;
+    {
+      goto alt_mode_default;
+    }
       var_v0_6 = 0x88;
       if (temp_v1_7 >= 0x8A)
-        goto save_alt_mode;
+    {
+      goto save_alt_mode;
+    }
       alt_mode_default:
-      var_v0_6 = 0x1E;
+    var_v0_6 = 0x1E;
+
       save_alt_mode:
-      *((s16 *) (((char *) arg1) + 0x58)) = var_v0_6;
+    *((s16 *) (((char *) arg1) + 0x58)) = var_v0_6;
+
       __repair_phase_storage_value = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
       *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((__repair_phase_storage_value & 0xFFFF0003) | ((((__repair_phase_storage_value >> 2) & 0x3FFF) | 0x800) * 4));
       *arg2 = 1;

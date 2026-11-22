@@ -21,10 +21,9 @@ extern HeapBlock *volatile D_800E1AB0;
 extern volatile u32 D_80102CB8;
 extern volatile u32 D_80109A90;
 
-s32 func_80083E90(s32 size, s32 tag) {
+s32 heapAllocTagged(s32 size, s32 tag) {
     if (D_800E1A90 == 0) {
         s32 mask = D_800CE354[tag].alignment - 1;
-        s32 inverse = ~mask;
         if (tag == 45) {
             u32 old = D_80102CB8;
             u32 end = old - size;
@@ -36,10 +35,18 @@ s32 func_80083E90(s32 size, s32 tag) {
             D_800CE570 = used + old;
             return end;
         } else {
-            u32 old = D_80109A90;
-            u32 used = D_800CE354[tag].used;
-            u32 start = (old + mask) & inverse;
-            u32 end = start + size;
+            u32 old;
+            u32 used;
+            u32 start;
+            u32 end;
+            u32 temp;
+            u32 inverse;
+            do { inverse = ~mask; } while (0);
+            old = D_80109A90;
+            used = D_800CE354[tag].used;
+            temp = old + mask;
+            start = temp & inverse;
+            end = start + size;
             D_80109A90 = end;
             D_800CE354[tag].used = used + (end - old);
             return start;
@@ -49,12 +56,17 @@ s32 func_80083E90(s32 size, s32 tag) {
         u32 minimum = size + 24;
         if (block != NULL) {
             do {
-                u32 available = block->size;
-                u8 *end = (u8 *)block + available;
+                u32 available;
+                u8 *end;
+                do { do { do { available = block->size; } while (0); } while (0); } while (0);
+                do { end = (u8 *)block + available; } while (0);
                 if (available >= minimum) {
-                    u32 mask = D_800CE354[tag].alignment - 1;
-                    HeapBlock *newBlock = (HeapBlock *)((u32)end - size);
-                    u32 extra = (u32)newBlock & mask;
+                    u32 mask;
+                    HeapBlock *newBlock;
+                    u32 extra;
+                    mask = D_800CE354[tag].alignment - 1;
+                    newBlock = (HeapBlock *)((u32)end - size);
+                    extra = (u32)newBlock & mask;
                     if (available >= minimum + extra) {
                         u32 tagUsed;
                         u32 heapUsed;
@@ -62,10 +74,10 @@ s32 func_80083E90(s32 size, s32 tag) {
                         u32 blockFree;
                         HeapBlock *head;
                         size += extra;
-                        available = size + 12;
+                        do { do { do { available = size + 12; } while (0); } while (0); } while (0);
                         tagUsed = D_800CE354[tag].used;
                         newBlock = (HeapBlock *)((u32)end - available);
-                        heapFree = D_800E1A9C;
+                        do { heapFree = D_800E1A9C; } while (0);
                         tagUsed += 12;
                         D_800CE354[tag].used = tagUsed + size;
                         heapUsed = D_800E1AA0;

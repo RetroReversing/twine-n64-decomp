@@ -83,30 +83,7 @@ void func_8011A7C8(void)
             {
               do
               {
-                if (i == index)
-                {
-                  goto next_scene;
-                }
-                entry = D_80102CD0[i];
-                loop_goto_1:
-                {
-                  if ((entry == 0) || (entry->meta->disabled != 0))
-                  {
-                    goto next_scene;
-                  }
-                  D_80102CD0[index]->meta->count++;
-                }
-                if (0)
-                {
-                    goto loop_goto_1;
-                }
-                do
-                {
-                  next_scene:
-                  i++;
-
-                }
-                while (0);
+ do { if (i == index) { goto next_scene; } entry = D_80102CD0[i]; loop_goto_1: { if ((entry == 0) || (entry->meta->disabled != 0)) { goto next_scene; } D_80102CD0[index]->meta->count++; } if (0) { goto loop_goto_1; } do { next_scene: i++; } while (0); } while (0);
               }
               while (inline_fn23456((volatile s32 *) inline_fn2((u8 *) (&gSaveTotalSlots), inline_fn234())) > ((s16) i));
             }
@@ -125,7 +102,29 @@ void func_8011A7C8(void)
     s16 i_a1;
     i_a1 = 0;
     count = gSaveTotalSlots;
- do { if (count <= 0) { goto done; } do { bonus_a1 = sBonusObjectTable[i_a1]; if (bonus_a1 != 0) { state = bonus_a1->state; if ((state < 2) & (state != 6)) { chosen = i_a1; goto update; } } i_a1++; } while (i_a1 < gSaveTotalSlots); } while (0);
+    do
+    {
+      if (count <= 0)
+      {
+        goto done;
+      }
+      do
+      {
+        bonus_a1 = sBonusObjectTable[i_a1];
+        if (bonus_a1 != 0)
+        {
+          state = bonus_a1->state;
+          if ((state < 2) & (state != 6))
+          {
+            chosen = i_a1;
+            goto update;
+          }
+        }
+        i_a1++;
+      }
+      while (i_a1 < gSaveTotalSlots);
+    }
+    while (0);
   }
   update:
   i = 0;

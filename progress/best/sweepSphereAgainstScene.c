@@ -1,15 +1,3 @@
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 s32 Sphere_OverlapsPoint(void **, void *, f32);
 s32 applyObjectRotation(void **, s32, f32 *);
 void buildRotationMatrix(const s16 *, f32 *);
@@ -65,15 +53,15 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
   SweepVec vec28;
   SweepVec vec38;
   SweepVec vec48;
-  union
+  union 
   {
     f32 matrix[9];
-    struct
+    struct 
     {
       char pad0[0x10];
       s16 angles[3];
     } a;
-    struct
+    struct 
     {
       char pad1[0x18];
       SweepVec v;
@@ -139,8 +127,6 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
   s32 var_s0_2;
   s32 var_s0_3;
   unsigned short var_s0_4;
-  
-  
   s32 var_s5;
   s32 var_s7;
   s32 var_t2;
@@ -160,7 +146,6 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
   u16 temp_v1_6;
   u16 temp_v1_9;
   u32 temp_v1_13;
-  
   u32 temp_v1_8;
   u16 var_s2;
   s32 keep;
@@ -214,16 +199,26 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                 switch (((Field_u16 *) (((char *) var_s1) + 0x78))->v)
                 {
                   case 0x3B:
+
                   case 0x3F:
                     goto zero_;
+
                   case 0xB:
                     temp_v1_2 = *((u8 *) (((char *) (*((void **) (((char *) var_s1) + 0x6C)))) + 0x4A));
                     if (temp_v1_2 >= 0xE)
-                      goto zero_;
+                  {
+                    goto zero_;
+                  }
                     if (temp_v1_2 < 0xA)
-                      zero_: keep = 0;
+                  {
+                    zero_:
+                    keep = 0;
+
+                  }
                     break;
+
                 }
+
                 var_s2 = keep;
                 if ((!var_s2) && ((func_800487F0(var_s1, arg1, arg3) << 0x18) != 0))
                 {
@@ -265,7 +260,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                           temp_v1_4 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_s5 * 2)));
                           if ((temp_t2 & temp_v1_4) && (temp_fp & temp_v1_4))
                           {
-                            if (((func_8004D910(&(&vec38)->x, &scratch.first.direction.x, (((Field_s32 *) (((char *) temp_s4) + 0x34))->v) + ((*var_s3) * 0xC), (((Field_s32 *) (((char *) temp_s4) + 0x34))->v) + ((*((u16 *) (((char *) var_s2_2) + (-2)))) * 0xC), (((Field_s32 *) (((char *) temp_s4) + 0x34))->v) + (((Field_u16 *) (((char *) var_s2_2) + 0))->v * 0xC), sp174) & 0xFF) && (zero = 0.0f, spA0[0] >= zero)) && (spA0[0] < var_fs0))
+                            if (((func_8004D910(&(&vec38)->x, &scratch.first.direction.x, ((Field_s32 *) (((char *) temp_s4) + 0x34))->v + ((*var_s3) * 0xC), ((Field_s32 *) (((char *) temp_s4) + 0x34))->v + ((*((u16 *) (((char *) var_s2_2) + (-2)))) * 0xC), ((Field_s32 *) (((char *) temp_s4) + 0x34))->v + (((Field_u16 *) (((char *) var_s2_2) + 0))->v * 0xC), sp174) & 0xFF) && ((zero = 0.0f, spA0[0] >= zero))) && (spA0[0] < var_fs0))
                             {
                               var_fs0 = spA0[0];
                               var_s7 = temp_s5;
@@ -291,7 +286,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                           temp_v1_6 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_s5_2 * 2)));
                           if ((temp_t2 & temp_v1_6) && (temp_fp & temp_v1_6))
                           {
-                            if (((func_8004D910(&vec38.x, &scratch.first.direction.x, (((Field_s32 *) (((char *) temp_s4) + 0x34))->v) + ((*(u8 *)var_s3_2) * 0xC), ((u32) (((Field_s32 *) (((char *) temp_s4) + 0x34))->v)) + ((*((u8 *) (((char *) var_s2_3) + (-1)))) * 0xC), (((Field_s32 *) (((char *) temp_s4) + 0x34))->v) + (((Field_u8 *) (((char *) var_s2_3) + 0))->v * 0xC), sp174) & 0xFF) && (zero = 0.0f, spA0[0] >= zero)) && (spA0[0] < var_fs0))
+                            if (((func_8004D910(&vec38.x, &scratch.first.direction.x, ((Field_s32 *) (((char *) temp_s4) + 0x34))->v + ((*((u8 *) var_s3_2)) * 0xC), ((u32) ((Field_s32 *) (((char *) temp_s4) + 0x34))->v) + ((*((u8 *) (((char *) var_s2_3) + (-1)))) * 0xC), ((Field_s32 *) (((char *) temp_s4) + 0x34))->v + (((Field_u8 *) (((char *) var_s2_3) + 0))->v * 0xC), sp174) & 0xFF) && ((zero = 0.0f, spA0[0] >= zero))) && (spA0[0] < var_fs0))
                             {
                               var_fs0 = spA0[0];
                               var_s7 = temp_s5_2;
@@ -301,6 +296,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                           var_s3_2 += 3;
                           var_s0_2++;
                         }
+
                       }
                     }
                     if (var_s7 != (-1))
@@ -334,7 +330,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
         sp19C = &spE0[1];
         do
         {
-          if (((((Field_s32 *) (((char *) var_s6) + 0x50))->v & 0x200) && ((u8)((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x11) & 0x3F) & arg7)) && ((Sphere_OverlapsPoint((void **) (((u8 *) var_s6) + 0x40), arg1, arg3) << 0x18) != 0))
+          if (((((Field_s32 *) (((char *) var_s6) + 0x50))->v & 0x200) && (((u8) ((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x11) & 0x3F)) & arg7)) && ((Sphere_OverlapsPoint((void **) (((u8 *) var_s6) + 0x40), arg1, arg3) << 0x18) != 0))
           {
             vec48 = *((SweepVec *) (&D_800D3E18));
             temp_s1 = *((void **) (((char *) var_s6) + 0x3C));
@@ -377,7 +373,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                       temp_v1_9 = *((u16 *) (((char *) (*((void **) (((char *) temp_s1) + 0x38)))) + ((var_s0_3 & 0xFFFF) * 2)));
                       if ((temp_fp_2 & temp_v1_9) && (temp_s7 & temp_v1_9))
                       {
-                        if (((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + ((*var_s3_3) * 0xC), (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + ((*((u16 *) (((char *) var_s2_4) + (-2)))) * 0xC), (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + (((Field_u16 *) (((char *) var_s2_4) + 0))->v * 0xC), sp194) & 0xFF) && (zero = 0.0f, spE0[0] >= zero)) && (spE0[0] < var_fs0))
+                        if (((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + ((*var_s3_3) * 0xC), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + ((*((u16 *) (((char *) var_s2_4) + (-2)))) * 0xC), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (((Field_u16 *) (((char *) var_s2_4) + 0))->v * 0xC), sp194) & 0xFF) && ((zero = 0.0f, spE0[0] >= zero))) && (spE0[0] < var_fs0))
                         {
                           var_fs0 = spE0[0];
                         }
@@ -402,7 +398,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                       temp_v1_11 = *((u16 *) (((char *) (*((void **) (((char *) temp_s1) + 0x38)))) + (temp_s4_2 * 2)));
                       if ((temp_fp_2 & temp_v1_11) && (temp_s7 & temp_v1_11))
                       {
-                        if (((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + ((*(u8 *)var_s3_4) * 0xC), (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + ((*((u8 *) (((char *) var_s2_5) + (-1)))) * 0xC), (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + (((Field_u8 *) (((char *) var_s2_5) + 0))->v * 0xC), sp194) & 0xFF) && (zero = 0.0f, spE0[0] >= zero)) && (var_fs0 > spE0[0]))
+                        if (((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + ((*((u8 *) var_s3_4)) * 0xC), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + ((*((u8 *) (((char *) var_s2_5) + (-1)))) * 0xC), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (((Field_u8 *) (((char *) var_s2_5) + 0))->v * 0xC), sp194) & 0xFF) && ((zero = 0.0f, spE0[0] >= zero))) && (var_fs0 > spE0[0]))
                         {
                           var_fs0 = spE0[0];
                           var_s5 = temp_s4_2;
@@ -438,7 +434,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                       temp_v1_14 = *((u16 *) (((char *) (*((void **) (((char *) temp_s1) + 0x38)))) + (temp_s4_3 * 2)));
                       if ((temp_fp_2 & temp_v1_14) && (temp_s7 & temp_v1_14))
                       {
-                        if (((func_8004D910(&scratch.point.x, &vec48.x, (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + ((*var_s3_5) * 0xC), (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + ((*((u16 *) (((char *) var_s2_6) + (-2)))) * 0xC), (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + (((Field_u16 *) (((char *) var_s2_6) + 0))->v * 0xC), sp19C) & 0xFF) && (zero = 0.0f, spE0[1] >= zero)) && (spE0[1] < var_fs0))
+                        if (((func_8004D910(&scratch.point.x, &vec48.x, ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + ((*var_s3_5) * 0xC), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + ((*((u16 *) (((char *) var_s2_6) + (-2)))) * 0xC), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (((Field_u16 *) (((char *) var_s2_6) + 0))->v * 0xC), sp19C) & 0xFF) && ((zero = 0.0f, spE0[1] >= zero))) && (spE0[1] < var_fs0))
                         {
                           var_fs0 = spE0[1];
                           var_s5 = temp_s4_3;
@@ -464,7 +460,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                       temp_v1_16 = *((u16 *) (((char *) (*((void **) (((char *) temp_s1) + 0x38)))) + (temp_s4_4 * 2)));
                       if ((temp_fp_2 & temp_v1_16) && (temp_s7 & temp_v1_16))
                       {
-                        if (((func_8004D910(&scratch.point.x, &vec48.x, (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + ((*(u8 *)var_s3_6) * 0xC), (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + ((*((u8 *) (((char *) var_s2_7) + (-1)))) * 0xC), (((Field_s32 *) (((char *) temp_s1) + 0x34))->v) + (((Field_u8 *) (((char *) var_s2_7) + 0))->v * 0xC), sp19C) & 0xFF) && (zero = 0.0f, spE0[1] >= zero)) && (spE0[1] < var_fs0))
+                        if (((func_8004D910(&scratch.point.x, &vec48.x, ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + ((*((u8 *) var_s3_6)) * 0xC), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + ((*((u8 *) (((char *) var_s2_7) + (-1)))) * 0xC), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (((Field_u8 *) (((char *) var_s2_7) + 0))->v * 0xC), sp19C) & 0xFF) && ((zero = 0.0f, spE0[1] >= zero))) && (spE0[1] < var_fs0))
                         {
                           var_s5 = temp_s4_4;
                           var_fs0 = spE0[1];
@@ -495,7 +491,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
         {
           temp_fv1 = ((Field_f32 *) (((char *) arg1) + 4))->v - result.second.end.y;
           var_v0 = 1;
-          if (!(zero = 0.0f, temp_fv1 >= zero))
+          if (!((zero, temp_fv1 >= 0.0f)))
           {
             var_v0 = 0;
           }
@@ -585,6 +581,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     }
     ret1:
     return 1;
+
   }
   return 0;
   block_131:
@@ -593,9 +590,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     *((SweepVec *) arg2) = vec28;
     return 1;
   }
+
   return 0;
-
 }
-
-
 
