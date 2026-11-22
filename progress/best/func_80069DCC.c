@@ -1305,29 +1305,29 @@ case 2: case 3: goto out_of_line_actor;
         }
         switch (D_800E1A0C) {
         case 0: {
-          var_fs3_8 = -func_80081B44(temp_s4, 4, 5);
+          temp_fs1 = -func_80081B44(temp_s4, 4, 5);
           var_v0_18 = 1;
-          if (!(var_fs3_8 <= 0.0002f))
+          if (!(temp_fs1 <= 0.0002f))
           {
             var_v0_18 = 0;
           }
           var_v1_17 = 1;
-          if (!(var_fs3_8 >= (-0.0002f)))
+          if (!(temp_fs1 >= (-0.0002f)))
           {
             var_v1_17 = 0;
           }
           if (var_v0_18 & var_v1_17)
           {
-            var_fs3_8 = func_80081B44(temp_s4, 2, 3);
+            temp_fs1 = func_80081B44(temp_s4, 2, 3);
           }
           temp_fs2_2 = func_80081B44(temp_s4, 0, 1);
           var_v1_18 = 1;
-          if (!(var_fs3_8 <= 0.0002f))
+          if (!(temp_fs1 <= 0.0002f))
           {
             var_v1_18 = 0;
           }
           var_v0_19 = 1;
-          if (!(var_fs3_8 >= (-0.0002f)))
+          if (!(temp_fs1 >= (-0.0002f)))
           {
             var_v0_19 = 0;
           }
@@ -1372,8 +1372,8 @@ case 2: case 3: goto out_of_line_actor;
             block_333:
             temp_fv0_26 = *((f32 *) (((char *) temp_s1) + 0x48));
 
-            temp_fv1_6 = var_fs3_8 * 32.0f;
-            temp_fv1_6 = ((temp_fv1_6 - temp_fv0_26) * 0.1f) + temp_fv0_26;
+            temp_fs1 *= 32.0f;
+            temp_fv1_6 = ((temp_fs1 - temp_fv0_26) * 0.1f) + temp_fv0_26;
             *((f32 *) (((char *) temp_s1) + 0x48)) = temp_fv1_6;
             if (temp_fv1_6 < (-32.0f))
             {
@@ -1404,8 +1404,9 @@ case 2: case 3: goto out_of_line_actor;
             *((f32 *) (((char *) arg0) + 0x24)) = (f32) ((D_800E1A04 + (*((f32 *) (((char *) temp_s1) + 0xEC)))) + (sinAngle(D_800E19F8) * 0.22500001f));
             *((f32 *) (((char *) arg0) + 0x2C)) = (f32) ((D_800E1A08 + (*((f32 *) (((char *) temp_s1) + 0xF4)))) + (cosAngle(D_800E19F8) * 0.22500001f));
             func_800698D8(arg0, temp_fs2_2, func_80069A14(temp_fs2_2));
+            temp_fs2_2 = temp_fs2_2 * 0.12f;
             temp_ft0_3 = *inline_fn2(temp_s1);
-            temp_fv0_27 = (((temp_fs2_2 * 0.12f) - temp_ft0_3) * 0.2f) + temp_ft0_3;
+            temp_fv0_27 = ((temp_fs2_2 - temp_ft0_3) * 0.2f) + temp_ft0_3;
             *((f32 *) (((char *) temp_s1) + 0x4C)) = temp_fv0_27;
             if (temp_fv0_27 < (-0.12f))
             {
@@ -1604,13 +1605,13 @@ case 2: case 3: goto out_of_line_actor;
         {
           *((f32 *) (((char *) temp_s1) + 0x48)) = 32.0f;
         }
-        var_fs3_8 = *((f32 *) (((char *) temp_s1) + 0x48));
+        var_fs3 = *((f32 *) (((char *) temp_s1) + 0x48));
         if (gWheelsGrounded != 0)
         {
-          var_fs3_8 *= 2.0f;
+          var_fs3 *= 2.0f;
         }
         var_s0_3 = 0;
-        D_800E1A1C -= var_fs3_8;
+        D_800E1A1C -= var_fs3;
         if ((func_800818AC(temp_s4, 0x16) != 0) || (func_800818AC(temp_s4, 0xC) != 0))
         {
           var_s0_3 = 1;

@@ -13,7 +13,7 @@ void func_800134D0(void *arg0)
 {
     u32 *hoist_D_80112EE0;
   u16 *spC;
-  void *sp4;
+  register void *sp4;
   u32 sp1C;
   volatile s32 sp2C;
   s32 *var_a0_5;
@@ -323,9 +323,11 @@ void func_800134D0(void *arg0)
     var_a0_3 = (hoist_D_80112EE0) + 1;
     do
     {
+      do {
+          var_a3_4 = 1;
+      } while (0);
       if ((*var_a0_3) != 0)
       {
-        var_a3_4 = 1;
         var_v1_3 = &(&D_800B283C)[var_t3];
         do
         {

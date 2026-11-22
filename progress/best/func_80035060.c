@@ -8,7 +8,7 @@ extern volatile unsigned char D_801007CF;
 extern u8 D_801007D0;
 extern u8 D_801007D1;
 extern s32 D_80109A54;
-extern s16 D_8010A4B0;
+extern volatile unsigned int D_8010A4B0;
 extern s32 D_8010A4EC;
 extern s16 D_8010D6F8;
 extern s32 gBorderSkipActive;
@@ -57,7 +57,7 @@ void func_80035060(void *arg0)
   f32 right;
   f32 bottom;
   s32 framebuffer;
-    s32 __repair_framebuffer_1;
+  s32 __repair_framebuffer_1;
   s32 phys;
   s32 width;
   s32 __repair_width_1;
@@ -181,12 +181,11 @@ void func_80035060(void *arg0)
       }
       if (temp_a1 & 1)
       {
-s32 __repair_branch_green_0;
-
+        s32 __repair_branch_green_0;
         __repair_branch_green_0 = D_801007D0;
         red = D_801007CF;
         blue = D_801007D1;
-        var_v1_2 = (((red << 8) & 0xF800) | inline_fn(__repair_branch_green_0, 0x7C0)); var_v1 = ((blue >> 2) & 0x3E) | var_v1_2;
+        var_v1_2 = ((red << 8) & 0xF800) | inline_fn(__repair_branch_green_0, 0x7C0); var_v1 = ((blue >> 2) & 0x3E) | var_v1_2;
       }
       temp_v1_2 = temp_a1 & 4;
       if (temp_v1_2)
@@ -202,7 +201,7 @@ s32 __repair_branch_green_0;
         green = D_80100778;
         red = D_80100777;
         blue = D_80100779;
-        temp_a1 = (((red << 8) & 0xF800) | ((green * 8) & 0x7C0)); var_v1_2 = ((blue >> 2) & 0x3E) | temp_a1;
+        temp_a1 = ((red << 8) & 0xF800) | ((green * 8) & 0x7C0); var_v1_2 = ((blue >> 2) & 0x3E) | temp_a1;
         block_26:
         var_v1_3 = var_v1_2 | 1;
 
@@ -210,7 +209,7 @@ s32 __repair_branch_green_0;
       duplicate:
       temp_v1_2 = var_v1_3 & 0xFFFF;
 
-      var_v1 = (temp_v1_2 << 0x10); var_a0_2 = var_v1 | temp_v1_2;
+      var_v1 = temp_v1_2 << 0x10; var_a0_2 = var_v1 | temp_v1_2;
     }
     var_a0_2 &= -(inline_fn2(((char *) arg0) + 0x100, 0x40) == 0);
     if (gTrackMarkerActiveMask)
