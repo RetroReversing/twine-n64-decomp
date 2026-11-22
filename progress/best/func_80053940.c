@@ -92,6 +92,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   s32 *sp124;
   u16 sp12E;
   s32 temp_v1_16;
+s32 __repair_phase_temp_v1_16;
   f32 *sp13C;
   u8 sp147;
   void *sp14C;
@@ -136,7 +137,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   s32 temp_v0;
   s32 temp_v0_2;
   s32 temp_v0_3;
-  s32 temp_v1_11;
+  
   u16 sp136;
   s32 temp_v1_4;
   s32 temp_v1_5;
@@ -503,7 +504,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       var_s6_3 = 0;
                       do
                       {
-                        temp_v1_11 = var_s6_3 & 0xFFFF; temp_a0 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_v1_11 * 2))); temp_a2 = ((((Field_s32 *) (((char *) temp_s4) + 0x3C))->v)) + (temp_v1_11 * 6);
+                        temp_v1_16 = var_s6_3 & 0xFFFF; temp_a0 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_v1_16 * 2))); temp_a2 = ((((Field_s32 *) (((char *) temp_s4) + 0x3C))->v)) + (temp_v1_16 * 6);
                         if ((sp166 & temp_a0) && (temp_a0 & sp16E))
                         {
                           temp_a3 = (((Field_s32 *) (((char *) temp_s4) + 0x34))->v); temp_s3_2 = temp_a3 + (((((Field_u16 *) (((char *) temp_a2) + 0))->v)) * 0xC); temp_s1_3 = temp_a3 + (((((Field_u16 *) (((char *) temp_a2) + 2))->v)) * 0xC); temp_s0 = temp_a3 + (((((Field_u16 *) (((char *) temp_a2) + 4))->v)) * 0xC);
@@ -589,7 +590,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                   {
                     temp_a0_2 = var_s6_4 & 0xFFFF;
                     temp_v1_13 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_a0_2 * 2)));
-                    temp_a2_2 = ((((Field_s32 *) (((char *) temp_s4) + 0x3C))->v)) + (temp_a0_2 * 3);
+                    temp_v1_16 = ((((Field_s32 *) (((char *) temp_s4) + 0x3C))->v)); temp_a2_2 = temp_v1_16 + (temp_a0_2 * 3);
                     if ((sp166 & temp_v1_13) && (sp16E & temp_v1_13))
                     {
                       temp_a3_2 = (((Field_s32 *) (((char *) temp_s4) + 0x34))->v);
@@ -739,15 +740,15 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     {
       *arg11 = gPlayerActor;
     }
-    temp_v1_16 = ((((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v)) | arg8;
-    (((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v) = temp_v1_16;
+    __repair_phase_temp_v1_16 = ((((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v)) | arg8;
+    (((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v) = __repair_phase_temp_v1_16;
     if (sp104 == spFC)
     {
-      (((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v) = temp_v1_16 | 8;
+      (((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v) = __repair_phase_temp_v1_16 | 8;
     }
     else
     {
-      (((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v) = temp_v1_16 & (~8);
+      (((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v) = __repair_phase_temp_v1_16 & (~8);
     }
   }
 

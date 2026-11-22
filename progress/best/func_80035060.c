@@ -60,7 +60,7 @@ void func_80035060(void *arg0)
   s32 phys;
   s32 width;
   s32 __repair_width_1;
-  volatile unsigned int modeFlag;
+  unsigned int modeFlag;
   s32 image;
   s32 red;
   s32 green;

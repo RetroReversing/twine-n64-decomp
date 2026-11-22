@@ -629,7 +629,7 @@ case 2: case 3: goto out_of_line_actor;
           {
             var_v1_3 = 0;
           }
-          if ((var_v0_3 & var_v1_3) && (absFloat(temp_fa0) < 0.01f))
+          if ((var_v0_3 & var_v1_3) && ((temp_fv0_3 = absFloat(temp_fa0)) < 0.01f))
           {
             *inline_fn2(temp_s1) = 0.0f;
           }
@@ -837,7 +837,7 @@ case 2: case 3: goto out_of_line_actor;
         {
           var_v1_9 = 0;
         }
-        if ((var_v0_10 & var_v1_9) && (absFloat(temp_fa0_2) < 0.01f))
+        if ((var_v0_10 & var_v1_9) && ((temp_fv0_9 = absFloat(temp_fa0_2)) < 0.01f))
         {
           *((f32 *) (((char *) temp_s1) + 0x50)) = 0.0f;
         }
@@ -988,7 +988,7 @@ case 2: case 3: goto out_of_line_actor;
               {
                 var_v1_13 = 0;
               }
-              if ((var_v0_14 & var_v1_13) && (absFloat(temp_fa0_3) < 0.01f))
+              if ((var_v0_14 & var_v1_13) && ((temp_fv0_15 = absFloat(temp_fa0_3)) < 0.01f))
               {
                 *inline_fn2(temp_s1) = 0.0f;
               }
@@ -1069,7 +1069,7 @@ case 2: case 3: goto out_of_line_actor;
         {
           var_v1_16 = 0;
         }
-        if ((var_v0_17 & var_v1_16) && (absFloat(temp_fa0_4) < 0.01f))
+        if ((var_v0_17 & var_v1_16) && ((temp_fv0_17 = absFloat(temp_fa0_4)) < 0.01f))
         {
           *((f32 *) (((char *) temp_s1) + 0x50)) = 0.0f;
         }
