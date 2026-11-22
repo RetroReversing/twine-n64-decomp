@@ -89,7 +89,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
             Ent *e;
             if ((s4 + s2) >= (a0 + 0x600))
             {
-              s1 = t0 - a1;
+              s1 = t0 - ((unsigned short) a1);
             }
             else
             {
@@ -222,17 +222,17 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
       }
       else
       {
-        D_800E425C->prev->next = NULL;
+        Node *head;
+        Node *prev;
         s0 = D_800E425C;
+        s0->prev->next = NULL;
+        prev = s0->prev;
+        head = D_800E4260;
         D_800E4260 = s0;
-        s0->next = D_800E4260;
-        D_800E4260->prev = s0;
-        do
-        {
-          s0->prev = NULL;
-        }
-        while (0);
-        D_800E425C = D_800E425C->prev;
+        head->prev = s0;
+        s0->next = head;
+        s0->prev = NULL;
+        D_800E425C = prev;
       }
       __repair_phase_storage.value = s2 + s1_2;
       s0->addr = s4 - s1_2;

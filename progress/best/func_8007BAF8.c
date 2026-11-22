@@ -109,7 +109,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
       frame.local.coord[2] -= *((f32 *) (((char *) D_80108F84) + 0x2C));
       func_80083B64(frame.inverse, &frame.local.coord[0]);
       var_fs2 = var_fs1;
-      if (((func_8003D6FC(&frame.local.coord[0], D_80108F84) << 0x18) == 0) || (sp104 == 0))
+      if (((func_8003D6FC(&frame.local.coord[0], D_80108F84) << 0x18) == 0) || (arg3 == 0))
       {
         var_s1 = 0;
         var_s0 = &corners[0].coord[0];
@@ -204,7 +204,7 @@ if (0) goto __repair_rows__;
           goto block_25;
         }
         var_v0 = 0;
-        if (sp104 != 0)
+        if (arg3 != 0)
         {
           temp_a2_3 = *((void **) (((char *) temp_fp) + 0x40));
           var_v0 = 1;
@@ -222,7 +222,7 @@ if (0) goto __repair_rows__;
         return var_v0;
       }
       block_24:
-      var_a1 = sp104;
+      var_a1 = arg3;
 
       block_25:
       func_80077960(arg0, var_a1);

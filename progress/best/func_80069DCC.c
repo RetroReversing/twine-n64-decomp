@@ -862,8 +862,8 @@ case 2: case 3: goto out_of_line_actor;
         }
         var_fs3 = *((f32 *) (((char *) temp_s1) + 0x50));
         var_s5 += var_fs3 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f);
-        temp_a0_5 = *((void **) (((char *) arg0) + 0x68));
         var_s6 += var_fs3 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f);
+        temp_a0_5 = *((void **) (((char *) arg0) + 0x68));
         if ((!((*((u16 *) (((char *) temp_a0_5) + 0xC))) & 0x40)) && ((*((u8 *) (((char *) temp_s1) + 0x195))) == 1))
         {
           var_v0_11 = 1;
@@ -1408,8 +1408,12 @@ case 2: case 3: goto out_of_line_actor;
             {
               *((f32 *) (((char *) arg0) + 0x40)) = (f32) (temp_fv1_7 + 2048.0f);
             }
-            *((f32 *) (((char *) arg0) + 0x24)) = (f32) ((D_800E1A04 + (*((f32 *) (((char *) temp_s1) + 0xEC)))) + (sinAngle(D_800E19F8) * 0.22500001f));
-            *((f32 *) (((char *) arg0) + 0x2C)) = (f32) ((D_800E1A08 + (*((f32 *) (((char *) temp_s1) + 0xF4)))) + (cosAngle(D_800E19F8) * 0.22500001f));
+            { f32 repair_projection_value; f32 repair_projection_argument;
+            repair_projection_value = (f32) ((D_800E1A04 + (*((f32 *) (((char *) temp_s1) + 0xEC)))) + (sinAngle(D_800E19F8) * 0.22500001f));
+            repair_projection_argument = D_800E19F8;
+            *((f32 *) (((char *) arg0) + 0x24)) = repair_projection_value;
+            *((f32 *) (((char *) arg0) + 0x2C)) = (f32) ((D_800E1A08 + (*((f32 *) (((char *) temp_s1) + 0xF4)))) + (cosAngle(repair_projection_argument) * 0.22500001f));
+            }
             func_800698D8(arg0, temp_fs2_2, func_80069A14(temp_fs2_2));
             temp_fs2_2 = temp_fs2_2 * 0.12f;
             temp_ft0_3 = *inline_fn2(temp_s1);

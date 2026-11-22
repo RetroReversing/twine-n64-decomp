@@ -21,6 +21,21 @@ inline static int inline_fn2(u32 *arg0)
   return ((((u32) arg0[0]) >> 6) * 0x28) + 0x100;
 }
 
+inline static int inline_fn23(u32 arg0)
+{
+  return ((arg0 >> 6) * 0x28) + 0x100;
+}
+
+inline static int inline_fn234(int arg0)
+{
+  return arg0;
+}
+
+inline static int inline_fn2345(void *arg0)
+{
+  return (*((u16 *) (((char *) arg0) + 4))) * 0x10;
+}
+
 void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
 {
   u32 sp10[6];
@@ -30,7 +45,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
   register f64 temp_fv1_9;
   s32 var_a0_2;
   s16 var_s6;
-  s16 var_v0_2;
+  int var_v0_2;
   s32 temp_a1;
   s32 temp_a3_3;
   s32 temp_a3_4;
@@ -167,7 +182,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
           temp_a3_3 = *((s32 *) (((char *) arg0) + 0x2C));
           temp_s4 = (sp10[1] & 0x3F) & 0xFF;
           temp_s0_2 = (u8) (temp_s4 & 0x1F);
-          func_80089F7C(temp_s1 + 0x30, temp_a3_3 + (((sp10[1] >> 6) * 0x28) + 0x100), (((u32) (((temp_s4 >> 5) + (((u32) ((sp10[5] + temp_s0_2) + 0x1F)) >> 5)) + 1)) >> 1) * 0x28, temp_a3_3 + 0x100);
+          func_80089F7C(temp_s1 + 0x30, temp_a3_3 + inline_fn23(sp10[1]), (((u32) (((temp_s4 >> 5) + (((u32) ((sp10[5] + temp_s0_2) + 0x1F)) >> 5)) + 1)) >> 1) * 0x28, temp_a3_3 + 0x100);
           *((u8 *) (((char *) temp_s1) + 0x3F)) = temp_s4;
           var_s4 = temp_s0_2;
           *((s8 *) (((char *) temp_s1) + 0x3D)) = (s8) (((u32) ((var_s4 + sp10[5]) + 0x1F)) >> 5);
@@ -217,7 +232,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
         if (!(sp10[3] == 0))
         {
           temp_s4_2 = (sp10[1] & 0x3F) & 0xFF;
-          *((s32 *) (((char *) temp_s1) + 0x30)) = (s32) ((*((s32 *) (((char *) arg0) + 0x2C))) + (((sp10[1] >> 6) * 0x28) + 0x100));
+          *((s32 *) (((char *) temp_s1) + 0x30)) = (s32) ((*((s32 *) (((char *) arg0) + 0x2C))) + inline_fn23(sp10[1]));
           temp_s0_2 = (u8) (temp_s4_2 & 0x1F);
           *((s16 *) (((char *) temp_s1) + 0x3A)) = 0;
           *((u8 *) (((char *) temp_s1) + 0x3F)) = temp_s4_2;
@@ -232,7 +247,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
         }
         *((s32 *) (((char *) temp_s1) + 0x24)) = (s32) ((*((s32 *) (((char *) arg0) + 0x2C))) + inline_fn2(sp10));
         var_s3_2 = (inline_fn(sp10) & 0x3F) & 0xFF;
-        *((s16 *) (((char *) temp_s1) + 0x2C)) = (s16) ((((u32) (((((u32) ((sp10[4] + (var_s3_2 & 0x1F)) + 0x1F)) >> 5) + (var_s3_2 >> 5)) + 1)) >> 1) * 0x28);
+        *((s16 *) (((char *) temp_s1) + 0x2C)) = (s16) ((((u32) (((((u32) inline_fn234((sp10[4] + (var_s3_2 & 0x1F)) + 0x1F)) >> 5) + (var_s3_2 >> 5)) + 1)) >> 1) * 0x28);
         *((s16 *) (((char *) temp_s1) + 0x2E)) = 0;
         *((s32 *) (((char *) temp_s1) + 0x40)) = (s32) (*((s32 *) (((char *) arg0) + 0x2C)));
         block_38:
@@ -255,7 +270,11 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
         var_s4 = (sp10[1] & 3) & 0xFF;
         *((s16 *) (((char *) temp_s1) + 0x3A)) = 0;
         *((s16 *) (((char *) temp_s1) + 0x38)) = (s16) ((((var_s4 + sp10[5]) + 3) & 0xFFFC) * 2);
-        *((s16 *) (((char *) temp_s1) + 0x42)) = (s16) sp10[5];
+        do
+        {
+          *((s16 *) (((char *) temp_s1) + 0x42)) = (s16) sp10[5];
+        }
+        while (0);
         *((u8 *) (((char *) temp_s1) + 0x3F)) = var_s4;
       }
       *((s32 *) (((char *) temp_s1) + 0x24)) = (s32) ((*((s32 *) (((char *) arg0) + 0x2C))) + ((inline_fn(sp10) & 0xFFFC) * 2));
@@ -348,7 +367,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
     *((s16 *) (((char *) temp_s1) + 0x20)) = var_a0_2;
   }
   *((s32 *) (((char *) temp_s1) + 0x44)) = 0;
-  *((s16 *) (((char *) temp_s1) + 0x4C)) = (s16) (var_a0_2 + (((*((u16 *) (((char *) arg0) + 4))) * 0x10) * sp10[4]));
+  *((s16 *) (((char *) temp_s1) + 0x4C)) = (s16) (var_a0_2 + (inline_fn2345(arg0) * sp10[4]));
   temp_v0 = ((*D_800E421C) * 0xA10) + D_800E4218;
   *temp_v0 += 1;
   advanceLoopPosition(arg0, 0xC0);
