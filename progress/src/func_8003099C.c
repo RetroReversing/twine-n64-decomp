@@ -12,11 +12,16 @@ extern MapEntry *D_800BFF04;
 extern void *D_800BFF08;
 extern u16 D_800BFF0C;
 extern s32 D_800BFF10;
-extern u8 D_800C02C0[];
-extern MapEntry *D_800C02D4;
-extern u16 D_800C02D8;
-extern u16 D_800C02DA;
-extern u8 D_800C02DC;
+typedef struct
+{
+  u8 pad0[0x14];
+  MapEntry *entries;
+  u16 size;
+  u16 id;
+  u8 count;
+  u8 pad1[3];
+} MapRec;
+extern MapRec D_800C02C0[];
 extern u16 D_800E1608;
 extern u16 D_800E160A;
 extern s8 D_80100768;
@@ -42,25 +47,30 @@ void func_8003099C(u8 map, u8 level)
   MapEntry *entry;
   s8 *line;
   D_800BFF02 = 0; D_80100768 = map; D_800BFF10 = 6; tableIndex = 0;
-  if (D_800C02D8 != 0)
+  if (D_800C02C0[0].size != 0)
   {
     do
     {
-      s32 offset = ((u16) tableIndex) * 32;
+      int idx = (u16) tableIndex;
       ++tableIndex;
-      if ((*((u16 *) (((u8 *) (&D_800C02DA)) + offset))) == map)
+      if (D_800C02C0[idx].id == map)
       {
-        entries = *((MapEntry **) (((u8 *) (&D_800C02D4)) + offset)); D_800BFF08 = D_800C02C0 + offset;
-        mapSize = *((u16 *) (((u8 *) (&D_800C02D8)) + offset)); D_800BFF04 = entries;
-        count = *((u8 *) ((&D_800C02DC) + offset)); D_800BFF0C = mapSize;
-        D_800E160A = (u16) (level << 12); D_800E1608 = count;
+        entries = D_800C02C0[idx].entries;
+        D_800BFF08 = &D_800C02C0[idx];
+        D_800BFF04 = entries;
+        count = D_800C02C0[idx].count;
+        mapSize = D_800C02C0[idx].size;
+        D_800BFF0C = mapSize;
+        D_800E160A = (u16) (level << 12);
+        D_800E1608 = count;
         for (i = 0; ((u16) i) < count; ++i)
         {
-          if (entries == NULL)
+          MapEntry *base = D_800BFF04;
+          if (base == NULL)
           {
             break;
           }
-          entry = (MapEntry *) ((((u16) i) * 8) + ((u8 *) entries)); flags = entry->flags; newFlags = inline_fn2(flags, 0xFDF0); entry->flags = newFlags;
+          entry = inline_fn((((u16) i) * 8) + ((u8 *) base)); flags = entry->flags; newFlags = inline_fn2(flags, 0xFDF0); entry->flags = newFlags;
           if (newFlags & 0x400)
           {
             entry->flags = newFlags | 0x200;
@@ -102,7 +112,7 @@ void func_8003099C(u8 map, u8 level)
         return;
       }
     }
-    while ((*((u16 *) (((u8 *) (&D_800C02D8)) + (((u16) tableIndex) * 32)))) != 0);
+    while (D_800C02C0[(u16) tableIndex].size != 0);
   }
   D_800BFF04 = NULL; D_80100768 = 0; D_800E1608 = 0; D_800E160A = 0; D_800BFF0C = 3;
 }
