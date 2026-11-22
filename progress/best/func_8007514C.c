@@ -13,7 +13,7 @@ extern void * volatile sBonusObjectTable;
 extern s8 func_801183F4[];
 void func_8007514C(void *obj)
 {
-  volatile unsigned short near;
+  s32 near;
   s32 slot;
   s32 force;
   s32 **scripts;
@@ -58,7 +58,6 @@ void func_8007514C(void *obj)
     {
       return;
     }
-      near = force;
       goto check;
 
     case 4:
@@ -80,12 +79,11 @@ void func_8007514C(void *obj)
   }
 
   joined:
-  near = force;
-
   check:
+  near = force;
   position = ((u8 *) obj) + 0x24;
 
-  if ((!((s16) near)) && (!(Vec3_DistanceSq(position, ((u8 *) sBonusObjectTable) + 0x24) < limit)))
+  if ((!near) && (!(Vec3_DistanceSq(position, ((u8 *) sBonusObjectTable) + 0x24) < limit)))
   {
     return;
   }

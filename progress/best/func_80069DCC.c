@@ -114,8 +114,15 @@ void func_80069DCC(void *arg0)
     volatile f32 speed;
     u32 after_speed;
     void * roads;
+    u32 trailing[1];
     
   } frame;
+  f32 motion_24;
+  f32 motion_40;
+  f32 motion_28;
+  f32 motion_2C;
+  f32 motion_3C;
+  f32 motion_44;
   f32 temp_fa0;
   f32 temp_fa0_2;
   f32 temp_fa0_3;
@@ -1826,12 +1833,18 @@ case 2: case 3: goto out_of_line_actor;
       }
         temp_a0_6 = temp_s1 + 0x11C;
         func_80047B14(temp_a0_6, 0.8f, temp_a0_6);
-        *((f32 *) (((char *) arg0) + 0x24)) = (f32) ((*((f32 *) (((char *) arg0) + 0x24))) + var_s5);
-        *((f32 *) (((char *) arg0) + 0x40)) = (f32) ((*((f32 *) (((char *) arg0) + 0x40))) + D_800E1A1C);
-        *((f32 *) (((char *) arg0) + 0x28)) = (f32) ((*((f32 *) (((char *) arg0) + 0x28))) + var_fp);
-        *((f32 *) (((char *) arg0) + 0x2C)) = (f32) ((*((f32 *) (((char *) arg0) + 0x2C))) + var_s6);
-        *((f32 *) (((char *) arg0) + 0x3C)) = (f32) ((*((f32 *) (((char *) arg0) + 0x3C))) + frame.speed);
-        *((f32 *) (((char *) arg0) + 0x44)) = (f32) ((*((f32 *) (((char *) arg0) + 0x44))) + roll.number);
+        motion_24 = (f32) ((*((f32 *) (((char *) arg0) + 0x24))) + var_s5);
+        motion_40 = (f32) ((*((f32 *) (((char *) arg0) + 0x40))) + D_800E1A1C);
+        motion_28 = (f32) ((*((f32 *) (((char *) arg0) + 0x28))) + var_fp);
+        motion_2C = (f32) ((*((f32 *) (((char *) arg0) + 0x2C))) + var_s6);
+        motion_3C = (f32) ((*((f32 *) (((char *) arg0) + 0x3C))) + frame.speed);
+        motion_44 = (f32) ((*((f32 *) (((char *) arg0) + 0x44))) + roll.number);
+        *((f32 *) (((char *) arg0) + 0x24)) = motion_24;
+        *((f32 *) (((char *) arg0) + 0x40)) = motion_40;
+        *((f32 *) (((char *) arg0) + 0x28)) = motion_28;
+        *((f32 *) (((char *) arg0) + 0x2C)) = motion_2C;
+        *((f32 *) (((char *) arg0) + 0x3C)) = motion_3C;
+        *((f32 *) (((char *) arg0) + 0x44)) = motion_44;
         goto block_474;
         out_of_line_actor:
         if ((*((u8 *) (((char *) temp_s1) + 0x5A8))) == 3)
@@ -1858,7 +1871,7 @@ case 4:
         {
           *((s8 *) (((char *) temp_s1) + 0x307)) = temp_v0_7;
         }
-        if ((((s8) (*((u8 *) (((char *) temp_s1) + 0x197)))) + 1) <= 0)
+        if (((s8) (*((u8 *) (((char *) temp_s1) + 0x197)))) < 0)
         {
           temp_v1_26 = inline_fn((char *) temp_s1, 0x307);
           *((u8 *) (((char *) temp_s1) + 0x197)) = 0xFU;

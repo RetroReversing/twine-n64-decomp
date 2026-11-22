@@ -597,9 +597,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
       ((Field_f32 *) (((char *) arg4) + 0))->v = (f32) (temp_ft1 + (matrix[0] - result.rotated[0]));
       ((Field_f32 *) (((char *) arg4) + 4))->v = (f32) (temp_fv0 + (matrix[1] - result.rotated[1]));
       ((Field_f32 *) (((char *) arg4) + 8))->v = (f32) (vec70.z + (matrix[2] - result.rotated[2]));
-      vec118.x = ((Field_f32 *) (((char *) sp134) + 0))->v;
-      vec118.y = ((Field_f32 *) (((char *) sp134) + 4))->v;
-      vec118.z = ((Field_f32 *) (((char *) sp134) + 8))->v;
+      vec118 = *(SweepVec *) sp134;
       vec118.x += ((Field_f32 *) (((char *) arg4) + 0))->v;
       vec118.y += ((Field_f32 *) (((char *) arg4) + 4))->v;
       vec118.z += ((Field_f32 *) (((char *) arg4) + 8))->v;

@@ -413,7 +413,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
               if (((((((*((f32 *) (((char *) temp_s7) + 0x18))) < (sp28 + arg5)) && ((sp28 - arg5) < (*((f32 *) (((char *) temp_s7) + 0x1C))))) && ((*((f32 *) (((char *) temp_s7) + 0x28))) < (sp30 + arg5))) && ((sp30 - arg5) < (*((f32 *) (((char *) temp_s7) + 0x2C))))) && ((*((f32 *) (((char *) temp_s7) + 0x20))) < (sp2C + arg5))) && ((sp2C - arg5) < (*((f32 *) (((char *) temp_s7) + 0x24)))))
               {
                 *((Vec3Copy *) (&spC0)) = *((Vec3Copy *) (&sp28));
-                *((Vec3Copy *) (&spB0)) = *((Vec3Copy *) (&sp28));
+                *((Vec3Copy *) (&spB0)) = *((Vec3Copy *) (&spC0));
                 spB0 -= arg5;
                 spB8 -= arg5;
                 spC0 += arg5;
@@ -679,9 +679,9 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
           if (((((((*((f32 *) (((char *) temp_s5) + 0x18))) < (spD0 + arg5)) && ((spD0 - arg5) < (*((f32 *) (((char *) temp_s5) + 0x1C))))) && ((*((f32 *) (((char *) temp_s5) + 0x28))) < (spD8 + arg5))) && ((spD8 - arg5) < (*((f32 *) (((char *) temp_s5) + 0x2C))))) && ((*((f32 *) (((char *) temp_s5) + 0x20))) < (spD4 + arg5))) && ((spD4 - arg5) < (*((f32 *) (((char *) temp_s5) + 0x24)))))
           {
             *((Vec3Copy *) (&sp130)) = *((Vec3Copy *) (&spD0));
-            *((Vec3Copy *) (&sp120)) = *((Vec3Copy *) (&spD0));
-            sp128 -= arg5;
+            *((Vec3Copy *) (&sp120)) = *((Vec3Copy *) (&sp130));
             sp120 -= arg5;
+            sp128 -= arg5;
             sp130 += arg5;
             sp138 += arg5;
             temp_v0_3 = func_8004E418(temp_s5 + 0x18, &sp120, &sp130);
