@@ -34,8 +34,7 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
       u32 remaining = count - 1;
       if (remaining == 0)
       {
-        ++attempt;
-        goto check_attempt;
+        goto increment_attempt;
       }
       limit = remaining;
     }
@@ -80,8 +79,8 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
     {
       goto scan;
     }
+    increment_attempt:
     ++attempt;
-    check_attempt:
     if (attempt < 3)
     {
       goto retry;
@@ -91,4 +90,5 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
   while (0);
   return 0;
 }
+
 

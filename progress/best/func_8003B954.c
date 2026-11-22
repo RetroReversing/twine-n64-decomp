@@ -97,6 +97,7 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
   void *temp_v1_4;
   void *temp_v1_5;
   void *temp_v1_6;
+  unsigned int yOrigin = arg1;
   var_s7 = 0;
   if ((func_8003FA78(0x2A) << 0x18) != 0)
   {
@@ -264,8 +265,6 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
             break;
 
           case 7:
-            do
-          {
             var_s0 += 1;
             if (D_800C0738 == 0)
             {
@@ -274,8 +273,6 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
               ((__repair_field_4 *) temp_a1_2)->value = (s32) (((((temp_t2_2 >> 0x18) << 0x18) | (temp_t2_2 & 0xFF0000)) | (temp_t2_2 & 0xFF00)) | (temp_t2_2 & 0xFF));
             }
             break;
-          }
-          while (0);
 
           case 10:
             if (((__repair_field_18 *) temp_s3)->value || var_s0)
@@ -355,7 +352,7 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
                 var_a0 = 0;
                 for (;;)
                 {
-                  temp_a1_4 = temp_a2 + temp_v1_2; temp_v1_3 = (var_a0 * 2) + ((__repair_field_0 *) temp_a1_4)->value; var_a0 += 1;
+                  temp_a1_4 = temp_a2 + temp_v1_2; temp_v1_3 = (var_a0 * 2) + ((volatile __repair_field_0 *) temp_a1_4)->value; var_a0 += 1;
                   if ((*((u8 *) (((char *) temp_v1_3) + 0))) == temp_a1_3_default)
                   {
                     var_s1 -= *((s8 *) (((char *) temp_v1_3) + 1));
@@ -438,4 +435,5 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
     ((__repair_field_4 *) temp_v0_6)->value = 0;
   }
 }
+
 

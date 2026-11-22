@@ -56,14 +56,13 @@ void *func_801183F4(void *arg0, u8 arg1)
   int var_v0_5;
   u32 temp_v1_4;
   u32 var_s1;
-  u32 var_s1_2;
   u8 temp_a1_2;
   u32 temp_s4;
   u8 temp_v1_3;
   u8 temp_v1_5;
   void **var_a0;
   void **var_s0;
-  void *temp_a1;
+  void *other;
   void *temp_s3;
   void *temp_s6;
   void *var_s0_2;
@@ -82,8 +81,9 @@ void *func_801183F4(void *arg0, u8 arg1)
   var_fs2 = 65536.0f;
   if (D_800BF68B[temp_v1 * 12] & 2)
   {
+    u32 total = gSaveTotalSlots;
     var_s1 = 0;
-    if (((u32) gSaveTotalSlots) > 0U)
+    if ((u32)var_s7 < total)
     {
       var_a0 = D_80102CD0;
       do
@@ -96,22 +96,23 @@ void *func_801183F4(void *arg0, u8 arg1)
         var_s1 += 1;
         var_a0++;
       }
-      while (var_s1 < ((u32) gSaveTotalSlots));
+      while (var_s1 < total);
     }
     if (var_s5 <= 0)
     {
       var_s5 = 1;
     }
   }
-  var_s1_2 = 0;
+  var_s1 = 0;
   var_s0 = sBonusObjectTable;
   var_fp = 0;
   do
   {
     if ((((*var_s0) != NULL) && ((*var_s0) != arg0)) && (!((*((f32 *) (((char *) (*var_s0)) + 0x74))) <= 0.0f)))
     {
+      other = FIELD(*var_s0, void *, 0x6C);
       temp_v0 = *((u16 *) (((char *) (*var_s0)) + 0x78));
-      if ((((temp_v0 == 0x4D) | (temp_v0 == 0x61)) == 0) && (((temp_v1_3 = *((u8 *) (((char *) (*((void **) (((char *) temp_s3) + 0xB4)))) + 0x12)), temp_v1_3 == 2)) || (temp_v1_3 != (*((u8 *) (((char *) (*((void **) (((char *) (*((void **) (((char *) (*var_s0)) + 0x6C)))) + 0xB4)))) + 0x12))))))
+      if ((((temp_v0 == 0x4D) | (temp_v0 == 0x61)) == 0) && (((temp_v1_3 = *((u8 *) (((char *) (*((void **) (((char *) temp_s3) + 0xB4)))) + 0x12)), temp_v1_3 == 2)) || (temp_v1_3 != (*((u8 *) (((char *) (*((void **) (((char *) other) + 0xB4)))) + 0x12))))))
       {
         var_fs0 = approxDistance(arg0 + 0x24, (*var_s0) + 0x24) * (*((f32 *) (((char *) temp_s6) + 0x0)));
         if (((u32) (gSceneType[0] - 2)) < 2U)
@@ -148,7 +149,7 @@ void *func_801183F4(void *arg0, u8 arg1)
           var_fs0 /= ((f32) var_v0_5) / ((f32) var_s5);
           var_v0_4 = temp_s4 & 8;
         }
-        if ((var_v0_4 != 0) && (var_s1_2 == sActorPartnerSlots[*((s8 *) (((char *) temp_s3) + 0x182))]))
+        if ((var_v0_4 != 0) && (var_s1 == sActorPartnerSlots[*((s8 *) (((char *) temp_s3) + 0x182))]))
         {
           var_fs0 *= 0.25f;
         }
@@ -173,10 +174,10 @@ void *func_801183F4(void *arg0, u8 arg1)
       }
     }
     var_s0++;
-    var_s1_2 += 1;
+    var_s1 += 1;
     var_fp += 4;
   }
-  while (var_s1_2 < 4U);
+  while (var_s1 < 4U);
   if ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) == 0)
   {
     var_fs1 = 65536.0f;
@@ -198,6 +199,9 @@ void *func_801183F4(void *arg0, u8 arg1)
     var_s0_2 = D_8010A410;
     if (var_s0_2 != NULL)
     {
+      u8 *scene = gSceneType;
+      void **origins = sProbeOriginTable;
+      u8 *otherActive = D_8011F169;
       do
       {
         var_fs0_2 = 1.0f;
@@ -227,10 +231,7 @@ void *func_801183F4(void *arg0, u8 arg1)
             var_a3 = 1;
           }
             var_v0_7 = (*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) != 0;
-            block_70:
-          var_a3 &= -var_v0_7;
-
-            goto block_75;
+            goto block_70;
 
           case 25:
             if ((*((s16 *) (((char *) var_s0_2) + 0x7C))) != (*((u8 *) (((char *) (*((void **) (((char *) temp_s3) + 0xB4)))) + 0x12))))
@@ -245,11 +246,11 @@ void *func_801183F4(void *arg0, u8 arg1)
             temp_a1_2 = *((u8 *) (((char *) (*((void **) (((char *) temp_s3) + 0xB4)))) + 0x12));
             if ((*((s16 *) (((char *) var_s0_2) + 0x7A))) == temp_a1_2)
           {
-            if (sProbeOriginTable[1 - temp_a1_2] == arg0)
+            if (origins[1 - temp_a1_2] == arg0)
             {
               var_fs0_2 = 0.0f;
               var_a3 = 1;
-              if (gSceneType[0] == 3)
+              if (*scene == 3)
               {
                 temp_v1_5 = sProbeActive[temp_a1_2];
                 var_a2 = 0;
@@ -276,23 +277,25 @@ void *func_801183F4(void *arg0, u8 arg1)
                     }
                     while (temp_v0_2 < ((s32) gSaveTotalSlots));
                   }
-                  var_a3 = 1 & (-(var_a2 != 1));
+                  var_a3 &= -(var_a2 != 1);
                 }
               }
             }
           }
           else
-            if (D_8011F169[inline_fn(-((s32) temp_a1_2))] != 0)
+            if (*(otherActive - temp_a1_2) != 0)
           {
             var_fs0_2 = *((f32 *) (((char *) temp_s6) + 0x10));
             var_a3 = 1;
           }
             var_v0_7 = (*((s16 *) (((char *) arg0) + 0x7A))) != 7;
-            goto block_70;
+            block_70:
+            var_a3 &= -var_v0_7;
+            goto block_75;
 
           case 26:
             temp_v1_6 = *((s16 *) (((char *) var_s0_2) + 0x7A));
-            if ((sProbeOriginTable[temp_v1_6] == 0) && (sProbeActive[temp_v1_6] == 0))
+            if ((origins[temp_v1_6] == 0) && (sProbeActive[temp_v1_6] == 0))
           {
             var_a3 = 1;
           }

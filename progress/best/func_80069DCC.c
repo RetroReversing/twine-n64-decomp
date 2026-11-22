@@ -99,6 +99,7 @@ inline static char *inline_fn23(char *arg0, int arg1)
 
 void func_80069DCC(void *arg0)
 {
+    typedef struct { unsigned char repair_zero_padding[0xcc]; union { float repair_zero_number; unsigned int repair_zero_bits; } repair_zero_field; } RepairZeroRecord;
     typedef struct { unsigned char repair_sign_padding[0x34]; f32 repair_sign_sample; } RepairSignRecord;
    f32 repair_delta_input;
    f32 repair_axis_z;
@@ -1513,7 +1514,7 @@ case 2: case 3: goto out_of_line_actor;
        D_800E1A0C = 0;
 
        block_363:
-       *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
+       ((RepairZeroRecord *) temp_s1)->repair_zero_field.repair_zero_bits = 0;
 
      }
        goto block_430;
