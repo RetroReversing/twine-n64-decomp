@@ -3664,14 +3664,6 @@
   "score_after": 325
  },
  {
-  "function": "func_8006201C",
-  "text": "Baseline 1200, six local repair variants all equal or worse. Best revision afde475c406ebb250feb. Target and candidate differ primarily in register allocation/order from initial mismatch: target saves s3 and moves arg2 into s3, then stores s2 and uses a3 as shifted value; candidate has a different spill/live range for s2 and extra `sll a3,a3,16`. Continue by giving temp_a3 a concrete struct pointer type and correcting function prototypes/global data types from assembly; retain baseline source.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795138757.740675,
-  "score_before": 1200,
-  "score_after": 1200
- },
- {
   "function": "spawnSurfaceEffect",
   "text": "Reduced frame scratch from bytes[36] to bytes[32], which improved the verified score from 28 to 20 and aligned the stack frame (0x50). Remaining differences are at the final float clamp: target loads the temporary at 0x34($sp), then current field at 4($s1), compares field < temporary, and uses bc1tl to store; compiler currently folds/reorders the temp as an alias to field, so volatile on the compare operand made score much worse (290). Restore revision 71adb82cc7e33ed59e5d as best. Need explore source expression/temporary arrangement to preserve stack temp load and branch-likely. Move-on budget had 2/6 no-better after the last improvement.",
   "by": "codex-gpt-6-luna-16",
@@ -7336,14 +7328,6 @@
   "score_after": 4190
  },
  {
-  "function": "func_8006201C",
-  "text": "Compiled a corrected source with explicit extern data symbols; score 1200. Changing arg3 from s16 to s32 worsened to 1300 and reordered the prologue, so saved best stays score 1200. Tried six local families (inferred_record_layout, address_temporary, parameter_width, call_arity, const_read, target_call_arity); none beat baseline. Remaining diffs center on prologue scheduling (target moves/copies args between callee saved register stores) and later field/FPU ordering. First attempt's draft compiler errors were from the earlier generated preflight; manually supplied declarations compiled successfully.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795178726.736327,
-  "score_before": 1200,
-  "score_after": 1200
- },
- {
   "function": "spawnFlashEffect",
   "text": "Baseline score 15, only three register-allocation differences in switch dispatch/index calculation: target performs subu/sltiu/sll using $v1 while candidate uses $a0. Tried caller prototype, CFG lifetimes, address temp, call arity, callee parameter width, switch layout. Prototype/switch variants caused relocation/jump-table problems or regressions; others did not alter assembly. Preserve baseline and tune switch selector local/register lifetime.",
   "by": "codex-gpt-6-luna-19",
@@ -9566,14 +9550,6 @@
   "created_at": 1795182960.861323,
   "score_before": 295,
   "score_after": 295
- },
- {
-  "function": "func_8006201C",
-  "text": "Baseline afde475c406ebb250feb rechecked 1200. Struct inference, address temporary and const qualifier tied; removing call arguments or widening arg3 worsened to 1300 or 1595. Remaining 31 mismatch rows largely instruction scheduling, starting with s2 save and arg3 sign extension; inspect full diff and test ordering of initialization stores and argument preservation.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795182960.871327,
-  "score_before": 1200,
-  "score_after": 1200
  },
  {
   "function": "playTrackMarkerCue",
@@ -17616,14 +17592,6 @@
   "score_after": 790
  },
  {
-  "function": "func_8006201C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Current best candidate rechecked at 1200. Tried six local repair families; toolchain gcc-2.7.2-kmc is unavailable, so variants did not compile. Prior session also hit same missing compiler. Install/restore toolchain before further experiments; candidate retained at afde475c406ebb250feb.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795193801.6270971,
-  "score_before": 1200,
-  "score_after": 1200
- },
- {
   "function": "updateParticleEffect",
   "text": "[Released without compiling it once; notes not checked by a compile.] Normal judge twice reported GCC 2.7.2 KMC was not installed. Saved baseline previously verified at 4935. Pending candidate places the shared removal block before the update path, retains the original NaN-sensitive comparison, and stages final Y/Z stores in target order. Compile it once the project toolchain is available.",
   "by": "codex-gpt-6.2-sol-1",
@@ -19440,14 +19408,6 @@
   "score_after": 2035
  },
  {
-  "function": "func_8006201C",
-  "text": "Could not improve the historical 810 candidate; current inputs rechecked a different draft at 1725. Corrected func_80044670 to its matched 3-argument prototype and removed the extraneous fourth argument; resulting code remained 1725. The first mismatch is the 0x6C pointer load allocated to $a0 rather than target $a3; downstream stores/order differ. Tried s8* versus void* for temp_a3 and declaration reorder, both produced identical assembly. address_temporary repairs also had no effect. Preserve saved historical best; next investigate register lifetime/variable types and argument positioning around temp_a3, then restore headers/input context if historical score comparability matters.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795200040.6974149,
-  "score_before": 810,
-  "score_after": 810
- },
- {
   "function": "updateParticleEffect",
   "text": "Rechecked baseline is 4135 and best remains 4135. Six local repair alternatives yielded five identical scores and one worse score (5042): explicit loop backedge, inferred record layout, address temporary, constant local, sum shape, const_read. Candidate's first mismatch is frame/register allocation at entry: target saves $s0 at 0x30, candidate saves $s1 at 0x34; target keeps arg0 in $s0. Further work should inspect callee signatures and simplify temporary/local usage to reproduce target's register allocation. No reusable convention established.",
   "by": "codex-gpt-6-luna-11",
@@ -20654,14 +20614,6 @@
   "created_at": 1795201980.231013,
   "score_before": 20,
   "score_after": 20
- },
- {
-  "function": "func_8006201C",
-  "text": "Saved baseline rechecked at 810 (88 instructions), current mismatch is chiefly instruction order plus registers. A custom rewrite first scored same. Moving first two independent field writes so word field preceded byte field scored 1180, so discard. Reordering initialization for inverse/count-related operations ahead of table lookup scored 1430; discard. Reordering adjacent 1000.0 and -1 stores preserved 810 but only changed two displayed rows; no improvement. Reordered global lookup/store segment worsened to 930. Existing candidate reproduces machine behavior but emitted order puts the byte store and arg1+0x2E load after the word/s16/s32 stores; target performs byte store at +0x2E, then loads arg1+0x2E before writing arg2 to +0. Continued likely approach: use target page 40 onward, add scoped temporaries for arg1 fields/table bytes and explicitly stage loads to control instruction scheduling. Target sequence after division does sh zero + lhu $a1 from result field, then clears bytes/sets constants, stores inverse, table global load+convert/store, table global second value and float constant/arg2 initialization before call. Prior source ordered table globals too early relative to constants.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795201983.660511,
-  "score_before": 810,
-  "score_after": 810
  },
  {
   "function": "func_8009F860",
@@ -24800,14 +24752,6 @@
   "score_after": 11654
  },
  {
-  "function": "func_8006201C",
-  "text": "Saved score 90, 88/88 instructions, six register and two order differences. Staged loads, s32 signed kind, volatile u16 reload at +0x2C and volatile u8 store at +0x29 recovered assembly shape. Removing provisional fourth argument scored 200 (callee known as three args); volatile second global color read recovered a region but scored 380; comma-wrapped final store produced identical output. Try explicit shared ff local and use distinct variables for halfword/global color loads to move ff from a2 to v1 and halfword color into v0. a0=s0 is scheduled too early.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795210626.8429482,
-  "score_before": 600,
-  "score_after": 90
- },
- {
   "function": "func_8008AECC",
   "text": "Stalled at 510 (saved best rev 2926c02613fe052e3e2e). This session tried: hoisting D_800E41DC into a per-iteration local `u8 *base` in the loop with ent[0x60]/ent[0] reads -> 1895 (much worse; compiler reloads/reorders loop head and branches shift). Earlier notes: k!=0 branch orientation worse (1115), declaration order / volatile / s16 store variants no gain. Remaining diff is loop-head load ordering and ring-buffer section reloads of D_800E421C/D_800E4218. Untested: write the loop with explicit goto/label so the D_800E41DC load precedes index computation without changing the if-guard structure.\nper-iteration local base pointer for D_800E41DC in loop head\nscore worsened to 1895; branch targets shifted",
   "by": "api-claude-haiku-5-5-6",
@@ -26231,15 +26175,6 @@
   "score_before": 3101,
   "score_after": 875,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
- },
- {
-  "function": "func_8006201C",
-  "text": "Current best 90/88 instructions, all opcodes present; remaining 8 diff rows are register allocation/order. Fixing globals as `extern u8 D_800B20D2`, `extern s16 D_800C2942`, `extern u8 D_800B2322` and using those ordinary loads restores target lbu/lh and recovers score 90 from a bad volatile/cast trial score 1060. Remaining mismatch starts at target addiu v1,0,0xff; candidate uses a2; then lhu/sb color register and moved `addu a0,s0` ordering. Multiple declaration/no-op tweaks produced identical instructions. Next step: try using an explicit `u8 ff = 0xFF` local with its lifetime spanning 0x7F/0x82 and later 0x29 stores to steer allocator toward v1; keep saved candidate as baseline.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795214471.372438,
-  "score_before": 2090,
-  "score_after": 90,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  },
  {
   "function": "emitObjectMatrixCmd",
@@ -30693,15 +30628,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:efe3450dcf34282620274d198b5fcec1b70f503576260df29e8397730493011c"
  },
  {
-  "function": "func_8006201C",
-  "text": "Saved score 60. Splitting the input color halfword from the global color temporary fixed all six register mismatches. Only move $a0,$s0 sits nine instructions early. Disabling either scheduling stage worsened the result, and disabling peepholes tied.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795227867.789243,
-  "score_before": 90,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
- },
- {
   "function": "func_80082BD0",
   "text": "Session capacity reached. Direct address and OR-zero both scored 1110, generating nine independent global loads; restored 200 candidate using alignment mask.",
   "by": "codex-gpt-6.1-terra-5",
@@ -32813,15 +32739,6 @@
   "score_before": 439510,
   "score_after": 439510,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
- },
- {
-  "function": "func_8006201C",
-  "text": "Best 60 (rev 92ee662e3c8202352a1e): only `move $a0,$s0` for the final call is scheduled right after lh a2 (D_800C2942) instead of after the 1000.0 lui/mtc1 (before addiu -1). Tried without effect: removing volatile on +0x29, cast of temp_v0 arg (void*/s32), register temp_v0, swapping 1000.0/-1 store order (same 60); moving -1 store above color load (415); dropping volatile on mode load (205); inlining D_800C2942 (470). Next step: change how the 1000.0f constant is materialized (e.g. one f32 local) or where D_800B2322 load sits relative to the 0x14/0x18 stores.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795233369.740959,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  },
  {
   "function": "saveLoadSlot",
@@ -35754,14 +35671,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6093372827dc073ee336729d6190cbcc476042f839b5c1c56c689f13e5adaae6"
  },
  {
-  "function": "func_8006201C",
-  "text": "Reconstructed source repeatedly failed parsing because declarations from draft incorrectly put return signatures (void*) etc, plus symbol globals not in shared context; missing M2C_FIELD types parse as macro typo in this raw submission. Historical best candidate score 60 with 6 registers + 2 order differences, approaches tried extensively. Next step: take last matched candidate via get_candidate(saved_best) and inspect assembly mismatch; likely use declarations for globals as byte arrays and correct callee signature from exact matched callee context before trying staged loads.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795239747.673763,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "updateRandomMenuItem",
   "text": "Claim reset during sequential edits. Revision b4fc271db2db3fcaae4d scored 2615 with unsigned RNG, one-argument call and flag-pointer switch; target instead loads each flag directly and shares decrement. Signed switch index against reset draft scored 4581 with unresolved MULTU_HI. Next: try signed switch index on the 2615 candidate.",
   "by": "codex-gpt-6.1-terra-5",
@@ -36095,15 +36004,6 @@
   "score_before": 680,
   "score_after": 680,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:912ef4261947508f6109aa4d233ad2ce3f993dbb2f5bd5b21936afcdc73ec907"
- },
- {
-  "function": "func_8006201C",
-  "text": "Local record layouts, signedness, constant sharing and declaration order.\nBaseline 2095; layouts and individual width changes unchanged, other changes worse.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795240708.259925,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  },
  {
   "function": "heapAllocTagged",
@@ -36506,24 +36406,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:dfa4f50deca474b881a539b8ca1a3d4e6ad37875757b51da90af53ac6b046cd5:887656ab9a5ab6938a8d177369683abcbdd756dc29771eb56ee2dc739dd1ca35"
  },
  {
-  "function": "func_8006201C",
-  "text": "Claim disappeared during compile. Verified score 655 at revision 063f01c8b7234bc21c70: original D_800B20D2 -> offset 1C and D_800B2322 -> 20 are correct per target assembly; moving division before zero stores and moving 0x20 assignment before 1000 stores improved scheduling. Next: move -1 store after 0x20 assignment to adjust register lifetimes; last patch outcome was lost.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795241831.444917,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
- },
- {
-  "function": "func_8006201C",
-  "text": "Rechecked saved baseline score 1070. Corrected legacy C89 declaration placement in rewrite; it compiled only after local declarations, but did not improve. Local repairs: inferred record layout tied 1070; const reads, field widths, arg3 widening, global signedness, shared 0xFF constant all worsened. Target schedules float reciprocal division before stores while baseline emits it later; remaining differences are chiefly order/control flow plus two register. Next step: restructure reciprocal calculation into a local initialized immediately after duration normalization, before the field stores, then compile and inspect assembly schedule.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795241851.871427,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
- },
- {
   "function": "func_8005E68C",
   "text": "Best this session 3890 (rev 91b2e493d813): clean C using u8* offsets, single call site `effectSetAnimFrame(obj,a1,a2)` via goto (case 0/1 set a1,a2 from tables; case 2 and !(arg10&1) go to default a1=arg2,a2=arg3&0xFFFF; other arg4 values skip the call). a1,a2 as s32 gives table lh (signed) as in target. Remaining: target frame 0x50 saves s0-s7+fp and spills arg2/arg4/arg6 (u16) to sp+0x16/0x1E/0x26 (register-pressure spill slots; reloaded with lhu), arg10 kept in s6 then copied to s2; mine saves fewer regs (frame 0x48) and reloads arg10 from stack (lw 0x70) twice. Target does andi v0,s6,2 earlier (before sw zero 0xc). Next: force all args into saved regs (e.g. copy arg10 to a local early, keep arg3 in fp, arg7/8/9 locals before first call) to reproduce the 9-register allocation and spill.",
   "by": "api-claude-sonnet-5-5-2",
@@ -36856,15 +36738,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8440243abad5a02799f2873268c07e96776eb3b5b2e87ddda9f6902d134c3943"
  },
  {
-  "function": "func_8006201C",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 1; 19 differing rows (6 register, 1 operand, 8 reordered, 2 inserted, 2 deleted; advisory).\nTarget: \nCandidate: move $v0, $a0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x28\n> T:  | C: move $v0, $a0\n> T:  | C: sw $s1, 0x14($sp)\nr T: move $v0, $a0 | C: move $s1, $a1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795242823.984587,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
- },
- {
   "function": "menuUpdateCursorActor",
   "text": "Candidate ca3fa2a8203364b2bd51 scored 3937 after fixing symbol names, byte-offset typed loads and signed locals/prototypes; claim token again became stale. Target retains 1.0f in saved f20; next experiment: keep a 1.0f local live across calls to recover frame and scheduling. Historical score 20 source remains unavailable.",
   "by": "codex-gpt-6.1-terra-5",
@@ -37124,15 +36997,6 @@
   "score_before": 13235,
   "score_after": 80,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5f2beaeed26d10429c5889f21242f9456bc2e736a1132f9afdefc4d4230fc091"
- },
- {
-  "function": "func_8006201C",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction shape; first differing row 48; 8 differing rows (8 reordered; advisory).\nTarget: lhu $a1, 0x2c($a3)\nCandidate: \nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = div.s $f2, $f2, $f0\n  = sh $zero, 0x2c($a3)\no T: lhu $a1, 0x2c($a3) | C: \n  = sb $zero, 0x28($a3)\n  = sb $zero, 0x26($a3)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest verified revision 809dfe63fc19cefde1c1 score 300: eight reordered instructions remain, primarily call argument loads and final float store. Moving reciprocal before zero-field stores and rearranging global/1000 stores improved baseline. Const reads and width variants worsened; unused early frame local unchanged. Next step: assign call arguments to locals at their target load points and use those locals in effectSetAnimFrame.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795244321.141481,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  },
  {
   "function": "resetPickupActorState",
@@ -37717,15 +37581,6 @@
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
  },
  {
-  "function": "func_8006201C",
-  "text": "Session context limit; cannot continue toward the substantially different historical score 60, whose source was unavailable on claim. Current best 1845 retains 88 instructions but differs in scheduling, registers and color global address. First volatile byte store before second load improved 2040 to 1845.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795247336.9008262,
-  "score_before": 300,
-  "score_after": 300,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
- },
- {
   "function": "updateRandomMenuItem",
   "text": "Claim reset during repairs. Reconstructed unsigned random modulo 13, signed item and unsigned clamp with shared flag check scored 1990 (revision e137127a7a7d8e2bf44f before reset). Switch control flow and flag addresses differ; address temporary worsened to 2801, u32 item and u16 random return scored 2190. Next test switch layout with individual decrement branches.",
   "by": "codex-gpt-6.1-terra-2",
@@ -38039,15 +37894,6 @@
   "score_before": 1790,
   "score_after": 1790,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
-  "function": "func_8006201C",
-  "text": "Swapping global byte sources improved current baseline 1845 to 1545. Both versions have 88 instructions; scheduling and registers remain different. Const input reads scored 3060; unsigned field widths 1745; volatile 0x2c store/read unchanged; moving 0x20 store before 0x18 scored 1615.\nSwapped global byte sources and tested volatile reload and store scheduling.\nScore 1545; remaining register and scheduling differences.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795249173.6598248,
-  "score_before": 1845,
-  "score_after": 1545,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  },
  {
   "function": "func_80039A10",
@@ -38452,15 +38298,6 @@
   "score_before": 1160,
   "score_after": 1160,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
- },
- {
-  "function": "func_8006201C",
-  "text": "Score 300: eight scheduling differences remain around effectSetAnimFrame argument preparation and the 0x20 float store. Removing duplicate 0x2f store, moving division earlier, swapping byte globals, and moving 0x20 store before 0x10 improved 1745 to 300. Literal zero for the call argument scored 440.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795251170.6488059,
-  "score_before": 1535,
-  "score_after": 300,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  },
  {
   "function": "create_player_state_objects",
@@ -39052,15 +38889,6 @@
   "score_before": 240235,
   "score_after": 240235,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
-  "function": "func_8006201C",
-  "text": "Correcting swapped D_800B2322 and D_800B20D2 field assignments and unsigned 0xFF stores reached 1790. Volatile destination stores did not improve it; s32 arg3 worsened to 2230. Remaining differences are scheduling and registers.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795254793.494914,
-  "score_before": 300,
-  "score_after": 300,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  },
  {
   "function": "func_800067C8",
@@ -84023,5 +83851,221 @@
   "score_before": 6815,
   "score_after": 6815,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3e177126be69d4d304d28962873ef851609163b993824d275f7d396ad0e1c860"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Baseline 1200, six local repair variants all equal or worse. Best revision afde475c406ebb250feb. Target and candidate differ primarily in register allocation/order from initial mismatch: target saves s3 and moves arg2 into s3, then stores s2 and uses a3 as shifted value; candidate has a different spill/live range for s2 and extra `sll a3,a3,16`. Continue by giving temp_a3 a concrete struct pointer type and correcting function prototypes/global data types from assembly; retain baseline source.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795138757.740675,
+  "score_before": 1200,
+  "score_after": 1200
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Compiled a corrected source with explicit extern data symbols; score 1200. Changing arg3 from s16 to s32 worsened to 1300 and reordered the prologue, so saved best stays score 1200. Tried six local families (inferred_record_layout, address_temporary, parameter_width, call_arity, const_read, target_call_arity); none beat baseline. Remaining diffs center on prologue scheduling (target moves/copies args between callee saved register stores) and later field/FPU ordering. First attempt's draft compiler errors were from the earlier generated preflight; manually supplied declarations compiled successfully.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795178726.736327,
+  "score_before": 1200,
+  "score_after": 1200
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Baseline afde475c406ebb250feb rechecked 1200. Struct inference, address temporary and const qualifier tied; removing call arguments or widening arg3 worsened to 1300 or 1595. Remaining 31 mismatch rows largely instruction scheduling, starting with s2 save and arg3 sign extension; inspect full diff and test ordering of initialization stores and argument preservation.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795182960.871327,
+  "score_before": 1200,
+  "score_after": 1200
+ },
+ {
+  "function": "func_8006201C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Current best candidate rechecked at 1200. Tried six local repair families; toolchain gcc-2.7.2-kmc is unavailable, so variants did not compile. Prior session also hit same missing compiler. Install/restore toolchain before further experiments; candidate retained at afde475c406ebb250feb.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795193801.6270971,
+  "score_before": 1200,
+  "score_after": 1200
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Could not improve the historical 810 candidate; current inputs rechecked a different draft at 1725. Corrected func_80044670 to its matched 3-argument prototype and removed the extraneous fourth argument; resulting code remained 1725. The first mismatch is the 0x6C pointer load allocated to $a0 rather than target $a3; downstream stores/order differ. Tried s8* versus void* for temp_a3 and declaration reorder, both produced identical assembly. address_temporary repairs also had no effect. Preserve saved historical best; next investigate register lifetime/variable types and argument positioning around temp_a3, then restore headers/input context if historical score comparability matters.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795200040.6974149,
+  "score_before": 810,
+  "score_after": 810
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Saved baseline rechecked at 810 (88 instructions), current mismatch is chiefly instruction order plus registers. A custom rewrite first scored same. Moving first two independent field writes so word field preceded byte field scored 1180, so discard. Reordering initialization for inverse/count-related operations ahead of table lookup scored 1430; discard. Reordering adjacent 1000.0 and -1 stores preserved 810 but only changed two displayed rows; no improvement. Reordered global lookup/store segment worsened to 930. Existing candidate reproduces machine behavior but emitted order puts the byte store and arg1+0x2E load after the word/s16/s32 stores; target performs byte store at +0x2E, then loads arg1+0x2E before writing arg2 to +0. Continued likely approach: use target page 40 onward, add scoped temporaries for arg1 fields/table bytes and explicitly stage loads to control instruction scheduling. Target sequence after division does sh zero + lhu $a1 from result field, then clears bytes/sets constants, stores inverse, table global load+convert/store, table global second value and float constant/arg2 initialization before call. Prior source ordered table globals too early relative to constants.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795201983.660511,
+  "score_before": 810,
+  "score_after": 810
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Saved score 90, 88/88 instructions, six register and two order differences. Staged loads, s32 signed kind, volatile u16 reload at +0x2C and volatile u8 store at +0x29 recovered assembly shape. Removing provisional fourth argument scored 200 (callee known as three args); volatile second global color read recovered a region but scored 380; comma-wrapped final store produced identical output. Try explicit shared ff local and use distinct variables for halfword/global color loads to move ff from a2 to v1 and halfword color into v0. a0=s0 is scheduled too early.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795210626.8429482,
+  "score_before": 600,
+  "score_after": 90
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Current best 90/88 instructions, all opcodes present; remaining 8 diff rows are register allocation/order. Fixing globals as `extern u8 D_800B20D2`, `extern s16 D_800C2942`, `extern u8 D_800B2322` and using those ordinary loads restores target lbu/lh and recovers score 90 from a bad volatile/cast trial score 1060. Remaining mismatch starts at target addiu v1,0,0xff; candidate uses a2; then lhu/sb color register and moved `addu a0,s0` ordering. Multiple declaration/no-op tweaks produced identical instructions. Next step: try using an explicit `u8 ff = 0xFF` local with its lifetime spanning 0x7F/0x82 and later 0x29 stores to steer allocator toward v1; keep saved candidate as baseline.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795214471.372438,
+  "score_before": 2090,
+  "score_after": 90,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Saved score 60. Splitting the input color halfword from the global color temporary fixed all six register mismatches. Only move $a0,$s0 sits nine instructions early. Disabling either scheduling stage worsened the result, and disabling peepholes tied.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795227867.789243,
+  "score_before": 90,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Best 60 (rev 92ee662e3c8202352a1e): only `move $a0,$s0` for the final call is scheduled right after lh a2 (D_800C2942) instead of after the 1000.0 lui/mtc1 (before addiu -1). Tried without effect: removing volatile on +0x29, cast of temp_v0 arg (void*/s32), register temp_v0, swapping 1000.0/-1 store order (same 60); moving -1 store above color load (415); dropping volatile on mode load (205); inlining D_800C2942 (470). Next step: change how the 1000.0f constant is materialized (e.g. one f32 local) or where D_800B2322 load sits relative to the 0x14/0x18 stores.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795233369.740959,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Reconstructed source repeatedly failed parsing because declarations from draft incorrectly put return signatures (void*) etc, plus symbol globals not in shared context; missing M2C_FIELD types parse as macro typo in this raw submission. Historical best candidate score 60 with 6 registers + 2 order differences, approaches tried extensively. Next step: take last matched candidate via get_candidate(saved_best) and inspect assembly mismatch; likely use declarations for globals as byte arrays and correct callee signature from exact matched callee context before trying staged loads.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795239747.673763,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Local record layouts, signedness, constant sharing and declaration order.\nBaseline 2095; layouts and individual width changes unchanged, other changes worse.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795240708.259925,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Claim disappeared during compile. Verified score 655 at revision 063f01c8b7234bc21c70: original D_800B20D2 -> offset 1C and D_800B2322 -> 20 are correct per target assembly; moving division before zero stores and moving 0x20 assignment before 1000 stores improved scheduling. Next: move -1 store after 0x20 assignment to adjust register lifetimes; last patch outcome was lost.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795241831.444917,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Rechecked saved baseline score 1070. Corrected legacy C89 declaration placement in rewrite; it compiled only after local declarations, but did not improve. Local repairs: inferred record layout tied 1070; const reads, field widths, arg3 widening, global signedness, shared 0xFF constant all worsened. Target schedules float reciprocal division before stores while baseline emits it later; remaining differences are chiefly order/control flow plus two register. Next step: restructure reciprocal calculation into a local initialized immediately after duration normalization, before the field stores, then compile and inspect assembly schedule.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795241851.871427,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 1; 19 differing rows (6 register, 1 operand, 8 reordered, 2 inserted, 2 deleted; advisory).\nTarget: \nCandidate: move $v0, $a0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x28\n> T:  | C: move $v0, $a0\n> T:  | C: sw $s1, 0x14($sp)\nr T: move $v0, $a0 | C: move $s1, $a1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242823.984587,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction shape; first differing row 48; 8 differing rows (8 reordered; advisory).\nTarget: lhu $a1, 0x2c($a3)\nCandidate: \nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = div.s $f2, $f2, $f0\n  = sh $zero, 0x2c($a3)\no T: lhu $a1, 0x2c($a3) | C: \n  = sb $zero, 0x28($a3)\n  = sb $zero, 0x26($a3)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest verified revision 809dfe63fc19cefde1c1 score 300: eight reordered instructions remain, primarily call argument loads and final float store. Moving reciprocal before zero-field stores and rearranging global/1000 stores improved baseline. Const reads and width variants worsened; unused early frame local unchanged. Next step: assign call arguments to locals at their target load points and use those locals in effectSetAnimFrame.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795244321.141481,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Session context limit; cannot continue toward the substantially different historical score 60, whose source was unavailable on claim. Current best 1845 retains 88 instructions but differs in scheduling, registers and color global address. First volatile byte store before second load improved 2040 to 1845.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795247336.9008262,
+  "score_before": 300,
+  "score_after": 300,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Swapping global byte sources improved current baseline 1845 to 1545. Both versions have 88 instructions; scheduling and registers remain different. Const input reads scored 3060; unsigned field widths 1745; volatile 0x2c store/read unchanged; moving 0x20 store before 0x18 scored 1615.\nSwapped global byte sources and tested volatile reload and store scheduling.\nScore 1545; remaining register and scheduling differences.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795249173.6598248,
+  "score_before": 1845,
+  "score_after": 1545,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Score 300: eight scheduling differences remain around effectSetAnimFrame argument preparation and the 0x20 float store. Removing duplicate 0x2f store, moving division earlier, swapping byte globals, and moving 0x20 store before 0x10 improved 1745 to 300. Literal zero for the call argument scored 440.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795251170.6488059,
+  "score_before": 1535,
+  "score_after": 300,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Correcting swapped D_800B2322 and D_800B20D2 field assignments and unsigned 0xFF stores reached 1790. Volatile destination stores did not improve it; s32 arg3 worsened to 2230. Remaining differences are scheduling and registers.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795254793.494914,
+  "score_before": 300,
+  "score_after": 300,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Target order (from the assembly): 0x2E, then arg2/arg3/0xE/4, then 0x2F; the div.s is done before the 0x2C..0x2A stores; the 0x8 store comes after 0x2A; 0x1C uses D_800B20D2 and 0x20 uses D_800B2322. Rewriting in that order with an f32 local for the division scored 1190 (saved best is 1065). What remains is GCC scheduling.",
+  "by": "claude-opus-low-3",
+  "created_at": 1795289051.8539531,
+  "score_before": 300,
+  "score_after": 300,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session. The saved candidate is the unfixed m2c draft (1065), and prior agents report only scheduling and register differences. Next step: apply the prior handoff's order (0x2E first, f32 local for the div.s, D_800B20D2 at 0x1C and D_800B2322 at 0x20) with unsigned 0xFF stores, then try try_local_repairs.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307852.88767,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Re-ran 3 local repairs (s8 global, record layout, address temp): none beat 1065. Diff is 28 reordered rows, scheduling only. Next step: keep the draft's statement order and only move the 0x2E store earlier (before the arg1+4 null check), not a full reorder.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795312343.2559428,
+  "score_before": 300,
+  "score_after": 300,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Judge reached move-on. Recovered every opcode and register; only the a0 setup move schedules early. Late-store reorder and alternate call declaration did not change the result.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795318862.2610502,
+  "score_before": 300,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
+ },
+ {
+  "function": "func_8006201C",
+  "text": "Verified 60. Only move a0,s0 appears before the FP conversion instead of after its final mtc1. Comma-sequencing the palette store in any call argument tied exactly. Later animation load scored 390, direct call argument load 300, scheduler disables 835/500.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795342200.467007,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:29977adaf30dedb4387c84e2cb128383bb7fed6b1d8e5cca0c69cbc7cf4c1397"
  }
 ]
