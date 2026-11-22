@@ -56,6 +56,8 @@ inline static u8 *inline_fn(s8 *arg0)
 
 void func_8002E114(void)
 {
+  u16 j;
+  u16 i;
   s32 temp_a1_2;
   s32 temp_a1_3;
   s32 temp_s0;
@@ -65,7 +67,7 @@ void func_8002E114(void)
   s32 temp_s1;
   s32 var_s1_4;
   s32 var_s1_5;
-  s32 __repair_phase_var_s1_5;
+  
   unsigned long var_s4;
   s8 temp_a1;
   u8 temp_a1_4;
@@ -96,10 +98,10 @@ void func_8002E114(void)
     func_8002E93C(&D_800E1310, *inline_fn(((s8 *) (&D_801001A1)) + temp_s0_2), 1, 1);
     func_8002E93C(&D_800E1310, *inline_fn(((s8 *) (&D_801001A2)) + temp_s0_2), 1, 4);
     {
-      u16 __repair_i;
-      for (__repair_i = 0; __repair_i < 9; __repair_i++)
+      u16 slotByte;
+      for (slotByte = 0; slotByte < 9; slotByte++)
       {
-        temp_a1 = *((inline_fn(&D_801001A4) + temp_s0_2) + __repair_i);
+        temp_a1 = *((inline_fn(&D_801001A4) + temp_s0_2) + slotByte);
         func_8002E93C(&D_800E1310, temp_a1, 1, 8);
       }
 
@@ -135,10 +137,10 @@ void func_8002E114(void)
   func_8002E93C(&D_800E1310, gOptionChoice, 1, 2);
   func_8002E93C(&D_800E1310, gOptionFlag, 1, 1);
   {
-    u16 __repair_i;
-    for (__repair_i = 0; __repair_i < 3; __repair_i++)
+    
+    for (j = 0; j < 3; j++)
     {
-      temp_s0_3 = __repair_i * 8;
+      temp_s0_3 = j * 8;
       temp_a1_2 = *((s32 *) ((&D_80117410) + temp_s0_3));
       func_8002E93C(&D_800E1310, temp_a1_2, 4, 0xD);
       func_8002E93C(&D_800E1310, *((&D_80117416) + temp_s0_3), 1, 6);
@@ -146,39 +148,39 @@ void func_8002E114(void)
 
   }
   {
-    u16 __repair_i;
-    for (__repair_i = 0; __repair_i < 0xE; __repair_i++)
+    
+    for (i = 0; i < 0xE; i++)
     {
       {
-        u16 inner;
-        for (inner = 0; inner < 3; inner++)
+        
+        for (j = 0; j < 3; j++)
         {
-          temp_s0_4 = (inner * 8) + (__repair_i * 0x18);
+          temp_s0_4 = (j * 8) + (i * 0x18);
           temp_a1_3 = *((s32 *) ((&D_80117428) + temp_s0_4));
           func_8002E93C(&D_800E1310, temp_a1_3, 4, 4);
           func_8002E93C(&D_800E1310, *((&D_8011742E) + temp_s0_4), 1, 6);
         }
 
       }
-      temp_a1_4 = *((&D_801176C8) + ((u32) __repair_i));
+      temp_a1_4 = *((&D_801176C8) + ((u32) i));
       func_8002E93C(&D_800E1310, temp_a1_4, 1, 2);
     }
 
   }
   {
-    u16 __repair_i;
-    for (__repair_i = 0; __repair_i < 0xB; __repair_i++)
+    
+    for (i = 0; i < 0xB; i++)
     {
-      temp_a1_5 = *((&D_80112F70) + __repair_i);
+      temp_a1_5 = *((&D_80112F70) + i);
       func_8002E93C(&D_800E1310, temp_a1_5, 1, 1);
     }
 
   }
   {
-    u16 __repair_i;
-    for (__repair_i = 0; __repair_i < 4; __repair_i++)
+    
+    for (i = 0; i < 4; i++)
     {
-      var_s1_4 = (u32) __repair_i;
+      var_s1_4 = (u32) i;
       temp_a1_6 = *((&D_80112F7B) + var_s1_4);
       func_8002E93C(&D_800E1310, temp_a1_6, 1, 1);
     }
@@ -186,22 +188,23 @@ void func_8002E114(void)
   }
   var_s1_4 = 0;
   {
-    u16 __repair_i;
-    for (__repair_i = 0; __repair_i < 3; __repair_i++)
+    
+    for (i = 0; i < 3; i++)
     {
-      temp_a1_7 = *((&D_80112F7F) + __repair_i);
+      temp_a1_7 = *((&D_80112F7F) + i);
       func_8002E93C(&D_800E1310, temp_a1_7, 1, 1);
     }
 
   }
-  __repair_phase_var_s1_5 = 0;
+  i = 0;
   do
   {
-    temp_a1_8 = *((&D_80112F82) + (((s32) __repair_phase_var_s1_5) & 0xFFFF));
+    temp_a1_8 = *((&D_80112F82) + (((s32) i) & 0xFFFF));
     func_8002E93C(&D_800E1310, temp_a1_8, 1, 1);
-    ++__repair_phase_var_s1_5;
+    ++i;
   }
-  while (((u32) (__repair_phase_var_s1_5 & 0xFFFF)) < 3U);
+  while (((u32) (i & 0xFFFF)) < 3U);
   func_8002E9C0(&D_800E1310);
 }
+
 
