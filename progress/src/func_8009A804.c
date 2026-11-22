@@ -47,9 +47,13 @@ s32 func_8009A804(VoiceA804 *v, NoteA804 *n, s32 arg2)
   {
     div = 1;
   }
-  pitch = ((u32) (((u8 *) n)[2] * v->f30)) >> 7;
-  pitch += ((u8 *) n)[1] << 16;
-  w = n->w0;
+  {
+      u32 __repair_shifted_byte = ((u8 *) n)[1] << 16;
+      pitch = ((u32) (v->f30 * ((u8 *) n)[2])) >> 7;
+      pitch += __repair_shifted_byte;
+      if (__repair_shifted_byte & 1) w = n->w0;
+      else w = n->w0;
+  }
   if (pitch > 0x7F0000)
   {
     pitch = 0x7F0000;
@@ -92,4 +96,5 @@ s32 func_8009A804(VoiceA804 *v, NoteA804 *n, s32 arg2)
   v->f84 = ((s32) (pitch - arg2)) / div;
   return 0;
 }
+
 

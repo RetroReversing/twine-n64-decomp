@@ -49178,138 +49178,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
  },
  {
-  "function": "func_8009A804",
-  "text": "Baseline 185; equivalent pointer form score 190. Remaining substantive difference is missing andi for combined ID, with branch offsets and three register choices. Explicit mask optimized away; volatile u16, byte load, wider load and reversed multiply did not improve. Try a signed intermediate or callee argument prototype for the ID.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795163966.274963,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Rechecked baseline revision d1e33c335c83c184cfc4 at 185. Six independent local repairs (storage reuse, branch orientation, masked reuse, lifetime reuse, copy reuse, unsigned divisor) did not improve it. Remaining diff begins with swapped registers for byte and voice-field loads; one target-only operation and branch target differences remain. Inspect full diff and multiplication expression/order before further allocation tuning.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795174881.9218,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Verified retained score 185. u16 lookup prototype and addition instead of OR produce identical instructions; s16 prototype scores 415; signed high byte and signed w shift each score 430. Explicit load-scale-first multiply scores 235. Target still masks the packed ID in a0 after the OR, and swaps the byte/scale load registers. Consider packing the ID through a nonvolatile union with separate byte assignments to retain lbu and induce the final unsigned narrowing, then tune multiply independently.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795182592.1260679,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Rechecked saved best 185. Ran local repair batch (variants mostly unchanged/error) and explicit byte-load/product temp sequencing; latter scored 190 and regressed. Target still has a missing `andi $a0,$v1,0xffff`; mismatch cluster begins with target lbu v0,2(s1), lw v1,0x30(s2), mult v1,v0 versus candidate register assignment. Start from saved best 185, recover that mask and then tune register/order. No reusable compiler rule established.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795188403.744134,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Shared context changed during claim: saved best now conflicts with func_800957A8/B8 prototypes. Revision 15f5fdab0d7e091f7e17 compiles against v916, score 190; corrected declarations/calls and pointer arithmetic. Missing andi 0xffff after packed ID OR, plus three register differences. Loading whole word for second byte produces mask but wrong lw; signed-byte cast did not produce mask. Investigate intermediate types and expression lifetime.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795189873.4906821,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Unmatched; saved historical best 185, current exploration best 204. Correct shared context prototypes: func_800957A8(u32*) and func_800957B8(u32*,s32); source-local conflicting prototypes cause compiler errors. First valid source using these helper prototypes scored 209, corrected note-byte access at offset 2 scored 204. Remaining differences are mainly 0x38 vs 0x28 stack frame, plus target lbu $v0,2($s1) vs candidate $v1. Historical best source has mistaken two-argument func_800957A8/func_800957B8 pointer signatures; don't reuse without reconciling current context. Further tune by making v->fB4 helper calls and note-byte variables match target register allocation; target also has andi $a0,$v1,0xffff.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795191168.255763,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Current header-compatible 185-point draft revision 2e290775849dfe2d4b94 (historical best ties but conflicts with current prototypes). Use u32 voice field at 0xB4, func_800957A8(&v->fB4), func_800957B8(&v->fB4,(s32)v), and u32 func_80095818(u32). Tested signed-shift packing, both narrow promotions, and discarded high bits before the shift: all stayed at 185. Reversing the multiply with explicit unsigned promotion scored 215. Target still needs andi a0,v1,0xffff after the OR plus the paired load-register corrections. Next independent experiment: put the existing pack and unsigned-short return in a static inline typed helper so GCC sees an explicit narrow return boundary; keep the full 32-bit note word load.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795193097.074052,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Verified 185. Only substantive missing instruction is andi a0,v1,0xffff before branch/call; seven branch operands follow from that extra word. Initial lbu/lw v0/v1 also swapped. Signed b7 was neutral, volatile id added stack traffic, reversing multiply operands worsened. Try passing a raw wider packed ID through a separate unsigned-short ABI parameter declaration so the optimizer keeps narrowing, or restructure packing from a wider input that can reach upper bits.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795197842.851883,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Current baseline rechecked score 185 (99 target / 98 candidate instructions), with 11 differing rows. Target's missing candidate operation is `andi $a0,$v1,0xffff` directly after OR-combining the byte at note+7 shifted 8 with note word top byte, then branch on low 16. This extra target instruction shifts later branches by one word. Current source has `u16 id=(w>>24)|(n->b7<<8)` and implicit truncation; I tried widening id to s32 and explicitly `id &= 0xffff` (same 185; compiler elides mask) and splitting OR/cast into sequential statements (390; load uses a0 and adds extra instructions). Prior local repair families for record layout, address temp, integer lifetimes, const read, loop scope, and phase split tied 325 or worsened; these were against a stale scoring context before current 185 rebuild. Target remaining register diffs include target lbu byte in v0 and voice pitch load in v1; candidate uses v1/v0, then target OR in v1 and mask into a0. Next try a volatile source for the combined id or a caller-visible 32-bit intermediate that preserves the explicit low-16 mask, while retaining the current multiplication and table branch structure. Callee prototypes also differ from matched definitions (`func_800957B8`, `func_80095818`); validate together before tuning.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795199005.647118,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Reworked matched callee prototypes using exact matched source signatures: func_800957A8(u32*), func_800957B8(u32*,s32), func_80095818(u32). This improved current candidate to 190/99 instructions, but historical best 185 was input-profile ambiguous. Remaining structural issue: target reads byte offset 2 into v0 and loads old f30 into v1, combines with pitch using v1 then masks a0 with 0xffff; this C version instead reads into v1, loads f30 into v0, combines into a0, and lacks target andi, causing branch extents 4 bytes early. Need preserve unsigned division behavior and produce 16-bit mask after combining values, perhaps via typed intermediate. Current current-baseline 190; saved historical score 185.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795200938.46836,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Score 185 best current. Corrected matched signatures for func_800957A8/957B8/95818 reached that score. Remaining differences around the frequency/table path: target loads note byte to v0 and voice f30 to v1, combines value then emits andi a0,0xffff; candidate uses different allocation and lacks andi. This causes branch target offsets to differ and all later branch addresses shift by one instruction. Adding an explicit 16-bit mask to id made no assembly change. Saved best restored.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795201910.0530581,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Rechecked baseline 185. Six independent local repairs did not improve it; call arity, scalar reuse, masked reuse, CFG lifetime and unsigned divisor were worse or unchanged. Eleven mismatch rows remain, including a target-only operation.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795204254.262955,
-  "score_before": 185,
-  "score_after": 185
- },
- {
-  "function": "func_8009A804",
-  "text": "Baseline verified 185: three register differences and missing andi a0,v1,0xffff ahead of the zero test, shifting seven branch targets. Changing the lookup prototype to u16 is consistent with the callee's initial sh but leaves the output unchanged.\nTested ID addition, multiplication by 256, narrow callee prototype, unsigned halfword input, signed byte input and reversed pitch multipliers.\nAddition, multiply and prototype left output unchanged at 185; signed byte tied with a changed row; halfword scored 430 and reversed pitch multipliers scored 215.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795211231.001667,
-  "score_before": 185,
-  "score_after": 185,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
- },
- {
-  "function": "func_8009A804",
-  "text": "Recovered a near-match from the saved best source (score 185 historical), corrected syntax/expressions to compile at score 230 with 18 differing rows. Changes to redundant low-bit masking and id casts had no machine-code effect; automatic signature/divisor repairs likewise unchanged. Remaining key mismatch begins at target lbu v0,2(s1) vs candidate lbu v1,2(s1), followed by register allocation and missing andi a0,v1,0xffff; branch offsets differ because candidate table path is four instructions shorter. Next step: restructure the table lookup so its base offset/address and two adjacent byte loads match target ordering, then target the ANDI and register lifetimes.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795213826.563413,
-  "score_before": 9765,
-  "score_after": 230,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
- },
- {
-  "function": "func_8009A804",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 29; 11 differing rows (3 register, 7 branch target, 1 deleted; advisory).\nTarget: lbu $v0, 2($s1)\nCandidate: lbu $v1, 2($s1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beql $s3, $zero, 0x74\n  = addiu $s3, $zero, 1\nr T: lbu $v0, 2($s1) | C: lbu $v1, 2($s1)\nr T: lw $v1, 0x30($s2) | C: lw $v0, 0x30($s2)\n  = mult $v1, $v0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795226461.706042,
-  "score_before": 185,
-  "score_after": 185,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
- },
- {
-  "function": "func_8009A804",
-  "text": "Current rechecked best score 185, 99 target instructions; target has one extra andi $a0,$v1,0xffff causing later branch offsets to shift. Remaining root mismatch is ID expression register allocation: target lbu v0,2(s1), lw v1,0x30(s2), or v1,v1,v0, andi a0,v1,ffff; candidate puts byte in v1 and voice word in v0, OR in a0, and loses the andi. Manual narrowing ID produced no assembly change; an alternative explicit mask through reused `w` worsened to 390. All function's tried approaches preserve 185; continuation budget exceeded.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795252441.306138,
-  "score_before": 185,
-  "score_after": 185,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
- },
- {
   "function": "func_800158A4",
   "text": "Not attempted in compiles. Draft does not compile: sp2C/sp30/sp3C/sp40/sp7C/sp80 undeclared (they are f32 locals of the sp28/sp38/sp78 block; declare sp28..sp40 and sp78..sp80 as one f32 array or separate fields). Control flow has a switch(var_s0) whose case 1/2/default labels sit inside if/else blocks (goto-style jump into else branch); the case-0 label is inside the else of `if (M2C_FIELD(var_s1,u16*,0x58)==0x46)`. Rewrite as explicit if/else with a plain loop and a switch-free structure, then compare. Calls: func_80045764, func_8004E6E4, func_80045540, func_8004F990, func_80047B44; writes D_800B35B0 (u16 counter, +=1 on entry).",
   "by": "permuter-25769805351",
@@ -81871,5 +81739,191 @@
   "score_before": 10,
   "score_after": 10,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Baseline 185; equivalent pointer form score 190. Remaining substantive difference is missing andi for combined ID, with branch offsets and three register choices. Explicit mask optimized away; volatile u16, byte load, wider load and reversed multiply did not improve. Try a signed intermediate or callee argument prototype for the ID.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795163966.274963,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Rechecked baseline revision d1e33c335c83c184cfc4 at 185. Six independent local repairs (storage reuse, branch orientation, masked reuse, lifetime reuse, copy reuse, unsigned divisor) did not improve it. Remaining diff begins with swapped registers for byte and voice-field loads; one target-only operation and branch target differences remain. Inspect full diff and multiplication expression/order before further allocation tuning.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795174881.9218,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Verified retained score 185. u16 lookup prototype and addition instead of OR produce identical instructions; s16 prototype scores 415; signed high byte and signed w shift each score 430. Explicit load-scale-first multiply scores 235. Target still masks the packed ID in a0 after the OR, and swaps the byte/scale load registers. Consider packing the ID through a nonvolatile union with separate byte assignments to retain lbu and induce the final unsigned narrowing, then tune multiply independently.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795182592.1260679,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Rechecked saved best 185. Ran local repair batch (variants mostly unchanged/error) and explicit byte-load/product temp sequencing; latter scored 190 and regressed. Target still has a missing `andi $a0,$v1,0xffff`; mismatch cluster begins with target lbu v0,2(s1), lw v1,0x30(s2), mult v1,v0 versus candidate register assignment. Start from saved best 185, recover that mask and then tune register/order. No reusable compiler rule established.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795188403.744134,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Shared context changed during claim: saved best now conflicts with func_800957A8/B8 prototypes. Revision 15f5fdab0d7e091f7e17 compiles against v916, score 190; corrected declarations/calls and pointer arithmetic. Missing andi 0xffff after packed ID OR, plus three register differences. Loading whole word for second byte produces mask but wrong lw; signed-byte cast did not produce mask. Investigate intermediate types and expression lifetime.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795189873.4906821,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Unmatched; saved historical best 185, current exploration best 204. Correct shared context prototypes: func_800957A8(u32*) and func_800957B8(u32*,s32); source-local conflicting prototypes cause compiler errors. First valid source using these helper prototypes scored 209, corrected note-byte access at offset 2 scored 204. Remaining differences are mainly 0x38 vs 0x28 stack frame, plus target lbu $v0,2($s1) vs candidate $v1. Historical best source has mistaken two-argument func_800957A8/func_800957B8 pointer signatures; don't reuse without reconciling current context. Further tune by making v->fB4 helper calls and note-byte variables match target register allocation; target also has andi $a0,$v1,0xffff.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795191168.255763,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Current header-compatible 185-point draft revision 2e290775849dfe2d4b94 (historical best ties but conflicts with current prototypes). Use u32 voice field at 0xB4, func_800957A8(&v->fB4), func_800957B8(&v->fB4,(s32)v), and u32 func_80095818(u32). Tested signed-shift packing, both narrow promotions, and discarded high bits before the shift: all stayed at 185. Reversing the multiply with explicit unsigned promotion scored 215. Target still needs andi a0,v1,0xffff after the OR plus the paired load-register corrections. Next independent experiment: put the existing pack and unsigned-short return in a static inline typed helper so GCC sees an explicit narrow return boundary; keep the full 32-bit note word load.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795193097.074052,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Verified 185. Only substantive missing instruction is andi a0,v1,0xffff before branch/call; seven branch operands follow from that extra word. Initial lbu/lw v0/v1 also swapped. Signed b7 was neutral, volatile id added stack traffic, reversing multiply operands worsened. Try passing a raw wider packed ID through a separate unsigned-short ABI parameter declaration so the optimizer keeps narrowing, or restructure packing from a wider input that can reach upper bits.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795197842.851883,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Current baseline rechecked score 185 (99 target / 98 candidate instructions), with 11 differing rows. Target's missing candidate operation is `andi $a0,$v1,0xffff` directly after OR-combining the byte at note+7 shifted 8 with note word top byte, then branch on low 16. This extra target instruction shifts later branches by one word. Current source has `u16 id=(w>>24)|(n->b7<<8)` and implicit truncation; I tried widening id to s32 and explicitly `id &= 0xffff` (same 185; compiler elides mask) and splitting OR/cast into sequential statements (390; load uses a0 and adds extra instructions). Prior local repair families for record layout, address temp, integer lifetimes, const read, loop scope, and phase split tied 325 or worsened; these were against a stale scoring context before current 185 rebuild. Target remaining register diffs include target lbu byte in v0 and voice pitch load in v1; candidate uses v1/v0, then target OR in v1 and mask into a0. Next try a volatile source for the combined id or a caller-visible 32-bit intermediate that preserves the explicit low-16 mask, while retaining the current multiplication and table branch structure. Callee prototypes also differ from matched definitions (`func_800957B8`, `func_80095818`); validate together before tuning.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795199005.647118,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Reworked matched callee prototypes using exact matched source signatures: func_800957A8(u32*), func_800957B8(u32*,s32), func_80095818(u32). This improved current candidate to 190/99 instructions, but historical best 185 was input-profile ambiguous. Remaining structural issue: target reads byte offset 2 into v0 and loads old f30 into v1, combines with pitch using v1 then masks a0 with 0xffff; this C version instead reads into v1, loads f30 into v0, combines into a0, and lacks target andi, causing branch extents 4 bytes early. Need preserve unsigned division behavior and produce 16-bit mask after combining values, perhaps via typed intermediate. Current current-baseline 190; saved historical score 185.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795200938.46836,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Score 185 best current. Corrected matched signatures for func_800957A8/957B8/95818 reached that score. Remaining differences around the frequency/table path: target loads note byte to v0 and voice f30 to v1, combines value then emits andi a0,0xffff; candidate uses different allocation and lacks andi. This causes branch target offsets to differ and all later branch addresses shift by one instruction. Adding an explicit 16-bit mask to id made no assembly change. Saved best restored.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795201910.0530581,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Rechecked baseline 185. Six independent local repairs did not improve it; call arity, scalar reuse, masked reuse, CFG lifetime and unsigned divisor were worse or unchanged. Eleven mismatch rows remain, including a target-only operation.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795204254.262955,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Baseline verified 185: three register differences and missing andi a0,v1,0xffff ahead of the zero test, shifting seven branch targets. Changing the lookup prototype to u16 is consistent with the callee's initial sh but leaves the output unchanged.\nTested ID addition, multiplication by 256, narrow callee prototype, unsigned halfword input, signed byte input and reversed pitch multipliers.\nAddition, multiply and prototype left output unchanged at 185; signed byte tied with a changed row; halfword scored 430 and reversed pitch multipliers scored 215.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795211231.001667,
+  "score_before": 185,
+  "score_after": 185,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Recovered a near-match from the saved best source (score 185 historical), corrected syntax/expressions to compile at score 230 with 18 differing rows. Changes to redundant low-bit masking and id casts had no machine-code effect; automatic signature/divisor repairs likewise unchanged. Remaining key mismatch begins at target lbu v0,2(s1) vs candidate lbu v1,2(s1), followed by register allocation and missing andi a0,v1,0xffff; branch offsets differ because candidate table path is four instructions shorter. Next step: restructure the table lookup so its base offset/address and two adjacent byte loads match target ordering, then target the ANDI and register lifetimes.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795213826.563413,
+  "score_before": 9765,
+  "score_after": 230,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 29; 11 differing rows (3 register, 7 branch target, 1 deleted; advisory).\nTarget: lbu $v0, 2($s1)\nCandidate: lbu $v1, 2($s1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beql $s3, $zero, 0x74\n  = addiu $s3, $zero, 1\nr T: lbu $v0, 2($s1) | C: lbu $v1, 2($s1)\nr T: lw $v1, 0x30($s2) | C: lw $v0, 0x30($s2)\n  = mult $v1, $v0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795226461.706042,
+  "score_before": 185,
+  "score_after": 185,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Current rechecked best score 185, 99 target instructions; target has one extra andi $a0,$v1,0xffff causing later branch offsets to shift. Remaining root mismatch is ID expression register allocation: target lbu v0,2(s1), lw v1,0x30(s2), or v1,v1,v0, andi a0,v1,ffff; candidate puts byte in v1 and voice word in v0, OR in a0, and loses the andi. Manual narrowing ID produced no assembly change; an alternative explicit mask through reused `w` worsened to 390. All function's tried approaches preserve 185; continuation budget exceeded.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795252441.306138,
+  "score_before": 185,
+  "score_after": 185,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Saved best 10: only 2 register rows differ (lbu/lw v0/v1 swap before the mult). Tried: swapped multiply operands (40), local temp for f30 (90), and the local-repair families (equal or worse). Next step: try a u8 local for n->b2, or declaring pitch/hi/lo in a different order, to flip the v0/v1 allocation.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307172.473129,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 29; 4 differing rows (4 register; advisory).\nTarget: lbu $v0, 2($s1)\nCandidate: lbu $v1, 2($s1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beql $s3, $zero, 0x74\n  = addiu $s3, $zero, 1\nr T: lbu $v0, 2($s1) | C: lbu $v1, 2($s1)\nr T: lw $v1, 0x30($s2) | C: lw $v0, 0x30($s2)\n  = mult $v1, $v0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision a7d00a7eed02ffcbb27a rechecked at 10 with two pitch-multiply load registers swapped. u8 staging scored 210/220; single-operand volatile and hi/lo staging tied at 10 with changed rows, both loads staged volatile scored 45, merged add scored 20. Auto-released. Next step: test a standalone unsigned product assigned to pitch before a combined shift-and-add expression, with rate as the first multiply operand.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795317271.935831,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Verified score 10 after 21 measured trials without improvement. Staging multiply operands, volatile qualifications and reordering declarations tied or worsened. Only the two load destination registers differ.\nStaged multiply operands in both orders, qualified loads, and reordered declarations.\nScore 10 retained. Rows 29\u201330 swap v0/v1. Other variants scored 40\u201390.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795318575.5175521,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 29; 8 differing rows (6 register, 2 reordered; advisory).\nTarget: \nCandidate: lw $v1, 0x30($s2)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beql $s3, $zero, 0x74\n  = addiu $s3, $zero, 1\no T:  | C: lw $v1, 0x30($s2)\n  = lbu $v0, 2($s1)\no T: lw $v1, 0x30($s2) | C: \nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795342036.051578,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 29; 3 differing rows (3 register; advisory).\nTarget: lbu $v0, 2($s1)\nCandidate: lbu $v1, 2($s1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beql $s3, $zero, 0x74\n  = addiu $s3, $zero, 1\nr T: lbu $v0, 2($s1) | C: lbu $v1, 2($s1)\nr T: lw $v1, 0x30($s2) | C: lw $s0, 0x30($s2)\nr T: mult $v1, $v0 | C: mult $v1, $s0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAuto-release retained a7d00a7eed02ffcbb27a at 10, with lw/lbu destinations reversed. Combined sum + commuted multiplication tied 10 with a different diff; staged factor first scored 70; using hi/lo for rate and pitch for factor scored 15. Next step: recover the 15 candidate from history and inspect its three differing rows to see which register allocation improved before combining with a load-order change.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795342360.580634,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
+ },
+ {
+  "function": "func_8009A804",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795343035.036526,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
  }
 ]
