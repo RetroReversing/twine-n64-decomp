@@ -32,6 +32,7 @@ s32 __repair_phase_var_v1_2;
     u16 temp_a0;
     u32 temp_a0_2;
     u32 temp_v1;
+    u32 temp_v1_b1;
     u8 temp_v1_2;
     void *temp_a1;
     
@@ -40,7 +41,8 @@ s32 __repair_phase_var_v1_2;
     void *__repair_initial_record;
     __repair_initial_record = M2C_FIELD(arg0, void **, 4);
     var_t0 = 1;
-    if (__repair_initial_record != NULL) {
+    do {
+if (__repair_initial_record != NULL) {
         temp_v1 = *(u32 *)((s8 *)__repair_initial_record + 0x10);
         if (M2C_FIELD(__repair_initial_record, u8 *, 0x11) != 0x6B) {
             var_v1 = temp_v1 >> 24;
@@ -63,7 +65,7 @@ s32 __repair_phase_var_v1_2;
             } else {
                 temp_a0_2 = 0;
             }
-            __repair_phase_temp_v0_2 = temp_a0_2;
+            temp_v1_b1 = temp_a0_2;
             temp_a0_2 = (u32) M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 0x10) >> 8;
             temp_v0_2 = (temp_a0_2 & 0xFF) + 0x10;
             if (temp_v0_2 >= 0) {
@@ -76,15 +78,16 @@ s32 __repair_phase_var_v1_2;
             }
             var_t0 = 0;
             temp_a1 = M2C_FIELD(arg0, void **, 4);
-            M2C_FIELD(temp_a1, u32 *, 0x10) = (u32) ((var_v1 << 0x18) | ((__repair_phase_temp_v0_2 & 0xFF) << 0x10) | ((var_a0_2 & 0xFF) << 8) | M2C_FIELD(temp_a1, u8 *, 0x13));
+            M2C_FIELD(temp_a1, u32 *, 0x10) = (u32) ((var_v1 << 0x18) | ((temp_v1_b1 & 0xFF) << 0x10) | ((var_a0_2 & 0xFF) << 8) | M2C_FIELD(temp_a1, u8 *, 0x13));
         }
     }
+    } while (0);
     temp_v0_5 = M2C_FIELD(arg0, void **, 0x10);
     if (temp_v0_5 != NULL) {
         var_v1_2 = M2C_FIELD(temp_v0_5, u8 *, 0x10);
-        __repair_phase_temp_v0_2 = (u8)var_v1_2 + 0x10;
         if (var_v1_2 != 0xFF) {
             s32 __repair_clamped_shade = var_v1_2;
+            __repair_phase_temp_v0_2 = (u8)var_v1_2 + 0x10;
             if (__repair_phase_temp_v0_2 >= 0) {
                 __repair_clamped_shade += 0x10;
                 if (__repair_phase_temp_v0_2 >= 0x100) {
@@ -105,3 +108,4 @@ s32 __repair_phase_var_v1_2;
     }
     return var_t0;
 }
+

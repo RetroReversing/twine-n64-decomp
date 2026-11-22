@@ -64986,295 +64986,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ea99c20939b17b5badf4726628c529e0d072138fae7fb022dc225d7aa1375636"
  },
  {
-  "function": "func_8002FFAC",
-  "text": "Improved 2030 to 1910 through shift reuse and combined scheduling; candidate contains compiler-shaping inline helper and unused 8-byte frame, not established original source. Fifty-nine mismatch rows remain, especially clamp branch layout and registers; target lacks initial stack adjustment. Reconstruct clamp and packed colour updates directly from assembly, remove artificial frame if possible. Revision 139d848f64f211867ec7 retained.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795138471.9835148,
-  "score_before": 1900,
-  "score_after": 1900
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Resumed saved_best revision 4490ff133bed2f5a55b3; current recheck score 1715. Tried six independent local repairs: scalar_storage_reuse, inferred_record_layout, branch_orientation, masked_value_reuse, cfg_integer_lifetimes, signedness. None improved; branch_orientation and signedness worsened. Move-on threshold reached. Remaining work: inspect full target assembly/diff and revise field types/control flow; prior saved candidate includes M2C field access and compile errors from initial session were resolved. No reusable game-wide convention established.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795178409.683382,
-  "score_before": 1715,
-  "score_after": 1715
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Best remains 1715/348 bytes. Rechecked candidate and tried three automated repair variants (record layout/address temporary tied; constant local worsened), then forced the initial packed-word load volatile (1815) and reverted (1715). Remaining early mismatch is control flow/loads: target loads pointer once, checks null, then lbu byte 0x11 and lw packed word 0x10 before comparison; candidate introduces byte extraction and different branch shape. Candidate also has lbu/lhu at packed color offsets where target uses lw/lhu. Rework as explicit byte-component clamp logic using a cached pointer and packed u32 load, keeping branch structure close to assembly.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795182768.862939,
-  "score_before": 1715,
-  "score_after": 1715
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Saved candidate rechecked 1715; all local repair families tried (scalar storage reuse, inferred record layout, branch orientation, masked value reuse, integer lifetime CFG, signedness, declaration order, address temporary) did not improve it. Draft arithmetic for three packed color components saturates offsets around 0x10 with byte-specific upper bounds; target loads/processes packed data in 32-bit/halfword widths and branches on signed overflow. Current source remains mechanically generated and highly fragmented; next rewrite cleanly with packed-word extraction, signed overflow checks and one combined store, while preserving target's negative and upper-bound branches.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795191709.372561,
-  "score_before": 1715,
-  "score_after": 1715
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Improved saved best 1715 to 1460 by loading the word before the byte comparison and extracting the second channel with a halfword at offset 0x10. First clamp still lacks target bltz; signed shift, signed-byte conversion, volatile local, and reordered clamp worsened the score. Remaining mismatches include clamp control flow, register allocation and prologue scheduling.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795193642.5215309,
-  "score_before": 1470,
-  "score_after": 1460
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Recompiled saved best at 1515; candidate has 85 vs target 87 instructions. Attempted to submit draft; initially compile error from omitted local declaration, then correctly verified saved candidate. Target first sequence loads packed word at offset 0x10 before byte compare and extracts top byte from same word; candidate instead emits lbu at offset 0x10 and lacks srl, causing control-flow displacement mismatches. Need restructure with one u32 packed-word load shared for compare and extraction, then revise the three clamped-byte expressions and second-object four-byte fill store. Start by preserving field read as 32-bit then using shifts; saved candidate remains best.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795198209.269679,
-  "score_before": 1460,
-  "score_after": 1460
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Best current candidate e3edfcf9f95cb3525c43 rechecks at 1515 after a compile. Tried local scalar storage reuse (1550), inferred record layout (same 1515), and branch orientation (1955); move-on budget reached. Main unresolved issue is control flow around the first packed color update: target loads a 32-bit word, then compares the byte at +0x11 and has `srl` in the equality branch delay slot; candidate defers/reforms the word load and has downstream branch targets 8 bytes earlier. Later halfword accesses/packed component calculations also differ. Continue from saved candidate and inspect exact declarations/expressions before tuning.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795199246.1688478,
-  "score_before": 1460,
-  "score_after": 1460
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Verified best 1255. Direct nonvolatile u16 at +0x10 on the second channel recovers exact lhu and clamp registers; the prior word-to-u16 cast addressed the wrong half. Volatile u16 introduces a redundant andi 0xffff. Remaining initial word+shift collapses to lbu; volatile word with shift inside the guard reduced mismatch rows but worsened byte score. Next isolate that load's schedule and test reusing one clamp accumulator for the second/third channels with a saved copy between them (target move a2,a0). Final clamp needs bnez/addiu delay and its pointer reload before pack; signed accumulator reuse alone and moving the pointer assignment alone worsened the score.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795201215.063537,
-  "score_before": 1265,
-  "score_after": 1255
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Restored saved-best revision 603dece3298b05ac75c7, rechecked score 1250. Full C rewrite scored 1250; converting byte compare at offset 0x11 into shifted word comparison scored 1390. Six local families (scalar storage, inferred record layout, branch orientation, masked reuse, cfg integer lifetime, last shift reuse) yielded no improvement. Main mismatch: target's first checks branch to 0xd8 and sequence reads lbu at +0x11 plus lw word at +0x10, then srl; current C branches to 0xd0 and directly extracts fields. Other remaining differences are register/order/control-flow. Next try use an explicit u8 tag variable for +0x11 and a single packed u32 loaded once, with decoded channels computed from that shared value.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795202180.049081,
-  "score_before": 1250,
-  "score_after": 1250
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Best candidate revision 8c314ed281148223f077, score 875 (improved from verified 890 via masked_value_reuse: explicitly store (temp_v0_7 & 0xFF) in temp_v0_3 before assigning temp_a0_2). Tested six independent local repair families: only masked value reuse improved; struct layout and inline scheduling tied; branch orientation, scalar storage reuse, cfg lifetimes worsened. Then tested alternative reorder/early-exit shapes and packed-byte clamp signedness/cast/combined-store forms; none improved. Current mismatch advisory starts at initial null check: target branches to 0xd8, candidate 0xd4, with 31 differences (2 opcode, 17 register, 8 branch targets, one operand, one insertion, two deletions). Target first operations: load arg0+4 then allocate 8-byte frame, beqz with return-value initialization in delay slot. Best next experiment: inspect exact diff against revision 8c314... after targeting the entry branch; try retaining the null-pointer test as a distinct outer guard while moving initialization of t0=1 into a single-iteration control construct or branch delay-eligible expression to recover target branch destination and delay slot. Remaining main body transforms three packed color bytes with clamping and updates up to four sibling records. No evidence supports a hand-written assembly verdict.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795204185.804912,
-  "score_before": 890,
-  "score_after": 875
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Rechecked saved best at 875 (target 87 insns, candidate 86). Tried bounded local repair families (pointer integer phase union, CFG lifetimes, scalar storage reuse, inferred layout, branch orientation, combined scheduling), none improved; branch_orientation produced 910. Reordering initial result initialization/load preserved 875. A diagnostic patch did not compile due to undefined phase2 label; saved_best restored. Target first mismatch is initial null-branch target (beqz target 0xd8 vs candidate 0xd4) with broader branch target/register/order differences. Original assembly starts move a3,a0; lw v0,4(a3); stack allocation; beqz to shared exit with t0=1 delay; later comparing byte 0x11 to 0x6B also branches to shared exit. Next try represent first guard and second sentinel guard as explicit early-return predicates while maintaining output update logic; investigate branch target/layout via source control flow. Do not repeat listed local families or same initialization reorder.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795205568.288188,
-  "score_before": 875,
-  "score_after": 875
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Tried a clean rewrite from scratch (cached p=arg0->4, q=arg0->0x10, clamp helpers as if/else): score 2305; adding an unused u32 frame[2] local to reserve the target's addiu $sp,-8 brought it to 1530. Still worse than saved best 875. Remaining diffs: target reloads lw arg0+4 three times (no cached pointer), branch targets shifted by 0x14-0x20, and a stray move ordering in the tail. Untested next step: rewrite the clean version reloading *(arg0+4) and *(arg0+0x10) at each use, keeping the 8-byte frame local.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795206569.382014,
-  "score_before": 875,
-  "score_after": 875
- },
- {
-  "function": "func_8002FFAC",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed brief and target asm (87 insns, frame addiu -8, lw arg0+4 reloaded per field, clamp helpers for three byte fields packed into word at +0x10 of *(arg0+4); second block writes 4 words to *(arg0+0x10..0x1C) from a clamped byte). Saved best 875 after 201 attempts; prior agents tried rewrites, local repair families, branch orientation, and scheduling without improvement. Released without new compile at low effort. Untested next step: rewrite clean with reloads of *(arg0+4) per access (no cached pointer), and the second block as a separate static helper-free clamp computed before the stores.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795207595.737791,
-  "score_before": 875,
-  "score_after": 875
- },
- {
-  "function": "func_8002FFAC",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed saved_best (score 875, rev 02e5862db1d13520208b) and target asm. No new compile made this session; prior agents logged ~201 attempts (local repair families, explicit patches, clean rewrite scoring 1530-2305, branch orientation, scheduling) without beating 875. Target structure: arg0+4 pointer reloaded per field (lw $v0,0x4($a3) repeated), three clamp blocks (slti/bnez/j with delay-slot constant), packed u32 store at +0x10 of *(arg0+4), then 4 word stores to *(arg0+0x10..0x1C) from a clamped byte. Remaining diff is branch target offsets and tail ordering. Untested idea: write the clamp as explicit ternary-free if/else in the exact order the asm loads 0x10 halfword before the byte mask, and keep *(arg0+4) reloaded per use rather than cached.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795209313.975801,
-  "score_before": 875,
-  "score_after": 875
- },
- {
-  "function": "func_8002FFAC",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed saved_best (rev 02e5862db1d13520208b, score 875) and target asm. No new compile this session; prior agents logged ~200 attempts (local repair families, explicit patches, clean rewrites 1530-2305, branch orientation, scheduling) without beating 875. Target: arg0+4 pointer reloaded per field; three clamp blocks (bltz/slti/bnez/addiu with j fallback) over byte/half fields; second block packs clamped values into word at *(arg0+4)+0x10; third block writes 4 words to arg0+0x10..0x1C. Unresolved: the candidate's temp/variable structure (__repair_frame, __repair_phase temp) is messy; a clean rewrite with a single pointer local for arg0->4 and explicit clamp helper statements may be worth one attempt, but earlier clean rewrites scored worse.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795210505.826375,
-  "score_before": 875,
-  "score_after": 875
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Stalled at saved_best 875 (rev 02e5862db1d13520208b). Tried one clean rewrite (ternary-style clamps, local temps, w-based stores): 4525, worse; it reorders the three clamp blocks and keeps arg0+4 pointer reloads off. Target has lw $v0,4($a3) reloaded before each field group and clamp blocks use bltz/slti/bnez with addiu in delay slots; the saved_best m2c-style structure matches that better. Next step: keep saved_best's structure and work only on the first clamp (bltz at 0x...FFF0 / sll/srl temp order) with compile_patch on the single repair_phase variable, not a full rewrite.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795212965.162365,
-  "score_before": 4525,
-  "score_after": 4525,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Best remains score 875 (86/87 instructions). Candidate is saved m2c-style C. A clean rewrite was 4525 and branch-orientation rewrite 1490; a value-expression change also worsened to 1360. Rechecking saved_best recovers 875. Remaining differences include initial null-branch offsets (+4), register allocation around byte extraction/clamping, and later branch targets. A same-source no-op check kept score 875 without showing identical output. Failed label experiment did not compile. Next step: restructure the first null guard to reproduce the target's 8-byte frame/branch layout while preserving the saved clamp structure.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795214203.2330282,
-  "score_before": 4525,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Verified baseline remains score 875. Explicit u16 load for second packed component preserved score/instruction count, but register/code differences unchanged. Three initial-guard rewrites failed compilation due C89/undefined labels; a no-op exact patch also produced unchanged code. Remaining key mismatch is branch join offset: target null guard and 0x6B equality branch to +0xD8, candidate +0xD4; clamp code uses wrong carrier regs. Previous 200+ trials found no improvement.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795218016.895651,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Current baseline 875. Local repair variants did not improve; branch orientation worsened, inferred-record layout and inline scheduling were neutral, scalar storage and lifetime variants worsened. First mismatch target beqz offset d8 vs candidate d4. Next step: inspect full assembly and try changing null-check block shape to shift branch target by one instruction while preserving register allocation.\n6 independent local repair families; best remained 875\nno score improvement; current best retained",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795221161.243538,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Verified best is 875/87 target instructions. Reversed null-check forms for arg0+4 and byte 0x11 were neutral; local repair batch had no improvement (scalar storage worsened). A diagnostic 12-byte frame local changed stack to 16 and score 877. The main mismatch remains branch distance: target initial null branch is d8 and candidate d4, due to a missing/changed instruction in the opening block. Prior work had extensive attempts; preserve baseline.\nReversed null checks, three local repair variants, and expanded artificial frame from 8 to 12 bytes.\nNull-check flips neutral; local scalar-storage variant worse; frame grew to 16 bytes and score 877. Saved best 875 unchanged.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795224708.408046,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Rechecked saved candidate score 875. Tried a clean rewrite (score 6300); adding an 8-byte frame local store reduced it to 1025, still worse than saved. Restored saved_best. Three independent branch_orientation variants (scores 1190, 1315, 1360) also regressed. Main unresolved diff begins branch target at initial null guard (target beqz to +0xd8 vs candidate +0xd4), followed by clamp register/control flow. No improvement over 875. Next step: inspect try_local_repairs families guard_shape and delayed_narrow_capture on revision 02e5862db1d13520208b, or compare with its similar function, focusing early branch layout and the 0x10 increments' signed clamp.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795229574.83491,
-  "score_before": 6300,
-  "score_after": 1025,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Inherited candidate d41a43507a99d00583e1 does not compile: m2c/GCC C89 rejects declarations inside several nested blocks (reported lines 9, 13, 19, 27, 34, 35). try_local_repairs could not run; no baseline build. A no-op compile_patch reproduced same errors and left candidate unchanged. redraft failed because the freeform context was interpreted as malformed C. Next step: reconstruct the candidate with all locals declared at function top, then compile_and_diff to establish a measured score.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795231055.53817,
-  "score_before": 875,
-  "score_after": 875
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Rechecked best score 875. One patch, self-assignment of first clamp intermediate (`temp_v0_2 = temp_v0_2;`), returned to 875 from worse trials but no net gain. Initial null guard targets d4 vs target d8; equality guard d4 vs d8. Remaining largely registers/branch offsets. The 8-byte frame array may be needed. Extra stores into frame and early-return refactor worsened score.\nSelf-assignment after initial clamp intermediate restored baseline score 875 from trial 1340; volatile frame and early null return did not improve or regressed.\nBest score 875; 31 differences, including branch target offsets four bytes short and FPR/register/operand allocation differences. Exhausted 6/6.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795232030.545099,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Stalled at verified score 875 after 26 local repair variants. Tried inferred record layout, address temporaries, constant locals, const reads, read-before-assign, single-field records, arithmetic operand order, combined scheduling, scalar storage reuse, branch orientation, masked value reuse and CFG integer lifetimes. Most stayed at 875; some worsened (up to 3690), scalar storage variant was 1400. Two direct compile submissions failed from malformed C89 declaration placement and were discarded. Current best candidate ae22a2a4870b81eb8375; first difference is null branch target d8 vs d4; 31 rows differ, mostly registers and branches.\nSee notes; local-repair variants did not improve score.\nBest remains 875; target's first null branch targets d8 vs candidate d4.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795233223.89539,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "No match; my rewrites scored 1880-2020, which is worse than the saved best of 875. Remaining diff: the target recomputes hi+0x10 from the srl result. It keeps v1=hi and v0=hi+0x10 as separate registers, with `addiu v1,v1,0x10` in the bnez delay slot. GCC CSEs the two hi+0x10 expressions into one register and emits a `move`/beql instead. The target also puts arg0 in a3 and the arg0->4 pointer in v0, while mine uses a2/a1. Variants tried: if/else-chain clamp (2020), a separate hi variable (1880), a pad[2] local for the 8-byte frame. Next step: find a source form that blocks the CSE of hi+0x10 in each clamp, for example by passing the value through a helper or macro that clamps on a differently typed expression. Another option is to make the compare use a different operand than the assigned value.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795234433.3930628,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Six local variants failed to improve 875; register allocation and one missing instruction remain.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795236294.143399,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Baseline rechecked at 875; 31 mismatch rows, largely registers and branch offsets.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795237708.999433,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Low progress after 30 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 10; 23 differing rows (23 register; advisory).\nTarget: addiu $v0, $v1, 0x10\nCandidate: addiu $a1, $v1, 0x10\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beq $v1, $v0, 0xd8\n  = srl $v1, $a0, 0x18\nr T: addiu $v0, $v1, 0x10 | C: addiu $a1, $v1, 0x10\nr T: bltz $v0, 0x44 | C: bltz $a1, 0x44\nr T: slti $v0, $v0, 0x25 | C: slti $v0, $a1, 0x25\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 658409e7d5f4903fa51c scored 110 vs inherited 875, with all opcodes, scheduling, stack, and branch offsets exact. Cast clamp comparison inputs back to u8 while incrementing the s32 result, reuse temp_a0_2 in the second clamp then save it for packing, and lift the tail pointer load before packing. Tail compare reusing temp_v0_3 gave 110. Reusing var_a0_2 or temp_v0_2 for tail result scored 255/265. Next step: test non-fixed C register hints on the compare temporaries and tail result; automatic handoff stopped before those trials.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795242120.452912,
-  "score_before": 875,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Machine draft baseline 4955; scalar reuse improved to 2745. Union, inferred layout, and further reuse were unchanged or worse; branch inversion worsened to 3095. Historical 110 candidate was unavailable in this claim.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795244002.5884879,
-  "score_before": 110,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Baseline compiles at 1780. Clamp branch inversion worsened to 1965/2355, unsigned temporaries to 2265/2425; removing volatile from unused pad unchanged. Target uses bnez rather than candidate beql in clamp.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795245001.530154,
-  "score_before": 1585,
-  "score_after": 1585,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Current verified best remains 2070. Tried recovering historical saved candidate, changing second packed field read from byte to word-shift (no effect), a manual word reuse extraction rewrite (worse at 3660, then restored), and splitting the initial shift into a local assignment (no effect). Main target mismatch begins with arg0 copied to a3, object loaded to v0, packed word loaded at +0x10 and shifted right 24; candidate copies to a2 and uses byte loads for fields. The clamp target uses signed branches and bnez, while candidate emits bltz/beql. Six-compile move-on reached.\nCompared historical saved-best 2070 under current inputs; tried word-shift extraction, scalar packed-word reuse, and split shift assignment.\nWord-shift and split-shift variants leave output unchanged; scalar packed-word reuse worsens score to 3660. Candidate restored to 2070. Target first block uses a3/v0 and lw+srl byte extraction, with explicit bnez clamp control flow.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795247941.80164,
-  "score_before": 1585,
-  "score_after": 1585,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Compiled supplied draft and got 2070 (87 insns, 60 mismatch rows; target 100 insns in assembly page, likely function bytes include padding/hidden extent nuance; claim judge reports target 87 here). Tested void** signature: identical 2070. Replaced byte test at object offset 0x11 with word load/shift expression; worse at 2400. Attempted temp_v0=arg0[1] to force source indexing, but C failed because arg0 is void*. Saved best 2070.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795249074.635148,
-  "score_before": 2070,
-  "score_after": 2070,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "Stalled after clamp and type variants; current best 1385 still differs in register allocation and branch scheduling. Word load and delayed shift, halfword at 0x10, word store and clamp arm ordering improved the candidate; signedness and declaration variants did not.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795249957.593786,
-  "score_before": 1875,
-  "score_after": 1385,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_8002FFAC",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Best 85 after ~29k automatic trials and 100 attempts; no new work this session. Next step: re-check the diff at the saved best for a structural (not register) difference.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795307500.139025,
-  "score_before": 85,
-  "score_after": 85
- },
- {
   "function": "func_80118BCC",
   "text": "Not attempted (no compile). 3880 bytes; m2c fails to find the jump table at line 253 (no jtbl variable read before jr). Needs a hand-written switch skeleton before any compile.",
   "by": "permuter-25769805351",
@@ -82024,5 +81735,303 @@
   "score_before": 525,
   "score_after": 525,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:51c7f029121803c86831d45757bc40a84d1f91c8cbd6c69b571198aa1e49d52e"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Improved 2030 to 1910 through shift reuse and combined scheduling; candidate contains compiler-shaping inline helper and unused 8-byte frame, not established original source. Fifty-nine mismatch rows remain, especially clamp branch layout and registers; target lacks initial stack adjustment. Reconstruct clamp and packed colour updates directly from assembly, remove artificial frame if possible. Revision 139d848f64f211867ec7 retained.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795138471.9835148,
+  "score_before": 1900,
+  "score_after": 1900
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Resumed saved_best revision 4490ff133bed2f5a55b3; current recheck score 1715. Tried six independent local repairs: scalar_storage_reuse, inferred_record_layout, branch_orientation, masked_value_reuse, cfg_integer_lifetimes, signedness. None improved; branch_orientation and signedness worsened. Move-on threshold reached. Remaining work: inspect full target assembly/diff and revise field types/control flow; prior saved candidate includes M2C field access and compile errors from initial session were resolved. No reusable game-wide convention established.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795178409.683382,
+  "score_before": 1715,
+  "score_after": 1715
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Best remains 1715/348 bytes. Rechecked candidate and tried three automated repair variants (record layout/address temporary tied; constant local worsened), then forced the initial packed-word load volatile (1815) and reverted (1715). Remaining early mismatch is control flow/loads: target loads pointer once, checks null, then lbu byte 0x11 and lw packed word 0x10 before comparison; candidate introduces byte extraction and different branch shape. Candidate also has lbu/lhu at packed color offsets where target uses lw/lhu. Rework as explicit byte-component clamp logic using a cached pointer and packed u32 load, keeping branch structure close to assembly.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795182768.862939,
+  "score_before": 1715,
+  "score_after": 1715
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Saved candidate rechecked 1715; all local repair families tried (scalar storage reuse, inferred record layout, branch orientation, masked value reuse, integer lifetime CFG, signedness, declaration order, address temporary) did not improve it. Draft arithmetic for three packed color components saturates offsets around 0x10 with byte-specific upper bounds; target loads/processes packed data in 32-bit/halfword widths and branches on signed overflow. Current source remains mechanically generated and highly fragmented; next rewrite cleanly with packed-word extraction, signed overflow checks and one combined store, while preserving target's negative and upper-bound branches.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795191709.372561,
+  "score_before": 1715,
+  "score_after": 1715
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Improved saved best 1715 to 1460 by loading the word before the byte comparison and extracting the second channel with a halfword at offset 0x10. First clamp still lacks target bltz; signed shift, signed-byte conversion, volatile local, and reordered clamp worsened the score. Remaining mismatches include clamp control flow, register allocation and prologue scheduling.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795193642.5215309,
+  "score_before": 1470,
+  "score_after": 1460
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Recompiled saved best at 1515; candidate has 85 vs target 87 instructions. Attempted to submit draft; initially compile error from omitted local declaration, then correctly verified saved candidate. Target first sequence loads packed word at offset 0x10 before byte compare and extracts top byte from same word; candidate instead emits lbu at offset 0x10 and lacks srl, causing control-flow displacement mismatches. Need restructure with one u32 packed-word load shared for compare and extraction, then revise the three clamped-byte expressions and second-object four-byte fill store. Start by preserving field read as 32-bit then using shifts; saved candidate remains best.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795198209.269679,
+  "score_before": 1460,
+  "score_after": 1460
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Best current candidate e3edfcf9f95cb3525c43 rechecks at 1515 after a compile. Tried local scalar storage reuse (1550), inferred record layout (same 1515), and branch orientation (1955); move-on budget reached. Main unresolved issue is control flow around the first packed color update: target loads a 32-bit word, then compares the byte at +0x11 and has `srl` in the equality branch delay slot; candidate defers/reforms the word load and has downstream branch targets 8 bytes earlier. Later halfword accesses/packed component calculations also differ. Continue from saved candidate and inspect exact declarations/expressions before tuning.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795199246.1688478,
+  "score_before": 1460,
+  "score_after": 1460
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Verified best 1255. Direct nonvolatile u16 at +0x10 on the second channel recovers exact lhu and clamp registers; the prior word-to-u16 cast addressed the wrong half. Volatile u16 introduces a redundant andi 0xffff. Remaining initial word+shift collapses to lbu; volatile word with shift inside the guard reduced mismatch rows but worsened byte score. Next isolate that load's schedule and test reusing one clamp accumulator for the second/third channels with a saved copy between them (target move a2,a0). Final clamp needs bnez/addiu delay and its pointer reload before pack; signed accumulator reuse alone and moving the pointer assignment alone worsened the score.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795201215.063537,
+  "score_before": 1265,
+  "score_after": 1255
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Restored saved-best revision 603dece3298b05ac75c7, rechecked score 1250. Full C rewrite scored 1250; converting byte compare at offset 0x11 into shifted word comparison scored 1390. Six local families (scalar storage, inferred record layout, branch orientation, masked reuse, cfg integer lifetime, last shift reuse) yielded no improvement. Main mismatch: target's first checks branch to 0xd8 and sequence reads lbu at +0x11 plus lw word at +0x10, then srl; current C branches to 0xd0 and directly extracts fields. Other remaining differences are register/order/control-flow. Next try use an explicit u8 tag variable for +0x11 and a single packed u32 loaded once, with decoded channels computed from that shared value.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795202180.049081,
+  "score_before": 1250,
+  "score_after": 1250
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Best candidate revision 8c314ed281148223f077, score 875 (improved from verified 890 via masked_value_reuse: explicitly store (temp_v0_7 & 0xFF) in temp_v0_3 before assigning temp_a0_2). Tested six independent local repair families: only masked value reuse improved; struct layout and inline scheduling tied; branch orientation, scalar storage reuse, cfg lifetimes worsened. Then tested alternative reorder/early-exit shapes and packed-byte clamp signedness/cast/combined-store forms; none improved. Current mismatch advisory starts at initial null check: target branches to 0xd8, candidate 0xd4, with 31 differences (2 opcode, 17 register, 8 branch targets, one operand, one insertion, two deletions). Target first operations: load arg0+4 then allocate 8-byte frame, beqz with return-value initialization in delay slot. Best next experiment: inspect exact diff against revision 8c314... after targeting the entry branch; try retaining the null-pointer test as a distinct outer guard while moving initialization of t0=1 into a single-iteration control construct or branch delay-eligible expression to recover target branch destination and delay slot. Remaining main body transforms three packed color bytes with clamping and updates up to four sibling records. No evidence supports a hand-written assembly verdict.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795204185.804912,
+  "score_before": 890,
+  "score_after": 875
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Rechecked saved best at 875 (target 87 insns, candidate 86). Tried bounded local repair families (pointer integer phase union, CFG lifetimes, scalar storage reuse, inferred layout, branch orientation, combined scheduling), none improved; branch_orientation produced 910. Reordering initial result initialization/load preserved 875. A diagnostic patch did not compile due to undefined phase2 label; saved_best restored. Target first mismatch is initial null-branch target (beqz target 0xd8 vs candidate 0xd4) with broader branch target/register/order differences. Original assembly starts move a3,a0; lw v0,4(a3); stack allocation; beqz to shared exit with t0=1 delay; later comparing byte 0x11 to 0x6B also branches to shared exit. Next try represent first guard and second sentinel guard as explicit early-return predicates while maintaining output update logic; investigate branch target/layout via source control flow. Do not repeat listed local families or same initialization reorder.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795205568.288188,
+  "score_before": 875,
+  "score_after": 875
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Tried a clean rewrite from scratch (cached p=arg0->4, q=arg0->0x10, clamp helpers as if/else): score 2305; adding an unused u32 frame[2] local to reserve the target's addiu $sp,-8 brought it to 1530. Still worse than saved best 875. Remaining diffs: target reloads lw arg0+4 three times (no cached pointer), branch targets shifted by 0x14-0x20, and a stray move ordering in the tail. Untested next step: rewrite the clean version reloading *(arg0+4) and *(arg0+0x10) at each use, keeping the 8-byte frame local.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795206569.382014,
+  "score_before": 875,
+  "score_after": 875
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed brief and target asm (87 insns, frame addiu -8, lw arg0+4 reloaded per field, clamp helpers for three byte fields packed into word at +0x10 of *(arg0+4); second block writes 4 words to *(arg0+0x10..0x1C) from a clamped byte). Saved best 875 after 201 attempts; prior agents tried rewrites, local repair families, branch orientation, and scheduling without improvement. Released without new compile at low effort. Untested next step: rewrite clean with reloads of *(arg0+4) per access (no cached pointer), and the second block as a separate static helper-free clamp computed before the stores.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795207595.737791,
+  "score_before": 875,
+  "score_after": 875
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed saved_best (score 875, rev 02e5862db1d13520208b) and target asm. No new compile made this session; prior agents logged ~201 attempts (local repair families, explicit patches, clean rewrite scoring 1530-2305, branch orientation, scheduling) without beating 875. Target structure: arg0+4 pointer reloaded per field (lw $v0,0x4($a3) repeated), three clamp blocks (slti/bnez/j with delay-slot constant), packed u32 store at +0x10 of *(arg0+4), then 4 word stores to *(arg0+0x10..0x1C) from a clamped byte. Remaining diff is branch target offsets and tail ordering. Untested idea: write the clamp as explicit ternary-free if/else in the exact order the asm loads 0x10 halfword before the byte mask, and keep *(arg0+4) reloaded per use rather than cached.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795209313.975801,
+  "score_before": 875,
+  "score_after": 875
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed saved_best (rev 02e5862db1d13520208b, score 875) and target asm. No new compile this session; prior agents logged ~200 attempts (local repair families, explicit patches, clean rewrites 1530-2305, branch orientation, scheduling) without beating 875. Target: arg0+4 pointer reloaded per field; three clamp blocks (bltz/slti/bnez/addiu with j fallback) over byte/half fields; second block packs clamped values into word at *(arg0+4)+0x10; third block writes 4 words to arg0+0x10..0x1C. Unresolved: the candidate's temp/variable structure (__repair_frame, __repair_phase temp) is messy; a clean rewrite with a single pointer local for arg0->4 and explicit clamp helper statements may be worth one attempt, but earlier clean rewrites scored worse.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795210505.826375,
+  "score_before": 875,
+  "score_after": 875
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Stalled at saved_best 875 (rev 02e5862db1d13520208b). Tried one clean rewrite (ternary-style clamps, local temps, w-based stores): 4525, worse; it reorders the three clamp blocks and keeps arg0+4 pointer reloads off. Target has lw $v0,4($a3) reloaded before each field group and clamp blocks use bltz/slti/bnez with addiu in delay slots; the saved_best m2c-style structure matches that better. Next step: keep saved_best's structure and work only on the first clamp (bltz at 0x...FFF0 / sll/srl temp order) with compile_patch on the single repair_phase variable, not a full rewrite.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795212965.162365,
+  "score_before": 4525,
+  "score_after": 4525,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Best remains score 875 (86/87 instructions). Candidate is saved m2c-style C. A clean rewrite was 4525 and branch-orientation rewrite 1490; a value-expression change also worsened to 1360. Rechecking saved_best recovers 875. Remaining differences include initial null-branch offsets (+4), register allocation around byte extraction/clamping, and later branch targets. A same-source no-op check kept score 875 without showing identical output. Failed label experiment did not compile. Next step: restructure the first null guard to reproduce the target's 8-byte frame/branch layout while preserving the saved clamp structure.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795214203.2330282,
+  "score_before": 4525,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Verified baseline remains score 875. Explicit u16 load for second packed component preserved score/instruction count, but register/code differences unchanged. Three initial-guard rewrites failed compilation due C89/undefined labels; a no-op exact patch also produced unchanged code. Remaining key mismatch is branch join offset: target null guard and 0x6B equality branch to +0xD8, candidate +0xD4; clamp code uses wrong carrier regs. Previous 200+ trials found no improvement.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795218016.895651,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Current baseline 875. Local repair variants did not improve; branch orientation worsened, inferred-record layout and inline scheduling were neutral, scalar storage and lifetime variants worsened. First mismatch target beqz offset d8 vs candidate d4. Next step: inspect full assembly and try changing null-check block shape to shift branch target by one instruction while preserving register allocation.\n6 independent local repair families; best remained 875\nno score improvement; current best retained",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795221161.243538,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Verified best is 875/87 target instructions. Reversed null-check forms for arg0+4 and byte 0x11 were neutral; local repair batch had no improvement (scalar storage worsened). A diagnostic 12-byte frame local changed stack to 16 and score 877. The main mismatch remains branch distance: target initial null branch is d8 and candidate d4, due to a missing/changed instruction in the opening block. Prior work had extensive attempts; preserve baseline.\nReversed null checks, three local repair variants, and expanded artificial frame from 8 to 12 bytes.\nNull-check flips neutral; local scalar-storage variant worse; frame grew to 16 bytes and score 877. Saved best 875 unchanged.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795224708.408046,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Rechecked saved candidate score 875. Tried a clean rewrite (score 6300); adding an 8-byte frame local store reduced it to 1025, still worse than saved. Restored saved_best. Three independent branch_orientation variants (scores 1190, 1315, 1360) also regressed. Main unresolved diff begins branch target at initial null guard (target beqz to +0xd8 vs candidate +0xd4), followed by clamp register/control flow. No improvement over 875. Next step: inspect try_local_repairs families guard_shape and delayed_narrow_capture on revision 02e5862db1d13520208b, or compare with its similar function, focusing early branch layout and the 0x10 increments' signed clamp.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795229574.83491,
+  "score_before": 6300,
+  "score_after": 1025,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Inherited candidate d41a43507a99d00583e1 does not compile: m2c/GCC C89 rejects declarations inside several nested blocks (reported lines 9, 13, 19, 27, 34, 35). try_local_repairs could not run; no baseline build. A no-op compile_patch reproduced same errors and left candidate unchanged. redraft failed because the freeform context was interpreted as malformed C. Next step: reconstruct the candidate with all locals declared at function top, then compile_and_diff to establish a measured score.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795231055.53817,
+  "score_before": 875,
+  "score_after": 875
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Rechecked best score 875. One patch, self-assignment of first clamp intermediate (`temp_v0_2 = temp_v0_2;`), returned to 875 from worse trials but no net gain. Initial null guard targets d4 vs target d8; equality guard d4 vs d8. Remaining largely registers/branch offsets. The 8-byte frame array may be needed. Extra stores into frame and early-return refactor worsened score.\nSelf-assignment after initial clamp intermediate restored baseline score 875 from trial 1340; volatile frame and early null return did not improve or regressed.\nBest score 875; 31 differences, including branch target offsets four bytes short and FPR/register/operand allocation differences. Exhausted 6/6.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795232030.545099,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Stalled at verified score 875 after 26 local repair variants. Tried inferred record layout, address temporaries, constant locals, const reads, read-before-assign, single-field records, arithmetic operand order, combined scheduling, scalar storage reuse, branch orientation, masked value reuse and CFG integer lifetimes. Most stayed at 875; some worsened (up to 3690), scalar storage variant was 1400. Two direct compile submissions failed from malformed C89 declaration placement and were discarded. Current best candidate ae22a2a4870b81eb8375; first difference is null branch target d8 vs d4; 31 rows differ, mostly registers and branches.\nSee notes; local-repair variants did not improve score.\nBest remains 875; target's first null branch targets d8 vs candidate d4.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795233223.89539,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "No match; my rewrites scored 1880-2020, which is worse than the saved best of 875. Remaining diff: the target recomputes hi+0x10 from the srl result. It keeps v1=hi and v0=hi+0x10 as separate registers, with `addiu v1,v1,0x10` in the bnez delay slot. GCC CSEs the two hi+0x10 expressions into one register and emits a `move`/beql instead. The target also puts arg0 in a3 and the arg0->4 pointer in v0, while mine uses a2/a1. Variants tried: if/else-chain clamp (2020), a separate hi variable (1880), a pad[2] local for the 8-byte frame. Next step: find a source form that blocks the CSE of hi+0x10 in each clamp, for example by passing the value through a helper or macro that clamps on a differently typed expression. Another option is to make the compare use a different operand than the assigned value.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795234433.3930628,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Six local variants failed to improve 875; register allocation and one missing instruction remain.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795236294.143399,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Baseline rechecked at 875; 31 mismatch rows, largely registers and branch offsets.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795237708.999433,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Low progress after 30 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 10; 23 differing rows (23 register; advisory).\nTarget: addiu $v0, $v1, 0x10\nCandidate: addiu $a1, $v1, 0x10\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beq $v1, $v0, 0xd8\n  = srl $v1, $a0, 0x18\nr T: addiu $v0, $v1, 0x10 | C: addiu $a1, $v1, 0x10\nr T: bltz $v0, 0x44 | C: bltz $a1, 0x44\nr T: slti $v0, $v0, 0x25 | C: slti $v0, $a1, 0x25\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 658409e7d5f4903fa51c scored 110 vs inherited 875, with all opcodes, scheduling, stack, and branch offsets exact. Cast clamp comparison inputs back to u8 while incrementing the s32 result, reuse temp_a0_2 in the second clamp then save it for packing, and lift the tail pointer load before packing. Tail compare reusing temp_v0_3 gave 110. Reusing var_a0_2 or temp_v0_2 for tail result scored 255/265. Next step: test non-fixed C register hints on the compare temporaries and tail result; automatic handoff stopped before those trials.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795242120.452912,
+  "score_before": 875,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Machine draft baseline 4955; scalar reuse improved to 2745. Union, inferred layout, and further reuse were unchanged or worse; branch inversion worsened to 3095. Historical 110 candidate was unavailable in this claim.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795244002.5884879,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Baseline compiles at 1780. Clamp branch inversion worsened to 1965/2355, unsigned temporaries to 2265/2425; removing volatile from unused pad unchanged. Target uses bnez rather than candidate beql in clamp.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795245001.530154,
+  "score_before": 1585,
+  "score_after": 1585,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Current verified best remains 2070. Tried recovering historical saved candidate, changing second packed field read from byte to word-shift (no effect), a manual word reuse extraction rewrite (worse at 3660, then restored), and splitting the initial shift into a local assignment (no effect). Main target mismatch begins with arg0 copied to a3, object loaded to v0, packed word loaded at +0x10 and shifted right 24; candidate copies to a2 and uses byte loads for fields. The clamp target uses signed branches and bnez, while candidate emits bltz/beql. Six-compile move-on reached.\nCompared historical saved-best 2070 under current inputs; tried word-shift extraction, scalar packed-word reuse, and split shift assignment.\nWord-shift and split-shift variants leave output unchanged; scalar packed-word reuse worsens score to 3660. Candidate restored to 2070. Target first block uses a3/v0 and lw+srl byte extraction, with explicit bnez clamp control flow.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795247941.80164,
+  "score_before": 1585,
+  "score_after": 1585,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Compiled supplied draft and got 2070 (87 insns, 60 mismatch rows; target 100 insns in assembly page, likely function bytes include padding/hidden extent nuance; claim judge reports target 87 here). Tested void** signature: identical 2070. Replaced byte test at object offset 0x11 with word load/shift expression; worse at 2400. Attempted temp_v0=arg0[1] to force source indexing, but C failed because arg0 is void*. Saved best 2070.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795249074.635148,
+  "score_before": 2070,
+  "score_after": 2070,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Stalled after clamp and type variants; current best 1385 still differs in register allocation and branch scheduling. Word load and delayed shift, halfword at 0x10, word store and clamp arm ordering improved the candidate; signedness and declaration variants did not.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795249957.593786,
+  "score_before": 1875,
+  "score_after": 1385,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Best 85 after ~29k automatic trials and 100 attempts; no new work this session. Next step: re-check the diff at the saved best for a structural (not register) difference.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307500.139025,
+  "score_before": 85,
+  "score_after": 85
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Judge reached 20/20. Score 15, only shade sum allocation differs. Splitting the sum temporary regressed to 100. Moving calculation inside the branch or removing byte cast scored 595. Next step: reuse the earlier pointer in the shade sentinel load.\nSplit sum temporary and moved shade sum into sentinel branch.\nSplit scored 100 and move 595. Baseline retained at 15, a2 instead of v0 in three operands.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795319911.107619,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
  }
 ]
