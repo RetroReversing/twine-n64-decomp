@@ -55,6 +55,7 @@ typedef struct { unsigned char pad_0[36]; float field_24; unsigned char pad_28[4
 void func_800770E4(void *arg0)
 {
   u8 *var_s0_2;
+  f32 ox2, oz2, fa2, fb2, ox3, oz3, fa3, fb3; u32 vv2, vv3;
   s32 var_a1;
   f32 var_fs0;
   f32 var_fs1;
@@ -88,6 +89,7 @@ void func_800770E4(void *arg0)
     s32 value;
   } __repair_phase_storage;
   void *temp_v0_3;
+  void *temp_v0_2;
   temp_v1 = ((__repair_record_arg0*)arg0)->field_78;
   if (temp_v1 == 1)
   {
@@ -108,36 +110,30 @@ void func_800770E4(void *arg0)
   else
     if (temp_v1 == 2)
   {
-    __repair_phase_storage.pointer = ((__repair_record_arg0*)arg0)->field_6C;
-    do
-    {
-      origin_x = ((__repair_record_arg0*)arg0)->field_24;
-      origin_z = ((__repair_record_arg0*)arg0)->field_2C; var_fv0 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A0)); var_fv1_2 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A8)); var_v1_2 = *((u32 *) (((char *) __repair_phase_storage.pointer) + 0x18C)); var_s3 = 0; var_s2 = 0;
-      *((s32 *) (((char *) __repair_phase_storage.pointer) + 0xCC)) = 0;
-    }
-    while (0);
-    var_v0 = 0x4D;
-    goto block_8;
+    temp_v0_2 = ((__repair_record_arg0*)arg0)->field_6C;
+    ox2 = ((__repair_record_arg0*)arg0)->field_24; oz2 = ((__repair_record_arg0*)arg0)->field_2C; fa2 = *((f32 *) (((char *) temp_v0_2) + 0x1A0)); fb2 = *((f32 *) (((char *) temp_v0_2) + 0x1A8)); vv2 = *((u32 *) (((char *) temp_v0_2) + 0x18C)); var_s3 = 0; var_s2 = 0; *((s32 *) (((char *) temp_v0_2) + 0xCC)) = 0;
+    var_fs1 = fa2 - ox2;
+    var_fs0 = fb2 - oz2;
+    ((__repair_record_arg0*)arg0)->field_78 = 0x4D;
+    var_a1 = vv2 >> 0xC;
+    var_a1 &= 0xF;
+    goto block_9;
   }
   else
   {
-    var_s3 = 0;
     if (temp_v1 == 3)
     {
- do { temp_v0_3 = ((__repair_record_arg0*)arg0)->field_6C; origin_x = ((__repair_record_arg0*)arg0)->field_24; origin_z = ((__repair_record_arg0*)arg0)->field_2C; var_fv0 = *((f32 *) (((char *) temp_v0_3) + 0x1A0)); var_fv1_2 = *((f32 *) (((char *) temp_v0_3) + 0x1A8)); var_v1_2 = *((u32 *) (((char *) temp_v0_3) + 0x18C)); var_s2 = 0; *((s32 *) (((char *) temp_v0_3) + 0xCC)) = 0; } while (0);
-      var_v0 = 0x61;
+      temp_v0_3 = ((__repair_record_arg0*)arg0)->field_6C; ox3 = ((__repair_record_arg0*)arg0)->field_24; oz3 = ((__repair_record_arg0*)arg0)->field_2C; fa3 = *((f32 *) (((char *) temp_v0_3) + 0x1A0)); fb3 = *((f32 *) (((char *) temp_v0_3) + 0x1A8)); vv3 = *((u32 *) (((char *) temp_v0_3) + 0x18C)); var_s3 = 0; var_s2 = 0; *((s32 *) (((char *) temp_v0_3) + 0xCC)) = 0;
+      var_fs1 = fa3 - ox3;
+      var_fs0 = fb3 - oz3;
+      ((__repair_record_arg0*)arg0)->field_78 = 0x61;
+      var_a1 = vv3 >> 0xC;
+      var_a1 &= 0xF;
     }
     else
     {
       return;
     }
-    block_8:
-    var_fs0 = var_fv1_2 - origin_z;
-    var_fs1 = var_fv0 - origin_x;
-
-    ((__repair_record_arg0*)arg0)->field_78 = var_v0;
-    var_a1 = var_v1_2 >> 0xC;
-    var_a1 &= 0xF;
   }
   block_9:
   __repair_phase_storage.value = angleDelta12((s32) (approximateAtan2(var_fs1, var_fs0) * 651.8986f), (s32) ((((__repair_record_arg0*)arg0)->field_40) + 256.0f)) >> 9;
@@ -231,6 +227,9 @@ void func_800770E4(void *arg0)
 
       switch (__repair_phase_var_v1)
     {
+      case 7:
+        goto block_71;
+
       case 9:
         func_80002EB8(arg0);
         goto block_71;

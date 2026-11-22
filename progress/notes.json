@@ -56785,101 +56785,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3346e590fabaf7c780c866a1d74a00e34cb8318e2d723101975d2e4cd28ac8e7"
  },
  {
-  "function": "func_800770E4",
-  "text": "Not matched. Start from m2c draft (rev 6d0f8e9dd30d2810c74a); its duplicate case 7 is the blocker. Removing the first 'case 7:' label (before block_71) and renaming the second to 'case 9:' gave score 22675 with 405 differing rows. That is still far off: the target frame is 0x38 with saves s0-s3, ra, fs0/fs1 at 0x10-0x30, but the candidate saves ra at 0x24, so the stack/register allocation is wrong. Also, jump tables (jtbl_800D4AD0, D4B68, D4BA0, D4BC8, D4BE8, D4C08, D4C28) need switch-case reconstruction. The draft's case labels for switch 2 and switch 4 are also suspect. Do a clean rewrite of the switch structure, starting from the case-by-case assembly, before fine tuning registers. The function is large (509 insns), so budget multiple sessions.\n\nSession note: claimed but not compiled or worked on; released/set aside with no candidate changes. Draft has a duplicate case value (case 7 vs an earlier case) and a few undeclared/mistyped locals, and is 2036 bytes. Local-repair budget for this candidate revision was reported exhausted at 6d0f8e9dd30d2810c74a. Start from get_assembly and a fresh draft rather than the saved candidate.",
-  "by": "permuter-25769805351",
-  "created_at": 1795055665.594713,
-  "score_before": 22675,
-  "score_after": 22675
- },
- {
-  "function": "func_800770E4",
-  "text": "The inherited machine draft has a duplicate case label in a large irregular-switch routine and did not compile; I confirmed the independent 2-instruction stub is not useful, and it is now the current exploratory revision ef2e1731ce5b9995f368. Saved best remains historical 17120; restore base=saved_best before resuming. Target is 509 instructions and heavily switch/call driven, with 47 calls to func_800452E0 and several jump tables (including jtbl_800D4AD0). The duplicate case likely comes from a case value mislabeled by m2c in one of nested switches; inspect the exact source label and intended fallthrough before removing anything. Do not keep the 2-instruction stub.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795179576.041197,
-  "score_before": 17120,
-  "score_after": 17120
- },
- {
-  "function": "func_800770E4",
-  "text": "Claim move-on reached at 11/10, current selected revision 2ef8f8baca314f8c3cca (score 18290); inherited historical saved best score 17120 was rechecked at 18280 under current header inputs, so retain/recover saved best as appropriate. Fixed the m2c duplicate-case compile error by removing empty case labels 1..12; resulting score 18280, no meaningful improvement. Replacing those no-op labels with if(temp_v1_2==0) also scored 18280. Typing var_s3 as s16 worsened to 18695; restoring s32 recovered 18280. Changing var_v1 signedness had no score effect. Local repair families (matched_integer_prototype, callee_parameter_width, cfg_integer_lifetimes) tied or worsened. Adding switch(var_s3-2) cases 1,2,5,7,10,11,12 exposed target sltiu bound 0xa versus candidate 0xd and yielded 18290, no improvement. Remaining major mismatch begins at entry guard (target branches to 0x178; candidate dispatch differs), and around the switch on var_s3-2: target uses range bound 0xa and jump table while candidate range bound 0xd; investigate actual switch cases/control flow and correct case coverage. Candidate emits multiple local .rodata jump-table relocations which do not map to target; target references global jump tables. Function is large (509 target instructions), no match found. No reusable game-wide knowledge proposal from this function.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795184831.541301,
-  "score_before": 17120,
-  "score_after": 17120
- },
- {
-  "function": "func_800770E4",
-  "text": "Current baseline 16015; local lifetime merge worsened to 19100, and signed table pointer produced unchanged instructions at 16015. Linker reports jump tables overlapping ROM data and generated rodata references.\nMerged var_s0 into var_a1; changed table base pointer to s16.\nMerge worsened score to 19100; signed pointer left instructions unchanged at 16015.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795217545.462585,
-  "score_before": 16015,
-  "score_after": 16015,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
- },
- {
-  "function": "func_800770E4",
-  "text": "Three local variants (lifetime, declaration order, branch orientation) left score 16015 unchanged. Moving the table-base initialization into case 22 scored 16490; scaling the D_800C9A5C index as u16 scored 16055. Linker reports jump-table overlap with ROM data.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795225337.68566,
-  "score_before": 16015,
-  "score_after": 16015,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
- },
- {
-  "function": "func_800770E4",
-  "text": "Baseline 16015; local prototype variants were unchanged or worse. Extensive prior history and 307 differing rows remain; moving on after repeated attempts.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795229588.636655,
-  "score_before": 16015,
-  "score_after": 16015,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
- },
- {
-  "function": "func_800770E4",
-  "text": "Revision 4b6b350ec856095724dc judged 12560 at 509/509 instructions. The state if/else order, correct three-argument func_800452E0, early origin loads and var_s3=0 before the state-3 test recovered parts of the prologue. Correcting only the missing state-3 var_s3 assignment in 0860840e66b45b52624d scored 14105. Remaining: jump table relocations, later call duplication/order, and s4 allocation. Next step: change D_800C9A5C to a u16 array and index it directly; target scales randomIntBelow(6) by two.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795252591.639099,
-  "score_before": 15995,
-  "score_after": 12560,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
- },
- {
-  "function": "func_800770E4",
-  "text": "3675 at 497/509 insns. Six switch dispatches present; remaining .rodata mapping warnings, prelude and dispatch register/scheduling differences, merged 0x2AE/0x2AF calls and tail branches. -fno-crossjumping rejected; -fno-thread-jumps, -fno-cse-follow-jumps and -fno-cse-skip-blocks all scored 3675.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795252821.928284,
-  "score_before": 12560,
-  "score_after": 3675,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
- },
- {
-  "function": "func_800770E4",
-  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 35; 105 differing rows (7 opcode, 11 register, 59 branch target, 12 operand, 3 reordered, 2 inserted, 11 deleted; advisory).\nTarget: j func_800770E4+0x108\nCandidate: j func_800770E4+0x104\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sb $v0, 0x7f($s0)\n  = srl $s0, $v1, 0x11\ni T: j func_800770E4+0x108 | C: j func_800770E4+0x104\n  = andi $s0, $s0, 0xf\n| T: bnel $v1, $v0, 0xc8 | C: bne $v1, $v0, 0xc4\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAutomatic low-progress handoff. Saved best 84ec8574150e9fa9db64, 3635 at 499/509 instructions. Moving the common state 2/3 tail after state 3 improved 4400\u21923635. Shared signed full-width call temporary preserves lhu, direct unsigned float cast improved the random call, and explicit func_80077960 per arm recovered duplicated call tails. Remaining missing selector jump table at 800D4B68, merged state store/reset and incorrect .rodata attribution. Redundant nonzero guard in case 1..12 emitted a larger dispatch (3785); duplicating X subtraction scored 3655. Next step: on 84ec8574150e9fa9db64 test a `switch` giving the mode 0 store and mode 1..12 path separate continuations into the state dispatch, then inspect selector table bytes and joins.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795273505.533685,
-  "score_before": 3675,
-  "score_after": 3635,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
- },
- {
-  "function": "func_800770E4",
-  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 14; 17 differing rows (13 register, 1 operand, 2 reordered, 1 deleted; advisory).\nTarget: \nCandidate: lh $s3, 0x7c($s1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $v0, $zero, 2\n  = lw $s0, 0x6c($s1)\no T:  | C: lh $s3, 0x7c($s1)\n  = lwc1 $f0, 0x24($s1)\no T: lh $s3, 0x7c($s1) | C: lwc1 $f2, 0x2c($s1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795310363.462025,
-  "score_before": 725,
-  "score_after": 50,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
- },
- {
-  "function": "func_800770E4",
-  "text": "Best 50: 10 FP register rows differ from row 40 (target $f4,$f6,$f0; cand $f12,$f0,$f2). Local repairs and subtraction reorder failed. Next step: stage var_fs1/var_fs0 subtractions into separate f32 locals before the atan2 call.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795311403.932148,
-  "score_before": 50,
-  "score_after": 50
- },
- {
   "function": "func_8009A990",
   "text": "Not matched. Best compiled score 5275 (rev d3c743f4e10fd272671e, ~63.6%); the last variant (cf0f372e\u2026, 5525) regressed. Known structure: prologue saves s0-s4/ra; branch on p[6]; if p[6]==0 it sorts two bytes of *(u32*)p (s1=w>>8, s0=w>>24, swap if s0<(s1&0xFF)); else computes clamped ranges from obj+0x50 and p[0]/p[2]. Then if p[7]!=0 calls func_80095638 twice, the second with a modulo over 201 (libdivide-style magic mulhi 0x28C1979, which the C should express as v/201 with a u16 type). Then random mod. Stack layout in target: s2 at 0x20, ra 0x2c, s4 0x28, s3 0x24, s1 0x1c, s0 0x18, frame 0x30; my C gives a 0x30 frame but the slot order is off. Remaining issues: the 201-divide sequence (u16 vs u32 types, andi 0xffff placement), the frame slot order, and the branch shape around the D_801007D9/D_80100C7C table lookup (target keeps the two-path structure, with separate b4a/b4b branches). Try compile_patch on d3c743f4 for the divide and the table path first.",
   "by": "permuter-25769805351",
@@ -84440,5 +84345,145 @@
   "score_before": 30,
   "score_after": 30,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:828dace37b83db7da278b2ae6c294c08dbb0c09031ff1523601eac1ffc79016b"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Not matched. Start from m2c draft (rev 6d0f8e9dd30d2810c74a); its duplicate case 7 is the blocker. Removing the first 'case 7:' label (before block_71) and renaming the second to 'case 9:' gave score 22675 with 405 differing rows. That is still far off: the target frame is 0x38 with saves s0-s3, ra, fs0/fs1 at 0x10-0x30, but the candidate saves ra at 0x24, so the stack/register allocation is wrong. Also, jump tables (jtbl_800D4AD0, D4B68, D4BA0, D4BC8, D4BE8, D4C08, D4C28) need switch-case reconstruction. The draft's case labels for switch 2 and switch 4 are also suspect. Do a clean rewrite of the switch structure, starting from the case-by-case assembly, before fine tuning registers. The function is large (509 insns), so budget multiple sessions.\n\nSession note: claimed but not compiled or worked on; released/set aside with no candidate changes. Draft has a duplicate case value (case 7 vs an earlier case) and a few undeclared/mistyped locals, and is 2036 bytes. Local-repair budget for this candidate revision was reported exhausted at 6d0f8e9dd30d2810c74a. Start from get_assembly and a fresh draft rather than the saved candidate.",
+  "by": "permuter-25769805351",
+  "created_at": 1795055665.594713,
+  "score_before": 22675,
+  "score_after": 22675
+ },
+ {
+  "function": "func_800770E4",
+  "text": "The inherited machine draft has a duplicate case label in a large irregular-switch routine and did not compile; I confirmed the independent 2-instruction stub is not useful, and it is now the current exploratory revision ef2e1731ce5b9995f368. Saved best remains historical 17120; restore base=saved_best before resuming. Target is 509 instructions and heavily switch/call driven, with 47 calls to func_800452E0 and several jump tables (including jtbl_800D4AD0). The duplicate case likely comes from a case value mislabeled by m2c in one of nested switches; inspect the exact source label and intended fallthrough before removing anything. Do not keep the 2-instruction stub.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795179576.041197,
+  "score_before": 17120,
+  "score_after": 17120
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Claim move-on reached at 11/10, current selected revision 2ef8f8baca314f8c3cca (score 18290); inherited historical saved best score 17120 was rechecked at 18280 under current header inputs, so retain/recover saved best as appropriate. Fixed the m2c duplicate-case compile error by removing empty case labels 1..12; resulting score 18280, no meaningful improvement. Replacing those no-op labels with if(temp_v1_2==0) also scored 18280. Typing var_s3 as s16 worsened to 18695; restoring s32 recovered 18280. Changing var_v1 signedness had no score effect. Local repair families (matched_integer_prototype, callee_parameter_width, cfg_integer_lifetimes) tied or worsened. Adding switch(var_s3-2) cases 1,2,5,7,10,11,12 exposed target sltiu bound 0xa versus candidate 0xd and yielded 18290, no improvement. Remaining major mismatch begins at entry guard (target branches to 0x178; candidate dispatch differs), and around the switch on var_s3-2: target uses range bound 0xa and jump table while candidate range bound 0xd; investigate actual switch cases/control flow and correct case coverage. Candidate emits multiple local .rodata jump-table relocations which do not map to target; target references global jump tables. Function is large (509 target instructions), no match found. No reusable game-wide knowledge proposal from this function.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795184831.541301,
+  "score_before": 17120,
+  "score_after": 17120
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Current baseline 16015; local lifetime merge worsened to 19100, and signed table pointer produced unchanged instructions at 16015. Linker reports jump tables overlapping ROM data and generated rodata references.\nMerged var_s0 into var_a1; changed table base pointer to s16.\nMerge worsened score to 19100; signed pointer left instructions unchanged at 16015.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795217545.462585,
+  "score_before": 16015,
+  "score_after": 16015,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Three local variants (lifetime, declaration order, branch orientation) left score 16015 unchanged. Moving the table-base initialization into case 22 scored 16490; scaling the D_800C9A5C index as u16 scored 16055. Linker reports jump-table overlap with ROM data.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795225337.68566,
+  "score_before": 16015,
+  "score_after": 16015,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Baseline 16015; local prototype variants were unchanged or worse. Extensive prior history and 307 differing rows remain; moving on after repeated attempts.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795229588.636655,
+  "score_before": 16015,
+  "score_after": 16015,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Revision 4b6b350ec856095724dc judged 12560 at 509/509 instructions. The state if/else order, correct three-argument func_800452E0, early origin loads and var_s3=0 before the state-3 test recovered parts of the prologue. Correcting only the missing state-3 var_s3 assignment in 0860840e66b45b52624d scored 14105. Remaining: jump table relocations, later call duplication/order, and s4 allocation. Next step: change D_800C9A5C to a u16 array and index it directly; target scales randomIntBelow(6) by two.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795252591.639099,
+  "score_before": 15995,
+  "score_after": 12560,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "3675 at 497/509 insns. Six switch dispatches present; remaining .rodata mapping warnings, prelude and dispatch register/scheduling differences, merged 0x2AE/0x2AF calls and tail branches. -fno-crossjumping rejected; -fno-thread-jumps, -fno-cse-follow-jumps and -fno-cse-skip-blocks all scored 3675.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795252821.928284,
+  "score_before": 12560,
+  "score_after": 3675,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 35; 105 differing rows (7 opcode, 11 register, 59 branch target, 12 operand, 3 reordered, 2 inserted, 11 deleted; advisory).\nTarget: j func_800770E4+0x108\nCandidate: j func_800770E4+0x104\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sb $v0, 0x7f($s0)\n  = srl $s0, $v1, 0x11\ni T: j func_800770E4+0x108 | C: j func_800770E4+0x104\n  = andi $s0, $s0, 0xf\n| T: bnel $v1, $v0, 0xc8 | C: bne $v1, $v0, 0xc4\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAutomatic low-progress handoff. Saved best 84ec8574150e9fa9db64, 3635 at 499/509 instructions. Moving the common state 2/3 tail after state 3 improved 4400\u21923635. Shared signed full-width call temporary preserves lhu, direct unsigned float cast improved the random call, and explicit func_80077960 per arm recovered duplicated call tails. Remaining missing selector jump table at 800D4B68, merged state store/reset and incorrect .rodata attribution. Redundant nonzero guard in case 1..12 emitted a larger dispatch (3785); duplicating X subtraction scored 3655. Next step: on 84ec8574150e9fa9db64 test a `switch` giving the mode 0 store and mode 1..12 path separate continuations into the state dispatch, then inspect selector table bytes and joins.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795273505.533685,
+  "score_before": 3675,
+  "score_after": 3635,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 14; 17 differing rows (13 register, 1 operand, 2 reordered, 1 deleted; advisory).\nTarget: \nCandidate: lh $s3, 0x7c($s1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $v0, $zero, 2\n  = lw $s0, 0x6c($s1)\no T:  | C: lh $s3, 0x7c($s1)\n  = lwc1 $f0, 0x24($s1)\no T: lh $s3, 0x7c($s1) | C: lwc1 $f2, 0x2c($s1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795310363.462025,
+  "score_before": 725,
+  "score_after": 50,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Best 50: 10 FP register rows differ from row 40 (target $f4,$f6,$f0; cand $f12,$f0,$f2). Local repairs and subtraction reorder failed. Next step: stage var_fs1/var_fs0 subtractions into separate f32 locals before the atan2 call.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795311403.932148,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 40; 8 differing rows (8 register; advisory).\nTarget: lwc1 $f4, 0x24($s1)\nCandidate: lwc1 $f0, 0x24($s1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $v0, $zero, 3\n  = lw $v0, 0x6c($s1)\nr T: lwc1 $f4, 0x24($s1) | C: lwc1 $f0, 0x24($s1)\nr T: lwc1 $f6, 0x2c($s1) | C: lwc1 $f14, 0x2c($s1)\nr T: lwc1 $f0, 0x1a0($v0) | C: lwc1 $f12, 0x1a0($v0)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795315728.002358,
+  "score_before": 50,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Current score 40. Eight FP register differences remain. Eight expression/lifetime trials did not improve the candidate.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795327050.13829,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Verified score 40, eight FP register rows across states 2/3 and their join. Candidate uses f0/f14 for origin and f12/f2 for object coordinates; target uses f4/f6 and f0/f2. Target schedules X subtraction before state store and Z after; candidate does Z then X.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795341382.095565,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 19; 91 differing rows (1 opcode, 11 register, 64 branch target, 14 operand, 1 inserted; advisory).\nTarget: sub.s $f22, $f2, $f0\nCandidate: sub.s $f20, $f2, $f0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $a0, $s1, 0x24\n  = addiu $a1, $s1, 0x30\nr T: sub.s $f22, $f2, $f0 | C: sub.s $f20, $f2, $f0\n  = lwc1 $f2, 0x58($s0)\n  = lwc1 $f0, 0x2c($s1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795341799.943763,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 40; 8 differing rows (8 register; advisory).\nTarget: lwc1 $f4, 0x24($s1)\nCandidate: lwc1 $f0, 0x24($s1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $v0, $zero, 3\n  = lw $v0, 0x6c($s1)\nr T: lwc1 $f4, 0x24($s1) | C: lwc1 $f0, 0x24($s1)\nr T: lwc1 $f6, 0x2c($s1) | C: lwc1 $f14, 0x2c($s1)\nr T: lwc1 $f0, 0x1a0($v0) | C: lwc1 $f12, 0x1a0($v0)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 4e63b08d5cfe17303edc verified 40, eight FP-register rows including X/Z subtraction scheduling. Join statement permutations scored 40\u201350; reordered loads with X subtraction first scored 50\u201370; making only origin loads or only object X load volatile left all eight rows unchanged. Compound-Z-then-X changed two mismatching rows at score 40. Auto-handoff retained baseline. Next step: stage the four loads in a shared coordinate-pair struct with named fields and extract both pairs at the join, to perturb FP pseudo lifetimes.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795341908.861033,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
  }
 ]
