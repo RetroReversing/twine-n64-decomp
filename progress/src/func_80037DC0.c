@@ -1,3 +1,5 @@
+typedef struct { s32 w0; s32 w1; } Gfx;
+typedef struct { s32 x; } W;
 s32 emitScissorFromWindow();
 void emit_projection_viewport_commands(void);
 void func_80034928(s32, s32);
@@ -6,7 +8,7 @@ extern s32 D_800B1AC8;
 extern void *D_801002FC;
 extern s32 D_801032A0;
 extern void *D_8010A4B4;
-extern s32 D_8010A4D8;
+extern W D_8010A4D8;
 extern s32 D_8010A924;
 extern s32 gRenderMode;
 extern void * volatile sDisplayListCursor;
@@ -105,13 +107,14 @@ void func_80037DC0(void *arg0)
     *((s32 *) (((char *) tail) + 0)) = 0xDF000000;
     *((s32 *) (((char *) tail) + 4)) = 0;
     *((s32 *) (((char *) temp_a2) + 0)) = 0xDE000000;
-    *((s32 *) (((char *) temp_a2) + 4)) = *((s32 *) (((char *) tailState) + 0x1C70));
+    ((Gfx *)temp_a2)->w1 = *((s32 *) (((char *) tailState) + 0x1C70));
     D_8010A4B4 = tail + 8;
     sDisplayListCursor = temp_a2 + 8;
-    temp_a1 = D_8010A4D8;
+    temp_a1 = D_8010A4D8.x;
     temp_a2 += 8;
     func_80034928((s32) arg0, temp_a1);
     }
   }
 }
+
 
