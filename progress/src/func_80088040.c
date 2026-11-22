@@ -41,10 +41,12 @@ extern u32 D_800E3F2C;
 extern u32 D_800E3F30[6];
 extern void *(*D_8010017C)(s32, s32);
 extern u8 D_8010086C;
-s32 func_80088040(u32 file, u32 rate, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6)
+s32 func_80088040(u32 file, u32 rate, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6)
 {
   s32 index;
   s32 offset;
+  u32 saved3 = arg3;
+  u32 saved2 = arg2;
   AudioSlot *slot;
   u32 length;
   s32 allocationSize;
@@ -74,8 +76,7 @@ s32 func_80088040(u32 file, u32 rate, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u8 ar
       slot->arg5 = arg5;
       slot->arg6 = arg6;
       slot->rate = rate;
-      length = (((rate * 8) / 30) + 159) / 160;
-      slot->length = (length * 5) << 5;
+      length = (((rate * 8) / 30) + 159) / 160; length = (length * 5) << 5; slot->length = length;
       if ((*((s32 *) (&D_800E3F2C))) & 1)
       {
         slot->buffer = D_800E3F24[index];
