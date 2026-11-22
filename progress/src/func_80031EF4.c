@@ -33,20 +33,25 @@ inline static s32 *inline_fn2(char *arg0)
 
 void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
 {
-  volatile char pad;
-  void * volatile sp24;
+  
+  void *sp24;
   f32 temp_fv0;
   f32 temp_fv0_2;
   f32 temp_fv0_3;
   f64 var_ft0;
   f64 var_fv1;
-  s32 var_s0;
-  s32 var_s2;
+  u32 var_s0;
+  u32 var_s2;
+  s32 width, height;
   void *temp_v0;
   if (gBorderSkipActive == 0)
   {
-    void **paramSlot = &gWobbleParams;
- do { if ((*paramSlot) != NULL) { func_80084048(*paramSlot, 0xE); *paramSlot = NULL; } } while (0);
+    void * volatile *paramSlot = &gWobbleParams;
+    void *previous = *paramSlot;
+    if (previous != NULL) {
+      func_80084048(previous, 0xE);
+      *paramSlot = NULL;
+    }
     temp_v0 = spawnEffectObject(8, 0, 0);
     if (temp_v0 != NULL)
     {
@@ -54,23 +59,15 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
       func_80048794(1, gProbeObjectList);
       var_s0 = 0x3C;
       var_s2 = 0x5A;
+      width = 0xE6;
+      height = 0x78;
       func_8003C710(*paramSlot);
-      if (gHiResScreen != ((short) 0))
+      if (gHiResScreen != 0)
       {
-        if (arg0)
-        {
-          var_s0 = 0x78;
-          var_s2 = 0xB4;
-        }
-        else
-        {
-          var_s0 = 0x78;
-          var_s2 = 0xB4;
-        }
+        var_s0 = 0x78;
+        var_s2 = 0xB4;
       }
       {
-        unsigned int height = 0x78;
-        volatile s32 width = 0xE6;
         func_8004844C(*paramSlot, (f32) ((f64) width), (f32) ((f64) ((u32) var_s0)), (f32) ((f64) height), (f32) ((f64) ((u32) var_s2)), 0.0f, 0.0f);
       }
       *inline_fn2(((char *) gWobbleParams) + 0x100) |= 0x100;
@@ -89,7 +86,10 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
       if (arg1 != NULL)
       {
         func_800464B8((*paramSlot) + 0x34, *((s32 *) (((char *) arg1) + 0)), *inline_fn2(((char *) arg1) + 4), *inline_fn2(((char *) arg1) + 8));
-        *((f32 *) (((char *) gWobbleParams) + 0x34)) = (f32) (-(*inline_fn(((char *) gWobbleParams) + 0x34)));
+        {
+          f32 *angle = inline_fn(((char *) gWobbleParams) + 0x34);
+          *angle = -*angle;
+        }
         *((f32 *) (((char *) gWobbleParams) + 0x3C)) = 3.1415927f;
       }
       func_80016EA4(0x1D);
@@ -118,3 +118,4 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
   return NULL;
 
 }
+
