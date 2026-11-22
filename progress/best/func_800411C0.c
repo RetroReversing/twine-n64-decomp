@@ -360,8 +360,8 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
               temp_s2 = *((s32 *) (((char *) temp_v0_12) + 0x10)); temp_s1 = *((s32 *) (((char *) temp_v0_12) + 0x18)); temp_a3_3 = *((s32 **) (((char *) arg1) + 0x24)); sp44 = 0; sp48 = 0;
               func_800336FC(*((s32 *) (((char *) temp_a3_3) + 0x18)), *((s32 *) (((char *) ((temp_v1_4 * 0x4C) + temp_s7)) + 0x34)), *((s32 *) (((char *) temp_a3_3) + 8)), *((s32 *) (((char *) temp_a3_3) + 0x10)), sp30, var_fs1, temp_s1, temp_s2, 0, &sp44, &sp48);
               temp_v0_13 = heapAllocTagged((sp44 * 0x10) + (sp48 * 8), 0x2E);
-              func_800328B8(temp_v0_13 + (sp48 * 8), temp_v0_13);
               *((s32 *) (((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7)) = temp_v0_13;
+              func_800328B8(temp_v0_13 + (sp48 * 8), temp_v0_13);
               *((s32 *) (((char *) temp_s4) + 0)) = temp_v0_13; temp_a3_4 = *((s32 **) (((char *) arg1) + 0x24));
               func_800336FC(*((s32 *) (((char *) temp_a3_4) + 0x18)), *((s32 *) (((char *) (((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7)) + 0x34)), *((s32 *) (((char *) temp_a3_4) + 8)), *((s32 *) (((char *) temp_a3_4) + 0x10)), sp30, var_fs1, temp_s1, temp_s2, 1, NULL, NULL);
               if (D_80109A94)

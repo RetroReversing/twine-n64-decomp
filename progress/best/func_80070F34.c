@@ -592,7 +592,7 @@ void func_80070F34(void *arg0)
       *((s32 *) (((char *) (*((void **) (((char *) temp_s2) + 0x514)))) + 0x28)) = (*((s32 *) (((char *) (*((void **) (((char *) temp_s2) + 0x514)))) + 0x28))) & (~0xFC);
     }
       *((f32 *) (((char *) temp_s2) + 0x51C)) = (f32) ((*((f32 *) (((char *) temp_s2) + 0x51C))) + var_fv1_3);
-      if ((*((f32 *) (((char *) temp_s2) + 0x51C))) > 175.0f)
+      if ((*((volatile f32 *) (((char *) temp_s2) + 0x51C))) > 175.0f)
     {
       *((u8 *) (((char *) temp_s2) + 0x5A8)) = 3U;
     }
@@ -615,13 +615,14 @@ void func_80070F34(void *arg0)
       var_s1_4 += 2;
     }
     while (var_s0_2 < 0x40U);
-      var_s0_3 = 0;
+      var_s0_2 = 0;
       var_t1 = temp_s2;
       *((f32 *) (((char *) temp_s2) + 0x518)) = (f32) ((*((f32 *) (((char *) temp_s2) + 0x518))) + (-0.05f));
       do
     {
-      temp_t0 = var_s0_3 >> 1;
+      temp_t0 = var_s0_2 >> 1;
       var_a2_2 = 0;
+      var_a3 = var_s0_2 & 1;
       loop_154:
       var_a1_2 = var_a2_2;
 
@@ -634,13 +635,14 @@ void func_80070F34(void *arg0)
       {
         do
         {
+          s32 intensityHigh = var_a1_2 << 4;
           if (temp_a0_9 < 0x7F)
           {
             temp_a0_10 = temp_a0_9 << 5;
-            if (!(var_s0_3 & 1))
+            if (!var_a3)
             {
               temp_a0_11 = temp_a0_10 + temp_t0; temp_v1_20 = (*((s32 *) (((char *) temp_s2) + 0x5A4))) + temp_a0_11;
-              *temp_v1_20 &= 0xF; var_v1_6 = (*((s32 *) (((char *) temp_s2) + 0x5A4))) + temp_a0_11; var_v0_5 = (*var_v1_6) | (var_a1_2 * 0x10);
+              *temp_v1_20 &= 0xF; var_v1_6 = (*((s32 *) (((char *) temp_s2) + 0x5A4))) + temp_a0_11; var_v0_5 = (*var_v1_6) | intensityHigh;
             }
             else
             {
@@ -654,10 +656,10 @@ void func_80070F34(void *arg0)
         }
         while (0);
       }
-      var_s0_3 += 1;
+      var_s0_2 += 1;
       var_t1 += 2;
     }
-    while (var_s0_3 < 0x40U);
+    while (var_s0_2 < 0x40U);
       temp_ft0 = *((f32 *) (((char *) temp_s2) + 0x34));
       *((f32 *) (((char *) temp_s2) + 0x34)) = (f32) (temp_ft0 + ((0.66f - temp_ft0) * 0.015625f));
       if (gBorderSkipActive != 0)
@@ -679,12 +681,13 @@ void func_80070F34(void *arg0)
       temp_v0_13 = *((u32 *) (((char *) temp_s0_5) + 0x10));
       temp_a0_14 = (temp_v0_13 & 0xFF) + 4;
       var_a1_3 = temp_a0_14;
-      ;
+      temp_a0_10 = (temp_v0_13 >> 24) - 4;
+      temp_a0_11 = temp_a0_10 & ((~temp_a0_10) >> 31);
       if (temp_a0_14 >= 0x100)
       {
         var_a1_3 = 0xFF;
       }
-      *((u32 *) (((char *) temp_s0_5) + 0x10)) = (u32) (var_a1_3 | ((((temp_v0_13 >> 0x18) - 4) & (((s32) (~((temp_v0_13 >> 0x18) - 4))) >> 0x1F)) << 0x18));
+      *((u32 *) (((char *) temp_s0_5) + 0x10)) = (u32) (var_a1_3 | ((((u32)temp_a0_11)) << 0x18));
       return;
     }
       break;
@@ -698,7 +701,7 @@ void func_80070F34(void *arg0)
       temp_v0_15 = (temp_v1_23 & 0xFF) - 0x10;
       if (temp_v0_15 <= 0)
     {
-      temp_v0_16 = *((void **) (((char *) temp_s2) + 0x514));
+      temp_v0_16 = *((void *volatile *) (((char *) temp_s2) + 0x514));
       *((u8 *) (((char *) temp_s2) + 0x5A8)) = 0U;
       *((s32 *) (((char *) temp_v0_16) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_v0_16) + 0x28))) & (~0xFC)) | 0x1C);
       return;

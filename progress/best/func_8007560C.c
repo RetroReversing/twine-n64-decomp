@@ -69,18 +69,20 @@ void func_8007560C(void)
   void *temp_s4;
   void *temp_v1_2;
   void *var_a0_2;
-  unsigned long offsetSeed;
+  unsigned long offsetSeed = 0;
   unsigned int xOffset;
   unsigned int yOffset = 0;
   f32 height;
+  f32 centerX = 160.0f;
+  f32 centerY = 120.0f;
   xOffset = offsetSeed;
   {
-    long long phantom_wide = var_a0;
+    
   }
   if (osTvType)
   {
     {
-      long long phantom_wide2 = var_a0;
+      
     }
     xOffset = yOffset;
   }
@@ -95,7 +97,7 @@ void func_8007560C(void)
       func_80048794(4, gProbeObjectList);
     }
   }
-  func_8004844C(gMenuRootObject, 160.0f, 120.0f, 320.0f, 240.0f, (f32) (var_fv1 = (f64) xOffset), (f32) yOffset);
+  func_8004844C(gMenuRootObject, centerX, centerY, 320.0f, 240.0f, (f32) (var_fv1 = (f64) xOffset), (f32) (s32)yOffset);
   *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) inline_fn234((char *) (&D_8010A4C3)))) & 0xEF);
   *((u8 *) (((char *) (&D_8010A4C3)) + (-2))) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + (-2)))) & 0xEF);
   *((s32 *) (((char *) gMenuRootObject) + 0x100)) = (s32) ((*((s32 *) (((char *) gMenuRootObject) + 0x100))) | 0x100);
@@ -103,7 +105,7 @@ void func_8007560C(void)
   {
     func_80048794(5, gProbeObjectList);
   }
-  func_8004844C(D_8010969C, 160.0f, 120.0f, 320.0f, 240.0f, (f32) (var_fv1_2 = (f64) xOffset), (f32) 0);
+  func_8004844C(D_8010969C, centerX, centerY, 320.0f, 240.0f, (f32) (var_fv1_2 = (f64) xOffset), (f32) (s32)yOffset);
   *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) (inline_fn23((u8 *) inline_fn234((char *) (&D_8010A4C3))) & 0xDF);
   *((u8 *) (((char *) (&D_8010A4C3)) + (-2))) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + (-2)))) & 0xDF);
   gSceneFlagsB |= 0x20;
@@ -117,19 +119,19 @@ void func_8007560C(void)
     if (gMenuRootObject)
     {
       var_fv1_3 = (f64) 0;
-      func_8004844C(sTrackMarkerTable[0], 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
+      func_8004844C(sTrackMarkerTable[0], centerX, centerY, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
       var_a0 = 1;
       goto block_75;
     }
     else
     {
       var_fv1_3 = (f64) 0;
-      func_8004844C(sTrackMarkerTable[0], 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
+      func_8004844C(sTrackMarkerTable[0], centerX, centerY, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
       var_a0 = 1;
       goto block_75;
     }
   }
-  if ((0 - 1) < (gSaveTotalSlots - 1))
+  if ((s32)yOffset < gSaveTotalSlots)
   {
     var_s0 = 0;
     temp_fs0 = D_800D48D0;
@@ -145,7 +147,7 @@ void func_8007560C(void)
         var_fv0 = (f64) 0;
         do
         {
-          func_8004844C(*var_s1, 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
+          func_8004844C(*var_s1, centerX, centerY, centerX + centerX, centerY + centerY, (f32) xOffset, (f32) yOffset);
         }
         while (0);
         if (var_s0 >= gVisibleSaveSlotCount)
@@ -153,14 +155,7 @@ void func_8007560C(void)
           var_v1 = 1 << var_s0;
           if ((gVisibleSaveSlotCount == 3) & (var_s0 == 3))
           {
-            if (var_v1)
-            {
-              *((u8 *) inline_fn234((char *) (&D_8010A4C3))) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) | var_v1);
-            }
-            else
-            {
-              *((u8 *) inline_fn234((char *) (&D_8010A4C3))) = (u8) ((*((u8 *) inline_fn234((char *) (&D_8010A4C3)))) | var_v1);
-            }
+            *((u8 *)&D_8010A4C3) |= var_v1;
           }
           else
           {
@@ -198,7 +193,7 @@ void func_8007560C(void)
       }
     }
       var_fv1_4 = (f64) 0;
-      func_8004844C(sTrackMarkerTable[0], 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
+      func_8004844C(sTrackMarkerTable[0], centerX, centerY, centerX + centerX, centerY + centerY, (f32) xOffset, (f32) yOffset);
       break;
 
     case 2:
@@ -212,23 +207,24 @@ void func_8007560C(void)
     }
       if (gBorderFlipFlag == 1)
     {
-      __repair_phase_temp_fs0_2 = inline_fn(160.0f, 0.5f);
-      func_8004844C(sTrackMarkerTable[0], __repair_phase_temp_fs0_2, 120.0f, 160.0f, inline_fn(2.0f, 120.0f), inline_fn2(), 1.0f);
+      __repair_phase_temp_fs0_2 = inline_fn(centerX, 0.5f);
+      func_8004844C(sTrackMarkerTable[0], __repair_phase_temp_fs0_2, centerY, centerX, centerY + centerY, 1.0f, 1.0f);
       var_a0_2 = sTrackMarkerTable[1];
-      var_a2 = 120.0f;
-      var_a1 = 160.0f + __repair_phase_temp_fs0_2;
-      var_a3 = 160.0f;
-      height = 240.0f;
+      __repair_var_a2_1 = centerY;
+      var_a1 = centerX + __repair_phase_temp_fs0_2;
+      var_a3 = centerX;
+      height = centerY + centerY;
     }
     else
     {
-      func_8004844C(sTrackMarkerTable[0], 160.0f, temp_fs0_3, temp_fs2 = 160.0f + 160.0f, 120.0f, 1.0f, 1.0f);
-      temp_fs0_3 = inline_fn(120.0f, 0.5f);
+      temp_fs0_3 = inline_fn(centerY, 0.5f);
+      temp_fs2 = centerX + centerX;
+      func_8004844C(sTrackMarkerTable[0], centerX, temp_fs0_3, temp_fs2, centerY, 1.0f, 1.0f);
       var_a0_2 = sTrackMarkerTable[1];
-      var_a1 = 160.0f;
+      var_a1 = centerX;
       var_a3 = temp_fs2;
-      height = 120.0f;
-      __repair_var_a2_1 = 120.0f + temp_fs0_3;
+      height = centerY;
+      __repair_var_a2_1 = centerY + temp_fs0_3;
     }
       block_74:
     func_8004844C(var_a0_2, var_a1, __repair_var_a2_1, var_a3, height, 1.0f, 1.0f);
@@ -257,13 +253,13 @@ void func_8007560C(void)
       func_80048794(3, gProbeObjectList);
     }
       ;
-      temp_fs0_2 = inline_fn(120.0f, 0.5f);
-      func_8004844C(sTrackMarkerTable[0], inline_fn(160.0f, (long) 0.5f), temp_fs0_2, 160.0f, 120.0f, 1.0f, 1.0f);
-      temp_fs3 = temp_fs2_2 + 160.0f;
-      func_8004844C(sTrackMarkerTable[1], temp_fs3, temp_fs0_2, 160.0f, 120.0f, 1.0f, (double) 1.0f);
-      func_8004844C(sTrackMarkerTable[2], inline_fn(160.0f, 0.5f), temp_fs0_2, 160.0f, 120.0f, 1.0f, 1.0f);
+      temp_fs0_2 = inline_fn(centerY, 0.5f);
+      func_8004844C(sTrackMarkerTable[0], inline_fn(centerX, 0.5f), temp_fs0_2, centerX, centerY, 1.0f, 1.0f);
+      temp_fs3 = inline_fn(centerX, 0.5f) + centerX;
+      func_8004844C(sTrackMarkerTable[1], temp_fs3, temp_fs0_2, centerX, centerY, 1.0f, 1.0f);
+      func_8004844C(sTrackMarkerTable[2], inline_fn(centerX, 0.5f), temp_fs0_2, centerX, centerY, 1.0f, 1.0f);
     {
-      temp_fs0_2 = 120.0f + temp_fs0_2; var_a0_2 = sTrackMarkerTable[3]; var_a1 = temp_fs3; var_a3 = 160.0f; var_a2 = temp_fs0_2; height = 120.0f;
+      temp_fs0_2 = centerY + temp_fs0_2; var_a0_2 = sTrackMarkerTable[3]; var_a1 = temp_fs3; var_a3 = centerX; __repair_var_a2_1 = temp_fs0_2; height = centerY;
     }
       goto block_74;
 
@@ -285,17 +281,17 @@ void func_8007560C(void)
       func_80048794(3, gProbeObjectList);
     }
       ;
-      temp_fs4 = inline_fn(120.0f, 0.5f);
-      temp_fs1 = inline_fn(120.0f, 0.5f);
-      func_8004844C(sTrackMarkerTable[0], inline_fn(160.0f, (short) 0.5f), temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
+      temp_fs4 = inline_fn(centerY, 0.5f);
+      temp_fs1 = inline_fn(centerY + centerY, 0.5f);
+      func_8004844C(sTrackMarkerTable[0], inline_fn(centerX, 0.5f), temp_fs4, centerX, centerY, 1.0f, 1.0f);
       ;
-      func_8004844C(sTrackMarkerTable[1], temp_fs2_3 + 160.0f, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
-      func_8004844C(sTrackMarkerTable[2], inline_fn(160.0f, 0.5f), (char) (120.0f + temp_fs4), 160.0f, 120.0f, 1.0f, 1.0f);
+      func_8004844C(sTrackMarkerTable[1], (temp_fs3_2 = inline_fn(centerX, 0.5f) + centerX), temp_fs1, centerX, centerY, 1.0f, 1.0f);
+      func_8004844C(sTrackMarkerTable[2], inline_fn(centerX, 0.5f), (centerY + temp_fs4), centerX, centerY, 1.0f, 1.0f);
       var_a0_2 = sTrackMarkerTable[3];
       var_a1 = temp_fs3_2;
-      var_a2 = 120.0f + temp_fs1;
-      var_a3 = 160.0f;
-      height = 120.0f;
+      __repair_var_a2_1 = centerY + temp_fs1;
+      var_a3 = centerX;
+      height = centerY;
       goto block_74;
 
   }
@@ -303,4 +299,5 @@ void func_8007560C(void)
   *((s32 *) (((char *) sTrackMarkerTable[0]) + 0x100)) = (s32) ((*((s32 *) (((char *) sTrackMarkerTable[0]) + 0x100))) | 0x40);
   *((s8 *) (((char *) sTrackMarkerTable[0]) + 0x142)) = 4;
 }
+
 

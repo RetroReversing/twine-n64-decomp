@@ -173,8 +173,9 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       temp_v0_3 = func_80073AF8(0, arg0, buffer, -1, -1, 1, 0, 0, arg5 & 0xFF, 0, 0x1E);
       {
         u16 index = D_80112EBC;
-        __repair_phase_storage.pointer = (s32 *) (((s8 *) entries) + (((s32) (index << 16)) >> 14));
-        D_80112EBC = index + 1;
+        u16 next = index + 1;
+        __repair_phase_storage.pointer = (s32 *) ((((s32) (index << 16)) >> 14) + ((s8 *) entries));
+        D_80112EBC = next;
         *__repair_phase_storage.pointer = temp_v0_3;
       }
       goto advance;
