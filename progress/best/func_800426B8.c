@@ -148,9 +148,9 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
     temp_s0_2 = var_s5 * 0xC;
     temp_s5 = heapAllocTagged(temp_s0_2, 0x2D);
     sp64 = heapAllocTagged(temp_s0_2, 0x2D);
-    temp_s2 = var_fp * 4;
-    temp_s4 = heapAllocTagged(temp_s2, 0x2D);
-    sp6C = heapAllocTagged((s32) temp_s2, 0x2D);
+    temp_s0_2 = var_fp * 4;
+    temp_s4 = heapAllocTagged(temp_s0_2, 0x2D);
+    sp6C = heapAllocTagged((s32) temp_s0_2, 0x2D);
     temp_s0_4 = sp56 * 4;
     temp_s3 = heapAllocTagged(temp_s0_4, 0x2D);
     temp_fp = heapAllocTagged(temp_s0_4, 0x2D);
@@ -230,7 +230,7 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
           *((u16 **) (((char *) (*((u16 **) (((char *) var_s0_2) + 0)))) + 8)) = NULL;
           *((u16 **) (((char *) (*((u16 **) (((char *) var_s0_2) + 0)))) + 0x10)) = NULL;
         }
-        func_800411C0(arg0, var_s2, (s8) sp3F, sp3F);
+        func_800411C0(arg0, var_s2, (s8) sp3F);
         var_s0_2 = (u16 *) (((char *) var_s0_2) + 0x44);
         var_s6 -= 1;
         var_s2 = (u16 *) (((char *) var_s2) + 0x44);
@@ -250,4 +250,3 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
     func_80083E44(sp44);
   }
 }
-

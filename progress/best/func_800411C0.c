@@ -341,11 +341,9 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
           *((void **) (((char *) (*arg0)) + 0x3C)) = (void *) (temp_s7 + ((*((u16 *) (((char *) arg1) + 0))) * 0x4C));
           *((u16 *) (((char *) (*((void **) (((char *) (*arg0)) + 0x3C)))) + 0x42)) = (u16) (*((u16 *) (((char *) (*((s32 **) (((char *) arg1) + 0x24)))) + 4))); temp_a1_2 = *arg0; temp_a0_2 = *((void **) (((char *) temp_a1_2) + 0x3C));
           func_8003C94C(temp_a0_2, temp_a1_2 + 0x40, temp_a0_2 + 0x18);
-          temp_v1_2 = *arg0; temp_v0_11 = ((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7; temp_a1_3 = *((s32 *) (((char *) temp_v1_2) + 0x44)); temp_a2 = *((s32 *) (((char *) temp_v1_2) + 0x48)); temp_a3_2 = *((s32 *) (((char *) temp_v1_2) + 0x4C));
-          *((s32 *) (((char *) temp_v0_11) + 8)) = inline_fn(*((s32 *) (((char *) temp_v1_2) + 0x40)));
-          *((s32 *) (((char *) temp_v0_11) + 0xC)) = temp_a1_3;
-          *((s32 *) (((char *) temp_v0_11) + 0x10)) = inline_fn(temp_a2);
-          *((s32 *) (((char *) temp_v0_11) + 0x14)) = temp_a3_2;
+          temp_v0_11 = ((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7;
+          temp_v1_2 = *arg0;
+          *(__repair_words4 *)(temp_v0_11 + 8) = *(__repair_words4 *)(temp_v1_2 + 0x40);
           buildTriangleGridMasks(*((void **) (((char *) (*arg0)) + 0x3C)));
           func_80041114(*arg0);
           if (var_fs1 != 1.0f)
@@ -393,12 +391,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
         return;
       }
       temp_v0_14 = *arg0;
-      temp_a1_4 = *((s32 *) (((char *) temp_a3) + 0x10));
-      *((s32 *) (((char *) temp_v0_14) + 0x40)) = inline_fn(*((s32 *) (((char *) temp_a3) + 8)));
-      temp_a2_2 = *((s32 *) (((char *) temp_a3) + 0x14));
-      *((s32 *) (((char *) temp_v0_14) + 0x44)) = inline_fn(*((s32 *) (((char *) temp_a3) + 0xC)));
-      *((s32 *) (((char *) temp_v0_14) + 0x48)) = temp_a1_4;
-      *((s32 *) (((char *) temp_v0_14) + 0x4C)) = temp_a2_2;
+      *(__repair_words4 *)(temp_v0_14 + 0x40) = *(__repair_words4 *)(temp_a3 + 8);
       *((void **) (((char *) (*arg0)) + 0x3C)) = (void *) (temp_s7 + ((*((u16 *) (((char *) arg1) + 0))) * 0x4C));
       *((f32 *) (((char *) (*arg0)) + 0x24)) = (f32) (*((f32 *) (((char *) arg1) + 0xC)));
       *((f32 *) (((char *) (*arg0)) + 0x28)) = (f32) (*((f32 *) (((char *) arg1) + 0x10)));
@@ -406,7 +399,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
       *((f32 *) (((char *) (*arg0)) + 0x30)) = (f32) ((*((f32 *) (((char *) arg1) + 0x18))) * rotationScale);
       *((f32 *) (((char *) (*arg0)) + 0x34)) = (f32) ((*((f32 *) (((char *) arg1) + 0x1C))) * rotationScale);
       *((f32 *) (((char *) (*arg0)) + 0x38)) = (f32) ((*((f32 *) (((char *) arg1) + 0x20))) * rotationScale);
-      func_80041114(*arg0, temp_a1_4, temp_a2_2, temp_a3);
+      func_80041114(*arg0);
       func_800410E8(*arg0);
       return;
     }

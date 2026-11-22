@@ -22,7 +22,8 @@ extern s16 D_800C7E12;
 extern s32 D_800C7E14;
 extern u16 D_800C7E18;
 extern u8 D_800C7E40;
-extern s32 D_800D47A0;
+typedef struct { s8 first, second; } EnemyPair;
+extern EnemyPair D_800D47A0;
 extern char D_800D47A4[];
 extern char D_800D47A8[];
 extern f64 D_800D47F8;
@@ -327,11 +328,9 @@ void func_80070F34(void *arg0)
       if ((*((s32 *) (((char *) (&D_800C46FC)) + ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) * 0xE8)))) & 0x10000)
       {
         temp_v0_5 = *((void **) (((char *) (*((void **) (((char *) temp_s2) + 0x418)))) + 0x18));
-        *((s8 *) (((char *) temp_v0_5) + 0)) = (s8) (*((s8 *) (((char *) (&D_800D47A0)) + 0)));
-        *((s8 *) (((char *) temp_v0_5) + 1)) = (s8) (*((s8 *) (((char *) (&D_800D47A0)) + 1)));
+        *(EnemyPair *)temp_v0_5 = D_800D47A0;
         temp_v0_6 = *((void **) (((char *) (*((void **) (((char *) temp_s2) + 0x41C)))) + 0x18));
-        *((s8 *) (((char *) temp_v0_6) + 0)) = (s8) (*((s8 *) (((char *) (&D_800D47A0)) + 0)));
-        *((s8 *) (((char *) temp_v0_6) + 1)) = (s8) (*((s8 *) (((char *) (&D_800D47A0)) + 1)));
+        *(EnemyPair *)temp_v0_6 = D_800D47A0;
       }
       else
       {
