@@ -1772,6 +1772,7 @@ case 2: case 3: goto out_of_line_actor;
         temp_v1_21 = inline_fn((char *) temp_s1, 0x180);
         switch (temp_v1_21)
       {
+        case 0: break;
         case 1:
           if ((!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x20)) && (func_800818AC(temp_s4, 0xC) != 0))
         {

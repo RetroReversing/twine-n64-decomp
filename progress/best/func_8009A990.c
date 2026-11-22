@@ -15,15 +15,15 @@ inline static u8 chk(u8 *obj, s32 cur)
   if (b4a == 0xFF)
     return 0;
   b4b = obj[0x4B];
-  y = (u8) cur;
+  y = cur;
   if (b4b == 0xFF)
-    x = D_80100C7C[y];
+    x = D_80100C7C[(u8)y];
   else
   {
     u8 *row = D_801007D9 + (b4b << 4);
     x = row[b4a];
   }
-  if (x == y)
+  if (x == (u8)y)
     return 1;
   return 0;
 }
@@ -36,19 +36,19 @@ inline static s32 inline_fn(u32 arg0)
 s32 func_8009A990(u8 *obj, u8 *p)
 {
   volatile u64 pad;
-  u32 hi;
-  u32 lo;
+  u16 hi;
+  u16 lo;
   s32 pitch;
   s32 r;
   s32 cur;
   if (p[6] == 0)
   {
     u32 w = *((u32 *) p);
-    lo = w >> 8;
-    hi = w >> 24;
-    if (hi < (lo & 0xFF))
+    lo = (u16)(w >> 8);
+    hi = (u16)(w >> 24);
+    if ((u8)hi < (u8)lo)
     {
-      u32 tmp = lo;
+      u16 tmp = lo;
       lo = hi; hi = tmp;
     }
   }
@@ -91,10 +91,10 @@ s32 func_8009A990(u8 *obj, u8 *p)
   {
     pitch = p[1];
   }
-  r = randomU16Next() & 0xFFFF;
-  r = r % ((((s32) (hi & 0xFF)) - inline_fn(lo)) + 1);
+  r = randomU16Next();
+  r = (u16)r % ((((s32) (hi & 0xFF)) - inline_fn(lo)) + 1);
   *((s32 *) (p + 4)) = 0;
-  *((s32 *) p) = (((pitch & 0xFF) << 16) | (((lo & 0xFF) + r) << 8)) | 0x19;
+  *((s32 *) p) = (((pitch & 0xFF) << 16) | ((inline_fn(lo) + r) << 8)) | 0x19;
   cur = *((s32 *) (obj + 0x60));
   *((s16 *) (obj + 0x50)) = p[2] & 0x7F;
   obj[0xC0] = *((u16 *) p);

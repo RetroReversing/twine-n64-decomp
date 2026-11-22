@@ -1,6 +1,6 @@
 s32 Sphere_OverlapsPoint(s32, void *, f32);
 s32 func_80047E4C();
-s32 func_800487F0();
+s32 func_800487F0(void *, void *, f32);
 s32 func_800488D4();
 s32 func_8004D910();
 s32 func_8004E418();
@@ -212,9 +212,9 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
                 projected.x = actorStart[0];
                 projected.z = actorStart[2];
                 var_s4_2 = *((u8 **) (((char *) temp_s2) + 0x3C));
-                var_s0_2 = 0;
                 if (temp_v1 < ((u16) ((Field_u16 *) (((char *) temp_s2) + 0x40))->v))
                 {
+                  var_s0_2 = 0;
                   var_s3_2 = var_s4_2 + 2;
                   do
                   {

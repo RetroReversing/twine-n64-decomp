@@ -58,7 +58,7 @@ void func_8011A7C8(void)
   s16 i;
   s32 index;
   s16 chosen = -1;
-  SaveSlot **slot;
+
   SaveSlot *entry;
   BonusSlot *bonus;
   s32 count;
@@ -68,8 +68,7 @@ void func_8011A7C8(void)
     do
     {
       index = (s16) i;
-      slot = &D_80102CD0[index];
-      entry = *slot;
+      entry = D_80102CD0[index];
       if ((entry != 0) && (entry->meta->type == 7))
       {
         chosen = i;
@@ -89,7 +88,7 @@ void func_8011A7C8(void)
               {
                 goto next_scene;
               }
-              (*slot)->meta->count++;
+              D_80102CD0[index]->meta->count++;
             }
             while (0);
  do { next_scene: i++; } while (0);
@@ -168,3 +167,4 @@ void func_8011A7C8(void)
   }
 
 }
+

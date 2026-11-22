@@ -20,8 +20,8 @@ void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   void *temp_s2;
   s32 scanOffset;
   var_s0 = 0;
-  scanOffset = 0;
   temp_a2_2 = arg2 & 0x7FFFFFFF;
+  scanOffset = 0;
   do
   {
     if ((D_800E6A85[scanOffset] == 0) && ((*((s32 *) (gSoundEntities + scanOffset))) == temp_a2_2))
@@ -37,13 +37,16 @@ void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   found:
   if (arg2 != (-1))
   {
+    u32 firstSound = arg0 & 0xFF;
     if (arg2 >= 0)
     {
-      var_s0 = arg2 * 0xFF8;
-      func_8008EB80(arg0 & 0xFF, arg1 & 0xFFFF, *(D_800E6A88 + var_s0), arg3 & 0xFF, originalKey);
+      var_s0 = (u32)arg2 << 9;
+      var_s0 -= arg2;
+      var_s0 <<= 3;
+      func_8008EB80(firstSound, arg1 & 0xFFFF, *(D_800E6A88 + var_s0), arg3 & 0xFF, originalKey);
       do
       {
- do { __repair_phase_temp_a2_2 = var_s0; var_s0 += (u32) D_800E5FEC; } while (0);
+ do { __repair_phase_temp_a2_2 = var_s0; var_s0 = __repair_phase_temp_a2_2 + (u32) D_800E5FEC; } while (0);
         temp_s2 = (void *) (var_s0 + 0x40);
       }
       while (0);
@@ -60,27 +63,27 @@ void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     }
     else
     {
-      temp_a2_2 = arg2 & 0x7FFFFFFF;
+      arg2 = arg2 & 0x7FFFFFFF;
       __repair_phase_temp_a3 = arg3 & 0xF;
       switch (__repair_phase_temp_a3)
       {
         case 0:
-          *(D_800E6AA4 + (temp_a2_2 * 0xFF8)) = arg0;
+          *(D_800E6AA4 + (arg2 * 0xFF8)) = arg0;
           return;
 
         case 1:
-          *((s32 *) (D_800E6AB4 + (temp_a2_2 * 0xFF8))) = 0;
+          *((s32 *) (D_800E6AB4 + (arg2 * 0xFF8))) = 0;
           return;
 
         case 2:
-          var_v0 = temp_a2_2 * 0xFF8;
+          var_v0 = arg2 * 0xFF8;
           *(D_800E6AA4 + var_v0) = arg0;
           var_v1_2 = (*(D_800E6AB2 + var_v0)) | 8;
           *(D_800E6AB2 + var_v0) = var_v1_2;
           break;
 
         case 3:
-          __repair_phase_var_v0 = temp_a2_2 * 0xFF8;
+          __repair_phase_var_v0 = arg2 * 0xFF8;
           *(D_800E6AA4 + __repair_phase_var_v0) = arg0;
           var_v1_2 = (*(D_800E6AB2 + __repair_phase_var_v0)) | 0x80;
           *(D_800E6AB2 + __repair_phase_var_v0) = var_v1_2;
@@ -92,4 +95,5 @@ void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   }
 
 }
+
 
