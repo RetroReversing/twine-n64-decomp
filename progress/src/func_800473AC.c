@@ -45,11 +45,8 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
     var_condition_bit = 0;
     if (!(var_fv1 < (*((f32 *) (((char *) arg3) + 0)))))
     {
-      if ((*((f32 *) (((char *) arg2) + 0))) < var_ft0)
-      {
-        return 0;
-      }
-      goto block_9;
+      if (!((*((f32 *) (((char *) arg2) + 0))) < var_ft0)) goto block_9;
+      goto Z;
     }
     return var_condition_bit;
   }
@@ -82,14 +79,8 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       var_condition_bit = 0;
       if (!(var_fv1_2 < (*((f32 *) (((char *) arg3) + 8)))))
       {
-        if ((*((f32 *) (((char *) arg2) + 8))) < var_ft0_2)
-        {
-          if (1)
-          {
-          }
-          return 0;
-        }
-        goto block_18;
+        if (!((*((f32 *) (((char *) arg2) + 8))) < var_ft0_2)) goto block_18;
+        goto Z;
       }
       return 0;
     }
@@ -151,7 +142,8 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       }
       if (!(var_v0_3 | var_v1_2))
         goto check_epsilon;
-      return var_condition_bit_2;
+      Z:
+      return 0;
       check_epsilon:;
       var_v0_3 = 1;
       if (!(temp_ft2_2 <= 0.0002f))
@@ -179,9 +171,9 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       }
       return var_condition_bit;
     }
-    return __repair_phase_var_v0;
+    goto Z;
   }
-  return __repair_phase_var_condition_bit;
+  goto Z;
 }
 
 
