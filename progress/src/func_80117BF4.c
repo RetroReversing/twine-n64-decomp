@@ -117,15 +117,14 @@ void func_80117BF4(s32 map)
   }
   {
     s32 k;
+    do { do { do { k = 0; } while (0); } while (0); } while (0);
     if (edgeCount > 0)
     {
-      SearchEdge *edge = edges;
       SearchRow *rows = *((SearchRow **) 0x8011F068);
-      do { do { k = 0; } while (0); } while (0);
       do
       {
-      s16 a = edge->a;
-      s16 b = edge->b;
+      s16 a = edges[k].a;
+      s16 b = edges[k].b;
       for (j = 0; j < 16; j++)
       {
         if (rows[a].links[j] == 0)
@@ -142,7 +141,6 @@ void func_80117BF4(s32 map)
           break;
         }
       }
-        edge++;
         k++;
       }
       while (k < edgeCount);
