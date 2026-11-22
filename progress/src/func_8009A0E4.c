@@ -27,17 +27,17 @@ s32 func_8009A0E4(void *arg0, u32 *arg1)
   {
     var_v1 += ((s32) (temp_a0 << 16)) >> 24;
     *((volatile s16 *) (((char *) arg0) + 0x50)) = var_v1;
-    signed_v = *((s16 *) (((char *) arg0) + 0x50));
+    temp_v0 = *((s16 *) (((char *) arg0) + 0x50));
   }
   else
   {
     var_v1 += ((s32) (temp_a0 << 16)) >> 24;
     *((volatile s16 *) (((char *) arg0) + 0x50)) = var_v1;
-    signed_v = *((s16 *) (((char *) arg0) + 0x50));
+    temp_v0 = *((s16 *) (((char *) arg0) + 0x50));
   }
-  if (signed_v >= 0)
+  if (temp_v0 >= 0)
   {
-    var_v1 = signed_v;
+    var_v1 = temp_v0;
     if (((u32) var_v1) >= 0x80U)
     {
       var_v1 = 0x7F;
@@ -86,11 +86,6 @@ s32 func_8009A0E4(void *arg0, u32 *arg1)
     }
   }
   else
-    if (temp_v0)
-  {
-    temp_v0 = 0;
-  }
-  else
   {
     temp_v0 = 0;
   }
@@ -101,4 +96,5 @@ s32 func_8009A0E4(void *arg0, u32 *arg1)
   *arg1 = 4;
   return audioUpdateClipSelection(arg0, arg1) & 0xFF;
 }
+
 
