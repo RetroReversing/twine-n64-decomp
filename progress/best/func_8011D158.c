@@ -32,6 +32,11 @@ inline static char *inline_fn(char *arg0, s32 arg1)
   return arg0 + (arg1 >> 14);
 }
 
+inline static Save *inline_fn2(Slot **arg0)
+{
+  return (*arg0)->save;
+}
+
 void func_8011D158(unsigned short slot)
 {
   volatile s32 *count = &gVisibleSaveSlotCount;
@@ -54,7 +59,58 @@ void func_8011D158(unsigned short slot)
       s32 delta = save->start - save->end;
       s32 rank = gSaveTotalSlots;
       temp = 0;
- do { if (rank > 0) { unsigned char limit = rank; do { if ((temp++) != index) { Save *other = (*cursor)->save; do { rank -= (other->start - other->end) <= delta; } while (0); } if (temp) { cursor++; } else { cursor++; } } while (temp < limit); } switch (rank) { case 1: id = 0x2E5; goto format; case 2: id = 0x2E6; goto format; case 3: id = 0x2E7; goto format; case 4: id = 0x2E8; goto format; format: sprintf(D_8011F2B8[(s16) slot], lookupDataEntry(id)); } } while (0);
+      do
+      {
+        if (rank > 0)
+        {
+          unsigned char limit = rank;
+          do
+          {
+            if ((temp++) != index)
+            {
+              Save *other = inline_fn2(cursor);
+              do
+              {
+                rank -= (other->start - other->end) <= delta;
+              }
+              while (0);
+            }
+            if (temp)
+            {
+              cursor++;
+            }
+            else
+            {
+              cursor++;
+            }
+          }
+          while (temp < limit);
+        }
+        switch (rank)
+        {
+          case 1:
+            id = 0x2E5;
+            goto format;
+
+          case 2:
+            id = 0x2E6;
+            goto format;
+
+          case 3:
+            id = 0x2E7;
+            goto format;
+
+          case 4:
+            id = 0x2E8;
+            goto format;
+            format:
+          sprintf(D_8011F2B8[(s16) slot], lookupDataEntry(id));
+
+
+        }
+
+      }
+      while (0);
       index = (s16) slot;
       label = ((u32) D_8011F3E8) + index;
       (*label)->flags = ((*label)->flags & (~0xFC)) | 0xC;
@@ -95,3 +151,4 @@ void func_8011D158(unsigned short slot)
     }
   }
 }
+

@@ -145,8 +145,10 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
   void *var_v0;
   arg1 = arg1_in;
   sp14 = arg2;
-  if (gBorderSkipActive == 0 && *((u16 *) ((char *) arg3 + 0x40)) != sDifficultyLevel)
+  if ((gBorderSkipActive == 0) && ((*((u16 *) (((char *) arg3) + 0x40))) != sDifficultyLevel))
+  {
     goto rejected;
+  }
   if (1)
   {
     do
@@ -307,11 +309,11 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
         }
         while (0);
       }
-      temp_v1_10 = var_s1 + 1;
-      *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x478)))) + 0x20)) = temp_v1_10;
+      ;
+      *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x478)))) + 0x20)) = var_s1 + 1;
       __repair_phase_temp_s0 = (s16) (var_s2 + 1);
       *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x478)))) + 0x22)) = (s16) (var_s2 + 1);
-      *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x47C)))) + 0x20)) = temp_v1_10;
+      *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x47C)))) + 0x20)) = var_s1 + 1;
       *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x47C)))) + 0x22)) = (s16) (var_s5 + ((s16) (var_s2 + 1)));
       temp_v1_11 = 0x114 - var_s1;
       *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x404)))) + 0x20)) = (s16) (temp_v1_11 + 1);
@@ -580,7 +582,8 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
     D_800C7C9C = var_fv1;
     return temp_s4;
   }
-rejected:
+  rejected:
   return NULL;
+
 }
 

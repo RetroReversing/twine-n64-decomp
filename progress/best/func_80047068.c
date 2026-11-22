@@ -24,7 +24,7 @@ void func_80047068(const f32 *p, const CubicWord *q, const f32 *r, const f32 *s,
     z = p[2]; qz = q[2].f;
     bz = ((z - qz * 2.5f) + (r[2] + r[2]) - s[2] * 0.5f) * h2;
     az = ((z * -0.5f + qz * 1.5f) - r[2] * 1.5f + s[2] * 0.5f) * h3;
-    cz = (z * -0.5f + r[2] * 0.5f) * h;
+    cz = h * (z * -0.5f + r[2] * 0.5f);
     dz = (az + bz) + cz;
     dddz = az * 6.0f;
     ddz = dddz + (bz + bz);

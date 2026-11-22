@@ -75,7 +75,6 @@ void func_8011A7C8(void)
       entry = D_80102CD0[index];
       if ((entry != 0) && (entry->meta->type == 7))
       {
-        do
         {
           chosen = i; i = 0;
           if (i < gSceneType.count)
@@ -89,7 +88,6 @@ void func_8011A7C8(void)
             }
           }
         }
-        while (0);
         break;
       }
       i++;
