@@ -70,8 +70,7 @@ void func_800673EC(void *arg0, void *arg1)
   void *var_s4;
   temp_s2 = *((void **) (((char *) arg0) + 0x6C));
   __base_D_800C469C = &D_800C469C;
-  temp_s1 = (void *) ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) * 0xE8);
-  temp_s1 = (void *) (((char *) temp_s1) + ((s32) __base_D_800C469C));
+temp_s1 = (void*)(((char*)__base_D_800C469C) + (*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) * 0xE8);
   var_s4 = (void *) (((char *) __base_D_800C469C) + (*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x10))) * 0xE8);
   temp_v1 = *((s16 *) (((char *) (*((void **) (((char *) temp_s2) + 0xA8)))) + 0x7A));
   temp_s5 = gBorderSkipFlag != 0;
@@ -82,6 +81,7 @@ void func_800673EC(void *arg0, void *arg1)
 
     default:
       var_s4 = temp_s1;
+temp_s1 = var_s4;
       if ((*((s32 *) (((char *) (*((void **) (((char *) (*((void **) (((char *) temp_s2) + 0xA8)))) + 0x68)))) + 0x14))) & 0x10)
     {
       temp_a0 = *((void **) (((char *) arg0) + 0x68));
