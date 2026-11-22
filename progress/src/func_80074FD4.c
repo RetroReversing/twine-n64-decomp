@@ -39,6 +39,6 @@ void func_80074FD4(Panel *arg0) {
     }
     {
         u32 shade = (s32)next;
-        u32 high = shade << 16; u32 low = shade << 8; do { text->color.word = (((high | ((~low & 0xff000000) | low)) | shade)); } while (0);
+        u32 high, low, __repair_or_part; do { do { do { high = shade << 16; } while (0); } while (0); } while (0); do { do { do { low = shade << 8; } while (0); } while (0); } while (0); do { __repair_or_part = low | 0xff000000; do { high |= __repair_or_part; } while (0); text->color.word = high | shade; } while (0);
     }
 }
