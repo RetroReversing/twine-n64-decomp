@@ -1569,7 +1569,7 @@ case 2: case 3: goto out_of_line_actor;
       {
         __base_D_800C7DBC = &D_800C7DBC;
         temp_s5 = 0.0f - (*__base_D_800C7DBC);
-        temp_s6 = 0.0f - D_800C7DC4;
+        var_s6 = roll.number - D_800C7DC4;
         temp_fs0_4 = sinTableLookup(D_800E1A10 * 3.0f);
         var_fs3 = temp_fs0_4 * (cosTableLookup(D_800E1A10) * 0.1f);
         temp_fs0_5 = sinTableLookup(D_800E1A10);
@@ -1617,6 +1617,8 @@ case 2: case 3: goto out_of_line_actor;
           *((f32 *) (((char *) temp_s1) + 0x5C)) = 0.05f;
         }
         spherical_to_cartesian(frame.vector, *((f32 *) inline_fn23((char *) temp_s1, 0x5C)), (*((f32 *) (((char *) arg0) + 0x40))) * 0.0015339808f, (temp_fs4 * 0.0015339808f) - 1.5707964f);
+        var_s6 += D_800C7DC4;
+        var_s6 += frame.vector[2];
         var_s5 = (temp_s5 + var_fs3) + frame.vector[0];
         var_fp -= frame.vector[1];
         joy_stage = func_80081B44(temp_s4, 2, 3);
@@ -1638,7 +1640,7 @@ case 2: case 3: goto out_of_line_actor;
         }
         var_fs3_8 = *((f32 *) (((char *) temp_s1) + 0x50));
         var_s5 += (var_fs3_8 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
-        var_s6 = ((temp_s6 + D_800C7DC4) + frame.vector[2]) + (var_fs3_8 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
+        var_s6 += (var_fs3_8 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         temp_ft1_2 = *inline_fn2(temp_s1);
         temp_fv1_11 = (((temp_fs5 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
         *((f32 *) (((char *) temp_s1) + 0x4C)) = (((temp_fs5 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;

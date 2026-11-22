@@ -176,7 +176,7 @@ u32 __repair_phase_var_s3;
       }
       while (0);
       var_s1++;
-      var_t1 = (var_t2 + (temp_t2_2 << (var_t4 + 0xF))) & 0x7FFF;
+      temp_s2 = (var_t2 + (temp_t2_2 << (var_t4 + 0xF))); var_t1 = temp_s2 & 0x7FFF;
       var_t2 = temp_t2_2 >> (-var_t4);
       var_t4 += 0x20;
     }

@@ -1,3 +1,4 @@
+static __inline__ int __repair_inline(s32 a, s32 b) { return a > b; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -71,6 +72,7 @@ void func_8001D738(void) {
     s32 temp_s3;
     s32 temp_s4;
     s32 temp_s5;
+s32 __repair_result_temp_s5;
     s32 temp_s6;
     s32 temp_s7;
     s32 temp_v0_8;
@@ -121,7 +123,9 @@ void func_8001D738(void) {
         if (temp_v0 != 0) {
             var_a0 = 0xF;
         }
-        do { formatTextEntry(temp_s6, D_800D2864, lookupDataEntry(var_a0)); } while (0);
+        __repair_rows: { { formatTextEntry(temp_s6, D_800D2864, lookupDataEntry(var_a0)); }
+}
+if (0) goto __repair_rows;
         temp_v0_2 = *(D_80115089 + (gCurrentSaveSlot * 0xA0));
         D_8010D454 = temp_v0_2;
         var_a0_2 = 0xA;
@@ -132,7 +136,7 @@ void func_8001D738(void) {
         D_8010D2B1 = *(D_8011508A + (gCurrentSaveSlot * 0xA0));
         temp_v1_2 = D_80100198[gCurrentSaveSlot].f0;
         temp_a0 = var_s1 - 0x28;
-        if (((s32) temp_v1_2 < 2) && ((s32) temp_v1_2 >= 0)) {
+        if (((s32) __repair_inline(2, temp_v1_2)) && ((s32) temp_v1_2 >= 0)) {
             func_80025E9C(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 1, 0xD);
         } else {
             func_80025D84(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 0x7A, 1);
@@ -155,7 +159,7 @@ void func_8001D738(void) {
         if (temp_v0_4 != 0) {
             var_a0_5 = 9;
         }
-        do { formatTextEntry(temp_s7, D_800D2864, lookupDataEntry(var_a0_5)); } while (0);
+        { formatTextEntry(temp_s7, D_800D2864, lookupDataEntry(var_a0_5)); }
         temp_v0_5 = *(D_8011508C + (gCurrentSaveSlot * 0xA0));
         D_8010A394 = temp_v0_5;
         var_a0_6 = 0xA;
@@ -168,7 +172,7 @@ void func_8001D738(void) {
         if ((s32) temp_v1_3 >= 0) {
             var_a0_7 = temp_s0 - 0x28;
             if ((s32) temp_v1_3 >= 2) {
-                if ((s32) temp_v1_3 < 6) {
+                if ((s32) __repair_inline(6, temp_v1_3)) {
                     if ((s32) temp_v1_3 >= 4) {
                         var_a0_7 = temp_s0 - 0x28;
                         goto block_27;
@@ -211,17 +215,17 @@ block_31:
                 temp_v0_8 = func_800162BC(sMenuListKind);
                 *(s32 *)((temp_s0_2 * 4) + D_80102F48) = temp_v0_8;
                 if (temp_v0_8 != 0) {
-                    temp_s5 = lookupDataEntry((var_s1_2 + 0x400D) & 0xFFFF);
+                    __repair_result_temp_s5 = lookupDataEntry((var_s1_2 + 0x400D) & 0xFFFF);
                     if (temp_s0_2 < 4U) {
                         var_a2 = lookupDataEntry(0xAD);
                         var_a3 = temp_s0_2 + 1;
                     
-                    sprintf(temp_s5, D_800D285C, var_a2, var_a3);} else {
+                    sprintf(__repair_result_temp_s5, D_800D285C, var_a2, var_a3);} else {
                         var_a2 = lookupDataEntry(0x158);
                         var_a3 = temp_s0_2 - 3;
                     
-                    sprintf(temp_s5, D_800D285C, var_a2, var_a3);}
-                    func_800160FC(*(s32 *)(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), temp_s5, 0x40);
+                    sprintf(__repair_result_temp_s5, D_800D285C, var_a2, var_a3);}
+                    func_800160FC(*(s32 *)(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), __repair_result_temp_s5, 0x40);
                 }
                 func_8002A7CC(gPickupSearchBox, *(s32 *)(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), var_s1_2 & 0xFF, 1);
                 var_s1_2 += 1;

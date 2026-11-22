@@ -22,6 +22,7 @@ typedef struct
   s32 resource;
 } BeamLink;
 extern BeamLink D_800B25C0[];
+extern f32 D_80112F98_unused;
 extern s16 D_800C392A[][4];
 extern u32 *D_8010A928;
 extern u32 D_80107EA0;
@@ -55,7 +56,7 @@ inline static int inline_fn(s32 arg0, s32 arg1)
 
 void func_8000C34C(char *actor, char *viewer)
 {
-  BeamPoint points[50];
+  BeamPoint points[49];
   volatile BeamPoint *p;
   BeamPoint *end;
   volatile BeamPoint *out;

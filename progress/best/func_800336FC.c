@@ -22,7 +22,7 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
     s32 unused;
     volatile s32 vertexTransform;
     u8 padding[7];
-    volatile u8 emit;
+    u8 emit;
   } state;
   u32 savedSpace[6];
   GfxPair *gfx;
