@@ -15,20 +15,25 @@ inline static u8 chk(u8 *obj, s32 cur)
   if (b4a == 0xFF)
     return 0;
   b4b = obj[0x4B];
+  y = cur;
+  cur = 0;
+  cur = y;
   if (b4b == 0xFF)
   {
-    y = cur;
-    x = D_80100C7C[(u8)y];
+    if (D_80100C7C[(u8)y] != (u8)y)
+      return 0;
+    return 1;
   }
   else
   {
-    u8 *row = D_801007D9 + (b4b << 4);
-    y = cur;
+    u8 *t = D_801007D9;
+    u32 off = b4b << 4;
+    u8 *row = t + off;
     x = row[b4a];
+    if (x == (u8)y)
+      return 1;
+    return 0;
   }
-  if (x == (u8)y)
-    return 1;
-  return 0;
 }
 
 inline static s32 inline_fn(u32 arg0)
