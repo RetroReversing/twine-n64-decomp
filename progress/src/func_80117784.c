@@ -93,31 +93,16 @@ void func_80117784(s32 arg0, s32 arg1, SVec3 *arg2, SVec3 *arg3)
     }
     else
     {
-      char *q = (char *) cur;
-      do
+      for (i = 0; i < 16; i++)
       {
-        SNode *nb = ((volatile SNode *) q)->nbr[0];
-        i++;
-        if ((nb != NULL) && (nb->cost == (-1.0f)))
+        if (cur->nbr[i] != NULL && cur->nbr[i]->cost == -1.0f)
         {
-          if (sSearchEntries)
-          {
-            ((volatile SNode *) q)->nbr[0]->cost = (s32) (cur->cost + func_800461D4(cur->pos, nb->pos));
-            ((volatile SNode *) q)->nbr[0]->parent = cur;
-            func_80117740(&D_8011F070, ((volatile SNode *) q)->nbr[0]);
-            *((s32 *) 0x8011F0C8) = D_8011F0C8 + 1;
-          }
-          else
-          {
-            ((volatile SNode *) q)->nbr[0]->cost = (s32) (cur->cost + func_800461D4(cur->pos, nb->pos));
-            ((volatile SNode *) q)->nbr[0]->parent = cur;
-            func_80117740(&D_8011F070, ((volatile SNode *) q)->nbr[0]);
-            *((s32 *) 0x8011F0C8) = D_8011F0C8 + 1;
-          }
+          cur->nbr[i]->cost = (s32) (cur->cost + func_800461D4(cur->pos, cur->nbr[i]->pos));
+          cur->nbr[i]->parent = cur;
+          func_80117740(&D_8011F070, cur->nbr[i]);
+          *((s32 *) 0x8011F0C8) = D_8011F0C8 + 1;
         }
-        q += sizeof(SNode *);
       }
-      while (i < 16);
       func_8011775C(cur);
       D_8011F0C8 -= 1;
     }
