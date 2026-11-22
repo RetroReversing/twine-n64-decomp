@@ -11,6 +11,11 @@ inline static int inline_fn2()
   return -1;
 }
 
+inline static u8 *inline_fn23(u8 *arg0)
+{
+  return arg0 + 2;
+}
+
 void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
 {
   register u8 *var_s0 = arg1;
@@ -64,7 +69,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
 
       goto loop_48;
       case 0:
-        var_s1 = var_s0 + 2;
+        var_s1 = inline_fn23(var_s0);
 
       ++var_s0;
       var_s7 = 0; var_s0 += 1 + (var_s0[0] * 3);
@@ -78,7 +83,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
         var_s7 = 1; var_s0 += 1 + (var_s0[0] * 6);
         goto loop_48;
         case 3:
-          var_s1 = var_s0 + 2;
+          var_s1 = inline_fn23(var_s0);
 
         ++var_s0;
         var_s7 = 3; var_s0 += 1 + (var_s0[0] * 1);
@@ -136,7 +141,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
         var_s0 += 2; var_fp = 0;
         if (var_t2)
         {
-          var_s2 = var_s0 + 2; var_s4 = var_s6 + 2; var_s3 = var_s5 + 2;
+          var_s2 = inline_fn23(var_s0); var_s4 = inline_fn23(var_s6); var_s3 = var_s5 + 2;
           do
           {
             if (1)

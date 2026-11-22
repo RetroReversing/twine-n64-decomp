@@ -379,15 +379,11 @@ void func_800358D4(void *arg0)
                         ((Field_s32 *) (((char *) temp_v1_4) + 0))->v = 0xDA380003;
                         D_80109CB8 = temp_v0_4;
                         ((Field_s32 *) (((char *) temp_v1_4) + 8))->v = 0xFA000000;
-                        if (!(2.1474836e9f <= 0.0f))
                         {
-                          var_v0 = ((s32) 0.0f) & 0xFF;
+                          u32 rgb = ((((*((u8 *) (((s8 *) (&D_800C06D0)) + var_s1))) << 0x18) | ((*((u8 *) (((s8 *) (&D_800C06DC)) + var_s1))) << 0x10)) | ((*((u8 *) (((s8 *) (&D_800C06E8)) + var_s1))) << 8));
+                          u32 alpha = (u32)m2c_initial_frame.view_sp60.value;
+                          ((Field_s32 *)temp_a1_2)[1].v = rgb | (alpha & 255);
                         }
-                        else
-                        {
-                          var_v0 = (((s32) (0.0f - 2.1474836e9f)) | 0x80000000) & 0xFF;
-                        }
-                        ((Field_s32 *) (((char *) temp_a1_2) + 4))->v = (s32) (((((*((u8 *) (((s8 *) (&D_800C06D0)) + var_s1))) << 0x18) | ((*((u8 *) (((s8 *) (&D_800C06DC)) + var_s1))) << 0x10)) | ((*((u8 *) (((s8 *) (&D_800C06E8)) + var_s1))) << 8)) | var_v0);
                         temp_a0 = *((s32 **) (((char *) (&(&m2c_initial_frame.view_sp28.value)[*var_s2])) + 0x10));
                         if (((*temp_a0) != 0) || ((func_80043FA0(), (*(*((s32 **) (((char *) (&(&m2c_initial_frame.view_sp28.value)[*var_s2])) + 0x10)))) != 0)))
                         {
@@ -470,3 +466,4 @@ void func_800358D4(void *arg0)
     }
   }
 }
+

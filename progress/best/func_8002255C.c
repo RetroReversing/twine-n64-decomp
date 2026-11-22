@@ -82,7 +82,11 @@ void func_8002255C(void *arg0, void *arg1)
           else
           {
             child = *((void * volatile *) (((char *) temp_s0) + 4));
- do { var_v1 = *((s32 *) (((char *) child) + 0x28)); var_v1 = var_v1 & mask; } while (0);
+            do
+            {
+              var_v1 = *((s32 *) (((char *) child) + 0x28)); var_v1 = var_v1 & mask;
+            }
+            while (0);
             var_v0_2 = inline_fn(temp_s2);
             var_v0_2 &= 7;
             var_v0_2 |= 2;
@@ -123,27 +127,7 @@ void func_8002255C(void *arg0, void *arg1)
         {
           void *child;
           short mask = ~0xFC;
-          if (gMenuUseTextList != 0)
-          {
-            child = *((void * volatile *) (((char *) temp_s0) + 0));
-            var_v1_2 = *((s32 *) (((char *) child) + 0x28));
-            var_v1_2 &= mask;
-            do
-            {
-              var_v0_4 = inline_fn(temp_s2) & 0x1C;
-            }
-            while (0);
-          }
-          else
-          {
-            child = *((void * volatile *) (((char *) temp_s0) + 0));
-            var_v1_2 = *((s32 *) (((char *) child) + 0x28));
-            do
-            {
-              var_v1_2 &= mask; var_v0_4 = inline_fn(temp_s2); var_v0_4 &= 7; var_v0_4 |= 2; var_v0_4 <<= 2;
-            }
-            while (0);
-          }
+ do { if (gMenuUseTextList != 0) { child = *((void * volatile *) (((char *) temp_s0) + 0)); var_v1_2 = *((s32 *) (((char *) child) + 0x28)); var_v1_2 &= mask; do { var_v0_4 = inline_fn(temp_s2) & 0x1C; } while (0); } else { child = *((void * volatile *) (((char *) temp_s0) + 0)); var_v1_2 = *((s32 *) (((char *) child) + 0x28)); do { var_v1_2 &= mask; var_v0_4 = inline_fn(temp_s2); var_v0_4 &= 7; var_v0_4 |= 2; var_v0_4 <<= 2; } while (0); } } while (0);
           var_v1_2 |= var_v0_4;
           *((s32 *) (((char *) child) + 0x28)) = var_v1_2;
         }
