@@ -2,7 +2,7 @@ typedef struct Node
 {
   struct Node *prev;
   struct Node *next;
-  u32 addr;
+  s32 addr;
   s32 tag;
   s32 len;
   u32 data;
@@ -130,9 +130,10 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
         }
         if (s4 < a1)
         {
-          p = &sp10[(u16) s3];
+          sp38 = (u16) s3;
+          p = &sp10[sp38];
           p[4] = s0->addr;
-          do
+          __repair_rows:
           {
             if (s0->len)
             {
@@ -143,7 +144,11 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
               p[0] = s0->data;
             }
           }
-          while (0);
+
+          if (0)
+          {
+            goto __repair_rows;
+          }
           s3 += 1;
           s2 -= s2 - (a1 - s4);
           p[2] = s2;
@@ -156,9 +161,8 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
           p = &sp10[s1_2];
           p[0] = s0->data + (s4 - a1);
           p[4] = s4;
-          s1_2 = s0->addr + s0->len; p[2] = s1_2 - s4;
-          s3++;
-          s2 -= (s0->addr + s0->len) - s4;
+          s1_2 = s0->addr + s0->len;
+ do { p[2] = s1_2 - s4; s3++; s2 -= (s0->addr + s0->len) - s4; } while (0);
           s4 = ((unsigned short) s0->addr) + s0->len;
           s0 = s7;
           continue;
@@ -296,4 +300,3 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
     arg0->d = (s16) sp10[2];
   }
 }
-

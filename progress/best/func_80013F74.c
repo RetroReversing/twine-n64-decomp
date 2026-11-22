@@ -6,6 +6,7 @@ void func_80013F74(void *arg0)
   s32 var_t2;
   s32 var_t2_4;
   s32 var_v1;
+  s32 var_v1_d;
   char *var_t0;
   u32 temp_a1;
   register u32 temp_a1_11;
@@ -618,12 +619,12 @@ long_match:
       {
         temp_v0_3 = *((u8 *) var_a3_2);
         var_a3_2 += 1;
-        var_v1 = var_t2;
+        var_v1_d = var_t2;
         var_t2 -= 1;
         *((u8 *) var_a0) = temp_v0_3;
         var_a0 += 1;
       }
-      while (var_v1 != 0);
+      while (var_v1_d != 0);
       var_a2 = var_a2 - 1;
     }
     else

@@ -15,7 +15,7 @@ void func_800134D0(void *arg0)
   u16 *spC;
   void *sp4;
   u32 sp1C;
-  s32 sp2C;
+  volatile s32 sp2C;
   s32 *var_a0_5;
   s32 temp_a1_3;
   s32 temp_s2;
@@ -499,7 +499,7 @@ void func_800134D0(void *arg0)
     var_a0_6 += 1;
 
     var_a3_8 += 1;
-    var_a1_4 += 2;
+    var_a1_4++;
     if ((var_a3_8 >> var_s3) != 0)
     {
       var_t1_6 = var_s3;

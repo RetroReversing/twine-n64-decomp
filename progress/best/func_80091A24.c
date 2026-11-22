@@ -135,16 +135,15 @@ loop_1:
         var_t0 = var_a0 | (temp_a2 & 0x80000000);
         goto have_index;
     handle_flags:
-        temp_v0 = temp_v1 & 1;
         if (arg2 & 0xFF) {
-            if (temp_v0 != 0) {
+            if ((temp_v1 & 1) != 0) {
                 func_80091654(0U, (*(u16 *)((char *)(arg0) + 4)), (*(s32 *)((char *)(arg0) + 0)), 2);
             } else if (temp_v1 & 0x40) {
                 func_80091654(0U, (*(u16 *)((char *)(arg0) + 4)), (*(s32 *)((char *)(arg0) + 0)), 3);
             } else {
                 func_80091654(0U, (*(u16 *)((char *)(arg0) + 4)), (*(s32 *)((char *)(arg0) + 0)), 1);
             }
-        } else if (temp_v0 != 0) {
+        } else if ((temp_v1 & 1) != 0) {
             temp_s1 = (*(u16 *)((char *)(arg0) + 4));
             temp_s2 = (*(s32 *)((char *)(arg0) + 0));
             if (gWorkerActive != 0) {

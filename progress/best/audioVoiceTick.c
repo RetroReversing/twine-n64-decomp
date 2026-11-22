@@ -1,9 +1,9 @@
-void *audioApplyVoiceConfig(void *, u32 *);
-void *audioCmdNoteOn(void *, u32 *);
-void *audioUpdateClipSelection(void *, u32 *);
-void *audioVoiceApplyEnvelope(void *, u32 *);
+s32 audioApplyVoiceConfig(void *, u32 *);
+s32 audioCmdNoteOn(void *, u32 *);
+s32 audioUpdateClipSelection(void *, void *);
+s32 audioVoiceApplyEnvelope(void *, u32 *);
 s32 audioVoiceIsActive(u8);
-void *audioVoiceStepTimer(void *, u32 *);
+s32 audioVoiceStepTimer(u8 *, u8 *);
 s32 func_8008C380(u8, s32);
 s32 func_8008C590(u8);
 s32 func_8008C7E0(s32);
@@ -20,13 +20,13 @@ s32 func_80096F44(void *, s32, s32);
 s32 func_800982B4(u32);
 void *func_8009846C(s32);
 s32 func_80098B14(void *, u8);
-void *func_8009A0E4(void *, u32 *);
-void *func_8009A4E4(void *, u32 *);
-void *func_8009A70C(void *, u32 *);
-void *func_8009A804(void *, u32 *, s32);
-void *func_8009A990(void *, u32 *);
-void *func_8009ABD4(void *, u32 *, s32);
-void *func_8009AE24(void *, u32 *, s32);
+s32 func_8009A0E4(void *, u32 *);
+s32 func_8009A4E4(void *, u32 *);
+s32 func_8009A70C(void *, u32 *);
+s32 func_8009A804(void *, u32 *, s32);
+s32 func_8009A990(void *, u32 *);
+s32 func_8009ABD4(void *, u32 *, s32);
+s32 func_8009AE24(void *, u32 *, s32);
 s32 randomU16Next();
 s32 releaseAudioVoice(void *);
 s32 voiceListRemove(void *);
@@ -285,6 +285,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   }
   if ((*((s32 *) (((char *) arg0) + 0x9C))) == 0)
   {
+    s32 commandResult;
     s32 invalidVoice;
     s32 divisorReciprocal;
     D_80100868 = 1;
@@ -302,7 +303,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     switch (temp_v1_5)
     {
       case 0x1:
-        if (D_800FDB9E && ((temp_v1_6 = *((s32 *) (((char *) arg0) + 8)), var_a0 = NULL, temp_v1_6 != 0)))
+        if (D_800FDB9E && ((temp_v1_6 = *((s32 *) (((char *) arg0) + 8)), commandResult = 0, temp_v1_6 != 0)))
       {
         *((s32 *) (((char *) arg0) + 0)) = temp_v1_6;
         *((void **) (((char *) arg0) + 4)) = (void *) (*((void **) (((char *) arg0) + 0xC)));
@@ -321,7 +322,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         if (((u16) (*((u16 *) (((char *) arg0) + 0x50)))) >= ((u8) D_800FDB9E))
       {
         temp_v0_4 = func_800982B4(command >> 0x10);
-        var_a0 = NULL;
+        commandResult = 0;
         if (temp_v0_4 != 0)
         {
           *((s32 *) (((char *) arg0) + 0)) = temp_v0_4;
@@ -332,7 +333,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       {
         default:
           block_205:
-        var_a0 = NULL;
+        commandResult = 0;
 
 
       }
@@ -343,7 +344,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         if ((*((u16 *) (((char *) arg0) + 0x30))) >= ((u8) D_800FDB9E))
       {
         temp_v0_5 = func_800982B4(((u32) D_800FDB9C) >> 0x10);
-        var_a0 = NULL;
+        commandResult = 0;
         if (temp_v0_5 != 0)
         {
           *((s32 *) (((char *) arg0) + 0)) = temp_v0_5;
@@ -357,16 +358,16 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         break;
 
       case 0x4:
-        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        commandResult = audioUpdateClipSelection(arg0, &D_800FDB9C);
         break;
 
       case 0x5:
-        var_a0 = audioVoiceStepTimer(arg0, &D_800FDB9C);
+        commandResult = audioVoiceStepTimer(arg0, (u8 *)&D_800FDB9C);
         break;
 
       case 0x6:
         temp_v0_6 = func_800982B4((u32) (*((u16 *) (((char *) (&D_800FDB9C)) + 0))));
-        var_a0 = NULL;
+        commandResult = 0;
         if (temp_v0_6 != 0)
       {
         temp_v0_7 = *((s32 *) (((char *) arg0) + 0));
@@ -383,11 +384,11 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
 
       case 0x7:
         *((u8 *) (((char *) (&D_800FDBA0)) + 2)) = 1;
-        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        commandResult = audioUpdateClipSelection(arg0, &D_800FDB9C);
         break;
 
       case 0x8:
-        var_a0 = audioCmdNoteOn(arg0, &D_800FDB9C);
+        commandResult = audioCmdNoteOn(arg0, &D_800FDB9C);
         break;
 
       case 0x9:
@@ -416,25 +417,25 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
             var_a2_2 += 0x1A0;
           }
           while (var_a1_2 < voiceCount);
-          var_a0 = NULL;
+          commandResult = 0;
         }
         else
         {
           block_60:
-          var_a0 = NULL;
+          commandResult = 0;
 
         }
       }
         break;
 
       case 0xA:
-        var_a0 = (s32) NULL;
+        commandResult = 0;
         if ((*((u8 *) (((char *) arg0) + 0x4A))) != 0xFF)
       {
         if (((u32) ((func_80096D9C(arg0) >> 7) & 0xFF)) >= ((u8) D_800FDB9E))
         {
           temp_v0_8 = func_800982B4(D_800FDB9C >> 0x10);
-          var_a0 = NULL;
+          commandResult = 0;
           if (temp_v0_8)
           {
             *((s32 *) (((char *) arg0) + 0)) = temp_v0_8;
@@ -471,7 +472,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
 
       case 0xC:
         temp_v0_9 = func_8009846C((((u32) D_800FDB9C) >> 8) & 0xFFFF);
-        if (temp_v0_9 != NULL)
+        if (temp_v0_9 != 0)
       {
         temp_v0_10 = *((u16 *) (((char *) temp_v0_9) + 0));
         scratch.params[0] = (temp_v0_10 >> 8) | (temp_v0_10 << 8);
@@ -488,7 +489,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         goto block_205;
 
       case 0xD:
-        var_a0 = func_8009A70C(arg0, &D_800FDB9C);
+        commandResult = func_8009A70C(arg0, &D_800FDB9C);
         break;
 
       case 0xE:
@@ -512,20 +513,20 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
 
       case 0xF:
         var_a2_3 = *((s32 *) (((char *) arg0) + 0x30));
-        var_a0 = func_8009A804(arg0, &D_800FDB9C, var_a2_3);
+        commandResult = func_8009A804(arg0, &D_800FDB9C, var_a2_3);
         break;
 
       case 0x10:
-        var_a0 = audioVoiceApplyEnvelope(arg0, &D_800FDB9C);
+        commandResult = audioVoiceApplyEnvelope(arg0, &D_800FDB9C);
         break;
 
       case 0x11:
-        var_a0 = NULL;
+        commandResult = 0;
         func_8008C380(*((u8 *) (((char *) arg0) + 0x63)), 1);
         break;
 
       case 0x12:
-        var_a0 = NULL;
+        commandResult = 0;
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) ((*((s32 *) (((char *) arg0) + 0x24))) | 0x80);
         break;
 
@@ -533,7 +534,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         if (((u32) (randomU16Next() & 0xFF)) >= ((u8) D_800FDB9E))
       {
         temp_v0_15 = func_800982B4(D_800FDB9C >> 0x10);
-        var_a0 = NULL;
+        commandResult = 0;
         if (temp_v0_15 != 0)
         {
           *((void **) (((char *) arg0) + 4)) = (void *) (temp_v0_15 + ((*((u16 *) (((char *) (&D_800FDBA0)) + 2))) * 8));
@@ -548,15 +549,15 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
 
       case 0x14:
         var_a2_3 = 0;
-        var_a0 = func_8009A804(arg0, &D_800FDB9C, var_a2_3);
+        commandResult = func_8009A804(arg0, &D_800FDB9C, var_a2_3);
         break;
 
       case 0x17:
-        var_a0 = func_8009A990(arg0, &D_800FDB9C);
+        commandResult = func_8009A990(arg0, &D_800FDB9C);
         break;
 
       case 0x18:
-        var_a0 = func_8009A0E4(arg0, &D_800FDB9C);
+        commandResult = func_8009A0E4(arg0, &D_800FDB9C);
         break;
 
       case 0x19:
@@ -597,7 +598,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         func_800968A4(*((u8 *) (((char *) arg0) + 0x4A)), *((u8 *) (((char *) arg0) + 0x4B)), *((u8 *) (((char *) arg0) + 0x51)));
       }
         D_800FDB9C = 4;
-        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        commandResult = audioUpdateClipSelection(arg0, &D_800FDB9C);
         break;
 
       case 0x1A:
@@ -626,7 +627,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         func_800968A4(temp_a0_3, *((u8 *) (((char *) arg0) + 0x4B)), *((u8 *) (((char *) arg0) + 0x51)));
       }
         D_800FDB9C = 4;
-        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        commandResult = audioUpdateClipSelection(arg0, &D_800FDB9C);
         break;
 
       case 0x1B:
@@ -643,7 +644,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         *((s32 *) (((char *) arg0) + 0x90)) = scratch.value;
         if (D_800FDB9E != 0)
       {
-        var_a0 = NULL;
+        commandResult = 0;
         if (D_800FDB9E != 1)
         {
         }
@@ -664,7 +665,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         if (temp_a0_4 != 0xFF)
         {
           func_8009692C(temp_a0_4, *((u8 *) (((char *) arg0) + 0x4B)), 0);
-          var_a0 = NULL;
+          commandResult = 0;
         }
         else
         {
@@ -674,7 +675,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         break;
 
       case 0x1C:
-        var_a0 = audioApplyVoiceConfig(arg0, &D_800FDB9C);
+        commandResult = audioApplyVoiceConfig(arg0, &D_800FDB9C);
         break;
 
       case 0x1D:
@@ -697,7 +698,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         block_119:
       D_800FDB9C = 0;
 
-        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        commandResult = audioUpdateClipSelection(arg0, &D_800FDB9C);
         break;
 
       case 0x1E:
@@ -719,17 +720,17 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         *((s32 *) (((char *) arg0) + 0x80)) = (s32) (var_v0_5 << 0x10);
       {
         D_800FDB9C = 0;
-        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        commandResult = audioUpdateClipSelection(arg0, &D_800FDB9C);
         break;
       }
 
       case 0x1F:
-        var_a0 = func_8009A4E4(arg0, &D_800FDB9C);
+        commandResult = func_8009A4E4(arg0, &D_800FDB9C);
         break;
 
       case 0x28:
         temp_v0_19 = func_800982B4((u32) (*((u16 *) (((char *) (&D_800FDB9C)) + 0))));
-        var_a0 = NULL;
+        commandResult = 0;
         if (temp_v0_19 != 0)
       {
         *((s32 *) (((char *) arg0) + 0x1C)) = temp_v0_19;
@@ -738,8 +739,8 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         break;
 
       case 0x29:
-        var_a0 = NULL;
-        *((void **) (((char *) arg0) + 0x20)) = NULL;
+        commandResult = 0;
+        *((void **) (((char *) arg0) + 0x20)) = 0;
         *((s32 *) (((char *) arg0) + 0x1C)) = 0;
         break;
 
@@ -764,29 +765,29 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         goto block_60;
 
       case 0x31:
-        var_a0 = NULL;
+        commandResult = 0;
         *((s32 *) (((char *) arg0) + 0x28)) = (u32) ((*((u16 *) (((char *) (&D_800FDB9C)) + 0))) << 0xF);
         break;
 
       case 0x32:
         *((s16 *) (((char *) (&D_80112EBE)) + (D_800FDB9E * 2))) = (s16) D_800FDB9D;
-        var_a0 = NULL;
+        commandResult = 0;
         break;
 
       case 0x33:
         *((u8 *) (((char *) arg0) + 0x6A)) = (s8) ((u16) D_800FDB9C);
-        var_a0 = NULL;
+        commandResult = 0;
         *((u8 *) (((char *) arg0) + 0x6B)) = (s8) (((u32) D_800FDB9C) >> 8);
         break;
 
       case 0x34:
         *((u8 *) (((char *) arg0) + 0x99)) = (s8) (((u32) D_800FDB9C) >> 8);
-        var_a0 = NULL;
+        commandResult = 0;
         *((u8 *) (((char *) arg0) + 0x9A)) = (s8) ((u16) D_800FDB9C);
         break;
 
       case 0x35:
-        var_a0 = NULL;
+        commandResult = 0;
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) ((*((s32 *) (((char *) arg0) + 0x24))) | 0x40000);
         break;
 
@@ -795,7 +796,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         block_144:
       func_80098B14(arg0, var_a1_3);
 
-        var_a0 = NULL;
+        commandResult = 0;
         break;
 
       case 0x37:
@@ -1081,28 +1082,28 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       {
         *((s32 *) (((char *) temp_v1_22) + 0x168)) = 0;
       }
-        var_a0 = NULL;
+        commandResult = 0;
         *((s32 *) (((char *) temp_v1_22) + 0x16C)) = scratch.value;
         break;
 
       case 0x60:
-        var_a0 = func_8009ABD4(arg0, &D_800FDB9C, 0);
+        commandResult = func_8009ABD4(arg0, &D_800FDB9C, 0);
         break;
 
       case 0x61:
-        var_a0 = func_8009ABD4(arg0, &D_800FDB9C, 1);
+        commandResult = func_8009ABD4(arg0, &D_800FDB9C, 1);
         break;
 
       case 0x62:
-        var_a0 = func_8009ABD4(arg0, &D_800FDB9C, 2);
+        commandResult = func_8009ABD4(arg0, &D_800FDB9C, 2);
         break;
 
       case 0x63:
-        var_a0 = func_8009ABD4(arg0, &D_800FDB9C, 3);
+        commandResult = func_8009ABD4(arg0, &D_800FDB9C, 3);
         break;
 
       case 0x64:
-        var_a0 = func_8009ABD4(arg0, &D_800FDB9C, 4);
+        commandResult = func_8009ABD4(arg0, &D_800FDB9C, 4);
         break;
 
       case 0x65:
@@ -1111,7 +1112,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         if ((((u32) D_800FDB9C) >> 8) & 0xFF)
       {
         func_80096F44(arg0, temp_v1_23 & 0xFF, (s16) temp_a0);
-        var_a0 = NULL;
+        commandResult = 0;
       }
       else
       {
@@ -1123,16 +1124,16 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
           goto block_60;
         }
         *((s16 *) (((char *) (&D_80112E9E)) + temp_v0_21)) = (s16) temp_a0;
-        var_a0 = NULL;
+        commandResult = 0;
       }
         break;
 
       case 0x70:
-        var_a0 = func_8009AE24(arg0, &D_800FDB9C, 0);
+        commandResult = func_8009AE24(arg0, &D_800FDB9C, 0);
         break;
 
       case 0x71:
-        var_a0 = func_8009AE24(arg0, &D_800FDB9C, 1);
+        commandResult = func_8009AE24(arg0, &D_800FDB9C, 1);
         break;
 
     }
@@ -1141,9 +1142,9 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     release_command:
     voiceListRemove(arg0);
     releaseAudioVoice(arg0);
-    var_a0 = (void *) 1;
+    commandResult = 1;
     command_complete:
-    if (!(((s32) var_a0) & 0xFF))
+    if (!(commandResult & 0xFF))
     {
       temp_v0_22 = D_80100868 + 1;
       D_80100868 = temp_v0_22;
@@ -1176,6 +1177,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     *((s32 *) (((char *) arg0) + 0x9C)) = 0U;
   }
 }
+
 
 
 
