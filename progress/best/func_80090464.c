@@ -131,7 +131,7 @@ play:
                           } else {
                               temp_v0_5 = (*(u8 *)((char *)(temp_v0_2) + 0x8C));
                               if (temp_v0_5 != 0xFF) {
-                                  instrumentOffset = (*(u8 **)((char *)(gSeqPlayer) + 0x88)); temp_v0_6 = (temp_v0_5 * 8) + instrumentOffset;
+                                  temp_a2 = (void *) (*(u8 **)((char *)(gSeqPlayer) + 0x88)); temp_v0_6 = (temp_v0_5 * 8) + (u32) temp_a2;
                                   (*(s32 *)((char *)(gSeqPlayer) + 0xFA4)) = (s32) (((*(u16 *)((char *)(temp_v0_6) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_v0_6) + 2)) << 8) | (*(u8 *)((char *)(temp_v0_6) + 3)));
                               }
                           }

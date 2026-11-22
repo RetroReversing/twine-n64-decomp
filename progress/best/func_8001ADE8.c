@@ -130,13 +130,13 @@ void func_8001ADE8(void)
     if (gSaveTotalSlots > 0)
     {
       markers = D_80102F48;
-      var_s0 = var_s2 & 0xFFFF;
       do
       {
+        var_s0 = (u16)var_s2;
         temp_s3 = getSaveSlotIndex(var_s0);
         temp_v0 = spawnTrackMarker(sMenuListKind);
-        ;
-        *(markers + var_s0) = temp_v0;
+        var_s0 = (s32)&markers[var_s0];
+        *(s32 *) var_s0 = temp_v0;
         if (temp_v0 != 0)
         {
           temp_s1 = lookupDataEntry((var_s2 + 0x4008) & 0xFFFF);
@@ -169,9 +169,8 @@ void func_8001ADE8(void)
     func_8002ACB4(&gPickupSearchBox);
     temp_s0_3 = sFmtEntryName;
     formatTextEntry(temp_fp, temp_s0_3, func_8002BA6C(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByte)))));
-    slotField = savedByte - 0x111;
     entry = sp34;
-    *((void **) (((char *) temp_fp) + (-0x18))) = inline_fn(savedByte) + slotField;
+    *((void **) (((char *) temp_fp) + (-0x18))) = inline_fn(savedByte) + (savedByte - 0x111);
     func_80019E28(entry);
     temp_s0_4 = savedByte - 0x109;
     formatTextEntry(temp_s7, temp_s0_3, inline_fn(savedByte) + temp_s0_4);
@@ -288,8 +287,8 @@ void func_8001ADE8(void)
       D_801002E6 = 1;
       D_801002E7 = 1;
       func_80025F78(temp_a0_3, 0xD);
-      func_80025F78(temp_s5 - 0x28, 0xD);
       func_80025F78(temp_s6, 0xD);
+      func_80025F78(temp_s5 - 0x28, 0xD);
       func_80025F78(temp_s5, 0xD);
       formatTextEntry(temp_s6, D_800D2858, (void *) ((*((&D_800BF688) + ((*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)))) * 0xC))) * 5));
       formatTextEntry(temp_s5, sFmtEntryName, lookupDataEntry(0x13));

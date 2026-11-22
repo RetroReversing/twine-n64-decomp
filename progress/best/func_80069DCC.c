@@ -658,10 +658,10 @@ case 2: case 3: goto out_of_line_actor;
           func_800452E0(temp_s1 + 0x128, arg0 + 0x24, &frame.collision.x);
           *((CopyVec3 *) (((char *) temp_s1) + 0x128)) = *((CopyVec3 *) (((char *) arg0) + 0x24));
           frame.collision.y = roll.number;
-          var_s0 = 1;
           if (func_8004572C(&frame.collision.x) <= 0.001f)
           {
             temp_fs0_2 = *((f32 *) (((char *) temp_s1) + 0x58));
+            var_s0 = 1;
             var_fs1 = 0.0f;
             func_80065684(arg0);
             *((f32 *) (((char *) temp_s1) + 0x58)) = temp_fs0_2;
@@ -679,8 +679,10 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v1_5 = 0;
             }
-            var_s0 = 1;
-            if (!(var_v0_5 & var_v1_5))
+            if (var_v0_5 & var_v1_5) {
+              var_s0 = 1;
+            }
+            else
             {
               var_v0_6 = 1;
               if (!(temp_fs5 <= 0.0002f))
