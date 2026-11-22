@@ -1,6 +1,6 @@
 #define WORD(p) (*(s32 *)(p))
 #define HALF(p) (*(u16 *)(p))
-#define PROCESS(off,tab,call)     key = inline_fn((u16 *)((u32)WORD(group + off) + (u32)group) + 4);     while ((lookup = *key) != 0xffff) {         entry = data + WORD(data + tab);         found = 0;         while (WORD(entry) != -1) {             found = entry;             if (HALF(entry + 4) == (u16)lookup) break;             entry += WORD(entry);             found = 0;         }         if (found) { call; }         key++;     }
+#define PROCESS(off,tab,call)     key = inline_fn((u16 *)((u32)WORD(group + off) + (u32)group) + 4);     while ((lookup = *key) != 0xffff) {         entry = data + WORD(data + tab);         while (WORD(entry) != -1) { if (HALF(entry + 4) == (u16)lookup) { found = entry; goto done##off; } entry += WORD(entry); } found = 0; done##off:;         if (found) { call; }         key++;     }
 extern u8 gWorkerActive;
 extern s16 sSceneGroupStackCount;
 extern u8 *sSceneGroupStack[];
@@ -24,6 +24,8 @@ s32 func_80092A68(u8 *first, short id, s32 resource, s32 table, u8 *data)
   u8 *group;
   u16 *key;
   s32 lookup;
+  u8 *tail;
+  s32 look2;
   if (gWorkerActive && (sSceneGroupStackCount < 128))
   {
     group = first;
@@ -37,12 +39,12 @@ s32 func_80092A68(u8 *first, short id, s32 resource, s32 table, u8 *data)
       {
         sSceneGroupStack[sSceneGroupStackCount] = group;
         PROCESS(8, 0, func_80097EF8(HALF(key), found + 8));
-        key = inline_fn(((u16 *) (group + WORD(group + 12))) + 4);
+        key = inline_fn((u16 *)((u32)WORD(group + 12) + (u32)group) + 4);
         if (keyTableRegister(table, func_8008C758(resource)))
         {
-          while ((lookup = *(key++)) != 0xffff)
+          while ((look2 = *(key++)) != 0xffff)
           {
-            func_80097A40(lookup, table);
+            func_80097A40(look2, table);
           }
 
         }
@@ -51,8 +53,8 @@ s32 func_80092A68(u8 *first, short id, s32 resource, s32 table, u8 *data)
         PROCESS(24, 12, insertSortedKeyEntry(HALF(key), found + 12, HALF(found + 10)));
         if (HALF(group + 6) == 1)
         {
-          entry = (u8 *)inline_fn((u16 *)((u32)WORD(group + 28) + (u32)group + 8));
-          registerWorkerEntry((u16) id, entry + 4, HALF(entry));
+          tail = (u8 *)inline_fn((u16 *)((u32)WORD(group + 28) + (u32)group + 8));
+          registerWorkerEntry((u16) id, tail + 4, HALF(tail));
         }
         sSceneGroupStackCount++;
         return 1;
