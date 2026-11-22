@@ -4320,14 +4320,6 @@
   "score_after": 2700
  },
  {
-  "function": "func_80018364",
-  "text": "Rechecked score 340. Six local lifetime, record, signedness and address variants all tied. Seven mismatch rows include jump table relocation and four instruction-order rows around initial loop setup. Investigate switch table placement and schedule of var_s0/temp_s6; revision 6a025daa94fa2f0395e9 retained.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795138343.686966,
-  "score_before": 340,
-  "score_after": 340
- },
- {
   "function": "soundGroupAddEntry",
   "text": "Retain revision 16d43e3be314fc278567 at score 205. I removed the artificial 8-byte local array (312\u2192310) and changed the linked-list timestamp store to f32* (310\u2192205), which removed trunc.w.s and matched the target instruction count. The latest signedness-family trial (unsigned __repair_literal) worsened to 410; baseline retained. Remaining diff is exactly the early loop setup: target puts `move $a0,$v0` after the branch and before `move $v1,$zero`; current source emits `move $v1,$zero` before `lw $a2` and uses a different register for the saved count. The saved count/register liveness depends on restructuring the entry-count search, and the bounded declaration/signedness/local repair variants do not change it. Stop here due session context limit; next pass should rewrite the search loop to preserve D_800EDE74 in a0 before initializing the index, then judge.",
   "by": "codex-gpt-6-luna-12",
@@ -10302,14 +10294,6 @@
   "created_at": 1795178347.299653,
   "score_before": 1355,
   "score_after": 1355
- },
- {
-  "function": "func_80018364",
-  "text": "Rechecked baseline score 340. Ran six independent local repairs (scalar reuse, inferred record layout, CFG lifetimes, signedness, declaration order, address temporary); all remained 340. Mismatch starts around loop setup: target branches on zero length then initializes s2 and loads jtbl_800D2710; candidate orders pointer/temp setup and materializes an unresolved local jump-table address. Likely need rewrite loop/switch control flow or resolve switch table lowering. One malformed manual compile omitted m2c preamble and did not compile; saved_best restored afterward.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795178348.055184,
-  "score_before": 340,
-  "score_after": 340
  },
  {
   "function": "getEntryCount",
@@ -22144,14 +22128,6 @@
   "score_after": 1920
  },
  {
-  "function": "func_80018364",
-  "text": "Rechecked score 80, revision b6c2d9d513b06e89afea. Only loop-entry order differs: candidate copies s4 to s0 just before the two table-address instructions; target does it immediately after them. The candidate then computes s6 correctly. The linker leaves .rodata+0 unresolved in this ordering. Moving cursor assignment before the guard resolves the table symbol but shifts table destination addresses and scores 235. Computed goto with exact 32-entry mapping scored 752/932; bottom-tested for and redundant dispatch label tied, explicit cursor-derived end scored 140. Move-on budget reached. Try index-based induction to test whether strength reduction hoists the jump-table base before pointer setup.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795189120.208481,
-  "score_before": 80,
-  "score_after": 80
- },
- {
   "function": "func_8000CCE4",
   "text": "Best score 280 (42 instructions; 6 instruction differences). Rechecked saved source and exact baseline. Explicit repeated constant local had no effect. Hoisting second state pointer to local regressed score to 816 and changed stack frame, so saved best should be retained. Remaining diff is call argument scheduling: target emits constant 100 and stack stores before preparing register arguments obj+0x24/0x3c; current emits first pointer address early. Assembly at mismatch shows target's second state pointer load after stack stores. Try staging call expressions or argument-order manipulation.",
   "by": "codex-gpt-6-luna-10",
@@ -24384,14 +24360,6 @@
   "score_after": 1120
  },
  {
-  "function": "func_80018364",
-  "text": "Verified score 80. Cursor declaration/order and equivalent initialization unchanged; moving initialization before guard worsened to 235, widening length to 95 and symbol to 555. Target moves cursor after jump-table address setup; candidate before. Candidate jump table relocates to local rodata rather than target symbol. Explore control-flow scheduling and table placement.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795191478.57357,
-  "score_before": 80,
-  "score_after": 80
- },
- {
   "function": "emitPrimColor",
   "text": "Verified saved best 2140. Widening average temporary to u32 worsened to 5937; merging branch average locals or changing unsigned shift casts produced identical code; signed global byte worsened. Target has fewer instructions in each division/color multiplier branch and different multiplier ordering. Investigate original fixed-point expression and scheduling rather than further simple local type changes.",
   "by": "codex-gpt-6.1-terra-1",
@@ -25926,14 +25894,6 @@
   "created_at": 1795193615.266675,
   "score_before": 555,
   "score_after": 555
- },
- {
-  "function": "func_80018364",
-  "text": "Reverified 80. Only cursor copy move s0,s4 precedes the two jump-table address instructions and blocks resolving their ROM relocation; all other displayed instructions match. Moving cursor initialization outside the if, using text as cursor, precomputing end from cursor or text, and early return on zero length did not help. Probe scheduler options or switch CFG variations that keep identical case destinations and move table base setup before cursor copy.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795193615.291282,
-  "score_before": 80,
-  "score_after": 80
  },
  {
   "function": "func_8009532C",
@@ -27840,14 +27800,6 @@
   "score_after": 2255
  },
  {
-  "function": "func_80018364",
-  "text": "Verified score 80. Same 82 instructions except move s0,s4 must follow both jump table address halves; linker reports generated .rodata+0x0 has no ROM address, target jtbl_800D2710. End-pointer spellings and explicit unsigned symbol load did not help. Inspect generated and ROM switch table mapping and then test different loop entry shapes to move the cursor copy.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795198099.97608,
-  "score_before": 80,
-  "score_after": 80
- },
- {
   "function": "func_80037C84",
   "text": "Current rechecked candidate score 60 (79 instructions) is materially better than the direct rewrite attempt and matches all but ordering of pointer increment for D_80115328. The target performs final pointer arithmetic/store after the last func_80034928 call's delay slot (target lines ~67/70); candidate emits addiu $a2,$a2,8 earlier. Moving D_80115328 assignment after call regressed to 650, so preserve current candidate. First-call prototype must remain old style to compile existing invocation forms: func_80034928(arg0,2) maps target jal with a1=2 delay slot; second target call passes a0=s0 in delay slot, with a1 loaded from D_8010A4D8. Draft's three-argument second call is incorrect. Next try splitting D_80115328 advancement into direct global update after call or expression side effects to shape scheduling; pointer arithmetic and aliases currently impact its register assignment. Other body/branches are near exact.",
   "by": "codex-gpt-6-luna-17",
@@ -28734,14 +28686,6 @@
   "created_at": 1795199098.715924,
   "score_before": 85,
   "score_after": 85
- },
- {
-  "function": "func_80018364",
-  "text": "Best candidate score 80 on revision 04182774bf752a26641f (82 instructions, only four differing rows). Core switch/control flow exactly matches, but compiler emits its jump table as local .rodata; target uses external jtbl_800D2710 at 0x800D2710. The two table-load instructions are therefore wrong relocation, and the move $s0,$s4 is scheduled before them instead of after. Link diagnostics explicitly report .rodata+0x0 has no address in target. Automatic switch_layout, const_read, unsigned_switch, narrow_widening, parameter_mask, and loop_weight_scope variants gave no improvement. Remaining solution likely requires expressing a dispatch through the existing external jump table, or a linker/symbol declaration mechanism, while preserving the existing switch body's branches; no candidate change obtained.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795199109.793227,
-  "score_before": 80,
-  "score_after": 80
  },
  {
   "function": "func_80037C84",
@@ -30296,14 +30240,6 @@
   "score_after": 60
  },
  {
-  "function": "func_80018364",
-  "text": "Best current candidate rechecked score 80 (82 instructions). It matches body/control flow closely. Exact remaining issue: target uses ROM jump table jtbl_800D2710 at 0x800D2710; compiler-generated candidate table is unresolved .rodata+0, linker warns and cannot map. Target orders cursor move after two table-base instructions; best source has move just before them. Moving cursor init outside guard worsened to 235 and candidate table data differed from ROM (range 0x800D2713\u20130x800D2790). Same-shape variants produced 80; no safe improvement. Need mechanism/source shape that binds actual external jump table while preserving branch table destinations and schedules cursor init after table address load.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795201160.3798988,
-  "score_before": 80,
-  "score_after": 80
- },
- {
   "function": "emitPrimColor",
   "text": "Starting machine draft failed due to missing declarations; wrote a plausible branch-based color conversion using global multiplier bytes, but current source compiled poorly (score 6110) due to incorrect global declarations/symbol mapping and different operation lowering. Historical saved best is score 195, but its source has suspicious scalar extern widths (some globals are byte quantities despite draft declared u8; several addresses likely raw bytes vs word). Read target assembly shows both branches calculate average RGB by multiply-high with 0x55555556, then mask 16-bit average and scale channels by three byte multipliers. Current attempt made two wrong multiplier assignments (diff explicitly flagged addresses), fix via correct relocation names/widths and restore saved_best before further experiments. No exact match or reusable discovery.",
   "by": "codex-gpt-6-luna-9",
@@ -31566,14 +31502,6 @@
   "created_at": 1795202106.164617,
   "score_before": 1865,
   "score_after": 1865
- },
- {
-  "function": "func_80018364",
-  "text": "Best candidate restored to saved revision a2c888818ce2cfbab51f after exploratory edits; historical score 80, previously current-rechecked 80. Six local repair variants did not improve. An explicit local extern for jtbl_800D2710 retained the same instructions but caused an unresolved local .rodata reference. Target setup loads the ROM table and has no corresponding move s0,s4. Next resolve/use the table as a proper project data symbol, then tune dispatch setup ordering.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795202112.381597,
-  "score_before": 80,
-  "score_after": 80
  },
  {
   "function": "func_80087380",
@@ -33990,14 +33918,6 @@
   "created_at": 1795204337.342428,
   "score_before": 20,
   "score_after": 20
- },
- {
-  "function": "func_80018364",
-  "text": "Best candidate a2c888818ce2cfbab51f, score 80 (99% match, 82 insns). Switch-on-symbol uses a jump table; target loads it from named jtbl_800D2710 (0x800D2710, 32 entries), ours emits a local .rodata table and the linker reports \"your code refers to .rodata+0x0 where ROM has no address\". Remaining diff: scheduling of `cursor = text` (move $s0,$s4) placed before the lui/addiu of the table base in ours but after in target. Tried: hoisting end pointer computation before loop (score 285, worse), so keep the original end expression. The jump-table symbol mismatch looks structural (cannot name the table from C); the only instruction-order diff is the move. Not matched; likely needs jump-table placement support.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795204337.417401,
-  "score_before": 80,
-  "score_after": 80
  },
  {
   "function": "func_800941F8",
@@ -43896,15 +43816,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a2ea138cd1db8ceebbdb3ec8571f0ec5715c34496ae6e7436ec9a35ab368db50"
  },
  {
-  "function": "func_80018364",
-  "text": "Saved candidate score 80, 82 instructions. Explicit extern void *jtbl_800D2710 still produced %hi(?local)/.rodata linker issue; the target data unit confirms jtbl_800D2710 at 0x800D2710, 128 bytes, 32 s32 entries. Rewritten full function kept the same exact instruction mismatch: cursor move occurs before local table base load; target orders lui/addiu table first, then cursor move, and references named table. Next step: use a typed external array declaration for the existing data symbol rather than void pointer, and test a switch formulation or table index expression that GCC recognizes without synthesizing .rodata.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795213918.604861,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
- },
- {
   "function": "func_80013F74",
   "text": "Fresh candidate baseline rechecked at 30505, best historical 27995. Explicit 4-arg signature patch recovered entry loads/register relationships and scored 30505 (historical best had 27995 but separate source/input), while later adding unused var_a2_init declaration/initializer left output identical at 30505. First remaining diff starts target addiu a2,zero,0x20 vs candidate a1; then draft\u2019s data/state registers t2/t3/t1 instead of a1/t1/t0. Tried neutral unused temp declaration and initializer; both no change. Next step: try a typed input descriptor with fields at offsets 0 and 4, rather than raw arg0 byte-pointer access; preserve counter as arg2 and data destination pointer as arg3 while testing to recover intended register allocation.",
   "by": "codex-gpt-6-luna-13",
@@ -50612,15 +50523,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d760d9efd35f88c58fe38d9e47cbae325b23e24968169b10c67f990d6adc9e4"
  },
  {
-  "function": "func_80018364",
-  "text": "The generated switch table relocation is rejected even though resolve_addresses identifies the ROM jtbl at 0x800D2710 (128 bytes). This blocks isolating the one remaining scheduling difference. Inherited history records thousands of automatic repairs.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795222028.2088451,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
- },
- {
   "function": "func_8002FBE4",
   "text": "Current baseline rechecked at 2650. Conversion <=0 guard scored 3465; scalar reuse 2665; explicit first-loop backedge 3051. Initial saved argument allocation and control flow still differ.",
   "by": "codex-gpt-6.1-terra-4",
@@ -54020,15 +53922,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
  },
  {
-  "function": "func_80018364",
-  "text": "Stays 80. Only diff: `move $s0,$s4` (cursor=text) placed before lui/addiu of jump table in ours, after in target; plus the unresolvable local .rodata jtbl reference (likely unmatchable by harness). Tried: end precomputed, cursor assigned outside the if, declaration order, while(cursor<end), empty asm/if(0) filler (all 80, or worse 235-285). Next step: restructure so s0 is not a copy of text (e.g. loop uses text directly with a separate saved start pointer), or accept as blocked by jtbl.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795228128.936775,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
- },
- {
   "function": "func_800515D0",
   "text": "Inherited 29-instruction placeholder freshly verified at score 225320 versus 2267 target instructions. Previous machine draft remains noncompiling with undeclared stack temporaries and incorrect pointer/prototype inference; the supplied candidate is not a reconstruction. Next step: redraft with recovered input/output pointer layouts and callee prototypes from callers, then compile a complete machine draft.",
   "by": "codex-gpt-6-luna-20",
@@ -56778,15 +56671,6 @@
   "score_before": 145,
   "score_after": 140,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:08df293c242bdb1c4735097f4d93485174a5fc1c5670042effb37584d5527599"
- },
- {
-  "function": "func_80018364",
-  "text": "Stays 80 (only the move s0,s4 vs lui/addiu jtbl order + .rodata+0 vs jtbl_800D2710 reloc). Tried this session: end=text+length before cursor=text (80 same), cursor/end before the if (235), for-loop (1992), cursor initialised at declaration (235), cursor==0 lazy init (786), text+length bound (85). Table contents appear to match ROM in baseline. Likely blocked by harness jtbl linking. Next step: none promising; leave unless jump-table relocation support is added.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795231922.665972,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
  },
  {
   "function": "func_800468E4",
@@ -68073,15 +67957,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:522fbcb3320c317a90dae6985284633ee6e47451c42267c62d4e238d585b0b21"
  },
  {
-  "function": "func_80018364",
-  "text": "Cursor casts and declaration order tied 80; reordered cases scored 470; signed space width scored 280.\nJump table still uses unresolved local rodata; cursor move precedes table setup.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795248640.335985,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
- },
- {
   "function": "func_8006FDF8",
   "text": "Main gap: the target retains the 0x3D4/0x3E4 field displacement in loop accesses; the candidate instead strength-reduces the field address. KMC -fno-strength-reduce scored 2840 diagnostically on the saved source (trial 141dfb4d1d0ba08d0d60), versus 3350 with current flags.",
   "by": "codex-gpt-6.2-sol-6",
@@ -78095,14 +77970,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:77cf1eaae71ca5710c31399fdbf551d440c849cf76e06d4aca23dacbe1ccfb3c"
  },
  {
-  "function": "func_80018364",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No new trials this session. Still at 80: switch jump table emitted as local .rodata instead of named jtbl_800D2710, and the `cursor = text` move is scheduled before the table lui/addiu. Next step: check whether the jump table symbol can be declared in context (report_data_region / edit_context) so the linker resolves it.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795307442.0487869,
-  "score_before": 80,
-  "score_after": 80
- },
- {
   "function": "func_8002A7CC",
   "text": "Stuck at 15: 3 register rows differ (target lw $v0,($a0); move $a1,$v0; ours uses $a2). try_local_repairs(compare=true) this session: declaration-order variants stayed at 15 with no rows changed, loop-weight variant scored 75. Next step: load arg0's first word into a local at the top and use it for both the loop base and the later use, to change which register holds it.",
   "by": "claude-sonnet-low-1",
@@ -80891,15 +80758,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b40ffbbc21b19c7ec0eedf68cdeaf380a3d6a50c456e6049b3592bc5c5661e0e"
  },
  {
-  "function": "func_80018364",
-  "text": "Verified saved baseline 80, 82 instructions. Only cursor move before the table address pair and unresolved .rodata HI/LO. Unused extern tied 80; external-table computed goto scored 860 (different base load and regalloc); scheduler flags scored 535/830. Moving cursor initialization before the length guard scored 235, but judge then identified jtbl_800D2710 and reported moved label bytes. Preserve the switch and focus on preheader scheduling.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795314500.837767,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
- },
- {
   "function": "sndStopNode",
   "text": "Flags, split found pointer, head type and declaration positions and reusing the parameter for head.\nScore 45, nine register-only rows: found pointer is a0 instead of v0, head v0 instead of a0. -fno-strength-reduce scored 45, -fno-schedule-insns 750; separate found pointer 575, parameter as head 210, head width and placement unchanged.",
   "by": "codex-gpt-6.2-sol-6",
@@ -83427,15 +83285,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3e3a0acbbbb09334ffcd7d642f85f438d101d4f3a16dfc17168bf8616c6637b8"
  },
  {
-  "function": "func_80018364",
-  "text": "Rechecked 80. End staging and unsigned comparisons tied, typed pointer comparison scored 85, and line count inside guard scored 420. Judge reached 7/6 stagnant compiles. Cursor move still precedes the unresolved jump table address pair.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795339640.501813,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
- },
- {
   "function": "func_80096460",
   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nAuto-released to 674f6856641cbd5a495b. Replacing the uninitialized condition with bank equality scored 1540. Removing the redundant split scored 795, still missing the 0x80 branch delay-slot shift. Expanding multiply into unsigned shifts scored 990 with or without integer-domain base addition. Next step: on the defined 795 candidate try expressing the next selector's bank arithmetic with a distinct intermediate grouping to prevent cross-arm common-subexpression reuse.",
   "by": "codex-gpt-6.2-sol-6",
@@ -84829,15 +84678,6 @@
   "score_before": 14134,
   "score_after": 14022,
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:826701ae6fdad90e37fd85b61d603ce11b2b90a0166f19936ff3b7708c70404a"
- },
- {
-  "function": "func_80018364",
-  "text": "Rechecked revision bf3879fac545a93dbc3a at score 80. ROM jump table jtbl_800D2710 is a 128-byte table; selector 1 and 2 both point to the common cursor-increment block at +0x108. compile_variants stayed pending for over five minutes. Its probe using evolving cursor in the end expression changes behavior and must be discarded if selected. Next step: use a fixed `end = cursor + length` after cursor initialization and compare against that invariant end, or recover baseline if already tried.\n\nVerified score 80 (82 instructions). Cursor move precedes jump table HI/LO, so linker leaves .rodata+0 unresolved. ROM table is 128 bytes, with selectors 1 and 2 both mapping to +0x108. Batch retained baseline and did not run the behavior-changing evolving-cursor probe.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795347261.503562,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
  },
  {
   "function": "func_800055CC",
@@ -86760,15 +86600,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f84ebab0b09436c7a1ddec1c1ecef98d61d54e87a02fd1a84528204d5fe592fc"
  },
  {
-  "function": "func_80018364",
-  "text": "Rechecked score 80, 82/82 instructions. Only cursor move order and unresolved .rodata+0x0 versus jtbl_800D2710 remain. Fixed end staged from cursor and compared as u32 scored 280: it moved end addition earlier and reversed its operands. Uncompensated switch selector bias scored 90 and changes semantics; discard. Matched donor func_800180D4 uses nested do/while(0) inside its switch.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795360502.625788,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
- },
- {
   "function": "func_8005E68C",
   "text": "Session allowance ending. Removed byte cast from bit-2 test and used arg2 directly, improving 1113 to 920. Candidate still has an 8-byte frame surplus. Direct field_26 recomputation scored 1816 but improved a target region.",
   "by": "codex-gpt-6.2-sol-6",
@@ -88163,5 +87994,174 @@
   "score_before": 210,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2e8f414903ae0b03a23916e7b0881b4e634debfc29b5881921f2a8928db63fbf"
+ },
+ {
+  "function": "func_80018364",
+  "text": "Rechecked score 340. Six local lifetime, record, signedness and address variants all tied. Seven mismatch rows include jump table relocation and four instruction-order rows around initial loop setup. Investigate switch table placement and schedule of var_s0/temp_s6; revision 6a025daa94fa2f0395e9 retained.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795138343.686966,
+  "score_before": 340,
+  "score_after": 340
+ },
+ {
+  "function": "func_80018364",
+  "text": "Rechecked baseline score 340. Ran six independent local repairs (scalar reuse, inferred record layout, CFG lifetimes, signedness, declaration order, address temporary); all remained 340. Mismatch starts around loop setup: target branches on zero length then initializes s2 and loads jtbl_800D2710; candidate orders pointer/temp setup and materializes an unresolved local jump-table address. Likely need rewrite loop/switch control flow or resolve switch table lowering. One malformed manual compile omitted m2c preamble and did not compile; saved_best restored afterward.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795178348.055184,
+  "score_before": 340,
+  "score_after": 340
+ },
+ {
+  "function": "func_80018364",
+  "text": "Rechecked score 80, revision b6c2d9d513b06e89afea. Only loop-entry order differs: candidate copies s4 to s0 just before the two table-address instructions; target does it immediately after them. The candidate then computes s6 correctly. The linker leaves .rodata+0 unresolved in this ordering. Moving cursor assignment before the guard resolves the table symbol but shifts table destination addresses and scores 235. Computed goto with exact 32-entry mapping scored 752/932; bottom-tested for and redundant dispatch label tied, explicit cursor-derived end scored 140. Move-on budget reached. Try index-based induction to test whether strength reduction hoists the jump-table base before pointer setup.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795189120.208481,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80018364",
+  "text": "Verified score 80. Cursor declaration/order and equivalent initialization unchanged; moving initialization before guard worsened to 235, widening length to 95 and symbol to 555. Target moves cursor after jump-table address setup; candidate before. Candidate jump table relocates to local rodata rather than target symbol. Explore control-flow scheduling and table placement.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795191478.57357,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80018364",
+  "text": "Reverified 80. Only cursor copy move s0,s4 precedes the two jump-table address instructions and blocks resolving their ROM relocation; all other displayed instructions match. Moving cursor initialization outside the if, using text as cursor, precomputing end from cursor or text, and early return on zero length did not help. Probe scheduler options or switch CFG variations that keep identical case destinations and move table base setup before cursor copy.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795193615.291282,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80018364",
+  "text": "Verified score 80. Same 82 instructions except move s0,s4 must follow both jump table address halves; linker reports generated .rodata+0x0 has no ROM address, target jtbl_800D2710. End-pointer spellings and explicit unsigned symbol load did not help. Inspect generated and ROM switch table mapping and then test different loop entry shapes to move the cursor copy.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795198099.97608,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80018364",
+  "text": "Best candidate score 80 on revision 04182774bf752a26641f (82 instructions, only four differing rows). Core switch/control flow exactly matches, but compiler emits its jump table as local .rodata; target uses external jtbl_800D2710 at 0x800D2710. The two table-load instructions are therefore wrong relocation, and the move $s0,$s4 is scheduled before them instead of after. Link diagnostics explicitly report .rodata+0x0 has no address in target. Automatic switch_layout, const_read, unsigned_switch, narrow_widening, parameter_mask, and loop_weight_scope variants gave no improvement. Remaining solution likely requires expressing a dispatch through the existing external jump table, or a linker/symbol declaration mechanism, while preserving the existing switch body's branches; no candidate change obtained.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795199109.793227,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80018364",
+  "text": "Best current candidate rechecked score 80 (82 instructions). It matches body/control flow closely. Exact remaining issue: target uses ROM jump table jtbl_800D2710 at 0x800D2710; compiler-generated candidate table is unresolved .rodata+0, linker warns and cannot map. Target orders cursor move after two table-base instructions; best source has move just before them. Moving cursor init outside guard worsened to 235 and candidate table data differed from ROM (range 0x800D2713\u20130x800D2790). Same-shape variants produced 80; no safe improvement. Need mechanism/source shape that binds actual external jump table while preserving branch table destinations and schedules cursor init after table address load.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795201160.3798988,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80018364",
+  "text": "Best candidate restored to saved revision a2c888818ce2cfbab51f after exploratory edits; historical score 80, previously current-rechecked 80. Six local repair variants did not improve. An explicit local extern for jtbl_800D2710 retained the same instructions but caused an unresolved local .rodata reference. Target setup loads the ROM table and has no corresponding move s0,s4. Next resolve/use the table as a proper project data symbol, then tune dispatch setup ordering.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795202112.381597,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80018364",
+  "text": "Best candidate a2c888818ce2cfbab51f, score 80 (99% match, 82 insns). Switch-on-symbol uses a jump table; target loads it from named jtbl_800D2710 (0x800D2710, 32 entries), ours emits a local .rodata table and the linker reports \"your code refers to .rodata+0x0 where ROM has no address\". Remaining diff: scheduling of `cursor = text` (move $s0,$s4) placed before the lui/addiu of the table base in ours but after in target. Tried: hoisting end pointer computation before loop (score 285, worse), so keep the original end expression. The jump-table symbol mismatch looks structural (cannot name the table from C); the only instruction-order diff is the move. Not matched; likely needs jump-table placement support.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795204337.417401,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80018364",
+  "text": "Saved candidate score 80, 82 instructions. Explicit extern void *jtbl_800D2710 still produced %hi(?local)/.rodata linker issue; the target data unit confirms jtbl_800D2710 at 0x800D2710, 128 bytes, 32 s32 entries. Rewritten full function kept the same exact instruction mismatch: cursor move occurs before local table base load; target orders lui/addiu table first, then cursor move, and references named table. Next step: use a typed external array declaration for the existing data symbol rather than void pointer, and test a switch formulation or table index expression that GCC recognizes without synthesizing .rodata.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795213918.604861,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
+ },
+ {
+  "function": "func_80018364",
+  "text": "The generated switch table relocation is rejected even though resolve_addresses identifies the ROM jtbl at 0x800D2710 (128 bytes). This blocks isolating the one remaining scheduling difference. Inherited history records thousands of automatic repairs.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795222028.2088451,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
+ },
+ {
+  "function": "func_80018364",
+  "text": "Stays 80. Only diff: `move $s0,$s4` (cursor=text) placed before lui/addiu of jump table in ours, after in target; plus the unresolvable local .rodata jtbl reference (likely unmatchable by harness). Tried: end precomputed, cursor assigned outside the if, declaration order, while(cursor<end), empty asm/if(0) filler (all 80, or worse 235-285). Next step: restructure so s0 is not a copy of text (e.g. loop uses text directly with a separate saved start pointer), or accept as blocked by jtbl.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795228128.936775,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
+ },
+ {
+  "function": "func_80018364",
+  "text": "Stays 80 (only the move s0,s4 vs lui/addiu jtbl order + .rodata+0 vs jtbl_800D2710 reloc). Tried this session: end=text+length before cursor=text (80 same), cursor/end before the if (235), for-loop (1992), cursor initialised at declaration (235), cursor==0 lazy init (786), text+length bound (85). Table contents appear to match ROM in baseline. Likely blocked by harness jtbl linking. Next step: none promising; leave unless jump-table relocation support is added.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795231922.665972,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
+ },
+ {
+  "function": "func_80018364",
+  "text": "Cursor casts and declaration order tied 80; reordered cases scored 470; signed space width scored 280.\nJump table still uses unresolved local rodata; cursor move precedes table setup.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795248640.335985,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
+ },
+ {
+  "function": "func_80018364",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No new trials this session. Still at 80: switch jump table emitted as local .rodata instead of named jtbl_800D2710, and the `cursor = text` move is scheduled before the table lui/addiu. Next step: check whether the jump table symbol can be declared in context (report_data_region / edit_context) so the linker resolves it.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307442.0487869,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80018364",
+  "text": "Verified saved baseline 80, 82 instructions. Only cursor move before the table address pair and unresolved .rodata HI/LO. Unused extern tied 80; external-table computed goto scored 860 (different base load and regalloc); scheduler flags scored 535/830. Moving cursor initialization before the length guard scored 235, but judge then identified jtbl_800D2710 and reported moved label bytes. Preserve the switch and focus on preheader scheduling.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795314500.837767,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
+ },
+ {
+  "function": "func_80018364",
+  "text": "Rechecked 80. End staging and unsigned comparisons tied, typed pointer comparison scored 85, and line count inside guard scored 420. Judge reached 7/6 stagnant compiles. Cursor move still precedes the unresolved jump table address pair.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795339640.501813,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
+ },
+ {
+  "function": "func_80018364",
+  "text": "Rechecked revision bf3879fac545a93dbc3a at score 80. ROM jump table jtbl_800D2710 is a 128-byte table; selector 1 and 2 both point to the common cursor-increment block at +0x108. compile_variants stayed pending for over five minutes. Its probe using evolving cursor in the end expression changes behavior and must be discarded if selected. Next step: use a fixed `end = cursor + length` after cursor initialization and compare against that invariant end, or recover baseline if already tried.\n\nVerified score 80 (82 instructions). Cursor move precedes jump table HI/LO, so linker leaves .rodata+0 unresolved. ROM table is 128 bytes, with selectors 1 and 2 both mapping to +0x108. Batch retained baseline and did not run the behavior-changing evolving-cursor probe.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795347261.503562,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
+ },
+ {
+  "function": "func_80018364",
+  "text": "Rechecked score 80, 82/82 instructions. Only cursor move order and unresolved .rodata+0x0 versus jtbl_800D2710 remain. Fixed end staged from cursor and compared as u32 scored 280: it moved end addition earlier and reversed its operands. Uncompensated switch selector bias scored 90 and changes semantics; discard. Matched donor func_800180D4 uses nested do/while(0) inside its switch.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795360502.625788,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a7772b3230b7f07ab387d0f7fc363fee9cd876f7b891bd90ce8d80343858eeb"
  }
 ]

@@ -21,8 +21,7 @@ s32 func_80018364(char *text, u16 size, u32 fontId) {
     Font18364 *font = (Font18364 *)func_80018510(fontId);
     u16 length = size;
     s32 lines;
-    char *cursor;
-    char *end;
+    u32 i;
     u8 symbol;
 
     if (font == NULL) {
@@ -30,17 +29,17 @@ s32 func_80018364(char *text, u16 size, u32 fontId) {
     }
     lines = 1;
     if (length != 0) {
-        cursor = text;
+        i = 0;
         do {
-            symbol = *cursor;
+            symbol = text[i];
             switch (symbol) {
             case 6:
-                cursor++;
+                i++;
                 break;
             case 3:
             case 4:
-                cursor++;
-                wrapWidth = (s8)*cursor * 2;
+                i++;
+                wrapWidth = (s8)text[i] * 2;
                 break;
             case 9:
             case 32:
@@ -53,15 +52,15 @@ s32 func_80018364(char *text, u16 size, u32 fontId) {
             case 2:
                 break;
             default:
-                if (wrapWidth != 0 && width + func_80018578(font, cursor) >= wrapWidth) {
+                if (wrapWidth != 0 && width + func_80018578(font, text + i) >= wrapWidth) {
                     width = 0;
                     lines++;
                 }
                 width += (font->glyphs + symbol - 33)->width + font->spacing;
                 break;
             }
-            cursor++;
-        } while (cursor < (char *)((u32)length + (u32)text));
+            i++;
+        } while (i < length);
     }
     return lines;
 }
