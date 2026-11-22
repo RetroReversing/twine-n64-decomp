@@ -98,7 +98,7 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
     temp_s2 = (var_s5 * 0xFF8) + ((u8 *) (&gSoundEntities));
     __repair_phase_storage.pointer = (void *) (8 + ((s32) temp_s2));
     ((__repair_field_4 *) temp_s2)->value = arg0;
-    var_a2 = ((__repair_field_4 *) temp_s2)->value;
+    var_a2 = (void *) ((volatile __repair_field_4 *) temp_s2)->value;
     *((s8 *) (((char *) temp_s2) + 0xFF4)) = 0;
     *((void **) (((char *) temp_s2) + 0x88)) = arg1;
     *((void **) (((char *) temp_s2) + 0x10C)) = arg3;
@@ -207,6 +207,7 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
         }
       }
     }
+    arg3 = *((void **) (((char *) temp_s2) + 0x10C));
     var_a0 = *((s32 *) (((char *) arg3) + 0x10));
     *((s32 *) (((char *) temp_s2) + 0x124)) = var_a0;
     func_8008CDC0(var_a0, var_s5 & 0xFF);
@@ -234,7 +235,7 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x28) + 0x574)) = 0;
       *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x28) + 0x578)) = 0;
       *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x28) + 0x57C)) = 0;
-      temp_v0_4 = *var_a1_3;
+      temp_v0_4 = var_a1_3[var_s1_4];
       temp_v0_5 = (void *) (temp_v0_4 + ((s32) arg3));
       if (temp_v0_4 != 0)
       {
@@ -245,7 +246,6 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       {
  do { *((void **) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x128)) = NULL; *((void **) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x12C)) = NULL; } while (0);
       }
-      var_a1_3 = (s32 *) (((u8 *) var_a1_3) + 4);
       var_s1_4 += 1;
     }
     while (var_s1_4 < 0x40);
@@ -348,27 +348,29 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       var_v1_4 = 0;
       var_a0 = D_800EDA90;
       var_s1 = var_a0 + 1; D_800EDA90 = var_s1 & 0x7FFFFFFF;
-      loop_63:
-      if ((*((&D_800E6A85) + var_v1_4)) != 0)
-      {
-        var_a2_4 += 1;
-        goto block_70;
-      }
+      for (;;) {
+          if ((*((&D_800E6A85) + var_v1_4)) != 0)
+          {
+            var_a2_4 += 1;
+            goto block_70;
+          }
 
-      if ((*((s32 *) (((u8 *) (&gSoundEntities)) + var_v1_4))) == var_a0)
-      {
-        var_a0 = -1;
-      }
-      else
-      {
-        var_a2_4 += 1;
-        block_70:
-        var_v1_4 += 0xFF8;
+          if ((*((s32 *) (((u8 *) (&gSoundEntities)) + var_v1_4))) == var_a0)
+          {
+            var_a0 = -1;
+          }
+          else
+          {
+            var_a2_4 += 1;
+block_70:
+            var_v1_4 += 0xFF8;
 
-        if (var_a2_4 < 8U)
-        {
-          goto loop_63;
-        }
+            if (var_a2_4 < 8U)
+            {
+              continue;
+            }
+          }
+          break;
       }
     }
     while (var_a0 == (-1));

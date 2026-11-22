@@ -1,6 +1,6 @@
 #define WORD(p) (*(s32 *)(p))
 #define HALF(p) (*(u16 *)(p))
-#define PROCESS(off,tab,call)     key = (u16 *)(group + WORD(group + off)) + 4;     while ((lookup = *key) != 0xffff) {         entry = data + WORD(data + tab);         found = 0;         while (WORD(entry) != -1) {             found = entry;             if (HALF(entry + 4) == (u16)lookup) break;             entry += WORD(entry);             found = 0;         }         if (found) { call; }         key++;     }
+#define PROCESS(off,tab,call)     key = inline_fn((u16 *)((u32)WORD(group + off) + (u32)group) + 4);     while ((lookup = *key) != 0xffff) {         entry = data + WORD(data + tab);         found = 0;         while (WORD(entry) != -1) {             found = entry;             if (HALF(entry + 4) == (u16)lookup) break;             entry += WORD(entry);             found = 0;         }         if (found) { call; }         key++;     }
 extern u8 gWorkerActive;
 extern s16 sSceneGroupStackCount;
 extern u8 *sSceneGroupStack[];
@@ -51,16 +51,8 @@ s32 func_80092A68(u8 *first, short id, s32 resource, s32 table, u8 *data)
         PROCESS(24, 12, insertSortedKeyEntry(HALF(key), found + 12, HALF(found + 10)));
         if (HALF(group + 6) == 1)
         {
-          if (group || lookup)
-          {
-            entry = group + WORD(group + 28);
-            registerWorkerEntry((u16) id, entry + 12, HALF(entry + 8));
-          }
-          else
-          {
-            entry = group + WORD(group + 28);
-            registerWorkerEntry((u16) id, entry + 12, HALF(entry + 8));
-          }
+          entry = (u8 *)inline_fn((u16 *)((u32)WORD(group + 28) + (u32)group + 8));
+          registerWorkerEntry((u16) id, entry + 4, HALF(entry));
         }
         sSceneGroupStackCount++;
         return 1;
@@ -71,4 +63,5 @@ s32 func_80092A68(u8 *first, short id, s32 resource, s32 table, u8 *data)
   }
   return 0;
 }
+
 

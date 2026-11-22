@@ -4,7 +4,7 @@ extern s32 getSaveSlotIndex(s32);
 extern f32 approxDistance(void *, void *);
 extern s32 func_800158A4(void *, void *, s32, void *, s32, s32, s32, s32, s32);
 extern s32 func_8007A9CC(void *, void *, void *, u32);
-extern s32 func_801182B0(void *, void *);
+extern s32 func_801182B0(void *arg0, void *, void *);
 extern u8 D_800BF688[];
 extern u8 D_800BF68B[];
 extern u8 gSaveSlotInfo[];
@@ -27,8 +27,8 @@ inline static int inline_fn(int arg0)
 
 void *func_801183F4(void *arg0, u8 arg1)
 {
-  u32 sp28[4];
-  u32 sp38[2];
+  f32 sp28[3];
+  s32 sp38;
   u8 sp47;
   void *sp4C;
   void *sp54;
@@ -215,7 +215,7 @@ void *func_801183F4(void *arg0, u8 arg1)
           case 45:
             if ((*((s16 *) (((char *) var_s0_2) + 0x7A))) == 3)
           {
-            var_a3 = func_801182B0(temp_s3, var_s0_2);
+            var_a3 = func_801182B0(arg0, temp_s3, var_s0_2);
           }
             var_fs0_2 = *((f32 *) (((char *) temp_s6) + 0x4));
             var_v0_6 = var_a3 & 0xFF;
