@@ -48597,30 +48597,6 @@
   "score_after": 555
  },
  {
-  "function": "func_8008892C",
-  "text": "Verified best 240; target has an extra andi after lbu in state==2 comparison, shifting later branches, plus register allocation differences. Signed byte, volatile loads and equivalent casts failed to produce it. Reordering loop increments unchanged. Investigate a source-level byte temporary or layout that causes the redundant mask.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795163982.181851,
-  "score_before": 240,
-  "score_after": 240
- },
- {
-  "function": "func_8008892C",
-  "text": "Warning: saved score 230 uses (u8)(byte << 1)==4, which also accepts byte 130 and is not equivalent to target byte==2; discard that test when continuing. The prior score 240 candidate used byte==2 correctly but lacked target's redundant andi after lbu. Attempts adding multiples of 256 or bitwise high bits optimized away the mask. Need reproduce that mask without changing semantics, and resolve literal-pool relocations.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795164137.272038,
-  "score_before": 240,
-  "score_after": 230
- },
- {
-  "function": "func_8008892C",
-  "text": "Verified baseline 230. Branch orientation, unused local types/order, address temporary and call arity did not improve. Fourteen mismatches include eight branch targets, five operands and one inserted instruction; candidate has extra rodata references for unsigned-to-float conversion. Investigate target conversion constants and inserted instruction.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795174914.9866922,
-  "score_before": 230,
-  "score_after": 230
- },
- {
   "function": "func_8001E898",
   "text": "Verified baseline 3029. Six prototype, store lifetime, signedness, index width, callee width and switch layout trials did not improve. Target stack frame is 0x28 versus candidate 0x20, with 63 mismatches. Revisit register lifetimes and switch/control flow using full assembly.",
   "by": "codex-gpt-6.1-terra-1",
@@ -48669,14 +48645,6 @@
   "score_after": 6285
  },
  {
-  "function": "func_8008892C",
-  "text": "Improved verified 230 to 225 at 03cdf326a6f4e91652c5. Nested do/while lookup and explicit early copy/goto match the loop through the backedge. Failure still loads -1 directly into s0; target loads a0 then copies it to s0, moving the success branch by one instruction. The byte-state condition still adds sll and compares against 4 instead of emitting lbu, li 2, andi ff. Plain u8 compare, bitfield, volatile signed byte and explicit mask, and OR 0x100 did not improve. Plain compare also perturbs float conversion/constant placement. Shared assignment label retained the redundant narrowing when using shift but scored 230. Next try an inlined lookup returning the index and an inlined state accessor returning u8, to model the two likely optimization boundaries separately.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795182782.64781,
-  "score_before": 230,
-  "score_after": 225
- },
- {
   "function": "func_8002F068",
   "text": "Verified 555 retained. Six type, declaration and constant repairs did not improve. Target contains two instructions absent from candidate, causing branch-offset differences; inspect full diff and reconstruct missing operations in pulse/color update before register tuning.",
   "by": "codex-gpt-6.1-terra-2",
@@ -48701,44 +48669,12 @@
   "score_after": 6285
  },
  {
-  "function": "func_8008892C",
-  "text": "Best verified 225 remains inherited. Target loop exit loads -1 into a0 then moves to s0; candidate folds this. Target tests byte == 2 with redundant andi 0xff; direct u8/s8 cast and 8-bit bitfield eliminate mask, worsening score. Moving assignment into shared label also worsens branch. Seek source form preserving mask and separate loop result move.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795188204.200554,
-  "score_before": 225,
-  "score_after": 225
- },
- {
-  "function": "func_8008892C",
-  "text": "Saved best is score 225 with only 6 mismatches, mainly branch target layout in the slot search (target beql to 0x78 vs candidate 0x74). Local repairs did not improve. Simplifying the later mode test from `(u8)(byte << 1) == 4` to `byte == 2` improved broader output but remains worse (355); using shift without u8 gives 445. Rewritten search-index loop regressed to 1440. Restore saved best. Target mode test sequence loads byte, compares against constant 2 with zero-extend/mask; remaining work is branch/layout and register scheduling around the found index.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795190040.558044,
-  "score_before": 225,
-  "score_after": 225
- },
- {
-  "function": "func_8008892C",
-  "text": "6/6, retained rechecked 225. Do not ship its shifted-byte comparison: it accepts 130 as well as 2. Correct byte equality with inline lookup scored 240; inline accessor and OR/mask plus signed-short failure assignment scored 355; explicit unsigned conversion via signed conversions and D_800D66D8/D_800D66E0 removes local rodata warnings but scores 360. Target still needs redundant lbu/andi and split a0=-1 -> s0, with beql to 0x78. Try keeping the semantically correct inline lookup and inspecting its diff for which lifetime changes restored the failure path, then isolate a narrowing boundary for the mode rather than shifting the mode byte.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795191214.5364711,
-  "score_before": 225,
-  "score_after": 225
- },
- {
   "function": "func_8001E898",
   "text": "Current verified baseline 3432, revision e60a996306200f261c13. Ran local repair batch: matched_integer_prototype, call_forwarded_arguments, callee_parameter_width, store_value_lifetime, cfg_integer_lifetimes, signedness; no improvement, scores 4102/3672/3532 among completed variants. Earliest mismatch is stack frame: target saves ra at sp+0x20, s3 at +0x1c, s2 at +0x18; candidate frame is 4 bytes larger, ra +0x24, s4 +0x20. Best next step inspect target around mismatch and experiment with local/live-value declarations to reduce frame and saved-register count. Historical best 3029 is different source and not comparable to current rechecked baseline.",
   "by": "codex-gpt-6-luna-17",
   "created_at": 1795192164.888769,
   "score_before": 2264,
   "score_after": 2264
- },
- {
-  "function": "func_8008892C",
-  "text": "Move-on 6/6. Valid alternative ba79d26c4d076ba5c82b (reported_corrected) ties 225: (u8)~mode == 253 is exactly mode == 2 across all byte values. It preserves target andi and later scheduling, but adds NOR and compares 253. Common lookup assignment with direct byte equality scored 240; signed-short failure copy or high-bit OR sentinel 355. Signed-short mode and XOR-to-zero scored 445/745. Remaining lookup diff is separate li a0,-1 -> move s0,a0 and beql target. Try compiler comparison -O1 or -O2 with reduced CSE/elimination on the valid equality source before reusing an approximation.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795193100.008369,
-  "score_before": 225,
-  "score_after": 225
  },
  {
   "function": "func_8002F068",
@@ -48757,22 +48693,6 @@
   "score_after": 6285
  },
  {
-  "function": "func_8008892C",
-  "text": "Reached score 220/101; only 5 mismatches: search-loop branch target beql distance differs because target places found path at 0x78; target sets a0=-1 before copying to s0 whereas candidate sets arg0 via loop exit and then has differing beq operand; target scales record index through shift/add sequence yielding v1=2 vs candidate shift. Tested signed counter and folded conjunction, equal score with unchanged instruction diff. Next reshape scan loop exits and index arithmetic, starting from exact current C.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795197876.5634198,
-  "score_before": 220,
-  "score_after": 220
- },
- {
-  "function": "func_8008892C",
-  "text": "Rechecked reported-corrected candidate score 225; six bounded local variants produced no better result and two link errors from changing call arity/address temporary. Remaining diagnostic mismatch is branch target 0x78 vs 0x74 and a register. Need focus on shortening the lookup-loop/control flow by one instruction while preserving proper OS message calls; saved candidate retained.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198905.6550798,
-  "score_before": 220,
-  "score_after": 220
- },
- {
   "function": "func_8001E898",
   "text": "Best scored attempt remains 2012 at 116 vs 117 instructions; saved candidate has extra saved register/frame space and large downstream control-flow mismatch. Tried explicit conditional for flag bits (no diff), moving D_800BD68F address initialization outside switch (score 2040), and widening func_80022EB8 args to s32 (score 2460); neither improved. Latest exploratory edits removed __base_D_800BD68F declaration but failed compilation because remaining references are unpatched. Restore saved_best before continuing. Target assembly confirms D_800BD68F is a byte value read directly as an index; use D_800E0ECC[D_800BD68F] and D_800E0ED4[D_800BD68F] without a pointer temporary. Target text entry id is byte offset 8; object fields at offsets 0x1E,0x20,0x22,0x28.",
   "by": "codex-gpt-6-luna-7",
@@ -48789,14 +48709,6 @@
   "score_after": 555
  },
  {
-  "function": "func_8008892C",
-  "text": "220 baseline misses the a0=-1 before moving a0 to s0 on scan exhaustion; baseline instead uses loop index 2 and therefore needs a semantic sentinel fix. Assigning var_a0=-1 before assigning arg0 materializes -1 directly in s0 (225 with baseline status test). The baseline status expression emits an unwanted sll and compares to 4. Using status & 0xFF == 2, casts through signed byte, or adding 0x100 removes both shift and needed andi, also changes classic u32 conversion literal relocations. Try reproducing the mask with a defined byte narrowing from a wider live intermediate, and use explicit signed-to-double plus the two known 2^32 ROM constants if anonymous literals fail to link.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795200972.5546722,
-  "score_before": 220,
-  "score_after": 220
- },
- {
   "function": "func_8001E898",
   "text": "Current checked candidate score 2012/117 insns. Repair batch across signatures, switch ordering/layout, store lifetime, constants did not improve; most alternatives regressed. Best revision restored to original candidate. Target prologue saves ra at 0x20, s3 at 0x1c, s2 at 0x18, s0 at 0x10, while candidate has extra s4 and frame +4. Remaining mismatch includes target move a3,a1, candidate lacks it, plus different entry field load ordering and branches. Next: validate arg0 with guess_struct and verify callee prototypes; likely original struct/pointer layout and parameter typing drive register pressure.",
   "by": "codex-gpt-6-luna-13",
@@ -48811,14 +48723,6 @@
   "created_at": 1795201635.483571,
   "score_before": 555,
   "score_after": 555
- },
- {
-  "function": "func_8008892C",
-  "text": "Restored inherited score-220 best. Recompiling a reduced clean draft reproduced score 220 with five main differences: two branch extents shortened by 4 bytes, missing explicit -1 initialization and `addiu v1,2`, plus status test lowering as `sll` rather than `andi v0,0xff`. Attempts using narrowed flag expression / bit-test regressed and produced local rodata references for f64 zero constants. Need preserve matching float constants using project symbols D_800D66D8/E0, and reconstruct source control flow around sentinel / comparison to hit target branches.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795201922.362802,
-  "score_before": 220,
-  "score_after": 220
  },
  {
   "function": "func_800274BC",
@@ -48851,14 +48755,6 @@
   "created_at": 1795204190.398601,
   "score_before": 2012,
   "score_after": 2012
- },
- {
-  "function": "func_8008892C",
-  "text": "Not matched. Saved best (historical) is 220 with the (u8)(x<<1)==4 form; the latest source at 74d13bed369ede58984d scores 360 and is more correct: type test is `*(u8*)(&D_800E2CC0 + idx) == 2` (andi 0xFF; bne with v1=2); numerator/denominator are u32->f64 via (f64)(s32) then add D_800D66D8 / D_800D66E0 when the signed value is negative (bgez), then (f32) each and div.s. Remaining diffs: after the search loop target does `a0=-1; s0=a0` while `arg0 = -1` compiles as addiu s0,zero,-1; a 1-insn branch-length diff at the first beql (0x78 vs 0x74); float regs f2/f4 swapped. Next try: `var_a0 = -1; arg0 = var_a0;` before found:, and swap conversion order of numerator/denominator.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795204245.791297,
-  "score_before": 220,
-  "score_after": 220
  },
  {
   "function": "func_8002F068",
@@ -48942,24 +48838,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:542d0fe1fe103cc13906b17781b13f6db960f967aa9087961ac71fc1e7c60c76"
  },
  {
-  "function": "func_8008892C",
-  "text": "Seven trials failed to improve verified 220. Sentinel assignment order scored 225, masked byte conditions 350\u2013425, and direct comparison with explicit double conversions 355. Remaining differences are the post-loop sentinel materialization and status comparison.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795211399.256076,
-  "score_before": 225,
-  "score_after": 225,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
- },
- {
-  "function": "func_8008892C",
-  "text": "Rechecked inherited saved score 220. One rewrite worsened to 350; a status test simplification to ==2 remained at 350. No match. Need inspect baseline exact diff and target context; exploratory compile emitted .rodata references absent in target. Main target clues: loop uses likely correct original shape plus addiu v1,2 / andi v0,0xff for status.\nRechecked inherited 220. A clean rewrite dropped to 350; simplifying status test to ==2 stayed at 350. Target status path has addiu v1,2; andi v0,0xff; bne v0,v1, indicating compiler needs unsigned/int widening. Rewrites also emitted unwanted .rodata references for double constants.\nSaved score 220 is still best; exploratory patch did not improve it. Remaining difference concentrated early loop/control flow and status test, with linker diagnostics for .rodata.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795213632.251955,
-  "score_before": 350,
-  "score_after": 350,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
- },
- {
   "function": "func_8002F068",
   "text": "Rechecked saved baseline at score 520. Historical record shows 28 local repair trials and 20 explicit patches; prior alternatives for local storage, parameter storage, callee width, global type, field width, assignment-at-use, const reads, and table signedness did not improve it. This turn's separate branch-store rewrite worsened to 1120, so the saved best was restored as the continuation. Next step: preserve the saved-best expression shape while experimenting with just the conditional palette pointer selection; target is a reload of D_800BFC92 followed by `beqz` and a jump with `addiu v0,v1,4` in the delay slot.",
   "by": "codex-gpt-6-luna-13",
@@ -49014,15 +48892,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
  },
  {
-  "function": "func_8008892C",
-  "text": "Revision 8b14be156c58a202bf9a (score 355, but only 2 insns missing vs target: this is structurally closest; score inflated by local .rodata for the 2^32 f64 constants vs target's D_800D66D8/E0). Form: arg0 reused as idx, u32 i + off+=0x1228 loop, goto found, (f32)(f64)u32 / (f32)(f64)u32, type test ==2. Remaining diffs: (1) not-found path target does `addiu a0,-1; move s0,a0` while mine emits `addiu s0,-1` directly; (2) target has `andi v0,v0,0xff` after lbu and loads constant 2 into v1 before andi (mine omits andi, swaps v0/v1). Tried &0xFF, (u8)(t+0), arg0=i=-1, conditional assign: no change. Next step: try making the loop a separate static inline find function or keep i live after found (e.g. use i in later expr).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795226524.366153,
-  "score_before": 780,
-  "score_after": 355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
- },
- {
   "function": "func_8001E898",
   "text": "Current confirmed best 1440. First 35 target instructions show target copies dim/draw to a3/s3 in function prologue (move a3,a1; move s3,a2 delay slot at object null branch); source currently keeps dim/draw in incoming regs and later switch logic differs. Local repairs of matched_integer_prototype and callee_parameter_width regressed (2170 and 1600); store_value_lifetime unchanged at 1440. Switch reorganization unchanged. Remaining discrepancy includes 30 rows, branch targets and duplicate color stores/control flow. Threshold met.\nMatched prototype/store lifetime/parameter width repairs and alternate switch source; no better than 1440.\nCandidate retained; differences begin with arg copies in prologue and later switch paths.",
   "by": "codex-gpt-6-luna-15",
@@ -49030,15 +48899,6 @@
   "score_before": 1440,
   "score_after": 1440,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
- },
- {
-  "function": "func_8008892C",
-  "text": "Best clean form scores 355 (rev 14ab79e460893ef49ea1): u8 D_800E2CC0[] etc. with byte-offset casts, goto-found loop, u32->f32 casts (f32 conv uses local .rodata, link complaint only). Remaining diffs: target does `addiu a0,-1; move s0,a0` after loop (mine only addiu s0,-1, shifting branches by 4 bytes) and `andi v0,0xff` before status==2 compare (mine omits). Explicit f64 add D_800D66D8 form gives only register swaps (f2/f4) but worse score; static `find` helper is not inlined by gcc 2.7.2 (don't). Next step: keep loop counter `i` live after loop (e.g. use i in a volatile-free way so s0=a0 copy remains) and try a u8 local `t = status; if (t == 2)` / (s32)(u8) forms for andi.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795230725.5370739,
-  "score_before": 355,
-  "score_after": 355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
  },
  {
   "function": "func_8001E898",
@@ -49174,15 +49034,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
  },
  {
-  "function": "func_8008892C",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked best 220. Changing the failed-search assignment to arg0=-1 scored 225; target uses addiu a0,-1 then move s0,a0, candidate uses addiu s0,-1. Branch reversal scored 880. Next step: try preserving a separate signed search result through the found join to force the target move.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795245933.194483,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
- },
- {
   "function": "func_8001E898",
   "text": "Current candidate b5319c1e431beac54d80 scored 4053; initial m2c scored 4483. Changing the table symbols to u16 improved to 4063, and removing the first index multiplier improved to 4053. Local field-width, literal and base-address probes were unchanged. Claim ended automatically. Next step: remove the remaining gMenuSlot multiplier for the second u16 table and judge, then address switch structure and frame.",
   "by": "codex-gpt-6.1-terra-5",
@@ -49208,15 +49059,6 @@
   "score_before": 3938,
   "score_after": 3423,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
- },
- {
-  "function": "func_8008892C",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 22; 6 differing rows (1 register, 1 branch target, 2 operand, 1 inserted, 1 deleted; advisory).\nTarget: beql $v0, $s0, 0x78\nCandidate: beql $v0, $s0, 0x74\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addu $v0, $v0, $v1\n  = lw $v0, %lo(sDataBankSlots)($v0)\ni T: beql $v0, $s0, 0x78 | C: beql $v0, $s0, 0x74\n  = move $s0, $a0\n  = addiu $a0, $a0, 1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nVerified 220 baseline. Direct byte equality scores 350 and exposes missing andi plus local rodata relocations. Setting arg0=-1 after failed scan scores 225 and recovers instruction count but uses s0 instead of a0. Next step: combine a correct byte comparison with explicit signed-to-double conversion using the named constants.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795248600.4735749,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
  },
  {
   "function": "func_8001E898",
@@ -49280,15 +49122,6 @@
   "score_before": 1675,
   "score_after": 1360,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8008892C",
-  "text": "Current best remains score 220, 101 instructions. Corrected alternate score 225 and simpler direct flag equality score 350; latter also linker errors for constants in .rodata. Baseline 220 source uses shifted-byte compare, but target specifically ANDs loaded flag with 0xff then compares to 2; direct ==2 dropped those ops and changed branch layout. Remaining diff around loop-exit beql target offset 0x78 vs 0x74, missing `addiu $a0,-1; move $s0,$a0`, and flag comparison; extensive local search already tried.\nVerified best score 220; changing `sDataBankFlags` declaration to u8 had no substantive improvement. Retargeted corrected variant produced 225; `flag == 2` version scored 350 and introduced .rodata link errors.\nNo match; only a few instructions differ in the best candidate: beql target and s0=-1 sentinel sequence, plus flag compare operand scheduling.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795253878.190785,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
  },
  {
   "function": "func_8001E898",
@@ -81844,5 +81677,199 @@
   "score_before": 6972,
   "score_after": 6632,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3590a7a16e1796606d5373f30f2c22ce3eb5ea5e90540095eaccbbb36cbf94ed"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Verified best 240; target has an extra andi after lbu in state==2 comparison, shifting later branches, plus register allocation differences. Signed byte, volatile loads and equivalent casts failed to produce it. Reordering loop increments unchanged. Investigate a source-level byte temporary or layout that causes the redundant mask.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795163982.181851,
+  "score_before": 240,
+  "score_after": 240
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Warning: saved score 230 uses (u8)(byte << 1)==4, which also accepts byte 130 and is not equivalent to target byte==2; discard that test when continuing. The prior score 240 candidate used byte==2 correctly but lacked target's redundant andi after lbu. Attempts adding multiples of 256 or bitwise high bits optimized away the mask. Need reproduce that mask without changing semantics, and resolve literal-pool relocations.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795164137.272038,
+  "score_before": 240,
+  "score_after": 230
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Verified baseline 230. Branch orientation, unused local types/order, address temporary and call arity did not improve. Fourteen mismatches include eight branch targets, five operands and one inserted instruction; candidate has extra rodata references for unsigned-to-float conversion. Investigate target conversion constants and inserted instruction.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795174914.9866922,
+  "score_before": 230,
+  "score_after": 230
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Improved verified 230 to 225 at 03cdf326a6f4e91652c5. Nested do/while lookup and explicit early copy/goto match the loop through the backedge. Failure still loads -1 directly into s0; target loads a0 then copies it to s0, moving the success branch by one instruction. The byte-state condition still adds sll and compares against 4 instead of emitting lbu, li 2, andi ff. Plain u8 compare, bitfield, volatile signed byte and explicit mask, and OR 0x100 did not improve. Plain compare also perturbs float conversion/constant placement. Shared assignment label retained the redundant narrowing when using shift but scored 230. Next try an inlined lookup returning the index and an inlined state accessor returning u8, to model the two likely optimization boundaries separately.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795182782.64781,
+  "score_before": 230,
+  "score_after": 225
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Best verified 225 remains inherited. Target loop exit loads -1 into a0 then moves to s0; candidate folds this. Target tests byte == 2 with redundant andi 0xff; direct u8/s8 cast and 8-bit bitfield eliminate mask, worsening score. Moving assignment into shared label also worsens branch. Seek source form preserving mask and separate loop result move.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795188204.200554,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Saved best is score 225 with only 6 mismatches, mainly branch target layout in the slot search (target beql to 0x78 vs candidate 0x74). Local repairs did not improve. Simplifying the later mode test from `(u8)(byte << 1) == 4` to `byte == 2` improved broader output but remains worse (355); using shift without u8 gives 445. Rewritten search-index loop regressed to 1440. Restore saved best. Target mode test sequence loads byte, compares against constant 2 with zero-extend/mask; remaining work is branch/layout and register scheduling around the found index.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795190040.558044,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "func_8008892C",
+  "text": "6/6, retained rechecked 225. Do not ship its shifted-byte comparison: it accepts 130 as well as 2. Correct byte equality with inline lookup scored 240; inline accessor and OR/mask plus signed-short failure assignment scored 355; explicit unsigned conversion via signed conversions and D_800D66D8/D_800D66E0 removes local rodata warnings but scores 360. Target still needs redundant lbu/andi and split a0=-1 -> s0, with beql to 0x78. Try keeping the semantically correct inline lookup and inspecting its diff for which lifetime changes restored the failure path, then isolate a narrowing boundary for the mode rather than shifting the mode byte.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795191214.5364711,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Move-on 6/6. Valid alternative ba79d26c4d076ba5c82b (reported_corrected) ties 225: (u8)~mode == 253 is exactly mode == 2 across all byte values. It preserves target andi and later scheduling, but adds NOR and compares 253. Common lookup assignment with direct byte equality scored 240; signed-short failure copy or high-bit OR sentinel 355. Signed-short mode and XOR-to-zero scored 445/745. Remaining lookup diff is separate li a0,-1 -> move s0,a0 and beql target. Try compiler comparison -O1 or -O2 with reduced CSE/elimination on the valid equality source before reusing an approximation.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795193100.008369,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Reached score 220/101; only 5 mismatches: search-loop branch target beql distance differs because target places found path at 0x78; target sets a0=-1 before copying to s0 whereas candidate sets arg0 via loop exit and then has differing beq operand; target scales record index through shift/add sequence yielding v1=2 vs candidate shift. Tested signed counter and folded conjunction, equal score with unchanged instruction diff. Next reshape scan loop exits and index arithmetic, starting from exact current C.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795197876.5634198,
+  "score_before": 220,
+  "score_after": 220
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Rechecked reported-corrected candidate score 225; six bounded local variants produced no better result and two link errors from changing call arity/address temporary. Remaining diagnostic mismatch is branch target 0x78 vs 0x74 and a register. Need focus on shortening the lookup-loop/control flow by one instruction while preserving proper OS message calls; saved candidate retained.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198905.6550798,
+  "score_before": 220,
+  "score_after": 220
+ },
+ {
+  "function": "func_8008892C",
+  "text": "220 baseline misses the a0=-1 before moving a0 to s0 on scan exhaustion; baseline instead uses loop index 2 and therefore needs a semantic sentinel fix. Assigning var_a0=-1 before assigning arg0 materializes -1 directly in s0 (225 with baseline status test). The baseline status expression emits an unwanted sll and compares to 4. Using status & 0xFF == 2, casts through signed byte, or adding 0x100 removes both shift and needed andi, also changes classic u32 conversion literal relocations. Try reproducing the mask with a defined byte narrowing from a wider live intermediate, and use explicit signed-to-double plus the two known 2^32 ROM constants if anonymous literals fail to link.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795200972.5546722,
+  "score_before": 220,
+  "score_after": 220
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Restored inherited score-220 best. Recompiling a reduced clean draft reproduced score 220 with five main differences: two branch extents shortened by 4 bytes, missing explicit -1 initialization and `addiu v1,2`, plus status test lowering as `sll` rather than `andi v0,0xff`. Attempts using narrowed flag expression / bit-test regressed and produced local rodata references for f64 zero constants. Need preserve matching float constants using project symbols D_800D66D8/E0, and reconstruct source control flow around sentinel / comparison to hit target branches.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795201922.362802,
+  "score_before": 220,
+  "score_after": 220
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Not matched. Saved best (historical) is 220 with the (u8)(x<<1)==4 form; the latest source at 74d13bed369ede58984d scores 360 and is more correct: type test is `*(u8*)(&D_800E2CC0 + idx) == 2` (andi 0xFF; bne with v1=2); numerator/denominator are u32->f64 via (f64)(s32) then add D_800D66D8 / D_800D66E0 when the signed value is negative (bgez), then (f32) each and div.s. Remaining diffs: after the search loop target does `a0=-1; s0=a0` while `arg0 = -1` compiles as addiu s0,zero,-1; a 1-insn branch-length diff at the first beql (0x78 vs 0x74); float regs f2/f4 swapped. Next try: `var_a0 = -1; arg0 = var_a0;` before found:, and swap conversion order of numerator/denominator.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795204245.791297,
+  "score_before": 220,
+  "score_after": 220
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Seven trials failed to improve verified 220. Sentinel assignment order scored 225, masked byte conditions 350\u2013425, and direct comparison with explicit double conversions 355. Remaining differences are the post-loop sentinel materialization and status comparison.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795211399.256076,
+  "score_before": 225,
+  "score_after": 225,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Rechecked inherited saved score 220. One rewrite worsened to 350; a status test simplification to ==2 remained at 350. No match. Need inspect baseline exact diff and target context; exploratory compile emitted .rodata references absent in target. Main target clues: loop uses likely correct original shape plus addiu v1,2 / andi v0,0xff for status.\nRechecked inherited 220. A clean rewrite dropped to 350; simplifying status test to ==2 stayed at 350. Target status path has addiu v1,2; andi v0,0xff; bne v0,v1, indicating compiler needs unsigned/int widening. Rewrites also emitted unwanted .rodata references for double constants.\nSaved score 220 is still best; exploratory patch did not improve it. Remaining difference concentrated early loop/control flow and status test, with linker diagnostics for .rodata.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795213632.251955,
+  "score_before": 350,
+  "score_after": 350,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Revision 8b14be156c58a202bf9a (score 355, but only 2 insns missing vs target: this is structurally closest; score inflated by local .rodata for the 2^32 f64 constants vs target's D_800D66D8/E0). Form: arg0 reused as idx, u32 i + off+=0x1228 loop, goto found, (f32)(f64)u32 / (f32)(f64)u32, type test ==2. Remaining diffs: (1) not-found path target does `addiu a0,-1; move s0,a0` while mine emits `addiu s0,-1` directly; (2) target has `andi v0,v0,0xff` after lbu and loads constant 2 into v1 before andi (mine omits andi, swaps v0/v1). Tried &0xFF, (u8)(t+0), arg0=i=-1, conditional assign: no change. Next step: try making the loop a separate static inline find function or keep i live after found (e.g. use i in later expr).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795226524.366153,
+  "score_before": 780,
+  "score_after": 355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Best clean form scores 355 (rev 14ab79e460893ef49ea1): u8 D_800E2CC0[] etc. with byte-offset casts, goto-found loop, u32->f32 casts (f32 conv uses local .rodata, link complaint only). Remaining diffs: target does `addiu a0,-1; move s0,a0` after loop (mine only addiu s0,-1, shifting branches by 4 bytes) and `andi v0,0xff` before status==2 compare (mine omits). Explicit f64 add D_800D66D8 form gives only register swaps (f2/f4) but worse score; static `find` helper is not inlined by gcc 2.7.2 (don't). Next step: keep loop counter `i` live after loop (e.g. use i in a volatile-free way so s0=a0 copy remains) and try a u8 local `t = status; if (t == 2)` / (s32)(u8) forms for andi.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795230725.5370739,
+  "score_before": 355,
+  "score_after": 355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked best 220. Changing the failed-search assignment to arg0=-1 scored 225; target uses addiu a0,-1 then move s0,a0, candidate uses addiu s0,-1. Branch reversal scored 880. Next step: try preserving a separate signed search result through the found join to force the target move.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795245933.194483,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 22; 6 differing rows (1 register, 1 branch target, 2 operand, 1 inserted, 1 deleted; advisory).\nTarget: beql $v0, $s0, 0x78\nCandidate: beql $v0, $s0, 0x74\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addu $v0, $v0, $v1\n  = lw $v0, %lo(sDataBankSlots)($v0)\ni T: beql $v0, $s0, 0x78 | C: beql $v0, $s0, 0x74\n  = move $s0, $a0\n  = addiu $a0, $a0, 1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nVerified 220 baseline. Direct byte equality scores 350 and exposes missing andi plus local rodata relocations. Setting arg0=-1 after failed scan scores 225 and recovers instruction count but uses s0 instead of a0. Next step: combine a correct byte comparison with explicit signed-to-double conversion using the named constants.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795248600.4735749,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Current best remains score 220, 101 instructions. Corrected alternate score 225 and simpler direct flag equality score 350; latter also linker errors for constants in .rodata. Baseline 220 source uses shifted-byte compare, but target specifically ANDs loaded flag with 0xff then compares to 2; direct ==2 dropped those ops and changed branch layout. Remaining diff around loop-exit beql target offset 0x78 vs 0x74, missing `addiu $a0,-1; move $s0,$a0`, and flag comparison; extensive local search already tried.\nVerified best score 220; changing `sDataBankFlags` declaration to u8 had no substantive improvement. Retargeted corrected variant produced 225; `flag == 2` version scored 350 and introduced .rodata link errors.\nNo match; only a few instructions differ in the best candidate: beql target and s0=-1 sentinel sequence, plus flag compare operand scheduling.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795253878.190785,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Saved best 10: one operand differs, andi 0x7f vs target 0xff (target compares the byte with 2 after the andi). Changing the mask to 0xff gives 240, because GCC folds the redundant andi away. Next step: make the type value a u8 loaded into a local that is also used elsewhere (so the andi survives), or compare via a (s32)(u8) cast of a volatile load.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307199.209667,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked 10, sole mismatch andi 0x7f vs 0xff after lbu. Signed/masked and inline return variants all fold the mask (240); volatile forms 435. fno-peephole and fno-cse-follow-jumps unchanged at 240 with 0xff, fno-expensive-optimizations 600, fno-combine unsupported. Next step: test a byte-typed conditional join that combines bank index selection or the flag load with the preceding guard and narrows after the join.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795319135.540549,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
+ },
+ {
+  "function": "func_8008892C",
+  "text": "Reverified score 10 with sole andi immediate difference, 0x7f versus 0xff. The saved mask also changes semantics for byte 0x82. Conditional byte join scored 225. Plain bitfields, union byte extraction and signed/unsigned word high-byte extraction scored 240. Volatile byte and bitfields scored 435, halfword high-byte extraction 400. Tested -O1 and individual CSE/strength reduction/scheduling flags with 0xff, no improvement.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795342518.9514081,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
  }
 ]

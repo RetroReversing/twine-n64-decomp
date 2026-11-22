@@ -13,6 +13,7 @@ extern s32 sDataBankSlots;
 extern s32 sDataBankMesgQueue;
 
 f32 func_8008892C(s32 arg0, f32 *arg1) {
+    int repair_byte_offset;
     f32 var_fs0;
     f64 var_ft0;
     f64 var_fv1;
@@ -40,7 +41,8 @@ found:
             arg0 = var_a0;
             if (arg0 != -1) {
                 osRecvMesg(&sDataBankMesgQueue, 0, 1);
-                if ((*(u8 *)((u8 *)&sDataBankFlags + (arg0 * 0x1228)) & 0x7f) == 2) {
+                repair_byte_offset = (arg0 * 0x1228);
+                if ((*(volatile unsigned char *)((u8 *)&sDataBankFlags + repair_byte_offset) & 0xffU) == 2) {
                     var_fs0 = (f32)*(u32 *)((u8 *)&D_800E2CDC + (arg0 * 0x1228)) / (f32)*(u32 *)((u8 *)&D_800E2CC8 + (arg0 * 0x1228));
                 } else {
                     var_fs0 = 0.0f;
