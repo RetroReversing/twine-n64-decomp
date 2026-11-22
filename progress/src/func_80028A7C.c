@@ -29,7 +29,7 @@ void func_80028A7C(void)
   s32 temp_v1_4;
   s32 var_a0;
   s32 var_a1;
-  s32 var_a2;
+  u16 var_a2;
   u16 temp_v0_3;
   u16 temp_v0_6;
   void *temp_v0;
@@ -66,7 +66,7 @@ void func_80028A7C(void)
   {
     var_a2 = 0;
     state = gSaveMenuState;
-    if ((((u32) temp_v1_2) + 1) <= ((u8) (*((u8 *) (((char *) (*((s32 **) (((char *) state) + 0x10)))) + 5)))))
+    if (((u32) temp_v1_2) < ((u8) (*((u8 *) (((char *) (*((s32 **) (((char *) state) + 0x10)))) + 5)))))
     {
       loopState = state;
       idle = &sSaveMenuColorIdle;
@@ -127,15 +127,12 @@ void func_80028A7C(void)
     if ((*((u16 *) (((char *) state) + 0x32))) >= 0xF6U)
     {
       void *active = sActiveMenu;
-      void *saved = state;
-      temp_v0_4 = *((s16 *) (((char *) active) + 0x7C));
-      if (((s16) temp_v0_4) > 0)
+      if ((*((s16 *) (((char *) active) + 0x7C))) > 0)
       {
-        temp_v0_5 = temp_v0_4 - 1;
-        *((s16 *) (((char *) active) + 0x7C)) = temp_v0_5;
-        if ((temp_v0_5 << 0x10) == 0)
+        (*((s16 *) (((char *) active) + 0x7C)))--;
+        if ((*((s16 *) (((char *) active) + 0x7C))) == 0)
         {
-          temp_v0_6 = *((u16 *) (((char *) saved) + 0x14));
+          temp_v0_6 = *((u16 *) (((char *) state) + 0x14));
           switch (temp_v0_6)
           {
             case 1:
