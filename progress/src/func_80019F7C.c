@@ -47,6 +47,7 @@ void func_80019F7C(void)
   s32 id;
   s32 temp_v0;
   s32 var_s1;
+  u8 tmpA; s32 *tmpP;
   u16 temp_v1;
   u16 temp_v1_3;
   u8 temp_s0_2;
@@ -61,17 +62,11 @@ void func_80019F7C(void)
     updateActiveMenuState();
   }
   while (0);
-  if (slot)
-  {
-    var_s1 = *(*((s32 **) (((char *) temp_s0) + 0x10)));
-    temp_s3 = temp_s0 + 0x28;
-  }
-  else
-  {
-    var_s1 = *(*((s32 **) (((char *) temp_s0) + 0x10)));
-    temp_s3 = temp_s0 + 0x28;
-  }
-  if (((*((u8 *) (((char *) gSaveMenuState) + 0x2D))) != 0) && ((*((u8 *) (((char *) gSaveMenuState) + 0x2E))) == 0))
+  tmpP = *((s32 **) (((char *) temp_s0) + 0x10));
+  tmpA = (*((u8 *) (((char *) gSaveMenuState) + 0x2D)));
+  do { var_s1 = *tmpP; } while (0);
+  temp_s3 = temp_s0 + 0x28;
+  if ((tmpA != 0) && ((*((u8 *) (((char *) gSaveMenuState) + 0x2E))) == 0))
   {
     slot = &gPickupSavedByte;
     {
