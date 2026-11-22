@@ -86104,28 +86104,12 @@
   "score_after": 740
  },
  {
-  "function": "func_800347B0",
-  "text": "Current best score 515 (94.5%, 94 instructions), equal to rechecked inherited best. Six compiles without improvement. Initial compilation reproduces 515; auto local pass did not improve. Tried to force the offset +4 float-bit store to integer with invalid address-of-expression (compile error), then alias through temp_fa1 caused stack growth and score 1357; restored saved best. Remaining dominant issue: target emits mfc1 $v0,$f14; sw $v0,4($s0), while candidate emits swc1 at +4; also 17 FPR allocation differences/order around the matrix products. Need recover intended float-bit transfer and order of expression evaluation while preserving target stack size 0x50.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795178441.0785222,
-  "score_before": 515,
-  "score_after": 515
- },
- {
   "function": "func_80097A40",
   "text": "Improved 740\u2192210 by staging offset and base loads before the stack request pointer, advancing record by 8 in a standalone statement to prepare a1, and storing the computed address before the helper. Remaining target instructions: first key mask into v1 (compiler removes both u32\u2192u16 casts; u16 key scored 480) and second 0xFFFF load should be before loop rather than on backedge. Subsequent branch discrepancies follow from the mask and constant placement.",
   "by": "codex-gpt-6.2-sol-7",
   "created_at": 1795182111.39083,
   "score_before": 740,
   "score_after": 210
- },
- {
-  "function": "func_800347B0",
-  "text": "Rechecked baseline 515. Multiple repair variants (call arity, read-before-assign, address temporaries, shared product temporaries, inline single-use products, const pointer) did not improve; some broke compile due to repair generator removing local declarations, and shared product locals worsened to 1660. Target is a 94-instruction matrix/trig routine; assembly has six trig calls then a carefully staged FPU product schedule. First mismatch is around product staging/register allocation (target mul.s $ft0,$fs4,$fs1 while candidate uses $f16,$f24,$f0); candidate expressions include redundant/dead draft locals, so next pass should rewrite compactly in the target product order and preserve matrix component float stores. Candidate retained at revision f00a6ca4a9c1c1dec0e9.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795182806.505795,
-  "score_before": 515,
-  "score_after": 515
  },
  {
   "function": "func_80097A40",
@@ -86248,14 +86232,6 @@
   "score_after": 210
  },
  {
-  "function": "func_800347B0",
-  "text": "Improved 515 to 190 using float/int union for offset 4 multiplication store, reproducing mfc1/sw. Remaining 24 differences are multiplication scheduling/register allocation and operand ordering. Removing register qualifiers from sp14 and fs0/fs2/fs4, reversing temp_ft1 multiplication or swapping unused initial temporary assignments did not improve. Next try staging products in target assembly order and changing use order of intermediates while preserving the union store.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795191920.132822,
-  "score_before": 515,
-  "score_after": 190
- },
- {
   "function": "func_80097A40",
   "text": "Verified 210 baseline. Branch orientation and address temporary did not improve; initial sentinel comparisons via signed cast and left shift scored 496 and 490. Target exits immediately after incrementing matching record, so current match-path termination is correct. Remaining first difference is missing andi v1,a3,0xffff after lhu; subsequent branch offsets and sentinel placement follow. Explore a distinct narrow first-iteration lifetime or compiler profile.",
   "by": "codex-gpt-6.1-terra-3",
@@ -86272,28 +86248,12 @@
   "score_after": 210
  },
  {
-  "function": "func_800347B0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Saved best rechecked score 185; tried first whole candidate compile, remains 185. Target explicitly stages several float products independently; this aligns with shared tip: when computed FP values feed multiple stores, stage them in locals so compiler retains separate FPRs and schedules multiply before stores. Current best already computes matrix products, but target code has exact intermediates and order in target assembly lines 32-48: ft0=sin(a1)*sin(a2), ft1=cos(a1)*sin(a2), fs5=sin(a3)*cos(a2), fa1=sin(a2)*cos(a3), fa0=cos(a2)*cos(a3), ft5=sin(a1)*cos(a2), ft4=sin(a1)*cos(a3), ft3=ft0*cos(a3), ft0=ft0*cos(a3?) inspect exact operands carefully; then fa1=cos(a3)*cos(a1), ft2=ft1*cos(a3), ft1=ft1*cos(a3), with intervening mfc1/neg/mul/store. Functions called in target order: sin(arg1), cos(arg1), sin(arg2), cos(arg2), sin(arg3), cos(arg3). Best C has some unused temporaries `temp_ft0,temp_a1,sp14,one`; likely adjust source to match actual intermediates rather than retain them dead. Preserve FP operation order; do not reassociate.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198268.4737558,
-  "score_before": 185,
-  "score_after": 185
- },
- {
   "function": "func_80097A40",
   "text": "Saved best score 210 (96.1%) rechecked; function 55 instructions, only 8 rows differ mainly branch offsets/control shape. Tested explicit u16 masks on comparisons; worse at 295 and introduces redundant mask on arg0; preserve saved candidate. Target explicitly emits `andi $v1,$a3,0xffff` before sentinel compare, but C source's u16 loads are optimized and omit it; candidate equality compare directly uses a3. Try a widened s32 temporary for loaded header, mask into distinct variable used in sentinel branch, retaining original a3 for the later bnel and loop compare. Budget reached.",
   "by": "codex-gpt-6-luna-17",
   "created_at": 1795198382.0926778,
   "score_before": 210,
   "score_after": 210
- },
- {
-  "function": "func_800347B0",
-  "text": "Rechecked baseline score 185. Six local repair variants found no improvement; address temporary, const-read, assignment-at-use and target call arity either tied or worsened; shared-product lifetime severely worsened. Target first register mismatch in the multiply stage: target mul.s f4,f28,f22 and f6,f26,f22; candidate f14,f24,f20 and f16,f24,f0. All remaining 23 mismatches are chiefly FP registers (17 register differences), plus four operands and two reorders. Trig calls/outputs and matrix formulas appear sound. Next inspect first target/candidate FP live ranges and try reusing product locals sequentially to mirror target's f20/f22 saved trig results; no reusable compiler insight yet.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795199191.0052412,
-  "score_before": 185,
-  "score_after": 185
  },
  {
   "function": "func_80097A40",
@@ -86304,28 +86264,12 @@
   "score_after": 210
  },
  {
-  "function": "func_800347B0",
-  "text": "Compiled historical best: score 185, all 94 instructions in place; remaining 17 register, 4 operand and 2 order differences centered on floating temporary allocation and delayed multiplies. Removing register qualifier from temp_fs0 or altering an inferred temporary expression did not change assembly. Target calculates a set of products in sequence after trig calls; likely source groups intermediate products before field stores. Need tune C statement order and temp lifetimes to match FPR allocation, using exact target sequence from get_assembly. Candidate uses exact trigonometric output order and matrix formulas.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795201315.024949,
-  "score_before": 185,
-  "score_after": 185
- },
- {
   "function": "func_80097A40",
   "text": "Started from 210-score candidate. Recompiled equivalent source at 210; casts around the first u16 comparison increased score to 295 by generating an extra mask and changing branch registers. Restored saved_best. First unresolved target-only instruction is andi v1,a3,0xffff before equality branch; further differences are branch distances (+4), sentinel placement/order, and resulting registers. Original draft lacks target's initial mask although it had broadly correct flow.",
   "by": "codex-gpt-6-luna-16",
   "created_at": 1795201765.820637,
   "score_before": 210,
   "score_after": 210
- },
- {
-  "function": "func_800347B0",
-  "text": "Early cosine*sine product improved 185 to 165. Reordering stores alone, staging six other products independently, or staging all products widened the diff or tied. The target still starts the float block with the sine-sine product in f4. Broad staging also changed the frame from 0x50 to 0x48.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795202328.5788748,
-  "score_before": 185,
-  "score_after": 165
  },
  {
   "function": "func_80081D50",
@@ -86358,14 +86302,6 @@
   "created_at": 1795203888.044729,
   "score_before": 210,
   "score_after": 210
- },
- {
-  "function": "func_800347B0",
-  "text": "Math verified by hand: fs4=sin(a1), fs3=cos(a1), fs1=sin(a2), fs2=cos(a2), fs0=sin(a3), fv0=cos(a3). Stores: 0x0=c2*c3, 0x4=int bits of c2*s3 (via mfc1 from fa1), 0x8=-s2, 0xC/0x1C/0x2C=0.0 (mtc1 $zero), 0x10=(s1*s2*c3)-(c1*s3), 0x14=(s1*s2*s3)+(c3*c1) with c3*c1 spilled to stack 0x14 before the calls end, 0x18=s1*c2, 0x20=(c1*s2*c3)+(s1*s3), 0x24=(c1*s2*s3)-(c3*s1), 0x28=c1*c2, 0x30-0x38=a4-a6, 0x3C=1.0. Saved best 165 (revision 6386d51be90a29816229) is the right structure; remaining diff is register allocation and instruction order (target spills arg4-6 from caller stack, computes products in a different order). A from-scratch rewrite scored 2716 (worse): avoid the plain int 0 for word 1 and the rewrite style. Next step: work on the saved best with explicit per-product expressions in the target's mul order (see mul.s sequence in asm lines 31-51).",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795204405.248838,
-  "score_before": 160,
-  "score_after": 160
  },
  {
   "function": "func_80097A40",
@@ -86457,15 +86393,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
-  "function": "func_800347B0",
-  "text": "Inherited candidate score 160; verified single operand-order edit temp_fa1 = temp_fs3 * temp_fv0 tied at 160. Target assembly scheduling shows independent products in order: temp_ft0=sin1*sin2; temp_ft1=cos1*sin2; fs5=cos2*cos3; fa1=cos2*sin3; fa0=cos1*sin3; ft5=sin1*cos2; ft4=sin1*sin3; ft3=ft0*cos3; then ft0=ft0*sin3. Attempted inserting these into candidate with undeclared names first failed; after declarations, score worsened to 165. Restored saved best. Most useful next step: rewrite declarations and independent product computations as a staged sequence matching assembly, introducing one local per product with matching variable liveness.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795214255.03131,
-  "score_before": 160,
-  "score_after": 160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
- },
- {
   "function": "func_80081D50",
   "text": "Reused temp_v0_2 and moved two conditional byte stores into their respective branches; tested inline, layout, branch inversion, masked reuse and signedness variants.\nCurrent score 5850 versus rechecked initial 6955; latest six variants did not improve. 133 mismatch rows remain, chiefly registers and control flow.",
   "by": "codex-gpt-6.1-terra-4",
@@ -86511,15 +86438,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
-  "function": "func_800347B0",
-  "text": "Session allowance nearly used. Baseline rechecked at 160; existing sine-sine temporary in either triple product separately scored 165. Staging the union calculation early tied at 160 and still starts with cos(arg2)*sin(arg3). Restored revision 691cfae9ac586edbe4cd. Next step: isolate a volatile spill for cos(arg3)*cos(arg1), then measure whether the first multiply and 0x50 frame agree.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795223544.993639,
-  "score_before": 160,
-  "score_after": 160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
- },
- {
   "function": "func_80097A40",
   "text": "Inline scalar shapes, branch orientation and u16 cast on first sentinel comparison.\nCast and inline shapes unchanged at 210; reversed branch worsened to 1155.",
   "by": "codex-gpt-6.1-terra-4",
@@ -86527,15 +86445,6 @@
   "score_before": 1305,
   "score_after": 210,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_800347B0",
-  "text": "Stays 160 (rev 691cfae9ac586edbe4cd). Tried fully-staged temporaries in target mul order (t0=s1*s2, t1=c1*s2, m0=c2*c3, a1=c2*s3, a0=c1*s3, t5=s1*c2, t4=s1*s3, t3=t0*c3, t0b=t0*s3, sp14=c3*c1, t2=t1*c3, t1b=t1*s3): score 770, worse (s1/c1 land in f26/f28 swapped vs target; `register` hints had no effect). Next step: keep saved best, try only reordering the first few products.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795231272.0794702,
-  "score_before": 160,
-  "score_after": 160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  },
  {
   "function": "func_8011A7C8",
@@ -86664,15 +86573,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
  },
  {
-  "function": "func_800347B0",
-  "text": "Using temp_ft0 for offset 0x10 scored 165; also using temp_ft0 and sp14 for offset 0x14 scored 170. Remaining differences are float scheduling and allocation.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795245802.113323,
-  "score_before": 160,
-  "score_after": 160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
- },
- {
   "function": "func_80097A40",
   "text": "Explicit loop comparison mask compiles identically, score 210. Missing mask is before initial sentinel comparison; remaining differences are branch offsets and sentinel placement.\nMask loop comparison\nNo instruction difference; score 210",
   "by": "codex-gpt-6.1-terra-5",
@@ -86725,15 +86625,6 @@
   "score_before": 12120,
   "score_after": 7938,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
- },
- {
-  "function": "func_800347B0",
-  "text": "Address temporaries, split lifetime, const argument, and unused multiplication operand swap.\nBaseline 160 unchanged or worse; split lifetime scored 1761. First mismatch remains floating-point product scheduling.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795261216.7081769,
-  "score_before": 160,
-  "score_after": 160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  },
  {
   "function": "func_80097A40",
@@ -86834,14 +86725,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
  },
  {
-  "function": "func_800347B0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stuck at 160 after 100+ attempts; remaining diff is FP product scheduling. Next step: stage products in f32 temporaries in target order.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795307700.7216241,
-  "score_before": 160,
-  "score_after": 160
- },
- {
   "function": "func_8011A7C8",
   "text": "try_local_repairs (6 variants: u32 global, hoisted &gSaveTotalSlots, s8 disabled, decl order, branch flip, nested guard) all >=1560, none better. Register allocation differs (target a3/t2/a2 vs cand t3/t4/t2). Next step: reduce live temporaries in the first loop (reuse one local for slot/entry) to free argument regs.",
   "by": "claude-sonnet-low-1",
@@ -86886,14 +86769,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
  },
  {
-  "function": "func_800347B0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session; saved best 160 kept. Next step: stage products in f32 temporaries in target order.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795312188.1396391,
-  "score_before": 160,
-  "score_after": 160
- },
- {
   "function": "func_80081D50",
   "text": "[Released without compiling it once; notes not checked by a compile.] compiler_experiments -fno-strength-reduce and -fno-schedule-insns both scored 61629 (diagnostic, far worse than saved ~730-1310). Flags don't help. Next step: restructure the per-slot bit-update chain (arg3[idx].a read/modify/write) as plain bitfield-style ops.",
   "by": "claude-sonnet-low-1",
@@ -86936,24 +86811,6 @@
   "score_before": 735,
   "score_after": 728,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:45736c2a205375ad89199b4b7a38941a3e9753119b4587f04a9c668af83723fd"
- },
- {
-  "function": "func_800347B0",
-  "text": "Dropping `register` on temp_fs0 and temp_fs2: 160, identical instruction diff (18 rows: 12 register, 4 operand, 2 reordered; target mul.s $f4,$f28,$f22 vs candidate $f14,$f24,$f20). Other local repairs tie or worsen. Next step: drop `register` on temp_fs4 and sp14 too and reorder the sinApprox/__cosf call pairs so the cos results land in $f28/$f26.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795313981.8463519,
-  "score_before": 160,
-  "score_after": 160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
- },
- {
-  "function": "func_800347B0",
-  "text": "Donor-style typed rewrite scored 170. Saved 160 has 18 differences starting at the first product after the final cosine call. Simple operand swaps and single reused products failed to improve.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795316087.1515782,
-  "score_before": 160,
-  "score_after": 160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  },
  {
   "function": "func_80064A18",
@@ -87044,15 +86901,6 @@
   "score_before": 640,
   "score_after": 640,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69758c3cdf7a03d680cd143cd0020d2684aa1249979c80d7e6d18670e241917d"
- },
- {
-  "function": "func_800347B0",
-  "text": "Removing register qualifiers and changing the dead early product retained the exact 160 diff. Separate -fno-schedule-insns, -fno-schedule-insns2 and -g probes scored 7057, 2472 and 1320. Move-on threshold reached.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795340962.351568,
-  "score_before": 160,
-  "score_after": 160,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  },
  {
   "function": "func_80081D50",
@@ -88260,5 +88108,157 @@
   "score_before": 845,
   "score_after": 845,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ea850142a4fb0eed5cb25d174007105be8b8670c971d95e01819f13ee6a6edba"
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Current best score 515 (94.5%, 94 instructions), equal to rechecked inherited best. Six compiles without improvement. Initial compilation reproduces 515; auto local pass did not improve. Tried to force the offset +4 float-bit store to integer with invalid address-of-expression (compile error), then alias through temp_fa1 caused stack growth and score 1357; restored saved best. Remaining dominant issue: target emits mfc1 $v0,$f14; sw $v0,4($s0), while candidate emits swc1 at +4; also 17 FPR allocation differences/order around the matrix products. Need recover intended float-bit transfer and order of expression evaluation while preserving target stack size 0x50.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795178441.0785222,
+  "score_before": 515,
+  "score_after": 515
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Rechecked baseline 515. Multiple repair variants (call arity, read-before-assign, address temporaries, shared product temporaries, inline single-use products, const pointer) did not improve; some broke compile due to repair generator removing local declarations, and shared product locals worsened to 1660. Target is a 94-instruction matrix/trig routine; assembly has six trig calls then a carefully staged FPU product schedule. First mismatch is around product staging/register allocation (target mul.s $ft0,$fs4,$fs1 while candidate uses $f16,$f24,$f0); candidate expressions include redundant/dead draft locals, so next pass should rewrite compactly in the target product order and preserve matrix component float stores. Candidate retained at revision f00a6ca4a9c1c1dec0e9.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795182806.505795,
+  "score_before": 515,
+  "score_after": 515
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Improved 515 to 190 using float/int union for offset 4 multiplication store, reproducing mfc1/sw. Remaining 24 differences are multiplication scheduling/register allocation and operand ordering. Removing register qualifiers from sp14 and fs0/fs2/fs4, reversing temp_ft1 multiplication or swapping unused initial temporary assignments did not improve. Next try staging products in target assembly order and changing use order of intermediates while preserving the union store.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795191920.132822,
+  "score_before": 515,
+  "score_after": 190
+ },
+ {
+  "function": "func_800347B0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Saved best rechecked score 185; tried first whole candidate compile, remains 185. Target explicitly stages several float products independently; this aligns with shared tip: when computed FP values feed multiple stores, stage them in locals so compiler retains separate FPRs and schedules multiply before stores. Current best already computes matrix products, but target code has exact intermediates and order in target assembly lines 32-48: ft0=sin(a1)*sin(a2), ft1=cos(a1)*sin(a2), fs5=sin(a3)*cos(a2), fa1=sin(a2)*cos(a3), fa0=cos(a2)*cos(a3), ft5=sin(a1)*cos(a2), ft4=sin(a1)*cos(a3), ft3=ft0*cos(a3), ft0=ft0*cos(a3?) inspect exact operands carefully; then fa1=cos(a3)*cos(a1), ft2=ft1*cos(a3), ft1=ft1*cos(a3), with intervening mfc1/neg/mul/store. Functions called in target order: sin(arg1), cos(arg1), sin(arg2), cos(arg2), sin(arg3), cos(arg3). Best C has some unused temporaries `temp_ft0,temp_a1,sp14,one`; likely adjust source to match actual intermediates rather than retain them dead. Preserve FP operation order; do not reassociate.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198268.4737558,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Rechecked baseline score 185. Six local repair variants found no improvement; address temporary, const-read, assignment-at-use and target call arity either tied or worsened; shared-product lifetime severely worsened. Target first register mismatch in the multiply stage: target mul.s f4,f28,f22 and f6,f26,f22; candidate f14,f24,f20 and f16,f24,f0. All remaining 23 mismatches are chiefly FP registers (17 register differences), plus four operands and two reorders. Trig calls/outputs and matrix formulas appear sound. Next inspect first target/candidate FP live ranges and try reusing product locals sequentially to mirror target's f20/f22 saved trig results; no reusable compiler insight yet.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795199191.0052412,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Compiled historical best: score 185, all 94 instructions in place; remaining 17 register, 4 operand and 2 order differences centered on floating temporary allocation and delayed multiplies. Removing register qualifier from temp_fs0 or altering an inferred temporary expression did not change assembly. Target calculates a set of products in sequence after trig calls; likely source groups intermediate products before field stores. Need tune C statement order and temp lifetimes to match FPR allocation, using exact target sequence from get_assembly. Candidate uses exact trigonometric output order and matrix formulas.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795201315.024949,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Early cosine*sine product improved 185 to 165. Reordering stores alone, staging six other products independently, or staging all products widened the diff or tied. The target still starts the float block with the sine-sine product in f4. Broad staging also changed the frame from 0x50 to 0x48.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795202328.5788748,
+  "score_before": 185,
+  "score_after": 165
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Math verified by hand: fs4=sin(a1), fs3=cos(a1), fs1=sin(a2), fs2=cos(a2), fs0=sin(a3), fv0=cos(a3). Stores: 0x0=c2*c3, 0x4=int bits of c2*s3 (via mfc1 from fa1), 0x8=-s2, 0xC/0x1C/0x2C=0.0 (mtc1 $zero), 0x10=(s1*s2*c3)-(c1*s3), 0x14=(s1*s2*s3)+(c3*c1) with c3*c1 spilled to stack 0x14 before the calls end, 0x18=s1*c2, 0x20=(c1*s2*c3)+(s1*s3), 0x24=(c1*s2*s3)-(c3*s1), 0x28=c1*c2, 0x30-0x38=a4-a6, 0x3C=1.0. Saved best 165 (revision 6386d51be90a29816229) is the right structure; remaining diff is register allocation and instruction order (target spills arg4-6 from caller stack, computes products in a different order). A from-scratch rewrite scored 2716 (worse): avoid the plain int 0 for word 1 and the rewrite style. Next step: work on the saved best with explicit per-product expressions in the target's mul order (see mul.s sequence in asm lines 31-51).",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795204405.248838,
+  "score_before": 160,
+  "score_after": 160
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Inherited candidate score 160; verified single operand-order edit temp_fa1 = temp_fs3 * temp_fv0 tied at 160. Target assembly scheduling shows independent products in order: temp_ft0=sin1*sin2; temp_ft1=cos1*sin2; fs5=cos2*cos3; fa1=cos2*sin3; fa0=cos1*sin3; ft5=sin1*cos2; ft4=sin1*sin3; ft3=ft0*cos3; then ft0=ft0*sin3. Attempted inserting these into candidate with undeclared names first failed; after declarations, score worsened to 165. Restored saved best. Most useful next step: rewrite declarations and independent product computations as a staged sequence matching assembly, introducing one local per product with matching variable liveness.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795214255.03131,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Session allowance nearly used. Baseline rechecked at 160; existing sine-sine temporary in either triple product separately scored 165. Staging the union calculation early tied at 160 and still starts with cos(arg2)*sin(arg3). Restored revision 691cfae9ac586edbe4cd. Next step: isolate a volatile spill for cos(arg3)*cos(arg1), then measure whether the first multiply and 0x50 frame agree.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795223544.993639,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Stays 160 (rev 691cfae9ac586edbe4cd). Tried fully-staged temporaries in target mul order (t0=s1*s2, t1=c1*s2, m0=c2*c3, a1=c2*s3, a0=c1*s3, t5=s1*c2, t4=s1*s3, t3=t0*c3, t0b=t0*s3, sp14=c3*c1, t2=t1*c3, t1b=t1*s3): score 770, worse (s1/c1 land in f26/f28 swapped vs target; `register` hints had no effect). Next step: keep saved best, try only reordering the first few products.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795231272.0794702,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Using temp_ft0 for offset 0x10 scored 165; also using temp_ft0 and sp14 for offset 0x14 scored 170. Remaining differences are float scheduling and allocation.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245802.113323,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Address temporaries, split lifetime, const argument, and unused multiplication operand swap.\nBaseline 160 unchanged or worse; split lifetime scored 1761. First mismatch remains floating-point product scheduling.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795261216.7081769,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
+ },
+ {
+  "function": "func_800347B0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stuck at 160 after 100+ attempts; remaining diff is FP product scheduling. Next step: stage products in f32 temporaries in target order.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307700.7216241,
+  "score_before": 160,
+  "score_after": 160
+ },
+ {
+  "function": "func_800347B0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session; saved best 160 kept. Next step: stage products in f32 temporaries in target order.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795312188.1396391,
+  "score_before": 160,
+  "score_after": 160
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Dropping `register` on temp_fs0 and temp_fs2: 160, identical instruction diff (18 rows: 12 register, 4 operand, 2 reordered; target mul.s $f4,$f28,$f22 vs candidate $f14,$f24,$f20). Other local repairs tie or worsen. Next step: drop `register` on temp_fs4 and sp14 too and reorder the sinApprox/__cosf call pairs so the cos results land in $f28/$f26.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795313981.8463519,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Donor-style typed rewrite scored 170. Saved 160 has 18 differences starting at the first product after the final cosine call. Simple operand swaps and single reused products failed to improve.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795316087.1515782,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Removing register qualifiers and changing the dead early product retained the exact 160 diff. Separate -fno-schedule-insns, -fno-schedule-insns2 and -g probes scored 7057, 2472 and 1320. Move-on threshold reached.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795340962.351568,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  }
 ]
