@@ -1,3 +1,0 @@
-extern s8 sDataBankInitialised; extern u8 sDataBankLoaded, D_800E2CC0[]; extern s32 sDataBankTable,D_800E3F24[],sDataBankMode,D_8010D428; extern void (*gDataBankFree)(s32);
-void func_800882D0(); void workerLockAcquire(s32 arg0); void func_8009D278(); void workerLockRelease();
-void func_80088DE0(s32 arg0,s32 arg1) { s32 i,j,off; s32 *p; for(i=0;i<2;i++) {func_800882D0(i,arg1); arg1=2;} again: off=0; arg0=0; scan: if (D_800E2CC0[off]) goto checked; arg0++; off+=0x1228; if(arg0<2) goto scan; checked: if(arg0!=arg1) goto again; sDataBankInitialised=0; workerLockAcquire(arg0); D_8010D428=0; func_8009D278(); workerLockRelease(); if(sDataBankTable && sDataBankLoaded) gDataBankFree(sDataBankTable); if(sDataBankMode & 1) { p=D_800E3F24; for(j=0;j<2;j++) gDataBankFree(*p++); } }
