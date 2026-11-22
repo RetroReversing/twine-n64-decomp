@@ -105,7 +105,6 @@ u16 func_80012F50(void)
         --p;
       }
       while (j >= 0);
-      do
       {
         name[16] = 0; j = 3; p = code + 3;
         do
@@ -118,7 +117,6 @@ u16 func_80012F50(void)
         code[4] = 0;
         *((s32 *) (D_80108408 + rawOffset)) = 0;
       }
-      while (0);
       gSaveCmdResult = 0;
     }
     else
@@ -143,8 +141,8 @@ u16 func_80012F50(void)
     rawOffset += 32;
     raw += 32;
     do
-    {
-      ++i;
+    {/*__repair_loop_weight*/do {
+      ++i;} while (0);
     }
     while (0);
   }

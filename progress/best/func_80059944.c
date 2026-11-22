@@ -41,6 +41,7 @@ void func_80059944(void *arg0)
   f32 temp_fv1_2;
   f32 temp_fv1_3;
   s32 temp_v0_4;
+  s32 temp_v0_4_arm;
   s32 temp_v1_18;
   s32 temp_v1_2;
   s32 temp_v1_3;
@@ -359,10 +360,10 @@ void func_80059944(void *arg0)
           else
             if (((*((s32 *) (((char *) arg0) + 0x60))) & 0x100800) == 0x800)
           {
-            temp_v0_4 = (s16) (*((u16 *) (((char *) temp_s0) + 0x48)));
-            if (temp_v0_4 != (-1))
+            temp_v0_4_arm = (s16) (*((u16 *) (((char *) temp_s0) + 0x48)));
+            if (temp_v0_4_arm != (-1))
             {
-              var_a2 = lookupDataEntry(temp_v0_4 & 0xFFFF);
+              var_a2 = lookupDataEntry(((s16) (*((u16 *) (((char *) temp_s0) + 0x48)))) & 0xFFFF);
               func_80073AF8(0, sTrackMarkerTable, var_a2, -1, -1, 1, 0, 0, 5, 0, 0x3C);
               func_80084338(9U, arg0 + 0x24);
             }
@@ -391,7 +392,7 @@ void func_80059944(void *arg0)
             if (temp_a0_2 != 0)
             {
               {
-                long long phantom_wide = temp_v0_4;
+                long long phantom_wide = temp_v0_4_arm;
               }
               *((s32 *) (((char *) temp_s0) + 0x28)) = func_80084338(temp_a0_2, arg0 + 0x24);
             }
@@ -450,7 +451,7 @@ void func_80059944(void *arg0)
             if (temp_a0_4 != 0)
             {
               {
-                long long phantom_wide2 = temp_v0_4;
+                long long phantom_wide2 = temp_v0_4_arm;
               }
               *((s32 *) (((char *) temp_s0) + 0x28)) = func_80084338(temp_a0_4, arg0 + 0x24);
             }

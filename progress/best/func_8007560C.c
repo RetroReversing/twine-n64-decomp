@@ -51,7 +51,6 @@ void func_8007560C(void)
   f64 var_fv1_2;
   f64 var_fv1_3;
   f64 var_fv1_4;
-  f32 temp_fs0_4;
   s32 var_s0;
   s32 var_v1;
   void **var_s1;
@@ -105,11 +104,9 @@ void func_8007560C(void)
   {
     var_s0 = 0;
     temp_fs0 = D_800D48D0;
-    do
     {
       temp_s4 = ((char *) (&D_8010A4C3)) - 1;
     }
-    while (0);
     var_s1 = (void **) (((char *) (&gMenuRootObject)) - 0x10);
     do
     {
@@ -227,16 +224,14 @@ void func_8007560C(void)
       func_80048794(3, gProbeObjectList);
     }
       ;
-      temp_fs0_4 = inline_fn(120.0f, 0.5f);
-      func_8004844C(sTrackMarkerTable[0], inline_fn(160.0f, 0.5f), temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
+      temp_fs0_2 = inline_fn(120.0f, 0.5f);
+      func_8004844C(sTrackMarkerTable[0], inline_fn(160.0f, 0.5f), temp_fs0_2, 160.0f, 120.0f, 1.0f, 1.0f);
       temp_fs3 = temp_fs2_2 + 160.0f;
-      func_8004844C(sTrackMarkerTable[1], temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, (double) 1.0f);
-      func_8004844C(sTrackMarkerTable[2], inline_fn(160.0f, 0.5f), temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
-      do
-    {
-      temp_fs0_4 = 120.0f + temp_fs0_4; var_a0_2 = sTrackMarkerTable[3]; var_a1 = temp_fs3; var_a3 = 160.0f; var_a2 = temp_fs0_4; height = 120.0f;
+      func_8004844C(sTrackMarkerTable[1], temp_fs3, temp_fs0_2, 160.0f, 120.0f, 1.0f, (double) 1.0f);
+      func_8004844C(sTrackMarkerTable[2], inline_fn(160.0f, 0.5f), temp_fs0_2, 160.0f, 120.0f, 1.0f, 1.0f);
+      {
+      temp_fs0_2 = 120.0f + temp_fs0_2; var_a0_2 = sTrackMarkerTable[3]; var_a1 = temp_fs3; var_a3 = 160.0f; var_a2 = temp_fs0_2; height = 120.0f;
     }
-    while (0);
       goto block_74;
 
     case 4:

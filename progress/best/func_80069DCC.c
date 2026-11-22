@@ -123,6 +123,8 @@ void func_80069DCC(void *arg0)
   f32 motion_2C;
   f32 motion_3C;
   f32 motion_44;
+  s32 init_mode;
+  void *obj_local;
   f32 temp_fa0;
   f32 temp_fa0_2;
   f32 temp_fa0_3;
@@ -454,13 +456,15 @@ case 0: {
         *((f32 *) (((char *) temp_s1) + 0x3C)) = 1.0f;
         func_80081CC0(temp_s4);
         actorInitFromSpawn(arg0, arg0 + 0x24, arg0 + 0x3C);
+        init_mode = gGameMode;
         *((void **) (((char *) temp_s1) + 0xB8)) = NULL;
-        if (gGameMode == 0x19)
+        if (init_mode == 0x19)
         {
           func_800635BC(arg0, 2);
           func_80119DB4(arg0, temp_s1 + 0xB8);
+          obj_local = *((void **) (((char *) temp_s1) + 0xB8));
           D_800E1A20 = 0;
-          *((f32 *) (((char *) (*((void **) (((char *) temp_s1) + 0xB8)))) + 0x4C)) = temp_fs0;
+          *((f32 *) (((char *) obj_local) + 0x4C)) = temp_fs0;
           func_80081D00(temp_s4);
         }
         switch (gGameMode)
@@ -500,10 +504,10 @@ case 2: case 3: goto out_of_line_actor;
     goto block_474;
     actor_in_motion:
 
-    roll.bits = 0;
+    roll.bits = (u32)arg0 & ~(u32)arg0;
     frame.speed = 0.0f;
     D_800E1A1C = 0.0f;
-    var_s6 = 0.0f;
+    var_s6 = roll.number;
     func_80065D90(arg0);
     var_fp = 0.0f;
     var_s5 = 0.0f;
