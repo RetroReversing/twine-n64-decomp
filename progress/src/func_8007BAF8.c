@@ -26,9 +26,6 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
     u32 inverse[10];
   } frame;
   RoutePoint corners[8];
-  volatile s32 padFC;
-  volatile s32 spFC;
-  s32 sp104;
   f32 *temp_s4;
   f32 *var_s0;
   f32 *var_s0_2;
@@ -58,8 +55,6 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
   void *temp_fp;
   void *temp_v0;
   void *temp_v0_2;
-  spFC = arg2;
-  sp104 = arg3;
   temp_fp = *((void **) (((char *) arg0) + 0x6C));
   temp_s5 = *((s32 *) (((char *) arg0) + 0x20));
   frame.dir.coord[0] = (*((f32 *) (((char *) arg1) + 0))) - (*((f32 *) (((char *) arg0) + 0x24)));
@@ -152,8 +147,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
             temp_fs0 = func_80045764(&frame.dir.coord[0], &frame.dir.coord[0]);
             if (((func_8004F430((void *) temp_s5, var_s0_2, &frame.dir.coord[0], temp_fs0) << 0x18) == 0) && ((Ray_CastObjects(&Ray_TriangleIntersect, temp_s5, var_s0_2, &frame.dir.coord[0], 0, temp_fs0, 0, 1, 0) << 0x18) == 0))
             {
-              temp_fs0 = func_800461D4(temp_s4, var_s0_2);
-              temp_fs0 = temp_fs0 + func_800461D4(arg1, var_s0_2);
+              temp_fs0 = func_800461D4(temp_s4, var_s0_2) + func_800461D4(arg1, var_s0_2);
               if (temp_fs0 < var_fs2)
               {
                 var_s6 = var_s1_2;
@@ -185,20 +179,20 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
         if (var_s6 != (-1))
         {
           *((RoutePoint *) (((char *) temp_fp) + 0x18)) = corners[var_s6];
- do { temp_fv0_11 = func_800461D4(arg0 + 0x24, corners[var_s6].coord); var_a1 = spFC; } while (0);
+          temp_fv0_11 = func_800461D4(arg0 + 0x24, corners[var_s6].coord);
           *((f32 *) (((char *) temp_fp) + 0x38)) = temp_fv0_11;
           *((f32 *) (((char *) temp_fp) + 0x34)) = temp_fv0_11;
-          func_80077960(arg0, var_a1);
+          func_80077960(arg0, arg2);
           return 1;
         }
         if (var_s7 != var_s6)
         {
           *((RoutePoint *) (((char *) temp_fp) + 0x18)) = corners[var_s7];
           temp_fv0_12 = func_800461D4(arg0 + 0x24, corners[var_s7].coord);
-          var_a1 = spFC;
           *((f32 *) (((char *) temp_fp) + 0x38)) = temp_fv0_12;
           *((f32 *) (((char *) temp_fp) + 0x34)) = temp_fv0_12;
-          goto block_25;
+          func_80077960(arg0, arg2);
+          return 1;
         }
         var_v0 = 0;
         if (arg3 != 0)
@@ -211,27 +205,18 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
             if ((func_80077E00(arg0) << 0x18) != 0)
             {
               func_80002BD0(arg0, 0x14D);
-              goto block_24;
+              func_80077960(arg0, arg3);
             }
-            goto block_26;
+            return 1;
           }
         }
         return var_v0;
       }
-      block_24:
-      var_a1 = arg3;
-
-      block_25:
-      func_80077960(arg0, var_a1);
-
-      block_26:
+      func_80077960(arg0, arg3);
       return 1;
-
     }
     var_v0 = 0;
     return var_v0;
   }
   return var_v0;
 }
-
-
