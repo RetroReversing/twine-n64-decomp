@@ -38,11 +38,11 @@ void func_800274BC(s32 arg0, u32 arg1) {
     s32 temp_a0;
     u32 temp_t0;
     u8 temp_v1;
-    u32 var_a0;
+    u8 var_a0;
     
     s32 var_a0_3;
     u8 var_a1;
-    s32 var_s1;
+    u8 var_s1;
     void *temp_a1;
     void *temp_s0;
     void *temp_s2;
