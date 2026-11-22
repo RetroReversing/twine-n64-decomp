@@ -6,7 +6,7 @@ typedef struct
   u8 pad[23];
 } Slot_801001A1;
 extern Slot_801001A1 D_801001A1[];
-volatile int func_80019A3C(void)
+s32 func_80019A3C(void)
 {
   volatile s32 *base;
   volatile s32 *first;
@@ -18,33 +18,16 @@ volatile int func_80019A3C(void)
   s32 count;
   s32 key;
   long firstCount;
-  id = 0;
-  first = D_801002B8;
-  base = first + 1;
-  firstCount = *first;
-  firstPresent = (s16) (zero < firstCount);
-  zero = 0;
-  found = 0;
-  outer:
-  idx = 0;
-
+ do { id = 0; first = D_801002B8; base = first + 1; firstCount = *first; zero = (unsigned short) (unsigned int) first ^ ((unsigned int) first & 0xFFFF); do { firstPresent = (s16) (zero < firstCount); } while (0); found = 0; outer: idx = 0; } while (0);
   if (firstPresent)
   {
-    if (zero)
-    {
-      key = (u16) id;
-      count = D_801002B8[0];
-    }
-    else
-    {
-      key = (u16) id;
-      count = D_801002B8[0];
-    }
+    key = (u16) id;
+    count = D_801002B8[0];
     first_loop:
     if (D_801001A1[(u16) idx].id != key)
     {
       idx++;
-      if (count > ((u16) idx))
+      if (((u16) idx) < count)
       {
         goto first_loop;
       }
@@ -85,13 +68,12 @@ volatile int func_80019A3C(void)
 
   goto check;
   next_id:
-  id++;
-
   found = 0;
+
+  id++;
   if (((u16) id) < 2)
   {
     goto outer;
   }
   return 1;
 }
-
