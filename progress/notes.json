@@ -6360,14 +6360,6 @@
   "score_after": 3738
  },
  {
-  "function": "func_8006591C",
-  "text": "Rechecked baseline score 1860. Tried restoring the pointer-array declaration for D_80109688; it warned assignment makes pointer from integer and produced no instruction improvement. Current main mismatch remains signed byte load at temp_a1+0x182: target `lb $a2`, candidate `lbu $a2` (candidate also needs sign extension pattern removed). Target global table lookup uses signed index*4; revisit types/struct layout and control-flow source if useful. Tried local repairs but they stopped on unsupported signedness anchor. Budget reached 8/8; no match.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795165382.880238,
-  "score_before": 1560,
-  "score_after": 1560
- },
- {
   "function": "func_8000D6A0",
   "text": "Best candidate score 5219; the baseline was rechecked. Six local repair families gave no improvement (two variants worsened substantially; the others tied). Correcting func_800839F0 to the matched callee's void(void*,void*,void*) signature and removing the erroneous fourth argument compiled but emitted identical instructions and score. Target begins by saving arg0 in s2 and materializing D_800B2710 before scaled record arithmetic; candidate starts with s16 sign-extension and has major register/stack mismatch. Remaining work should investigate pointer/integer types and local array/struct declarations; repeated superficial scalar signedness changes did not help. Brief flags caller/callee prototype inconsistency; func_800839F0 should be three arguments. No shared reusable matching rule established.",
   "by": "codex-gpt-6-luna-19",
@@ -14504,14 +14496,6 @@
   "score_after": 585
  },
  {
-  "function": "func_8006591C",
-  "text": "Widened `temp_a2` from s8 to s32; score improved 1860\u21921560 and target signed byte load `lb $a2,0x182($a1)` replaced candidate's `lbu`. Later repair batches on the improved revision were flat/worse (best remained 1560); the second pass was interrupted by project progress change. Remaining mismatch primarily float clamp/register allocation and control flow: target clamps using FPU `$ft0/$fv0` with branch-likely delay-slot moves, candidate has same operations in different FP registers and has beqz at +0x164 vs target +0x16c. A variable-width typed temp seems to trigger signed load. Candidate revision 1a54e8c6c7daca81cb2b holds the improved source.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795183545.198296,
-  "score_before": 1560,
-  "score_after": 1560
- },
- {
   "function": "func_8004D910",
   "text": "Best score 5051, no improvement in 8 compiles. Repaired undeclared symbol compile issue by using volatile D_800D3E40, yielding same score; local families assignment_at_use, const_read, shared_return, shared_product_local, source_variable_reuse, goto_shared_tail gave no gain. Replacing `!(temp_ft5 < 1e-10f)` with `temp_ft5 >= 1e-10f` regressed sharply to 12070; restore saved best source. Target first mismatches are loads from stack offsets 0x90/0x94 before scratch stores and floating values moved through GPRs (mfc1/sw), whereas candidate delays loads/spills floats. Main task: restructure stack/output scalar setup and typed float scratch to match early scheduling, then tune FP register lifetimes.",
   "by": "codex-gpt-6-luna-11",
@@ -16558,14 +16542,6 @@
   "created_at": 1795184580.124332,
   "score_before": 5696,
   "score_after": 5696
- },
- {
-  "function": "func_8006591C",
-  "text": "Current source revision 1a54e8c6c7daca81cb2b remains best at score 1560 (freshly rechecked). Tried two six-variant local repair batches covering inferred layout, signedness, address temporaries, constants, scalar lifetime, const read, goto restructuring, symbol address local, and assignment-at-use. No improvement; second batch crossed move-on threshold (reported no better in 10/8). Mismatch starts at target beqz v0 to 0x16c versus candidate 0x164; inspect full target/candidate control flow around this conditional before resuming.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795184580.5193,
-  "score_before": 1560,
-  "score_after": 1560
  },
  {
   "function": "actorFinishIfMatch",
@@ -31176,14 +31152,6 @@
   "score_after": 2805
  },
  {
-  "function": "func_8006591C",
-  "text": "Rechecked saved candidate at 1170. Ran six independent local repairs (split scalar lifetime, inferred record layout, address temporary, goto forward else, goto shared tail, symbol address local); no improvement. Forward/else and shared-tail variants worsened to 1915; others tied or worsened. Move-on threshold reached. Next inspect assembly around initial lbu/branch (target beqz offset 0x16c vs candidate 0x168) and restructure condition/control flow to match branch target and register lifetimes. Preserve revision e3e48e14eeef84b97018.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795202476.6374972,
-  "score_before": 1170,
-  "score_after": 1170
- },
- {
   "function": "func_80076340",
   "text": "Baseline 180; remaining 12 register and 4 order differences in loop counter allocation and initializations. Local type, layout, address and arity trials did not improve.",
   "by": "codex-gpt-6.1-terra-4",
@@ -33912,14 +33880,6 @@
   "score_after": 570
  },
  {
-  "function": "func_8006591C",
-  "text": "Current candidate e3e48e14eeef84b97018 freshly rechecked at 1170. Ran six local repairs; first three tied, fourth stopped on project progress change. Explicit alternatives: attempted condition inversion (compile error), label/goto decoration worsened to 1510, flag local alternative compile error. Overall move-on threshold already met historically (37 local repairs; best 1170). Target's lbu flag branch goes to 0x16c, candidate 0x168; target branch spans one additional instruction. Remaining mismatch is broad register allocation (42 register diffs) plus branch/layout. The existing saved candidate is the handoff baseline.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795205561.3701189,
-  "score_before": 1170,
-  "score_after": 1170
- },
- {
   "function": "sndStopNode",
   "text": "Not matched. Recheck: saved C (draft, rev afd1b7a77ef2f1f0c6c2) scores 4102; the 435-score source from earlier notes is not recoverable (last_compiling unavailable). A cleaned rewrite (rev 8e22cee0dcaaf9fac113, scalar/struct-pointer lookup loop, explicit early returns) scored 5048: target uses a 0x28 frame with saved s0-s4 and 'beqz/beql' lookup exits; my version got a 0x30 frame and extra save slots. Next step: restore the 435 variant if it can be recovered; otherwise try reproducing the frame by declaring s0..s4 live across the do-while (one more loop-local temporary) and the lookup as the draft's loop_5 with early 'return -1' at the arg0==-1 check.",
   "by": "api-claude-haiku-5-5-6",
@@ -36160,14 +36120,6 @@
   "score_after": 75
  },
  {
-  "function": "func_8006591C",
-  "text": "Not matched. Saved best remains e3e48e14eeef84b97018 (score 1170, m2c-style with __repair vars). Tried a clean rewrite (8d2d10bb23ebb9906377, score 3570): target uses signed lb for idx at 0x182 (fixed to *(s8*)(a1+0x182) -> 3370, rev 2717f592d8e6fee8e2b0), but the rewrite's float ops order/regs and the branch structure (target beqz to 0x16c, bc1t to 0x16c; the fallthrough shares a tail with a `goto block_20`-like shape) still differ. Next step: keep the shared tail structure from saved best and only change the lb signedness; check the 0x16c vs 0x184 branch target by reordering the else arm.\nClean rewrite of control flow with typed a1/v0 pointers; and signed lb (*(s8*)) for the 0x182 index\nClean rewrite worse (3570 -> 3370 with lb fix); branch targets 0x184 vs target 0x16c remain",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795207965.5359318,
-  "score_before": 1170,
-  "score_after": 1170
- },
- {
   "function": "func_80099AF0",
   "text": "Rechecked best ae265fccde91229e2bba at score 215. Target code branches around byte tables using sentinel 0xFF and index from low byte of the initial 32-bit field. Tried changing table index scaling from multiply to shift (worse 255), inline byte load (equal), and branch reversal malformed (compile error). The main mismatch is register/control-flow mapping: target retains initial word in v1/a0, then uses v0 as index and v1 as loaded table value; candidate allocates different registers and branch labels. Existing attempts over 104 trials and three move-on compiles; no improvement.",
   "by": "codex-gpt-6-luna-11",
@@ -38190,14 +38142,6 @@
   "created_at": 1795209552.280201,
   "score_before": 38174,
   "score_after": 37095
- },
- {
-  "function": "func_8006591C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Saved best e3e48e14eeef84b97018 (score 1170). Historical work: 37+ local repairs and 74 permuter attempts; clean rewrite reached 3370 at best. Target branches to 0x16c/0x80065A88 with bc1t/beqz and shares a tail between two float store blocks; candidate float op order and register assignment still differ. Untested idea: rewrite the first block as an explicit if/else with the both-branches tail duplicated, rather than goto block_20. Low expected yield under current effort; moving on.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795209552.569163,
-  "score_before": 1170,
-  "score_after": 1170
  },
  {
   "function": "vecSlerp",
@@ -43558,15 +43502,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:2f1bd23cee408b3a32c95a82be1a0fdcfa9553748c8c354700e3038b36bcc356"
  },
  {
-  "function": "func_8006591C",
-  "text": "Not matched. Clean rewrite (21d30f0e2a26c4f9a5ca, score 3630) follows the asm: clamp chains via separate ifs, goto-free. Moving the lb idx load (0x182) to the top (9fb7392f25b05c6b07d9, score 3200) helped. Still worse than saved best e3e48e14eeef84b97018 (1170). Remaining diffs: float register assignment (target uses f2 for D_800C46AC load, f4/f6 for divisions), and target's ft0 clamp path and shared tail with bc1t to 0x16c. Next step: start from saved_best and only adjust the idx load position and the fallthrough tail (store block order), not the float expressions.\nClean rewrite with idx=lb(a1+0x182) hoisted right after a1 load; separate clamp ifs; early-return store block.\nScore 3630 -> 3200; float register allocation and clamp order still differ.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795215138.1333618,
-  "score_before": 2820,
-  "score_after": 2820,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "func_800984CC",
   "text": "Baseline 120/24 instructions. Reordered local declarations kept 120 and all instructions in target order except D_800F7954 load remains emitted later (four instructions reorder). Moving result declaration improved an earlier rewrite from 260 to 120 but subsequent declaration order did not change diff. Candidate is semantically right.\nReordered pointer/result declarations; score stayed 120 with same four reordered instructions.\nAll opcodes present and correct; D_800F7954 load occurs later than target.",
   "by": "codex-gpt-6-luna-15",
@@ -44954,15 +44889,6 @@
   "score_before": 9825,
   "score_after": 7570,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4a2d2a60054d6cb6a33940c4e02b253fa3dd39b40336419ac551c9cb95098d84"
- },
- {
-  "function": "func_8006591C",
-  "text": "Restored saved best c543ef662ad370f4785b (score 1170). Tried split_scalar_lifetime, inferred_record_layout, signedness; no improvement in 4/4 budget. First meaningful mismatch at lbu flag test: target beqz branches to 0x16c, candidate 0x168. Target begins offsets via byte-index scaling and has substantial later register/order differences. Next inspect branch/delay-slot and offsets around flag path; current candidate has malformed temp_v0 pointer conversion warning. No reusable knowledge established.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795216205.93722,
-  "score_before": 2820,
-  "score_after": 1170,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
  },
  {
   "function": "func_80002EF0",
@@ -50457,15 +50383,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:38f15f5a9c4f24fb144db74650f5f799fd25bd0d58fe272351667f9bb24f8bb9"
  },
  {
-  "function": "func_8006591C",
-  "text": "Session ending. The 1170 candidate has an uninitialized factor on the marker path. Assigning the path's selected factor into the shared tail local scores 1560, and hoisting the 0x24/0x28 reads into both predecessor blocks scores 1475. First branch now lands at 0x168 versus 0x16c. Next step: keep the factor fix, calculate both tail outputs before writing them in target 0x24 then 0x28 order.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795225734.593318,
-  "score_before": 1560,
-  "score_after": 1475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "func_80022AD8",
   "text": "Recompiled supplied typed reconstruction; score 15/34 with exact operation sequence. Remaining three register-only differences: first global D_800E0EE0 load/store uses $v0 vs target $a1, likely cascading allocation. Tried local repairs (parameter width, global-address local, assignment-at-use); no improvement, one C89 compile failure. Next step: reorder source local declarations/assignments around x/y/z loads to extend x lifetime into its target $a1 register.\nType-width and address staging variants; no score improvement.\n3 register-only instruction differences persist; no operations differ.",
   "by": "codex-gpt-6-luna-15",
@@ -55652,15 +55569,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bd0ee42ea13b2d868c445f5ef59c35f286854341cbaa0c4ebc3d75f08c1e5e40"
  },
  {
-  "function": "func_8006591C",
-  "text": "Rechecked saved 1170. Reported its uninitialized marker-path scale; corrected alternative 2192e87844a7979d8840 is available via reported_corrected. Target stores 0x24 then 0x28 in both tails.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795233616.729579,
-  "score_before": 1560,
-  "score_after": 1355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "func_8001ED10",
   "text": "Const-qualified table pointer and removing redundant assignment gave unchanged 1545; target sets up base later. Raw-address mismatch at row 68 remains to inspect.\nConst table pointer and remove redundant assignment\nBoth 1545 with identical instructions.",
   "by": "codex-gpt-6.1-terra-5",
@@ -60790,15 +60698,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b967f0af2630ace1807efe4add8f28cde745b91a88cd1e6c433b5d50d0282965"
  },
  {
-  "function": "func_8006591C",
-  "text": "Corrected gTrackMarkers symbol and rechecked reported candidate at 1355. Three target operations in float tail are absent; register allocation and branch offsets also differ. Swapping division source order produced identical instructions; inferred layout and unsigned index were also unchanged, split lifetime worsened to 2670.\nSwapped the two division assignments\nIdentical instructions, score 1355",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795240408.617185,
-  "score_before": 2830,
-  "score_after": 1355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "updateActorPartnerLink",
   "text": "Baseline 2945. Target loads mode as unsigned byte but uses signed comparisons; changing global to u8 alone produces sltiu and worsens score. Target branch layout suggests a switch with cases 2/3, 7 and 8, falling into shared default logic; rewrite the m2c control flow as a switch and inspect branches. Local pointer, call arity, record layout and signedness variants did not improve.",
   "by": "codex-gpt-6.1-terra-3",
@@ -62586,15 +62485,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:c5feeaed2dbfbd305974a0114bfcd3b6cbf6cac8f5ad195afa2e49b9e743b67c"
  },
  {
-  "function": "func_8006591C",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 5; 82 differing rows (1 opcode, 41 register, 11 branch target, 6 operand, 8 reordered, 8 inserted, 7 deleted; advisory).\nTarget: lb $a2, 0x182($a1)\nCandidate: lbu $a2, 0x182($a1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $at, %hi(D_800C7C9C)\n  = lwc1 $f0, %lo(D_800C7C9C)($at)\n| T: lb $a2, 0x182($a1) | C: lbu $a2, 0x182($a1)\n  = sll $v0, $v1, 3\n  = subu $v0, $v0, $v1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nCurrent revision ef8691285e612f124c4d rechecked 2305. Byte-based global offsets, float access at D_800C46AC and byte access at D_80115089 improved baseline 2830. Splitting float lifetime worsened to 3180; inferred layout and address temporary unchanged. Target uses lb at 0x182 whereas candidate uses lbu. Next step: use a signed int temporary for the signed byte index and compare the float tail against target.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795243418.83273,
-  "score_before": 1355,
-  "score_after": 1355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "func_80026F84",
   "text": "Current baseline 2220: unsigned 0xFF fields, gSaveMenuState, corrected table indexing. Target later uses gMenuUseTextList, gBorderSkipActive, sMenuListKind; mapping use-text-list alone scored unchanged. Local branch, signedness and delay-slot repairs did not improve. Claim state was reset during work.\nMapped gMenuUseTextList after mapping sMenuListKind\nScore unchanged at 2220; branch and global reload scheduling remain different.",
   "by": "codex-gpt-6.1-terra-5",
@@ -62629,15 +62519,6 @@
   "score_before": 120,
   "score_after": 120,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:606d9f6866f67022e72a9edd3362c16faf98e18e64327eb7c077d0c772b723a2"
- },
- {
-  "function": "func_8006591C",
-  "text": "Verified current fresh candidate 2585; restored historical saved_best revision ef8691285e612f124c4d (historical score 2305 but unverified after symbol input changes). My iteration corrected table symbol to sTrackMarkerTable and gGameMode; diff still substantial. Prior 1355 candidate had three missing float-tail ops; division order swap was instruction-identical; inferred layout/unsigned index unchanged; split lifetime worsened. Current diagnostics show byte signedness/casts and FPR allocation issues. Next step: compile restored baseline, then fix gTrackMarkerTable declaration as array of pointers and use signed byte temp_a2 (lb target) while preserving existing best.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795243470.8718631,
-  "score_before": 1355,
-  "score_after": 1355,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
  },
  {
   "function": "func_800219A0",
@@ -67251,15 +67132,6 @@
   "score_before": 201312,
   "score_after": 201312,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f7e067ebe7014bf39961f8ceb051bb5eb083c0dd969e0f78aba2c2df26e76d06"
- },
- {
-  "function": "func_8006591C",
-  "text": "Verified 1915 using u8 byte-indexed D_80115089 and correctly named sTrackMarkerTable pointer array. Remaining differences concern float-register allocation, duplicated reloads, and shared tail scheduling.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795253137.842137,
-  "score_before": 2145,
-  "score_after": 1915,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
  },
  {
   "function": "beginSceneTransition",
@@ -73006,15 +72878,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
-  "function": "func_8006591C",
-  "text": "Four compiles without improving the saved best. A rewrite merging fallback updates scored 3250. Assigning the marker rate at the join scored 975. Explicit coordinate staging and lifetime reuse scored 850 and 685. Restored historical best 585.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795293608.4836512,
-  "score_before": 585,
-  "score_after": 585,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "func_80048F10",
   "text": "Verified 27548. Explicit outer backedge scored 28974, row-index storage reuse 51652, 12-float matrix 28133 (regional improvement). Target frame 0x290 versus 0x2a8.\nGrow matrix from nine to twelve floats\n28133 versus 27548 with a regional improvement",
   "by": "codex-gpt-6.2-sol-6",
@@ -73706,15 +73569,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:167a9b6760d5a51930cf5e2d05061ebc086e9000afbcc3b8a662b7db9f15a2b8"
  },
  {
-  "function": "func_8006591C",
-  "text": "The 585 candidate uses uninitialized __repair_var_ft2_2 on the marker path. Unifying it with var_ft2 restores the rate semantics at 975. Staging both coordinates before the shared tail scored 1875 or 2025. Next step: from the 975 correction, stage only the Y load before the marker-path goto and retain X in the existing expression.\nUnified the shared rate and staged both coordinates on each path.\n975 for the rate correction; 1875 and 2025 for explicit staging.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795302340.307863,
-  "score_before": 585,
-  "score_after": 585,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "Ray_TriangleIntersect",
   "text": "Saved score 410 from 970. A volatile direction-Z dereference fixes its load scheduling. Two final early returns of var_v0 followed by setting var_v0 on success recover the target bc1fl and delay-slot multiply. Remaining: float zero is materialized before the determinant check instead of after the u calculation, integer register allocation shifts, and success has an extra move. Literal success return or simplifying the determinant guard restored score 760.",
   "by": "codex-gpt-6.2-sol-9",
@@ -73956,15 +73810,6 @@
   "score_before": 1505,
   "score_after": 1495,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:167a9b6760d5a51930cf5e2d05061ebc086e9000afbcc3b8a662b7db9f15a2b8"
- },
- {
-  "function": "func_8006591C",
-  "text": "580 baseline still has an uninitialized rate on the marker path. Unifying the rate and staging Y alone scored 2065, adding an early jump and changing the clamp registers.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795305951.517165,
-  "score_before": 580,
-  "score_after": 580,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
  },
  {
   "function": "func_8009ABD4",
@@ -78375,15 +78220,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
  },
  {
-  "function": "func_8006591C",
-  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 96; 25 differing rows (19 register, 4 operand, 1 inserted, 1 deleted; advisory).\nTarget: lwc1 $f4, 0x1c($a1)\nCandidate: lwc1 $f12, 0x1c($a1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beqz $v0, 0x1bc\n  = addiu $v0, $zero, 0x19\nr T: lwc1 $f4, 0x1c($a1) | C: lwc1 $f12, 0x1c($a1)\nr T: lwc1 $f6, 0x24($a1) | C: lwc1 $f10, 0x24($a1)\nr T: lwc1 $f0, 0x20($a1) | C: lwc1 $f6, 0x20($a1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795336625.870257,
-  "score_before": 580,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "func_8003C228",
   "text": "Current verified baseline 2475. The candidate has three semantic discrepancies confirmed from target: temp_s1 reads 0x28 through inline_fn instead of 0x10, the indexed path masks away env green-byte bits 16\u201323, and the non-indexed pair writes FA to +8 and advances +24 instead of writing FA to +0 and advancing +16. Typed two-word commands with volatile advances in the non-indexed pair scored 3445, isolated 0xFF0000 mask restoration scored 3545, explicit volatile sp1F scored 3181. Correcting the primary color field load alone generated lw +0x10 but scored 2545 due to changed allocation and scheduling. Saved best restored.",
   "by": "codex-gpt-6.2-sol-9",
@@ -79815,15 +79651,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
  },
  {
-  "function": "func_8006591C",
-  "text": "Staged flagged-path loads and arithmetic (275/280), registered tx (260 unchanged), split follow-path tx/ty lifetimes (270), reused steer Y local for follow (1205).\nBaseline 260 is 52 register-only differences; first quotient uses f6 instead of f4.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795344703.935179,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "func_8008B824",
   "text": "Judge move-on threshold reached at 8/4. Explicit second magic multiply with >>39 scored 665 and splitting off the high word scored 755. Both recovered shift immediates 6 and 7 but inserted an mflo and other instructions. Saved 305 candidate restored.",
   "by": "codex-gpt-6.2-sol-9",
@@ -80705,15 +80532,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3e177126be69d4d304d28962873ef851609163b993824d275f7d396ad0e1c860"
  },
  {
-  "function": "func_8006591C",
-  "text": "The judge reached 5/4 compiles without improvement. Y numerator/denominator temporaries were neutral, compound divide scored 685, and delayed division scored 1615. A scoped Y clamp scored 390 with regional improvement. Saved score 240 has 48 register-only rows starting at the Y divide destination.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795353841.0503218,
-  "score_before": 240,
-  "score_after": 240,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "func_8009ABD4",
   "text": "Rechecked inherited 1005 with 148 target and candidate instructions. First mismatch is extra move a1,s4 before opcode mask. Second packed operand has reversed shifts and lacks move a1,v1 in branch delay slot. Clamp branch-likely is also missing. Direct masked opcode comparison worsens prologue allocation. Restored saved best.",
   "by": "codex-gpt-6.2-sol-9",
@@ -81025,15 +80843,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4c6a53c3ffd7a1a00eda9d917d1c94de3f8977a6ac3a579f762df796feeecbb1"
  },
  {
-  "function": "func_8006591C",
-  "text": "Reached the move-on limit trying Y division shapes and declarations. Baseline 240 retains 48 register differences.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795355997.719035,
-  "score_before": 240,
-  "score_after": 240,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
- },
- {
   "function": "func_80059944",
   "text": "Tested a signed advanceActorMotion direction parameter against the negative call. Rechecked baseline and patch both score 8565 with the same diff. App move-on threshold reached at 5/4. The unresolved .rodata references at +0x78 and +0xA0 remain.\nChanged advanceActorMotion direction declaration from u32 to s32.\nSame score and diff at 8565.",
   "by": "codex-gpt-6.2-sol-9",
@@ -81310,15 +81119,6 @@
   "score_before": 340,
   "score_after": 340,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:7860cef1dc2879e945e4cbd46dc5ad400eddadd164fd31779f327da768c65c0b"
- },
- {
-  "function": "func_8006591C",
-  "text": "Improved 240 to 180 by separating follow-path temporaries, splitting the steer Y delta, and storing follow sums directly. The judge's move-on limit has been reached. 36 register-only rows remain starting at the Y divide destination.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795357707.162257,
-  "score_before": 240,
-  "score_after": 180,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
  },
  {
   "function": "func_8004C750",
@@ -88189,5 +87989,205 @@
   "created_at": 1795383588.411154,
   "score_before": 120,
   "score_after": 120
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Rechecked baseline score 1860. Tried restoring the pointer-array declaration for D_80109688; it warned assignment makes pointer from integer and produced no instruction improvement. Current main mismatch remains signed byte load at temp_a1+0x182: target `lb $a2`, candidate `lbu $a2` (candidate also needs sign extension pattern removed). Target global table lookup uses signed index*4; revisit types/struct layout and control-flow source if useful. Tried local repairs but they stopped on unsupported signedness anchor. Budget reached 8/8; no match.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795165382.880238,
+  "score_before": 1560,
+  "score_after": 1560
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Widened `temp_a2` from s8 to s32; score improved 1860\u21921560 and target signed byte load `lb $a2,0x182($a1)` replaced candidate's `lbu`. Later repair batches on the improved revision were flat/worse (best remained 1560); the second pass was interrupted by project progress change. Remaining mismatch primarily float clamp/register allocation and control flow: target clamps using FPU `$ft0/$fv0` with branch-likely delay-slot moves, candidate has same operations in different FP registers and has beqz at +0x164 vs target +0x16c. A variable-width typed temp seems to trigger signed load. Candidate revision 1a54e8c6c7daca81cb2b holds the improved source.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795183545.198296,
+  "score_before": 1560,
+  "score_after": 1560
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Current source revision 1a54e8c6c7daca81cb2b remains best at score 1560 (freshly rechecked). Tried two six-variant local repair batches covering inferred layout, signedness, address temporaries, constants, scalar lifetime, const read, goto restructuring, symbol address local, and assignment-at-use. No improvement; second batch crossed move-on threshold (reported no better in 10/8). Mismatch starts at target beqz v0 to 0x16c versus candidate 0x164; inspect full target/candidate control flow around this conditional before resuming.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795184580.5193,
+  "score_before": 1560,
+  "score_after": 1560
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Rechecked saved candidate at 1170. Ran six independent local repairs (split scalar lifetime, inferred record layout, address temporary, goto forward else, goto shared tail, symbol address local); no improvement. Forward/else and shared-tail variants worsened to 1915; others tied or worsened. Move-on threshold reached. Next inspect assembly around initial lbu/branch (target beqz offset 0x16c vs candidate 0x168) and restructure condition/control flow to match branch target and register lifetimes. Preserve revision e3e48e14eeef84b97018.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795202476.6374972,
+  "score_before": 1170,
+  "score_after": 1170
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Current candidate e3e48e14eeef84b97018 freshly rechecked at 1170. Ran six local repairs; first three tied, fourth stopped on project progress change. Explicit alternatives: attempted condition inversion (compile error), label/goto decoration worsened to 1510, flag local alternative compile error. Overall move-on threshold already met historically (37 local repairs; best 1170). Target's lbu flag branch goes to 0x16c, candidate 0x168; target branch spans one additional instruction. Remaining mismatch is broad register allocation (42 register diffs) plus branch/layout. The existing saved candidate is the handoff baseline.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795205561.3701189,
+  "score_before": 1170,
+  "score_after": 1170
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Not matched. Saved best remains e3e48e14eeef84b97018 (score 1170, m2c-style with __repair vars). Tried a clean rewrite (8d2d10bb23ebb9906377, score 3570): target uses signed lb for idx at 0x182 (fixed to *(s8*)(a1+0x182) -> 3370, rev 2717f592d8e6fee8e2b0), but the rewrite's float ops order/regs and the branch structure (target beqz to 0x16c, bc1t to 0x16c; the fallthrough shares a tail with a `goto block_20`-like shape) still differ. Next step: keep the shared tail structure from saved best and only change the lb signedness; check the 0x16c vs 0x184 branch target by reordering the else arm.\nClean rewrite of control flow with typed a1/v0 pointers; and signed lb (*(s8*)) for the 0x182 index\nClean rewrite worse (3570 -> 3370 with lb fix); branch targets 0x184 vs target 0x16c remain",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795207965.5359318,
+  "score_before": 1170,
+  "score_after": 1170
+ },
+ {
+  "function": "func_8006591C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Saved best e3e48e14eeef84b97018 (score 1170). Historical work: 37+ local repairs and 74 permuter attempts; clean rewrite reached 3370 at best. Target branches to 0x16c/0x80065A88 with bc1t/beqz and shares a tail between two float store blocks; candidate float op order and register assignment still differ. Untested idea: rewrite the first block as an explicit if/else with the both-branches tail duplicated, rather than goto block_20. Low expected yield under current effort; moving on.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795209552.569163,
+  "score_before": 1170,
+  "score_after": 1170
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Not matched. Clean rewrite (21d30f0e2a26c4f9a5ca, score 3630) follows the asm: clamp chains via separate ifs, goto-free. Moving the lb idx load (0x182) to the top (9fb7392f25b05c6b07d9, score 3200) helped. Still worse than saved best e3e48e14eeef84b97018 (1170). Remaining diffs: float register assignment (target uses f2 for D_800C46AC load, f4/f6 for divisions), and target's ft0 clamp path and shared tail with bc1t to 0x16c. Next step: start from saved_best and only adjust the idx load position and the fallthrough tail (store block order), not the float expressions.\nClean rewrite with idx=lb(a1+0x182) hoisted right after a1 load; separate clamp ifs; early-return store block.\nScore 3630 -> 3200; float register allocation and clamp order still differ.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795215138.1333618,
+  "score_before": 2820,
+  "score_after": 2820,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Restored saved best c543ef662ad370f4785b (score 1170). Tried split_scalar_lifetime, inferred_record_layout, signedness; no improvement in 4/4 budget. First meaningful mismatch at lbu flag test: target beqz branches to 0x16c, candidate 0x168. Target begins offsets via byte-index scaling and has substantial later register/order differences. Next inspect branch/delay-slot and offsets around flag path; current candidate has malformed temp_v0 pointer conversion warning. No reusable knowledge established.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795216205.93722,
+  "score_before": 2820,
+  "score_after": 1170,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Session ending. The 1170 candidate has an uninitialized factor on the marker path. Assigning the path's selected factor into the shared tail local scores 1560, and hoisting the 0x24/0x28 reads into both predecessor blocks scores 1475. First branch now lands at 0x168 versus 0x16c. Next step: keep the factor fix, calculate both tail outputs before writing them in target 0x24 then 0x28 order.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795225734.593318,
+  "score_before": 1560,
+  "score_after": 1475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Rechecked saved 1170. Reported its uninitialized marker-path scale; corrected alternative 2192e87844a7979d8840 is available via reported_corrected. Target stores 0x24 then 0x28 in both tails.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795233616.729579,
+  "score_before": 1560,
+  "score_after": 1355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Corrected gTrackMarkers symbol and rechecked reported candidate at 1355. Three target operations in float tail are absent; register allocation and branch offsets also differ. Swapping division source order produced identical instructions; inferred layout and unsigned index were also unchanged, split lifetime worsened to 2670.\nSwapped the two division assignments\nIdentical instructions, score 1355",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795240408.617185,
+  "score_before": 2830,
+  "score_after": 1355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 5; 82 differing rows (1 opcode, 41 register, 11 branch target, 6 operand, 8 reordered, 8 inserted, 7 deleted; advisory).\nTarget: lb $a2, 0x182($a1)\nCandidate: lbu $a2, 0x182($a1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $at, %hi(D_800C7C9C)\n  = lwc1 $f0, %lo(D_800C7C9C)($at)\n| T: lb $a2, 0x182($a1) | C: lbu $a2, 0x182($a1)\n  = sll $v0, $v1, 3\n  = subu $v0, $v0, $v1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nCurrent revision ef8691285e612f124c4d rechecked 2305. Byte-based global offsets, float access at D_800C46AC and byte access at D_80115089 improved baseline 2830. Splitting float lifetime worsened to 3180; inferred layout and address temporary unchanged. Target uses lb at 0x182 whereas candidate uses lbu. Next step: use a signed int temporary for the signed byte index and compare the float tail against target.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795243418.83273,
+  "score_before": 1355,
+  "score_after": 1355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Verified current fresh candidate 2585; restored historical saved_best revision ef8691285e612f124c4d (historical score 2305 but unverified after symbol input changes). My iteration corrected table symbol to sTrackMarkerTable and gGameMode; diff still substantial. Prior 1355 candidate had three missing float-tail ops; division order swap was instruction-identical; inferred layout/unsigned index unchanged; split lifetime worsened. Current diagnostics show byte signedness/casts and FPR allocation issues. Next step: compile restored baseline, then fix gTrackMarkerTable declaration as array of pointers and use signed byte temp_a2 (lb target) while preserving existing best.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795243470.8718631,
+  "score_before": 1355,
+  "score_after": 1355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Verified 1915 using u8 byte-indexed D_80115089 and correctly named sTrackMarkerTable pointer array. Remaining differences concern float-register allocation, duplicated reloads, and shared tail scheduling.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795253137.842137,
+  "score_before": 2145,
+  "score_after": 1915,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Four compiles without improving the saved best. A rewrite merging fallback updates scored 3250. Assigning the marker rate at the join scored 975. Explicit coordinate staging and lifetime reuse scored 850 and 685. Restored historical best 585.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795293608.4836512,
+  "score_before": 585,
+  "score_after": 585,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "The 585 candidate uses uninitialized __repair_var_ft2_2 on the marker path. Unifying it with var_ft2 restores the rate semantics at 975. Staging both coordinates before the shared tail scored 1875 or 2025. Next step: from the 975 correction, stage only the Y load before the marker-path goto and retain X in the existing expression.\nUnified the shared rate and staged both coordinates on each path.\n975 for the rate correction; 1875 and 2025 for explicit staging.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795302340.307863,
+  "score_before": 585,
+  "score_after": 585,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "580 baseline still has an uninitialized rate on the marker path. Unifying the rate and staging Y alone scored 2065, adding an early jump and changing the clamp registers.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795305951.517165,
+  "score_before": 580,
+  "score_after": 580,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 96; 25 differing rows (19 register, 4 operand, 1 inserted, 1 deleted; advisory).\nTarget: lwc1 $f4, 0x1c($a1)\nCandidate: lwc1 $f12, 0x1c($a1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beqz $v0, 0x1bc\n  = addiu $v0, $zero, 0x19\nr T: lwc1 $f4, 0x1c($a1) | C: lwc1 $f12, 0x1c($a1)\nr T: lwc1 $f6, 0x24($a1) | C: lwc1 $f10, 0x24($a1)\nr T: lwc1 $f0, 0x20($a1) | C: lwc1 $f6, 0x20($a1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795336625.870257,
+  "score_before": 580,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Staged flagged-path loads and arithmetic (275/280), registered tx (260 unchanged), split follow-path tx/ty lifetimes (270), reused steer Y local for follow (1205).\nBaseline 260 is 52 register-only differences; first quotient uses f6 instead of f4.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795344703.935179,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "The judge reached 5/4 compiles without improvement. Y numerator/denominator temporaries were neutral, compound divide scored 685, and delayed division scored 1615. A scoped Y clamp scored 390 with regional improvement. Saved score 240 has 48 register-only rows starting at the Y divide destination.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795353841.0503218,
+  "score_before": 240,
+  "score_after": 240,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Reached the move-on limit trying Y division shapes and declarations. Baseline 240 retains 48 register differences.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795355997.719035,
+  "score_before": 240,
+  "score_after": 240,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Improved 240 to 180 by separating follow-path temporaries, splitting the steer Y delta, and storing follow sums directly. The judge's move-on limit has been reached. 36 register-only rows remain starting at the Y divide destination.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795357707.162257,
+  "score_before": 240,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
  }
 ]
