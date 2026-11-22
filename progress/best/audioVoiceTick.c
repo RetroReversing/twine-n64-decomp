@@ -475,7 +475,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         if (temp_v0_9 != 0)
       {
         temp_v0_10 = *((u16 *) (((char *) temp_v0_9) + 0));
-        scratch.params[0] = (temp_v0_10 >> 8) | (temp_v0_10 << 8);
+        temp_s0_7 = (temp_v0_10 >> 8); scratch.params[0] = temp_s0_7 | (temp_v0_10 << 8);
         temp_v0_11 = *((u16 *) (((char *) temp_v0_9) + 2));
         scratch.params[1] = (temp_v0_11 >> 8) | (temp_v0_11 << 8);
         temp_v0_12 = *((u16 *) (((char *) temp_v0_9) + 4));
@@ -842,7 +842,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x40:
         temp_a0_5 = *((s32 *) (((char *) arg0) + 0x24));
         temp_s2 = *((u8 *) (((char *) (&D_800FDBA0)) + 3));
-        if (((temp_a0_5 & 0x200000) == 0) | (temp_s2 == 0))
+        if ((((u32) (temp_a0_5 & 0x200000) - 1U) >> 31) | (temp_s2 == 0))
       {
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) (temp_a0_5 | 0x200000);
         *((u8 *) (((char *) arg0) + 0xD4)) = 0U;
@@ -868,7 +868,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x41:
         temp_a0_7 = *((s32 *) (((char *) arg0) + 0x24));
         temp_s2_2 = *((u8 *) (((char *) (&D_800FDBA0)) + 3));
-        if (((temp_a0_7 & 0x400000) == 0) | (!temp_s2_2))
+        if ((((u32) (temp_a0_7 & 0x400000) - 1U) >> 31) | (!temp_s2_2))
       {
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) (temp_a0_7 | 0x400000);
         *((u8 *) (((char *) arg0) + 0xE6)) = 0U;
@@ -894,7 +894,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x42:
         temp_a0_9 = *((s32 *) (((char *) arg0) + 0x24));
         temp_s2_3 = *((u8 *) (((char *) (&D_800FDBA0)) + 3));
-        if (((temp_a0_9 & 0x800000) == 0) | (temp_s2_3 == 0))
+        if ((((u32) (temp_a0_9 & 0x800000) - 1U) >> 31) | (temp_s2_3 == 0))
       {
         *((s32 *) (0x24 + ((char *) arg0))) = (s32) (temp_a0_9 | 0x800000);
         *((u8 *) (inline_fn(arg0) + 0x10A)) = 0U;
@@ -920,7 +920,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x43:
         temp_a0_11 = *((s32 *) (((char *) arg0) + 0x24));
         temp_s2_4 = *((u8 *) (((char *) (&D_800FDBA0)) + 3));
-        if (((temp_a0_11 & 0x01000000) == 0) | (temp_s2_4 == 0))
+        if ((((u32) (temp_a0_11 & 0x01000000) - 1U) >> 31) | (temp_s2_4 == 0))
       {
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) (temp_a0_11 | 0x01000000);
         *((u8 *) (((char *) arg0) + 0x12E)) = 0U;
@@ -946,7 +946,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x44:
         temp_a0_13 = *((s32 *) (((char *) arg0) + 0x24));
         temp_s2_5 = *((u8 *) (((char *) (&D_800FDBA0)) + 3));
-        if (((temp_a0_13 & 0x08000000) == 0) | (temp_s2_5 == 0))
+        if ((((u32) (temp_a0_13 & 0x08000000) - 1U) >> 31) | (temp_s2_5 == 0))
       {
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) (temp_a0_13 | 0x08000000);
         *((u8 *) (((char *) arg0) + 0x140)) = 0U;
@@ -972,7 +972,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x45:
         temp_a0_15 = *((s32 *) (((char *) arg0) + 0x24));
         temp_s2_6 = *((u8 *) (((char *) (&D_800FDBA0)) + 3));
-        if (((temp_a0_15 & 0x04000000) == 0) | (!temp_s2_6))
+        if ((((u32) (temp_a0_15 & 0x04000000) - 1U) >> 31) | (!temp_s2_6))
       {
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) (temp_a0_15 | 0x04000000);
         *((u8 *) (((char *) arg0) + 0x152)) = 0U;
@@ -998,7 +998,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x46:
         temp_a0_17 = *((s32 *) (((char *) arg0) + 0x24));
         temp_s2_7 = *((u8 *) (((char *) (&D_800FDBA0)) + 3));
-        if (((temp_a0_17 & 0x02000000) == 0) | (temp_s2_7 == 0))
+        if ((((u32) (temp_a0_17 & 0x02000000) - 1U) >> 31) | (temp_s2_7 == 0))
       {
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) (temp_a0_17 | 0x02000000);
         *((u8 *) (((char *) arg0) + 0x164)) = 0U;
@@ -1024,7 +1024,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x47:
         temp_a0_19 = *((s32 *) (((char *) arg0) + 0x24));
         temp_s2_8 = *((u8 *) (((char *) (&D_800FDBA0)) + 3));
-        if (((temp_a0_19 & 0x10000000) == 0) | (temp_s2_8 == 0))
+        if ((((u32) (temp_a0_19 & 0x10000000) - 1U) >> 31) | (temp_s2_8 == 0))
       {
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) (temp_a0_19 | 0x10000000);
         *((u8 *) (((char *) arg0) + 0xF8)) = 0U;
@@ -1050,7 +1050,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       case 0x48:
         temp_a0_21 = *((s32 *) (((char *) arg0) + 0x24));
         temp_s2_9 = *((u8 *) (((char *) (&D_800FDBA0)) + 3));
-        if (((temp_a0_21 & 0x20000000) == 0) | (temp_s2_9 == 0))
+        if ((((u32) (temp_a0_21 & 0x20000000) - 1U) >> 31) | (temp_s2_9 == 0))
       {
         *((s32 *) (((char *) arg0) + 0x24)) = (s32) (temp_a0_21 | 0x20000000);
         *((u8 *) (((char *) arg0) + 0x11C)) = 0U;
@@ -1177,6 +1177,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     *((s32 *) (((char *) arg0) + 0x9C)) = 0U;
   }
 }
+
 
 
 

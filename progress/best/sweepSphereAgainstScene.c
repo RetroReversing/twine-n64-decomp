@@ -40,6 +40,11 @@ typedef struct
 {
   u8 v;
 } Field_u8;
+inline static float inline_fn(f32 *arg0, f32 arg1)
+{
+  return arg0[1] - arg1;
+}
+
 s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void *arg4, void *arg5, s32 arg6, s32 arg7)
 {
   f32 sp18[3];
@@ -603,7 +608,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
       vec70.y = temp_fv0;
       vec70.z = ((Field_f32 *) (((char *) gPlayerActor) + 0x2C))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x38))->v;
       ((Field_f32 *) (((char *) arg4) + 0))->v = (f32) (temp_ft1 + (matrix[0] - result.rotated[0]));
-      ((Field_f32 *) (((char *) arg4) + 4))->v = (f32) (temp_fv0 + (matrix[1] - result.rotated[1]));
+      ((Field_f32 *) (((char *) arg4) + 4))->v = (f32) (temp_fv0 + inline_fn(matrix, result.rotated[1]));
       ((Field_f32 *) (((char *) arg4) + 8))->v = (f32) (vec70.z + (matrix[2] - result.rotated[2]));
       vec118 = *((SweepVec *) sp134);
       vec118.x += ((Field_f32 *) (((char *) arg4) + 0))->v;

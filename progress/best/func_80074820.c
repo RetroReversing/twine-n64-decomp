@@ -144,8 +144,16 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
   {
     s8 *buffer = sp30;
     s32 *entries = (s32 *) (&D_80100B20);
-    var_v0 = *var_s1;
-    var_a0_2 = 0;
+    if (var_a0)
+    {
+      var_v0 = *var_s1;
+      var_a0_2 = 0;
+    }
+    else
+    {
+      var_v0 = *var_s1;
+      var_a0_2 = 0;
+    }
     do
     {
       temp_a1 = var_s1;
