@@ -14,7 +14,7 @@ void func_80005310(AnimObject *obj) {
     f32 *timePtr = &state->anim.time;
     f32 time = *timePtr;
     f32 period = frames->period;
-    s32 count, index, next;
+    s32 count, index, next, t;
     f32 *times, *p;
     f32 numerator, denominator, previous, blend;
 
@@ -55,7 +55,8 @@ void func_80005310(AnimObject *obj) {
             next = index + 1;
         }
     }
-    next = next < count ? next : 0;
+    t = next;
+    if (next >= count) t = 0;
 
     p = (f32 *)(index * 4 + (s32)times);
     denominator = *p;
@@ -68,10 +69,11 @@ void func_80005310(AnimObject *obj) {
     blend = numerator / denominator;
     if (!(anim->flags & 0x40000)) {
         D_800D9414 = blend;
-        func_8000600C(obj, anim->h7E, index, next);
+        func_8000600C(obj, anim->h7E, index, t);
         *timePtr = time;
         return;
     }
-    func_80005C70(anim->a44, anim->h7E, index, next, blend, anim->flags & 1);
+    func_80005C70(anim->a44, anim->h7E, index, t, blend, anim->flags & 1);
     *timePtr = time;
 }
+

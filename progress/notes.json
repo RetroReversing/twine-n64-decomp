@@ -3648,14 +3648,6 @@
   "score_after": 455
  },
  {
-  "function": "func_80005310",
-  "text": "Claim ended during third compile. Observed verified score 310 (revision 6d0c12687d06ee68dc9b, saved historical 750 at time of result). The best tested source is below. Remaining target-only moves are `move $a3,$t1` immediately after masking next and again in the func_8000600C JAL delay slot; candidate currently masks directly into $a3 and delays the blend global store into the JAL. Three pointer additions also have reversed inputs. The backward search requires an explicit header label and backward goto to avoid GCC loop rotation. Source:\ntypedef struct { f32 period; s32 count; s32 unk8; f32 times[1]; } FrameTimes;\ntypedef struct { s32 flags; u8 pad4[0x18]; f32 time; u8 pad20[0x24]; s32 a44; u8 pad48[4]; FrameTimes *frames; u8 pad50[0x2E]; s16 h7E; } AnimSub;\ntypedef struct { u8 pad[0x14]; AnimSub anim; } AnimState;\ntypedef struct { u8 pad[0x68]; AnimState *state; } AnimObject;\n\nextern f32 D_800D9414;\nvoid func_80005C70(s32, s32, s32, s32, f32, s32);\nvoid func_8000600C(void *, s32, s32, s32);\n\nvoid func_80005310(AnimObject *obj) {\n    AnimState *state = obj->state;\n    FrameTimes *frames = state->anim.frames;\n    AnimSub *anim = &state->anim;\n    f32 *timePtr = &state->anim.time;\n    f32 time = *timePtr;\n    f32 period = frames->period;\n    s32 count, index, next;\n    f32 *times, *p;\n    f32 numerator, denominator, previous, blend;\n\n    while (period <= time) {\n        time -= period;\n    }\n    if (time < 0.0f) {\n        period = *(volatile f32 *)&frames->period;\n        do {\n            time += period;\n        } while (time < 0.0f);\n    }\n\n    count = frames->count;\n    index = (s32)((time * (f32)count) / *(volatile f32 *)&frames->period);\n    times = frames->times;\n    p = index + times;\n    if (time < *p) {\n    scanBack:\n        next = index + 1;\n        if (index != 0) {\n            previous = p[-1];\n            p--;\n            if (time < previous) {\n                index--;\n                goto scanBack;\n            }\n        }\n    } else {\n        index++;\n        p = index + times;\n        next = index + 1;\n        if (*p <= time) {\n            do {\n                p++;\n                index++;\n            } while (*p <= time);\n            next = index + 1;\n        }\n    }\n    next = next < count ? next : 0;\n\n    p = index + times;\n    denominator = *p;\n    numerator = time;\n    if (index > 0) {\n        previous = p[-1];\n        numerator = time - previous;\n        denominator -= previous;\n    }\n    blend = numerator / denominator;\n    if (!(anim->flags & 0x40000)) {\n        D_800D9414 = blend;\n        func_8000600C(obj, anim->h7E, index, next);\n        *timePtr = time;\n        return;\n    }\n    func_80005C70(anim->a44, anim->h7E, index, next, blend, anim->flags & 1);\n    *timePtr = time;\n}",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795138659.506697,
-  "score_before": 2085,
-  "score_after": 310
- },
- {
   "function": "updateActorProximityTrigger",
   "text": "Best current score 2078, rechecked. Main gap is target prologue/frame 0x60 with saved s0-s4/ra versus candidate frame 0x48; downstream differences include an extra stack temp at +0x38 and arg/register scheduling. The draft's comma-expression conditions generated best result. A structured early-return rewrite scored 5054 and was discarded. Target assembly pages were inspected; angle/math path does float conversions and stores y-1 to the outgoing stack. Local repair trials for loop/branch/sum/field/read forms did not improve; a couple stopped because project progress changed during compilation. Next focus: preserve original draft and reconstruct exact outgoing call parameter types/stack scratch locals; target's func_80084338 takes integer second arg according to exact matched declaration, despite draft's void* prototype, and resolve global D_8010A500 typing.",
   "by": "codex-gpt-6-luna-12",
@@ -3742,14 +3734,6 @@
   "created_at": 1795138801.272775,
   "score_before": 2012,
   "score_after": 1384
- },
- {
-  "function": "func_80005310",
-  "text": "Rewrote the index search as two natural while loops, correcting f32 pointer increments, improving score 2550 to 1090. Target preserves a pointer to temp_v0+0x30 in s0 across calls; next experiment stage this as a separate f32 pointer and store through it. Branch likely and allocation differences remain.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795138806.983362,
-  "score_before": 310,
-  "score_after": 310
  },
  {
   "function": "updateTimedObjectState",
@@ -3878,14 +3862,6 @@
   "created_at": 1795138909.022965,
   "score_before": 150,
   "score_after": 150
- },
- {
-  "function": "func_80005310",
-  "text": "Saved/rechecked best 1090. Full C rewrite scored 1420; repair variants for loops/layout/branch/address/constant/call arity selected a record layout and improved to 1225, still worse than baseline. The current mismatch is primarily register allocation at entry: target loads object ptr to $v0, then nested ptr to $v1, while best starts through $s0/$v0. Target also uses lw $v0,($t0) and addiu $t0,$v0,0x14; C pointer aliases currently create other regs/offsets. Restore saved_best for follow-up. Draft compiler had undeclared-global errors; candidate included declarations and compiled.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795138917.566601,
-  "score_before": 310,
-  "score_after": 310
  },
  {
   "function": "updateBonusProximityCounters",
@@ -7208,14 +7184,6 @@
   "score_after": 1455
  },
  {
-  "function": "func_80005310",
-  "text": "Rechecked baseline 1090. Six local repair variants: explicit loop backedge, inferred struct layout, signedness, declaration order, branch orientation, constant local; none improved. Dominant mismatch begins register allocation at entry: target keeps temp_v0 in $v0 and temp_v1 in $v1; candidate allocates them as $s0/$v0, causing cascaded register differences. Three variants matched baseline; signedness and branch orientation worsened. Initial manual compile omitted the M2C preamble and failed; no candidate source change retained.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795178506.088761,
-  "score_before": 310,
-  "score_after": 310
- },
- {
   "function": "guPerspectiveF",
   "text": "Verified saved baseline 455. Correcting __cosf prototype/call and changing inner stride to one float produced 469; target uses 4-byte inner stride. Remaining key difference is float register allocation and 0x50 versus 0x48 frame; target keeps arg6 in f26, arg4/f5 in f28/f30. A register local unused by expressions had no effect. Investigate lifetimes and loop structure.",
   "by": "codex-gpt-6.1-terra-5",
@@ -9558,14 +9526,6 @@
   "created_at": 1795182913.769542,
   "score_before": 325,
   "score_after": 325
- },
- {
-  "function": "func_80005310",
-  "text": "Improved 1090 to 665: func_8000600C receives original arg0 as first argument; preserve pointer to time field for final stores and access flags through temp_t0. Remaining 21 rows include register allocation around count/table and branch-likely differences in backward search, plus call scheduling. Explicit break loop worsened; equivalent comparison, typed table base and conditional wrap did not alter score. Investigate search loop and lifetimes.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795182915.863978,
-  "score_before": 310,
-  "score_after": 310
  },
  {
   "function": "actorStartKindState",
@@ -16472,14 +16432,6 @@
   "score_after": 1310
  },
  {
-  "function": "func_80005310",
-  "text": "Baseline local trials score 665 with 21 differing rows; branch reversal worsens, declaration order and loop backedge unchanged. Unsigned count causes double conversion and worsens to 1840. Investigate count/index lifetime allocation (target a1, candidate a3) and loop branches from saved best.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795192041.9774048,
-  "score_before": 310,
-  "score_after": 310
- },
- {
   "function": "setEntryMode",
   "text": "Verified best score 35: seven register differences in case 5 loop, target uses a1 for index and a0 for limit, candidate swaps them. Reordering index/limit initialization and declarations or register qualifier did not change this; widening limit worsened. Seek another expression of case 5 loop that changes allocation while preserving its instruction order.",
   "by": "codex-gpt-6.1-terra-8",
@@ -19328,14 +19280,6 @@
   "score_after": 705
  },
  {
-  "function": "func_80005310",
-  "text": "Best rechecked score 310, 97.2% match, revision c2a1b186e31d19e68563-equivalent baseline (current candidate was recompiled at score 310; source is the same). The C draft with explicit FrameTimes/AnimSub layouts matches most of the target. I tried replacing pointer addition order in the first/second `index + times` occurrence; score/diff unchanged. Remaining target differences: three `addu $v0,$v0,$v1` vs candidate commuted `addu $v0,$v1,$v0`; target computes next via `slt $v0,$a3,$a1; negu; and $t1,$a3,$v0; move $a3,$t1`, while candidate omits the copy and uses `$a3` directly; also a few branch destination offsets (target body 8 bytes longer) and one shifted call. Inspect the candidate around next-index clamping: a concrete next experiment is to split the clamped value into a temporary (`s32 clamped = next < count ? next : 0; next = clamped;`) or route through the exact signed `slt`/negation semantics using a signed temp, to make GCC preserve a separate `$t1` result before the call. The requested `times + index` spelling did not alter output, so do not repeat it.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795199594.30555,
-  "score_before": 310,
-  "score_after": 310
- },
- {
   "function": "guPerspectiveF",
   "text": "Started from saved m2c candidate. Rechecked best score 445 after correcting the C89 declaration error. Changing the math helper declarations to __cosf(f32) improved another candidate to 469 but still missed; the best candidate remains historical score 445. Main unresolved issues are a 0x50 target frame versus candidate 0x48, FP argument/register allocation, and final branch offsets. The target performs nested 4x4 scaling and a double threshold/conversion path; inspect target lines 0-52 and 52-121 while tuning stack/register live ranges. Avoid unprototyped __cosf, which causes a large mismatch.",
   "by": "codex-gpt-6-luna-13",
@@ -20174,14 +20118,6 @@
   "created_at": 1795201400.8413172,
   "score_before": 445,
   "score_after": 445
- },
- {
-  "function": "func_80005310",
-  "text": "Current verified best remains 310 (97.2%), revision c2a1b186e31d19e68563. Rechecked baseline; local repairs branch_orientation worsened to 1870, goto_backward_loop tied. Previous session also tried explicit self-assignment and block-local self-copy around next bound; both tied. Main remaining issue: target index search uses $a2, then clamped result in $a3 with `slt/negu/and $t1,$a3,$v0; addu $a3,$t1,$zero`; candidate collapses these moves and uses $a3 directly. Target call func_8000600C has delay-slot `addu $a3,$t1,$zero`; candidate schedules jal after that operation. Inspect declarations and try separating loop index from final clamped output (distinct local for output index) to retain the copy; likely also adjust call delay slot. Tested function-specific repair examples; relevant temp/address separation example unrelated to this index clamp. No reusable global rule established.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795201553.948098,
-  "score_before": 310,
-  "score_after": 310
  },
  {
   "function": "decayObjectTimers",
@@ -21160,14 +21096,6 @@
   "score_after": 1665
  },
  {
-  "function": "func_80005310",
-  "text": "Improved 310 to 295 by integer offset-first address expressions. Remaining target has two moves of selected next index from t1 to a3, affecting call scheduling and branch offsets. Ternary, if, multiplication, extra local and volatile variants did not improve.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795202514.992762,
-  "score_before": 310,
-  "score_after": 295
- },
- {
   "function": "func_80054FEC",
   "text": "Rechecked baseline 3025. One targeted local-repair batch (loop shape, struct layout, signedness, branch polarity, address temp, constant local) did not improve. The first mismatch is register lifetimes at setup: target keeps list root in s3, spill arg4 in s4, callback in fp; candidate swaps s3/s4 and later allocates s7 constant before list scan. I tried adding/removing a placeholder variable; no instruction changes. Later branch mismatches include target beql-style null branch/control flow vs candidate separate assignments. Next: begin from saved source and inspect assembly full around offsets 0x55090 onward; split loop iteration helper locals/branch-specific float lifetime to recover target saved-register assignments and branch scheduling.",
   "by": "codex-gpt-6-luna-17",
@@ -22086,14 +22014,6 @@
   "created_at": 1795204695.799797,
   "score_before": 170,
   "score_after": 170
- },
- {
-  "function": "func_80005310",
-  "text": "Stalled at score 295 (97% match, 114 target insns vs 112). Remaining diff: target keeps the clamped `next` in $t1 (and $t1,$a3,$v0 = next & -(next<count); then addu $a3,$t1,$zero before both calls to func_80005C70 and func_8000600C). Mine computes into $a3 directly. Tried: goto->for(;;)/continue loop (295), branch_orientation (1855, worse), ternary vs mask form for next (both 295), temp var {s32 t=...; next=t;} (295). Untested idea: a separate local for the clamped index passed to both calls so the value lives in a caller-saved temp copied to $a3.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795204709.939853,
-  "score_before": 295,
-  "score_after": 295
  },
  {
   "function": "showTrackMarker",
@@ -23126,14 +23046,6 @@
   "created_at": 1795207309.6354392,
   "score_before": 1840,
   "score_after": 1840
- },
- {
-  "function": "func_80005310",
-  "text": "Verified score 295. Target computes clamp into t1 then copies t1 to a3 immediately and again in the func_8000600C delay slot. Candidate computes into a3 directly. Empty do-while, scoped unsigned temp, clamping into count then copying, and explicit flag goto preserved assembly. Moving clamp to both call expressions worsened to 1380.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795207329.447847,
-  "score_before": 295,
-  "score_after": 295
  },
  {
   "function": "func_8001CCF4",
@@ -26426,15 +26338,6 @@
   "score_before": 1460,
   "score_after": 25,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:eacd88871da0a8cbb8e330e096d007863b7dbd7c41190b865142a671488078ad"
- },
- {
-  "function": "func_80005310",
-  "text": "Rechecked best 295/114. Remaining diff: target clamps `next` into $t1 (`and $t1,$a3,$v0`) then copies to $a3, including call delay slot; C assigns clamp directly to next/a3. An explicit clamped local and declaration as register left all instructions unchanged. Concurrent local repair branch_orientation temporarily changed candidate to 1855; restored saved_best, and compiling after restore returned 295. No verified repair.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795214683.385737,
-  "score_before": 3109,
-  "score_after": 295,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
  },
  {
   "function": "func_80086DA0",
@@ -30318,15 +30221,6 @@
   "score_after": 870
  },
  {
-  "function": "func_80005310",
-  "text": "Verified 295. Halfword casts 795; product, conditional reset, mask and empty control edge 295. Three optimizer flag toggles also 295.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795226242.40994,
-  "score_before": 795,
-  "score_after": 295,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
- },
- {
   "function": "func_8005F664",
   "text": "Revision 1abb61d39cdffc34f394 reached 190, 38 register-only rows, after staging the +8 float read immediately after the +0x14 clear and storing it before func_800462C4. Using var_v0 for the final 0xE8 stride first removed three register rows (375\u2192360). Moving the float assignment wholesale before the call scored 1090; staging before but storing after scored 627. Claim was lost to concurrent progress during declaration-order trials. Next step: verify current saved candidate, then probe lifetimes of spawn result and +0x6C pointer to restore s1/s2.",
   "by": "codex-gpt-6.2-sol-6",
@@ -32711,15 +32605,6 @@
   "created_at": 1795138311.360765,
   "score_before": 4200,
   "score_after": 4200
- },
- {
-  "function": "func_80005310",
-  "text": "Still 295. Only diff: target 'and $t1,$a3,$v0; addu $a3,$t1,$zero' before both calls (second addu in jal delay slot); mine computes into $a3 directly. Tried this session: scoped temp, register n2 copy, mask form, index+=0 (all 295); (u8) cast on next in call = 335. Next step: try making the clamped value a separate pseudo (e.g. a u32/s32 local live across the flags test) or restructure so the clamp lands before the `index>0` block with a different var feeding the calls.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795232782.1005938,
-  "score_before": 295,
-  "score_after": 295,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
  },
  {
   "function": "refreshOptionEntry",
@@ -37574,15 +37459,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
  },
  {
-  "function": "func_80005310",
-  "text": "Expressed clamp as in-place bit mask.\nScore 295; identical instructions, target keeps result in t1 and copies to a3 twice.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795245958.32942,
-  "score_before": 295,
-  "score_after": 295,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
- },
- {
   "function": "heapAllocTagged",
   "text": "Inherited C compiles at score 2905 (110 target, 106 candidate). Major differences are branch/control flow and register allocation. Address hints show target stores at rows 86 and 96 map to D_800E1AA0 while candidate uses D_800E1A9C. Verify globals/function name before editing. No changes.\nCompiled inherited m2c once; no source fix.\nScore 2905/73.5%. Candidate uses function name func_80083E90. Target raw addresses at rows 86/96 are D_800E1AA0; candidate uses D_800E1A9C.",
   "by": "codex-gpt-6-luna-15",
@@ -38118,15 +37994,6 @@
   "score_before": 180,
   "score_after": 180,
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
- },
- {
-  "function": "func_80005310",
-  "text": "Expressed clamp as multiplication by comparison.\nScore 295; generated instructions unchanged.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795248853.419574,
-  "score_before": 295,
-  "score_after": 295,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
  },
  {
   "function": "func_800067C8",
@@ -83871,5 +83738,174 @@
   "score_before": 340,
   "score_after": 340,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:7860cef1dc2879e945e4cbd46dc5ad400eddadd164fd31779f327da768c65c0b"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Claim ended during third compile. Observed verified score 310 (revision 6d0c12687d06ee68dc9b, saved historical 750 at time of result). The best tested source is below. Remaining target-only moves are `move $a3,$t1` immediately after masking next and again in the func_8000600C JAL delay slot; candidate currently masks directly into $a3 and delays the blend global store into the JAL. Three pointer additions also have reversed inputs. The backward search requires an explicit header label and backward goto to avoid GCC loop rotation. Source:\ntypedef struct { f32 period; s32 count; s32 unk8; f32 times[1]; } FrameTimes;\ntypedef struct { s32 flags; u8 pad4[0x18]; f32 time; u8 pad20[0x24]; s32 a44; u8 pad48[4]; FrameTimes *frames; u8 pad50[0x2E]; s16 h7E; } AnimSub;\ntypedef struct { u8 pad[0x14]; AnimSub anim; } AnimState;\ntypedef struct { u8 pad[0x68]; AnimState *state; } AnimObject;\n\nextern f32 D_800D9414;\nvoid func_80005C70(s32, s32, s32, s32, f32, s32);\nvoid func_8000600C(void *, s32, s32, s32);\n\nvoid func_80005310(AnimObject *obj) {\n    AnimState *state = obj->state;\n    FrameTimes *frames = state->anim.frames;\n    AnimSub *anim = &state->anim;\n    f32 *timePtr = &state->anim.time;\n    f32 time = *timePtr;\n    f32 period = frames->period;\n    s32 count, index, next;\n    f32 *times, *p;\n    f32 numerator, denominator, previous, blend;\n\n    while (period <= time) {\n        time -= period;\n    }\n    if (time < 0.0f) {\n        period = *(volatile f32 *)&frames->period;\n        do {\n            time += period;\n        } while (time < 0.0f);\n    }\n\n    count = frames->count;\n    index = (s32)((time * (f32)count) / *(volatile f32 *)&frames->period);\n    times = frames->times;\n    p = index + times;\n    if (time < *p) {\n    scanBack:\n        next = index + 1;\n        if (index != 0) {\n            previous = p[-1];\n            p--;\n            if (time < previous) {\n                index--;\n                goto scanBack;\n            }\n        }\n    } else {\n        index++;\n        p = index + times;\n        next = index + 1;\n        if (*p <= time) {\n            do {\n                p++;\n                index++;\n            } while (*p <= time);\n            next = index + 1;\n        }\n    }\n    next = next < count ? next : 0;\n\n    p = index + times;\n    denominator = *p;\n    numerator = time;\n    if (index > 0) {\n        previous = p[-1];\n        numerator = time - previous;\n        denominator -= previous;\n    }\n    blend = numerator / denominator;\n    if (!(anim->flags & 0x40000)) {\n        D_800D9414 = blend;\n        func_8000600C(obj, anim->h7E, index, next);\n        *timePtr = time;\n        return;\n    }\n    func_80005C70(anim->a44, anim->h7E, index, next, blend, anim->flags & 1);\n    *timePtr = time;\n}",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795138659.506697,
+  "score_before": 2085,
+  "score_after": 310
+ },
+ {
+  "function": "func_80005310",
+  "text": "Rewrote the index search as two natural while loops, correcting f32 pointer increments, improving score 2550 to 1090. Target preserves a pointer to temp_v0+0x30 in s0 across calls; next experiment stage this as a separate f32 pointer and store through it. Branch likely and allocation differences remain.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795138806.983362,
+  "score_before": 310,
+  "score_after": 310
+ },
+ {
+  "function": "func_80005310",
+  "text": "Saved/rechecked best 1090. Full C rewrite scored 1420; repair variants for loops/layout/branch/address/constant/call arity selected a record layout and improved to 1225, still worse than baseline. The current mismatch is primarily register allocation at entry: target loads object ptr to $v0, then nested ptr to $v1, while best starts through $s0/$v0. Target also uses lw $v0,($t0) and addiu $t0,$v0,0x14; C pointer aliases currently create other regs/offsets. Restore saved_best for follow-up. Draft compiler had undeclared-global errors; candidate included declarations and compiled.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795138917.566601,
+  "score_before": 310,
+  "score_after": 310
+ },
+ {
+  "function": "func_80005310",
+  "text": "Rechecked baseline 1090. Six local repair variants: explicit loop backedge, inferred struct layout, signedness, declaration order, branch orientation, constant local; none improved. Dominant mismatch begins register allocation at entry: target keeps temp_v0 in $v0 and temp_v1 in $v1; candidate allocates them as $s0/$v0, causing cascaded register differences. Three variants matched baseline; signedness and branch orientation worsened. Initial manual compile omitted the M2C preamble and failed; no candidate source change retained.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795178506.088761,
+  "score_before": 310,
+  "score_after": 310
+ },
+ {
+  "function": "func_80005310",
+  "text": "Improved 1090 to 665: func_8000600C receives original arg0 as first argument; preserve pointer to time field for final stores and access flags through temp_t0. Remaining 21 rows include register allocation around count/table and branch-likely differences in backward search, plus call scheduling. Explicit break loop worsened; equivalent comparison, typed table base and conditional wrap did not alter score. Investigate search loop and lifetimes.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795182915.863978,
+  "score_before": 310,
+  "score_after": 310
+ },
+ {
+  "function": "func_80005310",
+  "text": "Baseline local trials score 665 with 21 differing rows; branch reversal worsens, declaration order and loop backedge unchanged. Unsigned count causes double conversion and worsens to 1840. Investigate count/index lifetime allocation (target a1, candidate a3) and loop branches from saved best.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795192041.9774048,
+  "score_before": 310,
+  "score_after": 310
+ },
+ {
+  "function": "func_80005310",
+  "text": "Best rechecked score 310, 97.2% match, revision c2a1b186e31d19e68563-equivalent baseline (current candidate was recompiled at score 310; source is the same). The C draft with explicit FrameTimes/AnimSub layouts matches most of the target. I tried replacing pointer addition order in the first/second `index + times` occurrence; score/diff unchanged. Remaining target differences: three `addu $v0,$v0,$v1` vs candidate commuted `addu $v0,$v1,$v0`; target computes next via `slt $v0,$a3,$a1; negu; and $t1,$a3,$v0; move $a3,$t1`, while candidate omits the copy and uses `$a3` directly; also a few branch destination offsets (target body 8 bytes longer) and one shifted call. Inspect the candidate around next-index clamping: a concrete next experiment is to split the clamped value into a temporary (`s32 clamped = next < count ? next : 0; next = clamped;`) or route through the exact signed `slt`/negation semantics using a signed temp, to make GCC preserve a separate `$t1` result before the call. The requested `times + index` spelling did not alter output, so do not repeat it.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795199594.30555,
+  "score_before": 310,
+  "score_after": 310
+ },
+ {
+  "function": "func_80005310",
+  "text": "Current verified best remains 310 (97.2%), revision c2a1b186e31d19e68563. Rechecked baseline; local repairs branch_orientation worsened to 1870, goto_backward_loop tied. Previous session also tried explicit self-assignment and block-local self-copy around next bound; both tied. Main remaining issue: target index search uses $a2, then clamped result in $a3 with `slt/negu/and $t1,$a3,$v0; addu $a3,$t1,$zero`; candidate collapses these moves and uses $a3 directly. Target call func_8000600C has delay-slot `addu $a3,$t1,$zero`; candidate schedules jal after that operation. Inspect declarations and try separating loop index from final clamped output (distinct local for output index) to retain the copy; likely also adjust call delay slot. Tested function-specific repair examples; relevant temp/address separation example unrelated to this index clamp. No reusable global rule established.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795201553.948098,
+  "score_before": 310,
+  "score_after": 310
+ },
+ {
+  "function": "func_80005310",
+  "text": "Improved 310 to 295 by integer offset-first address expressions. Remaining target has two moves of selected next index from t1 to a3, affecting call scheduling and branch offsets. Ternary, if, multiplication, extra local and volatile variants did not improve.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795202514.992762,
+  "score_before": 310,
+  "score_after": 295
+ },
+ {
+  "function": "func_80005310",
+  "text": "Stalled at score 295 (97% match, 114 target insns vs 112). Remaining diff: target keeps the clamped `next` in $t1 (and $t1,$a3,$v0 = next & -(next<count); then addu $a3,$t1,$zero before both calls to func_80005C70 and func_8000600C). Mine computes into $a3 directly. Tried: goto->for(;;)/continue loop (295), branch_orientation (1855, worse), ternary vs mask form for next (both 295), temp var {s32 t=...; next=t;} (295). Untested idea: a separate local for the clamped index passed to both calls so the value lives in a caller-saved temp copied to $a3.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795204709.939853,
+  "score_before": 295,
+  "score_after": 295
+ },
+ {
+  "function": "func_80005310",
+  "text": "Verified score 295. Target computes clamp into t1 then copies t1 to a3 immediately and again in the func_8000600C delay slot. Candidate computes into a3 directly. Empty do-while, scoped unsigned temp, clamping into count then copying, and explicit flag goto preserved assembly. Moving clamp to both call expressions worsened to 1380.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795207329.447847,
+  "score_before": 295,
+  "score_after": 295
+ },
+ {
+  "function": "func_80005310",
+  "text": "Rechecked best 295/114. Remaining diff: target clamps `next` into $t1 (`and $t1,$a3,$v0`) then copies to $a3, including call delay slot; C assigns clamp directly to next/a3. An explicit clamped local and declaration as register left all instructions unchanged. Concurrent local repair branch_orientation temporarily changed candidate to 1855; restored saved_best, and compiling after restore returned 295. No verified repair.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795214683.385737,
+  "score_before": 3109,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Verified 295. Halfword casts 795; product, conditional reset, mask and empty control edge 295. Three optimizer flag toggles also 295.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795226242.40994,
+  "score_before": 795,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Still 295. Only diff: target 'and $t1,$a3,$v0; addu $a3,$t1,$zero' before both calls (second addu in jal delay slot); mine computes into $a3 directly. Tried this session: scoped temp, register n2 copy, mask form, index+=0 (all 295); (u8) cast on next in call = 335. Next step: try making the clamped value a separate pseudo (e.g. a u32/s32 local live across the flags test) or restructure so the clamp lands before the `index>0` block with a different var feeding the calls.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795232782.1005938,
+  "score_before": 295,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Expressed clamp as in-place bit mask.\nScore 295; identical instructions, target keeps result in t1 and copies to a3 twice.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795245958.32942,
+  "score_before": 295,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Expressed clamp as multiplication by comparison.\nScore 295; generated instructions unchanged.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795248853.419574,
+  "score_before": 295,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Stuck at 295 after 100+ attempts. Target computes `flags & 1` into t1 and then copies it into a3 twice (once before each call), while the candidate computes it directly into a3. Changing the clamp to `if (next >= count) next = 0;` gave no change. Next step: assign `flags & 1` to a local before the `if (!(flags & 0x40000))` branch.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307802.5298262,
+  "score_before": 295,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Tried the earlier suggested step (assign flags&1 to a local before the 0x40000 branch): worse, 625 vs saved best 295. GCC computes it before the branch (andi t0) rather than the target's late copy into a3 and reload of flags. Saved best retained. Next step: pass `flags & 1` via a separate s32 local that is assigned only inside the taken branch, or give the volatile flags read.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795312331.293057,
+  "score_before": 295,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Bit-mask clamp, block-local and register clamp temporaries, and merging the time-store exit\nAll retained score 295 with unchanged diff. Target has two copies from t1 into a3; candidate leaves the clamp result in a3.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795317453.794094,
+  "score_before": 295,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Branch-local mode and clamp variants exhausted the six trials without improvement. Target uses t1 and two a3 copies; best 295 remains.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795341421.7227361,
+  "score_before": 295,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
  }
 ]
