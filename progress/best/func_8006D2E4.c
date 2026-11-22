@@ -107,6 +107,7 @@ void func_8006D2E4(void *arg0)
     f32 vec48[3];
     s32 pad54;
     f32 vec58[3];
+    s32 framePad[2];
   } locals;
   const u8 *table;
   s32 *temp_s0_2;
@@ -150,7 +151,7 @@ void func_8006D2E4(void *arg0)
   s32 var_v1;
   s8 temp_a0;
   int temp_s4;
-  s8 temp_v0_2;
+  s32 temp_v0_2;
   short var_a0_3;
   u32 temp_v0_8;
   u32 temp_v0_9;
@@ -719,5 +720,6 @@ void *__repair_phase_temp_a1;
     (((Field_s32 *) (((char *) temp_s3) + 4))->v) = 0;
   }
 }
+
 
 

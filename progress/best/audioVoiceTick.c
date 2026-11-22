@@ -291,11 +291,14 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     invalidVoice = -1;
     divisorReciprocal = 0x51EB851F;
     loop_25:
-    D_800FDB9C = *((u32 *) (((char *) (*((void **) (((char *) arg0) + 4)))) + 0));
+    {
+    volatile u32 *commandWord = &D_800FDB9C;
+    *commandWord = *((u32 *) (((char *) (*((void **) (((char *) arg0) + 4)))) + 0));
 
     *((u32 *) (((char *) (&D_800FDBA0)) + 0)) = (u32) (*((u32 *) (((char *) (*((void **) (((char *) arg0) + 4)))) + 4)));
     *((void **) (((char *) arg0) + 4)) = (void *) ((*((void **) (((char *) arg0) + 4))) + 8);
-    temp_v1_5 = (*((volatile u32 *) (&D_800FDB9C))) & 0x7F;
+    temp_v1_5 = *commandWord & 0x7F;
+    }
     switch (temp_v1_5)
     {
       case 0x1:
@@ -379,7 +382,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
         break;
 
       case 0x7:
-        *((u16 *) (((char *) (&D_800FDBA0)) + 2)) = 1;
+        *((u8 *) (((char *) (&D_800FDBA0)) + 2)) = 1;
         var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
         break;
 
@@ -1173,6 +1176,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     *((s32 *) (((char *) arg0) + 0x9C)) = 0U;
   }
 }
+
 
 
 

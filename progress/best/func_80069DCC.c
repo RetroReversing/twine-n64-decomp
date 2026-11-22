@@ -1249,14 +1249,7 @@ case 2: case 3: goto out_of_line_actor;
         temp_fv0_22 = *inline_fn2(temp_v0_9);
         if ((temp_fv0_22 < 0.275f) || ((var_fv1_6 = 0.88000005f, temp_fv0_22 > 0.88000005f)))
       {
-        if (temp_v1_16)
-        {
-          *inline_fn2(temp_v0_9) = var_fv1_6;
-        }
-        else
-        {
-          *inline_fn2(temp_v0_9) = var_fv1_6;
-        }
+        *inline_fn2(temp_v0_9) = var_fv1_6;
       }
         temp_fv0_23 = *((f32 *) (((char *) temp_s1) + 0x50));
         temp_fv1_5 = (((func_80081B44(temp_s4, 2, 3) * 0.2f) - temp_fv0_23) * 0.3f) + temp_fv0_23;

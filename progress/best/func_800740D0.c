@@ -16,6 +16,11 @@ extern u8 D_8010D2C0[];
 extern s32 D_8010D380;
 extern u8 gTrackMarkerDone[];
 extern s32 sBonusObjectTable;
+inline static u8 inline_fn(void *arg0)
+{
+  return *((u8 *) (((char *) arg0) + 0x34));
+}
+
 void func_800740D0(void *arg0)
 {
   u8 *__base_D_8010D2C0;
@@ -61,10 +66,14 @@ void func_800740D0(void *arg0)
   switch (temp_v1)
   {
     case 0:
-      temp_v1_8 = &D_8010D380;
-      temp_v1_8 += *((u8 *) (((char *) temp_s1) + 0x34));
-      temp_v1_8 += (*((u8 *) (((char *) temp_s1) + 0x33))) * 7;
-      if ((*temp_v1_8) == (*((s32 *) (((char *) temp_s1) + 0x18))))
+      {
+        s32 row = *((u8 *) ((char *) temp_s1 + 0x33));
+        s32 *table = &D_8010D380;
+        s32 *entry = table + row * 7;
+        entry += *((u8 *) ((char *) temp_s1 + 0x34));
+        temp_v1_8 = entry;
+      }
+      if (*temp_v1_8 == *((s32 *) ((char *) temp_s1 + 0x18)))
     {
       temp_s3 = *((void **) (((char *) temp_s1) + 4));
       if (((*((f32 *) (((char *) temp_s1) + 0xC))) != 65536.0f) && (func_80045590(temp_s1 + 8, sBonusObjectTable + 0x24) > (2.0f * (*((f32 *) (((char *) temp_s1) + 0x28))))))
@@ -121,7 +130,7 @@ void func_800740D0(void *arg0)
         *((void **) (((char *) arg0) + 0x18)) = (void *) (*((void **) (((char *) temp_s1) + 0)));
         if (((*((s8 *) (((char *) temp_s1) + 0x135))) != 0) && (((*((volatile s16 *) (&D_800C7EA0)) = (s16) (*((u8 *) (((char *) temp_s1) + 0x33))), D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))] != 0)) || ((D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))] = spawnTextNode((s16 *) (((s8 *) (&D_800C7EA0)) - 0x20)), D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))] != 0))))
         {
-          *((s8 *) (((char *) D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))]) + 0x29)) = 0x1C;
+          *((s8 *) (((char *) D_800E1A70[inline_fn(temp_s1)]) + 0x29)) = 0x1C;
           *((s16 *) (((char *) D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))]) + 0x22)) = (s16) ((*((u16 *) (((char *) temp_s3) + 0x22))) - 5);
           *((s32 *) (((char *) D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))]) + 0x10)) = 0x88;
           temp_a0_2 = D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))];
@@ -214,8 +223,7 @@ void func_800740D0(void *arg0)
       *((void **) (((char *) temp_s1) + 4)) = NULL;
       if ((*((s32 *) (((char *) temp_s1) + 0x1C))) & 1)
     {
-      temp_v1_8 = &D_8010D380;
-      temp_v1_8 += (*((u8 *) (((char *) temp_s1) + 0x33))) * 7;
+      temp_v1_8 = (&D_8010D380) + (*((u8 *) (((char *) temp_s1) + 0x33))) * 7;
       temp_v1_8 += *((u8 *) (((char *) temp_s1) + 0x34));
       *temp_v1_8 += 1;
     }
@@ -228,7 +236,7 @@ void func_800740D0(void *arg0)
       temp_v1_8 += temp_v0_7;
       temp_v1_8 += temp_a1_3;
       __base_D_8010D2C0 = D_8010D2C0;
-      if ((*temp_v1_8) == (*(temp_a1_3 + (temp_v0_7 + __base_D_8010D2C0))))
+      if ((*temp_v1_8) == *(s32 *)(temp_a1_3 * 4 + (temp_v0_7 * 4 + __base_D_8010D2C0)))
       {
         temp_a0_6 = D_800E1A70[temp_a1_2];
         if (temp_a0_6 != NULL)
@@ -252,4 +260,5 @@ void func_800740D0(void *arg0)
     }
   }
 }
+
 

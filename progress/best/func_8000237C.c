@@ -26,7 +26,7 @@ extern u8 D_800CA338;
 extern s32 gBootState;
 typedef struct 
 {
-  int value;
+  unsigned int value;
 } __repair_field_0;
 inline static u32 inline_fn(s16 arg0)
 {
@@ -142,8 +142,8 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
             var_v1 = (2 * temp_s1) * 2;
             goto block_10;
 
-          default:
-            var_s2 = (temp_s1 + 5) * 4;
+          var_v0 = (temp_s1 + 5); default:
+            var_s2 = var_v0 * 4;
             break;
 
           case 2:
