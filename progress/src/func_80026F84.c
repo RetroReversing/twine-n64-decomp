@@ -56,28 +56,30 @@ void func_80026F84(u8 arg0)
   if ((p = gSaveMenuState) != NULL)
   {
     p[7] = 0;
-    p = gSaveMenuState;
-    p[0x2F] = 0;
-    q = gSaveMenuState;
-    *((s32 *) (p + 0x20)) = 0;
-    *((s32 *) (p + 0x24)) = 0;
-    *((u16 *) (p + 0x14)) = 0;
-    *((u16 *) (p + 0x16)) = 0;
-    q[0x28] = 0;
-    p = gSaveMenuState;
-    *((s32 *) q) = 0;
-    p[0x29] = 0;
-    p = gSaveMenuState;
-    p[0x2C] = 0;
-    q = gSaveMenuState;
-    *((u16 *) (p + 0x2A)) = 0x1D;
-    q[0x2D] = 0;
-    p = gSaveMenuState;
-    *((s32 *) (p + 0x1C)) = 0;
-    *((s32 *) (p + 0x10)) = 0;
-    *((s32 **) (p + 0xC)) = &D_800BD8C4;
+    { u8 *a = gSaveMenuState;
+    a[0x2F] = 0;
+    { u8 *b = gSaveMenuState;
+    *((s32 *) (a + 0x20)) = 0;
+    *((s32 *) (a + 0x24)) = 0;
+    *((u16 *) (a + 0x14)) = 0;
+    *((u16 *) (a + 0x16)) = 0;
+    b[0x28] = 0;
+    { u8 *c = gSaveMenuState;
+    *((s32 *) b) = 0;
+    c[0x29] = 0;
+    { u8 *d = gSaveMenuState;
+    d[0x2C] = 0;
+    { u8 *e = gSaveMenuState;
+    *((u16 *) (d + 0x2A)) = 0x1D;
+    e[0x2D] = 0;
+    { u8 *f = gSaveMenuState;
+    *((s32 *) (f + 0x1C)) = 0;
+    *((s32 *) (f + 0x10)) = 0;
+    *((s32 **) (f + 0xC)) = &D_800BD8C4;
+    }}}}}}
   }
   slot = arg0;
- do { D_801002AE = 0; gMenuNeedsRedraw = 1; if (sBonusObjectTable[slot] != 0) { gMenuSlot = arg0; } else { gMenuSlot = 0; } gMenuParamB = func_80081828(gMenuSlot); if (gMenuUseTextList != 0) { if (gBorderSkipActive) { sMenuListKind = 4; goto done; } sMenuListKind = 4; } else { sMenuListKind = gMenuSlot; } done: do { D_80102EC0 = D_800BD664; gMenuSoundParams = sSaveMenuColorIdle; sMenuDefaultSoundParams = sSaveMenuFlagsB; } while (0); } while (0);
+{ s32 *tp = &sBonusObjectTable[slot]; s32 t; do { D_801002AE = 0; t = *tp; gMenuNeedsRedraw = 1; if (t != 0) { gMenuSlot = arg0; } else { gMenuSlot = 0; } gMenuParamB = func_80081828(gMenuSlot); if (gMenuUseTextList != 0) { if (gBorderSkipActive) { sMenuListKind = 4; goto done; } sMenuListKind = 4; } else { sMenuListKind = gMenuSlot; } done: do { D_80102EC0 = D_800BD664; gMenuSoundParams = sSaveMenuColorIdle; sMenuDefaultSoundParams = sSaveMenuFlagsB; } while (0); } while (0); }
 }
+
 
