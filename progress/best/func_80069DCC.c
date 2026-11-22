@@ -1846,11 +1846,12 @@ case 2: case 3: goto out_of_line_actor;
         }
       }
         temp_v1_23 = *((s16 *) (((char *) arg0) + 0x7C));
-        if ((temp_v1_23 == 0) || (temp_v1_23 == 6))
-      {
+        switch (temp_v1_23) {
+            case 0: case 6: {
         var_s5 -= *((f32 *) (((char *) temp_s1) + 0x11C));
         var_s6 -= *((f32 *) (((char *) temp_s1) + 0x124));
-      }
+      } break;
+        }
         temp_a0_6 = temp_s1 + 0x11C;
         func_80047B14(temp_a0_6, 0.8f, temp_a0_6);
         motion_24 = (f32) ((*((f32 *) (((char *) arg0) + 0x24))) + var_s5);

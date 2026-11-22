@@ -55,49 +55,40 @@ void func_80037DC0(void *arg0)
   *((s32 *) (((char *) end) + 4)) = 0;
   temp_v1_3 = *((s32 *) (((char *) arg0) + 0x100));
   D_801002FC = end + 8;
-  var_a3 = 0;
   if (temp_v1_3 & 2)
   {
+    var_a3 = 0;
     var_a1 = 0;
     blue = 0xFF;
-    goto block_10;
   }
-  if (temp_v1_3 & 4)
+  else
   {
-    return;
+    if (temp_v1_3 & 4)
+        return;
+    temp_v1_4 = sDisplayListCursor;
+    sDisplayListCursor = temp_v1_4 + 8;
+    *((s32 *) (((char *) temp_v1_4) + 0)) = 0xFB000000;
+    *((s32 *) (((char *) temp_v1_4) + 4)) = 0xFF;
+    var_a3 = 0xFF;
+    blue = 0xFF;
+    var_a1 = 0xFF;
   }
   {
-    if (sDisplayListCursor)
-    {
-      var_a1 = 0xFF;
-      temp_v1_4 = (unsigned) sDisplayListCursor;
-      blue = 0xFF;
-      var_a3 = 0xFF;
-      sDisplayListCursor = temp_v1_4 + 8;
-      *((s32 *) (((char *) temp_v1_4) + 0)) = 0xFB000000;
-      *((s32 *) (((char *) temp_v1_4) + 4)) = 0xFF;
-    }
-    else
-    {
-      var_a1 = 0xFF;
-      temp_v1_4 = (unsigned) sDisplayListCursor;
-      blue = 0xFF;
-      var_a3 = 0xFF;
-      sDisplayListCursor = temp_v1_4 + 8;
-      *((s32 *) (((char *) temp_v1_4) + 0)) = 0xFB000000;
-      *((s32 *) (((char *) temp_v1_4) + 4)) = 0xFF;
-    }
-    block_10:
     temp_a0 = sDisplayListCursor;
 
     *((s32 *) (((char *) temp_a0) + 0)) = 0xFA000000;
-    *((s32 *) (((char *) temp_a0) + 4)) = (s32) ((((var_a1 << 0x18) | (blue << 0x10)) | (var_a3 << 8)) | 0xFF);
+    {
+      u32 packed = (var_a1 << 24) | (blue << 16);
+      u32 green = var_a3 << 8;
+      state = sRenderState;
+      *((s32 *) (((char *) temp_a0) + 4)) = packed | green | 0xFF;
+    }
     *((s32 *) (((char *) temp_a0) + 8)) = 0xFB000000;
     *((s32 *) (((char *) temp_a0) + 0xC)) = 0xFF;
     *((s32 *) (((char *) temp_a0) + 0x10)) = 0xDE000000;
+    listAddress = *((s32 *) (((char *) state) + 0x1B68));
     temp_a1 = gRenderMode;
     sDisplayListCursor = temp_a0 + 8;
-    listAddress = *((s32 *) (((char *) sRenderState) + 0x1B68));
     sDisplayListCursor = temp_a0 + 0x10;
     sDisplayListCursor = temp_a0 + 0x18;
     *((s32 *) (((char *) temp_a0) + 0x14)) = listAddress;
@@ -106,18 +97,21 @@ void func_80037DC0(void *arg0)
       gRenderMode = 0;
       emit_projection_viewport_commands();
     }
-    temp_a2 = sDisplayListCursor;
+    {
+    void *tailState;
     tail = D_8010A4B4;
-    state = sRenderState;
-    *((s32 *) (((char *) tail) + 4)) = 0;
+    temp_a2 = sDisplayListCursor;
+    tailState = sRenderState;
     *((s32 *) (((char *) tail) + 0)) = 0xDF000000;
+    *((s32 *) (((char *) tail) + 4)) = 0;
     *((s32 *) (((char *) temp_a2) + 0)) = 0xDE000000;
-    *((s32 *) (((char *) temp_a2) + 4)) = *((s32 *) (((char *) state) + 0x1C70));
+    *((s32 *) (((char *) temp_a2) + 4)) = *((s32 *) (((char *) tailState) + 0x1C70));
     D_8010A4B4 = tail + 8;
     sDisplayListCursor = temp_a2 + 8;
     temp_a1 = D_8010A4D8;
     temp_a2 += 8;
-    func_80034928(arg0, temp_a1);
+    func_80034928((s32) arg0, temp_a1);
+    }
   }
 }
 

@@ -20,7 +20,7 @@ extern char D_000F8D70[];
 void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
 {
   f32 decoded[3];
-  u32 scratch[6];
+  u32 scratch[4];
   FrameCache *cache;
   u32 shape;
   s32 count;
@@ -90,7 +90,7 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
       f32 z;
       coords[0] = (packed[0] * cache->scale[0]) + cache->offset[0];
       coords[1] = (packed[1] * cache->scale[1]) + cache->offset[1];
-      z = (packed[2] * cache->scale[2]) + cache->offset[2];
+      z = (cache->scale[2] * packed[2]) + cache->offset[2];
       i++;
       packed += 3;
       coords[2] = z;

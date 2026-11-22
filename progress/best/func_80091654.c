@@ -18,9 +18,10 @@ void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   u32 var_s0;
   u8 temp_a2;
   void *temp_s2;
-  s32 scanOffset = 0;
-  temp_a2_2 = arg2 & 0x7FFFFFFF;
+  s32 scanOffset;
   var_s0 = 0;
+  scanOffset = 0;
+  temp_a2_2 = arg2 & 0x7FFFFFFF;
   do
   {
     if ((D_800E6A85[scanOffset] == 0) && ((*((s32 *) (gSoundEntities + scanOffset))) == temp_a2_2))
