@@ -24,7 +24,7 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
     u8 padding[7];
     volatile u8 emit;
   } state;
-  u32 savedSpace[8];
+  u32 savedSpace[6];
   GfxPair *gfx;
   const volatile u8 *q;
   s32 first;
@@ -39,7 +39,7 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
   u32 n;
   u32 pairs;
   u32 advance;
-  unsigned short draw;
+  s8 draw;
   state.vertexTransform = a3;
   state.texture = -1;
   state.start = gGfxPtr;

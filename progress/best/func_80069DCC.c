@@ -1585,6 +1585,7 @@ case 2: case 3: goto out_of_line_actor;
           *((f32 *) (((char *) temp_s1) + 0x5C)) = 0.05f;
         }
         spherical_to_cartesian(sp20, *((f32 *) inline_fn23((char *) temp_s1, 0x5C)), (*((f32 *) (((char *) arg0) + 0x40))) * 0.0015339808f, (temp_fs4 * 0.0015339808f) - 1.5707964f);
+        var_fp = 0.0f - sp20[1];
         temp_fv1_10 = *((f32 *) (((char *) temp_s1) + 0x50));
         temp_fv0_31 = (((func_80081B44(temp_s4, 2, 3) * 0.05f) - temp_fv1_10) * 0.05f) + temp_fv1_10;
         *((f32 *) (((char *) temp_s1) + 0x50)) = temp_fv0_31;
@@ -1621,7 +1622,7 @@ case 2: case 3: goto out_of_line_actor;
         *((f32 *) (((char *) temp_v1_34) + 0x34)) = 0.0f;
         var_s5 = var_s5 + sp20[0];
         var_fs3 = (*((f32 *) (((char *) (*((void **) (((char *) sp64) + 0x20)))) + 0x5C))) - 0.3f;
-        var_fp = (0.0f - sp20[1]) - sp20[1];
+        var_fp -= sp20[1];
         temp_fv1_12 = *((f32 *) (((char *) arg0) + 0x28));
         var_s6 = var_s6 + sp20[2];
         if (temp_fv1_12 < var_fs3)

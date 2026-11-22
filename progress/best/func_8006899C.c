@@ -148,19 +148,10 @@ void func_8006899C(void *arg0, u8 arg1)
             switch (temp_v0_2)
             {
               case 4:
-                var_a0 = 1 & (-((*((u16 *) inline_fn2((char *) temp_a1, 0x34))) == 0));
-                break;
-
               case 5:
-                var_a0 = 1 & (-inline_fn234(temp_a1));
-                break;
-
               case 16:
-                var_a0 = 1 & (-inline_fn234(temp_a1));
-                break;
-
               case 17:
-                var_a0 = 1 & (-((*((u16 *) inline_fn2((char *) temp_a1, 0x34))) == 0));
+                var_a0 &= -inline_fn234(temp_a1);
                 break;
 
               case 18:
@@ -475,4 +466,5 @@ void func_8006899C(void *arg0, u8 arg1)
 
 
 }
+
 

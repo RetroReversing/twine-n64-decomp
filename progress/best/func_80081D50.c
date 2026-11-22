@@ -18,7 +18,7 @@ typedef struct
   u8 first;
   u8 pad[0x9F];
 } BonusEnt;
-s32 func_8002D0BC();
+u16 func_8002D0BC(s32, s32);
 extern u16 D_800C9D40;
 extern u8 D_800CEEB0;
 extern s32 D_80112E98[];
@@ -33,7 +33,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
   s32 i = 0;
   s32 idx;
   u8 bonus;
-  s32 a2;
+  u16 a2;
   u8 v;
   SlotOut *o;
   SlotEnt *e;
@@ -51,11 +51,13 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
     {
       do
       {
-        s1 = 0; idx = E(i).idx;
+        e = &E(i);
+        idx = e->idx;
+        s1 = 0;
         if ((D_800CEEB0 == 2) || ((u16) func_8002D0BC(0xA3, arg1 & 0xFF)))
         {
           a2 = 0;
-          if (E(i).flags & 0x10)
+          if (e->flags & 0x10)
           {
             a2 = sBonusSlots[arg1 & 0xFF].first;
           }
@@ -99,26 +101,12 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
             else
             {
               o = (SlotOut *) ((((unsigned int) idx) * ((unsigned int) (sizeof(*arg3)))) + ((unsigned int) arg3)); o->b = (E(i).flags & 4) ? (2) : (1);
-              if (E(i).flags & 2)
-              {
-                o->a |= 0x40;
-              }
-              else
-              {
-                o->a &= 0xBF;
-              }
+              o->a = (E(i).flags & 2) ? (o->a | 0x40) : (o->a & 0xBF);
             }
           }
         }
         s1 = s1 != 0; D_800C9D40 |= s1; v = inline_fn(arg3, idx);
-        if (((v & 1) ^ s1) & s1)
-        {
-          arg3[idx].a = v | 2;
-        }
-        else
-        {
-          arg3[idx].a = v & 0xFD;
-        }
+        arg3[idx].a = (((v & 1) ^ s1) & s1) ? (v | 2) : (v & 0xFD);
         if (s1)
         {
           arg3[idx].a |= 1;
@@ -127,10 +115,12 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
         {
           arg3[idx].a &= 0xFE;
         }
+        v = arg3[idx].a;
         if (s1)
         {
-          arg3[idx].a |= 8;
+          v |= 8;
         }
+        arg3[idx].a = v;
         v = arg3[idx].a;
         if ((v & 8) && ((((v >> 2) & 1) ^ ((v >> 3) & 1)) & 1))
         {
@@ -141,14 +131,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
           arg3[idx].a &= 0xEF;
         }
         v = arg3[idx].a;
-        if (v & 8)
-        {
-          arg3[idx].a = v | 4;
-        }
-        else
-        {
-          arg3[idx].a = v & 0xFB;
-        }
+        arg3[idx].a = (v & 8) ? (v | 4) : (v & 0xFB);
         arg3[idx].a &= 0xF7;
       }
       while (0);
@@ -157,4 +140,3 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
     while (E(i).idx != (-1));
   }
 }
-
