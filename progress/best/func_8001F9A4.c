@@ -167,22 +167,10 @@ void func_8001F9A4(void)
     {
       var_a0_4 = 9;
     }
-    if (temp_s7 || var_a0_4)
-    {
-      {
-        do { formatTextEntry(temp_s7, D_800D2A80, func_80087100(var_a0_4)); } while (0);
-      }
-      temp_v0_4 = *((&D_8011508D) + (D_800B7CF0 * 0xA0));
-      D_801007C1 = temp_v0_4;
-      var_a0_5 = 0xA;
-    }
-    else
-    {
-      formatTextEntry(temp_s7, D_800D2A80, func_80087100(var_a0_4));
-      temp_v0_4 = *((&D_8011508D) + (D_800B7CF0 * 0xA0));
-      D_801007C1 = temp_v0_4;
-      var_a0_5 = 0xA;
-    }
+    formatTextEntry(temp_s7, D_800D2A80, func_80087100(var_a0_4));
+    temp_v0_4 = *((&D_8011508D) + (D_800B7CF0 * 0xA0));
+    D_801007C1 = temp_v0_4;
+    var_a0_5 = 0xA;
     if (temp_v0_4 != 0)
     {
       var_a0_5 = 9;
@@ -293,4 +281,5 @@ void func_8001F9A4(void)
     }
   }
 }
+
 

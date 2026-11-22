@@ -1,5 +1,5 @@
 s32 func_80001660(void *, s8);
-volatile int func_80001678(void *, s8);
+s32 func_80001678(void *, s8);
 s32 func_80002D30(void *, u16);
 s32 func_80002EB8(void *);
 s32 func_80002EF0(void *);
@@ -66,13 +66,12 @@ void func_800673EC(void *arg0, void *arg1)
   register void *temp_v1_4;
   void *temp_v1_5;
   void *var_s4;
-  stateDest = *((void **) (((char *) arg0) + 0x68)); temp_a0 = (void *) stateDest;
   temp_s2 = *((void **) (((char *) arg0) + 0x6C));
   temp_s0 = *((s8 *) (((char *) temp_s2) + 0x182));
-  temp_s1 = (void *) ((*((s8 *) (((char *) temp_a0) + 0xE))) * 0xE8); __base_D_800C469C = &D_800C469C;
-  temp_s1 = (void *) (((char *) temp_s1) + ((s32) __base_D_800C469C));
+  temp_s1 = (void *) ((*((s8 *) (((char *) ((void *)(*((void **) (((char *) arg0) + 0x68))))) + 0xE))) * 0xE8);
+  temp_s1 = (void *) (((char *) temp_s1) + ((s32) (&D_800C469C)));
   temp_v1 = *((s16 *) (((char *) (*((void **) (((char *) temp_s2) + 0xA8)))) + 0x7A));
-  var_s4 = (void *) ((*((s8 *) (((char *) temp_a0) + 0x10))) * 0xE8); var_s4 = (void *) (((char *) var_s4) + ((s32) __base_D_800C469C));
+  var_s4 = (void *) ((*((s8 *) (((char *) ((void *)(*((void **) (((char *) arg0) + 0x68))))) + 0x10))) * 0xE8); var_s4 = (void *) (((char *) var_s4) + ((s32) (&D_800C469C)));
   temp_s5 = gBorderSkipFlag != 0;
   switch (temp_v1)
   {
@@ -195,7 +194,7 @@ void func_800673EC(void *arg0, void *arg1)
           temp_v0 = func_8005F664(arg0, 0, *((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x10)));
           if (temp_v0 != NULL)
           {
-            temp_s0_2 = (void **) (((char *) (&sTrackMarkerTable)) + (((unsigned char) temp_s0) * 4));
+            temp_s0_2 = (void **) (((char *) (&sTrackMarkerTable)) + (temp_s0 * 4));
             temp_s1_2 = *((void **) (((char *) temp_v0) + 0x6C));
             temp_fs1 = func_8008292C(*((f32 *) (((char *) (*temp_s0_2)) + 0x38)));
             temp_fs2 = func_80082968(*((f32 *) (((char *) (*temp_s0_2)) + 0x38)));
@@ -209,7 +208,7 @@ void func_800673EC(void *arg0, void *arg1)
             *((f32 *) (((char *) temp_s1_2) + 0x10)) = (f32) (-temp_fs0);
             *((f32 *) (((char *) temp_s1_2) + 0x14)) = temp_fv0;
           }
-          *((s8 *) (((char *) (temp_s2 - (-((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x10))) * 8)))) + 0x1FC)) = 0;
+          *((s8 *) (((char *) (temp_s2 + ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x10))) * 8))) + 0x1FC)) = 0;
         }
         else
           if ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x10))) == 0x1B)
@@ -232,40 +231,27 @@ void func_800673EC(void *arg0, void *arg1)
       func_80070870(arg0);
       var_s4 = temp_s1;
       func_80001678(arg0, *((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE)));
-      do
-    {
       temp_a1 = *((u16 *) (((char *) var_s4) + 0x98));
       if (temp_a1 != 0)
+    {
+      do
       {
-        do
-        {
-          func_80002D30(*((void **) (((char *) temp_s2) + 0xA8)), temp_a1);
-        }
-        while (0);
-        stateDest = *((void **) (((char *) temp_s2) + 0xA8));
-        temp_v1 = 4;
-        goto block_48;
+          { long long phantom_wide = temp_v1; }
+        func_80002D30(*((void **) (((char *) temp_s2) + 0xA8)), temp_a1);
       }
+      while (0);
+      stateDest = *((void **) (((char *) temp_s2) + 0xA8));
+      temp_v1 = 4;
+      goto block_48;
+    }
       temp_a1_2 = *((u16 *) (((char *) var_s4) + 0x92));
       if (temp_a1_2 != 0)
-      {
-        if (temp_s2)
-        {
-          func_80002D30(*((void **) (((char *) temp_s2) + 0xA8)), temp_a1_2);
-          stateDest = *((void **) (((char *) temp_s2) + 0xA8));
-          temp_v1 = 4;
-          goto block_48;
-        }
-        else
-        {
-          func_80002D30(*((void **) (((char *) temp_s2) + 0xA8)), temp_a1_2);
-          stateDest = *((void **) (((char *) temp_s2) + 0xA8));
-          temp_v1 = 4;
-          goto block_48;
-        }
-      }
+    {
+      func_80002D30(*((void **) (((char *) temp_s2) + 0xA8)), temp_a1_2);
+      temp_v1 = 4;
+      stateDest = *((void **) (((char *) temp_s2) + 0xA8));
+      goto block_48;
     }
-    while (0);
       *((s16 *) (((char *) (*((void **) (((char *) temp_s2) + 0xA8)))) + 0x7A)) = 0;
       temp_s0 = temp_s5 * 2;
       break;
@@ -284,8 +270,8 @@ void func_800673EC(void *arg0, void *arg1)
       if (temp_a1_3 != 0)
     {
       func_80002D30(*((void **) (((char *) temp_s2) + 0xA8)), temp_a1_3);
-      stateDest = *((void **) (((char *) temp_s2) + 0xA8));
       temp_v1 = 2;
+      stateDest = *((void **) (((char *) temp_s2) + 0xA8));
       goto block_48;
     }
       *((s16 *) (((char *) (*((void **) (((char *) temp_s2) + 0xA8)))) + 0x7A)) = 0;
@@ -328,10 +314,10 @@ void func_800673EC(void *arg0, void *arg1)
     if (temp_fv1 > 0.0f)
     {
       temp_ft2 = temp_fv1 * 2.5f;
-      ;
-      sp10.v[0] = (sp10.v[0] * (1.0f - temp_ft2)) + ((*((f32 *) (((char *) var_s4) + 0xAC))) * temp_ft2);
-      sp10.v[1] = (sp10.v[1] * (1.0f - temp_ft2)) + ((*((f32 *) (((char *) var_s4) + 0xB0))) * temp_ft2);
-      sp10.v[2] = (sp10.v[2] * (1.0f - temp_ft2)) + ((*((f32 *) (((char *) var_s4) + 0xB4))) * temp_ft2);
+      temp_ft1 = 1.0f - temp_ft2;
+      sp10.v[0] = (sp10.v[0] * temp_ft1) + ((*((f32 *) (((char *) var_s4) + 0xAC))) * temp_ft2);
+      sp10.v[1] = (sp10.v[1] * temp_ft1) + ((*((f32 *) (((char *) var_s4) + 0xB0))) * temp_ft2);
+      sp10.v[2] = (sp10.v[2] * temp_ft1) + ((*((f32 *) (((char *) var_s4) + 0xB4))) * temp_ft2);
     }
   }
   temp_v0_3 = *((void **) (((char *) temp_s2) + 0xA8));

@@ -88,7 +88,7 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
     var_s5 = 0;
     sp44 = func_80083E24();
     temp_s1 = *((s32 *) (((char *) D_800C0780) + temp_s2));
-    temp_s0 = heapAllocTagged(0x30U);
+    temp_s0 = heapAllocTagged(0x30U, 0x17);
     var_fp = 0;
     var_s7 = 0;
     sp56 = 0;
@@ -107,9 +107,9 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
     func_80041F68(temp_s0);
     if (var_s6 != 0)
     {
-      var_s0 = (void *) sp4C;
       do
       {
+        var_s0 = (void *) ((char *) sp4C + var_s3 * 0x44);
         dmaRomToRamUnaligned((u16 *) (&header), var_s0->rom + ((u32) (&D_54D910)), 0x20U);
         if (var_s5 < header.meshCount)
         {
@@ -140,7 +140,6 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
           var_s7 = temp_v1;
         }
         var_s3 += 1;
-        var_s0++;
       }
       while (var_s3 < var_s6);
     }

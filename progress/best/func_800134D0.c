@@ -138,10 +138,12 @@ u32 __repair_phase_var_s3;
 
   if (var_t4 < 0)
   {
-    temp_t2 = var_t2;
+    u32 temp_t2_arm;
+    s32 temp_v0_2_arm;
+    temp_t2_arm = var_t2;
     var_t2 = var_s4;
     var_s4 = *var_s1++;
-    temp_v0_2 = (temp_t2 + (var_t2 << (var_t4 + 1))); var_a2 = temp_v0_2 & 1;
+    temp_v0_2_arm = (temp_t2_arm + (var_t2 << (var_t4 + 1))); var_a2 = temp_v0_2_arm & 1;
     var_t2 >>= -var_t4;
     var_t4 += 0x20;
   }
@@ -238,6 +240,7 @@ u32 __repair_phase_var_s3;
   }
   if (var_a2_3 != 0)
   {
+    s32 temp_a1_3_arm;
     var_a3 = 1;
     var_v1 = (&D_80112EE0) + 1;
     do
@@ -390,8 +393,8 @@ u32 __repair_phase_var_s3;
       ++var_v1_4;
     }
     while ((var_a3_5 >> var_s3) == 0);
-    var_t1_5 = 1;
     var_t3_3 = 0;
+    var_t1_5 = 1;
     if (1U < var_s3)
     {
       if (var_s1)
@@ -511,8 +514,8 @@ u32 __repair_phase_var_s3;
       var_t3_5 = temp_s2;
       if (var_t1_6 < 0x10U)
       {
-        temp_a1_3 = 1 << var_t1_6;
-        sp2C = temp_a1_3 - 1;
+        temp_a1_3_arm = 1 << var_t1_6;
+        sp2C = temp_a1_3_arm - 1;
         var_t9 = var_t1_6 * 4;
         var_s2 = &(&D_80112EE0)[var_t1_6];
         do
@@ -531,7 +534,7 @@ u32 __repair_phase_var_s3;
               var_a1_5 = temp_a2 >> var_s3;
               do
               {
-                (&spC[(temp_v1_5 >> 7) + temp_a1_3])[var_a1_5] = ((*__repair_phase_var_a2_5) << 7) + (*var_t8);
+                (&spC[(temp_v1_5 >> 7) + temp_a1_3_arm])[var_a1_5] = ((*__repair_phase_var_a2_5) << 7) + (*var_t8);
                 var_a1_5 += 1 << ((*var_t8) - var_s3);
               }
               while ((var_a1_5 >> ((temp_v1_5 >> 4) & 7)) == 0);

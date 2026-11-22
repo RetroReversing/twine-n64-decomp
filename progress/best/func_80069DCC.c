@@ -99,6 +99,8 @@ inline static char *inline_fn23(char *arg0, int arg1)
 
 void func_80069DCC(void *arg0)
 {
+  void *entry_road;
+  s32 entry_mode;
     f32 repair_upper_delta;
     f32 repair_lower_delta;
 
@@ -329,13 +331,13 @@ void func_80069DCC(void *arg0)
   void *temp_v1_9;
   void *var_s0_2;
   void *var_v0_25;
-  do {
-  frame.roads = *((void **) (((char *) arg0) + 0x20));
+  entry_road = *((void **) (((char *) arg0) + 0x20));
   temp_s1 = *((void **) (((char *) arg0) + 0x6C));
+  entry_mode = D_80103EB0;
+  frame.roads = entry_road;
   temp_s4 = inline_fn((char *) temp_s1, 0x182);
-  } while (0);
 
-  if (D_80103EB0 == 0)
+  if (entry_mode == 0)
   {
     temp_a0 = *((s32 *) (((char *) temp_s1) + 8));
     *((s32 *) (((char *) temp_s1) + 0x1B0)) = 0;
