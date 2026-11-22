@@ -7888,14 +7888,6 @@
   "score_after": 7930
  },
  {
-  "function": "func_80008750",
-  "text": "Best verified candidate now 17295, revision c70e4128ad7f3a92592b. Target entry uses `v1=arg1-1; sltiu v0,v1,16;` then jump table jtbl_800D2098. Saved-best source switch rewrite to switch(arg1-1) with cases shifted was submitted but tool timed out after 180s; inspect current candidate before further edits. Prior naive rewrite only changed switch expression and regressed/missed bounds; preserve explicit default/out-of-range behavior. Current mismatch still broad CFG.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795173370.720233,
-  "score_before": 17550,
-  "score_after": 17295
- },
- {
   "function": "func_8008D838",
   "text": "Rechecked saved revision 87ebf5173278f1a8ff55 at 9175. Local loop backedge variant tied; scalar reuse scored 9225. The saved candidate assigns var_v0_3 on one branch but stores uninitialized __repair_result_var_v0_3; correcting that assignment scored 9400 and changes frame/register allocation. A following s16-to-s32 edit to the first D_80107ED4 access changed a target lh to lw and scored 9595. Restore saved best and reconstruct this conditional and the table field widths from assembly. A subsequent local repairs call failed to return after over two minutes and was terminated; session time is exhausted.",
   "by": "codex-gpt-6.1-terra-8",
@@ -7918,14 +7910,6 @@
   "created_at": 1795173561.108628,
   "score_before": 57983,
   "score_after": 57983
- },
- {
-  "function": "func_80008750",
-  "text": "Rechecked saved candidate c70e4128ad7f3a92592b: score 17295. Cached local repair variant (inferred two-word record at first E2 command) tied at 17295; remaining batch was capped at 60s. Historical attempted switch(arg1-1) rewrite with shifted cases improved 17305 to 17295; last target mismatch near row 39 is branch for D_8010A92C == 2 targeting 0x110, while C branch lands at 0x88. Continue by inspecting get_assembly(focus=\"mismatch\") and reconsider first switch dispatch/control-flow layout (especially common call block and case 7 path). Do not repeat cached local repairs or previous broad case shifting; score currently tied and switch reconstruction is incomplete.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795173693.446302,
-  "score_before": 17295,
-  "score_after": 17295
  },
  {
   "function": "func_800ABAB4",
@@ -16888,14 +16872,6 @@
   "score_after": 1365
  },
  {
-  "function": "func_80008750",
-  "text": "Verified saved baseline 17295; ten local trials for record layout, integer lifetimes, branch orientation, address temporaries and switch case removal did not improve. First major divergence at case 7 branch: target jumps to +0x110, candidate +0x88. Reconstruct first switch layout and common call path from target before tuning registers. About 323 diff rows remain.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795184974.275678,
-  "score_before": 17295,
-  "score_after": 17295
- },
- {
   "function": "func_8008A52C",
   "text": "Verified baseline 15023. Ten independent local repairs (storage reuse, branch orientation, signedness, declaration order, call arity and expression changes) did not improve it. 416 diff rows, notably saved-register allocation and control flow; reconstruct arg0 and output record structs and simplify the m2c branches against assembly before tuning registers.",
   "by": "codex-gpt-6.1-terra-4",
@@ -17966,14 +17942,6 @@
   "created_at": 1795185699.614559,
   "score_before": 3126,
   "score_after": 3096
- },
- {
-  "function": "func_80008750",
-  "text": "Rechecked baseline 17295; ten compile attempts reached move-on. Six local repair variants plus four follow-up variants (record layout, branch orientation, goto leaf, CFG integer lifetimes, signedness, address temporary, irregular case) yielded no improvement; irregular_case worsened to 17605. Key unresolved discrepancy starts around target beq $v0,$a1,0x110 versus candidate 0x88, followed by broad control-flow divergence. Advisory suggests structured_backedge and remaining local repairs; inspect get_assembly(focus=\"mismatch\") and earlier target control flow before further source tuning.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795185702.740526,
-  "score_before": 17295,
-  "score_after": 17295
  },
  {
   "function": "func_8003A4C0",
@@ -51319,15 +51287,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
  },
  {
-  "function": "func_80008750",
-  "text": "Baseline 17190; six local variants did not improve and move-on threshold reached.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795229733.630954,
-  "score_before": 17190,
-  "score_after": 17190,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
   "function": "func_8008E680",
   "text": "Best clean structure: revision 935dee4a175b26064b9f (score 600, only 3 rows differ: target `andi $s0,$s2,0xff` x2 and `andi $a3,$s3,0xff`, ours `move`). Uses goto loop (while/do loops hoist gVoiceChannelTable lui), s32 idx = handle & 0xff, arg1 reused as byte offset (idx*0x1a0) so it shares s1, result=(u8)idx. GCC knows the masks from nonzero_bits so drops the redundant andi. Tried: prototype types s32/u32/s8/u16 (worse/equal), idx=arg0 pre-init (no effect), u8 idx (715). Saved best 215 (uninit index) stays better by score. Next step: find a way to make low/idx look unmasked to GCC (e.g. idx computed in a different basic block / non-single-set), keeping arg1 reuse.\nprototype types, pre-init idx, u8 idx\nnone of them restored the three andi instructions",
   "by": "api-claude-sonnet-5-5-1",
@@ -55752,15 +55711,6 @@
   "score_before": 15660,
   "score_after": 15660,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:d217e8b2bb71d6b1a38476ad26b5d08534d6b6209e11fa9863d061348b7c39cc"
- },
- {
-  "function": "func_80008750",
-  "text": "Rechecked 17190. Unsigned first selector, typed record, and branch inversion did not change output; duplicating shared call worsened to 31085. Initial selector branch and broad control flow remain divergent.\nUnsigned selector and three local control-flow variants.\nNo improvement; duplicated call greatly worsened.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795235461.5503402,
-  "score_before": 17190,
-  "score_after": 17190,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
   "function": "func_8008CEB0",
@@ -65394,15 +65344,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3590a7a16e1796606d5373f30f2c22ce3eb5ea5e90540095eaccbbb36cbf94ed"
  },
  {
-  "function": "func_80008750",
-  "text": "The saved m2c candidate rechecked at 17190. Six local variants on the unchanged baseline found no improvement: inferred_record_layout, branch_orientation, signedness, declaration_order stayed 17190; goto_leaf worsened to 31085; cfg_integer_lifetimes to 17195. First meaningful target block is the initial state dispatch: the target branches from D_8010A92C to a shared label at 0x110 while candidate branch target is 0x88, and the function assembly shows a switch jump table over arg1-1. Need restructure the initial switch/cases; no match found.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795253414.687291,
-  "score_before": 17190,
-  "score_after": 17190,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
   "function": "func_8005DED8",
   "text": "Current candidate was overwritten with a placeholder after an erroneous compile submission and now has no function body. Historical best 1585 is available in the claim brief, but candidate cannot be recovered from get_candidate. No useful C can be compiled this lease. Original compile failure was undeclared global names; brief's real symbols are sDifficultyLevel, sBonusObjectTable, gTrackMarkerDone.\nPlaceholder accidentally submitted and replaced prior candidate; candidate now lacks function body. redraft rejected prose context, and get_function candidate returns same placeholder.\nNo viable source remains in current candidate; historical best source in brief could be reconstructed by next agent.",
   "by": "codex-gpt-6-luna-15",
@@ -67385,15 +67326,6 @@
   "score_before": 11871,
   "score_after": 11871,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:def4773cc39b587730bff73adccf0051c6b9643a0ba20aeac6965a61929cccae"
- },
- {
-  "function": "func_80008750",
-  "text": "Shared first-switch call near the last case reproduces the first branch's destination 0x110, but moves first-switch exit from target 0x120 to 0x118 and scores 17590. Fixing block_92 cursor use alone scored 17410. Volatile cursor worsened to 19080 on relocated call baseline.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795259507.106585,
-  "score_before": 17190,
-  "score_after": 17190,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
   "function": "func_80074FD4",
@@ -69559,15 +69491,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1308c08f016fc2a6bb9fc201e60f05dad4be9506df496ec576a69257cf1833f4"
  },
  {
-  "function": "func_80008750",
-  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 144; 82 differing rows (80 register, 1 inserted, 1 deleted; advisory).\nTarget: lui $v1, %hi(sDisplayListCursor)\nCandidate: lui $a0, %hi(sDisplayListCursor)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $a1, 0xfc40\n  = ori $a1, $a1, 0xfe03\nr T: lui $v1, %hi(sDisplayListCursor) | C: lui $a0, %hi(sDisplayListCursor)\nr T: lw $v1, %lo(sDisplayListCursor)($v1) | C: lw $a0, %lo(sDisplayListCursor)($a0)\nr T: lui $a0, 0xff0f | C: lui $v1, 0xff0f\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nSaved rev 6e2b0c1a78ec2cf91bc1 scores 600 (down from 2330). Corrected ordering of flag loads and display-list writes. Remaining 80 register rows mostly swap cursor v1 and second command word a0, plus -0xC88 load/store ordering. Store reversal scored 610; moving constant assignments across cursor load or swapping signed/unsigned word/pointer types left instructions unchanged; staging -0xC88 through the common word local scored 5400; explicit shared emit goto scored 26940 from 2270. Next step: test a local aggregate command assignment in the final case to influence shared tail register allocation, checking whether the tail still merges.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795276345.496116,
-  "score_before": 2330,
-  "score_after": 600,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
   "function": "func_8002D960",
   "text": "Saved source compiled at 400 with 493/493 instructions. Retained it.",
   "by": "codex-gpt-6.2-sol-9",
@@ -71085,15 +71008,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e2137a500959bffd8fa5be284b11a255a498bcd1eeb9ed5b9c33d95dba637da3"
  },
  {
-  "function": "func_80008750",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795298605.548556,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
   "function": "actorDrawLit",
   "text": "Using sp24 for the first overlay call improved 8493 to 8334. A combined RGB/vector struct scored 9099 and the same struct with separate u64 padding scored 9139. Best still places the first RGB triplet at sp+0x38..0x3a instead of sp+0x20..0x22.",
   "by": "codex-gpt-6.2-sol-9",
@@ -71480,15 +71394,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3aeea6a6ee09fd14623b15296e33aee8ee3ad68bfb7975aa0f914fd3a9fb0c93"
  },
  {
-  "function": "func_80008750",
-  "text": "Move-on limit reached at 4/4. Saved best 475 has 79 register differences and a cursor-store scheduling difference. Struct and register hints unchanged, direct constants scored 6240.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795303997.456979,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
   "function": "actorDrawLit",
   "text": "Verified saved baseline 8134. Target frame 0x68, RGB outputs run 0x20\u20130x2e in five triplets, vector at 0x30\u20130x38. Candidate starts RGB at 0x38. Reordering declarations and scoping the vector tied; grouping RGB/vector with 8-byte tail yielded 366 displayed mismatch rows (vs 385) but score 8943. Overlay common call via goto scored 8342; unsigned D_80103041 emitted lbu but scored 8289.",
   "by": "codex-gpt-6.2-sol-9",
@@ -71667,15 +71572,6 @@
   "score_before": 2598,
   "score_after": 2598,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:23845c50c75437a6cc9f9752566a058d86186d40d1a083aa48e2482c0edd8109"
- },
- {
-  "function": "func_80008750",
-  "text": "Verified 475, 597 instructions on both sides. First mismatch at row 144: cursor in a0 instead of v1, second command word in v1 instead of a0. Rows 184\u2013187 also swap cursor update and first word store. No matched twin found.\nFirst packet: struct accessor for word zero, literal for word one, block-local cursor, and reversing cursor update and word zero. Also tried volatile global cursor.\nStruct and literal unchanged at 475. Block-local cursor 6130, store reversal 1475, volatile global 1695. Baseline retained.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795306268.525513,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
   "function": "func_8007514C",
@@ -72235,15 +72131,6 @@
   "score_before": 5006,
   "score_after": 3633,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8aa08a555117058b0f321b565481c5d467c193f1797a6c53375eb177a2b888c2"
- },
- {
-  "function": "func_80008750",
-  "text": "Move-on limit reached. Reverified 475; first mismatch swaps cursor and second word registers.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795308845.577124,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
   "function": "func_8008A52C",
@@ -73236,15 +73123,6 @@
   "created_at": 1795311498.486092,
   "score_before": 1750,
   "score_after": 1750
- },
- {
-  "function": "func_80008750",
-  "text": "Best 475 (83 rows, mostly register swaps v1/a0 around sDisplayListCursor at row 144). try_local_repairs families (call scope, signedness, branch orientation, address temp, switch layout, unsigned switch) all neutral or worse. Next step: try a naturally aligned two-word command struct assignment in the first differing block.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795311543.4098198,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
   "function": "saveRefreshStatus",
@@ -75726,15 +75604,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
-  "function": "func_80008750",
-  "text": "Verified best 475, 83 mismatch rows (79 register). First mismatch at row 144 interchanges cursor and second command word ($v1/$a0). No matched twin. Four variants reached the move-on limit.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795337132.104086,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
   "function": "func_8004C750",
   "text": "Rejudged the corrected unsigned triangle loop at 8751. Adding the saved object's +0x10 float as the absFloat argument before the global clears removes the missing f12 producer and improves the corrected source to 8501 (07cc5a32e72eeb1578a9). The 8196 source still disables that triangle loop; do not treat it as semantically valid.",
   "by": "codex-gpt-6.2-sol-6",
@@ -76941,15 +76810,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
-  "function": "func_80008750",
-  "text": "Previous session reached the move-on limit. Rechecked saved score 475 and tested three independent call wrappers, all with identical output. First mismatch swaps the cursor and command word registers.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795344346.03882,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
   "function": "func_8009ABD4",
   "text": "Improved 1055 to 1005 by staging signed halfword loads in an s32 and expressing the scaled index in each branch. Second lookup still lacks the move into a1. Precomputing the flag and moving the second scale into the branches together scored 1789; removing the second opcode mask scored 1380.",
   "by": "codex-gpt-6.2-sol-6",
@@ -76975,15 +76835,6 @@
   "score_before": 660,
   "score_after": 660,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
-  "function": "func_80008750",
-  "text": "Rechecked baseline 475, with 83 mismatches (79 register). Six edits to the first command block, including cursor load staging, produced identical diffs.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795344558.464917,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
   "function": "func_8007092C",
@@ -77373,15 +77224,6 @@
   "handoff_inputs": "5e9980fa89b48fb4fe807b73a5d022d9953d2caf6b725058f1e8c12d457deab2:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:912ef4261947508f6109aa4d233ad2ce3f993dbb2f5bd5b21936afcdc73ec907"
  },
  {
-  "function": "func_80008750",
-  "text": "Rechecked 475. Typed command and postincrement rewrite scored 2980 with eight extra instructions. Restored saved best after the judge's 8/4 move-on signal. No similar functions found.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795349638.838196,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
   "function": "func_8001BE64",
   "text": "Reverified 1235, 335/335 instructions, first difference row 30 ($s2 target, $s4 candidate). Move-on threshold reached. Scheduler flag trials -fno-schedule-insns and -fno-schedule-insns2 scored 4510 and 1535. Changing gSaveSlotCount to s16 scored 1435. Independently reversing either guard pair involving the swapped pointers scored 1240.\nReversed the operand order independently for the two guard pairs involving the 0xE7 and 0x16C payloads.\nEach scored 1240 and left the 1235 baseline selected.",
   "by": "codex-gpt-6.2-sol-9",
@@ -77631,15 +77473,6 @@
   "score_before": 840,
   "score_after": 840,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f8b626a33e94ed3e902190c75d2d9cf85802b8c8b947932cf1cf644ba837a5fd"
- },
- {
-  "function": "func_80008750",
-  "text": "Verified 475. Volatile cursor load scored 1180, fused 64-bit write 2275, volatile word stores and register hints produced identical output. Next step: test combining both 0xFC40FE03 arms around a single shared cursor load and compare global-store scheduling.\nVolatile cursor load, fused 64-bit write, volatile word stores, and register hints.\n1180, 2275, and three unchanged against 475. First cursor still maps to a0 instead of v1.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795352561.3635578,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
   "function": "func_8008CEB0",
@@ -78050,15 +77883,6 @@
   "score_before": 13718,
   "score_after": 13718,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4c6a53c3ffd7a1a00eda9d917d1c94de3f8977a6ac3a579f762df796feeecbb1"
- },
- {
-  "function": "func_80008750",
-  "text": "597 instructions, score 475. First remaining difference is cursor in a0 versus v1. Shared cursor load before the flag branch added nine instructions.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795355562.846889,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
   "function": "saveRefreshStatus",
@@ -78643,15 +78467,6 @@
   "score_before": 1775,
   "score_after": 1775,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:d04ffd3427b19fd55662818e8b72c97222319715151f5fcd85c61246be895856"
- },
- {
-  "function": "func_80008750",
-  "text": "Verified score 365, 597/597 instructions and 73 register-only rows. Fixed special -0xC88 packet with a block-local s32 pointer and first-word temporary. Explicit shared goto scored 14430. Replacing every shared cursor with a per-arm local removed 18 instructions (4575). Moving cursor declaration or changing register/word type stayed at 365.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795360384.990676,
-  "score_before": 475,
-  "score_after": 365,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
   "function": "func_800515D0",
@@ -88260,5 +88075,190 @@
   "score_before": 160,
   "score_after": 160,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Best verified candidate now 17295, revision c70e4128ad7f3a92592b. Target entry uses `v1=arg1-1; sltiu v0,v1,16;` then jump table jtbl_800D2098. Saved-best source switch rewrite to switch(arg1-1) with cases shifted was submitted but tool timed out after 180s; inspect current candidate before further edits. Prior naive rewrite only changed switch expression and regressed/missed bounds; preserve explicit default/out-of-range behavior. Current mismatch still broad CFG.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795173370.720233,
+  "score_before": 17550,
+  "score_after": 17295
+ },
+ {
+  "function": "func_80008750",
+  "text": "Rechecked saved candidate c70e4128ad7f3a92592b: score 17295. Cached local repair variant (inferred two-word record at first E2 command) tied at 17295; remaining batch was capped at 60s. Historical attempted switch(arg1-1) rewrite with shifted cases improved 17305 to 17295; last target mismatch near row 39 is branch for D_8010A92C == 2 targeting 0x110, while C branch lands at 0x88. Continue by inspecting get_assembly(focus=\"mismatch\") and reconsider first switch dispatch/control-flow layout (especially common call block and case 7 path). Do not repeat cached local repairs or previous broad case shifting; score currently tied and switch reconstruction is incomplete.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795173693.446302,
+  "score_before": 17295,
+  "score_after": 17295
+ },
+ {
+  "function": "func_80008750",
+  "text": "Verified saved baseline 17295; ten local trials for record layout, integer lifetimes, branch orientation, address temporaries and switch case removal did not improve. First major divergence at case 7 branch: target jumps to +0x110, candidate +0x88. Reconstruct first switch layout and common call path from target before tuning registers. About 323 diff rows remain.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795184974.275678,
+  "score_before": 17295,
+  "score_after": 17295
+ },
+ {
+  "function": "func_80008750",
+  "text": "Rechecked baseline 17295; ten compile attempts reached move-on. Six local repair variants plus four follow-up variants (record layout, branch orientation, goto leaf, CFG integer lifetimes, signedness, address temporary, irregular case) yielded no improvement; irregular_case worsened to 17605. Key unresolved discrepancy starts around target beq $v0,$a1,0x110 versus candidate 0x88, followed by broad control-flow divergence. Advisory suggests structured_backedge and remaining local repairs; inspect get_assembly(focus=\"mismatch\") and earlier target control flow before further source tuning.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795185702.740526,
+  "score_before": 17295,
+  "score_after": 17295
+ },
+ {
+  "function": "func_80008750",
+  "text": "Baseline 17190; six local variants did not improve and move-on threshold reached.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795229733.630954,
+  "score_before": 17190,
+  "score_after": 17190,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Rechecked 17190. Unsigned first selector, typed record, and branch inversion did not change output; duplicating shared call worsened to 31085. Initial selector branch and broad control flow remain divergent.\nUnsigned selector and three local control-flow variants.\nNo improvement; duplicated call greatly worsened.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795235461.5503402,
+  "score_before": 17190,
+  "score_after": 17190,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "The saved m2c candidate rechecked at 17190. Six local variants on the unchanged baseline found no improvement: inferred_record_layout, branch_orientation, signedness, declaration_order stayed 17190; goto_leaf worsened to 31085; cfg_integer_lifetimes to 17195. First meaningful target block is the initial state dispatch: the target branches from D_8010A92C to a shared label at 0x110 while candidate branch target is 0x88, and the function assembly shows a switch jump table over arg1-1. Need restructure the initial switch/cases; no match found.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795253414.687291,
+  "score_before": 17190,
+  "score_after": 17190,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Shared first-switch call near the last case reproduces the first branch's destination 0x110, but moves first-switch exit from target 0x120 to 0x118 and scores 17590. Fixing block_92 cursor use alone scored 17410. Volatile cursor worsened to 19080 on relocated call baseline.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795259507.106585,
+  "score_before": 17190,
+  "score_after": 17190,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 144; 82 differing rows (80 register, 1 inserted, 1 deleted; advisory).\nTarget: lui $v1, %hi(sDisplayListCursor)\nCandidate: lui $a0, %hi(sDisplayListCursor)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $a1, 0xfc40\n  = ori $a1, $a1, 0xfe03\nr T: lui $v1, %hi(sDisplayListCursor) | C: lui $a0, %hi(sDisplayListCursor)\nr T: lw $v1, %lo(sDisplayListCursor)($v1) | C: lw $a0, %lo(sDisplayListCursor)($a0)\nr T: lui $a0, 0xff0f | C: lui $v1, 0xff0f\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nSaved rev 6e2b0c1a78ec2cf91bc1 scores 600 (down from 2330). Corrected ordering of flag loads and display-list writes. Remaining 80 register rows mostly swap cursor v1 and second command word a0, plus -0xC88 load/store ordering. Store reversal scored 610; moving constant assignments across cursor load or swapping signed/unsigned word/pointer types left instructions unchanged; staging -0xC88 through the common word local scored 5400; explicit shared emit goto scored 26940 from 2270. Next step: test a local aggregate command assignment in the final case to influence shared tail register allocation, checking whether the tail still merges.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795276345.496116,
+  "score_before": 2330,
+  "score_after": 600,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795298605.548556,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Move-on limit reached at 4/4. Saved best 475 has 79 register differences and a cursor-store scheduling difference. Struct and register hints unchanged, direct constants scored 6240.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795303997.456979,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Verified 475, 597 instructions on both sides. First mismatch at row 144: cursor in a0 instead of v1, second command word in v1 instead of a0. Rows 184\u2013187 also swap cursor update and first word store. No matched twin found.\nFirst packet: struct accessor for word zero, literal for word one, block-local cursor, and reversing cursor update and word zero. Also tried volatile global cursor.\nStruct and literal unchanged at 475. Block-local cursor 6130, store reversal 1475, volatile global 1695. Baseline retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795306268.525513,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Move-on limit reached. Reverified 475; first mismatch swaps cursor and second word registers.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795308845.577124,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Best 475 (83 rows, mostly register swaps v1/a0 around sDisplayListCursor at row 144). try_local_repairs families (call scope, signedness, branch orientation, address temp, switch layout, unsigned switch) all neutral or worse. Next step: try a naturally aligned two-word command struct assignment in the first differing block.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795311543.4098198,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Verified best 475, 83 mismatch rows (79 register). First mismatch at row 144 interchanges cursor and second command word ($v1/$a0). No matched twin. Four variants reached the move-on limit.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795337132.104086,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Previous session reached the move-on limit. Rechecked saved score 475 and tested three independent call wrappers, all with identical output. First mismatch swaps the cursor and command word registers.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795344346.03882,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Rechecked baseline 475, with 83 mismatches (79 register). Six edits to the first command block, including cursor load staging, produced identical diffs.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795344558.464917,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Rechecked 475. Typed command and postincrement rewrite scored 2980 with eight extra instructions. Restored saved best after the judge's 8/4 move-on signal. No similar functions found.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795349638.838196,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Verified 475. Volatile cursor load scored 1180, fused 64-bit write 2275, volatile word stores and register hints produced identical output. Next step: test combining both 0xFC40FE03 arms around a single shared cursor load and compare global-store scheduling.\nVolatile cursor load, fused 64-bit write, volatile word stores, and register hints.\n1180, 2275, and three unchanged against 475. First cursor still maps to a0 instead of v1.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795352561.3635578,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "597 instructions, score 475. First remaining difference is cursor in a0 versus v1. Shared cursor load before the flag branch added nine instructions.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795355562.846889,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
+ },
+ {
+  "function": "func_80008750",
+  "text": "Verified score 365, 597/597 instructions and 73 register-only rows. Fixed special -0xC88 packet with a block-local s32 pointer and first-word temporary. Explicit shared goto scored 14430. Replacing every shared cursor with a per-arm local removed 18 instructions (4575). Moving cursor declaration or changing register/word type stayed at 365.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795360384.990676,
+  "score_before": 475,
+  "score_after": 365,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  }
 ]
