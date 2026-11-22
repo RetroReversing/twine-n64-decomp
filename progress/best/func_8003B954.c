@@ -30,7 +30,7 @@ typedef struct
 } __repair_field_4;
 void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
 {
-  volatile u64 padding[2];
+  volatile u64 padding[1];
   union 
   {
     s32 *pointer;

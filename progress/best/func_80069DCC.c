@@ -29,7 +29,7 @@ s32 func_80067E94(void *);
 s32 func_8006899C(void *, s32);
 s32 func_80069250(void *);
 s32 func_800698D8(void *, f32, f32);
-f32 func_80069998(void);
+f32 func_80069998(f32);
 f32 func_80069A14(f32);
 s32 func_8006D2E4(void *);
 s32 func_8006E648(void *, void *, s32, s32 *, s32 *, s32 *, s32 *, s32 *);
@@ -144,7 +144,6 @@ void func_80069DCC(void *arg0)
   f32 temp_fs3;
   f32 temp_fs4;
   f32 temp_fs5;
-  f32 temp_fs5_2;
   f32 temp_ft0;
   f32 temp_ft0_2;
   f32 temp_ft0_3;
@@ -1156,18 +1155,20 @@ case 2: case 3: goto out_of_line_actor;
               temp_fv0_21 = *((f32 *) (((char *) temp_s1) + 0x18));
               if (temp_fs0_3 < temp_fv0_21)
               {
-                var_a2 = 0.0f;
+                
                 *((f32 *) (((char *) arg0) + 0x28)) = temp_fv0_21;
                 *((s8 *) (((char *) temp_s1) + 0x181)) = 3;
                 *((s8 *) (((char *) temp_s1) + 0x17E)) = 2;
+                func_800698D8(arg0, temp_fv0_18, 0.0f);
               }
               else
               {
                 *((f32 *) (((char *) arg0) + 0x28)) = temp_fs0_3;
                 func_80002BD0(arg0, 0x295);
-                var_a2 = func_80069998();
+                var_a2 = func_80069998(temp_fv0_18);
+                func_800698D8(arg0, temp_fv0_18, var_a2);
               }
-              func_800698D8(arg0, temp_fv0_18, var_a2);
+              
             }
             *((f32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x34)) = var_fs3;
             *inline_fn2(temp_s1) = (f32) (var_fs3 * 5.0f);
@@ -1552,7 +1553,7 @@ case 2: case 3: goto out_of_line_actor;
 
       case 4:
         temp_fs4 = (*((f32 *) (((char *) arg0) + 0x3C))) - ((*((f32 *) (((char *) temp_s1) + 0x34))) * 1024.0f);
-        temp_fs5_2 = func_80081B44(temp_s4, 0, 1);
+        temp_fs5 = func_80081B44(temp_s4, 0, 1);
         if (((*((f32 *) (((char *) (*((void **) (((char *) frame.roads) + 0x20)))) + 0x5C))) + 0.3f) <= (*((f32 *) (((char *) arg0) + 0x28))))
       {
         frame.speed = 0.0f;
@@ -1636,8 +1637,8 @@ case 2: case 3: goto out_of_line_actor;
         var_s5 += (var_fs3_8 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         var_s6 = ((temp_s6 + D_800C7DC4) + frame.vector[2]) + (var_fs3_8 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         temp_ft1_2 = *inline_fn2(temp_s1);
-        temp_fv1_11 = (((temp_fs5_2 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
-        *((f32 *) (((char *) temp_s1) + 0x4C)) = (((temp_fs5_2 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
+        temp_fv1_11 = (((temp_fs5 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
+        *((f32 *) (((char *) temp_s1) + 0x4C)) = (((temp_fs5 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
         if (temp_fv1_11 < (-0.15f))
         {
           *((f32 *) (((char *) temp_s1) + 0x4C)) = -0.15f;

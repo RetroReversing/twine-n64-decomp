@@ -100,22 +100,23 @@ void func_80043FA0(void *arg0)
           temp_v0_4 = func_800149D4(sp50);
           if (temp_v0_4 == 0)
           {
-            var_fp = temp_s1;
             func_8000B9B8(temp_s1, D_54D910 + (*((s32 *) (((u8 *) sp30) + 8))), (*((u16 *) (((u8 *) sp30) + 0x0C))) * 4);
+            var_fp = temp_s1;
           }
           else
           {
-            var_fp = temp_s2;
+
             func_8000B9B8(temp_s1, D_54D910 + (*((s32 *) (((u8 *) sp30) + 8))), temp_v0_4);
             func_8001499C(temp_s1);
-            func_80014A0C(var_fp, temp_s1);
+            func_80014A0C(temp_s2, temp_s1);
+            var_fp = temp_s2;
           }
           func_8000B9B8(sp50, D_54D910 + (*((s32 *) (((u8 *) sp30) + 0x10))), 0x20);
           temp_v0 = inline_fn(sp50);
           if (temp_v0 == 0)
           {
-            var_s3 = var_s7;
             func_8000B9B8(var_s7, D_54D910 + (*((s32 *) (((u8 *) sp30) + 0x10))), (*((u16 *) (((u8 *) sp30) + 0x14))) * 4);
+            var_s3 = var_s7;
           }
           else
           {
@@ -125,14 +126,14 @@ void func_80043FA0(void *arg0)
             func_80014A0C(var_s3, var_s7);
           }
           func_8000B9B8(sp50, D_54D910 + (*((s32 *) (((u8 *) sp30) + 0x18))), 0x20);
-          temp_v0_6 = inline_fn(sp50);
-          if (temp_v0_6 == 0)
+          temp_v0 = inline_fn(sp50);
+          if (temp_v0 == 0)
           {
+            func_8000B9B8(temp_s6, D_54D910 + FLD(sp30, s32, 0x18), FLD(sp30, u16, 0x1C));
             var_s2 = temp_s6;
-            func_8000B9B8(temp_s6, D_54D910 + (*((s32 *) (((u8 *) sp30) + 0x18))), *((u16 *) (((u8 *) sp30) + 0x1C)));
             goto block_21;
           }
-          func_8000B9B8(temp_s6, D_54D910 + (*((s32 *) (((u8 *) sp30) + 0x18))), temp_v0_6);
+          func_8000B9B8(temp_s6, D_54D910 + (*((s32 *) (((u8 *) sp30) + 0x18))), temp_v0);
           temp_v0_7 = func_80083E90(func_8001499C(temp_s6), 0x2D); sp7C = temp_v0_7;
           if (temp_v0_7 != NULL)
           {
@@ -188,4 +189,5 @@ void func_80043FA0(void *arg0)
   }
   while (0);
 }
+
 

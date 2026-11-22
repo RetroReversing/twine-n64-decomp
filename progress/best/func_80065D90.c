@@ -357,7 +357,11 @@ void func_80065D90(void *arg0)
     if (temp_a0_3 != (-1))
     {
       func_8000A270(temp_a0_3);
- do { ((Field_s32 *) (((char *) temp_s1) + 0xC))->v = -1; } while (0);
+      do
+      {
+        ((Field_s32 *) (((char *) temp_s1) + 0xC))->v = -1;
+      }
+      while (0);
     }
   }
   temp_fv1 = ((Field_f32 *) (((char *) temp_s1) + 0x44))->v;
@@ -701,7 +705,7 @@ void func_80065D90(void *arg0)
       {
         var_v0_7 = 0;
       }
-      if (((var_v1_8 ^ 1) | (var_v0_7 ^ 1)) != 0)
+      if (((var_v0_7 ^ 1) | (var_v1_8 ^ 1)) != 0)
       {
         if (D_80115088[temp_s3].f0 != 0)
         {
@@ -861,3 +865,4 @@ void func_80065D90(void *arg0)
   }
   func_8006591C(arg0);
 }
+
