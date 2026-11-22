@@ -76,13 +76,13 @@ void func_80018E38(void)
       {
         if (temp_v1 == 0x3E8)
         {
-          var_v0 = D_800B60A4 - 1;
           if (D_800B60A4 == 0)
           {
             requestSound(0xEA);
           }
           else
           {
+            var_v0 = D_800B60A4 - 1;
             goto block_12;
           }
         }

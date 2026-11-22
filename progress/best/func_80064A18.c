@@ -223,15 +223,18 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
         *((s32 *) (((char *) ((((var_v1 << 15) << 1) >> 0xE) + temp_s3)) + 0x3D4)) = 0;
         do
         {
-          do
+          if (1)
           {
             do
             {
-              temp_v0 = var_v1 + 1;
+              do
+              {
+                temp_v0 = var_v1 + 1;
+              }
+              while (0);
             }
             while (0);
           }
-          while (0);
         }
         while (0);
         var_v1 = temp_v0;
@@ -555,7 +558,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
     {
       do
       {
-        if (((((s32) sDifficultyLevel) + 1) <= 2) || ((var_v0 = temp_s4, sDifficultyLevel != 2)))
+        if ((((((s32) sDifficultyLevel) + 1) - 1) < 2) || ((var_v0 = temp_s4, sDifficultyLevel != 2)))
         {
           var_fv0 = 12.0f; var_fv1 = 18.0f; D_800C7C98 = var_fv0;
           D_800C7C9C = var_fv1;

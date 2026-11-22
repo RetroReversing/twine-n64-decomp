@@ -37,11 +37,12 @@ void func_800347B0(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     (*(f32 *)((char *)(arg0) + 0x3C)) = 1.0f;
     (*(f32 *)((char *)(arg0) + 0)) = (f32) (temp_fs2 * temp_fv0);
     (*(f32 *)((char *)(arg0) + 0x10)) = (f32) (((temp_fs4 * temp_fs1) * temp_fv0) - (temp_fs3 * temp_fs0));
+    { union { f32 f; int i; } v; v.f = temp_fs2 * temp_fs0; *(int *)((char *)arg0 + 4) = v.i; }
     (*(f32 *)((char *)(arg0) + 0x28)) = (f32) (temp_fs3 * temp_fs2);
     (*(f32 *)((char *)(arg0) + 0x18)) = (f32) (temp_fs4 * temp_fs2);
-    { union { f32 f; int i; } v; v.f = temp_fs2 * temp_fs0; *(int *)((char *)arg0 + 4) = v.i; }
     temp_ft1 = temp_fs3 * temp_fs1;
     (*(f32 *)((char *)(arg0) + 0x20)) = (f32) ((temp_ft1 * temp_fv0) + (temp_fs4 * temp_fs0));
     (*(f32 *)((char *)(arg0) + 0x14)) = (f32) (((temp_fs4 * temp_fs1) * temp_fs0) + (temp_fv0 * temp_fs3));
     (*(f32 *)((char *)(arg0) + 0x24)) = (f32) ((temp_ft1 * temp_fs0) - (temp_fv0 * temp_fs4));
 }
+

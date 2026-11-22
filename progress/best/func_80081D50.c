@@ -78,7 +78,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
           }
           {
             {
-              t1 = (E(i).mask != 0) | inline_fn23(a2 != 0);
+              t3 = (E(i).mask != 0); t1 = t3 | inline_fn23(a2 != 0);
             }
           }
           if (t1)
@@ -101,7 +101,8 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
               }
               else
               {
-                s1 = (arg2 & E(i).val) | (u16) a2;
+                t1 = (u16) a2;
+    s1 = (arg2 & E(i).val) | t1;
               }
               if (E(i).flags & 8)
               {
