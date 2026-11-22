@@ -13,7 +13,7 @@ s32 func_800644CC();
 void *func_8006452C();
 s32 func_80064630();
 s32 func_800649E4();
-s32 func_800671E0();
+short func_800671E0();
 s32 func_80067AE8();
 s32 func_8007080C();
 s32 func_80077C00();
@@ -87,7 +87,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
   s16 temp_a1_2;
   s16 temp_v0;
   s16 temp_v1_10;
-  s16 temp_v0_2;
+  s32 temp_v0_2;
   s16 temp_v1_11;
   s16 var_s2;
   s16 var_v1;
@@ -150,7 +150,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
     do
     {
       temp_s4 = func_800164F8(0x5AC, arg1, 0); temp_s0 = ((s32) (arg0 << 0x10)) >> 0xE; D_800E19F4 = 0;
-      *(void **)((char *)&sBonusObjectTable + temp_s0) = temp_s4;
+      *((void **) (((char *) (&sBonusObjectTable)) + temp_s0)) = temp_s4;
     }
     while (0);
     if (temp_s4 != NULL)
@@ -234,13 +234,11 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
       }
       while (temp_v0 < 4);
       var_v1_2 = 0;
-      var_v0_3 = 0 << 0x10;
       do
       {
-        *((s32 *) (((char *) ((var_v0_3 >> 0xE) + temp_s3)) + 0x3E4)) = 0;
+        *((s32 *) (((char *) (((var_v1_2 << 0x10) >> 0xE) + temp_s3)) + 0x3E4)) = 0;
         temp_v0_2 = var_v1_2 + 1;
         var_v1_2 = temp_v0_2;
-        var_v0_3 = var_v1_2 << 0x10;
       }
       while (((temp_v0_2 + 1) - 1) < 6);
       *((s32 *) (((char *) temp_s3) + 0x3FC)) = 0;
@@ -249,7 +247,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
       D_800C7D74 = (s16) ((s8) (*((u8 *) (((char *) temp_s3) + 0x182))));
       temp_s1_2 = &D_800C7D74;
       D_800C7D98 = (s16) ((s8) (*((u8 *) (((char *) temp_s3) + 0x182))));
-      temp_s0_2 = (*temp_s1_2) + 4;
+      temp_s0_2 = (s16 *)((char *)temp_s1_2 + 4);
       *((void **) (((char *) temp_s3) + 0x404)) = spawnTextNode(temp_s1_2);
       *((void **) (((char *) temp_s3) + 0x408)) = spawnTextNode(temp_s0_2);
       *((void **) (((char *) temp_s3) + 0x478)) = spawnTextNode(temp_s1_2);
@@ -301,8 +299,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
           *((void **) (((char *) temp_s3) + 0x488)) = temp_v0_4; temp_v0_5 = spawnTrackMarker((s8) (*((u8 *) (((char *) temp_s3) + 0x182))));
           *((void **) (((char *) temp_s3) + 0x480)) = temp_v0_5;
           initObjectFromBankEntry(temp_v0_5, 0xC, 0x2A);
-          temp_v1_9 = *((void **) (((char *) temp_s3) + 0x480));
-          *((u16 *) (inline_fn(temp_v1_9) + 0x1E)) |= 2; var_s1 = 0x24;
+          *((u16 *) (inline_fn(*((void **) (((char *) temp_s3) + 0x480))) + 0x1E)) |= 2; var_s1 = 0x24;
           *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x480)))) + 0x20)) = 0x16; var_s2 = 0x15; var_s5 = 6;
           *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x480)))) + 0x22)) = 0x13;
         }
@@ -583,5 +580,4 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
   }
   return var_v0;
 }
-
 

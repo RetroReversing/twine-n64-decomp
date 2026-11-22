@@ -114,12 +114,14 @@ void func_800068B4(void)
       }
       else
       {
-        volatile s32 *slots = &D_801002B8;
+        volatile s32 *initial = &D_801002B8;
+        volatile s32 *slots;
         var_s0 = 0;
-        if (((*slots) <= 0) || D_801002AE)
+        if (((*initial) <= 0) || D_801002AE)
         {
           goto block_38;
         }
+        slots = initial;
         do
         {
           unsigned int result = func_8002D0BC(0xA3, var_s0 & 0xFFFF);
@@ -255,6 +257,10 @@ void func_800068B4(void)
       func_8000CA3C();
       return;
 
+    case 13:
+      D_800DC734 = 0.06666667f;
+      goto block_52;
+
     case 12:
       D_800DC734 = -0.06666667f;
       block_52:
@@ -288,10 +294,6 @@ void func_800068B4(void)
     }
     while (0);
 
-    case 13:
-      D_800DC734 = 0.06666667f;
-      goto block_52;
-
     case 17:
       func_80087C9C();
       return;
@@ -313,4 +315,5 @@ void func_800068B4(void)
   }
 
 }
+
 

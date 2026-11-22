@@ -75,30 +75,54 @@ void func_8011A7C8(void)
       entry = D_80102CD0[index];
       if ((entry != 0) && (entry->meta->type == 7))
       {
- do { chosen = i; i = 0; if (i < gSceneType.count) { do { do { if (i == index) { goto next_scene; } entry = D_80102CD0[i]; do { if ((entry == 0) || (entry->meta->disabled != 0)) { goto next_scene; } D_80102CD0[index]->meta->count++; } while (0); do { next_scene: i++; } while (0); } while (inline_fn23456((volatile s32 *) inline_fn2((u8 *) (&gSaveTotalSlots), inline_fn234())) > ((s16) i)); } while (0); } } while (0);
+        do
+        {
+          chosen = i; i = 0;
+          if (i < gSceneType.count)
+          {
+            do
+            {
+              do
+              {
+                if (i == index)
+                {
+                  goto next_scene;
+                }
+                entry = D_80102CD0[i];
+                do
+                {
+                  if ((entry == 0) || (entry->meta->disabled != 0))
+                  {
+                    goto next_scene;
+                  }
+                  D_80102CD0[index]->meta->count++;
+                }
+                while (0);
+                do
+                {
+                  next_scene:
+                  i++;
+
+                }
+                while (0);
+              }
+              while (inline_fn23456((volatile s32 *) inline_fn2((u8 *) (&gSaveTotalSlots), inline_fn234())) > ((s16) i));
+            }
+            while (0);
+          }
+        }
+        while (0);
         break;
       }
       i++;
     }
-    while (inline_fn2345(i, *(volatile s32 *)((u8 *)&gSceneType + 0x14)));
+    while (inline_fn2345(i, *((volatile s32 *) (((u8 *) (&gSceneType)) + 0x14))));
   }
   if (((s16) chosen) == (-1))
   {
     i = 0;
     count = gSaveTotalSlots;
-    if (count <= 0)
-      goto done;
-    do {
-      bonus = sBonusObjectTable[i];
-      if (bonus != 0) {
-        state = bonus->state;
-        if ((state < 2) & (state != 6)) {
-          chosen = i;
-          goto update;
-        }
-      }
-      i++;
-    } while (i < gSaveTotalSlots);
+ do { if (count <= 0) { goto done; } do { bonus = sBonusObjectTable[i]; if (bonus != 0) { state = bonus->state; if ((state < 2) & (state != 6)) { chosen = i; goto update; } } i++; } while (i < gSaveTotalSlots); } while (0);
   }
   update:
   i = 0;
@@ -109,7 +133,14 @@ void func_8011A7C8(void)
     {
       if (inline_fn23(i) != ((s16) chosen))
       {
-        bonus = sBonusObjectTable[(s16) i];
+        if (sBonusObjectTable)
+        {
+          bonus = sBonusObjectTable[(s16) i];
+        }
+        else
+        {
+          bonus = sBonusObjectTable[(s16) i];
+        }
         if (bonus != 0)
         {
           if ((bonus->type ^ 0) == 2)

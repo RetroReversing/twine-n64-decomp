@@ -46,7 +46,7 @@ void func_8002255C(void *arg0, void *arg1)
         {
           *((u16 *) (((char *) child1) + 0x22)) = *((u16 *) (((char *) arg0) + 6));
           var_v0 = *((u16 *) (((char *) arg0) + 4));
-          temp_v1 = *((void **) (((char *) temp_s0) + 4));
+          child1 = *((void **) (((char *) temp_s0) + 4));
           var_v0 += 0xD0;
         }
         else
@@ -61,13 +61,14 @@ void func_8002255C(void *arg0, void *arg1)
             var_a1 = *((void **) (((char *) temp_s0) + 4));
             *((u16 *) (((char *) var_a1) + 0x22)) = (*((u16 *) (((char *) arg0) + 6))) + (count * 11);
           }
-          temp_v1 = (0, *((void **) (((char *) temp_s0) + 4)));
+          child1 = *((void **) (((char *) temp_s0) + 4));
           var_v0 = *((u16 *) (((char *) arg0) + 4));
         }
+        temp_v1 = child1;
         *((u16 *) (((char *) temp_v1) + 0x20)) = var_v0;
         {
           void *child;
-          s32 mask = ~0xFC;
+          short mask = ~0xFC;
           if (gMenuUseTextList != 0)
           {
             child = *((void * volatile *) (((char *) temp_s0) + 4));
@@ -87,7 +88,8 @@ void func_8002255C(void *arg0, void *arg1)
             var_v0_2 |= 2;
             var_v0_2 <<= 2;
           }
-          *((s32 *) (((char *) child) + 0x28)) = var_v1 | var_v0_2;
+          var_v1 |= var_v0_2;
+          *((s32 *) (((char *) child) + 0x28)) = var_v1;
         }
         {
           void *state = gSaveMenuState;
@@ -142,7 +144,8 @@ void func_8002255C(void *arg0, void *arg1)
             }
             while (0);
           }
-          *((s32 *) (((char *) child) + 0x28)) = var_v1_2 | var_v0_4;
+          var_v1_2 |= var_v0_4;
+          *((s32 *) (((char *) child) + 0x28)) = var_v1_2;
         }
         temp_a0_4 = *((u8 *) (inline_fn2(arg0) + 8));
         if (temp_a0_4 == 0x80)

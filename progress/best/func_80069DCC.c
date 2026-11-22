@@ -571,14 +571,13 @@ case 2: case 3: goto out_of_line_actor;
            }
            if ((repair_first_inverted | (var_v0 ^ 1)) != 0)
            {
-             temp_fv0 = var_fs3 * var_fs3;
              if (var_fs3 > 0.0f)
              {
-               var_fs3 = (temp_fv0 * 0.2f) + 0.01f;
+               var_fs3 = ((var_fs3 * var_fs3) * 0.2f) + 0.01f;
              }
              else
              {
-               var_fs3 = (temp_fv0 * (-0.1f)) - 0.01f;
+               var_fs3 = ((var_fs3 * var_fs3) * (-0.1f)) - 0.01f;
              }
            }
            temp_fs2_2 = 0.2f;
@@ -974,14 +973,13 @@ case 2: case 3: goto out_of_line_actor;
                }
                if ((repair_second_bound | (var_v0_13 ^ 1)) != 0)
                {
-                 temp_fv0_13 = var_fs3 * var_fs3;
                  if (var_fs3 > 0.0f)
                  {
-                   var_fs3 = (temp_fv0_13 * 0.09f) + 0.01f;
+                   var_fs3 = ((var_fs3 * var_fs3) * 0.09f) + 0.01f;
                  }
                  else
                  {
-                   var_fs3 = (temp_fv0_13 * (-0.045f)) - 0.01f;
+                   var_fs3 = ((var_fs3 * var_fs3) * (-0.045f)) - 0.01f;
                  }
                }
                temp_fs2_2 = 0.2f;
