@@ -186,7 +186,7 @@ void func_8001D738(void)
     temp_v1_3 = D_80100198[gCurrentSaveSlot].f0;
     if (((s32) temp_v1_3) >= 0)
     {
-      if (gCurrentSaveSlot)
+      if (temp_v1_3)
       {
         var_a0_7 = temp_s0 - 0x28;
       }
@@ -237,12 +237,12 @@ void func_8001D738(void)
     {
       var_a0_9 = 9;
     }
-    var_s1_2 = 0;
     formatTextEntry(temp_s5, D_800D2864, lookupDataEntry(var_a0_9));
     func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x25, 0xB4, 0x34, 0xE, 1, &bindMenuItemRecord, &func_8001AC88);
     func_80022A30(sMenuListKind, 0x23, 0x2C, 0x33, 0x9A);
     temp_v0_7 = countValidSaveSlots(0xA3);
     gValidSaveSlotCount = temp_v0_7;
+    var_s1_2 = 0;
     if (temp_v0_7 & 0xFF)
     {
       do
