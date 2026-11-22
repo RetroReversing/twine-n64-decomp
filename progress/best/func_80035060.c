@@ -57,6 +57,7 @@ void func_80035060(void *arg0)
   f32 right;
   f32 bottom;
   s32 framebuffer;
+    s32 __repair_framebuffer_1;
   s32 phys;
   s32 width;
   s32 __repair_width_1;
@@ -90,7 +91,7 @@ void func_80035060(void *arg0)
   temp_s6 = (s32) (bottom - 1.0f);
   temp_s5 = (s32) (right - 1.0f);
   phys = osVirtualToPhysical(framebuffer);
-  framebuffer = D_80109A54;
+  __repair_framebuffer_1 = D_80109A54;
   temp_s0 = sDisplayListCursor;
   width = D_8010D6F8;
   *((s32 *) (((char *) temp_s1) + 0xC)) = phys;
@@ -102,7 +103,7 @@ void func_80035060(void *arg0)
   *((s32 *) (((char *) temp_s0) + 8)) = 0xE200001C;
   *((s32 *) (((char *) temp_s0) + 0xC)) = 0x0F0A4000;
   *((s32 *) (((char *) temp_s0) + 0x10)) = (s32) (((width - 1) & 0xFFF) | 0xFF100000);
-  phys = osVirtualToPhysical(framebuffer);
+  phys = osVirtualToPhysical(__repair_framebuffer_1);
   *((s32 *) (((char *) temp_s0) + 0x14)) = phys;
   temp_s1_2 = sDisplayListCursor;
   *((s32 *) (((char *) temp_s1_2) + 4)) = 0xFFFCFFFC;
@@ -119,8 +120,8 @@ void func_80035060(void *arg0)
   {
     var_a0 = ((-(gHiResScreen == 0)) & 3) | 2;
   }
-  __repair_width_1 = D_8010D6F8;
   image = D_8010A4B0;
+  __repair_width_1 = D_8010D6F8;
   *((s32 *) (((char *) temp_s1_2) + 0x10)) = (s32) ((var_a0 << 0x13) | (((__repair_width_1 - 1) & 0xFFF) | 0xFF000000));
   framebuffer = (&D_80100304)[image];
   sDisplayListCursor = temp_s1_2 + 0x18;
@@ -180,10 +181,12 @@ void func_80035060(void *arg0)
       }
       if (temp_a1 & 1)
       {
-        green = D_801007D0;
+s32 __repair_branch_green_0;
+
+        __repair_branch_green_0 = D_801007D0;
         red = D_801007CF;
         blue = D_801007D1;
-        var_v1_2 = (((red << 8) & 0xF800) | inline_fn(green, 0x7C0)); var_v1 = ((blue >> 2) & 0x3E) | var_v1_2;
+        var_v1_2 = (((red << 8) & 0xF800) | inline_fn(__repair_branch_green_0, 0x7C0)); var_v1 = ((blue >> 2) & 0x3E) | var_v1_2;
       }
       temp_v1_2 = temp_a1 & 4;
       if (temp_v1_2)

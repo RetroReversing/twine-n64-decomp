@@ -29,7 +29,7 @@ s32 func_8009ABD4(void *arg0, void *arg1, s32 arg2)
     temp_v0 = temp_v1_2 * 2;
     if (temp_v1_2 < 0x10U)
     {
-      var_s1 = (s32) (*((s16 *) (((char *) (temp_v0 + arg0)) + 0x180)));
+      var_s1 = (s32) (*((s16 *) (((char *) ((temp_v1_2 * 2) + arg0)) + 0x180)));
     }
     else
     {
@@ -64,7 +64,7 @@ s32 func_8009ABD4(void *arg0, void *arg1, s32 arg2)
     }
     var_v1 = arg2 & 0xFF;
   }
-  switch ((short) var_v1)
+  switch ((u32)((short) var_v1))
   {
     case 0:
 

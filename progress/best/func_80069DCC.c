@@ -1287,12 +1287,12 @@ case 2: case 3: goto out_of_line_actor;
       {
         if (func_80081AA4(temp_s4, 0xC) != 0)
         {
-          var_fs3_6 = 0.2f;
+          var_fs3 = 0.2f;
           block_307:
-          *inline_fn2(temp_s1) = var_fs3_6;
+          *inline_fn2(temp_s1) = var_fs3;
 
-          var_s5 = var_fs3_6 * sinAngle(*((f32 *) (((char *) arg0) + 0x40)));
-          var_fs3 = var_fs3_6 * cosAngle(*((f32 *) (((char *) arg0) + 0x40)));
+          var_s5 = var_fs3 * sinAngle(*((f32 *) (((char *) arg0) + 0x40)));
+          var_fs3 = var_fs3 * cosAngle(*((f32 *) (((char *) arg0) + 0x40)));
           *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
           *((s8 *) (((char *) temp_s1) + 0x188)) = 0x14;
           func_800635BC(arg0, 0);
@@ -1449,7 +1449,7 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v1_23 = 0;
             }
-            var_fs3_6 = 0.0f;
+            var_fs3 = 0.0f;
             if (!(var_v0_24 & var_v1_23))
             {
               block_360:

@@ -1,5 +1,5 @@
 s32 func_80048794(unsigned int, s32);
-unsigned int func_800820B0(s32);
+unsigned int func_800820B0(volatile unsigned char);
 extern f64 D_800D48B0;
 extern f64 D_800D48B8;
 extern f64 D_800D48C0;
@@ -23,17 +23,26 @@ inline static float inline_fn(float arg0, float arg1)
   return arg0 * arg1;
 }
 
-inline static unsigned short inline_fn2()
+inline static unsigned int inline_fn2()
 {
   return (unsigned short) 1.0f;
+}
+
+inline static u8 inline_fn23(u8 *arg0)
+{
+  return *arg0;
+}
+
+inline static char *inline_fn234(char *arg0)
+{
+  return arg0 + 0;
 }
 
 void func_8007560C(void)
 {
   s32 var_a0;
   f32 temp_fs0_2;
-f32 __repair_phase_temp_fs0_2;
-  f32 temp_fs0_3;
+  f32 __repair_phase_temp_fs0_2;
   u32 temp_v1;
   f32 temp_fs0_5;
   f32 temp_fs1;
@@ -42,6 +51,7 @@ f32 __repair_phase_temp_fs0_2;
   f32 temp_fs2_3;
   f32 temp_fs3;
   f32 temp_fs3_2;
+  f32 temp_fs0_3;
   register f32 temp_fs4;
   f32 var_a1;
   f32 var_a2;
@@ -50,10 +60,10 @@ f32 __repair_phase_temp_fs0_2;
   f64 temp_fs0;
   f64 var_fv0;
   register f64 var_fv1;
+  s32 var_s0;
   f64 var_fv1_2;
   f64 var_fv1_3;
   f64 var_fv1_4;
-  s32 var_s0;
   s32 var_v1;
   void **var_s1;
   void *temp_s4;
@@ -86,7 +96,7 @@ f32 __repair_phase_temp_fs0_2;
     }
   }
   func_8004844C(gMenuRootObject, 160.0f, 120.0f, 320.0f, 240.0f, (f32) (var_fv1 = (f64) xOffset), (f32) yOffset);
-  *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) & 0xEF);
+  *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) inline_fn234((char *) (&D_8010A4C3)))) & 0xEF);
   *((u8 *) (((char *) (&D_8010A4C3)) + (-2))) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + (-2)))) & 0xEF);
   *((s32 *) (((char *) gMenuRootObject) + 0x100)) = (s32) ((*((s32 *) (((char *) gMenuRootObject) + 0x100))) | 0x100);
   if (D_8010969C == NULL)
@@ -94,7 +104,7 @@ f32 __repair_phase_temp_fs0_2;
     func_80048794(5, gProbeObjectList);
   }
   func_8004844C(D_8010969C, 160.0f, 120.0f, 320.0f, 240.0f, (f32) (var_fv1_2 = (f64) xOffset), (f32) 0);
-  *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) & 0xDF);
+  *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) (inline_fn23((u8 *) inline_fn234((char *) (&D_8010A4C3))) & 0xDF);
   *((u8 *) (((char *) (&D_8010A4C3)) + (-2))) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + (-2)))) & 0xDF);
   gSceneFlagsB |= 0x20;
   *((s32 *) (((char *) D_8010969C) + 0x100)) = (s32) ((*((s32 *) (((char *) D_8010969C) + 0x100))) | 0x100);
@@ -133,7 +143,11 @@ f32 __repair_phase_temp_fs0_2;
       {
         func_80048794(var_s0, gProbeObjectList);
         var_fv0 = (f64) 0;
-        do { func_8004844C(*var_s1, 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset); } while (0);
+        do
+        {
+          func_8004844C(*var_s1, 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
+        }
+        while (0);
         if (var_s0 >= gVisibleSaveSlotCount)
         {
           var_v1 = 1 << var_s0;
@@ -141,16 +155,16 @@ f32 __repair_phase_temp_fs0_2;
           {
             if (var_v1)
             {
-              *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) | var_v1);
+              *((u8 *) inline_fn234((char *) (&D_8010A4C3))) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) | var_v1);
             }
             else
             {
-              *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) | var_v1);
+              *((u8 *) inline_fn234((char *) (&D_8010A4C3))) = (u8) ((*((u8 *) inline_fn234((char *) (&D_8010A4C3)))) | var_v1);
             }
           }
           else
           {
-            *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) & (~(1 << var_s0)));
+            *((u8 *) inline_fn234((char *) (&D_8010A4C3))) = (u8) ((*((u8 *) inline_fn234((char *) (&D_8010A4C3)))) & (~(1 << var_s0)));
             var_v1 = 1 << var_s0;
           }
           temp_v1 = ~var_v1;
@@ -161,7 +175,7 @@ f32 __repair_phase_temp_fs0_2;
         }
         else
         {
-          *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) | (1 << var_s0));
+          *((u8 *) inline_fn234((char *) (&D_8010A4C3))) = (u8) ((*((u8 *) inline_fn234((char *) (&D_8010A4C3)))) | (1 << var_s0));
         }
       }
       var_s0 += 1;

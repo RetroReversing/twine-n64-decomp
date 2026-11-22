@@ -567,8 +567,8 @@ void func_80065D90(void *arg0)
     {
       ((Field_f32 *) (((char *) temp_s1) + 0x20))->v = var_fv1_3;
     }
-    temp_fv1_2 = ((Field_f32 *) (((char *) temp_s1) + 0x1C))->v;
     var_fs0_2 = 0.0f;
+    temp_fv1_2 = ((Field_f32 *) (((char *) temp_s1) + 0x1C))->v;
     temp_fs1 = 0.0f;
     if (temp_fv1_2 < (-0.37f))
     {
