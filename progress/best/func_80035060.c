@@ -90,7 +90,7 @@ void func_80035060(void *arg0)
   temp_s6 = (s32) (bottom - 1.0f);
   temp_s5 = (s32) (right - 1.0f);
   phys = osVirtualToPhysical(framebuffer);
-  framebuffer = 0x80109A54;
+  framebuffer = D_80109A54;
   temp_s0 = sDisplayListCursor;
   width = D_8010D6F8;
   *((s32 *) (((char *) temp_s1) + 0xC)) = phys;

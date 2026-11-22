@@ -16,6 +16,16 @@ inline static ControlRow *inline_fn23(u32 arg0, ControlRow *arg1)
   return arg0 + arg1;
 }
 
+inline static unsigned char inline_fn234(ControlRow (*arg0)[16], s32 arg1)
+{
+  return (u32) arg0[arg1];
+}
+
+inline static ControlRow *inline_fn2345(ControlRow (*arg0)[16], s32 arg1)
+{
+  return arg0[arg1];
+}
+
 void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
 {
   s32 temp_a0;
@@ -110,13 +120,13 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
       u32 __repair_branch_groupBase_2;
       if (groupBase)
       {
-        __repair_branch_groupBase_2 = (u32) D_800EE420[temp_a2];
+        __repair_branch_groupBase_2 = inline_fn234(D_800EE420, temp_a2);
         var_v0 = inline_fn(__repair_branch_groupBase_2, rowOffset);
         rowOffset = (arg1 & 0xFF) * 134;
       }
       else
       {
-        __repair_branch_groupBase_2 = (u32) D_800EE420[temp_a2];
+        __repair_branch_groupBase_2 = (u32) inline_fn2345(D_800EE420, temp_a2);
         var_v0 = inline_fn(__repair_branch_groupBase_2, rowOffset);
         rowOffset = (arg1 & 0xFF) * 134;
       }
@@ -191,7 +201,7 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
   temp_a2 = ((u32) arg2) & 0xFF;
   if (temp_a2 != 0xFF)
   {
-    groupBase = D_800EE420[temp_a2];
+    groupBase = inline_fn2345(D_800EE420, temp_a2);
     rowOffset = (arg1 & 0xFF) * 134;
     var_v0 = inline_fn(groupBase, rowOffset);
   }
