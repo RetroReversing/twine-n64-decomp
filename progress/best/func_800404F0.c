@@ -272,8 +272,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       D_800E19E0 = __repair_phase_saved_x;
       __base_D_800E19E4 = &D_800E19E4;
       *((f32 *) __base_D_800E19E4) = *((f32 *) (((char *) arg1) + 0x28));
-      *((f32 *) (&D_800E19E8)) = ((__repair_field_2C *) arg1)->value;
-      zero = 0.0f;
+ do { *((f32 *) (&D_800E19E8)) = ((__repair_field_2C *) arg1)->value; zero = 0.0f; } while (0);
       ((__repair_field_2C *) arg1)->value = zero;
       *((f32 *) (((char *) arg1) + 0x28)) = zero;
       *((f32 *) (((char *) arg1) + 0x24)) = zero;
@@ -487,4 +486,3 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
   }
 
 }
-

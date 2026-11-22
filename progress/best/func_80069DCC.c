@@ -262,6 +262,7 @@ void func_80069DCC(void *arg0)
   s32 var_v1;
   s32 var_v1_10;
   s32 var_v1_11;
+  s32 repair_second_bound;
   s32 var_v1_12;
   s32 var_v1_13;
   s32 var_v1_14;
@@ -274,6 +275,7 @@ void func_80069DCC(void *arg0)
   s32 var_v1_21;
   s32 var_v1_22;
   s32 var_v1_23;
+  s32 repair_bound_result;
   s32 var_v1_2;
   s32 var_v1_3;
   s32 var_v1_4;
@@ -583,12 +585,13 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v1_2 = 0;
             }
+            repair_bound_result = var_v1_2 ^ 1;
             var_v0_2 = 1;
             if (!(var_fs3 >= (-0.0002f)))
             {
               var_v0_2 = 0;
             }
-            if (((var_v0_2 ^ 1) | (var_v1_2 ^ 1)) != 0)
+            if (((var_v0_2 ^ 1) | repair_bound_result) != 0)
             {
               temp_fv1_2 = var_fs3 * var_fs3;
               if (var_fs3 > 0.0f)
@@ -951,12 +954,13 @@ case 2: case 3: goto out_of_line_actor;
                 {
                   var_v1_12 = (unsigned int) 0;
                 }
+                repair_second_bound = var_v1_12 ^ 1;
                 var_v0_13 = 1;
                 if (!(var_fs3 >= (-0.0002f)))
                 {
                   var_v0_13 = 0;
                 }
-                if (((var_v0_13 ^ 1) | (var_v1_12 ^ 1)) != 0)
+                if (((var_v0_13 ^ 1) | repair_second_bound) != 0)
                 {
                   temp_fv0_13 = var_fs3 * var_fs3;
                   if (var_fs3 > 0.0f)
@@ -1274,7 +1278,8 @@ case 2: case 3: goto out_of_line_actor;
       {
         *((f32 *) (((char *) temp_s1) + 0x50)) = 0.2f;
       }
-        func_8011A234(arg0, *((void **) (((char *) temp_s1) + 0xB8)), *inline_fn2(*((void **) (((char *) temp_s1) + 0xB8))), *((f32 *) (((char *) temp_s1) + 0x50)), 0, 1);
+        temp_fv1_5 = *((f32 *) (((char *) temp_s1) + 0x50));
+        func_8011A234(arg0, *((void **) (((char *) temp_s1) + 0xB8)), *inline_fn2(*((void **) (((char *) temp_s1) + 0xB8))), temp_fv1_5, 0, 1);
         goto block_430;
 
       case 3:
@@ -1647,9 +1652,9 @@ case 2: case 3: goto out_of_line_actor;
         {
           *((f32 *) (((char *) temp_s1) + 0x50)) = 0.05f;
         }
-        var_fs3_8 = *((f32 *) (((char *) temp_s1) + 0x50));
-        var_s5 += (var_fs3_8 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
-        var_s6 += (var_fs3_8 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
+        var_fs3 = *((f32 *) (((char *) temp_s1) + 0x50));
+        var_s5 += (var_fs3 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
+        var_s6 += (var_fs3 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         temp_ft1_2 = *inline_fn2(temp_s1);
         temp_fv1_11 = (((temp_fs5 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
         *((f32 *) (((char *) temp_s1) + 0x4C)) = (((temp_fs5 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;

@@ -470,8 +470,8 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                         }
                       }
                       sp196 += 1;
-                      var_fp += 3;
                       var_s5 += 6;
+                      var_fp += 3;
                     }
                     while (sp196 < inline_fn((u16) (*((u16 *) (((char *) temp_v1) + 0x40)))));
                   }
@@ -710,10 +710,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           }
                           if (var_v0_8 & var_v1_8)
                           {
-                            var_a0_3 = scratch.vsp138.values[2];
-                            scratch.chosenPoint.values[0] = scratch.vsp138.values[0];
-                            scratch.chosenPoint.values[1] = scratch.vsp138.values[1];
-                            scratch.chosenPoint.values[2] = var_a0_3;
+                            *((SurfaceVec3 *) scratch.chosenPoint.values) = *((SurfaceVec3 *) scratch.vsp138.values);
                             var_fa0_6 = temp_fs1_3;
                           }
                           else
@@ -824,9 +821,9 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           goto block_141;
                         }
                         segmentClosestPoint(sp1F4, temp_s2_4, temp_s0_5, sp1AC);
+                        temp_fs0_8 = func_80047AB0(sp1F4, sp1AC);
                         segmentClosestPoint(sp1FC, temp_s0_5, temp_s1_7, sp1AC);
                         temp_fs1_4 = func_80047AB0(sp1FC, sp1AC);
-                        temp_fs0_8 = func_80047AB0(sp1F4, sp1AC);
                         segmentClosestPoint(&scratch.vsp148.values[0], temp_s1_7, temp_s2_4, sp1AC);
                         temp_fv0_11 = func_80047AB0(&scratch.vsp148.values[0], sp1AC);
                         *((SurfaceVec3 *) scratch.chosenPoint.values) = *((SurfaceVec3 *) scratch.vsp128.values);
@@ -863,11 +860,8 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           }
                           if (var_v0_12 & var_v1_12)
                           {
-                            var_a0_4 = scratch.vsp148.values[2];
-                            scratch.chosenPoint.values[0] = scratch.vsp148.values[0];
-                            scratch.chosenPoint.values[1] = scratch.vsp148.values[1];
+                            *((SurfaceVec3 *) scratch.chosenPoint.values) = *((SurfaceVec3 *) scratch.vsp148.values);
                             var_fa0_8 = temp_fv0_11;
-                            scratch.chosenPoint.values[2] = var_a0_4;
                           }
                         }
                         if (var_fa0_8 < temp_fs4)
