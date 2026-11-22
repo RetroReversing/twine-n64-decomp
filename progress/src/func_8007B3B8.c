@@ -98,7 +98,8 @@ play:;
         }
         func_8007AABC(arg0, (s32) (phase_value & var_v1) ? (f32) (M2C_FIELD(arg0, f32 *, 0x40)) : (f32) (func_80082A70(temp_fa0, temp_fa1) * 651.8986f), 0.2f);
     }
-    M2C_FIELD(arg0, f32 *, 0x24) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + (var_fs1 * func_800829A0(M2C_FIELD(arg0, f32 *, 0x40))));
+    temp_fs0 = func_800829A0(M2C_FIELD(arg0, f32 *, 0x40));
+    M2C_FIELD(arg0, f32 *, 0x24) += var_fs1 * temp_fs0;
     M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (var_fs1 * func_800829C8(M2C_FIELD(arg0, f32 *, 0x40))));
     M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), f32 *, 0x34) = var_fs1;
     return func_800828D0(var_fs1);
