@@ -10,6 +10,11 @@ inline static char *inline_fn2(s32 arg0, int arg1, char *arg2)
   return ((arg0 & arg1) * 0x86) + arg2;
 }
 
+inline static char *inline_fn23(s32 arg0, char *arg1)
+{
+  return (arg0 * 0x860) + arg1;
+}
+
 s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
 {
   s32 temp_a3 = arg0;
@@ -22,7 +27,7 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
   char *__repair_phase___base_D_800F2720;
   s32 temp_a2;
   s32 __repair_phase_temp_a2;
-s32 __repair_phase___repair_phase_temp_a2;
+  s32 __repair_phase___repair_phase_temp_a2;
   u32 temp_t0;
   u8 *var_v0;
   u8 *var_v0_2;
@@ -45,7 +50,7 @@ s32 __repair_phase___repair_phase_temp_a2;
     }
     if (((u32) ((temp_a3 + 0x80) & 0xFF)) < 2U)
     {
-      char *bank = (__repair_phase_temp_a2 * 0x860) + D_800EE420;
+      char *bank = inline_fn23(__repair_phase_temp_a2, D_800EE420);
       if (arg1 || __base_D_800F2720)
       {
         var_v1_2 = (void *) ((arg1 & 0xFF) * 0x86);
@@ -126,6 +131,4 @@ s32 __repair_phase___repair_phase_temp_a2;
   var_v0 = (((arg1 & 0xFF) * 0x86) + __repair_phase___base_D_800F2720) + arg2;
   return ((*var_v0) << 5) << 2;
 }
-
-
 

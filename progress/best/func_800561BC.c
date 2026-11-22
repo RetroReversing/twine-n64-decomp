@@ -234,6 +234,7 @@ void func_800561BC(void *arg0) {
     u32 var_s0_3;
     u8 temp_a1;
     void *temp_a0;
+void *__repair_phase_temp_a0;
     void *temp_a0_3;
     void *temp_a0_5;
     void *temp_a2_2;
@@ -272,14 +273,18 @@ void func_800561BC(void *arg0) {
     *(Vec3Copy *)&local.sp30 = (*(Vec3Copy *)((char *)(arg0) + 0x24));
     temp_v1 = (*(s16 *)((char *)(arg0) + 0x7A));
     var_s7 = NULL;
-    switch (temp_v1) {                              /* switch 1; irregular */
-    default:                                        /* switch 1 */
+    if (temp_v1 == 1) goto outer_1;
+    if (temp_v1 < 2) goto outer_default;
+    if (temp_v1 == 2) goto outer_2;
+    if (temp_v1 == 3) goto outer_3;
+outer_default:
+    {
         temp_fs0_4 = 0.5f;
-        temp_fs0_4 += randomFloatScaled(temp_fs0_4);
+        temp_fs0_4 = randomFloatScaled(temp_fs0_4) + temp_fs0_4;
         var_fs0 = temp_fs0_4 * (*(f32 *)((char *)(temp_s2) + 0x20));
         (*(s16 *)((char *)(arg0) + 0x7A)) = (s16) ((u16) (*(s16 *)((char *)(arg0) + 0x7A)) + 1);
         goto block_19;
-    case 1:                                         /* switch 1 */
+outer_1:
         temp_a0_5 = (*(void **)((char *)(temp_s2) + 0x2C));
         temp_a1_4 = (*(s32 *)((char *)(temp_a0_5) + 0x60));
         var_fs0 = (*(f32 *)((char *)(temp_s2) + 0x20));
@@ -305,14 +310,14 @@ block_13:
             (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) -(*(f32 *)((char *)(arg0) + 0x3C));
         }
         goto block_19;
-    case 2:                                         /* switch 1 */
+outer_2:
         func_80032220((*(s32 *)((char *)(temp_s2) + 0x30)));
         (*(s32 *)((char *)(arg0) + 0x60)) = (s32) ((*(s32 *)((char *)(arg0) + 0x60)) | 1);
         if ((*(u16 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x52)) != 0) {
             releaseTrackRecord(temp_s2 + 15);
         }
-        break;
-    case 3:                                         /* switch 1 */
+        goto outer_end;
+outer_3:
         (*(f32 *)((char *)(temp_s2) + 0x18)) = 0.0f;
         var_fs0 = (*(f32 *)((char *)(temp_s2) + 0x18));
 block_19:
@@ -320,8 +325,11 @@ block_19:
         local.sp34 += var_fs0 * (*(f32 *)((char *)(temp_s2) + 4));
         local.sp38 += var_fs0 * (*(f32 *)((char *)(temp_s2) + 8));
         temp_a0 = (*(void **)((char *)(temp_s2) + 0x2C));
-        (*(f32 *)((char *)(temp_s2) + 0x1C)) = (f32) ((*(f32 *)((char *)(temp_s2) + 0x1C)) + var_fs0);
-        gSurfaceQueryStamp += 1;
+        {
+            u16 stamp = gSurfaceQueryStamp;
+            (*(f32 *)((char *)(temp_s2) + 0x1C)) = (f32) ((*(f32 *)((char *)(temp_s2) + 0x1C)) + var_fs0);
+            gSurfaceQueryStamp = stamp + 1;
+        }
         if (((__repair_record_temp_a0*)temp_a0)->field_60 & 0x1000) {
             temp_ft0 = (*(f32 *)((char *)(temp_s2) + 0x20));
             temp_fv1 = ((__repair_record_temp_a0*)temp_a0)->field_1C;
@@ -374,8 +382,8 @@ block_29:
                 local.sp17C = gPlayerActor;
             }
         }
-        temp_a0 = findActorCapsuleHit(local.sp174, arg0 + 0x24, &local.sp30, (*(s32 *)((char *)(temp_s2) + 0x24)), &local.hit60[0], 1, ((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x60)) & 0x2000) != 0, 0);
-        if (temp_a0 != NULL) {
+        __repair_phase_temp_a0 = findActorCapsuleHit(local.sp174, arg0 + 0x24, &local.sp30, (*(s32 *)((char *)(temp_s2) + 0x24)), &local.hit60[0], 1, ((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x60)) & 0x2000) != 0, 0);
+        if (__repair_phase_temp_a0 != NULL) {
             temp_fv0_2 = Vec3_DistanceSq(temp_s2 + 3, &local.hit60[0]);
             var_v1 = 1;
             if (!(temp_fv0_2 < var_fs1)) {
@@ -383,7 +391,7 @@ block_29:
             }
             if ((var_v1 | (var_s6 == 0)) != 0) {
                 var_fs1 = temp_fv0_2;
-                var_s7 = temp_a0;
+                var_s7 = __repair_phase_temp_a0;
                 var_s6 = 2;
                 var_s5 = gPlayerActor;
                 *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)local.hit60;
@@ -674,9 +682,7 @@ block_138:
                 local.sp30 = local.sp40 + (local.sp70 * 0.01f);
                 local.sp34 = local.sp44 + (local.sp74 * 0.01f);
                 local.sp38 = local.sp48 + (local.sp78 * 0.01f);
-                (*(f32 *)((char *)(temp_s2) + 0xC)) = local.sp40;
-                (*(f32 *)((char *)(temp_s2) + 0x10)) = local.sp44;
-                (*(f32 *)((char *)(temp_s2) + 0x14)) = local.sp48;
+                *(Vec3Copy *)((char *)temp_s2 + 0xC) = *(Vec3Copy *)&local.sp40;
                 func_80046424(arg0 + 0x3C, (*(f32 *)((char *)(temp_s2) + 0)), (*(f32 *)((char *)(temp_s2) + 4)), (*(f32 *)((char *)(temp_s2) + 8)));
                 (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) -(*(f32 *)((char *)(arg0) + 0x3C));
                 func_80045764(&local.sp98, &local.sp88);
@@ -740,9 +746,7 @@ block_138:
                             temp_s5 = (*(void **)((char *)(arg0) + 0x20));
                             if (temp_s5 != NULL) {
                                 if (func_800588D8(temp_s5) != 0) {
-                                    local.spB0 = (*(f32 *)((char *)(&D_800D3F54) + 0));
-                                    local.spB4 = (*(f32 *)((char *)(&D_800D3F54) + 4));
-                                    local.spB8 = (*(f32 *)((char *)(&D_800D3F54) + 8));
+                                    *(Vec3Copy *)&local.spB0 = *(Vec3Copy *)&D_800D3F54;
                                     var_s0_3 = 0;
                                     func_800851E0((s32)(D_80108F84 + 0x24));
                                     (*(s32 *)((char *)(D_80108F84) + 0x58)) = (s32) (-0x1C1 & temp_a3);
@@ -794,9 +798,7 @@ block_138:
                                     applyObjectRotation(D_80108F84, (s32)(&local.sp118), 0);
                                     func_80083AE8(&local.sp118, &local.spB0, &local.spD0);
                                 } else {
-                                    local.spD0 = local.spB0;
-                                    local.spD4 = local.spB4;
-                                    local.spD8 = local.spB8;
+                                    *(Vec3Copy *)&local.spD0 = *(Vec3Copy *)&local.spB0;
                                 }
                                 (*(f32 *)((char *)(temp_v0_13) + 0x2C)) = (f32) -(approximateAtan2(local.spD4, func_80082908((local.spD0 * local.spD0) + (local.spD8 * local.spD8))) * 651.8986f);
                                 temp_fv0_5 = approximateAtan2(local.spD0, local.spD8) * 651.8986f;
@@ -821,9 +823,7 @@ block_138:
                             }
                         }
                     }
-                    local.spB0 = (*(f32 *)((char *)(temp_s2) + 0));
-                    local.spB4 = (*(f32 *)((char *)(temp_s2) + 4));
-                    local.spB8 = (*(f32 *)((char *)(temp_s2) + 8));
+                    *(Vec3Copy *)&local.spB0 = *(Vec3Copy *)temp_s2;
                     local.spD0 = local.sp70;
                     local.spD4 = local.sp74;
                     local.spD8 = local.sp78;
@@ -915,9 +915,7 @@ block_226:
                             var_a0 = 2;
                         }
                         if (randomIntBelow(var_a0) == 0) {
-                            (*(f32 *)((char *)(temp_s2) + 0xC)) = local.sp40;
-                            (*(f32 *)((char *)(temp_s2) + 0x10)) = local.sp44;
-                            (*(f32 *)((char *)(temp_s2) + 0x14)) = local.sp48;
+                            *(Vec3Copy *)((char *)temp_s2 + 0xC) = *(Vec3Copy *)&local.sp40;
                             func_80046424(arg0 + 0x3C, (*(f32 *)((char *)(temp_s2) + 0)), (*(f32 *)((char *)(temp_s2) + 4)), (*(f32 *)((char *)(temp_s2) + 8)));
                             (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) -(*(f32 *)((char *)(arg0) + 0x3C));
                             func_800850E0(&local.sp40);
@@ -964,14 +962,9 @@ block_234:
                 local.sp90 = local.hit60[2] - ((*(f32 *)((char *)(temp_s2) + 8)) * 0.35f);
                 spawnConfiguredEffect((*(void **)((char *)(arg0) + 0x20)), &local.sp88, &local.sp98, 0, 2.0f, 1.1f, 8, 0x1B, 0x17, 0xFFC800FF, 0x80808040);
                 temp_v1_15 = (*(u16 *)((char *)(var_s7) + 0x78));
-                switch (temp_v1_15) {               /* switch 3; irregular */
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                default:                            /* switch 3 */
+                if (temp_v1_15 == 1) goto actor_type_one;
+                if (temp_v1_15 == 0) goto block_262;
+                if (temp_v1_15 >= 4) goto block_263;
                     if (D_80103EB0 != 0) {
                         temp_a2_2 = (*(void **)((char *)(var_s7) + 0x6C));
                         *(Vec3Copy *)((char *)temp_a2_2 + 0x1A0) = *(Vec3Copy *)((char *)temp_s2 + 0xC);
@@ -984,11 +977,9 @@ block_234:
                         if ((*(f32 *)((char *)(temp_a2_2) + 0x1B0)) < 0.0f) {
                             (*(f32 *)((char *)(temp_a2_2) + 0x1B0)) = 0.0f;
                         }
-                    case 0:                         /* switch 3 */
-block_262:
                     }
-                    break;
-                case 1:                             /* switch 3 */
+                goto block_262;
+actor_type_one:
                     temp_a2_3 = (*(void **)((char *)(var_s7) + 0x6C));
                     *(Vec3Copy *)((char *)temp_a2_3 + 0x50) = *(Vec3Copy *)((char *)temp_s2 + 0xC);
                     if (!((*(s32 *)((char *)(temp_s2) + 0x28)) & 0x20000000)) {
@@ -1003,8 +994,7 @@ block_262:
                     if ((((*(s32 *)((char *)(var_s7) + 0x60)) & 0x42) == 2) && !((*(s32 *)((char *)(temp_s2) + 0x24)) & 0x82000)) {
                         D_801176DC += 1;
                     }
-                    break;
-                }
+block_262:
 block_263:
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 2;
             } else {
@@ -1066,13 +1056,12 @@ block_263:
                         (*(void **)((char *)(arg0) + 0x20)) = temp_v0_20;
                     }
                 }
-                (*(f32 *)((char *)(arg0) + 0x24)) = local.sp30;
-                (*(f32 *)((char *)(arg0) + 0x28)) = local.sp34;
-                (*(f32 *)((char *)(arg0) + 0x2C)) = local.sp38;
+                *(Vec3Copy *)((char *)arg0 + 0x24) = *(Vec3Copy *)&local.sp30;
             }
         }
-        break;
+        goto outer_end;
     }
+outer_end:
     if (((*(s16 *)((char *)(arg0) + 0x7A)) != 2) && ((Probe_BoundsContainPoint(arg0 + 0x24, (*(void **)((char *)(arg0) + 0x20))) << 0x18) == 0)) {
         (*(s16 *)((char *)(arg0) + 0x7A)) = 2;
     }

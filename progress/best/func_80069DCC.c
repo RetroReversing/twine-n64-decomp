@@ -565,7 +565,7 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v0 = 0;
             }
-            if (((var_v0 ^ 1) | repair_first_inverted) != 0)
+            if ((repair_first_inverted | (var_v0 ^ 1)) != 0)
             {
               temp_fv0 = var_fs3 * var_fs3;
               if (var_fs3 > 0.0f)
@@ -592,7 +592,7 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v0_2 = 0;
             }
-            if (((var_v0_2 ^ 1) | repair_bound_result) != 0)
+            if ((repair_bound_result | (var_v0_2 ^ 1)) != 0)
             {
               temp_fv1_2 = var_fs3 * var_fs3;
               if (var_fs3 > 0.0f)
@@ -758,9 +758,11 @@ case 2: case 3: goto out_of_line_actor;
           {
             if ((inline_fn((char *) temp_s1, 0x180) == 0) && (!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x20)))
             {
+              { f64 repair_wide_update = ((f64) (*((f32 *) (((char *) temp_s1) + 0xCC)))) + D_800D45E0;
               *((u8 *) (((char *) temp_s1) + 0x187)) = 0U;
               *((s8 *) (((char *) temp_s1) + 0x180)) = 1;
-              *((f32 *) (((char *) temp_s1) + 0xCC)) = (f32) (((f64) (*((f32 *) (((char *) temp_s1) + 0xCC)))) + D_800D45E0);
+              *((f32 *) (((char *) temp_s1) + 0xCC)) = (f32) repair_wide_update;
+              }
               temp_v1_18 = *((void **) (((char *) arg0) + 0x68));
               *((u16 *) (((char *) temp_v1_18) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_18) + 0xC))) & 0xFFCB);
               requestSound(0xFF);
@@ -962,7 +964,7 @@ case 2: case 3: goto out_of_line_actor;
                 {
                   var_v0_13 = 0;
                 }
-                if (((var_v0_13 ^ 1) | repair_second_bound) != 0)
+                if ((repair_second_bound | (var_v0_13 ^ 1)) != 0)
                 {
                   temp_fv0_13 = var_fs3 * var_fs3;
                   if (var_fs3 > 0.0f)
@@ -1400,7 +1402,7 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v0_22 = 0;
             }
-            if (((var_v0_22 ^ 1) | repair_guard_fold_bits) != 0)
+            if ((repair_guard_fold_bits | (var_v0_22 ^ 1)) != 0)
             {
               *((f32 *) (((char *) arg0) + 0x40)) = (f32) (temp_fv1_7 + 2048.0f);
             }
@@ -1714,8 +1716,10 @@ case 2: case 3: goto out_of_line_actor;
           *((u8 *) (((char *) temp_s1) + 0x18A)) = 1U;
           *((f32 *) (((char *) arg0) + 0x3C)) = 0.0f;
           roll.bits = 0;
+          { f32 repair_field_snapshot = (*((f32 *) (((char *) temp_a1) + 0x10)));
           *((f32 *) (((char *) arg0) + 0x44)) = roll.number;
-          *((f32 *) (((char *) arg0) + 0x40)) = (f32) (*((f32 *) (((char *) temp_a1) + 0x10)));
+          *((f32 *) (((char *) arg0) + 0x40)) = (f32) repair_field_snapshot;
+          }
           func_80002BD0(arg0, 0x20D);
           *((f32 *) (((char *) arg0) + 0x24)) = (f32) ((*((f32 *) (((char *) (*((void **) (((char *) temp_s1) + 0xBC)))) + 0x24))) - (sinAngle(*((f32 *) (((char *) arg0) + 0x40))) * 1.5f));
           temp_fv1_13 = (*((f32 *) (((char *) (*((void **) (((char *) temp_s1) + 0xBC)))) + 0x2C))) - (cosAngle(*((f32 *) (((char *) arg0) + 0x40))) * 1.5f);

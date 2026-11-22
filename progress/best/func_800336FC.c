@@ -13,6 +13,11 @@ extern void func_800328CC(s32, s32, s32, s32, s32, s32, s32, f32);
 extern void func_80032978(u8 *, s32, s32, s32, s32, s32 *);
 extern void gfxAppendTexture(u8 *, s32 *, s32, s32, s32, s32, s32 *);
 extern void func_800A0220(GfxPair **, s32);
+inline static const volatile u8 inline_fn(const volatile u8 *arg0)
+{
+  return arg0[1];
+}
+
 void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale, s32 a6, s32 a7, s32 enable, s32 *vertices, s32 *commands)
 {
   struct 
@@ -60,7 +65,7 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
             break;
 
           case 0:
-            VERTICES(3, (x = q[0], y = q[1], z = q[2]));
+            VERTICES(3, (x = q[0], y = inline_fn(q), z = q[2]));
             advance = (*p) * 3;
             goto add_one;
 
@@ -249,5 +254,4 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
     ++(*commands);
   }
 }
-
 

@@ -111,22 +111,26 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
         if (D_800E176D == 1)
         {
           s32 __repair_branch_sp4C_0;
+          void *command;
           D_800E176D = 0;
-          D_80115328 += 8;
-          *((s32 *) (((char *) D_80115328) + 0)) = 0xE200001C;
+          command = D_80115328;
+          D_80115328 = command + 8;
+          *((s32 *) (((char *) command) + 0)) = 0xE200001C;
           __repair_branch_sp4C_0 = 0x504340;
-          *((s32 *) (((char *) D_80115328) + 4)) = __repair_branch_sp4C_0;
+          *((s32 *) (((char *) command) + 4)) = __repair_branch_sp4C_0;
         }
       }
       else
         if (D_800E176D == 0)
       {
         s32 __repair_branch_sp4C_1;
+          void *command;
         D_800E176D = 1;
-        D_80115328 += 8;
-        *((s32 *) (((char *) D_80115328) + 0)) = 0xE200001C;
+        command = D_80115328;
+        D_80115328 = command + 8;
+        *((s32 *) (((char *) command) + 0)) = 0xE200001C;
         __repair_branch_sp4C_1 = 0x5040C0;
-        *((s32 *) (((char *) D_80115328) + 4)) = __repair_branch_sp4C_1;
+        *((s32 *) (((char *) command) + 4)) = __repair_branch_sp4C_1;
       }
       temp_v1_2 = D_80115328;
       var_t2 = 0x2000;
@@ -234,7 +238,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
     {
       var_a2 = temp_a0_3 + 0x7FF;
     }
-    var_v1 = (((s32) ((temp_a1_2 * ((__repair_record_arg2 *) arg2)->field_28) + 3)) >> 2) - 1;
+    __repair_phase_temp_t6 = (((s32) ((temp_a1_2 * ((__repair_record_arg2 *) arg2)->field_28) + 3)) >> 2); var_v1 = __repair_phase_temp_t6 - 1;
     if (var_v1 >= 0x800)
     {
       var_v1 = 0x7FF;
@@ -390,4 +394,3 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
     *((s32 *) (((char *) temp_v0_6) + 4)) = 0;
   }
 }
-
