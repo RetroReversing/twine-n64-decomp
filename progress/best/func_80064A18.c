@@ -51,9 +51,30 @@ inline static char *inline_fn(void *arg0)
   return (char *) arg0;
 }
 
-void *func_80064A18(s16 arg0, void *arg1, void *arg2, void *arg3)
+typedef struct 
 {
-  volatile s32 padding[4];
+  f32 v;
+} Field_f32;
+typedef struct 
+{
+  s16 v;
+} Field_s16;
+typedef struct 
+{
+  s32 v;
+} Field_s32;
+typedef struct 
+{
+  s8 v;
+} Field_s8;
+typedef struct 
+{
+  u8 v;
+} Field_u8;
+void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
+{
+  void *arg1;
+  volatile s32 padding[2];
   void *sp14;
   f32 var_fv0;
   f32 var_fv1;
@@ -122,13 +143,14 @@ void *func_80064A18(s16 arg0, void *arg1, void *arg2, void *arg3)
   void *temp_v1_8;
   void *temp_v1_9;
   void *var_v0;
+  arg1 = arg1_in;
   sp14 = arg2;
   if ((gBorderSkipActive != 0) || ((var_v0 = NULL, (*((u16 *) (((char *) arg3) + 0x40))) == sDifficultyLevel)))
   {
     do
     {
       temp_s4 = func_800164F8(0x5AC, arg1, 0); temp_s0 = ((s32) (arg0 << 0x10)) >> 0xE; D_800E19F4 = 0;
-      *((&sBonusObjectTable) + temp_s0) = temp_s4;
+      *(void **)((char *)&sBonusObjectTable + temp_s0) = temp_s4;
     }
     while (0);
     if (temp_s4 != NULL)
@@ -182,20 +204,19 @@ void *func_80064A18(s16 arg0, void *arg1, void *arg2, void *arg3)
       *((void **) (((char *) (*((void **) (((char *) temp_s3) + 0xB0)))) + 0x18)) = temp_s4;
       *((s32 *) (((char *) temp_s3) + 0xC4)) = func_800644CC(temp_s4);
       *((s32 *) (((char *) temp_s3) + 0xBC)) = 0;
-      *((s16 *) (((char *) temp_s4) + 0x78)) = 2;
-      *((s32 *) (((char *) temp_s4) + 0x3C)) = 0;
-      *((s32 *) (((char *) temp_s4) + 0x44)) = 0;
-      *((f32 *) (((char *) temp_s4) + 0x40)) = (f32) (*((f32 *) (((char *) sp14) + 4)));
+      ((Field_s16 *) (((char *) temp_s4) + 0x78))->v = 2;
+      ((Field_s32 *) (((char *) temp_s4) + 0x3C))->v = 0;
+      ((Field_s32 *) (((char *) temp_s4) + 0x44))->v = 0;
+      ((Field_f32 *) (((char *) temp_s4) + 0x40))->v = (f32) (*((f32 *) (((char *) sp14) + 4)));
       actorLinkToSurface(*gProbeObjectList, temp_s4, 0);
       var_v1 = 0;
       *((s8 *) (((char *) temp_s3) + 0x184)) = 0;
       *((s8 *) (((char *) temp_s3) + 0x185)) = 0;
       *((s32 *) (((char *) temp_s3) + 0x410)) = 0;
       *((s32 *) (((char *) temp_s3) + 0x414)) = 0;
-      var_v0_2 = 0 << 0x10;
       do
       {
-        *((s32 *) (((char *) ((var_v0_2 >> 0xE) + temp_s3)) + 0x3D4)) = 0;
+        *((s32 *) (((char *) ((((var_v1 << 15) << 1) >> 0xE) + temp_s3)) + 0x3D4)) = 0;
         do
         {
           do
@@ -210,7 +231,6 @@ void *func_80064A18(s16 arg0, void *arg1, void *arg2, void *arg3)
         }
         while (0);
         var_v1 = temp_v0;
-        var_v0_2 = (var_v1 << 15) << 1;
       }
       while (temp_v0 < 4);
       var_v1_2 = 0;
@@ -265,7 +285,28 @@ void *func_80064A18(s16 arg0, void *arg1, void *arg2, void *arg3)
         temp_v0_3 = spawnTrackMarker((s8) (*((u8 *) (((char *) temp_s3) + 0x182))));
         initObjectFromBankEntry(temp_v0_3, 0x2B, 0x1B);
         *((s16 *) (((char *) temp_v0_3) + 0x20)) = 0x14;
- do { *((s16 *) (((char *) temp_v0_3) + 0x22)) = 0x13; *((s32 *) (((char *) temp_v0_3) + 0x10)) = 0xFF0000C8; *((u16 *) (((char *) temp_v0_3) + 0x1E)) |= 2; *((s32 *) (((char *) temp_v0_3) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_v0_3) + 0x28))) & (~0xFC)) | 0x10); *((void **) (((char *) temp_s3) + 0x484)) = temp_v0_3; temp_v0_4 = spawnTrackMarker((s8) (*((u8 *) (((char *) temp_s3) + 0x182)))); initObjectFromBankEntry(temp_v0_4, 0x2C, 0x1B); *((s16 *) (((char *) temp_v0_4) + 0x20)) = 0x55; *((s32 *) (((char *) temp_v0_4) + 0x10)) = 0xFFC8; *((s16 *) (((char *) temp_v0_4) + 0x22)) = 0x13; *((s32 *) (((char *) temp_v0_4) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_v0_4) + 0x28))) & (~0xFC)) | 0x1C); *((u16 *) (((char *) temp_v0_4) + 0x1E)) |= 2; *((void **) (((char *) temp_s3) + 0x488)) = temp_v0_4; temp_v0_5 = spawnTrackMarker((s8) (*((u8 *) (((char *) temp_s3) + 0x182)))); *((void **) (((char *) temp_s3) + 0x480)) = temp_v0_5; initObjectFromBankEntry(temp_v0_5, 0xC, 0x2A); temp_v1_9 = *((void **) (((char *) temp_s3) + 0x480)); *((u16 *) (inline_fn(temp_v1_9) + 0x1E)) |= 2; var_s1 = 0x24; *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x480)))) + 0x20)) = 0x16; var_s2 = 0x15; var_s5 = 6; *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x480)))) + 0x22)) = 0x13; } while (0);
+        do
+        {
+          *((s16 *) (((char *) temp_v0_3) + 0x22)) = 0x13;
+          *((s32 *) (((char *) temp_v0_3) + 0x10)) = 0xFF0000C8;
+          *((u16 *) (((char *) temp_v0_3) + 0x1E)) |= 2;
+          *((s32 *) (((char *) temp_v0_3) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_v0_3) + 0x28))) & (~0xFC)) | 0x10);
+          *((void **) (((char *) temp_s3) + 0x484)) = temp_v0_3; temp_v0_4 = spawnTrackMarker((s8) (*((u8 *) (((char *) temp_s3) + 0x182))));
+          initObjectFromBankEntry(temp_v0_4, 0x2C, 0x1B);
+          *((s16 *) (((char *) temp_v0_4) + 0x20)) = 0x55;
+          *((s32 *) (((char *) temp_v0_4) + 0x10)) = 0xFFC8;
+          *((s16 *) (((char *) temp_v0_4) + 0x22)) = 0x13;
+          *((s32 *) (((char *) temp_v0_4) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_v0_4) + 0x28))) & (~0xFC)) | 0x1C);
+          *((u16 *) (((char *) temp_v0_4) + 0x1E)) |= 2;
+          *((void **) (((char *) temp_s3) + 0x488)) = temp_v0_4; temp_v0_5 = spawnTrackMarker((s8) (*((u8 *) (((char *) temp_s3) + 0x182))));
+          *((void **) (((char *) temp_s3) + 0x480)) = temp_v0_5;
+          initObjectFromBankEntry(temp_v0_5, 0xC, 0x2A);
+          temp_v1_9 = *((void **) (((char *) temp_s3) + 0x480));
+          *((u16 *) (inline_fn(temp_v1_9) + 0x1E)) |= 2; var_s1 = 0x24;
+          *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x480)))) + 0x20)) = 0x16; var_s2 = 0x15; var_s5 = 6;
+          *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x480)))) + 0x22)) = 0x13;
+        }
+        while (0);
       }
       temp_v1_10 = var_s1 + 1;
       *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x478)))) + 0x20)) = temp_v1_10;
@@ -275,7 +316,7 @@ void *func_80064A18(s16 arg0, void *arg1, void *arg2, void *arg3)
       *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x47C)))) + 0x22)) = (s16) (var_s5 + ((s16) (var_s2 + 1)));
       temp_v1_11 = 0x114 - var_s1;
       *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x404)))) + 0x20)) = (s16) (temp_v1_11 + 1);
-      *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x404)))) + 0x22)) = __repair_phase_temp_s0;
+      *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x404)))) + 0x22)) = (s16) (var_s2 + 1);
       *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x408)))) + 0x20)) = temp_v1_11;
       *((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0x408)))) + 0x22)) = var_s2;
       temp_v0_6 = spawnTrackMarker((s8) (*((u8 *) (((char *) temp_s3) + 0x182))), __repair_phase_temp_s0);
@@ -434,72 +475,72 @@ void *func_80064A18(s16 arg0, void *arg1, void *arg2, void *arg3)
         case 0:
           var_v1_4 = 0x7D000;
           var_v0_5 = 0x2000;
-          *((s32 *) (((char *) temp_s4) + 0x5C)) = var_v0_5;
+          ((Field_s32 *) (((char *) temp_s4) + 0x5C))->v = var_v0_5;
           *((s32 *) (((char *) temp_s3) + 0)) = var_v1_4;
           break;
 
         case 1:
           var_v1_4 = 0x7B000;
           var_v0_5 = 0x4000;
-          *((s32 *) (((char *) temp_s4) + 0x5C)) = var_v0_5;
-          *((s32 *) (((char *) temp_s3) + 0)) = var_v1_4;
+          ((Field_s32 *) (((char *) temp_s4) + 0x5C))->v = var_v0_5;
+          *((s32 *) (((char *) temp_s3) + 0)) = 0x7B000;
           break;
 
         case 2:
           var_v1_4 = 0x77000;
           var_v0_5 = 0x8000;
-          *((s32 *) (((char *) temp_s4) + 0x5C)) = var_v0_5;
+          ((Field_s32 *) (((char *) temp_s4) + 0x5C))->v = var_v0_5;
           *((s32 *) (((char *) temp_s3) + 0)) = var_v1_4;
           break;
 
         case 3:
           var_v1_4 = 0x6F000;
           var_v0_5 = 0x10000;
-          *((s32 *) (((char *) temp_s4) + 0x5C)) = var_v0_5;
+          ((Field_s32 *) (((char *) temp_s4) + 0x5C))->v = var_v0_5;
           *((s32 *) (((char *) temp_s3) + 0)) = var_v1_4;
           break;
 
       }
 
-      *((s32 *) (((char *) temp_s4) + 0x58)) |= 0x2400;
+      ((Field_s32 *) (((char *) temp_s4) + 0x58))->v |= 0x2400;
       temp_a0_2 = &sTrackMarkerTable[arg0];
-      *((s32 *) (((char *) temp_s4) + 0x5C)) |= 0x600;
+      ((Field_s32 *) (((char *) temp_s4) + 0x5C))->v |= 0x600;
       temp_a1_3 = *temp_a0_2;
       *((s32 *) (((char *) temp_a1_3) + 0x100)) &= ~7;
       temp_v1_20 = *temp_a0_2;
       *((s32 *) (((char *) temp_v1_20) + 0x100)) |= 1;
-      *((u8 *) (((char *) temp_s4) + 0x7F)) = 0xFF;
-      *((u8 *) (((char *) temp_s4) + 0x80)) = 0xFF;
-      *((u8 *) (((char *) temp_s4) + 0x81)) = 0xFF;
-      *((u8 *) (((char *) temp_s4) + 0x82)) = 0xFF;
-      *((s8 *) (((char *) temp_s4) + 0x7E)) = 1;
+      ((Field_u8 *) (((char *) temp_s4) + 0x7F))->v = 0xFF;
+      ((Field_u8 *) (((char *) temp_s4) + 0x80))->v = 0xFF;
+      ((Field_u8 *) (((char *) temp_s4) + 0x81))->v = 0xFF;
+      ((Field_u8 *) (((char *) temp_s4) + 0x82))->v = 0xFF;
+      ((Field_s8 *) (((char *) temp_s4) + 0x7E))->v = 1;
       *((s32 *) (((char *) temp_s3) + 0x60)) = 0;
       *((s32 *) (((char *) temp_s3) + 0x64)) = 0;
       if (gBorderSkipActive != 0)
       {
         if (((s16) arg0) < gSaveSlotCount)
         {
-          *((f32 *) (((char *) temp_s4) + 0x74)) = (f32) (*(D_801001A0 + ((getSaveSlotIndex(arg0 & 0xFFFF) & 0xFFFF) * 0x18)));
+          ((Field_f32 *) (((char *) temp_s4) + 0x74))->v = (f32) (*(D_801001A0 + ((getSaveSlotIndex(arg0 & 0xFFFF) & 0xFFFF) * 0x18)));
         }
         else
         {
-          *((f32 *) (((char *) temp_s4) + 0x74)) = (f32) ((*(D_800BF688 + ((*((s32 *) (((u8 *) (&gSaveSlotInfo)) + ((getSaveSlotIndex(arg0 & 0xFFFF) & 0xFFFF) * 0x18)))) * 0xC))) * 5);
+          ((Field_f32 *) (((char *) temp_s4) + 0x74))->v = (f32) ((*(D_800BF688 + ((*((s32 *) (((u8 *) (&gSaveSlotInfo)) + ((getSaveSlotIndex(arg0 & 0xFFFF) & 0xFFFF) * 0x18)))) * 0xC))) * 5);
         }
       }
       else
       {
-        *((f32 *) (((char *) temp_s4) + 0x74)) = 100.0f;
+        ((Field_f32 *) (((char *) temp_s4) + 0x74))->v = 100.0f;
       }
       *((s8 *) (((char *) temp_s3) + 0x199)) = 0;
       *((s8 *) (((char *) temp_s3) + 0x18C)) = 0;
       *((u8 *) (((char *) temp_s3) + 0x18D)) = 0x80;
-      *((f32 *) (((char *) temp_s3) + 0x68)) = (f32) (*((f32 *) (((char *) temp_s4) + 0x74)));
+      *((f32 *) (((char *) temp_s3) + 0x68)) = (f32) ((Field_f32 *) (((char *) temp_s4) + 0x74))->v;
       if (gBorderSkipActive != 0)
       {
         func_8011ACAC(temp_s4, temp_s3, arg0 & 0xFF);
       }
       *((s8 *) (((char *) temp_s3) + 0x17E)) = 3;
-      *((f32 *) (((char *) (*((void **) (((char *) temp_s4) + 0x68)))) + 8)) = (f32) ((*((f32 *) (((char *) temp_s4) + 0x28))) - 2.0f);
+      *((f32 *) (((char *) (*((void **) (((char *) temp_s4) + 0x68)))) + 8)) = (f32) (((Field_f32 *) (((char *) temp_s4) + 0x28))->v - 2.0f);
     }
     if (gBorderSkipActive != 0)
     {
@@ -511,26 +552,28 @@ void *func_80064A18(s16 arg0, void *arg1, void *arg2, void *arg3)
     }
     if (sDifficultyLevel != 1)
     {
-      if (((((s32) sDifficultyLevel) + 1) <= 2) || ((var_v0 = temp_s4, sDifficultyLevel != 2)))
+      do
       {
-        var_fv0 = 12.0f;
-        var_fv1 = 18.0f;
-        D_800C7C98 = var_fv0;
-        D_800C7C9C = var_fv1;
-        return temp_s4;
+        if (((((s32) sDifficultyLevel) + 1) <= 2) || ((var_v0 = temp_s4, sDifficultyLevel != 2)))
+        {
+          var_fv0 = 12.0f; var_fv1 = 18.0f; D_800C7C98 = var_fv0;
+          D_800C7C9C = var_fv1;
+          return temp_s4;
+        }
+        if (__repair_phase_temp_s0)
+        {
+          D_800C7C98 = 0;
+          D_800C7C9C = 0;
+          return var_v0;
+        }
+        else
+        {
+          D_800C7C98 = 0;
+          D_800C7C9C = 0;
+          return var_v0;
+        }
       }
-      if (__repair_phase_temp_s0)
-      {
-        D_800C7C98 = 0;
-        D_800C7C9C = 0;
-        return var_v0;
-      }
-      else
-      {
-        D_800C7C98 = 0;
-        D_800C7C9C = 0;
-        return var_v0;
-      }
+      while (0);
     }
     var_fv0 = 8.0f;
     var_fv1 = 14.0f;
@@ -540,3 +583,5 @@ void *func_80064A18(s16 arg0, void *arg1, void *arg2, void *arg3)
   }
   return var_v0;
 }
+
+

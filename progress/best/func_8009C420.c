@@ -58,7 +58,7 @@ s32 func_8009C420(u32 arg0_in, s32 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8
         *((s32 *) (temp_s0 + 0)) = temp_v0;
         *((s32 *) (temp_s0 + 4)) = temp_v0 + (arg7 * 8);
         ;
-        *((s16 *) (temp_s0 + 0x4E)) = var_s4 & 0xFF;
+        *((s16 *) (temp_s0 + 0x4E)) = (unsigned char) (var_s4 & 0xFF);
         *((s16 *) (temp_s0 + 0x50)) = var_s4 & 0xFF;
         *((s8 *) (temp_s0 + 0xC0)) = 0;
         *((u8 *) (temp_s0 + 0x52)) = arg3;

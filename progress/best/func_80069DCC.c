@@ -287,7 +287,7 @@ void func_80069DCC(void *arg0)
   unsigned char temp_v0_6;
   s8 temp_v0_7;
   s8 temp_v1_21;
-  unsigned short temp_v1_22;
+  s8 temp_v1_22;
   s8 temp_v1_25;
   s8 temp_v1_26;
   s8 temp_v1_31;
@@ -1900,9 +1900,11 @@ case 4:
         {
           temp_v1_26 = inline_fn((char *) temp_s1, 0x307);
           *((u8 *) (((char *) temp_s1) + 0x197)) = 0xFU;
-          if (temp_v1_26 < 0x64)
+          temp_v1 = temp_v1_26;
+          temp_v1_26 = (temp_v1_26 < 0x64);
+          if (temp_v1_26)
           {
-            *((s8 *) (((char *) temp_s1) + 0x307)) = (s8) (temp_v1_26 + 1);
+            *((s8 *) (((char *) temp_s1) + 0x307)) = (s8) (temp_v1 + 1);
           }
           *((s8 *) (((char *) temp_s1) + 0x317)) = (s8) ((u8) inline_fn((char *) temp_s1, 0x307));
         }

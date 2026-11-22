@@ -171,13 +171,13 @@ void func_8008B25C(void)
         }
         if (var_v0_3 < temp_s2)
         {
-          s32 *buffers = &gAudioBufferPtrs;
           unsigned short limit = temp_s2;
           do
           {
             var_s0 = var_v0_3;
             do
             {
+              s32 *buffers = &gAudioBufferPtrs;
               u32 index;
               if (inline_fn23(var_s3) >= sMixBufferUnits)
               {
@@ -215,7 +215,7 @@ void func_8008B25C(void)
                   break;
                 }
                 index = var_s0++;
-                if (inline_fn(gWorkerActive, 0))
+                if ((gWorkerActive != 0) && (--D_800E41E8 == 0))
                 {
                   D_800E41E8 = D_800E41EC;
                   func_800923D0();
