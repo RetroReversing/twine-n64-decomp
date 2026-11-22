@@ -15,11 +15,11 @@ extern s8 D_800E41D8;
 extern s32 (*gDataBankAlloc)(s32, s32);
 extern s8 D_8010086C;
 extern s32 audioSilenceThread;
-unsigned long long func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3)
+s32 func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3)
 {
   s32 temp_v0;
   s32 temp_v0_2;
-  s32 var_v0;
+  u8 var_v0;
   s8 *message = &D_800E416C;
   D_800E41D8 = 0;
   func_8008C08C();
@@ -34,20 +34,11 @@ unsigned long long func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3)
   D_800E4140 = temp_v0_2;
   osCreateThread(&D_800E3F90, 0, &audioSilenceThread, 0, temp_v0_2 + 0x400, 0x7A);
   osStartThread((s32 *) (((u32) (&D_800E41D8)) - 0x248));
-  var_v0 = 2;
-  if (!(arg3 & 0x10000))
-  {
-    var_v0 = 3;
-    if (!(arg3 & 0x20000))
-    {
-      var_v0 = 4;
-      if (!(arg3 & 0x40000))
-      {
-        var_v0 = 0;
- do { if (!(arg3 & 0x80000)) { var_v0 = 1; } } while (0);
-      }
-    }
-  }
+  if (arg3 & 0x10000) var_v0 = 2;
+  else if (arg3 & 0x20000) var_v0 = 3;
+  else if (arg3 & 0x40000) var_v0 = 4;
+  else if (arg3 & 0x80000) var_v0 = 0;
+  else var_v0 = 1;
   func_8008B824(arg0, arg1 & 0xFFFF, arg2 & 0xFFFF, var_v0);
   return 0;
 }

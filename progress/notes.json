@@ -4056,14 +4056,6 @@
   "score_after": 1155
  },
  {
-  "function": "func_8008BA98",
-  "text": "Verified baseline 1745. Eight local trials of temporary reuse, signedness, declaration order, argument passthrough and byte stores did not improve. First mismatch uses saved s0 for queue address where target constructs a0 directly; inspect queue address reuse and call ordering, then remaining argument and branch differences.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795138082.743933,
-  "score_before": 1745,
-  "score_after": 1745
- },
- {
   "function": "audioCmdNoteOn",
   "text": "Candidate baseline score 1741; local repairs (record layout, masked reuse, integer lifetimes, signedness, declaration order, branch orientation) did not improve. Initial handwritten compile failed due missing typedef context. First target mismatch is stack frame size: target -0x40 vs candidate -0x38. Needs investigate locals/register lifetimes and call argument staging; no match.",
   "by": "codex-gpt-6-luna-15",
@@ -9936,14 +9928,6 @@
   "score_after": 1120
  },
  {
-  "function": "func_8008BA98",
-  "text": "Rechecked score 1745; tried six local repair families and exact-matched osCreateMesgQueue prototype, no improvement. Main diffs are argument/register scheduling around queue and event setup; target holds arg3 in s1 and uses s0 for D_800E416C, while candidate assigns D_800E4144 to s0 and generates extra moves. Correct queue prototype alone was byte-neutral. Continue from saved best; inspect exact call signatures and source statement ordering for the event/queue setup.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795178096.88161,
-  "score_before": 1745,
-  "score_after": 1745
- },
- {
   "function": "spawnEffectActor",
   "text": "Rechecked score 65 with 13 register-only differences, 90 instructions. Removing duplicate return unchanged. Branch orientation, record typing and declaration ordering unchanged; duplicating shared tail worsens. Target places allocation pointer in a1, selector in v1 and assigned constant in v0; candidate uses a2, a1, v1. Explore allocation lifetime or debug flag variants.",
   "by": "codex-gpt-6.1-terra-1",
@@ -13430,14 +13414,6 @@
   "created_at": 1795182673.713763,
   "score_before": 130,
   "score_after": 130
- },
- {
-  "function": "func_8008BA98",
-  "text": "Reverified saved score 1177. Direct &D_800E4144 for both queue calls is semantically clean and fixes their relocation/address operands, but GCC CSE keeps this address in an extra saved register (score 1368); target rematerializes it in both argument registers. Direct boolean fallback and else-if cascade worsened to 1767; folding D_800E4140 assignment into the stack argument tied. Next test a scoped flag sweep with two direct queue addresses, focusing on address rematerialization and the 0x30 frame, then compare tail selector and prologue scheduling.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795182681.361668,
-  "score_before": 1177,
-  "score_after": 1177
  },
  {
   "function": "updateSeqChannels",
@@ -21376,14 +21352,6 @@
   "score_after": 850
  },
  {
-  "function": "func_8008BA98",
-  "text": "Rechecked inherited best at 1177 (89 target vs 90 candidate instructions). Tried widening the two u16 parameters, using the exact matched osCreateMesgQueue prototype, removing the local message pointer and writing through globals directly, and local repair families (scalar storage reuse, assigned call scope, signedness, declaration order, merged lifetimes, field width); no improvement. Best candidate remains 44dc67b4f36490bbd8a2. Main mismatch is register allocation/frame size: target saves s2=a0, s1=a3, s3=a1, s4=a2 plus s0; candidate saves extra s5 and uses a 0x38 frame. It also computes the D_800E415C message queue argument from a saved register instead of loading the global address directly. Check matched OS API prototypes and lifetimes around message queue/thread setup; source-only direct global changes scored 1380.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795188179.136641,
-  "score_before": 1177,
-  "score_after": 1177
- },
- {
   "function": "func_8008892C",
   "text": "Best verified 225 remains inherited. Target loop exit loads -1 into a0 then moves to s0; candidate folds this. Target tests byte == 2 with redundant andi 0xff; direct u8/s8 cast and 8-bit bitfield eliminate mask, worsening score. Moving assignment into shared label also worsens branch. Seek source form preserving mask and separate loop result move.",
   "by": "codex-gpt-6.1-terra-7",
@@ -22752,14 +22720,6 @@
   "score_after": 1650
  },
  {
-  "function": "func_8008BA98",
-  "text": "Best score 1177 (86.7%, 89 target vs 90 candidate instructions), source remains the machine draft. Tried accurate void OS prototypes/address expression (worsened to 1335 due wrong globals/argument shape), sharing temp_v0 for the allocator result (returned to 1177), and register hint (no instruction changes). Main mismatch: candidate saves s5 and uses 0x38 frame; target saves only s0-s4 and uses 0x30. Target copies args to s2=a0, s1=a3, s3=a1, s4=a2, while candidate allocation rotates these and keeps one extra callee-saved register. Target constructs D_800E415C in a1 directly and message address D_800E416C in s0; candidate keeps such addresses in saved registers. Next work should fix accurate OS function and data object types based on matched callees and reshape live ranges to avoid the extra saved register.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795189802.5227342,
-  "score_before": 1177,
-  "score_after": 1177
- },
- {
   "function": "func_80063C7C",
   "text": "Improved 345 to 185. Ordinary u16 link access removes redundant andi; ordinary s8 flag access produces target lb but compiler schedules the link's full address/load sequence before the flag's. Candidate otherwise matches from the first branch onward. v0/v1 are interchanged in the initial signed-index multiplication. Reversing lexical load declarations gave identical 185; narrow volatile link worsened to 385 and signed index local reuse worsened from 235 to 340. The staged multiplication trial hit old C declaration ordering; the corrected anchor is untested.",
   "by": "codex-gpt-6.2-sol-3",
@@ -23902,14 +23862,6 @@
   "created_at": 1795190964.824123,
   "score_before": 185,
   "score_after": 35
- },
- {
-  "function": "func_8008BA98",
-  "text": "Verified saved score 1177. Scalar reuse, signedness and declaration order had identical instructions; wrapping func_8008C08C or osCreateMesgQueue in do-while worsened output. Remaining issues include 0x38 vs target 0x30 stack frame, saved register allocation, call arguments and branch structure. Inspect full diff and reduce live registers across calls; preserve saved baseline.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795190964.845772,
-  "score_before": 1177,
-  "score_after": 1177
  },
  {
   "function": "func_80092F9C",
@@ -25622,14 +25574,6 @@
   "created_at": 1795193195.193443,
   "score_before": 70,
   "score_after": 70
- },
- {
-  "function": "func_8008BA98",
-  "text": "Improved 1177 to 180 by expressing the first queue argument as &D_800E41D4-0x90 and thread start argument as &D_800E41D8-0x248, avoiding shared-address saved registers. Remaining mode selector puts 2/3/4 in a3 directly; target computes in v0 then moves v0 to a3 in call delay slot. Volatile or u16 mode regressed; register and s8 cast unchanged. Explore alternate mode selection control flow.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795193202.556086,
-  "score_before": 1177,
-  "score_after": 180
  },
  {
   "function": "cordicAtanVectoring",
@@ -27600,14 +27544,6 @@
   "score_after": 200
  },
  {
-  "function": "func_8008BA98",
-  "text": "Candidate score 180/89 (7 differences). Core audio setup matches; remaining differences confined to var_v0 selection before func_8008B824: target stages selector in $v0 through bit tests and moves it to $a3 in call delay slot. Candidate assigns selector directly in $a3. Simplified nested fallback variant worsened to 775; cast tied; inline register attempt rejected as forbidden asm. Need reshape selector expression/control flow while preserving returned selector.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795197829.7583182,
-  "score_before": 180,
-  "score_after": 180
- },
- {
   "function": "func_80083138",
   "text": "Baseline score 15 (three mismatches), local repair batch 6 trials produced no better score. Tested call arity (incorrect void prototypes worsened), assignment-at-use, single-use inline; latter two had identical code. Target and candidate differ only in three FPR registers in the matrix product chain beginning around target mul.s $f18,$f20,$f24; broad algebra/declaration rewrites are unneeded. Preserve revision 5230f6609f8971cd8c35. Next experiment reorder the temporary declarations/use order for products so live products allocate to target FPRs: target sequence starts ft0=fs0*fs1; ft5=fs0*fs2; ft3=fv0*fs4; fa0=fv0*fs3; fv1=fv0*fs1; fv0=fv0*fs2; fa1=fs0*fs4; ft4=fs2*fs3; fs2=fs2*fs4; fs0=fs0*fs3. Then derived products. Keep all arithmetic exact.",
   "by": "codex-gpt-6-luna-17",
@@ -28502,14 +28438,6 @@
   "created_at": 1795198868.670021,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_8008BA98",
-  "text": "Best verified score 180. Tried balanced call references (720), scalar reuse, signedness, declaration order and merged integer lifetimes (all tied), and field-width cast (1416). Remaining 7 differences start at flag-priority mapping: target initializes result in $v0 to 2 while candidate uses $a3; four register and two order differences follow, one deleted instruction. Reshape the nested priority selection or value staging.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795198869.180362,
-  "score_before": 180,
-  "score_after": 180
  },
  {
   "function": "buildRotationMatrix",
@@ -30056,14 +29984,6 @@
   "score_after": 1944
  },
  {
-  "function": "func_8008BA98",
-  "text": "Recovered current work from the live claim and tested six independent local repair variants plus the automatic pass. Best candidate score is 180, using arg1 as u16 (retains target move $s1,$a3 and improves parameter-width lowering); no exact match. Remaining differences cluster around saved argument registers/order and final selector/call argument registers. Original incoming widths are arg1 u16 and arg2 likely u16, arg3 u32. Candidate revision e8cb8900aed381c64fe6.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795200995.363185,
-  "score_before": 180,
-  "score_after": 180
- },
- {
   "function": "cordicAtanVectoring",
   "text": "Target implements 64-bit CORDIC style iteration with explicit hi/lo words and 52 rounds. Saved best 2170, current rechecked baseline same. Recasting branchy iteration as one arithmetic s64 loop collapsed nearly all target machine code (score 8920), so original source must retain explicit conditional/update structure. Inspected assembly: target keeps low/high words in t0/t1; y low/high in a2/a3; x shift helper duplicated per branch, table words add/sub with carry, loop index t2; after loop calls func_800ABFA0(high, low), divides by D_800D6EC0 and stores double via stack output pointer. Start by expressing all four halves as u32/s32 locals and explicit carry/borrow operations, preserving conditional halves. Inherited candidate has wrong s64 shift semantics for i>=32 and high-level conditional causes 88 diff rows; original structure needed.",
   "by": "codex-gpt-6-luna-9",
@@ -31166,14 +31086,6 @@
   "created_at": 1795201939.0783548,
   "score_before": 70,
   "score_after": 70
- },
- {
-  "function": "func_8008BA98",
-  "text": "Saved best score 180 remains much better than two whole-function rewrites (scores 1034/953). Recompiled saved baseline before trying an address fix. Target call setup from assembly showed osCreateMesgQueue first argument resolves to D_800E4144, while saved source expression based on D_800E41D4 - 0x90 also resolves there; rewriting it as &D_800E4144 did not bring score closer and caused significant register/frame differences, so restore saved C. Main next experiment: inspect caller/callee signatures, particularly D_8010017C function pointer return and OS queue/thread prototypes; target frame is 0x30 and s2=a0, s1=a3, s3=a1. Existing draft's function pointer/call typing likely causing spills and saved-register differences. Avoid broad rewrites.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795201945.4391732,
-  "score_before": 180,
-  "score_after": 180
  },
  {
   "function": "updateParticleEffect",
@@ -33704,14 +33616,6 @@
   "score_after": 215
  },
  {
-  "function": "func_8008BA98",
-  "text": "Tried clean rewrite (per-use &D_800E4144 / D_800E415C / D_800E416C, temp_v0 for osAiSetFrequency, var_v0 ladder ending with (arg3&0x80000)==0). Best remains saved 180 (m2c draft). Clean rewrites get a 0x38 frame with 6 saved regs (s0-s5) instead of target's 0x30 with s0-s4; the extra saved reg seems to be the D_800E4144 address CSE'd across calls (target re-materialises lui/addiu per use). Untested: find source of the 6th saved reg.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795204236.893613,
-  "score_before": 180,
-  "score_after": 180
- },
- {
   "function": "func_8008892C",
   "text": "Not matched. Saved best (historical) is 220 with the (u8)(x<<1)==4 form; the latest source at 74d13bed369ede58984d scores 360 and is more correct: type test is `*(u8*)(&D_800E2CC0 + idx) == 2` (andi 0xFF; bne with v1=2); numerator/denominator are u32->f64 via (f64)(s32) then add D_800D66D8 / D_800D66E0 when the signed value is negative (bgez), then (f32) each and div.s. Remaining diffs: after the search loop target does `a0=-1; s0=a0` while `arg0 = -1` compiles as addiu s0,zero,-1; a 1-insn branch-length diff at the first beql (0x78 vs 0x74); float regs f2/f4 swapped. Next try: `var_a0 = -1; arg0 = var_a0;` before found:, and swap conversion order of numerator/denominator.",
   "by": "api-claude-haiku-5-5-11",
@@ -35246,14 +35150,6 @@
   "created_at": 1795205714.675921,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_8008BA98",
-  "text": "Rechecked best 180; 7 displayed mismatches near the mode ladder and final call. Narrowing mode to u8 scored 455; using void callee with u16/u16/u8 left diff unchanged. Split final mask and zero comparison into successive mode assignments scored 185; combined logical negation scored 775. Direct osStartThread object address increased differences.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795205738.210423,
-  "score_before": 180,
-  "score_after": 180
  },
  {
   "function": "func_8004E418",
@@ -40816,14 +40712,6 @@
   "score_after": 75
  },
  {
-  "function": "func_8008BA98",
-  "text": "Verified 180 baseline still matches through osStartThread. Positive if/else, goto, nested ternary and direct boolean last arm scored 775\u2013975; signed s16 mode scored 455 and improved a region. Target puts branch-delay constants in v0 and moves v0 to a3 in the call delay slot. Current puts constants directly in a3.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795210593.7248828,
-  "score_before": 180,
-  "score_after": 180
- },
- {
   "function": "func_8000237C",
   "text": "Rechecked saved full reconstruction at score 26937 (363 generated vs 392 target instructions; 412 differing rows). Placeholder compile failed; full candidate compile restored the saved score. Three local repair variants (call arity, constant local, sum shape) did not improve; all proposals leave candidate unchanged. Function remains structurally incomplete; target prologue preserves args into s4/s6/fp/s7/s5 but candidate allocation is wrong, and initialization/lookup paths have major mismatches.",
   "by": "codex-gpt-6-luna-12",
@@ -43624,15 +43512,6 @@
   "score_before": 15,
   "score_after": 15,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:41c5440b62e847ef0ea913d7645850bb16f4ba4a36ae14610ead6441c8f65a78"
- },
- {
-  "function": "func_8008BA98",
-  "text": "Saved best rechecked at 180. Removing redundant &0xffff masks from arg1/arg2 at func_8008B824 call preserves score 180 and improves earlier candidate significantly (3675\u2192180), but remaining 7 rows are mode ladder register allocation: target builds each mode in $v0 then moves $v0 to $a3 in call delay slot; candidate writes values directly to $a3 and omits final move. A more procedural ladder caused 3675; volatile mode local 1849; self-assignment no effect. Next step: force mode value to remain in a distinct signed temporary in $v0, perhaps use an explicitly typed helper-returning expression or stage the final mode into another local before call.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795213780.6072042,
-  "score_before": 3675,
-  "score_after": 180,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
  },
  {
   "function": "func_8009DBE8",
@@ -52762,15 +52641,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
  },
  {
-  "function": "func_8008BA98",
-  "text": "Saved best 180 (reverified). Only diff: target builds mode ladder constants in $v0 and does `move $a3,$v0` in jal delay slot; ours loads constants straight into $a3 (7 rows). Tried this session: ladder as static fn with early returns (not inlined by 2.7.2 unless unused; scored 180 when unused / 1700 when called), ternary chain directly in call args (1645), (u8) cast at call, u32/u8/s16 var types (180/455), `return var-var`. Next step: find a construct that makes the mode pseudo not prefer $a3 (e.g. value also used after the call or computed from a call-clobbered register).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795226251.081258,
-  "score_before": 180,
-  "score_after": 180,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
- },
- {
   "function": "func_800134D0",
   "text": "Rechecked baseline 33706. Correcting typed word pointer increments improved to 33541; correcting two +4 word base offsets retained that score. Target frame 0x58, candidate 0x60. Local loop, scalar reuse and branch orientation variants worsened.\nCorrected typed pointer increments and two base offsets\n33706 to 33541; remaining stack and register differences",
   "by": "codex-gpt-6.1-terra-4",
@@ -53837,15 +53707,6 @@
   "score_before": 60,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
- },
- {
-  "function": "func_8008BA98",
-  "text": "Narrowing callee argument prototypes, scalar reuse, and declaration order all unchanged at 180; balanced duplicate calls scored 720.\nTarget selects mode in v0 then moves it to a3 at call; candidate selects directly in a3.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795228098.565463,
-  "score_before": 180,
-  "score_after": 180,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
  },
  {
   "function": "func_80064630",
@@ -55168,15 +55029,6 @@
   "score_before": 13918,
   "score_after": 13918,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4c6a53c3ffd7a1a00eda9d917d1c94de3f8977a6ac3a579f762df796feeecbb1"
- },
- {
-  "function": "func_8008BA98",
-  "text": "Still 180. Only diff: target keeps mode in v0 and does `move a3,v0` in jal delay slot; ours writes a3 directly. Tried this session (all >=180): else-if chain with `(arg3&0x80000)==0`, ternary inline in call (2150), ternary in var (975), u16/u32/s16 mode (455/180/455), (arg3>>19&1)^1 (775), s32 prototype return, dropping &0xFFFF masks (180). Next step: try mode as a global/volatile-free alternative, e.g. a static helper function returning mode (inline-like) or a switch-style structure with the call's 4th arg forced via a comma/cast expression.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795230172.826721,
-  "score_before": 180,
-  "score_after": 180,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
  },
  {
   "function": "func_8011E634",
@@ -62095,15 +61947,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
  },
  {
-  "function": "func_8008BA98",
-  "text": "Saved best 180 rechecked; retained. Tested mode ladder rewrites: simple sequential if assignment scored 1405; explicit nested branches scored 975 then 775; volatile/register temporary around final call did not improve 775 (one experiment stack frame worse 1334). All remained worse than baseline. Target final sequence computes `v0 = !(flags & 0x80000)` via lui/and/sltiu, then branch delay loads mode constants into v0 and call delay moves v0 to a3. C's direct boolean mode assignment routes result into a3 and loses target sequence. Next step: keep mode local in ordinary s32 and test explicit `(u32)(!(flags & 0x80000))` while structuring branch ladder to hold mode result in v0; inspect target and generated diff.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795238707.796407,
-  "score_before": 1405,
-  "score_after": 775,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
- },
- {
   "function": "func_80031EF4",
   "text": "Current experiments from the saved candidate: broad typed rewrite scored 5436 vs inherited 4591; changing func_800464B8 prototype to f32 args scored 5736. The matched helper declaration is evidence only and this caller passes integer words loaded from arg1, so reverting to original integer prototype is preferable. Target opens with 0x50 frame saving s7/s4/fp/ra/s6/s5/s3/s2/s1/s0; candidate frame/map differ. Historical results: extensive local repairs/patches; best historical score 3941, rechecked best not yet verified this turn. No C match.\nRewrote with typed f32 arg1 calls to func_800464B8; score 5736; return to inherited C. Broad explicit typed version score 5436.\nBoth rewrites worse than historical saved score 4591. Target frame 0x50 vs candidate frame gap; target ABI arguments to func_800464B8 are likely raw integer-loaded values despite callee declaration.",
   "by": "codex-gpt-6-luna-20",
@@ -67827,15 +67670,6 @@
   "score_before": 190,
   "score_after": 190,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:62c690b83516e710175cc34b83a472f35ee7684b636cc4ae72747c3d6b242d87"
- },
- {
-  "function": "func_8008BA98",
-  "text": "Unsigned mode, call argument casts, temporary reuse and declaration order all tied 180.\nConstants use a3 rather than v0 and final call lacks move a3,v0.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795248558.834042,
-  "score_before": 180,
-  "score_after": 180,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
  },
  {
   "function": "func_80083138",
@@ -77746,15 +77580,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b2dce708da0dfc87df07e8b1f44dc2722ccc8d926ae0bd1fef7a36532df31c30"
  },
  {
-  "function": "func_8008BA98",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795307088.747308,
-  "score_before": 90,
-  "score_after": 90,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
- },
- {
   "function": "func_8009C660",
   "text": "[Released without compiling it once; notes not checked by a compile.] Best score 45 (candidate ef4a971c5224). 19k automatic repair trials didn't improve. Next step: restructure the again-loop as for(;;) with a struct-array view of the 0x1a0 voice record.",
   "by": "claude-sonnet-low-1",
@@ -81018,15 +80843,6 @@
   "handoff_inputs": "04ff39656125e1ffc2af4f823ee85f1e027283f077e135281b6f1fb16263194e:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:d4fdff81ff1e1ec6761c123974a3a4b176a81c176e58520768b329eb9795fd33"
  },
  {
-  "function": "func_8008BA98",
-  "text": "Matched callee declaration, selector rewrites, mode widths and return type.\nBest 90 still allocates mode to a3 vs v0. goto and else-if scored 685, ternary 885, u8 365, 64-bit mode 1635, s32 return 180, void callee tied.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795316785.819124,
-  "score_before": 90,
-  "score_after": 90,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
- },
- {
   "function": "func_8003FDE0",
   "text": "Verified inherited best at 130. The entry mask is absent from its target position, the entry compare uses a0 instead of v1, and remaining differences are mostly register allocation. The inherited candidate reads an uninitialized local in a redundant condition; initializing it scored 285. Clean shared-tail do-while with explicit opcode masks scored 380.",
   "by": "codex-gpt-6.2-sol-9",
@@ -83507,15 +83323,6 @@
   "score_before": 1100,
   "score_after": 1100,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24f388798c8c8c353b0d53229002d2ae86900d9aa980bdc846f383e8e88c8b2f"
- },
- {
-  "function": "func_8008BA98",
-  "text": "Reverified 90. u16/s16 mode casts, u16 callee middle parameters, register mode, ULL literal and staged middle arguments each emitted the same eight differences. Next step: test a common selector join with a local inline selector helper.\nMode casts, callee parameter widths, register hint, ULL return, staged arg1/arg2\nSix identical code outputs, score 90",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795341174.681503,
-  "score_before": 90,
-  "score_after": 90,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
  },
  {
   "function": "func_80090464",
@@ -88163,5 +87970,198 @@
   "score_before": 60,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9fc49f2bf674c8f9698e732f1df2d7268b6d540657db44b688f475c5ae510292"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Verified baseline 1745. Eight local trials of temporary reuse, signedness, declaration order, argument passthrough and byte stores did not improve. First mismatch uses saved s0 for queue address where target constructs a0 directly; inspect queue address reuse and call ordering, then remaining argument and branch differences.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795138082.743933,
+  "score_before": 1745,
+  "score_after": 1745
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Rechecked score 1745; tried six local repair families and exact-matched osCreateMesgQueue prototype, no improvement. Main diffs are argument/register scheduling around queue and event setup; target holds arg3 in s1 and uses s0 for D_800E416C, while candidate assigns D_800E4144 to s0 and generates extra moves. Correct queue prototype alone was byte-neutral. Continue from saved best; inspect exact call signatures and source statement ordering for the event/queue setup.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795178096.88161,
+  "score_before": 1745,
+  "score_after": 1745
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Reverified saved score 1177. Direct &D_800E4144 for both queue calls is semantically clean and fixes their relocation/address operands, but GCC CSE keeps this address in an extra saved register (score 1368); target rematerializes it in both argument registers. Direct boolean fallback and else-if cascade worsened to 1767; folding D_800E4140 assignment into the stack argument tied. Next test a scoped flag sweep with two direct queue addresses, focusing on address rematerialization and the 0x30 frame, then compare tail selector and prologue scheduling.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795182681.361668,
+  "score_before": 1177,
+  "score_after": 1177
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Rechecked inherited best at 1177 (89 target vs 90 candidate instructions). Tried widening the two u16 parameters, using the exact matched osCreateMesgQueue prototype, removing the local message pointer and writing through globals directly, and local repair families (scalar storage reuse, assigned call scope, signedness, declaration order, merged lifetimes, field width); no improvement. Best candidate remains 44dc67b4f36490bbd8a2. Main mismatch is register allocation/frame size: target saves s2=a0, s1=a3, s3=a1, s4=a2 plus s0; candidate saves extra s5 and uses a 0x38 frame. It also computes the D_800E415C message queue argument from a saved register instead of loading the global address directly. Check matched OS API prototypes and lifetimes around message queue/thread setup; source-only direct global changes scored 1380.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795188179.136641,
+  "score_before": 1177,
+  "score_after": 1177
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Best score 1177 (86.7%, 89 target vs 90 candidate instructions), source remains the machine draft. Tried accurate void OS prototypes/address expression (worsened to 1335 due wrong globals/argument shape), sharing temp_v0 for the allocator result (returned to 1177), and register hint (no instruction changes). Main mismatch: candidate saves s5 and uses 0x38 frame; target saves only s0-s4 and uses 0x30. Target copies args to s2=a0, s1=a3, s3=a1, s4=a2, while candidate allocation rotates these and keeps one extra callee-saved register. Target constructs D_800E415C in a1 directly and message address D_800E416C in s0; candidate keeps such addresses in saved registers. Next work should fix accurate OS function and data object types based on matched callees and reshape live ranges to avoid the extra saved register.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795189802.5227342,
+  "score_before": 1177,
+  "score_after": 1177
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Verified saved score 1177. Scalar reuse, signedness and declaration order had identical instructions; wrapping func_8008C08C or osCreateMesgQueue in do-while worsened output. Remaining issues include 0x38 vs target 0x30 stack frame, saved register allocation, call arguments and branch structure. Inspect full diff and reduce live registers across calls; preserve saved baseline.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795190964.845772,
+  "score_before": 1177,
+  "score_after": 1177
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Improved 1177 to 180 by expressing the first queue argument as &D_800E41D4-0x90 and thread start argument as &D_800E41D8-0x248, avoiding shared-address saved registers. Remaining mode selector puts 2/3/4 in a3 directly; target computes in v0 then moves v0 to a3 in call delay slot. Volatile or u16 mode regressed; register and s8 cast unchanged. Explore alternate mode selection control flow.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795193202.556086,
+  "score_before": 1177,
+  "score_after": 180
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Candidate score 180/89 (7 differences). Core audio setup matches; remaining differences confined to var_v0 selection before func_8008B824: target stages selector in $v0 through bit tests and moves it to $a3 in call delay slot. Candidate assigns selector directly in $a3. Simplified nested fallback variant worsened to 775; cast tied; inline register attempt rejected as forbidden asm. Need reshape selector expression/control flow while preserving returned selector.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795197829.7583182,
+  "score_before": 180,
+  "score_after": 180
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Best verified score 180. Tried balanced call references (720), scalar reuse, signedness, declaration order and merged integer lifetimes (all tied), and field-width cast (1416). Remaining 7 differences start at flag-priority mapping: target initializes result in $v0 to 2 while candidate uses $a3; four register and two order differences follow, one deleted instruction. Reshape the nested priority selection or value staging.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795198869.180362,
+  "score_before": 180,
+  "score_after": 180
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Recovered current work from the live claim and tested six independent local repair variants plus the automatic pass. Best candidate score is 180, using arg1 as u16 (retains target move $s1,$a3 and improves parameter-width lowering); no exact match. Remaining differences cluster around saved argument registers/order and final selector/call argument registers. Original incoming widths are arg1 u16 and arg2 likely u16, arg3 u32. Candidate revision e8cb8900aed381c64fe6.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795200995.363185,
+  "score_before": 180,
+  "score_after": 180
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Saved best score 180 remains much better than two whole-function rewrites (scores 1034/953). Recompiled saved baseline before trying an address fix. Target call setup from assembly showed osCreateMesgQueue first argument resolves to D_800E4144, while saved source expression based on D_800E41D4 - 0x90 also resolves there; rewriting it as &D_800E4144 did not bring score closer and caused significant register/frame differences, so restore saved C. Main next experiment: inspect caller/callee signatures, particularly D_8010017C function pointer return and OS queue/thread prototypes; target frame is 0x30 and s2=a0, s1=a3, s3=a1. Existing draft's function pointer/call typing likely causing spills and saved-register differences. Avoid broad rewrites.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795201945.4391732,
+  "score_before": 180,
+  "score_after": 180
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Tried clean rewrite (per-use &D_800E4144 / D_800E415C / D_800E416C, temp_v0 for osAiSetFrequency, var_v0 ladder ending with (arg3&0x80000)==0). Best remains saved 180 (m2c draft). Clean rewrites get a 0x38 frame with 6 saved regs (s0-s5) instead of target's 0x30 with s0-s4; the extra saved reg seems to be the D_800E4144 address CSE'd across calls (target re-materialises lui/addiu per use). Untested: find source of the 6th saved reg.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795204236.893613,
+  "score_before": 180,
+  "score_after": 180
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Rechecked best 180; 7 displayed mismatches near the mode ladder and final call. Narrowing mode to u8 scored 455; using void callee with u16/u16/u8 left diff unchanged. Split final mask and zero comparison into successive mode assignments scored 185; combined logical negation scored 775. Direct osStartThread object address increased differences.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795205738.210423,
+  "score_before": 180,
+  "score_after": 180
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Verified 180 baseline still matches through osStartThread. Positive if/else, goto, nested ternary and direct boolean last arm scored 775\u2013975; signed s16 mode scored 455 and improved a region. Target puts branch-delay constants in v0 and moves v0 to a3 in the call delay slot. Current puts constants directly in a3.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795210593.7248828,
+  "score_before": 180,
+  "score_after": 180
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Saved best rechecked at 180. Removing redundant &0xffff masks from arg1/arg2 at func_8008B824 call preserves score 180 and improves earlier candidate significantly (3675\u2192180), but remaining 7 rows are mode ladder register allocation: target builds each mode in $v0 then moves $v0 to $a3 in call delay slot; candidate writes values directly to $a3 and omits final move. A more procedural ladder caused 3675; volatile mode local 1849; self-assignment no effect. Next step: force mode value to remain in a distinct signed temporary in $v0, perhaps use an explicitly typed helper-returning expression or stage the final mode into another local before call.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795213780.6072042,
+  "score_before": 3675,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Saved best 180 (reverified). Only diff: target builds mode ladder constants in $v0 and does `move $a3,$v0` in jal delay slot; ours loads constants straight into $a3 (7 rows). Tried this session: ladder as static fn with early returns (not inlined by 2.7.2 unless unused; scored 180 when unused / 1700 when called), ternary chain directly in call args (1645), (u8) cast at call, u32/u8/s16 var types (180/455), `return var-var`. Next step: find a construct that makes the mode pseudo not prefer $a3 (e.g. value also used after the call or computed from a call-clobbered register).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795226251.081258,
+  "score_before": 180,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Narrowing callee argument prototypes, scalar reuse, and declaration order all unchanged at 180; balanced duplicate calls scored 720.\nTarget selects mode in v0 then moves it to a3 at call; candidate selects directly in a3.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795228098.565463,
+  "score_before": 180,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Still 180. Only diff: target keeps mode in v0 and does `move a3,v0` in jal delay slot; ours writes a3 directly. Tried this session (all >=180): else-if chain with `(arg3&0x80000)==0`, ternary inline in call (2150), ternary in var (975), u16/u32/s16 mode (455/180/455), (arg3>>19&1)^1 (775), s32 prototype return, dropping &0xFFFF masks (180). Next step: try mode as a global/volatile-free alternative, e.g. a static helper function returning mode (inline-like) or a switch-style structure with the call's 4th arg forced via a comma/cast expression.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795230172.826721,
+  "score_before": 180,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Saved best 180 rechecked; retained. Tested mode ladder rewrites: simple sequential if assignment scored 1405; explicit nested branches scored 975 then 775; volatile/register temporary around final call did not improve 775 (one experiment stack frame worse 1334). All remained worse than baseline. Target final sequence computes `v0 = !(flags & 0x80000)` via lui/and/sltiu, then branch delay loads mode constants into v0 and call delay moves v0 to a3. C's direct boolean mode assignment routes result into a3 and loses target sequence. Next step: keep mode local in ordinary s32 and test explicit `(u32)(!(flags & 0x80000))` while structuring branch ladder to hold mode result in v0; inspect target and generated diff.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795238707.796407,
+  "score_before": 1405,
+  "score_after": 775,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Unsigned mode, call argument casts, temporary reuse and declaration order all tied 180.\nConstants use a3 rather than v0 and final call lacks move a3,v0.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795248558.834042,
+  "score_before": 180,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795307088.747308,
+  "score_before": 90,
+  "score_after": 90,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Matched callee declaration, selector rewrites, mode widths and return type.\nBest 90 still allocates mode to a3 vs v0. goto and else-if scored 685, ternary 885, u8 365, 64-bit mode 1635, s32 return 180, void callee tied.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795316785.819124,
+  "score_before": 90,
+  "score_after": 90,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
+ },
+ {
+  "function": "func_8008BA98",
+  "text": "Reverified 90. u16/s16 mode casts, u16 callee middle parameters, register mode, ULL literal and staged middle arguments each emitted the same eight differences. Next step: test a common selector join with a local inline selector helper.\nMode casts, callee parameter widths, register hint, ULL return, staged arg1/arg2\nSix identical code outputs, score 90",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795341174.681503,
+  "score_before": 90,
+  "score_after": 90,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:272feda4c352c4b8b8bc9a302b1e739b183182dbab7105ecf5f58e7df15e3742"
  }
 ]
