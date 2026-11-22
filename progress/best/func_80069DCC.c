@@ -123,7 +123,7 @@ void func_80069DCC(void *arg0)
    volatile f32 speed;
    u32 after_speed;
    void * roads;
-   u32 trailing[1];
+   volatile float repair_branch_zero;
    
   } frame;
   f32 motion_24;
@@ -543,10 +543,9 @@ case 2: case 3: goto out_of_line_actor;
    {
      *((u8 *) (((char *) temp_s1) + 0x186)) = (u8) (temp_v0_2 - 1);
    }
-   temp_v0_3 = inline_fn((char *) temp_s1, 0x188);
-   if (temp_v0_3 != 0)
+   if (*((s8 *) (((char *) temp_s1) + 0x188)) != 0)
    {
-     *((s8 *) (((char *) temp_s1) + 0x188)) = (s8) (temp_v0_3 - 1);
+     (*((s8 *) (((char *) temp_s1) + 0x188)))--;
    }
    temp_v1_16 = *((s16 *) (((char *) arg0) + 0x7C));
    switch (temp_v1_16)
@@ -599,21 +598,15 @@ case 2: case 3: goto out_of_line_actor;
            }
            if ((repair_bound_result | (var_v0_2 ^ 1)) != 0)
            {
-             temp_fv1_2 = var_fs3 * var_fs3;
              if (var_fs3 > 0.0f)
              {
-               if (temp_v1_16)
                {
-                 var_fs3 = temp_fv1_2 * 0.1f;
-               }
-               else
-               {
-                 var_fs3 = temp_fv1_2 * 0.1f;
+                 var_fs3 = (var_fs3 * var_fs3) * 0.1f;
                }
              }
              else
              {
-               var_fs3 = temp_fv1_2 * (-0.1f);
+               var_fs3 = (var_fs3 * var_fs3) * (-0.1f);
              }
            }
            temp_fs2_2 = 0.01f;
@@ -680,7 +673,8 @@ case 2: case 3: goto out_of_line_actor;
          {
            temp_fs0_2 = *((f32 *) (((char *) temp_s1) + 0x58));
            var_s0 = 1;
-           var_fs1 = 0.0f;
+           frame.repair_branch_zero = 0.0f;
+           var_fs1 = frame.repair_branch_zero;
            func_80065684(arg0);
            *((f32 *) (((char *) temp_s1) + 0x58)) = temp_fs0_2;
          }
@@ -717,7 +711,8 @@ case 2: case 3: goto out_of_line_actor;
              {
                var_s0 = 4;
                var_v0_7 = 1;
-               if (!(temp_fs5 > 0.0f))
+               frame.repair_branch_zero = 0.0f;
+               if (!(temp_fs5 > frame.repair_branch_zero))
                {
                  var_v0_7 = 0;
                }
@@ -1119,13 +1114,7 @@ case 2: case 3: goto out_of_line_actor;
        goto block_430;
 
      case 1:
-       if (temp_v1_16)
-     {
-       *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
-       temp_a0_7 = *((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC));
-     }
-     else
-     {
+       {
        *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
        temp_a0_7 = *((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC));
      }

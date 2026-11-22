@@ -145,7 +145,9 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
   void *var_v0;
   arg1 = arg1_in;
   sp14 = arg2;
-  if ((gBorderSkipActive != 0) || ((var_v0 = NULL, (*((u16 *) (((char *) arg3) + 0x40))) == sDifficultyLevel)))
+  if (gBorderSkipActive == 0 && *((u16 *) ((char *) arg3 + 0x40)) != sDifficultyLevel)
+    goto rejected;
+  if (1)
   {
     do
     {
@@ -578,6 +580,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
     D_800C7C9C = var_fv1;
     return temp_s4;
   }
-  return var_v0;
+rejected:
+  return NULL;
 }
 

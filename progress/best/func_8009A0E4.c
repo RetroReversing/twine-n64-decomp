@@ -13,7 +13,7 @@ s32 func_8009A0E4(void *arg0, u32 *arg1)
   u32 temp_a0;
   u8 temp_a1;
   u8 temp_v0_2;
-  u8 var_v1_3;
+  s32 var_v1_3;
   temp_a0 = *arg1;
   if ((temp_a0 >> 24) == 0)
   {
@@ -72,7 +72,7 @@ s32 func_8009A0E4(void *arg0, u32 *arg1)
         }
         else
         {
-          base = D_801007D9; var_v1_3 = *(((temp_v0_2 * 0x10) + base) + temp_a1); temp_v0 = clip;
+          base = D_801007D9; var_v1_3 = (u8) *(((temp_v0_2 * 0x10) + base) + temp_a1); temp_v0 = clip;
         }
       }
       if (var_v1_3 == temp_v0)

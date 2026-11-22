@@ -176,10 +176,13 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
       *((s32 *) (((char *) inactiveEntry) + 0x10)) = ((*var_a0_4) & colorMask) | (*((u8 *) (((char *) inactiveState) + 0x30)));
       *((s32 *) (((char *) (*((void **) (((char *) var_s4) + 8)))) + 0x10)) = (s32) (((*var_a0_4) & colorMask) | (*((u8 *) (((char *) inactiveState) + 0x30))));
       temp_v1 = *((u8 *) (((char *) gSaveMenuState) + 0x30));
-      var_s1_2 = 0xFF;
-      if ((temp_v1 + 1) <= 0xFFU)
+      if (temp_v1 < 0xFFU)
       {
         var_s1_2 = temp_v1;
+      }
+      else
+      {
+        var_s1_2 = 0xFF;
       }
       temp_s3 = *((void **) (((char *) var_s3) + 8));
       colorMask = *((s32 *) (((char *) temp_s3) + 0x10)); temp_s0 = colorMask & (~0xFF);
@@ -209,14 +212,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
           var_ft0 += D_800D2CD0;
         }
         temp_fv1 = (*((f32 *) (((char *) arg0) + 0xC))) * ((f32) var_ft0);
-        if (!(temp_fv1 >= 2147483648.0f))
-        {
-          var_v0_4 = ((s32) temp_fv1) + 1;
-        }
-        else
-        {
-          var_v0_4 = ((s32) (temp_fv1 - 2147483648.0f)) | ((s32) (&D_80000001));
-        }
+        var_v0_4 = (u32) temp_fv1 + 1;
         *((u8 *) (((char *) temp_v1_2) + 0x29)) = var_v0_4;
         temp_a0 = *((void **) (((char *) var_v0) + 8));
         temp_v1_3 = *((s32 *) (((char *) var_v0) + 0x14));

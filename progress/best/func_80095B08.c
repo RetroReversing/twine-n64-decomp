@@ -127,35 +127,37 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
     }
     goto block_20;
   }
-  value16 = arg3 & 0xFFFF;
   if ((u8)(arg0 + 124) < 2)
   {
-    temp_a0 = arg2 & 0xFF;
-    if (temp_a0 != 0xFF)
+    temp_t0 = arg0 & 0xFE;
+    if (1)
     {
-      groupBase = (u32) inline_fn2(D_800EE420, temp_a0);
-      rowOffset = (arg1 & 0xFF) * 134;
-      var_v0 = inline_fn(groupBase, rowOffset);
-    }
-    else
-    {
-      temp_a0 = arg1 & 0xFF;
-      rowOffset = temp_a0 * 134;
-      var_v0 = rowOffset + ((u32) D_800F2720);
+      upper = ((u16) arg3) >> 7;
+      temp_a0 = arg2 & 0xFF;
+      if (temp_a0 != 0xFF)
+      {
+        groupBase = (u32) inline_fn2(D_800EE420, temp_a0);
+        temp_a0 = arg1 & 0xFF;
+        rowOffset = temp_a0 * 134;
+        var_v0 = inline_fn(groupBase, rowOffset);
+      }
+      else
+      {
+        temp_a0 = arg1 & 0xFF;
+        rowOffset = temp_a0 * 134;
+        var_v0 = inline_fn(rowOffset, (u32) D_800F2720);
+      }
+      *((u8 *) inline_fn(temp_t0, var_v0)) = upper & 0x7F;
+      temp_a2 = arg2 & 0xFF;
+      var_a3 = arg3 & 0x7F;
     }
     if (arg1)
     {
-      *((u8 *) inline_fn(arg0 & 0xFE, var_v0)) = (value16 >> 7) & 0x7F;
       temp_t0 = arg0 | 1;
-      temp_a2 = arg2 & 0xFF;
-      var_a3 = arg3 & 0x7F;
     }
     else
     {
-      *((u8 *) inline_fn(arg0 & 0xFE, var_v0)) = (value16 >> 7) & 0x7F;
       temp_t0 = arg0 | 1;
-      temp_a2 = arg2 & 0xFF;
-      var_a3 = arg3 & 0x7F;
     }
     if (temp_a2 != 0xFF)
     {
@@ -188,6 +190,7 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
 
     return;
   }
+  upper = ((u16) arg3) >> 7;
   temp_a2 = ((u32) arg2) & 0xFF;
   if (temp_a2 != 0xFF)
   {
@@ -200,5 +203,5 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
     rowOffset = (arg1 & 0xFF) * 134;
     var_v0 = inline_fn(rowOffset, (u32) D_800F2720);
   }
-  *((u8 *) (var_v0 + temp_t0)) = (value16 >> 7) & 0x7F;
+  *((u8 *) (var_v0 + temp_t0)) = upper & 0x7F;
 }
