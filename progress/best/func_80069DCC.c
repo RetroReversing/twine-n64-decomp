@@ -733,9 +733,9 @@ case 2: case 3: goto out_of_line_actor;
             {
               var_v1_8 = 0;
             }
-            var_v0_9 = var_s0 * 2;
-            if ((var_v0_8 & var_v1_8) || ((var_v0_9 = var_s0 * 2, absFloat(var_fs1 - (*((f32 *) (((char *) temp_s1) + 0x8C)))) > 0.03f)))
+            if ((var_v0_8 & var_v1_8) || ((absFloat(var_fs1 - (*((f32 *) (((char *) temp_s1) + 0x8C)))) > 0.03f)))
             {
+              var_v0_9 = var_s0 * 2;
               *((f32 *) (((char *) temp_s1) + 0x8C)) = var_fs1;
               *((u8 *) (((char *) temp_s1) + 0x195)) = var_s0;
               clearProbeState(arg0, *((u16 *) (((u8 *) (&D_800C7C8E)) + var_v0_9)));
@@ -773,8 +773,9 @@ case 2: case 3: goto out_of_line_actor;
               }
             }
           }
-          temp_fv0_6 = func_80081B44(temp_s4, 4, 5);
-          var_fs3 = (temp_fv0_6 * temp_fv0_6) * 82.8f;
+          var_fs3 = func_80081B44(temp_s4, 4, 5);
+          temp_fv0_6 = var_fs3;
+          var_fs3 = (var_fs3 * var_fs3) * 82.8f;
           if (temp_fv0_6 < 0.0f)
           {
             var_fs3 = -var_fs3;
@@ -908,8 +909,9 @@ case 2: case 3: goto out_of_line_actor;
             else
               if ((*((s16 *) (((char *) arg0) + 0x7C))) != 0)
             {
-              temp_fv0_11 = func_80081B44(temp_s4, 4, 5);
-              var_fs3 = temp_fv0_11 * temp_fv0_11;
+              var_fs3 = func_80081B44(temp_s4, 4, 5);
+              temp_fv0_11 = var_fs3;
+              var_fs3 = var_fs3 * var_fs3;
               if (temp_fv0_11 < 0.0f)
               {
                 var_fs3 = -var_fs3;
@@ -1097,8 +1099,9 @@ case 2: case 3: goto out_of_line_actor;
           case 1:
             if (!(temp_a0_7 & 0x40))
           {
-            temp_fv0_18 = func_80081B44(temp_s4, 0, 1);
-            var_fs3 = temp_fv0_18 * 0.04f;
+            var_fs3 = func_80081B44(temp_s4, 0, 1);
+            temp_fv0_18 = var_fs3;
+            var_fs3 = var_fs3 * 0.04f;
             if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x200)
             {
               var_fs3 *= *((f32 *) (((char *) temp_s1) + 0x94));
@@ -1189,18 +1192,11 @@ case 2: case 3: goto out_of_line_actor;
             *inline_fn2(temp_s1) = 0.2f;
             var_s5 = sinAngle(*((f32 *) (((char *) arg0) + 0x40))) * 0.2f;
             var_s6 = cosAngle(*((f32 *) (((char *) arg0) + 0x40))) * 0.2f;
-            *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
-            *((u8 *) (((char *) temp_s1) + 0x186)) = 0xAU;
-            if (actorUpdateBorderFade(arg0) == 0)
-          {
-            *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x30)) = 0;
-            func_80002BD0(arg0, 0x159);
-            func_800635BC(arg0, 0);
-          }
-            break;
+            goto repair_shared_case_tail;
 
           case 3:
             func_80065684(arg0);
+            repair_shared_case_tail:
             *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
             *((u8 *) (((char *) temp_s1) + 0x186)) = 0xAU;
             if (actorUpdateBorderFade(arg0) == 0)

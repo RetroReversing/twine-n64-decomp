@@ -41,11 +41,16 @@ void func_80096758(s32 arg0, void *arg1, void *arg2) {
         M2C_FIELD(temp_v1_2, u8 *, 0x20) = (u8) M2C_FIELD(temp_v0, u8 *, 0x20);
         return;
     }
-    var_v0 = temp_v1 & 0xFF;
-    if (((u32) ((arg0 + 0x80) & 0xFF) < 2U) || (var_v0 = temp_v1 & 0xFF, (((u32) ((arg0 + 0x7C) & 0xFF) < 2U) != 0))) {
+    if ((u8)(arg0 + 0x80) < 2) {
+        var_v0 = temp_v1;
+        goto pair_entry;
+    }
+    var_v0 = temp_v1;
+    if ((u8)(arg0 + 0x7C) < 2) {
         u8 *base = &D_800F2720;
-        s32 dst = var_v0 * 0x86;
+        s32 dst;
         s32 src;
+        pair_entry: dst = var_v0 * 0x86;
         temp_a1_2 = arg0 & 0xFE;
         src = (temp_a3 & 0xFF) * 0x86;
         temp_v0_2 = base + src + temp_a1_2;

@@ -195,10 +195,10 @@ loop_33:
                     var_a0_3 = 0;
                     if (arg2 & 0xFF) {
                         temp_a1 = (*(s32 *)((char *)(arg0) + 8));
-                        temp_v0 = temp_a1 & 0x7FFFFFFF;
+                        temp_v0_4 = temp_a1 & 0x7FFFFFFF;
                         var_v1_4 = 0;
                         for (;;) {
-                            if (((*(u8 *)((char *)(&D_800E6A85) + var_v1_4)) != 0) || ((*(s32 *)((char *)(&gSoundEntities) + var_v1_4)) != temp_v0)) {
+                            if (((*(u8 *)((char *)(&D_800E6A85) + var_v1_4)) != 0) || ((*(s32 *)((char *)(&gSoundEntities) + var_v1_4)) != temp_v0_4)) {
                                 var_a0_3 += 1;
                                 var_v1_4 += 0xFF8;
                                 if (8U <= var_a0_3) {
@@ -218,7 +218,7 @@ loop_33:
                                 (*(u8 *)((char *)(&D_800E6A84) + (temp_a1 * 0xFF8))) = 1;
                             } else {
                                 goto negative_40;
-found_51: var_v0_2 = var_a0_4 | (temp_a1_4 & 0x80000000); goto join_51;
+found_51: var_v0_2 = var_a0_4 | (temp_a1 & 0x80000000); goto join_51;
 negative_40:
                                 temp_v1_2 = (temp_a1 & 0x7FFFFFFF) * 0xFF8;
                                 (*(u8 *)((char *)(&D_800E6AB2) + (s32)temp_v1_2)) = (*(u8 *)((char *)(&D_800E6AB2) + temp_v1_2)) & 0xF7;
@@ -227,13 +227,13 @@ negative_40:
                         func_80091654((*(u8 *)((char *)(arg0) + 0x18)), (*(u16 *)((char *)(arg0) + 0xC)), (*(s32 *)((char *)(arg0) + 8)), 0);
                         var_a0_4 = 0;
                         if ((*(u8 *)((char *)(arg0) + 0x26)) & 0x10) {
-                            temp_a1_4 = (*(s32 *)((char *)(arg0) + 8));
+                            temp_a1 = (*(s32 *)((char *)(arg0) + 8));
                             temp_a3 = (*(s32 *)((char *)(arg0) + 0x1C));
                             temp_t0 = (*(s32 *)((char *)(arg0) + 0x20));
-                            temp_a1_4 = temp_a1_4 & 0x7FFFFFFF;
+                            temp_v0_4 = temp_a1 & 0x7FFFFFFF;
                             var_v1_5 = 0;
 loop_51:
-                            if (((*(u8 *)((char *)(&D_800E6A85) + var_v1_5)) != 0) || ((*(s32 *)((char *)(&gSoundEntities) + var_v1_5)) != temp_a1_4)) {
+                            if (((*(u8 *)((char *)(&D_800E6A85) + var_v1_5)) != 0) || ((*(s32 *)((char *)(&gSoundEntities) + var_v1_5)) != temp_v0_4)) {
                                 var_a0_4 += 1;
                                 var_v1_5 += 0xFF8;
                                 if (var_a0_4 >= 8U) {

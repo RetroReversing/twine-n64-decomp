@@ -57,10 +57,11 @@ void func_8002424C(void)
   func_8002CBD8();
   gMenuNeedsRedraw = 0;
   func_8002A644(D_80107EA8, D_8010D478, 0xC0, 6, 0x58, 0xB2, 0x3C, 0x14, 1, &updateSaveMenuEntries, &func_800241F8);
+  func_80022A30(sMenuListKind, 0x20, 0x3C, 0xF8, 0x78);
+  var_s1 = 0;
   __base_D_800BD5D0 = D_800BD5D0;
   temp_s2 = __base_D_800BD5D0 - 0x4C;
   temp_s3 = __base_D_800BD5D0 - 0x34;
-  func_80022A30((var_s1 = 0, sMenuListKind), 0x20, 0x3C, 0xF8, 0x78);
   sSaveMenuSpriteSecond = spawnTextNode(__base_D_800BD5D0);
   sSaveMenuSpriteFirst = inline_fn2(__base_D_800BD5D0, 0x24);
   do
@@ -145,4 +146,5 @@ void func_8002424C(void)
   }
   *((s8 *) (((char *) gSaveMenuState) + 0x2C)) = 0;
 }
+
 
