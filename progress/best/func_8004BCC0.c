@@ -96,7 +96,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   s32 temp_v1_9;
   s32 var_s0;
   s32 var_s0_2;
-  volatile int pad2;
+  volatile int pad2[3];
   int var_s2;
   s32 var_s2_2;
   s32 var_s2_3;

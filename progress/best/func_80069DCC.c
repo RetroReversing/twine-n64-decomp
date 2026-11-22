@@ -99,6 +99,7 @@ inline static char *inline_fn23(char *arg0, int arg1)
 
 void func_80069DCC(void *arg0)
 {
+    u8 *__base_gSceneFlagsB;
   void *entry_road;
   s32 entry_mode;
     f32 repair_upper_delta;
@@ -656,7 +657,7 @@ case 2: case 3: goto out_of_line_actor;
           temp_fs2 = absFloat(temp_fs3);
           func_800452E0(temp_s1 + 0x128, arg0 + 0x24, &frame.collision.x);
           *((CopyVec3 *) (((char *) temp_s1) + 0x128)) = *((CopyVec3 *) (((char *) arg0) + 0x24));
-          frame.collision.y = 0.0f;
+          frame.collision.y = roll.number;
           var_s0 = 1;
           if (func_8004572C(&frame.collision.x) <= 0.001f)
           {
@@ -1497,7 +1498,8 @@ case 2: case 3: goto out_of_line_actor;
         temp_v1_33 = *((void **) (((char *) arg0) + 0x68));
         *((u8 *) (((char *) temp_v1_33) + 0x10)) = (u8) (*((u8 *) (((char *) temp_v1_33) + 0xE)));
         *((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xF)) = (s8) (*((u16 *) (((char *) temp_s1) + 0x134)));
-        gSceneFlagsB |= 0x21;
+        __base_gSceneFlagsB = &gSceneFlagsB;
+        (*__base_gSceneFlagsB) |= 0x21;
         func_80064318(*((s32 *) (((char *) temp_s1) + 0xA8)), inline_fn((char *) temp_s1, 0x182));
         temp_v0_10 = sTrackMarkerTable[inline_fn((char *) temp_s1, 0x182)];
         *((CopyVec3 *) (((char *) arg0) + 0x30)) = *((CopyVec3 *) (((char *) arg0) + 0x24));

@@ -25,7 +25,7 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
   u32 temp_t0;
   u8 *var_v0;
   u8 *var_v0_2;
-  u8 var_v1;
+  s32 var_v1;
   void *temp_v1;
   void *var_v1_2;
   __repair_phase_temp_a2 = arg2 & 0xFF;
@@ -43,9 +43,19 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
     }
     if (((u32) ((temp_a3 + 0x80) & 0xFF)) < 2U)
     {
-      char *bank = __repair_phase_temp_a2 * 0x860 + D_800EE420;
-      var_v1_2 = (arg1 & 0xFF) * 0x86 + bank;
-      goto block_18;
+      char *bank = (__repair_phase_temp_a2 * 0x860) + D_800EE420;
+      if (arg1 || __base_D_800F2720)
+      {
+        var_v1_2 = (void *) ((arg1 & 0xFF) * 0x86);
+        var_v1_2 = (void *) (((char *) var_v1_2) + ((s32) bank));
+        goto block_18;
+      }
+      else
+      {
+        var_v1_2 = (void *) ((arg1 & 0xFF) * 0x86);
+        var_v1_2 = (void *) (((char *) var_v1_2) + ((s32) bank));
+        goto block_18;
+      }
     }
     if (((u32) ((temp_a3 + 0x7C) & 0xFF)) < 2U)
     {
@@ -83,7 +93,7 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
   if ((((u32) ((temp_a3 + 0x80) & 0xFF)) < 2U) || ((__repair_phase_temp_a2 = inline_fn(arg1), (((u32) ((temp_a3 + 0x7C) & 0xFF)) < 2U) != 0)))
   {
     __base_D_800F2720 = D_800F2720;
-    var_v1_2 = (__repair_phase_temp_a2 * 0x86) + __base_D_800F2720;
+    var_v1 = __repair_phase_temp_a2 * 0x86; var_v1_2 = var_v1 + __base_D_800F2720;
     block_18:
     temp_v1 = var_v1_2 + (temp_a3 & 0xFE);
 

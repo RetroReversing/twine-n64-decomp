@@ -15,12 +15,15 @@ inline static u8 chk(u8 *obj, s32 cur)
   if (b4a == 0xFF)
     return 0;
   b4b = obj[0x4B];
-  y = cur;
   if (b4b == 0xFF)
+  {
+    y = cur;
     x = D_80100C7C[(u8)y];
+  }
   else
   {
     u8 *row = D_801007D9 + (b4b << 4);
+    y = cur;
     x = row[b4a];
   }
   if (x == (u8)y)
