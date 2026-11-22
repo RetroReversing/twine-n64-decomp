@@ -99,6 +99,7 @@ inline static char *inline_fn23(char *arg0, int arg1)
 
 void func_80069DCC(void *arg0)
 {
+    u32 repair_countdown_byte;
     u8 *__base_gSceneFlagsB;
   void *entry_road;
   s32 entry_mode;
@@ -1883,9 +1884,10 @@ case 2: case 3: goto out_of_line_actor;
 switch (temp_v1_24) {
 case 1:
 case 4:
+        repair_countdown_byte = (*((u8 *) (((char *) temp_s1) + 0x197)));
         temp_v1_25 = inline_fn((char *) temp_s1, 0x307);
 
-        *((u8 *) (((char *) temp_s1) + 0x197)) = (u8) ((*((u8 *) (((char *) temp_s1) + 0x197))) - 1);
+        *((u8 *) (((char *) temp_s1) + 0x197)) = (u8) (repair_countdown_byte - 1);
         if (temp_v1_25 < inline_fn((char *) temp_s1, 0x317))
         {
           *((s8 *) (((char *) temp_s1) + 0x317)) = temp_v1_25;

@@ -64,8 +64,9 @@ void func_80035060(void *arg0)
   s32 image;
   s32 red;
   s32 green;
-  volatile unsigned char blue;
+  unsigned char blue;
   u32 fill = 0xF7000000;
+  fill = fill;
   if (inline_fn2(((char *) arg0) + 0x100, 0x40))
   {
     func_80034EFC(arg0);

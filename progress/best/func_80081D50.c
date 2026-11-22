@@ -101,7 +101,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
               }
               else
               {
-                t2 = arg2 & E(i).val; s1 = t2 | a2;
+                s1 = a2 | (arg2 & E(i).val);
               }
               if (E(i).flags & 8)
               {
@@ -148,18 +148,10 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
           arg3[idx].a &= 0xFE;
         }
         v = arg3[idx].a;
-        if (s1)
-        {
-          if (v)
-          {
-            v |= 8;
-          }
-          else
-          {
-            v = v | 8;
-          }
-        }
+        if (s1) v |= 8;
+        if (s1) one = 1; else if (!s1) one = 1; else one = 0;
         arg3[(unsigned long long) idx].a = v;
+        if (!one) goto advance;
         v = ((volatile SlotOut *) arg3)[idx].a;
         s1 = (v >> 2) & 1; t2 = s1 ^ ((v >> 3) & 1);
         if ((v & 8) && (t2 & 1))
@@ -173,6 +165,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
         v = inline_fn234(arg3, idx);
         arg3[idx].a = (v & 8) ? (v | 4) : (v & 0xFB);
         arg3[idx].a &= 0xF7;
+        advance: ;
       }
       while (0);
       i++;
@@ -180,4 +173,5 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
     while (E(i).idx != (-1));
   }
 }
+
 

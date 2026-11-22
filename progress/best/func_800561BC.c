@@ -141,7 +141,7 @@ void func_800561BC(void *arg0) {
         f32 sp118;
         u8 pad11c[36];
         s32 sp140;
-        u8 pad144[48];
+        u8 pad144[32];
         void *sp174;
         u8 pad178[4];
         void *sp17C;
@@ -221,7 +221,7 @@ void func_800561BC(void *arg0) {
     s32 var_s0_5;
     
     int var_s6;
-    
+    s32 var_v0;
     s32 var_v0_2;
     s32 var_v0_4;
     s32 var_v1;
@@ -273,8 +273,8 @@ void func_800561BC(void *arg0) {
     temp_v1 = (*(s16 *)((char *)(arg0) + 0x7A));
     var_s7 = NULL;
     switch (temp_v1) {                              /* switch 1; irregular */
-    default:                                        /* switch 1 */
     case 0:
+    default:                                        /* switch 1 */
         temp_fs0_4 = 0.5f;
         temp_fs0_4 += randomFloatScaled(temp_fs0_4);
         var_fs0 = temp_fs0_4 * (*(f32 *)((char *)(temp_s2) + 0x20));
@@ -348,16 +348,16 @@ block_19:
 block_29:
             var_s5 = (u32)NULL;
         }
-        local.sp17C = NULL;
-        local.sp184 = NULL;
-        D_80108F84 = NULL;
-        gPlayerActor = NULL;
+        var_s7 = NULL; local.sp17C = var_s7;
+        local.sp184 = var_s7;
+        D_80108F84 = var_s7;
+        gPlayerActor = var_s7;
         var_fp = findSurfaceAlongRay(0, 0, local.sp174, arg0 + 0x24, &local.sp30, &local.hit50[0], &local.sp80);
         if (var_fp != NULL) {
             var_fs1 = Vec3_DistanceSq(temp_s2 + 3, &local.hit50[0]);
             if (((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x60)) & 0x8000) && ((*(u16 *)((char *)(local.sp80) + 0x26)) & 0x1000)) {
-                *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)local.hit50;
-                *(Vec3Copy *)&local.sp40 = *(Vec3Copy *)local.hit50;
+                *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)(local.hit50);
+                *(Vec3Copy *)&local.sp40 = *(Vec3Copy *)(local.hit50);
                 var_s4 = local.sp17C;
                 var_s6 = 1;
                 D_80108F84 = NULL;
@@ -370,7 +370,7 @@ block_29:
                 var_s6 = 1;
                 var_fs1 = temp_fv0;
                 var_s4 = D_80108F84;
-                *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)&local.sp40;
+                *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)(&local.sp40);
                 local.sp17C = gPlayerActor;
                 var_fp = NULL;
             }
@@ -387,7 +387,7 @@ block_29:
                 var_s7 = temp_a0;
                 var_s6 = 2;
                 var_s5 = gPlayerActor;
-                *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)local.hit60;
+                *(Vec3Copy *)&local.sp30 = *(Vec3Copy *)(local.hit60);
                 var_fp = NULL;
                 local.sp184 = D_80108F84;
             }
@@ -437,8 +437,8 @@ block_29:
             }
         }
         if (var_s6 == 1) {
-            if ((gPlayerActor != NULL) && ((temp_v1_3 = (*(s32 *)((char *)(gPlayerActor) + 0x60)) | (*(s32 *)((char *)(temp_s2) + 0x28)), (*(s32 *)((char *)(gPlayerActor) + 0x60)) = temp_v1_3, temp_a0_2 = (*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)), var_s1 = temp_v1_3 | 0x40, ((temp_a0_2 & 0x200) != 0)) || (var_s1 = temp_v1_3 | 0x80, ((temp_a0_2 & 0x400) != 0)) || (var_s1 = temp_v1_3 | 0x100, ((temp_a0_2 & 0x800) != 0)) || (var_s1 = (unsigned)temp_v1_3 | 0x20, ((temp_a0_2 & 2) != 0)) || (var_s1 = temp_v1_3 | 2, ((temp_a0_2 & 1) != 0)))) {
-                (*(s32 *)((char *)(gPlayerActor) + 0x60)) = var_s1;
+            if ((gPlayerActor != NULL) && ((temp_v1_3 = (*(s32 *)((char *)(gPlayerActor) + 0x60)) | (*(s32 *)((char *)(temp_s2) + 0x28)), (*(s32 *)((char *)(gPlayerActor) + 0x60)) = temp_v1_3, temp_a0_2 = (*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)), var_v0 = temp_v1_3 | 0x40, ((temp_a0_2 & 0x200) != 0)) || (var_v0 = temp_v1_3 | 0x80, ((temp_a0_2 & 0x400) != 0)) || (var_v0 = temp_v1_3 | 0x100, ((temp_a0_2 & 0x800) != 0)) || (var_v0 = (unsigned)temp_v1_3 | 0x20, ((temp_a0_2 & 2) != 0)) || (var_v0 = temp_v1_3 | 2, ((temp_a0_2 & 1) != 0)))) {
+                (*(s32 *)((char *)(gPlayerActor) + 0x60)) = var_v0;
             }
             if ((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)) & 0x20) {
                 func_80084338(0x116, &local.sp40);
@@ -452,7 +452,7 @@ block_29:
                         (*(f32 *)((char *)(temp_s0) + 0xF4)) = local.sp48;
                         (*(s8 *)((char *)(temp_s0) + 0x19C)) = 1;
                         var_v0_2 = (*(s32 *)((char *)(arg0) + 0x60)) | 1;
-                        D_80100B18 = 0;
+                        (*(u8 *)&D_80100B18) = 0;
                         goto block_72;
                     }
                     goto block_73;
@@ -491,9 +491,7 @@ block_73:
                         if (gPlayerActor != NULL) {
                             if (((*(u16 *)((char *)(gPlayerActor) + 0x78)) == 0x67) && ((*(u16 *)((char *)(temp_s2) + 0x58)) == 2)) {
                                 temp_v1_4 = (*(void **)((char *)(gPlayerActor) + 0x6C));
-                                (*(f32 *)((char *)(temp_v1_4) + 0x9C)) = (f32) (*(f32 *)((char *)(temp_s2) + 0xC));
-                                (*(f32 *)((char *)(temp_v1_4) + 0xA0)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x10));
-                                (*(f32 *)((char *)(temp_v1_4) + 0xA4)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x14));
+                                *(Vec3Copy *)((char *)temp_v1_4 + 0x9c) = *(Vec3Copy *)((char *)temp_s2 + 0xC);
                                 (*(f32 *)((char *)(temp_v1_4) + 0xAC)) = (f32) (*(f32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0xC));
                                 (*(s32 *)((char *)(temp_v1_4) + 0xB0)) = (s32) (*(u8 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 1));
                                 (*(s32 *)((char *)(temp_v1_4) + 0xB4)) = (s32) (*(s32 *)((char *)(temp_s2) + 0x24));
@@ -583,9 +581,7 @@ block_107:
                     if (var_s6 == 1) {
                         if ((gPlayerActor != NULL) && ((*(u16 *)((char *)(gPlayerActor) + 0x78)) == 0x67) && ((*(u16 *)((char *)(temp_s2) + 0x58)) == 2)) {
                             temp_v1_7 = (*(void **)((char *)(gPlayerActor) + 0x6C));
-                            (*(f32 *)((char *)(temp_v1_7) + 0x9C)) = (f32) (*(f32 *)((char *)(temp_s2) + 0xC));
-                            (*(f32 *)((char *)(temp_v1_7) + 0xA0)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x10));
-                            (*(f32 *)((char *)(temp_v1_7) + 0xA4)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x14));
+                            *(Vec3Copy *)((char *)temp_v1_7 + 0x9c) = *(Vec3Copy *)((char *)temp_s2 + 0xC);
                             (*(f32 *)((char *)(temp_v1_7) + 0xAC)) = (f32) (*(f32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0xC));
                             (*(s32 *)((char *)(temp_v1_7) + 0xB0)) = (s32) (*(u8 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 1));
                             (*(s32 *)((char *)(temp_v1_7) + 0xB4)) = (s32) (*(s32 *)((char *)(temp_s2) + 0x24));
@@ -979,9 +975,7 @@ block_234:
                 default:                            /* switch 3 */
                     if (D_80103EB0 != 0) {
                         temp_a2_2 = (*(void **)((char *)(var_s7) + 0x6C));
-                        (*(f32 *)((char *)(temp_a2_2) + 0x1A0)) = (f32) (*(f32 *)((char *)(temp_s2) + 0xC));
-                        (*(f32 *)((char *)(temp_a2_2) + 0x1A4)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x10));
-                        (*(f32 *)((char *)(temp_a2_2) + 0x1A8)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x14));
+                        *(Vec3Copy *)((char *)temp_a2_2 + 0x1a0) = *(Vec3Copy *)((char *)temp_s2 + 0xC);
                         if (!((*(s32 *)((char *)(temp_s2) + 0x28)) & 0x20000000)) {
                             temp_v0_17 = (*(void **)((char *)(temp_s2) + 0x2C));
                             (*(f32 *)((char *)(temp_a2_2) + 0x1B0)) = (f32) ((*(f32 *)((char *)(temp_a2_2) + 0x1B0)) + ((*(f32 *)((char *)(temp_v0_17) + 0xC)) - ((*(f32 *)((char *)(temp_v0_17) + 8)) * ((*(f32 *)((char *)(temp_s2) + 0x1C)) / (*(f32 *)((char *)(temp_v0_17) + 0x18))))));
@@ -997,9 +991,7 @@ block_262:
                     break;
                 case 1:                             /* switch 3 */
                     temp_a2_3 = (*(void **)((char *)(var_s7) + 0x6C));
-                    (*(f32 *)((char *)(temp_a2_3) + 0x50)) = (f32) (*(f32 *)((char *)(temp_s2) + 0xC));
-                    (*(f32 *)((char *)(temp_a2_3) + 0x54)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x10));
-                    (*(f32 *)((char *)(temp_a2_3) + 0x58)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x14));
+                    *(Vec3Copy *)((char *)temp_a2_3 + 0x50) = *(Vec3Copy *)((char *)temp_s2 + 0xC);
                     if (!((*(s32 *)((char *)(temp_s2) + 0x28)) & 0x20000000)) {
                         temp_v0_18 = (*(void **)((char *)(temp_s2) + 0x2C));
                         (*(f32 *)((char *)(temp_a2_3) + 0x60)) = (f32) ((*(f32 *)((char *)(temp_a2_3) + 0x60)) + ((*(f32 *)((char *)(temp_v0_18) + 0xC)) - ((*(f32 *)((char *)(temp_v0_18) + 8)) * ((*(f32 *)((char *)(temp_s2) + 0x1C)) / (*(f32 *)((char *)(temp_v0_18) + 0x18))))));

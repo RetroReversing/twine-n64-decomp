@@ -360,7 +360,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
             if ((((*((s32 *) (((char *) sp194) + 0x58))) & 0x400) && ((*((s32 *) (((char *) sp194) + 0x5C))) & 0x200)) && (absFloat((*((f32 *) (((char *) arg3) + 4))) - (*((f32 *) (((char *) var_s5) + 0x28)))) < 1.5f))
             {
               {
-                const void *actorPosition = (const char *) var_s5 + 0x24;
+                const void *actorPosition = ((const char *) var_s5) + 0x24;
                 temp_fs0 = func_80045590((void *) actorPosition, arg3);
               }
               do
@@ -719,7 +719,14 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                     {
                       spC4 = temp_fv0_7;
                     }
-                    temp_fv1_16 = spD4 + arg7;
+                    if (temp_s3_3)
+                    {
+                      temp_fv1_16 = spD4 + arg7;
+                    }
+                    else
+                    {
+                      temp_fv1_16 = spD4 + arg7;
+                    }
                     if (temp_fv1_16 < spC4)
                     {
                       spC4 = temp_fv1_16;

@@ -97,7 +97,10 @@ s32 func_8009A990(u8 *obj, u8 *p)
   r = randomU16Next();
   r = (u16)r % ((((s32) (hi & 0xFF)) - inline_fn(lo)) + 1);
   *((s32 *) (p + 4)) = 0;
-  *((s32 *) p) = (((pitch & 0xFF) << 16) | ((inline_fn(lo) + r) << 8)) | 0x19;
+  {
+    u32 q = ((inline_fn(lo) + r) << 8) | 0x19;
+    *((s32 *) p) = ((pitch & 0xFF) << 16) | q;
+  }
   cur = *((s32 *) (obj + 0x60));
   *((s16 *) (obj + 0x50)) = p[2] & 0x7F;
   obj[0xC0] = *((u16 *) p);
