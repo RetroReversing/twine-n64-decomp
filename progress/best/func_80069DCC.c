@@ -97,7 +97,7 @@ inline static char *inline_fn23(char *arg0, int arg1)
   return arg0 + arg1;
 }
 
-volatile unsigned int func_80069DCC(void *arg0)
+void func_80069DCC(void *arg0)
 {
   f32 *__base_D_800C7DBC;
   void *__repair_hoisted;
@@ -179,9 +179,7 @@ volatile unsigned int func_80069DCC(void *arg0)
   f32 var_fp;
   f32 var_fs1;
   f32 var_fs2;
-  f32 var_fs2_2;
   f32 var_fs2_3;
-  f32 var_fs2_4;
   f32 var_fs2_5;
   f32 var_fs3;
   f32 var_fs3_6;
@@ -563,7 +561,7 @@ case 2: case 3: goto out_of_line_actor;
               temp_fv1_2 = var_fs3 * var_fs3;
               if (var_fs3 > 0.0f)
               {
-                if (var_v0_14)
+                if (temp_v1_16)
                 {
                   var_fs3 = temp_fv1_2 * 0.1f;
                 }
@@ -787,14 +785,14 @@ case 2: case 3: goto out_of_line_actor;
             }
           }
         }
-        var_fs2_2 = 0.01f;
+        temp_fs2 = 0.01f;
         var_fs3 = func_80081B44(temp_s4, 2, 3) * 0.15f;
         if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8)
         {
-          var_fs2_2 = 0.2f;
+          temp_fs2 = 0.2f;
         }
         temp_fv0_8 = *((f32 *) (((char *) temp_s1) + 0x50));
-        temp_fa0_2 = ((var_fs3 - temp_fv0_8) * var_fs2_2) + temp_fv0_8;
+        temp_fa0_2 = ((var_fs3 - temp_fv0_8) * temp_fs2) + temp_fv0_8;
         var_v0_10 = 1;
         *((f32 *) (((char *) temp_s1) + 0x50)) = temp_fa0_2;
         if (!(var_fs3 <= 0.0002f))
@@ -1018,14 +1016,14 @@ case 2: case 3: goto out_of_line_actor;
             }
           }
         }
-        var_fs2_4 = 0.01f;
+        temp_fs2 = 0.01f;
         var_fs3 = func_80081B44(temp_s4, 2, 3) * 0.075f;
         if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8)
         {
-          var_fs2_4 = 0.2f;
+          temp_fs2 = 0.2f;
         }
         temp_fv0_16 = *((f32 *) (((char *) temp_s1) + 0x50));
-        temp_fa0_4 = ((var_fs3 - temp_fv0_16) * var_fs2_4) + temp_fv0_16;
+        temp_fa0_4 = ((var_fs3 - temp_fv0_16) * temp_fs2) + temp_fv0_16;
         var_v0_17 = 1;
         *((f32 *) (((char *) temp_s1) + 0x50)) = temp_fa0_4;
         if (!(var_fs3 <= 0.0002f))
@@ -1054,7 +1052,7 @@ case 2: case 3: goto out_of_line_actor;
         goto block_430;
 
       case 1:
-        if (temp_fv0_22)
+        if (temp_v1_16)
       {
         *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
         temp_a0_7 = *((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC));
@@ -1222,7 +1220,7 @@ case 2: case 3: goto out_of_line_actor;
         temp_fv0_22 = *inline_fn2(temp_v0_9);
         if ((temp_fv0_22 < 0.275f) || ((var_fv1_6 = 0.88000005f, temp_fv0_22 > 0.88000005f)))
       {
-        if (temp_fv0_11)
+        if (temp_v1_16)
         {
           *inline_fn2(temp_v0_9) = var_fv1_6;
         }
@@ -1252,10 +1250,23 @@ case 2: case 3: goto out_of_line_actor;
         if (func_80081AA4(temp_s4, 0xC) != 0)
         {
           var_fs3_6 = 0.2f;
-          goto block_307;
+          block_307:
+          *inline_fn2(temp_s1) = var_fs3_6;
+
+          var_s5 = var_fs3_6 * sinAngle(*((f32 *) (((char *) arg0) + 0x40)));
+          var_fs3 = var_fs3_6 * cosAngle(*((f32 *) (((char *) arg0) + 0x40)));
+          *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
+          *((s8 *) (((char *) temp_s1) + 0x188)) = 0x14;
+          func_800635BC(arg0, 0);
+          *((f32 *) (((char *) temp_s1) + 0x38)) = 0.0f;
+          var_s6 = var_fs3;
+          *((s8 *) (((char *) temp_s1) + 0x17E)) = (unsigned char) 2;
+          requestSound(0xFF);
+          *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
+          goto block_430;
         }
-        if (!(D_800E1A0C != 0))
-        {
+        switch (D_800E1A0C) {
+        case 0: {
           var_fs3_7 = -func_80081B44(temp_s4, 4, 5);
           var_v0_18 = 1;
           if (!(var_fs3_7 <= 0.0002f))
@@ -1405,28 +1416,15 @@ case 2: case 3: goto out_of_line_actor;
 
               goto block_363;
             }
-            block_307:
-            *inline_fn2(temp_s1) = var_fs3_6;
-
-            var_s5 = var_fs3_6 * sinAngle(*((f32 *) (((char *) arg0) + 0x40)));
-            var_fs3 = var_fs3_6 * cosAngle(*((f32 *) (((char *) arg0) + 0x40)));
-            *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
-            *((s8 *) (((char *) temp_s1) + 0x188)) = 0x14;
-            func_800635BC(arg0, 0);
-            *((f32 *) (((char *) temp_s1) + 0x38)) = 0.0f;
-            var_s6 = var_fs3;
-            *((s8 *) (((char *) temp_s1) + 0x17E)) = (unsigned char) 2;
-            requestSound(0xFF);
-            *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
+            goto block_307;
           }
         }
-        else
-          if (D_800E1A0C != 1)
-        {
+          break;
+        default: {
           *((f32 *) (((char *) temp_s1) + 0xCC)) = 0.0f;
         }
-        else
-        {
+          break;
+        case 1: {
           temp_fv0_24 = func_80063758(*((f32 *) (((char *) arg0) + 0x40)), D_800E19F8 + 2048.0f, 64.0f);
           *((f32 *) (((char *) arg0) + 0x40)) = (f32) ((*((f32 *) (((char *) arg0) + 0x40))) + temp_fv0_24);
           if (temp_fv0_24 == 0.0f)
@@ -1434,6 +1432,8 @@ case 2: case 3: goto out_of_line_actor;
             goto block_362;
           }
           goto block_363;
+        }
+          break;
         }
       }
       else
