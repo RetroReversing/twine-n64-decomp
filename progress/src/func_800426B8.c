@@ -49,7 +49,6 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
   u16 *sp64;
   u16 *sp6C;
   unsigned int temp_s1;
-  s32 temp_s1_2;
   s32 temp_s2;
   u16 *temp_fp;
   u16 *temp_s0;
@@ -105,7 +104,7 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
     dmaRomToRamUnaligned(sp4C, (*((s32 *) (((char *) temp_s0) + 0))) + ((u32) (&D_54D910)), (*((u32 *) (((char *) temp_s0) + 4))) * 0x44);
     D_800E19E0 = (D_800E19E4 = (D_800E19E8 = 0.0f));
     func_80041F68(temp_s0);
-    if (var_s6 != 0)
+    if (var_s3 < var_s6)
     {
       do
       {
@@ -121,14 +120,7 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
         }
         if (sp56 < header.sectionCount)
         {
-          if (header.packedSize)
-          {
-            sp56 = header.sectionCount;
-          }
-          else
-          {
-            sp56 = header.sectionCount;
-          }
+          sp56 = header.sectionCount;
         }
         if (var_s1 < header.packedSize)
         {
@@ -160,24 +152,24 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
       var_s0_2 = (u16 *) (((char *) var_s2) + 0x24);
       do
       {
-        temp_s1_2 = *((s32 *) (((char *) D_800C0788) + ((*(*((s16 **) (((char *) var_s0_2) + 4)))) * 0x10)));
+        var_s1 = *((s32 *) (((char *) D_800C0788) + ((*(*((s16 **) (((char *) var_s0_2) + 4)))) * 0x10)));
         expansionPresent = gExpansionPakPresent;
-        *((u16 **) (((char *) (((*var_s2) * 0x4C) + temp_s1_2)) + 4)) = (u16 *) (*((u16 **) (((char *) var_s0_2) + 0)));
+        *((u16 **) (((char *) (((*var_s2) * 0x4C) + var_s1)) + 4)) = (u16 *) (*((u16 **) (((char *) var_s0_2) + 0)));
         if (expansionPresent && (gSharedItemBusy == 0))
         {
-          *((u8 *) (((char *) (((*var_s2) * 0x4C) + temp_s1_2)) + 0x46)) = 0x80;
+          *((u8 *) (((char *) (((*var_s2) * 0x4C) + var_s1)) + 0x46)) = 0x80;
         }
         else
         {
-          *((s8 *) (((char *) (((*var_s2) * 0x4C) + temp_s1_2)) + 0x46)) = 0;
+          *((s8 *) (((char *) (((*var_s2) * 0x4C) + var_s1)) + 0x46)) = 0;
         }
-        if ((*((u8 *) (((char *) (((*var_s2) * 0x4C) + temp_s1_2)) + 0x46))) == 0)
+        if ((*((u8 *) (((char *) (((*var_s2) * 0x4C) + var_s1)) + 0x46))) == 0)
         {
           D_80109A35 = 1;
         }
         dmaRomToRamUnaligned((u16 *) (&header), (*((u32 *) (((char *) var_s0_2) + 0))) + ((u32) (&D_54D910)), 0x20U);
         *((u16 **) (((char *) var_s0_2) + 0)) = (u16 *) (&header);
-        if (!((*((u8 *) (((char *) (((*var_s2) * 0x4C) + temp_s1_2)) + 0x45))) != 0))
+        if (!((*((u8 *) (((char *) (((*var_s2) * 0x4C) + var_s1)) + 0x45))) != 0))
         {
           dmaRomToRamUnaligned(temp_s7, header.packed + ((u32) (&D_54D910)), header.packedSize);
           temp_v0_2 = *((u16 **) (((char *) var_s0_2) + 0));
