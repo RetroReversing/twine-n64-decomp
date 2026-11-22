@@ -45,7 +45,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
   f32 sp18[3];
   SweepVec vec28;
   SweepVec vec38;
-  SweepVec vec70;
+  SweepVec vec48;
   f32 matrix[9];
   s16 sp68[3];
   union 
@@ -71,7 +71,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     } second;
   } result;
   f32 spE0;
-  SweepVec vec48;
+  SweepVec vec70;
   register f32 spE4;
   f32 spE8[9];
   volatile SweepVec vec118;

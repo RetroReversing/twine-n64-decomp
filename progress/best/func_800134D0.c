@@ -138,11 +138,11 @@ u32 __repair_phase_var_s3;
 
   if (var_t4 < 0)
   {
-    __repair_phase_var_s3 = var_s4;
-    var_s4 = *var_s1;
-    var_s1++;
-    temp_v0_2 = (var_t2 + (__repair_phase_var_s3 << (var_t4 + 1))); var_a2 = temp_v0_2 & 1;
-    var_t2 = __repair_phase_var_s3 >> (-var_t4);
+    temp_t2 = var_t2;
+    var_t2 = var_s4;
+    var_s4 = *var_s1++;
+    temp_v0_2 = (temp_t2 + (var_t2 << (var_t4 + 1))); var_a2 = temp_v0_2 & 1;
+    var_t2 >>= -var_t4;
     var_t4 += 0x20;
   }
   else
@@ -187,11 +187,11 @@ u32 __repair_phase_var_s3;
         var_a2_2 = var_t2 & 0xFF;
         if (var_t4 < 0)
         {
-          temp_t2_3 = var_s4;
-          var_s4 = *var_s1;
-          var_s1++;
-          var_a2_2 = (var_t2 + (temp_t2_3 << (var_t4 + 8))) & 0xFF;
-          var_t2 = temp_t2_3 >> (-var_t4);
+          temp_t2 = var_t2;
+          var_t2 = var_s4;
+          var_s4 = *var_s1++;
+          var_a2_2 = (temp_t2 + (var_t2 << (var_t4 + 8))) & 0xFF;
+          var_t2 >>= -var_t4;
           var_t4 += 0x20;
         }
         else
@@ -225,11 +225,11 @@ u32 __repair_phase_var_s3;
   var_a2_3 = var_t2 & 0x1FF;
   if (var_t4 < 0)
   {
-    temp_t2_4 = var_s4;
-    var_s4 = *var_s1;
-    var_s1++;
-    var_a2_3 = (var_t2 + (temp_t2_4 << (var_t4 + 9))) & 0x1FF;
-    var_t2 = temp_t2_4 >> (-var_t4);
+    temp_t2 = var_t2;
+    var_t2 = var_s4;
+    var_s4 = *var_s1++;
+    var_a2_3 = (temp_t2 + (var_t2 << (var_t4 + 9))) & 0x1FF;
+    var_t2 >>= -var_t4;
     var_t4 += 0x20;
   }
   else
@@ -255,11 +255,11 @@ u32 __repair_phase_var_s3;
       var_a2 = var_t2 & 1;
       if (var_t4 < 0)
       {
-        temp_t2_5 = var_s4;
-        var_s4 = *var_s1;
-        var_s1++;
-        var_a2 = (var_t2 + (temp_t2_5 << (var_t4 + 1))) & 1;
-        var_t2 = temp_t2_5 >> (-var_t4);
+        temp_t2 = var_t2;
+        var_t2 = var_s4;
+        var_s4 = *var_s1++;
+        var_a2 = (temp_t2 + (var_t2 << (var_t4 + 1))) & 1;
+        var_t2 >>= -var_t4;
         var_t4 += 0x20;
       }
       else
@@ -272,11 +272,11 @@ u32 __repair_phase_var_s3;
         if (var_t4 < 0)
         {
           sp1C = var_t2;
-          temp_t2_6 = var_s4;
-          var_s4 = *var_s1;
-          var_s1++;
-          sp1C = (sp1C + (temp_t2_6 << (var_t4 + 4))) & 0xF;
-          var_t2 = temp_t2_6 >> (-var_t4);
+          temp_t2 = var_t2;
+          var_t2 = var_s4;
+          var_s4 = *var_s1++;
+          sp1C = (sp1C + (var_t2 << (var_t4 + 4))) & 0xF;
+          var_t2 >>= -var_t4;
           var_t4 += 0x20;
         }
         else
@@ -602,11 +602,11 @@ u32 __repair_phase_var_s3;
         var_t4 -= temp_v1_6;
         if (var_t4 < 0)
         {
-          temp_t2_8 = var_s4;
-          var_s4 = *var_s1;
-          var_s1++;
-          var_a2_8 = (var_t2 + (temp_t2_8 << (var_t4 + temp_v1_6))) & ((1 << temp_v1_6) - 1);
-          var_t2 = temp_t2_8 >> (-var_t4);
+          temp_t2 = var_t2;
+          var_t2 = var_s4;
+          var_s4 = *var_s1++;
+          var_a2_8 = (temp_t2 + (var_t2 << (var_t4 + temp_v1_6))) & ((1 << temp_v1_6) - 1);
+          var_t2 >>= -var_t4;
           var_t4 += 0x20;
         }
         else
@@ -649,11 +649,11 @@ u32 __repair_phase_var_s3;
         var_t4 -= temp_v1_7;
         if (var_t4 < 0)
         {
-          var_s3 = var_s4;
-          var_s4 = *var_s1;
-          var_s1++;
-          var_a2_8 = (var_t2 + (var_s3 << (var_t4 + temp_v1_7))) & ((1 << temp_v1_7) - 1);
-          var_t2 = var_s3 >> (-var_t4);
+          temp_t2 = var_t2;
+          var_t2 = var_s4;
+          var_s4 = *var_s1++;
+          var_a2_8 = (temp_t2 + (var_t2 << (var_t4 + temp_v1_7))) & ((1 << temp_v1_7) - 1);
+          var_t2 >>= -var_t4;
           var_t4 += 0x20;
         }
         else
@@ -699,11 +699,11 @@ u32 __repair_phase_var_s3;
 
     if (var_t4 < 0)
     {
-      var_s3 = var_s4;
-      var_s4 = *var_s1;
-      var_s1++;
-      var_a2_10 = (var_t2 + (var_s3 << (var_t4 + 1))) & 1;
-      var_t2 = var_s3 >> (-var_t4);
+      temp_t2 = var_t2;
+      var_t2 = var_s4;
+      var_s4 = *var_s1++;
+      var_a2_10 = (temp_t2 + (var_t2 << (var_t4 + 1))) & 1;
+      var_t2 >>= -var_t4;
       var_t4 += 0x20;
     }
     else

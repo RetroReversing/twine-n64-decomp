@@ -28,6 +28,11 @@ inline static u16 inline_fn(u16 arg0)
   return arg0;
 }
 
+inline static s32 inline_fn2(char *arg0)
+{
+  return *((s32 *) arg0);
+}
+
 s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *arg5, void **arg6, s32 arg7)
 {
   union 
@@ -320,8 +325,8 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
             temp_s1_4 = *((void **) (((char *) var_s4) + 0x70)); temp_v1 = (void *) temp_s1_4;
             if (temp_v1 != NULL)
             {
-              temp_s1_6 = (void *) (*((s32 *) (((char *) var_s4) + 0x58))); temp_s0 = ((u32) temp_s1_6) & 0x400;
-              if (((temp_s0 == 0) && ((*((s32 *) (((char *) var_s4) + 0x5C))) & 0x200)) && (func_800487F0(var_s4, arg1, arg3) != 0))
+              temp_s1_6 = (void *) inline_fn2(((char *) var_s4) + 0x58); temp_s0 = ((u32) temp_s1_6) & 0x400;
+              if (((temp_s0 == 0) && (inline_fn2(((char *) var_s4) + 0x5C) & 0x200)) && (func_800487F0(var_s4, arg1, arg3) != 0))
               {
                 *((SurfaceVec3 *) scratch.vsp18) = *((SurfaceVec3 *) arg1);
                 scratch.vsp88.values[0] = (s16) ((s32) (-(*((f32 *) (((char *) var_s4) + 0x3C)))));
@@ -346,7 +351,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                     var_s5 = (void *) (2 + var_fp);
                     do
                     {
-                      temp_v1_3 = *((s32 *) (((char *) temp_v1) + 0x34));
+                      temp_v1_3 = inline_fn2(((char *) temp_v1) + 0x34);
                       buildPlaneFromPoints(sp1B4, temp_v1_3 + ((*var_fp) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s5) + (-2)))) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s5) + 0))) * 0xC));
                       temp_fs0 = (((scratch.vsp90.values[0] * scratch.vsp18[0]) + (scratch.vsp90.values[1] * scratch.vsp18[1])) + (scratch.vsp90.values[2] * scratch.vsp18[2])) + scratch.vsp90.values[3];
                       var_v0 = 1;
@@ -364,7 +369,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                         *((f32 *) (((char *) sp17C) + 0)) = (f32) (scratch.vsp18[0] - (temp_fs0 * scratch.vsp90.values[0]));
                         *((f32 *) (((char *) sp17C) + 4)) = (f32) (scratch.vsp18[1] - (temp_fs0 * scratch.vsp90.values[1]));
                         *((f32 *) (((char *) sp17C) + 8)) = (f32) (scratch.vsp18[2] - (temp_fs0 * scratch.vsp90.values[2]));
-                        temp_a3 = *((s32 *) (((char *) temp_v1) + 0x34));
+                        temp_a3 = inline_fn2(((char *) temp_v1) + 0x34);
                         temp_s2 = temp_a3 + ((*var_fp) * 0xC);
                         temp_s0_2 = temp_a3 + ((*((u16 *) (((char *) var_s5) + (-2)))) * 0xC);
                         temp_s1 = temp_a3 + ((*((u16 *) (((char *) var_s5) + 0))) * 0xC);
@@ -447,7 +452,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                             *((f32 *) (((char *) arg1) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) + scratch.correction.values[1]);
                             *((f32 *) (((char *) arg1) + 8)) = (f32) ((*((f32 *) (((char *) arg1) + 8))) + scratch.correction.values[2]);
                             sp187 = 1;
-                            *((s32 *) (((char *) var_s4) + 0x60)) = (s32) ((*((s32 *) (((char *) var_s4) + 0x60))) | arg4);
+                            *((s32 *) (((char *) var_s4) + 0x60)) = (s32) (inline_fn2(((char *) var_s4) + 0x60) | arg4);
                           }
                           else
                           {
@@ -455,7 +460,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                             *((f32 *) (((char *) arg1) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) + scratch.correction.values[1]);
                             *((f32 *) (((char *) arg1) + 8)) = (f32) ((*((f32 *) (((char *) arg1) + 8))) + scratch.correction.values[2]);
                             sp187 = 1;
-                            *((s32 *) (((char *) var_s4) + 0x60)) = (s32) ((*((s32 *) (((char *) var_s4) + 0x60))) | arg4);
+                            *((s32 *) (((char *) var_s4) + 0x60)) = (s32) (inline_fn2(((char *) var_s4) + 0x60) | arg4);
                           }
                         }
                       }
@@ -476,7 +481,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                     var_s5_2 = (void *) (2 + var_fp_2);
                     do
                     {
-                      temp_v1_4 = *((s32 *) (((char *) temp_v1) + 0x34));
+                      temp_v1_4 = inline_fn2(((char *) temp_v1) + 0x34);
                       buildPlaneFromPoints(sp1B4, temp_v1_4 + ((*var_fp_2) * 0xC), temp_v1_4 + ((*((u8 *) (((char *) var_s5_2) + (-1)))) * 0xC), temp_v1_4 + ((*((u8 *) (((char *) var_s5_2) + 0))) * 0xC));
                       temp_fs0_3 = (((scratch.vsp90.values[0] * scratch.vsp18[0]) + (scratch.vsp90.values[1] * scratch.vsp18[1])) + (scratch.vsp90.values[2] * scratch.vsp18[2])) + scratch.vsp90.values[3];
                       var_v0_4 = 1;
@@ -494,7 +499,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                         *((f32 *) (((char *) sp17C) + 0)) = (f32) (scratch.vsp18[0] - (temp_fs0_3 * scratch.vsp90.values[0]));
                         *((f32 *) (((char *) sp17C) + 4)) = (f32) (scratch.vsp18[1] - (temp_fs0_3 * scratch.vsp90.values[1]));
                         *((f32 *) (((char *) sp17C) + 8)) = (f32) (scratch.vsp18[2] - (temp_fs0_3 * scratch.vsp90.values[2]));
-                        temp_a3_2 = *((s32 *) (((char *) temp_v1) + 0x34));
+                        temp_a3_2 = inline_fn2(((char *) temp_v1) + 0x34);
                         temp_s1_2 = temp_a3_2 + ((*((u8 *) (((char *) var_s5_2) + 0))) * 0xC);
                         temp_s2_2 = temp_a3_2 + ((*var_fp_2) * 0xC);
                         temp_s0_3 = temp_a3_2 + ((*((u8 *) (((char *) var_s5_2) + (-1)))) * 0xC);
@@ -575,7 +580,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           *((f32 *) (((char *) arg1) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) + scratch.vspF0.values[1]);
                           *((f32 *) (((char *) arg1) + 8)) = (f32) ((*((f32 *) (((char *) arg1) + 8))) + scratch.vspF0.values[2]);
                           sp187 = 1;
-                          *((s32 *) (((char *) var_s4) + 0x60)) = (s32) ((*((s32 *) (((char *) var_s4) + 0x60))) | arg4);
+                          *((s32 *) (((char *) var_s4) + 0x60)) = (s32) (inline_fn2(((char *) var_s4) + 0x60) | arg4);
                         }
                       }
                       __block_sp196 += 1;
@@ -601,7 +606,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
         do
         {
           temp_s4 = *((void **) (((char *) var_s6) + 0x3C));
-          if ((*((s32 *) (((char *) var_s6) + 0x50))) & 0x200)
+          if (inline_fn2(((char *) var_s6) + 0x50) & 0x200)
           {
             temp_s1_3 = (((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 0x20;
             if ((!temp_s1_3) && (Sphere_OverlapsPoint(var_s6 + 0x40, arg1, arg3) != 0))
@@ -640,11 +645,11 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                     do
                     {
                       temp_v1_6 = var_s5_3 & 0xFFFF;
-                      temp_s1_4 = (*((s32 *) (((char *) temp_s4) + 0x3C))) + (temp_v1_6 * 6);
+                      temp_s1_4 = inline_fn2(((char *) temp_s4) + 0x3C) + (temp_v1_6 * 6);
                       temp_a0 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_v1_6 * 2)));
                       if ((sp1DE & temp_a0) && (sp1E6 & temp_a0))
                       {
-                        temp_v1_7 = *((s32 *) (((char *) temp_s4) + 0x34));
+                        temp_v1_7 = inline_fn2(((char *) temp_s4) + 0x34);
                         buildPlaneFromPoints(sp1EC, temp_v1_7 + ((*((u16 *) (((char *) temp_s1_4) + 0))) * 0xC), temp_v1_7 + ((*((u16 *) (((char *) temp_s1_4) + 2))) * 0xC), temp_v1_7 + ((*((u16 *) (((char *) temp_s1_4) + 4))) * 0xC));
                         temp_fs0_5 = (((scratch.vspC8.values[0] * scratch.vsp28.values[0]) + (scratch.vspC8.values[1] * scratch.vsp28.values[1])) + (scratch.vspC8.values[2] * scratch.vsp28.values[2])) + scratch.vspC8.values[3];
                         var_v0_7 = 1;
@@ -662,7 +667,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           *((f32 *) (((char *) sp17C) + 0)) = (f32) (scratch.vsp28.values[0] - (temp_fs0_5 * scratch.vspC8.values[0]));
                           *((f32 *) (((char *) sp17C) + 4)) = (f32) (scratch.vsp28.values[1] - (temp_fs0_5 * scratch.vspC8.values[1]));
                           *((f32 *) (((char *) sp17C) + 8)) = (f32) (scratch.vsp28.values[2] - (temp_fs0_5 * scratch.vspC8.values[2]));
-                          temp_a3_3 = *((s32 *) (((char *) temp_s4) + 0x34));
+                          temp_a3_3 = inline_fn2(((char *) temp_s4) + 0x34);
                           temp_s2_3 = temp_a3_3 + ((*((u16 *) (((char *) temp_s1_4) + 0))) * 0xC);
                           temp_s0_4 = temp_a3_3 + ((*((u16 *) (((char *) temp_s1_4) + 2))) * 0xC);
                           temp_s1_5 = temp_a3_3 + ((*((u16 *) (((char *) temp_s1_4) + 4))) * 0xC);
@@ -774,10 +779,10 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                   {
                     temp_a0_2 = var_s5_4 & 0xFFFF;
                     temp_v1_9 = *((u16 *) (((char *) (*((void **) (((char *) temp_s4) + 0x38)))) + (temp_a0_2 * 2)));
-                    temp_s1_6 = (*((s32 *) (((char *) temp_s4) + 0x3C))) + (temp_a0_2 * 3);
+                    temp_s1_6 = inline_fn2(((char *) temp_s4) + 0x3C) + (temp_a0_2 * 3);
                     if ((sp1DE & temp_v1_9) && (sp1E6 & temp_v1_9))
                     {
-                      temp_v1_10 = *((s32 *) (((char *) temp_s4) + 0x34));
+                      temp_v1_10 = inline_fn2(((char *) temp_s4) + 0x34);
                       buildPlaneFromPoints(sp1EC, temp_v1_10 + ((*((u8 *) (((char *) temp_s1_6) + 0))) * 0xC), temp_v1_10 + ((*((u8 *) (((char *) temp_s1_6) + 1))) * 0xC), temp_v1_10 + ((*((u8 *) (((char *) temp_s1_6) + 2))) * 0xC));
                       temp_fs0_7 = (((scratch.vspC8.values[0] * scratch.vsp28.values[0]) + (scratch.vspC8.values[1] * scratch.vsp28.values[1])) + (scratch.vspC8.values[2] * scratch.vsp28.values[2])) + scratch.vspC8.values[3];
                       var_v0_10 = 1;
@@ -795,7 +800,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                         *((f32 *) (((char *) sp17C) + 0)) = (f32) (scratch.vsp28.values[0] - (temp_fs0_7 * scratch.vspC8.values[0]));
                         *((f32 *) (((char *) sp17C) + 4)) = (f32) (scratch.vsp28.values[1] - (temp_fs0_7 * scratch.vspC8.values[1]));
                         *((f32 *) (((char *) sp17C) + 8)) = (f32) (scratch.vsp28.values[2] - (temp_fs0_7 * scratch.vspC8.values[2]));
-                        temp_a3_4 = *((s32 *) (((char *) temp_s4) + 0x34));
+                        temp_a3_4 = inline_fn2(((char *) temp_s4) + 0x34);
                         temp_s2_4 = temp_a3_4 + ((*((u8 *) (((char *) temp_s1_6) + 0))) * 0xC);
                         temp_s0_5 = temp_a3_4 + ((*((u8 *) (((char *) temp_s1_6) + 1))) * 0xC);
                         temp_s1_7 = temp_a3_4 + ((*((u8 *) (((char *) temp_s1_6) + 2))) * 0xC);
@@ -930,7 +935,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
         {
           if (sp18C != ((u32) NULL))
           {
-            if (Sphere_OverlapsPoint((*((s32 *) (((char *) sp18C) + 4))) + 0x40, arg1, arg3) != 0)
+            if (Sphere_OverlapsPoint(inline_fn2(((char *) sp18C) + 4) + 0x40, arg1, arg3) != 0)
             {
               sp18C = *((void **) (((char *) sp18C) + 0));
               goto block_160;

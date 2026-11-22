@@ -28,7 +28,7 @@ f32 __repair_var_ft0_2_1;
     f32 var_fv0;
     s32 temp_v1_2;
     s32 var_v0;
-    s8 temp_v1;
+    u8 temp_v1;
     void *temp_a1;
 
     if (arg1 != NULL) {
@@ -37,7 +37,7 @@ f32 __repair_var_ft0_2_1;
         factor = (f32)(M2C_FIELD(arg1, u8 *, 0x81) + (M2C_FIELD(arg1, u8 *, 0x7F) + M2C_FIELD(arg1, u8 *, 0x80))) * 0.0013071896f;
         if (M2C_FIELD(arg1, void **, 0x68) != NULL) {
             temp_v1 = M2C_FIELD(temp_a1, u8 *, 0x82);
-            if (((u32) (temp_v1 - 9) < 2U) || ((temp_v1 & 0xFF) == 0xB)) {
+            if (((temp_v1 & 0xFF) == 9) || ((temp_v1 & 0xFF) == 0xA) || ((temp_v1 & 0xFF) == 0xB)) {
                 var_ft0 = *((f32 *)((s8 *)&D_800C2E64 + (D_80117386 * 4)));
             } else {
                 temp_v1_2 = M2C_FIELD(temp_a1, s32 *, 0x88);

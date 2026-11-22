@@ -99,6 +99,9 @@ inline static char *inline_fn23(char *arg0, int arg1)
 
 void func_80069DCC(void *arg0)
 {
+    f32 repair_upper_delta;
+    f32 repair_lower_delta;
+
   f32 *__base_D_800C7DBC;
   void *__repair_hoisted;
   struct {
@@ -187,7 +190,6 @@ void func_80069DCC(void *arg0)
   f32 var_fs1;
   f32 var_fs2;
   f32 var_fs2_3;
-  f32 var_fs2_5;
   f32 var_fs3;
   f32 var_fs3_6;
   f32 var_fs3_7;
@@ -1386,34 +1388,36 @@ case 2: case 3: goto out_of_line_actor;
             {
               *inline_fn2(temp_s1) = 0.12f;
             }
-            var_fs2_5 = *inline_fn2(temp_s1);
-            if (var_fs2_5 < 0.0f)
+            temp_fs2_2 = *inline_fn2(temp_s1);
+            if (temp_fs2_2 < 0.0f)
             {
-              var_fs2_5 *= 1.5f;
+              temp_fs2_2 *= 1.5f;
             }
             temp_fv0_28 = *((f32 *) (((char *) arg0) + 0x28));
+            repair_lower_delta = (temp_fv0_28 - (*((f32 *) (((char *) temp_s1) + 0xFC))));
+            repair_upper_delta = ((*((f32 *) (((char *) temp_s1) + 0xF0))) - temp_fv0_28);
             var_v0_23 = 1;
-            if (!(var_fs2_5 > 0.0f))
+            if (!(temp_fs2_2 > 0.0f))
             {
               var_v0_23 = 0;
             }
             var_v1_22 = 1;
-            if (!(((*((f32 *) (((char *) temp_s1) + 0xF0))) - temp_fv0_28) <= 1.5f))
+            if (!(repair_upper_delta <= 1.5f))
             {
               var_v1_22 = 0;
             }
             if (var_v0_23 & var_v1_22)
             {
-              var_fs2_5 = 0.0f;
+              temp_fs2_2 = 0.0f;
               goto block_360;
             }
             var_v0_24 = 1;
-            if (!(var_fs2_5 < 0.0f))
+            if (!(temp_fs2_2 < 0.0f))
             {
               var_v0_24 = 0;
             }
             var_v1_23 = 1;
-            if (!((temp_fv0_28 - (*((f32 *) (((char *) temp_s1) + 0xFC)))) <= 1.5f))
+            if (!(repair_lower_delta <= 1.5f))
             {
               var_v1_23 = 0;
             }
@@ -1421,7 +1425,7 @@ case 2: case 3: goto out_of_line_actor;
             if (!(var_v0_24 & var_v1_23))
             {
               block_360:
-              *((f32 *) (((char *) arg0) + 0x28)) = (f32) ((*((f32 *) (((char *) arg0) + 0x28))) + var_fs2_5);
+              *((f32 *) (((char *) arg0) + 0x28)) = (f32) ((*((f32 *) (((char *) arg0) + 0x28))) + temp_fs2_2);
 
               goto block_363;
             }
