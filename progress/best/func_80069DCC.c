@@ -97,6 +97,11 @@ inline static char *inline_fn23(char *arg0, int arg1)
   return arg0 + arg1;
 }
 
+inline static f32 repair_shifted_float(f32 *repair_field, f32 repair_delta)
+{
+  return *repair_field + repair_delta;
+}
+
 void func_80069DCC(void *arg0)
 {
     typedef struct { unsigned char repair_zero_padding[0xcc]; union { float repair_zero_number; unsigned int repair_zero_bits; } repair_zero_field; } RepairZeroRecord;
@@ -1837,10 +1842,9 @@ repair_advance_state:
        switch (temp_v1_22) {
            case 0: case 1: break;
            case 2: case 3: {
-         temp_v0_6 = inline_fn((char *) temp_s1, 0x19B);
-         if (temp_v0_6 != 0)
+         if (*((s8 *) (((char *) temp_s1) + 0x19B)) != 0)
          {
-           *((s8 *) (((char *) temp_s1) + 0x19B)) = (s8) (temp_v0_6 - 1);
+           (*((s8 *) (((char *) temp_s1) + 0x19B)))--;
          }
          else
          {
@@ -1888,12 +1892,12 @@ repair_advance_state:
        }
        temp_a0_6 = temp_s1 + 0x11C;
        func_80047B14(temp_a0_6, 0.8f, temp_a0_6);
-       motion_24 = (f32) ((*((f32 *) (((char *) arg0) + 0x24))) + var_s5);
-       motion_40 = (f32) ((*((f32 *) (((char *) arg0) + 0x40))) + D_800E1A1C);
-       motion_28 = (f32) ((*((f32 *) (((char *) arg0) + 0x28))) + var_fp);
-       motion_2C = (f32) ((*((f32 *) (((char *) arg0) + 0x2C))) + var_s6);
-       motion_3C = (f32) ((*((f32 *) (((char *) arg0) + 0x3C))) + frame.speed);
-       motion_44 = (f32) ((*((f32 *) (((char *) arg0) + 0x44))) + roll.number);
+       motion_24 = repair_shifted_float((f32 *) (((char *) arg0) + 0x24), var_s5);
+       motion_40 = repair_shifted_float((f32 *) (((char *) arg0) + 0x40), D_800E1A1C);
+       motion_28 = repair_shifted_float((f32 *) (((char *) arg0) + 0x28), var_fp);
+       motion_2C = repair_shifted_float((f32 *) (((char *) arg0) + 0x2C), var_s6);
+       motion_3C = repair_shifted_float((f32 *) (((char *) arg0) + 0x3C), frame.speed);
+       motion_44 = repair_shifted_float((f32 *) (((char *) arg0) + 0x44), roll.number);
        *((f32 *) (((char *) arg0) + 0x24)) = motion_24;
        *((f32 *) (((char *) arg0) + 0x40)) = motion_40;
        *((f32 *) (((char *) arg0) + 0x28)) = motion_28;

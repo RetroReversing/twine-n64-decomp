@@ -672,7 +672,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                         buildPlaneFromPoints(sp1EC, temp_v1_7 + (((*((u16 *) (((char *) temp_s1_4) + 0))) * 4) * 3), temp_v1_7 + ((*((u16 *) (((char *) temp_s1_4) + 2))) * 0xC), temp_v1_7 + ((*((u16 *) (((char *) temp_s1_4) + 4))) * 0xC));
                         temp_fs0_5 = (((scratch.vspC8.values[0] * scratch.vsp28.values[0]) + (scratch.vspC8.values[1] * scratch.vsp28.values[1])) + (scratch.vspC8.values[2] * scratch.vsp28.values[2])) + scratch.vspC8.values[3];
                         var_v0_7 = 1;
-                        if (!((temp_fs0_5 + 1) > (0.0f + 1)))
+                        if (!(temp_fs0_5 > 0.0f))
                         {
                           var_v0_7 = 0;
                         }

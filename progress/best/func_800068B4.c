@@ -30,7 +30,8 @@ extern u8 D_80102EDD;
 extern u8 D_80102EDF;
 extern s32 D_80102EEC;
 extern u8 D_80103EB0;
-extern void *D_80109688;
+extern void *volatile D_80109688;
+#define TRACK_MARKER (*(void **)&D_80109688)
 extern s32 D_8010A4E4;
 extern s32 gRetraceFrameCount;
 typedef struct 
@@ -60,7 +61,7 @@ void func_800068B4(void)
     }
     while (0);
       var_a0 = 0x12;
-      ((__repair_record_D_80109688 *) D_80109688)->field_12C = 0.0f;
+      ((__repair_record_D_80109688 *) TRACK_MARKER)->field_12C = 0.0f;
       goto block_63;
 
     default:
@@ -79,12 +80,14 @@ void func_800068B4(void)
       goto block_10;
 
     case 18:
-      ((__repair_record_D_80109688 *) D_80109688)->field_12C += 0.06666667f;
-      if (!(((__repair_record_D_80109688 *) (*((void * volatile *) (&D_80109688))))->field_12C > 1.0f))
     {
-      goto block_10;
+      __repair_record_D_80109688 *marker = TRACK_MARKER;
+      marker->field_12C += 0.06666667f;
+      marker = D_80109688;
+      if (!(marker->field_12C > 1.0f))
+        goto block_10;
+      marker->field_12C = 1.0f;
     }
-      ((__repair_record_D_80109688 *) D_80109688)->field_12C = 1.0f;
       var_v0 = 1;
       block_9:
     D_800B19F0 = var_v0;
@@ -142,12 +145,13 @@ void func_800068B4(void)
     case 10:
       if (D_801002AE == 0)
     {
-      ((__repair_record_D_80109688 *) D_80109688)->field_12C = (f32) (((__repair_record_D_80109688 *) D_80109688)->field_12C - 0.033333335f);
-      temp_fv1 = ((__repair_record_D_80109688 *) (*((void * volatile *) (&D_80109688))))->field_12C;
+      __repair_record_D_80109688 *marker = TRACK_MARKER;
+      marker->field_12C = (f32) (marker->field_12C - 0.033333335f);
+      temp_fv1 = ((__repair_record_D_80109688 *) (D_80109688))->field_12C;
       D_80103EB0 = 0;
       if (temp_fv1 < 0.0f)
       {
-        ((__repair_record_D_80109688 *) D_80109688)->field_12C = 0.0f;
+        marker->field_12C = 0.0f;
         func_8000A310();
         if (D_800B19F0 != 2)
         {
@@ -176,11 +180,13 @@ void func_800068B4(void)
     case 11:
       if (!D_801002AE)
     {
-      ((__repair_record_D_80109688 *) D_80109688)->field_124 = (f32) (((__repair_record_D_80109688 *) D_80109688)->field_124 + 0.13333334f);
+      __repair_record_D_80109688 *marker = TRACK_MARKER;
+      marker->field_124 = (f32) (marker->field_124 + 0.13333334f);
+      marker = D_80109688;
       D_80103EB0 = 0;
-      if (((__repair_record_D_80109688 *) D_80109688)->field_124 > 1.0f)
+      if (marker->field_124 > 1.0f)
       {
-        ((__repair_record_D_80109688 *) D_80109688)->field_124 = 1.0f;
+        marker->field_124 = 1.0f;
         if (D_800B19F0 != 3)
         {
           var_a0 = 0xA;
@@ -230,7 +236,7 @@ void func_800068B4(void)
     case 15:
       func_800761B8();
       var_a0 = 0x12;
-      ((__repair_record_D_80109688 *) D_80109688)->field_12C = 0.0f;
+      ((__repair_record_D_80109688 *) TRACK_MARKER)->field_12C = 0.0f;
       goto block_63;
 
     case 5:
@@ -270,19 +276,22 @@ void func_800068B4(void)
       D_800DC739 = D_80103EB0;
 
     case 14:
-      ((__repair_record_D_80109688 *) D_80109688)->field_12C = (f32) (((__repair_record_D_80109688 *) D_80109688)->field_12C + D_800DC734);
+    {
+      __repair_record_D_80109688 *marker = TRACK_MARKER;
+      marker->field_12C = (f32) (marker->field_12C + D_800DC734);
+      marker = D_80109688;
       do
     {
-      if (((temp_fv1 = ((__repair_record_D_80109688 *) (*((void * volatile *) (&D_80109688))))->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f))
+      if (((temp_fv1 = ((__repair_record_D_80109688 *) (D_80109688))->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f))
       {
         if (temp_fv1 < 0.0f)
         {
-          ((__repair_record_D_80109688 *) D_80109688)->field_12C = 0.0f;
+          marker->field_12C = 0.0f;
         }
         else
           if (temp_fv1 > 1.0f)
         {
-          ((__repair_record_D_80109688 *) D_80109688)->field_12C = 1.0f;
+          marker->field_12C = 1.0f;
         }
         if ((D_800DC730--) <= 0)
         {
@@ -293,6 +302,8 @@ void func_800068B4(void)
       goto block_39;
     }
     while (0);
+
+    }
 
     case 17:
       func_80087C9C();
@@ -315,5 +326,6 @@ void func_800068B4(void)
   }
 
 }
+
 
 

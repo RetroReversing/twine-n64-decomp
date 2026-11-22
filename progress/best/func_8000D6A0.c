@@ -27,8 +27,8 @@ void func_8000D6A0(s32 arg0)
   f32 sp20[3];
   s16 sp30[3];
   f32 var_fv0;
-  s32 temp_a0_2;
   s32 temp_a3;
+  s32 temp_a0_2;
   s32 temp_s0_2;
   s32 temp_s1;
   s32 __repair_phase_temp_s1;
@@ -46,7 +46,7 @@ void func_8000D6A0(s32 arg0)
   } __repair_phase_storage;
   void *temp_v0_3;
   void *temp_v1;
-  __repair_phase_temp_s1 = (arg0 * 53) << 2; temp_a0 = __repair_phase_temp_s1 + records; __repair___repair_phase_temp_s1_1 = *((u8 *) inline_fn2((char *) temp_a0, 0x98));
+  __repair_phase_temp_s1 = (arg0 * 53) << 2;  __repair___repair_phase_temp_s1_1 = *((u8 *) inline_fn2(records + __repair_phase_temp_s1, 0x98));
   if (__repair___repair_phase_temp_s1_1 != 0xFF)
   {
     temp_s1 = (__repair___repair_phase_temp_s1_1 * 53) << 2;
@@ -59,9 +59,11 @@ void func_8000D6A0(s32 arg0)
         u8 parent;
       } ObjectRecordFields;
       ObjectRecordFields *parentRecord = (ObjectRecordFields *) inline_fn2(records, temp_s1);
-      ObjectRecordFields *childRecord = (ObjectRecordFields *) temp_a0;
-      temp_s3 = childRecord->object; temp_a0 = parentRecord->object;
-      if (parentRecord->parent == 0xFF)
+      ObjectRecordFields *childRecord = (ObjectRecordFields *) (records + __repair_phase_temp_s1);
+      u8 parentIndex = parentRecord->parent;
+      temp_s3 = childRecord->object;
+      temp_a0 = parentRecord->object;
+      if (parentIndex == 0xFF)
       {
         sp30[0] = (s16) ((s32) (*((f32 *) inline_fn2((char *) temp_a0, 0x3C)))); sp30[1] = (s16) ((s32) (*((f32 *) inline_fn2((char *) temp_a0, 0x40)))); sp30[2] = (s16) ((s32) (*((f32 *) inline_fn2((char *) temp_a0, 0x44))));
         buildRotationMatrixS16(sp30, ((u32) records) + ((u32) (temp_s1 + 0x9C)));
