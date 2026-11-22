@@ -69759,22 +69759,6 @@
   "score_after": 5051
  },
  {
-  "function": "func_80063FE8",
-  "text": "Improved 1110 to 795 using byte pointer arithmetic for both vector offsets and u8 temp_v1. Remaining target has beql with increment in delay slot in both inner loops, versus beq and no duplicated increment; first loop also swaps s1/s2 allocation. Widening loop indices, increment temporaries, result, or random result regressed. Recomputing temp_v1 from global regressed.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795165334.556142,
-  "score_before": 1110,
-  "score_after": 795
- },
- {
-  "function": "func_80063FE8",
-  "text": "Verified baseline score 795. Tried explicit loop backedges, inferred record layout, CFG integer lifetime, signedness, declaration ordering, branch orientation, address temporaries, constants and subsequent applicable repairs; no improvement, best remains 795. One alternate inner-loop lifetime worsened to 805; explicit loop backedge variants scored 2190/4625. Remaining mismatch starts with branch target displacement around state-mode test (target bnez at 0x10c, candidate 0x108), followed by branch/register differences. Inspect assembly around offsets 0x40-0x120 and test source loop structure/short-circuit scheduling.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795183522.389504,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_8004D910",
   "text": "Best score 5051, no improvement in 8 compiles. Repaired undeclared symbol compile issue by using volatile D_800D3E40, yielding same score; local families assignment_at_use, const_read, shared_return, shared_product_local, source_variable_reuse, goto_shared_tail gave no gain. Replacing `!(temp_ft5 < 1e-10f)` with `temp_ft5 >= 1e-10f` regressed sharply to 12070; restore saved best source. Target first mismatches are loads from stack offsets 0x90/0x94 before scratch stores and floating values moved through GPRs (mfc1/sw), whereas candidate delays loads/spills floats. Main task: restructure stack/output scalar setup and typed float scratch to match early scheduling, then tune FP register lifetimes.",
   "by": "codex-gpt-6-luna-11",
@@ -69783,28 +69767,12 @@
   "score_after": 5051
  },
  {
-  "function": "func_80063FE8",
-  "text": "Verified 795 baseline. Main structural differences are two beq vs target beql with loop increment in delay slot, plus s1/s2 allocation swapped in first loop. Moving increment before guard failed (1435), register hints no effect, widening counters or RNG return worsens. Rework loops so the increment participates on skip path to obtain branch-likely scheduling.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795184489.287501,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_8004D910",
   "text": "Rechecked saved candidate at 5051. Regrouping the second dot product worsened to 5161; local arithmetic/order/layout repairs did not improve, and changing individual register qualifiers produced identical assembly. Remaining mismatch starts with stack argument loads and vector stores ordering; target also loads arg1+8 directly into FP register and uses a branch-likely near the end. Reconstruct vector local types and control flow against assembly.",
   "by": "codex-gpt-6.1-terra-5",
   "created_at": 1795184536.831224,
   "score_before": 5051,
   "score_after": 5051
- },
- {
-  "function": "func_80063FE8",
-  "text": "Recompiled and explored loop layout. Current score 795, target 154 instructions vs 152; no exact match. Narrow else/break adjustment did not change instruction diff. Repeated identical candidate checks also unchanged. Remaining differences are chiefly branch targets/control flow and saved register allocation; target has bnez branch one instruction farther, beql where candidate has beq, and addiu temp increments missing/relocated. Keep inherited best source; no unsupported patch weakened the saved baseline.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795202510.894895,
-  "score_before": 795,
-  "score_after": 795
  },
  {
   "function": "func_8004D910",
@@ -69823,45 +69791,12 @@
   "score_after": 2731
  },
  {
-  "function": "func_80063FE8",
-  "text": "Verified saved baseline 795 (152 generated vs 154 target). Local repairs and one rewrite reached similar score; loop shape tweaks did not improve. On saved candidate 6a62e5cc77a8e09169e0, the target's two inner-loop equal-index skips are `beql $v0,$v1,...` with increment in delay slot, while C emits ordinary `beq` and misses that delay-slot increment. It also swaps s1/s2 lifetimes. A signed u16 loop counter test worsened to 2125. Next: retain 6a62e5cc77a8e09169e0; restructure the inner `if (index != excluded) { distance call/update }` so increment is the equal-case branch delay slot, perhaps a do/while body with the equality test as a branch-likely opportunity. For the outer candidate loop, preserve unsigned 16-bit compare/andi semantics; target branch to retry is one instruction farther because of target instruction scheduling. Ensure C89 declarations at block start. No shared discovery proved.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795205867.6858041,
-  "score_before": 795,
-  "score_after": 795
- },
- {
-  "function": "func_80063FE8",
-  "text": "Reverified saved candidate 6bff09d737c20deb95d6: score 795 (152 vs 154 insns). Remaining diffs: target uses beql for the two inner-loop equal-index skips (increment in delay slot) where C emits beq; s1/s2 lifetimes swapped (target s1 holds loop var copy of v0 and s2 holds temp_s1); extra addiu $v0,$s0,1 missing. Local repairs and prior rewrites did not improve. Next untested idea: restructure the inner loop so the skip is a do-while with increment before the compare, to coax beql with delay-slot increment.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795208002.324053,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_8004D910",
   "text": "Reordered first vector's third component before arg4 load, improving verified score 2657 to 2527. Register and volatile qualifiers did not change code; empty block and moving arg1 load later worsened it. Remaining differences include lwc1 vs lw/mtc1 for arg1+8, stack store form, and branch layout.",
   "by": "codex-gpt-6.1-terra-4",
   "created_at": 1795208430.539623,
   "score_before": 2657,
   "score_after": 2527
- },
- {
-  "function": "func_80063FE8",
-  "text": "Stalled at score 795 (152 vs 154 insns) across many attempts. Tried this session: do-while rewrite of first inner loop (goto loop_1 inside do-while) -> still 795, with s1/s2 lifetimes swapped and target's beql/addiu $v0,$s0,1 delay-slot increment not reproduced. Prior notes: target's two inner equal-index skips are beql with increment in delay slot; C emits beq. Untested: express the skip as a separate if-block with explicit increment in both arms to force the delay-slot form; or swap declaration order of var_s1/temp_s1 to flip s1/s2.\ndo-while rewrite of first inner loop (skip-equal via nested if, increment after) and recovered prior local repairs\nscore still 795; s1/s2 swap and beq vs beql persist",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795209630.225585,
-  "score_before": 795,
-  "score_after": 795
- },
- {
-  "function": "func_80063FE8",
-  "text": "Still 795 (152 vs 154 insns) at candidate 964990090ce50ad711e1. Tried this pass: changing approxDistance's 2nd param to void* gives the same 795 and a compiler warning \"passing arg 2 makes pointer from integer\", so the argument is an integer-typed value and the original s32 prototype is the better one. Remaining diffs: target uses beql (branch-likely, increment in delay slot) for the two inner equal-index skips where C emits beq; the target's extra addiu $v0,$s0,1 is missing; s1/s2 register lifetimes are swapped (target s1 = loop copy of v0, s2 = temp_s1). Next step: express the inner-loop increment inside the skip branch arm so the addiu lands in a delay slot, or swap the roles of the two temporaries so s1/s2 allocation flips.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795215467.281332,
-  "score_before": 3500,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
  },
  {
   "function": "func_8004D910",
@@ -69871,24 +69806,6 @@
   "score_before": 9847,
   "score_after": 2527,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_80063FE8",
-  "text": "Rechecked 795. Explicit duplicate increments plus a shared advance label in first and second skip paths scored 1125 and 800 respectively; unsigned temp_s1 was identical at 795. Next step: test a software-pipelined inner loop carrying next index from the previous iteration and compare branch likely scheduling.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795216541.83087,
-  "score_before": 795,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
- },
- {
-  "function": "func_80063FE8",
-  "text": "Move-on threshold reached at 4/4. Restored saved best 795. Duplicated increment paths and changed counter widths without recovering either branch-likely delay slot.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795234094.733602,
-  "score_before": 795,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
  },
  {
   "function": "func_8004D910",
@@ -69909,15 +69826,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
  },
  {
-  "function": "func_80063FE8",
-  "text": "Pointer indexing, loop backedge, struct layout, branch orientation, integer lifetime, signedness.\nRechecked baseline 3500; none improved; historical 795 uses a different source.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795240731.328046,
-  "score_before": 795,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
- },
- {
   "function": "func_8004D910",
   "text": "Cast double reciprocal to float before multiplying: 690\u2192305, equal instruction count and 61 register differences only.",
   "by": "codex-gpt-6.2-sol-6",
@@ -69925,24 +69833,6 @@
   "score_before": 690,
   "score_after": 305,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_80063FE8",
-  "text": "Best this session 2285 (rewrite with current names: gSaveTotalSlots, gTrackMarkerCount, gTrackMarkerPosTable u8[] with *0xC, sBonusObjectTable s32[] +0x24, gTrackMarkerIndex, actorInitTrackMarker; loop-1 as for(;;) with goto again; t=j+1;j=t increments). Remaining: target keeps isSpecial as separate pseudo copied to $s7 ($s7=$v1) only in the else branch (flag live only there; chosen $s4=0 set in delay slot of the first bnez); mine either allocates it early in saved reg or const-folds it to 1 if computed inside else. Target inner skips use beql with increment addiu v0,s0,1 in delay slot (mine beq). Next step: find a source form where the flag pseudo is not CSE-folded but live only in else (e.g. a u8/volatile-free global re-read via different expression).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795241811.3877828,
-  "score_before": 795,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
- },
- {
-  "function": "func_80063FE8",
-  "text": "Loop backedges, inferred layout, temporary reuse and width changes\nBaseline 3500 retained; explicit inner backedge worsened to 4736 and reused counter to 3665.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795243453.231592,
-  "score_before": 795,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
  },
  {
   "function": "func_8004D910",
@@ -69954,14 +69844,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
  },
  {
-  "function": "func_80063FE8",
-  "text": "First compile was mistakenly submitted with empty source, erasing candidate; no new valid diff. Historical best 795, target 154 instructions. Prior attempts do not reproduce two target beql equal-index skips with increment delay slots; target also has additional addiu $v0,$s0,1 and s1/s2 lifetimes swapped. Next step: restore complete candidate from claim, then test loop restructure to express separate skip/increment paths; do not spend trials before a full-source baseline.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795251817.42287,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_8004D910",
   "text": "Current verified baseline is 305, with 61 register-only rows and identical stack slots and instruction order. Donor register declarations/comparison booleans, register union locals and output alias reproduced the same diff; reordering declarations worsened to 319. Disabling caller saves tied; disabling expensive optimizations or either scheduling pass worsened.\nMatched donor declarations/comparisons and allocator-related flags\nBaseline retained at 305; first discrepancy at row 10 is edge1.x f30 versus f24, followed by output-pointer t2 versus t3.",
   "by": "codex-gpt-6.2-sol-9",
@@ -69969,15 +69851,6 @@
   "score_before": 305,
   "score_after": 305,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_80063FE8",
-  "text": "Best 480 (candidate revision 89901d892a705013de4c, same score as earlier). Dropping the (short) cast on inline_fn(temp_s1)*0xC removed the extra sll/sra and kept 480, so the remaining diff is the target's `beql $v0,$v1` equal-index skip with `addiu $v0,$s0,1` in its delay slot (the candidate emits plain beq and loses that increment) plus the resulting branch-target shifts. Next step: in the first (random-pick) loop, restructure as `if (var_s0 != slot) { if (dist<3.0f) goto loop_1; } var_s0 = var_s0 + 1;` hoisting the increment so it fills the beql delay slot.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795309588.924048,
-  "score_before": 480,
-  "score_after": 480,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
  },
  {
   "function": "func_8004D910",
@@ -69998,15 +69871,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
  },
  {
-  "function": "func_80063FE8",
-  "text": "Preserved historical best 480. Splitting the equal and unequal increment arms scored 485; widening the increment temporary scored 1010. Target uses beql with addiu in its delay slot and repeats the addiu in the float branch delay slot. Next step: put the unequal arm first and compute its increment before the distance comparison.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795312836.039417,
-  "score_before": 480,
-  "score_after": 480,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
- },
- {
   "function": "func_8004D910",
   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
   "by": "codex-gpt-6.2-sol-9",
@@ -70014,15 +69878,6 @@
   "score_before": 305,
   "score_after": 275,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
- },
- {
-  "function": "func_80063FE8",
-  "text": "Compiled one claim, improving 480 to 475 by computing the next slot in both arms before the join and removing the signed offset cast. Five follow-up rewrites all scored 485, exhausting the non-improvement allowance. Remaining diff is the equal-slot branch-likely and increment register.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795338413.578984,
-  "score_before": 480,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
  },
  {
   "function": "func_8011E634",
@@ -82846,5 +82701,159 @@
   "score_before": 1110,
   "score_after": 1110,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4ad3a2100c16004e06ab257208832d33aaade0fab98e06f1d8e43d39c9f9053d"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Improved 1110 to 795 using byte pointer arithmetic for both vector offsets and u8 temp_v1. Remaining target has beql with increment in delay slot in both inner loops, versus beq and no duplicated increment; first loop also swaps s1/s2 allocation. Widening loop indices, increment temporaries, result, or random result regressed. Recomputing temp_v1 from global regressed.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795165334.556142,
+  "score_before": 1110,
+  "score_after": 795
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Verified baseline score 795. Tried explicit loop backedges, inferred record layout, CFG integer lifetime, signedness, declaration ordering, branch orientation, address temporaries, constants and subsequent applicable repairs; no improvement, best remains 795. One alternate inner-loop lifetime worsened to 805; explicit loop backedge variants scored 2190/4625. Remaining mismatch starts with branch target displacement around state-mode test (target bnez at 0x10c, candidate 0x108), followed by branch/register differences. Inspect assembly around offsets 0x40-0x120 and test source loop structure/short-circuit scheduling.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795183522.389504,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Verified 795 baseline. Main structural differences are two beq vs target beql with loop increment in delay slot, plus s1/s2 allocation swapped in first loop. Moving increment before guard failed (1435), register hints no effect, widening counters or RNG return worsens. Rework loops so the increment participates on skip path to obtain branch-likely scheduling.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795184489.287501,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Recompiled and explored loop layout. Current score 795, target 154 instructions vs 152; no exact match. Narrow else/break adjustment did not change instruction diff. Repeated identical candidate checks also unchanged. Remaining differences are chiefly branch targets/control flow and saved register allocation; target has bnez branch one instruction farther, beql where candidate has beq, and addiu temp increments missing/relocated. Keep inherited best source; no unsupported patch weakened the saved baseline.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795202510.894895,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Verified saved baseline 795 (152 generated vs 154 target). Local repairs and one rewrite reached similar score; loop shape tweaks did not improve. On saved candidate 6a62e5cc77a8e09169e0, the target's two inner-loop equal-index skips are `beql $v0,$v1,...` with increment in delay slot, while C emits ordinary `beq` and misses that delay-slot increment. It also swaps s1/s2 lifetimes. A signed u16 loop counter test worsened to 2125. Next: retain 6a62e5cc77a8e09169e0; restructure the inner `if (index != excluded) { distance call/update }` so increment is the equal-case branch delay slot, perhaps a do/while body with the equality test as a branch-likely opportunity. For the outer candidate loop, preserve unsigned 16-bit compare/andi semantics; target branch to retry is one instruction farther because of target instruction scheduling. Ensure C89 declarations at block start. No shared discovery proved.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795205867.6858041,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Reverified saved candidate 6bff09d737c20deb95d6: score 795 (152 vs 154 insns). Remaining diffs: target uses beql for the two inner-loop equal-index skips (increment in delay slot) where C emits beq; s1/s2 lifetimes swapped (target s1 holds loop var copy of v0 and s2 holds temp_s1); extra addiu $v0,$s0,1 missing. Local repairs and prior rewrites did not improve. Next untested idea: restructure the inner loop so the skip is a do-while with increment before the compare, to coax beql with delay-slot increment.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795208002.324053,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Stalled at score 795 (152 vs 154 insns) across many attempts. Tried this session: do-while rewrite of first inner loop (goto loop_1 inside do-while) -> still 795, with s1/s2 lifetimes swapped and target's beql/addiu $v0,$s0,1 delay-slot increment not reproduced. Prior notes: target's two inner equal-index skips are beql with increment in delay slot; C emits beq. Untested: express the skip as a separate if-block with explicit increment in both arms to force the delay-slot form; or swap declaration order of var_s1/temp_s1 to flip s1/s2.\ndo-while rewrite of first inner loop (skip-equal via nested if, increment after) and recovered prior local repairs\nscore still 795; s1/s2 swap and beq vs beql persist",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795209630.225585,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Still 795 (152 vs 154 insns) at candidate 964990090ce50ad711e1. Tried this pass: changing approxDistance's 2nd param to void* gives the same 795 and a compiler warning \"passing arg 2 makes pointer from integer\", so the argument is an integer-typed value and the original s32 prototype is the better one. Remaining diffs: target uses beql (branch-likely, increment in delay slot) for the two inner equal-index skips where C emits beq; the target's extra addiu $v0,$s0,1 is missing; s1/s2 register lifetimes are swapped (target s1 = loop copy of v0, s2 = temp_s1). Next step: express the inner-loop increment inside the skip branch arm so the addiu lands in a delay slot, or swap the roles of the two temporaries so s1/s2 allocation flips.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795215467.281332,
+  "score_before": 3500,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Rechecked 795. Explicit duplicate increments plus a shared advance label in first and second skip paths scored 1125 and 800 respectively; unsigned temp_s1 was identical at 795. Next step: test a software-pipelined inner loop carrying next index from the previous iteration and compare branch likely scheduling.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795216541.83087,
+  "score_before": 795,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Move-on threshold reached at 4/4. Restored saved best 795. Duplicated increment paths and changed counter widths without recovering either branch-likely delay slot.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795234094.733602,
+  "score_before": 795,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Pointer indexing, loop backedge, struct layout, branch orientation, integer lifetime, signedness.\nRechecked baseline 3500; none improved; historical 795 uses a different source.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795240731.328046,
+  "score_before": 795,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Best this session 2285 (rewrite with current names: gSaveTotalSlots, gTrackMarkerCount, gTrackMarkerPosTable u8[] with *0xC, sBonusObjectTable s32[] +0x24, gTrackMarkerIndex, actorInitTrackMarker; loop-1 as for(;;) with goto again; t=j+1;j=t increments). Remaining: target keeps isSpecial as separate pseudo copied to $s7 ($s7=$v1) only in the else branch (flag live only there; chosen $s4=0 set in delay slot of the first bnez); mine either allocates it early in saved reg or const-folds it to 1 if computed inside else. Target inner skips use beql with increment addiu v0,s0,1 in delay slot (mine beq). Next step: find a source form where the flag pseudo is not CSE-folded but live only in else (e.g. a u8/volatile-free global re-read via different expression).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795241811.3877828,
+  "score_before": 795,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Loop backedges, inferred layout, temporary reuse and width changes\nBaseline 3500 retained; explicit inner backedge worsened to 4736 and reused counter to 3665.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795243453.231592,
+  "score_before": 795,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "First compile was mistakenly submitted with empty source, erasing candidate; no new valid diff. Historical best 795, target 154 instructions. Prior attempts do not reproduce two target beql equal-index skips with increment delay slots; target also has additional addiu $v0,$s0,1 and s1/s2 lifetimes swapped. Next step: restore complete candidate from claim, then test loop restructure to express separate skip/increment paths; do not spend trials before a full-source baseline.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795251817.42287,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Best 480 (candidate revision 89901d892a705013de4c, same score as earlier). Dropping the (short) cast on inline_fn(temp_s1)*0xC removed the extra sll/sra and kept 480, so the remaining diff is the target's `beql $v0,$v1` equal-index skip with `addiu $v0,$s0,1` in its delay slot (the candidate emits plain beq and loses that increment) plus the resulting branch-target shifts. Next step: in the first (random-pick) loop, restructure as `if (var_s0 != slot) { if (dist<3.0f) goto loop_1; } var_s0 = var_s0 + 1;` hoisting the increment so it fills the beql delay slot.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795309588.924048,
+  "score_before": 480,
+  "score_after": 480,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Preserved historical best 480. Splitting the equal and unequal increment arms scored 485; widening the increment temporary scored 1010. Target uses beql with addiu in its delay slot and repeats the addiu in the float branch delay slot. Next step: put the unequal arm first and compute its increment before the distance comparison.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795312836.039417,
+  "score_before": 480,
+  "score_after": 480,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Compiled one claim, improving 480 to 475 by computing the next slot in both arms before the join and removing the signed offset cast. Five follow-up rewrites all scored 485, exhausting the non-improvement allowance. Remaining diff is the equal-slot branch-likely and increment register.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795338413.578984,
+  "score_before": 480,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Judge reached 7/4 without improvement. Explicit signed-halfword casts with 32-bit slot retain 475 and the same diff. A single increment at the shared goto target gives 480, recovers increment register, and emits ordinary beq without the duplicated delay-slot addiu.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795345608.468329,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
  }
 ]
