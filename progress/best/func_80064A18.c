@@ -71,6 +71,11 @@ typedef struct
 {
   u8 v;
 } Field_u8;
+inline static s32 inline_fn2(unsigned short arg0)
+{
+  return *((s32 *) (((u8 *) (&gSaveSlotInfo)) + ((getSaveSlotIndex(arg0) & 0xFFFF) * 0x18)));
+}
+
 void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
 {
   void *arg1;
@@ -368,7 +373,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
       var_s1 = arg0 & 0xFFFF;
       if (gBorderSkipActive != 0)
       {
-        temp_s0_4 = func_8002B9CC(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + ((getSaveSlotIndex(var_s1) & 0xFFFF) * 0x18))));
+        temp_s0_4 = func_8002B9CC(inline_fn2(var_s1));
         var_a3 = *(D_801001A3 + ((getSaveSlotIndex(var_s1) & 0xFFFF) * 0x18));
         var_a1 = temp_s0_4;
       }
@@ -528,7 +533,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
         }
         else
         {
-          ((Field_f32 *) (((char *) temp_s4) + 0x74))->v = (f32) ((*(D_800BF688 + ((*((s32 *) (((u8 *) (&gSaveSlotInfo)) + ((getSaveSlotIndex(arg0 & 0xFFFF) & 0xFFFF) * 0x18)))) * 0xC))) * 5);
+          ((Field_f32 *) (((char *) temp_s4) + 0x74))->v = (f32) ((*(D_800BF688 + (inline_fn2(arg0 & 0xFFFF) * 0xC))) * 5);
         }
       }
       else

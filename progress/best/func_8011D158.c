@@ -113,9 +113,7 @@ void func_8011D158(unsigned short slot)
       while (0);
       index = (s16) slot;
       label = ((u32) D_8011F3E8) + index;
-      (*label)->flags = ((*label)->flags & (~0xFC)) | 0xC;
-      (*label)->color = -1;
-      D_8011F3E0[index] = 60;
+ do { (*label)->flags = ((*label)->flags & (~0xFC)) | 0xC; (*label)->color = -1; D_8011F3E0[index] = 60; } while (0);
     }
     else
     {
@@ -151,4 +149,3 @@ void func_8011D158(unsigned short slot)
     }
   }
 }
-
