@@ -54305,91 +54305,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
-  "function": "saveRefreshStatus",
-  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056614.146407,
-  "score_before": 114204,
-  "score_after": 78984
- },
- {
-  "function": "saveRefreshStatus",
-  "text": "Saved best score 33597: replacing CP32 packed field assignments with __builtin_memcpy(d,s,32) generates unaligned word loads and reduces instruction count substantially. Target reloads D_800E093A between calls whereas candidate retains idx in a saved register; investigate independent reloads and remaining control flow. A malformed subsequent submission unexpectedly ended the claim; restore saved best.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795179648.273789,
-  "score_before": 76503,
-  "score_after": 33597
- },
- {
-  "function": "saveRefreshStatus",
-  "text": "This pass reached score 2600 at 6cde1e321bc31292685b (starting 27310). Kept the original sparse switch, repeated signed record-index loads, explicit snapshot payload pointers, expected reset-copy before the mismatch scan, and branch-likely loop via equal label. Scoped mode temporaries in the first two handlers improved 3190\u21922600; claim disappeared after later variants. Next combine that revision with the direct comparison `if (D_801032A8 != 2) goto l11594;` (independently 2890 vs 3190) and verify with last_diff. Remaining issues are saved-register assignment for base/payload/backup, argument register choice and reload timing before the first memcpy, repeated D_800E0790 base setup on three paths, and status/return scheduling.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795182348.80625,
-  "score_before": 27310,
-  "score_after": 2600
- },
- {
-  "function": "saveRefreshStatus",
-  "text": "Rechecked saved candidate score 2600. Prototype width, index signedness, declaration order and switch order tied; reversing flag branch and shared return worsened. Remaining 123 mismatch rows dominated by saved-register allocation and branch targets; target holds D_800E0790 in s0 while candidate uses s2. Investigate live ranges and control-flow layout.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795182425.147816,
-  "score_before": 2600,
-  "score_after": 2600
- },
- {
-  "function": "saveRefreshStatus",
-  "text": "Stalled at 2430 (saved candidate 14a2590ff59e1200af2e). Tried this session: try_local_repairs 6 variants (branch_orientation flag test, matched integer prototype for func_80010B60 as unsigned short(unsigned int), u32 idx, a1 declaration move, switch case reorder, shared return label). None improved: 2750, 2430 (x3 equal), 2650. Main mismatch: target keeps base D_800E0790 in s0 and saves s0 at 0x20($sp) while candidate uses s1 / 0x24($sp); the frame layout differs, so the saved-register set is wrong. Next untested step: reduce the number of live locals across the calls (e.g. make 'base' a block-scoped pointer used only in the final handler) so the callee-saved set becomes {s0,s1,s2,ra} with s0 holding the table base.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795208814.1876202,
-  "score_before": 2430,
-  "score_after": 2430
- },
- {
-  "function": "saveRefreshStatus",
-  "text": "Reached 4/4 without improvement. Three explicit slot-table base lifetime variants scored 3020, 2755, 2985. Bitwise OR predicates tied 2430 with identical instructions. Target uses s0 for slot table, s1 for payload and s2 for backup. Exact match remains open.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795237783.225813,
-  "score_before": 3020,
-  "score_after": 2430,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
- },
- {
-  "function": "saveRefreshStatus",
-  "text": "First mismatch saves s1 rather than target s0 for gSaveSlotTable; 118 displayed mismatch rows remain.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795251266.737537,
-  "score_before": 2430,
-  "score_after": 2430,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
- },
- {
-  "function": "saveRefreshStatus",
-  "text": "Saved candidate rechecked at 2430. First mismatch is allocation of persistent gSaveSlotTable base: target saves it in s0 at sp+0x20, candidate uses s1/sp+0x24. Entry also target loads gSaveSlot into a2 immediately (lui/lh), computes slot offset in a1, and calls submit with base in s0. Existing reverse-branch and prototype trials did not help; no-op compile unchanged. Next step: alter local lifetimes/parameter materialization so the table base is live across calls before slot/index locals, coaxing GCC into s0, then inspect early setup.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795253089.7362099,
-  "score_before": 2430,
-  "score_after": 2430,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
- },
- {
-  "function": "saveRefreshStatus",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked baseline 2430. Explicit base + idx * 104 in the first submit produced identical instructions; signedness, declaration order, prototype and switch order variants tied, branch inversion worsened. Next step: examine gSaveSlot load and base pointer lifetimes across later calls to influence s0 allocation.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795259104.860223,
-  "score_before": 2430,
-  "score_after": 2430,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
- },
- {
-  "function": "saveRefreshStatus",
-  "text": "Reuse base for payload and register-qualify base\nPayload reuse worsened 2430 to 2600; register qualification tied 2430.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795260421.158012,
-  "score_before": 2430,
-  "score_after": 2430,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
- },
- {
   "function": "func_8003EC70",
   "text": "Not attempted beyond reading the m2c draft (no compile of my own). Structure from the draft: s16 arg0 count; first loop over 0x24-byte entries (f32 fields at +0,+4,+8) counts entries above/below thresholds D_800C0750/D_800C0754 (on x) and D_800C0758/D_800C075C (on y) into D_800E19CA/CE/CC/C8 (u16 counters); if all counters zero, D_800E1770=&D_800E1778 and return arg0. Otherwise a 6-pass clip loop (case 2..5 via switch on pass index) with two ping-pong buffers D_800E19B8/D_800E19BC, a local s8 flag array 'sp' (draft uses undeclared sp; needs a local s8 array of arg0 bytes), and interpolation writing f32 fields. The draft's register-level detail is unreliable. Next step: declare the local flag array, fix pointer types of D_800E19B8/BC/C0/C4 (should be the 0x24-byte entry struct pointer, not M2C_UNK*), and check the assembly for the loop shape before retrying.\n\nCORRECTION: the earlier release note for this function was written without reading its assembly, brief or m2c draft, and its structural details (entry size, thresholds, buffer names, loop shape) are unverified. Re-read get_assembly and get_function(section=brief) before relying on any of it. No C has been compiled for this function by the previous agent.",
   "by": "permuter-25769805351",
@@ -83781,5 +83696,126 @@
   "score_before": 95,
   "score_after": 80,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b2dce708da0dfc87df07e8b1f44dc2722ccc8d926ae0bd1fef7a36532df31c30"
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056614.146407,
+  "score_before": 114204,
+  "score_after": 78984
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Saved best score 33597: replacing CP32 packed field assignments with __builtin_memcpy(d,s,32) generates unaligned word loads and reduces instruction count substantially. Target reloads D_800E093A between calls whereas candidate retains idx in a saved register; investigate independent reloads and remaining control flow. A malformed subsequent submission unexpectedly ended the claim; restore saved best.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795179648.273789,
+  "score_before": 76503,
+  "score_after": 33597
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "This pass reached score 2600 at 6cde1e321bc31292685b (starting 27310). Kept the original sparse switch, repeated signed record-index loads, explicit snapshot payload pointers, expected reset-copy before the mismatch scan, and branch-likely loop via equal label. Scoped mode temporaries in the first two handlers improved 3190\u21922600; claim disappeared after later variants. Next combine that revision with the direct comparison `if (D_801032A8 != 2) goto l11594;` (independently 2890 vs 3190) and verify with last_diff. Remaining issues are saved-register assignment for base/payload/backup, argument register choice and reload timing before the first memcpy, repeated D_800E0790 base setup on three paths, and status/return scheduling.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795182348.80625,
+  "score_before": 27310,
+  "score_after": 2600
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Rechecked saved candidate score 2600. Prototype width, index signedness, declaration order and switch order tied; reversing flag branch and shared return worsened. Remaining 123 mismatch rows dominated by saved-register allocation and branch targets; target holds D_800E0790 in s0 while candidate uses s2. Investigate live ranges and control-flow layout.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795182425.147816,
+  "score_before": 2600,
+  "score_after": 2600
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Stalled at 2430 (saved candidate 14a2590ff59e1200af2e). Tried this session: try_local_repairs 6 variants (branch_orientation flag test, matched integer prototype for func_80010B60 as unsigned short(unsigned int), u32 idx, a1 declaration move, switch case reorder, shared return label). None improved: 2750, 2430 (x3 equal), 2650. Main mismatch: target keeps base D_800E0790 in s0 and saves s0 at 0x20($sp) while candidate uses s1 / 0x24($sp); the frame layout differs, so the saved-register set is wrong. Next untested step: reduce the number of live locals across the calls (e.g. make 'base' a block-scoped pointer used only in the final handler) so the callee-saved set becomes {s0,s1,s2,ra} with s0 holding the table base.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795208814.1876202,
+  "score_before": 2430,
+  "score_after": 2430
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Reached 4/4 without improvement. Three explicit slot-table base lifetime variants scored 3020, 2755, 2985. Bitwise OR predicates tied 2430 with identical instructions. Target uses s0 for slot table, s1 for payload and s2 for backup. Exact match remains open.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795237783.225813,
+  "score_before": 3020,
+  "score_after": 2430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "First mismatch saves s1 rather than target s0 for gSaveSlotTable; 118 displayed mismatch rows remain.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795251266.737537,
+  "score_before": 2430,
+  "score_after": 2430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Saved candidate rechecked at 2430. First mismatch is allocation of persistent gSaveSlotTable base: target saves it in s0 at sp+0x20, candidate uses s1/sp+0x24. Entry also target loads gSaveSlot into a2 immediately (lui/lh), computes slot offset in a1, and calls submit with base in s0. Existing reverse-branch and prototype trials did not help; no-op compile unchanged. Next step: alter local lifetimes/parameter materialization so the table base is live across calls before slot/index locals, coaxing GCC into s0, then inspect early setup.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795253089.7362099,
+  "score_before": 2430,
+  "score_after": 2430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked baseline 2430. Explicit base + idx * 104 in the first submit produced identical instructions; signedness, declaration order, prototype and switch order variants tied, branch inversion worsened. Next step: examine gSaveSlot load and base pointer lifetimes across later calls to influence s0 allocation.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795259104.860223,
+  "score_before": 2430,
+  "score_after": 2430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Reuse base for payload and register-qualify base\nPayload reuse worsened 2430 to 2600; register qualification tied 2430.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795260421.158012,
+  "score_before": 2430,
+  "score_after": 2430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Best 2025 (114 rows). Local repairs (branch orient, prototype, signedness, decl order, switch layout, shared return) all equal or worse. Target saves s0 at 0x20(sp) with base in s0; candidate uses s1 at 0x24. Next step: drop the `base` local and use gSaveSlotTable directly so the frame/saved-register layout shifts.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795311556.3105128,
+  "score_before": 2025,
+  "score_after": 2025,
+  "handoff_inputs": "4d486a3eb0041542ed1f59f4d5c8d1c990bbf747ef256be8353300f606dd3fde:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Verified 2025. Removing base throughout scored 5540, routing first submit through base was identical, and s16 idx scored 2705. Target loads the slot with lh and holds base in s0. Next step: test a volatile signed slot load to preserve a single lh while keeping the base lifetime.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795337866.5012748,
+  "score_before": 2025,
+  "score_after": 2025,
+  "handoff_inputs": "4d486a3eb0041542ed1f59f4d5c8d1c990bbf747ef256be8353300f606dd3fde:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Reached the 4/4 move-on limit. Volatile initial slot load with local base scored 2520, local base throughout ENT 2530, global volatile slot 11115, and local base in first payload block 2512. Verified 2025 baseline retained. Initial assembly still places table base in s0 versus s1 in candidate.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795355578.967691,
+  "score_before": 2025,
+  "score_after": 2025,
+  "handoff_inputs": "4d486a3eb0041542ed1f59f4d5c8d1c990bbf747ef256be8353300f606dd3fde:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
+ },
+ {
+  "function": "saveRefreshStatus",
+  "text": "Rechecked baseline at 2025. Both status branches already share the compiled saveSubmitCommand call. Target keeps the table in s0 across that call and its wait; baseline reloads it before the 0xE submit. Callee consumes four register and four stack arguments. The first payload copy also differs in the ordering and width of slot loads.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795357177.114742,
+  "score_before": 2025,
+  "score_after": 2025,
+  "handoff_inputs": "4d486a3eb0041542ed1f59f4d5c8d1c990bbf747ef256be8353300f606dd3fde:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:6a01cae6ffd8619a42e4d50ff1fbe8b5606e9cfdd354e4236b408117cbc44f31"
  }
 ]

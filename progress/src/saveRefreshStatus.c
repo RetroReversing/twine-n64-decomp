@@ -1,16 +1,16 @@
-#define ENT(i) ((i) * 104 + gSaveSlotTable)
+#define ENTB(t, i) ((i) * 104 + (t))
 #define CP32(d, s) __builtin_memcpy((d), (s), 32)
 extern s16 gSaveSlot;
 extern u8 gSaveSlotTable[];
 extern u8 gSaveHeaderCopy[];
 extern u32 gSaveBackup[];
 extern s16 gSaveStatus;
-extern s32 gSaveCmdResult;
+extern volatile s32 gSaveCmdResult;
 extern u8 D_80102D60;
 extern s16 gSaveSlotValid[];
 extern s32 saveSubmitCommand(s32, void *, s32, s32, s32, s32, s32, s32);
 extern s32 saveWaitCommand(void);
-extern s32 func_80010B60(unsigned short);
+extern s32 func_80010B60(s32);
 typedef struct 
 {
   u32 v;
@@ -18,12 +18,19 @@ typedef struct
 s32 saveRefreshStatus(void)
 {
   s32 idx;
-  u8 *base = gSaveSlotTable;
+  u8 *b0;
+  u8 *b1;
+  u8 *b2;
+  u8 *b3;
   s32 st;
-  s32 a1;
+  u16 a1;
+  s32 r4;
+  s32 r1;
+  s32 r2;
+  s32 r3;
   u8 flag;
-  idx = gSaveSlot;
-  saveSubmitCommand(7, ENT(idx), idx, 0, 0, 0, 0, 0);
+  b0 = gSaveSlotTable;
+  saveSubmitCommand(7, ENTB(b0, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   saveWaitCommand();
   if (gSaveSlot != 0)
   {
@@ -65,9 +72,21 @@ s32 saveRefreshStatus(void)
       goto l11374;
     }
     d18:
-    saveSubmitCommand(0xC, ENT(0), 0, 0, 0, 0, 0, 0);
-
-    goto after_c;
+    saveSubmitCommand(0xC, ENTB(b0, 0), 0, 0, 0, 0, 0, 0);
+    if (saveWaitCommand() == 0) { goto l11434; }
+    saveSubmitCommand(0xE, ENTB(b0, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
+    if (saveWaitCommand() == 0) { goto l113d8; }
+    {
+    u32 *backup = gSaveBackup;
+    u8 *payload = (b0) + 12;
+    s32 copyIdx = gSaveSlot;
+    CP32(backup, payload + (copyIdx * 104));
+    saveSubmitCommand(7, ENTB(b0, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
+    if (saveWaitCommand() != 0) { goto fa4; }
+    D_80102D60 = 0;
+    CP32(backup, payload + (gSaveSlot * 104));
+    }
+    goto fa4;
   }
 
   d38:
@@ -82,73 +101,64 @@ s32 saveRefreshStatus(void)
       goto l11374;
     }
     d64:
-    idx = gSaveSlot;
-
-    saveSubmitCommand(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
-  }
-
-  after_c:
-  if (saveWaitCommand() == 0)
-  {
-    goto l11434;
-  }
-
-  idx = gSaveSlot;
-  saveSubmitCommand(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
-  if (saveWaitCommand() == 0)
-  {
-    goto l113d8;
-  }
-  {
+    b1 = gSaveSlotTable;
+    saveSubmitCommand(0xC, ENTB(b1, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
+    if (saveWaitCommand() == 0) { goto l11434; }
+    saveSubmitCommand(0xE, ENTB(b1, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
+    if (saveWaitCommand() == 0) { goto l113d8; }
+    {
     u32 *backup = gSaveBackup;
-    u8 *payload = gSaveSlotTable + 12;
+    u8 *payload = (b1) + 12;
     s32 copyIdx = gSaveSlot;
     CP32(backup, payload + (copyIdx * 104));
-    idx = *((volatile s16 *) (&gSaveSlot));
-    saveSubmitCommand(7, ENT(idx), idx, 0, 0, 0, 0, 0);
-    if (saveWaitCommand() != 0)
-    {
-      goto fa4;
-    }
-    idx = gSaveSlot;
+    saveSubmitCommand(7, ENTB(b1, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
+    if (saveWaitCommand() != 0) { goto fa4; }
     D_80102D60 = 0;
-    CP32(backup, payload + (idx * 104));
+    CP32(backup, payload + (gSaveSlot * 104));
+    }
+    goto fa4;
   }
+
   fa4:
   gSaveStatus = 0x12;
 
   return 0x12;
   fb4:
-  a1 = gSaveCmdResult;
+  r1 = gSaveCmdResult;
 
-  if (a1 == 0xB)
+  if (r1 == 0xB)
   {
     gSaveStatus = 0x62;
     return 0x62;
   }
-  if (a1 != 2)
+  if (r1 != 2)
   {
     goto d110e4;
   }
-  idx = gSaveSlot;
-  saveSubmitCommand(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
+  b2 = gSaveSlotTable;
+  saveSubmitCommand(0xE, ENTB(b2, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   if (saveWaitCommand() == 0)
   {
     goto l113d8;
   }
-  idx = gSaveSlot;
-  saveSubmitCommand(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
+  saveSubmitCommand(0xC, ENTB(b2, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   if (saveWaitCommand() == 0)
   {
     goto l11434;
   }
-  idx = gSaveSlot;
-  saveSubmitCommand(7, ENT(idx), idx, 0, 0, 0, 0, 0);
+  saveSubmitCommand(7, ENTB(b2, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   saveWaitCommand();
-  a1 = gSaveCmdResult;
-  if (((a1 == 0) || (a1 == 0xB)) || (a1 == 0xA))
+  r2 = gSaveCmdResult;
+  if (((r2 == 0) || (r2 == 0xB)) || (r2 == 0xA))
   {
-    goto l114cc;
+    {
+    s32 entryIndex = gSaveSlot;
+    u8 *payloadBase = (b2) + 12;
+    D_80102D60 = 0;
+    CP32(gSaveBackup, (entryIndex * 104) + payloadBase);
+    gSaveStatus = 0x12;
+    return 0x12;
+    }
   }
   goto d110e4;
   d110e4:
@@ -169,8 +179,10 @@ s32 saveRefreshStatus(void)
   a1 = 0;
   do
   {
-    u8 *payload = gSaveHeaderCopy + (gSaveSlot * 104);
-    if (((u8 *) gSaveBackup)[(u16) a1] == payload[(u16) a1])
+    u8 *payload;
+    s32 i16 = a1;
+    payload = gSaveHeaderCopy + (gSaveSlot * 104);
+    if (((u8 *) gSaveBackup)[i16] == payload[i16])
     {
       goto equal;
     }
@@ -190,16 +202,16 @@ s32 saveRefreshStatus(void)
     a1++;
 
   }
-  while (((u16) a1) < 0x20);
+  while (a1 < 0x20);
   l11374:
-  a1 = gSaveCmdResult;
+  r3 = gSaveCmdResult;
 
-  if (a1 != 2)
+  if (r3 != 2)
   {
     goto l11594;
   }
-  idx = gSaveSlot;
-  saveSubmitCommand(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
+  b3 = gSaveSlotTable;
+  saveSubmitCommand(0xE, ENTB(b3, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   if (saveWaitCommand() != 0)
   {
     goto l113ec;
@@ -209,9 +221,8 @@ s32 saveRefreshStatus(void)
 
   return 0x63;
   l113ec:
-  idx = gSaveSlot;
 
-  saveSubmitCommand(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
+  saveSubmitCommand(0xC, ENTB(b3, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   if (saveWaitCommand() != 0)
   {
     goto l11464;
@@ -225,31 +236,28 @@ s32 saveRefreshStatus(void)
   }
 
   l11464:
-  idx = gSaveSlot;
 
-  saveSubmitCommand(7, ENT(idx), idx, 0, 0, 0, 0, 0);
+  saveSubmitCommand(7, ENTB(b3, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   saveWaitCommand();
-  a1 = gSaveCmdResult;
-  if (((a1 == 0) || (a1 == 0xB)) || (a1 == 0xA))
+  r4 = gSaveCmdResult;
+  if (((r4 == 0) || (r4 == 0xB)) || (r4 == 0xA))
   {
-    goto l114cc;
-  }
-  goto l1159c;
-  l114cc:
-  {
+    {
     s32 entryIndex = gSaveSlot;
-    u8 *payloadBase = base + 12;
+    u8 *payloadBase = (b3) + 12;
     D_80102D60 = 0;
     CP32(gSaveBackup, (entryIndex * 104) + payloadBase);
     gSaveStatus = 0x12;
     return 0x12;
+    }
   }
+  goto l1159c;
 
   l11594:
-  a1 = *((volatile s32 *) (&gSaveCmdResult));
+  r4 = gSaveCmdResult;
 
   l1159c:
-  return (u16) func_80010B60(a1);
+  return (u16) func_80010B60(r4);
 
 }
 
