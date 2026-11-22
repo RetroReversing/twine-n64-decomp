@@ -70740,255 +70740,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9eab3db7e63cf5ed6f53d23cb4b151321680e05129cf85d51f34067e4ddfe18a"
  },
  {
-  "function": "func_800180D4",
-  "text": "Verified baseline 2908. Six inferred-layout, masked reuse, signedness, declaration, typed temporary and branch orientation trials did not improve. Target frame 0x48 vs candidate 0x40; 105 mismatched rows largely register and stack. Reconstruct control flow and font/kerning record types from full assembly before further allocation tuning.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795138631.595291,
-  "score_before": 2768,
-  "score_after": 2768
- },
- {
-  "function": "func_800180D4",
-  "text": "Clean initial compile score 2908. A volatile u32 pad[2] improved 2908\u21922895 (best saved, revision 3aa628bc702ad358d87a); pad[4] worsened to 2913; arg1=u16 variant 3245. Changing var_s0 char* to u8* retained 2895 but no assembly diff. Local repair branch_orientation worsened; signedness/declaration_order/typed_temporary no changes. Main remaining issues: prologue save registers/stack layout; switch jump table relocation targets differ, plus branch targets. Compiler reports .rodata+0 and jtbl_800D2690 data mismatch. Current best is 2895.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795178591.656066,
-  "score_before": 2768,
-  "score_after": 2768
- },
- {
-  "function": "func_800180D4",
-  "text": "Resumed candidate e9d82859319beb1527b9; current recheck score 3930 (historical saved best 2895 uses different source/header inputs). Ran local repair batches; tested branch orientation, signedness/temp declaration order, typed temp, parameter widths, switch layout, const-read, and read-before-assign. No repair improved 3930; some tied and others worsened or failed compile. Persistent first mismatch is prologue register/stack layout: target saves $s5 at 0x34(sp) and zeroes $s5, while candidate saves $s7 at 0x3c(sp) and also spills $a1. Later control-flow/register allocation remains broadly different. Continue from saved candidate and inspect target prologue/call conventions; try meaningful source restructuring around retained locals and loop state. No reusable global rule established.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795182982.862017,
-  "score_before": 2768,
-  "score_after": 2768
- },
- {
-  "function": "func_800180D4",
-  "text": "Improved 2895 to 2405: corrected func_80018510(arg3), func_80018578(font, current string), moved case 9 before case 10, and signed the control-byte load. Target narrows scaled byte to u16; attempted next patch var_s7 = (u16)(*(s8 *)var_s0 * 2), but compiler became unavailable before it ran. Remaining major issues: register allocation, switch table base and loop control. Please test that cast and compare full target assembly. Compiler tool reported gcc-2.7.2-kmc is not installed.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795193747.367842,
-  "score_before": 2768,
-  "score_after": 2405
- },
- {
-  "function": "func_800180D4",
-  "text": "Rechecked best source scores 2275/126 instructions. Six-compiles budget exhausted. Draft source has meaningful issues: func_80018578 should take font and current text pointer (target passes both in a0/a1), but correcting call did not improve; current generated jump table still lands four bytes early and links a local .rodata table differing from jtbl_800D2690. Typed Font layout/call source scored 2410. Remaining differences include saved-register allocation/stack offsets, case-table placement, and pointer expressions around glyph tables; warning pointer-from-integer at lookup lines. A strong next experiment is to model function after func_80018364's typed loop and explicit Font layout while preserving this routine's additional lookup/spacing behavior, and eliminate local jump table relocation.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795199795.0312479,
-  "score_before": 2275,
-  "score_after": 2275
- },
- {
-  "function": "func_800180D4",
-  "text": "Rechecked saved candidate then compiled one type/prototype rewrite (score 2415, worse than saved historical 2275; current comparison has unresolved jump-table relocation). Target switch is explicitly a 1..32 indexed jump table via jtbl_800D2690; preserve switch/range structure. No final match. Next: investigate correct table declaration/relocation and call signature func_80018578(font, current string); first register layout likely improves with explicit callee arg1 = s0. Current saved draft remains candidate.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795201758.9126751,
-  "score_before": 2275,
-  "score_after": 2275
- },
- {
-  "function": "func_800180D4",
-  "text": "Current best score 2275/126 instructions. Rewrites preserving frame pad and argument pressure did not improve score. Main issue is target jump table jtbl_800D2690 relocation/content; C switch creates wrong local .rodata table (entries differ by four-byte label offsets) and many register differences. Attempted computed goto with malformed table labels failed compile; recovered saved_best. Target starts with 0x48 frame, arg0 in s2, arg1 in fp, u16 arg4 loaded from caller stack into s0; then call func_80018510. Next experiment should model grouped case table with exact target label structure and verify table bytes.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795204210.5380511,
-  "score_before": 2275,
-  "score_after": 2275
- },
- {
-  "function": "func_800180D4",
-  "text": "Saved best e80a94f4b877714e9a74 score 2275 (historical recheck before experiments). Two local-repair passes tried branch_orientation, signedness, declaration_order, typed_temporary, parameter_width, switch_layout, const_read; no gains. Manually corrected func_80018578 declaration to its matched two-argument signature; first compile failed until second argument supplied, then candidate scored 2410 and had linker warnings: switch table jtbl_800D2690 differs and a local-rodata reference appeared. Restored saved_best before handoff. Best draft still has malformed/untyped pointer arithmetic in table walk; target uses jtbl at 0x800D2690. Assembly showed func_80018578(font,string) with a0=s6 and a1=s0.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795205419.544393,
-  "score_before": 2275,
-  "score_after": 2275
- },
- {
-  "function": "func_800180D4",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Did not attempt new compiles this session; relied on the brief. Best inherited candidate e80a94f4b877714e9a74 (score 2275, 126 insns) is far from matched. Blocker: switch over (c-1) in 0..31 via jtbl_800D2690 (128 bytes, 32 entries, sltiu 0x20 bounds check) with default path; the C switch generates a wrong local .rodata table and the default path register allocation differs. Prior local repairs (branch_orientation, signedness, declaration_order, typed_temporary, parameter_width, switch_layout, const_read) gave no gains. Untested idea: write the switch with explicit case ranges matching jump index (case 1..32 mapped via temp = c-1) so the compiler emits the same sltiu/sll/jr sequence, and check whether the 0x20 bound is produced by a range check rather than a default; also consider the 0x5A($sp) u16 arg4 spilled across the call.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795206372.667339,
-  "score_before": 2275,
-  "score_after": 2275
- },
- {
-  "function": "func_800180D4",
-  "text": "Not matched. Saved best e80a94f4b877714e9a74 (2275) remains the best. I tried one clean rewrite (switch on char with cases 9/10/32/1-7/3-4/default, width/total logic, font+0x10 advance); it scored 7512 with a 0x30 frame vs target 0x48 and missing fp/ra/s4-s7 saves, so the clean version lost the register-pressure structure. Target needs callee-saved s0-s7 + fp + ra (frame 0x48). Next step: start from saved_best m2c-style source and keep the loop variables live across the func_80018578 call; try declaring more locals (u32 counters) to force s-register saves rather than rewriting control flow.\nClean rewrite of control flow (switch with fallthrough groups, while loop over length, separate count/total/width variables).\nFrame became 0x30 instead of 0x48; no fp/ra/s4-s7 saves; score 7512 (worse than 2275).",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795207649.181062,
-  "score_before": 2275,
-  "score_after": 2275
- },
- {
-  "function": "func_800180D4",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Did not compile anything this session; relied on the inherited brief. Saved best e80a94f4b877714e9a74 (historical 2275, 126 insns) is still far from the target. The target frame is 0x48 with s0-s7, fp and ra saved, and the switch goes through jtbl_800D2690. The m2c-style loop with a switch on the char is the inherited structure. A clean rewrite by a previous agent scored 7512 with a 0x30 frame and missing saves, so it lost the register pressure. Untested next step: keep the saved_best loop and vary only the default-branch structure (the temp_v0/var_s5 reuse and the func_80018578 call placement) while preserving the switch. Consider releasing once the 6-compile move-on threshold is reached.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795209350.8653078,
-  "score_before": 2275,
-  "score_after": 2275
- },
- {
-  "function": "func_800180D4",
-  "text": "Compiled saved_best with the s32 loop-bound change: score unchanged at 2275 (126 insns, 81.9%). Diff: target saves s2 first at 0x28 and uses fp for a1 copy; ours saves s3/s7/s5 in different slots. Jump table data differs: our case targets are 0x80018198/0x800181A4 while ROM uses 0x8001819C/0x800181A8, so the case-arm grouping/ordering in the switch differs (ROM arms start 4 bytes later). Reason for move-on: register/frame allocation has resisted all prior attempts (39+ trials), clean rewrite scored 7512. Next agent: focus first on matching the switch arm layout so the jump table entries match, then frame/regs.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795210561.9685671,
-  "score_before": 2275,
-  "score_after": 2275
- },
- {
-  "function": "func_800180D4",
-  "text": "Rechecked inherited candidate: score 2275 (81.9%), 126 instructions. New compile reproduced. Linker says generated jtbl_800D2690 entries differ: current 80 01 81 98/...a4 versus ROM 80 01 81 9c/...a8; case arms need 4-byte later targets, inspect switch case grouping/order and explicit fallthrough structure. Compiler also puts s3 as arg0 rather than target s2, omits move fp,a1 and saves a1 in stack, causing callee-saved register allocation mismatch. Target jump-table add sequence uses addiu $t1,low(jtbl), addu indexed address, lw; candidate local rodata table incorrect. No code changes since inherited baseline.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795214637.211336,
-  "score_before": 4404,
-  "score_after": 2275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Current verified baseline 2275. Two local repair batches proposed signedness/declaration order/typed temporary/branch orientation/parameter width/switch layout; first had one trial interrupted by progress change, second showed no score improvement. A manual switch reorder patch failed compile due duplicate case labels; saved_best was restored. Target mismatch still starts with register-save order (target s2 at 0x28, candidate s3 at 0x2c); historical notes also report switch jump table arm targets differ by 4 bytes.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795217972.99599,
-  "score_before": 2275,
-  "score_after": 2275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Current rechecked baseline 2275; latest local repairs compare batch only found signedness, declaration_order, parameter_width. Signedness and declaration order variants were equal (2275); s16 arg1 worsened to 2370. Prior 29+ generated local repairs remain cached but no finding from current batch. Mismatch starts at prologue saved-register assignments (target saves arg0 in s2, candidate in s3; target arg4 saved via s0). Switch/control-flow body is 138 target lines. Tried reversing sentinel branch historically to reach 2275; no further change this turn.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795221456.254156,
-  "score_before": 2275,
-  "score_after": 2275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Local variants unchanged at 2275 or worse; reconstruct dispatcher and loop against target assembly.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795228218.736976,
-  "score_before": 2275,
-  "score_after": 2275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Restored saved best score 2275 after testing edits. Changing loop condition to u16 arg1 !=0 worsened to 2430; switch pre-normalization worsened to 2720. u8 pointer type and signed var_s7 were neutral; final best source is original. Target switch dispatch uses jtbl_800D2690 and jump table relocation differs: candidate entries point 4 bytes earlier than ROM, linked .rodata+0 diagnostics indicate local jump table emitted. Target's frame/register layout s2 for arg0, s5 zero, fp arg1 differs from candidate. Six-compile move-on threshold reached; no match.\nTested signedness/pointer declarations, loop condition cast, and explicit switch normalization; scores neutral/worse, recovered saved best at 2275.\nThe jump table is emitted locally with entries four bytes earlier; target uses jtbl_800D2690 and a switch lowering with range dispatch. Prologue register allocation differs strongly.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795232849.241481,
-  "score_before": 2430,
-  "score_after": 2275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Best saved 690 (94.5%) = revision 947eb08fd2358a5e5ba2: clean struct-based rewrite (Font{+8 glyphs stride5 (+2 width), +0xC kern table stride 8 {pairs*,count}, +0x10 spaceW, +0x11 extra}), volatile u32 pad[4] for frame 0x48, `str = arg0` only inside `if (arg1)` (gives s2/s0 split), kern loop as for(;;){...if(p[0]==c) width-=p[1]; else if(k<count) continue; break;}. Remaining diffs: s3/s4 swap (c vs i) in that rev; using `p[0]==ch` (rev eed438a2\u2026, 755) fixes regs but loop differs: target recomputes a1=off+kern each iteration with t0=kern copy, a3=c copy (no hoisted lw pairs); ours hoists lw. Next step: find source form that keeps kern+off address (and c) as separate loop-invariant copies, e.g. kern/c as s32 temps from m2c shape, to avoid lw hoist.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795234114.982224,
-  "score_before": 2275,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Eager bitwise clamp predicate and reversed kerning address operands\nFinal trial tied baseline 690 at 124/126 instructions with identical diff. Kerning entry address remains hoisted and character compare uses saved register.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795237446.0982258,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Reached six compiles without improvement after reducing score 690 to 475. Volatile pointer reload fixed inner lw and back-edge delay slot. Initial count spellings and loop flags yielded no further improvement.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795239990.3073778,
-  "score_before": 690,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 3; 106 differing rows (6 opcode, 51 register, 13 branch target, 11 operand, 6 reordered, 10 inserted, 9 deleted; advisory).\nTarget: sw $s2, 0x28($sp)\nCandidate: sw $s1, 0x24($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s0, 0x20($sp)\n  = lhu $s0, 0x5a($sp)\ni T: sw $s2, 0x28($sp) | C: sw $s1, 0x24($sp)\nr T: move $s2, $a0 | C: move $s1, $a0\ni T: sw $s5, 0x34($sp) | C: sw $s6, 0x38($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 554e3fa0cde67d498cdd scored 3765 after adding missing fifth argument, eight-byte frame pad, and moving case 9 to end. s16 arg1 on that revision scored 3905; branch inversion 3965; temp_s2 unsigned unchanged. Next step: recover earlier historical 475 candidate if available; current machine draft was the only source supplied on claim, despite historical handoff.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795243607.544681,
-  "score_before": 475,
-  "score_after": 475,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Reversed inner search branch, changed integer signedness and arg1 width, and reordered declarations.\nBaseline 3765; branch inversion 3965 and u16 arg1 4300; other variants unchanged. Jump table addresses still differ.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795244679.102421,
-  "score_before": 3765,
-  "score_after": 3765,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Compiled supplied m2c rewrite: 3820, 126 insns, major switch jump table mismatch and frame/register allocation differences; left saved candidate at 3820. Tried loop bound without 16-bit mask: 4095. Local branch orientation repair: 4100; signedness and declaration-order had no output change. Prior attempted rewrite broke jump table data. Preserve switch and frame structure. Target prologue saves s2 at 0x28, uses s5 zero init, and branch table targets are 4 bytes later than candidate.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795249126.678977,
-  "score_before": 3820,
-  "score_after": 3820,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Unable to resolve jump table layout in remaining session. Fifth argument and eight-byte local yielded 4585; register qualifier on arg1 left output unchanged.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795250850.387519,
-  "score_before": 3820,
-  "score_after": 3820,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "u16 arg1; branch orientation, signedness, declaration order, final condition\nu16 arg1 worsened 4585 to 4735; other changes unchanged or worse; jump table and register allocation remain divergent",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795251778.237757,
-  "score_before": 3820,
-  "score_after": 3820,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Unable to resolve jump-table layout and register allocation; explicit goto at case 9 produced unchanged output. Fifth argument and eight-byte local gave 4585.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795254633.701098,
-  "score_before": 3820,
-  "score_after": 3820,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Verified 3680. Removing switch cast scored 3735 and changed jump table layout; swapping initializations scored 3685. Target has separate jump-table address materialization; candidate refers to .rodata+0.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795256390.68842,
-  "score_before": 3820,
-  "score_after": 3680,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Reverified 110 at 126/126. Only kern loop differs; target puts kern base in t0 and character in a3, candidate puts character in t0 and uses s3 in comparison. Clean explicit offset/base staging of entire kern block scored 1775; clean whole rewrite scored 1230.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795318317.903254,
-  "score_before": 110,
-  "score_after": 110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
-  "function": "func_800180D4",
-  "text": "Reverified 110 and improved to 105 with direct pair-pointer addition. Six follow-up variants hit the move-on limit without further improvement. Remaining differences are nine register rows and the nop placement across the kern null and count checks.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795341703.890334,
-  "score_before": 110,
-  "score_after": 105,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
- },
- {
   "function": "func_8000C34C",
   "text": "Current ordinary compile of inherited candidate verified score 4980 (84.6%), target 325 vs candidate 331 instructions. Main divergence early branch/call control flow and display-list pointer updates: target uses addiu v0,v1,8 and register v1 pointer, candidate emits +0x20 via a2 (likely bad pointer type / overly wide command store). Candidate also has compiler warnings on pointer assignments at lines 84,91,93,147. No source edits made.",
   "by": "codex-gpt-6-luna-13",
@@ -83386,5 +83137,254 @@
   "score_before": 30,
   "score_after": 30,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Verified baseline 2908. Six inferred-layout, masked reuse, signedness, declaration, typed temporary and branch orientation trials did not improve. Target frame 0x48 vs candidate 0x40; 105 mismatched rows largely register and stack. Reconstruct control flow and font/kerning record types from full assembly before further allocation tuning.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795138631.595291,
+  "score_before": 2768,
+  "score_after": 2768
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Clean initial compile score 2908. A volatile u32 pad[2] improved 2908\u21922895 (best saved, revision 3aa628bc702ad358d87a); pad[4] worsened to 2913; arg1=u16 variant 3245. Changing var_s0 char* to u8* retained 2895 but no assembly diff. Local repair branch_orientation worsened; signedness/declaration_order/typed_temporary no changes. Main remaining issues: prologue save registers/stack layout; switch jump table relocation targets differ, plus branch targets. Compiler reports .rodata+0 and jtbl_800D2690 data mismatch. Current best is 2895.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795178591.656066,
+  "score_before": 2768,
+  "score_after": 2768
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Resumed candidate e9d82859319beb1527b9; current recheck score 3930 (historical saved best 2895 uses different source/header inputs). Ran local repair batches; tested branch orientation, signedness/temp declaration order, typed temp, parameter widths, switch layout, const-read, and read-before-assign. No repair improved 3930; some tied and others worsened or failed compile. Persistent first mismatch is prologue register/stack layout: target saves $s5 at 0x34(sp) and zeroes $s5, while candidate saves $s7 at 0x3c(sp) and also spills $a1. Later control-flow/register allocation remains broadly different. Continue from saved candidate and inspect target prologue/call conventions; try meaningful source restructuring around retained locals and loop state. No reusable global rule established.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795182982.862017,
+  "score_before": 2768,
+  "score_after": 2768
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Improved 2895 to 2405: corrected func_80018510(arg3), func_80018578(font, current string), moved case 9 before case 10, and signed the control-byte load. Target narrows scaled byte to u16; attempted next patch var_s7 = (u16)(*(s8 *)var_s0 * 2), but compiler became unavailable before it ran. Remaining major issues: register allocation, switch table base and loop control. Please test that cast and compare full target assembly. Compiler tool reported gcc-2.7.2-kmc is not installed.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795193747.367842,
+  "score_before": 2768,
+  "score_after": 2405
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Rechecked best source scores 2275/126 instructions. Six-compiles budget exhausted. Draft source has meaningful issues: func_80018578 should take font and current text pointer (target passes both in a0/a1), but correcting call did not improve; current generated jump table still lands four bytes early and links a local .rodata table differing from jtbl_800D2690. Typed Font layout/call source scored 2410. Remaining differences include saved-register allocation/stack offsets, case-table placement, and pointer expressions around glyph tables; warning pointer-from-integer at lookup lines. A strong next experiment is to model function after func_80018364's typed loop and explicit Font layout while preserving this routine's additional lookup/spacing behavior, and eliminate local jump table relocation.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795199795.0312479,
+  "score_before": 2275,
+  "score_after": 2275
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Rechecked saved candidate then compiled one type/prototype rewrite (score 2415, worse than saved historical 2275; current comparison has unresolved jump-table relocation). Target switch is explicitly a 1..32 indexed jump table via jtbl_800D2690; preserve switch/range structure. No final match. Next: investigate correct table declaration/relocation and call signature func_80018578(font, current string); first register layout likely improves with explicit callee arg1 = s0. Current saved draft remains candidate.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795201758.9126751,
+  "score_before": 2275,
+  "score_after": 2275
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Current best score 2275/126 instructions. Rewrites preserving frame pad and argument pressure did not improve score. Main issue is target jump table jtbl_800D2690 relocation/content; C switch creates wrong local .rodata table (entries differ by four-byte label offsets) and many register differences. Attempted computed goto with malformed table labels failed compile; recovered saved_best. Target starts with 0x48 frame, arg0 in s2, arg1 in fp, u16 arg4 loaded from caller stack into s0; then call func_80018510. Next experiment should model grouped case table with exact target label structure and verify table bytes.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795204210.5380511,
+  "score_before": 2275,
+  "score_after": 2275
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Saved best e80a94f4b877714e9a74 score 2275 (historical recheck before experiments). Two local-repair passes tried branch_orientation, signedness, declaration_order, typed_temporary, parameter_width, switch_layout, const_read; no gains. Manually corrected func_80018578 declaration to its matched two-argument signature; first compile failed until second argument supplied, then candidate scored 2410 and had linker warnings: switch table jtbl_800D2690 differs and a local-rodata reference appeared. Restored saved_best before handoff. Best draft still has malformed/untyped pointer arithmetic in table walk; target uses jtbl at 0x800D2690. Assembly showed func_80018578(font,string) with a0=s6 and a1=s0.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795205419.544393,
+  "score_before": 2275,
+  "score_after": 2275
+ },
+ {
+  "function": "func_800180D4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Did not attempt new compiles this session; relied on the brief. Best inherited candidate e80a94f4b877714e9a74 (score 2275, 126 insns) is far from matched. Blocker: switch over (c-1) in 0..31 via jtbl_800D2690 (128 bytes, 32 entries, sltiu 0x20 bounds check) with default path; the C switch generates a wrong local .rodata table and the default path register allocation differs. Prior local repairs (branch_orientation, signedness, declaration_order, typed_temporary, parameter_width, switch_layout, const_read) gave no gains. Untested idea: write the switch with explicit case ranges matching jump index (case 1..32 mapped via temp = c-1) so the compiler emits the same sltiu/sll/jr sequence, and check whether the 0x20 bound is produced by a range check rather than a default; also consider the 0x5A($sp) u16 arg4 spilled across the call.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795206372.667339,
+  "score_before": 2275,
+  "score_after": 2275
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Not matched. Saved best e80a94f4b877714e9a74 (2275) remains the best. I tried one clean rewrite (switch on char with cases 9/10/32/1-7/3-4/default, width/total logic, font+0x10 advance); it scored 7512 with a 0x30 frame vs target 0x48 and missing fp/ra/s4-s7 saves, so the clean version lost the register-pressure structure. Target needs callee-saved s0-s7 + fp + ra (frame 0x48). Next step: start from saved_best m2c-style source and keep the loop variables live across the func_80018578 call; try declaring more locals (u32 counters) to force s-register saves rather than rewriting control flow.\nClean rewrite of control flow (switch with fallthrough groups, while loop over length, separate count/total/width variables).\nFrame became 0x30 instead of 0x48; no fp/ra/s4-s7 saves; score 7512 (worse than 2275).",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795207649.181062,
+  "score_before": 2275,
+  "score_after": 2275
+ },
+ {
+  "function": "func_800180D4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Did not compile anything this session; relied on the inherited brief. Saved best e80a94f4b877714e9a74 (historical 2275, 126 insns) is still far from the target. The target frame is 0x48 with s0-s7, fp and ra saved, and the switch goes through jtbl_800D2690. The m2c-style loop with a switch on the char is the inherited structure. A clean rewrite by a previous agent scored 7512 with a 0x30 frame and missing saves, so it lost the register pressure. Untested next step: keep the saved_best loop and vary only the default-branch structure (the temp_v0/var_s5 reuse and the func_80018578 call placement) while preserving the switch. Consider releasing once the 6-compile move-on threshold is reached.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795209350.8653078,
+  "score_before": 2275,
+  "score_after": 2275
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Compiled saved_best with the s32 loop-bound change: score unchanged at 2275 (126 insns, 81.9%). Diff: target saves s2 first at 0x28 and uses fp for a1 copy; ours saves s3/s7/s5 in different slots. Jump table data differs: our case targets are 0x80018198/0x800181A4 while ROM uses 0x8001819C/0x800181A8, so the case-arm grouping/ordering in the switch differs (ROM arms start 4 bytes later). Reason for move-on: register/frame allocation has resisted all prior attempts (39+ trials), clean rewrite scored 7512. Next agent: focus first on matching the switch arm layout so the jump table entries match, then frame/regs.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795210561.9685671,
+  "score_before": 2275,
+  "score_after": 2275
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Rechecked inherited candidate: score 2275 (81.9%), 126 instructions. New compile reproduced. Linker says generated jtbl_800D2690 entries differ: current 80 01 81 98/...a4 versus ROM 80 01 81 9c/...a8; case arms need 4-byte later targets, inspect switch case grouping/order and explicit fallthrough structure. Compiler also puts s3 as arg0 rather than target s2, omits move fp,a1 and saves a1 in stack, causing callee-saved register allocation mismatch. Target jump-table add sequence uses addiu $t1,low(jtbl), addu indexed address, lw; candidate local rodata table incorrect. No code changes since inherited baseline.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795214637.211336,
+  "score_before": 4404,
+  "score_after": 2275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Current verified baseline 2275. Two local repair batches proposed signedness/declaration order/typed temporary/branch orientation/parameter width/switch layout; first had one trial interrupted by progress change, second showed no score improvement. A manual switch reorder patch failed compile due duplicate case labels; saved_best was restored. Target mismatch still starts with register-save order (target s2 at 0x28, candidate s3 at 0x2c); historical notes also report switch jump table arm targets differ by 4 bytes.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795217972.99599,
+  "score_before": 2275,
+  "score_after": 2275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Current rechecked baseline 2275; latest local repairs compare batch only found signedness, declaration_order, parameter_width. Signedness and declaration order variants were equal (2275); s16 arg1 worsened to 2370. Prior 29+ generated local repairs remain cached but no finding from current batch. Mismatch starts at prologue saved-register assignments (target saves arg0 in s2, candidate in s3; target arg4 saved via s0). Switch/control-flow body is 138 target lines. Tried reversing sentinel branch historically to reach 2275; no further change this turn.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795221456.254156,
+  "score_before": 2275,
+  "score_after": 2275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Local variants unchanged at 2275 or worse; reconstruct dispatcher and loop against target assembly.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795228218.736976,
+  "score_before": 2275,
+  "score_after": 2275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Restored saved best score 2275 after testing edits. Changing loop condition to u16 arg1 !=0 worsened to 2430; switch pre-normalization worsened to 2720. u8 pointer type and signed var_s7 were neutral; final best source is original. Target switch dispatch uses jtbl_800D2690 and jump table relocation differs: candidate entries point 4 bytes earlier than ROM, linked .rodata+0 diagnostics indicate local jump table emitted. Target's frame/register layout s2 for arg0, s5 zero, fp arg1 differs from candidate. Six-compile move-on threshold reached; no match.\nTested signedness/pointer declarations, loop condition cast, and explicit switch normalization; scores neutral/worse, recovered saved best at 2275.\nThe jump table is emitted locally with entries four bytes earlier; target uses jtbl_800D2690 and a switch lowering with range dispatch. Prologue register allocation differs strongly.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795232849.241481,
+  "score_before": 2430,
+  "score_after": 2275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Best saved 690 (94.5%) = revision 947eb08fd2358a5e5ba2: clean struct-based rewrite (Font{+8 glyphs stride5 (+2 width), +0xC kern table stride 8 {pairs*,count}, +0x10 spaceW, +0x11 extra}), volatile u32 pad[4] for frame 0x48, `str = arg0` only inside `if (arg1)` (gives s2/s0 split), kern loop as for(;;){...if(p[0]==c) width-=p[1]; else if(k<count) continue; break;}. Remaining diffs: s3/s4 swap (c vs i) in that rev; using `p[0]==ch` (rev eed438a2\u2026, 755) fixes regs but loop differs: target recomputes a1=off+kern each iteration with t0=kern copy, a3=c copy (no hoisted lw pairs); ours hoists lw. Next step: find source form that keeps kern+off address (and c) as separate loop-invariant copies, e.g. kern/c as s32 temps from m2c shape, to avoid lw hoist.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795234114.982224,
+  "score_before": 2275,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Eager bitwise clamp predicate and reversed kerning address operands\nFinal trial tied baseline 690 at 124/126 instructions with identical diff. Kerning entry address remains hoisted and character compare uses saved register.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795237446.0982258,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Reached six compiles without improvement after reducing score 690 to 475. Volatile pointer reload fixed inner lw and back-edge delay slot. Initial count spellings and loop flags yielded no further improvement.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795239990.3073778,
+  "score_before": 690,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 3; 106 differing rows (6 opcode, 51 register, 13 branch target, 11 operand, 6 reordered, 10 inserted, 9 deleted; advisory).\nTarget: sw $s2, 0x28($sp)\nCandidate: sw $s1, 0x24($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s0, 0x20($sp)\n  = lhu $s0, 0x5a($sp)\ni T: sw $s2, 0x28($sp) | C: sw $s1, 0x24($sp)\nr T: move $s2, $a0 | C: move $s1, $a0\ni T: sw $s5, 0x34($sp) | C: sw $s6, 0x38($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 554e3fa0cde67d498cdd scored 3765 after adding missing fifth argument, eight-byte frame pad, and moving case 9 to end. s16 arg1 on that revision scored 3905; branch inversion 3965; temp_s2 unsigned unchanged. Next step: recover earlier historical 475 candidate if available; current machine draft was the only source supplied on claim, despite historical handoff.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795243607.544681,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Reversed inner search branch, changed integer signedness and arg1 width, and reordered declarations.\nBaseline 3765; branch inversion 3965 and u16 arg1 4300; other variants unchanged. Jump table addresses still differ.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795244679.102421,
+  "score_before": 3765,
+  "score_after": 3765,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Compiled supplied m2c rewrite: 3820, 126 insns, major switch jump table mismatch and frame/register allocation differences; left saved candidate at 3820. Tried loop bound without 16-bit mask: 4095. Local branch orientation repair: 4100; signedness and declaration-order had no output change. Prior attempted rewrite broke jump table data. Preserve switch and frame structure. Target prologue saves s2 at 0x28, uses s5 zero init, and branch table targets are 4 bytes later than candidate.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795249126.678977,
+  "score_before": 3820,
+  "score_after": 3820,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Unable to resolve jump table layout in remaining session. Fifth argument and eight-byte local yielded 4585; register qualifier on arg1 left output unchanged.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795250850.387519,
+  "score_before": 3820,
+  "score_after": 3820,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "u16 arg1; branch orientation, signedness, declaration order, final condition\nu16 arg1 worsened 4585 to 4735; other changes unchanged or worse; jump table and register allocation remain divergent",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795251778.237757,
+  "score_before": 3820,
+  "score_after": 3820,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Unable to resolve jump-table layout and register allocation; explicit goto at case 9 produced unchanged output. Fifth argument and eight-byte local gave 4585.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795254633.701098,
+  "score_before": 3820,
+  "score_after": 3820,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Verified 3680. Removing switch cast scored 3735 and changed jump table layout; swapping initializations scored 3685. Target has separate jump-table address materialization; candidate refers to .rodata+0.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795256390.68842,
+  "score_before": 3820,
+  "score_after": 3680,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Reverified 110 at 126/126. Only kern loop differs; target puts kern base in t0 and character in a3, candidate puts character in t0 and uses s3 in comparison. Clean explicit offset/base staging of entire kern block scored 1775; clean whole rewrite scored 1230.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795318317.903254,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Reverified 110 and improved to 105 with direct pair-pointer addition. Six follow-up variants hit the move-on limit without further improvement. Remaining differences are nine register rows and the nop placement across the kern null and count checks.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795341703.890334,
+  "score_before": 110,
+  "score_after": 105,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
  }
 ]

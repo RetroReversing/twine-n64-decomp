@@ -30,7 +30,7 @@ u32 func_800180D4(u8 *arg0, u16 arg1, s32 arg2, s32 arg3, u16 arg4)
   KernTab *kt;
   s32 adv;
   u8 *str;
-  volatile u32 pad[4];
+  volatile u32 pad[1];
   total = 0;
   font = func_80018510(arg3);
   limit = arg4;
@@ -96,49 +96,16 @@ u32 func_800180D4(u8 *arg0, u16 arg1, s32 arg2, s32 arg3, u16 arg4)
             {
               return total;
             }
-            kern = font->kern;
-            if (kern != 0)
+            if (font->kern != 0)
             {
-              if (limit || idx)
-              {
-                off = idx * 8;
-              }
-              else
-              {
-                off = idx * 8;
-              }
-              if (((KernTab *) (kern - (-(2 * (idx * 4)))))->count != 0)
-              {
-                k = 0;
-                for (;;)
-                {
-                  if (ch)
-                  {
-                    kt = (KernTab *) ((idx * 8) + kern);
-                    p = (u8 *) ((*((u8 * volatile *) (&kt->pairs))) + (k * 2));
-                    k++;
-                  }
-                  else
-                  {
-                    kt = (KernTab *) ((idx * 8) + kern);
-                    p = (u8 *) ((*((u8 * volatile *) (&kt->pairs))) + (k * 2));
-                    k++;
-                  }
-                  if (p[0] == c)
-                  {
-                    width -= (s8) p[1];
-                  }
-                  else
-                    if (k < kt->count)
-                  {
-                    continue;
-                  }
-                  break;
+                for (k = 0; k < ((KernTab *) font->kern)[idx].count; k++) {
+                    if (((KernTab *) font->kern)[idx].pairs[k * 2] == ch) { width -= (s8) ((KernTab *) font->kern)[idx].pairs[k * 2 + 1]; break; }
                 }
-
-              }
             }
+do {
             adv = font->glyphs[(idx * 5) + 2] + font->extra; width += adv; total += adv;
+
+} while (0);
             break;
           }
           while (0);
