@@ -42,13 +42,16 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
   u16 *packedStart;
   char *romBase = D_000F8D70;
   s32 validFrame;
+  s32 limit;
+  s32 romAddr;
   if (id >= 0x40b)
   {
     id = 0x71;
   }
   cache = findOrLoadCacheBlock(id);
-  validFrame = frame < ((u32) cache->frameCount);
+  limit = cache->frameCount;
   shape = cache->shape;
+  do { validFrame = frame < ((u32) limit); } while (0);
   count = D_800C3928[shape & 0x7fff].count;
   frame &= -validFrame;
   shape &= 0x8000;
@@ -82,30 +85,24 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
     vectors = count;
   }
   packedWords = vectors * 3;
-  validFrame = (cache->romOffset + (((packedWords + (count * 2)) * frame) * 2)) - (packedBytes = packedWords * 2);
-  romDmaRead((s32) out, (s32) (validFrame + D_000F8D70), totalWords * 4);
+  romAddr = (cache->romOffset + (((packedWords + (count * 2)) * frame) * 2)) - (packedBytes = packedWords * 2);
+  romDmaRead((s32) out, (s32) (romAddr + D_000F8D70), totalWords * 4);
   i = 0;
   packedStart = (u16 *) (((char *) out) + packedBytes);
   if (vectors > 0)
   {
     coords = (f32 *) out;
     packed = packedStart;
-    __repair_rows:
+    do
     {
-      f32 z;
       coords[0] = (packed[0] * cache->scale[0]) + cache->offset[0];
       coords[1] = (packed[1] * cache->scale[1]) + cache->offset[1];
-      z = cache->offset[2] + (cache->scale[2] * packed[2]);
+      coords[2] = (packed[2] * cache->scale[2]) + cache->offset[2];
       i++;
       packed += 3;
-      coords[2] = z;
       coords += 3;
     }
-
-    if (i < vectors)
-    {
-      goto __repair_rows;
-    }
+    while (i < vectors);
   }
   if (expand)
   {
@@ -132,4 +129,5 @@ s32 __block_dstIndex;
     }
   }
 }
+
 

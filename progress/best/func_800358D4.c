@@ -376,7 +376,7 @@ void func_800358D4(void *arg0)
                         D_80109CB8 = temp_v0_4;
                         ((Field_s32 *) (((char *) temp_v1_4) + 8))->v = 0xFA000000;
                         {
-                          u32 rgb = ((((*((u8 *) (((s8 *) (&D_800C06D0)) + var_s1))) << 0x18) | ((*((u8 *) (((s8 *) (&D_800C06DC)) + var_s1))) << 0x10)) | ((*((u8 *) (((s8 *) (&D_800C06E8)) + var_s1))) << 8));
+                          u32 rgb = (((*((u8 *) (((s8 *) (&D_800C06D0)) + var_s1))) << 0x18) | (((*((u8 *) (((s8 *) (&D_800C06DC)) + var_s1))) << 0x10) | ((*((u8 *) (((s8 *) (&D_800C06E8)) + var_s1))) << 8)));
                           u32 alpha = (u32)(*(volatile f32 *)&m2c_initial_frame.view_sp60.value);
                           ((Field_s32 *)temp_a1_2)[1].v = rgb | (alpha & 255);
                         }

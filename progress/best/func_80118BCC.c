@@ -107,6 +107,7 @@ void func_80118BCC(void *arg0)
   s32 temp_v1;
   s32 temp_v1_10;
   s32 temp_v1_2;
+    
   s32 var_s0_2;
   long var_s3;
   int temp_v0_5;
@@ -365,7 +366,7 @@ void func_80118BCC(void *arg0)
             f32 z;
           };
           temp_v0_2 = *((void **) (((char *) temp_s2) + 0xC0));
-          do
+          loop_goto_1:
           {
             *((struct Position *) (((char *) temp_s2) + 0x104)) = *((struct Position *) (((char *) temp_v0_2) + 0x24));
             *((f32 *) inline_fn((char *) temp_s2)) = (f32) (func_800461D4(temp_s0_2, temp_s2 + 0x104) - 1.5f);
@@ -373,10 +374,14 @@ void func_80118BCC(void *arg0)
             {
               var_a1_2 = 8;
               func_80117EC8(arg0, var_a1_2);
-              break;
+              goto loop_goto_end_1;
             }
           }
-          while (0);
+          if (0)
+          {
+              goto loop_goto_1;
+          }
+          loop_goto_end_1:;
         }
           if ((*((f32 *) inline_fn((char *) temp_s2))) > 0.0f)
         {
@@ -415,14 +420,7 @@ void func_80118BCC(void *arg0)
         else
         {
           case 1:
-            block_83:
-          {
-            var_a1_2 = 2;
-            func_80117EC8(arg0, var_a1_2);
-            break;
-          }
-
-
+            goto block_83;
         }
           break;
 
@@ -445,7 +443,14 @@ void func_80118BCC(void *arg0)
         }
           break;
 
-      }
+      block_83:
+            {
+              var_a1_2 = 2;
+              func_80117EC8(arg0, var_a1_2);
+              break;
+            }
+            break;
+}
 
     }
     func_80002EF0(arg0);
