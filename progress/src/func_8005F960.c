@@ -70,21 +70,21 @@ void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
                 bits->middle = arg2;
                 bits->top = arg3;
             }
-            switch (temp_v1) {                      /* switch 2; irregular */
-            case 0x1000:                            /* switch 2 */
-                (*(s16 *)((char *)(temp_s2) + 0x3C)) = 0;
+            { void *p0; u16 m;
+            switch (temp_v1) {
+            case 0x1000:
+                (*(s16 *)((char *)(temp_s2) + 0x3C)) = 0; p0 = temp_s2;
                 break;
             case 0x3000:
-                (*(s16 *)((char *)temp_s2 + 0x3C)) = 1;
-                break;
+                (*(s16 *)((char *)temp_s2 + 0x3C)) = 1; goto J;
             case 0x2000:
                 (*(s16 *)((char *)temp_s2 + 0x3C)) = 2;
-                break;
+            default: J: p0 = temp_s2;
             }
             { s32 word = tail.word;
               u16 half = tail.half;
-              (*(s16 *)((char *)(temp_s2) + 0x3E)) = (s16) (var_s0 & 0xFFF);
-            func_80060890(temp_s2, word, half, arg0); }
+              m = var_s0; m &= 0xFFF; (*(s16 *)((char *)(temp_s2) + 0x3E)) = m;
+            func_80060890(p0, word, half, arg0); } }
             actorRespawnAtRandomPoint(temp_v0);
             temp_ret = randomU32Next();
             (*(s32 *)((char *)(temp_s2) + 0)) = (s32) (0x384 - (temp_ret % 90));
@@ -96,4 +96,5 @@ void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
     }
     return NULL;
 }
+
 
