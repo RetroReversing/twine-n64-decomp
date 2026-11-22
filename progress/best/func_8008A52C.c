@@ -179,7 +179,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
         }
         temp_a3_4 = *((s32 *) (((char *) arg0) + 0x2C));
         var_s3_2 = (sp10[0] & 0x3F) & 0xFF;
-        func_80089F7C(temp_s1 + 0x24, temp_a3_4 + inline_fn2(sp10), (((u32) (((((u32) (((sp10[2] + 6) + (var_s3_2 & 0x1F)) + 0x1F)) >> 5) + (var_s3_2 >> 5)) + 1)) >> 1) * 0x28, temp_a3_4 + 0x100);
+        func_80089F7C(temp_s1 + 0x24, temp_a3_4 + inline_fn2(sp10), (((u32) (((((u32) ((sp10[4] + (var_s3_2 & 0x1F)) + 0x1F)) >> 5) + (var_s3_2 >> 5)) + 1)) >> 1) * 0x28, temp_a3_4 + 0x100);
         *((s32 *) (((char *) temp_s1) + 0x40)) = slotFindOrAlloc(*((s32 *) (((char *) arg0) + 0x2C)));
         goto block_38;
       }

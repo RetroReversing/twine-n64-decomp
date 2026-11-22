@@ -117,64 +117,36 @@ void func_80117BF4(s32 map)
     while (i < pointCount);
   }
   {
-    s32 k = 0;
+    s32 k;
     if (edgeCount > 0)
     {
-      SearchRow *rows = *((SearchRow **) 0x8011F068);
       SearchEdge *edge = edges;
+      SearchRow *rows = *((SearchRow **) 0x8011F068);
+      k = 0;
       do
       {
-        s16 a = inline_fn(edge->a);
-        s16 b = edge->b;
-        SearchRow *to;
-        u8 *cursor;
-        j = 0;
-        to = &rows[b];
-        cursor = (u8 *) (&rows[a]);
-        forward:
-        j++;
-
-        if (((SearchRow *) cursor)->links[0] == 0)
+      s16 a = edge->a;
+      s16 b = edge->b;
+      for (j = 0; j < 16; j++)
+      {
+        if (rows[a].links[j] == 0)
         {
-          if (edge)
-          {
-            ((SearchRow *) cursor)->links[0] = to;
-            goto forward_done;
-          }
-          else
-          {
-            ((SearchRow *) cursor)->links[0] = to;
-            goto forward_done;
-          }
+          rows[a].links[j] = &rows[b];
+          break;
         }
-        cursor += 4;
-        if (j < 16)
-        {
-          goto forward;
-        }
-        forward_done:
-        j = 0;
-
-        to = &rows[(s16) a];
-        cursor = (u8 *) (&rows[(s16) b]);
-        reverse:
-        if (((SearchRow *) cursor)->links[0] == 0)
-        {
-          ((SearchRow *) cursor)->links[0] = to;
-          goto reverse_done;
-        }
-
-        j++;
-        cursor += 4;
-        if (j < 16)
-        {
-          goto reverse;
-        }
-        reverse_done:
-        edge++;
-
       }
-      while ((++k) < edgeCount);
+      for (j = 0; j < 16; j++)
+      {
+        if (rows[b].links[j] == 0)
+        {
+          rows[b].links[j] = &rows[a];
+          break;
+        }
+      }
+        edge++;
+        k++;
+      }
+      while (k < edgeCount);
     }
   }
   func_80084048(edges, 0x34);

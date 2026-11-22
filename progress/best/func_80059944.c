@@ -51,7 +51,7 @@ void func_80059944(void *arg0)
   s32 temp_v1_7;
   s32 temp_v1_9;
   s32 var_v0_2;
-  volatile unsigned int var_v0_5;
+  volatile s16 var_v0_5;
   s32 var_v0_6;
   s32 temp_a0;
   s32 temp_v1_20;
@@ -941,5 +941,6 @@ void func_80059944(void *arg0)
 
   *((s32 *) (((char *) arg0) + 0x60)) = (s32) ((*((s32 *) (((char *) arg0) + 0x60))) & 1);
 }
+
 
 

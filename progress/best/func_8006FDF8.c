@@ -98,12 +98,17 @@ void func_8006FDF8(void *arg0, s32 arg1)
     {
       temp_s0 = *((void * volatile *) (((char *) var_s1) + 0x3D4));
       initObjectFromBankEntry(temp_s0, sp24, 0x2A);
-      *((s32 *) (((char *) temp_s0) + 0x10)) = 0xFF;
-      *((s32 *) (((char *) temp_s0) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_s0) + 0x28))) & (~0xFC)) | 0x10);
-      *((u16 *) (((char *) temp_s0) + 0x20)) = (u16) (*((u16 *) (((char *) var_s3) + 0)));
-      *((u16 *) (((char *) temp_s0) + 0x22)) = (u16) (*((u16 *) (((char *) var_s3) + 8)));
-      *((s16 *) (((char *) temp_s0) + 0x26)) = var_s7;
-      *((s8 *) (((char *) temp_s0) + 0x29)) = (s8) var_s6;
+      {
+        s32 flags = *((s32 *) (((char *) temp_s0) + 0x28));
+        u16 y;
+        *((s32 *) (((char *) temp_s0) + 0x10)) = 0xFF;
+        *((s32 *) (((char *) temp_s0) + 0x28)) = (flags & ~0xFC) | 0x10;
+        *((u16 *) (((char *) temp_s0) + 0x20)) = *((u16 *) var_s3);
+        y = *((u16 *) (var_s3 + 8));
+        *((s16 *) (((char *) temp_s0) + 0x26)) = var_s7;
+        *((s8 *) (((char *) temp_s0) + 0x29)) = var_s6;
+        *((u16 *) (((char *) temp_s0) + 0x22)) = y;
+      }
       func_800165E0(temp_s0, *marker);
       *((u16 *) (((char *) temp_s0) + 0x1E)) = (u16) (*var_s4);
     }
@@ -139,7 +144,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
           {
             case 0:
 
-            case 1:
+            case 4:
               initObjectFromBankEntry(*((void * volatile *) (((char *) var_s0) + 0x3E4)), 0xF, 0x2A);
               if (var_s1_2 == 0)
             {
@@ -154,9 +159,9 @@ void func_8006FDF8(void *arg0, s32 arg1)
               *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x22)) = 0x58;
               break;
 
-            case 2:
+            case 8:
 
-            case 3:
+            case 12:
               initObjectFromBankEntry(*((void * volatile *) (((char *) var_s0) + 0x3E4)), 0x10, 0x2A);
               if (var_s0 == ((2 * 4) + arg0))
             {
@@ -171,13 +176,14 @@ void func_8006FDF8(void *arg0, s32 arg1)
               *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x22)) = 0x78;
               break;
 
-            case 4:
+            case 16:
               initObjectFromBankEntry(*((void * volatile *) (((char *) var_s0) + 0x3E4)), 0x11, 0x2A);
               *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x20)) = 0x80;
               *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x22)) = 0x20;
               break;
 
-            case 5:
+            case 23:
+            case 20:
               initObjectFromBankEntry(*((void * volatile *) (((char *) var_s0) + 0x3E4)), 3, 0x2A);
               *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x20)) = 0;
               *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x22)) = 0x78;
@@ -193,10 +199,10 @@ void func_8006FDF8(void *arg0, s32 arg1)
           }
 
         }
-        var_s1_2++;
+        var_s1_2 += 4;
         var_s0 += 4;
       }
-      while (var_s1_2 < 6U);
+      while ((u32)var_s1_2 < 0x18);
     }
     var_s2_2 = 0;
     if (sp24 == 8)
