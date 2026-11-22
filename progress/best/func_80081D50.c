@@ -51,13 +51,13 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
     {
       do
       {
-        e = &E(i);
+        e = (SlotEnt *)(((u16)i * sizeof(*arg0)) + (u32)arg0);
         idx = e->idx;
         s1 = 0;
         if ((D_800CEEB0 == 2) || ((u16) func_8002D0BC(0xA3, arg1 & 0xFF)))
         {
           a2 = 0;
-          if (e->flags & 0x10)
+          if (((volatile SlotEnt *)e)->flags & 0x10)
           {
             a2 = sBonusSlots[arg1 & 0xFF].first;
           }
@@ -66,7 +66,15 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
             t1 = (E(i).mask != 0) | (a2 != 0);
           }
           while (0);
-          if (!(t1 && ((t2 = (((arg2 & E(i).mask) != 0) ^ (E(i).flags & 1)) == 0, t3 = a2 == 0, t3 & t2))))
+          if (t1)
+          {
+            t2 = (arg2 & E(i).mask) != 0;
+            t2 ^= E(i).flags & 1;
+            t2 = t2 == 0;
+            t3 = a2 == 0;
+            if ((u16)t3 & t2)
+              goto update;
+          }
           {
             if ((E(i).val != 0) || (E(i).type != 0))
             {
@@ -105,6 +113,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
             }
           }
         }
+      update:
         s1 = s1 != 0; D_800C9D40 |= s1; v = inline_fn(arg3, idx);
         arg3[idx].a = (((v & 1) ^ s1) & s1) ? (v | 2) : (v & 0xFD);
         if (s1)
@@ -121,8 +130,9 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
           v |= 8;
         }
         arg3[idx].a = v;
-        v = arg3[idx].a;
-        if ((v & 8) && ((((v >> 2) & 1) ^ ((v >> 3) & 1)) & 1))
+        v = ((volatile SlotOut *)arg3)[idx].a;
+        t2 = ((v >> 2) & 1) ^ ((v >> 3) & 1);
+        if ((v & 8) && (t2 & 1))
         {
           arg3[idx].a = v | 0x10;
         }

@@ -60,7 +60,7 @@ void func_800358D4(void *arg0)
 {
   union 
   {
-    unsigned char bytes[152];
+    unsigned char bytes[144];
     struct 
     {
       f32 value;
