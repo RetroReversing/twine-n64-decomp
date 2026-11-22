@@ -13,7 +13,7 @@ extern void func_800328CC(s32, s32, s32, s32, s32, s32, s32, f32);
 extern void func_80032978(u8 *, s32, s32, s32, s32, s32 *);
 extern void gfxAppendTexture(u8 *, s32 *, s32, s32, s32, s32, s32 *);
 extern void func_800A0220(GfxPair **, s32);
-inline static const volatile u8 inline_fn(const volatile u8 *arg0)
+inline static u32 inline_fn(const volatile u8 *arg0)
 {
   return arg0[1];
 }
@@ -29,7 +29,7 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
     u8 padding[7];
     u8 emit;
   } state;
-  u32 savedSpace[6];
+  u32 savedSpace[8];
   GfxPair *gfx;
   const volatile u8 *q;
   s32 first;
@@ -75,12 +75,12 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
             u32 y;
             u32 z;
             u32 xHigh;
-            volatile unsigned int xLow;
+            u32 xLow;
             u32 yHigh;
             u32 yLow;
             u32 zHigh;
             u32 zLow;
-            VERTICES(6, (xHigh = q[0], xLow = q[1], (double) (yHigh = q[2]), zLow = q[5], x = (xHigh << 8) + xLow, yLow = q[3], zHigh = q[4], y = (yHigh << 8) + yLow, z = (zHigh << 8) + zLow));
+            VERTICES(6, (xHigh = q[0], xLow = q[1], yHigh = q[2], zLow = q[5], xHigh <<= 8, x = xHigh + xLow, yLow = q[3], zHigh = q[4], yHigh <<= 8, y = yHigh + yLow, z = (zHigh << 8) + zLow));
             advance = (*p) * 3;
             goto double_advance;
           }
@@ -254,4 +254,3 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
     ++(*commands);
   }
 }
-

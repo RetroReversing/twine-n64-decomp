@@ -46,11 +46,7 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
   if (gBorderSkipActive == 0)
   {
     void **paramSlot = &gWobbleParams;
-    if ((*paramSlot) != NULL)
-    {
-      func_80084048(*paramSlot, 0xE);
-      *paramSlot = NULL;
-    }
+ do { if ((*paramSlot) != NULL) { func_80084048(*paramSlot, 0xE); *paramSlot = NULL; } } while (0);
     temp_v0 = spawnEffectObject(8, 0, 0);
     if (temp_v0 != NULL)
     {
@@ -122,4 +118,3 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
   return NULL;
 
 }
-
