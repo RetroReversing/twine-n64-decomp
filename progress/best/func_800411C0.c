@@ -352,7 +352,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
             *((u8 *) (((char *) temp_v1_3) + 0x48)) |= 0x10;
           }
           *((s8 *) (((char *) (((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7)) + 0x45)) = (s8) sp30; temp_v1_4 = *((u16 *) (((char *) arg1) + 0));
-          if (((*((u8 *) (((char *) ((temp_v1_4 * 0x4C) + temp_s7)) + 0x46))) & 0x80) && (((u32) sp34) != 0))
+          if (((*((u8 *) (((char *) ((temp_v1_4 * 0x4C) + temp_s7)) + 0x46))) & 0x80) && (((s32) sp34) != 0))
           {
             temp_v0_12 = *(D_800C0784 + ((*(*((s16 **) (((char *) arg1) + 0x28)))) * 4));
             if (temp_v0_12 != NULL)
@@ -637,5 +637,3 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
   }
 
 }
-
-

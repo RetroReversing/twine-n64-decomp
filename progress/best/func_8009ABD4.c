@@ -2,7 +2,7 @@ s32 func_80096F44(void *, s32, s16);
 extern s16 D_80112E9E;
 s32 func_8009ABD4(void *arg0, void *arg1, s32 arg2)
 {
-  short temp_v0;
+  s32 value;
   s32 temp_v0_2;
   s32 temp_v0_4;
   s32 var_a2;
@@ -26,15 +26,16 @@ s32 func_8009ABD4(void *arg0, void *arg1, s32 arg2)
   else
   {
     temp_v1_2 = temp_v1 & 0x1F;
-    temp_v0 = temp_v1_2 * 2;
+    
     if (temp_v1_2 < 0x10U)
     {
-      var_s1 = (s32) (*((s16 *) (((char *) ((temp_v1_2 * 2) + arg0)) + 0x180)));
+      value = (s32) (*((s16 *) (((char *) ((temp_v1_2 * 2) + arg0)) + 0x180)));
     }
     else
     {
-      var_s1 = (s32) (*((s16 *)((char *)&D_80112E9E + temp_v0)));
+      value = (s32) (*((s16 *)((char *)&D_80112E9E + temp_v1_2 * 2)));
     }
+    var_s1 = value;
   }
   var_v1 = arg2 & 0xFF;
   if (var_v1 == 4)
@@ -128,4 +129,5 @@ s32 func_8009ABD4(void *arg0, void *arg1, s32 arg2)
   }
   return 0;
 }
+
 

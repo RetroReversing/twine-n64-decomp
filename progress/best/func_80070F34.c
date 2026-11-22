@@ -310,16 +310,8 @@ void func_80070F34(void *arg0)
       initObjectFromBankEntry(*((void **) (((char *) temp_s2) + 0x428)), *((u8 *) (((char *) (&D_800C7E40)) + temp_s6)), 0x1B);
       temp_a0_3 = *((void **) (((char *) temp_s2) + 0x428));
       temp_fv1_5 = ((2.0f * var_fs1) - 16.0f) - ((f32) (*((u8 *) (((char *) temp_a0_3) + 0x28))));
-      if (temp_fv1_5 >= 2.1474836e9f)
-      {
-        var_v1_2 = ((s32) (temp_fv1_5 - 2.1474836e9f)) | 0x80000000;
-        var_v0_2 = var_s1_2;
-      }
-      else
-      {
-        var_v1_2 = temp_fv1_5;
-        var_v0_2 = var_s1_2;
-      }
+      var_v1_2 = (u32) temp_fv1_5;
+      var_v0_2 = var_s1_2;
       *((s16 *) (((char *) temp_a0_3) + 0x22)) = (s16) var_v1_2;
       if (var_v0_2 < 0x80)
       {

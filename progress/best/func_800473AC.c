@@ -149,10 +149,10 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       {
         var_v1_2 = 0;
       }
-      if ((var_v0_3 | var_v1_2) != 0)
-      {
-        return 0;
-      }
+      if (!(var_v0_3 | var_v1_2))
+        goto check_epsilon;
+      return var_condition_bit;
+      check_epsilon:;
       var_v0_3 = 1;
       if (!(temp_ft2_2 <= 0.0002f))
       {
@@ -183,4 +183,5 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
   }
   return __repair_phase_var_condition_bit;
 }
+
 

@@ -225,7 +225,6 @@ void func_80069DCC(void *arg0)
   f32 var_fv1_5;
   f32 var_fv1_6;
   union { u32 bits; f32 number; } roll;
-  f32 var_s5;
   f32 var_s6;
   s16 temp_v0 = 0;
   s16 temp_v1;
@@ -529,6 +528,8 @@ case 2: case 3: goto out_of_line_actor;
    roll.bits = (u32)arg0 & ~(u32)arg0;
    frame.speed = 0.0f;
    D_800E1A1C = 0.0f;
+   {
+   f32 var_s5 = 0.0f;
    var_s6 = roll.number;
    func_80065D90(arg0);
    var_fp = 0.0f;
@@ -541,7 +542,6 @@ case 2: case 3: goto out_of_line_actor;
        gAirTimeGauge = 0x546;
      }
    }
-   var_s5 = 0.0f;
    temp_v0_2 = *((u8 *) (((char *) temp_s1) + 0x186));
    if (temp_v0_2 != 0)
    {
@@ -1904,6 +1904,7 @@ repair_advance_state:
        *((f32 *) (((char *) arg0) + 0x3C)) = motion_3C;
        *((f32 *) (((char *) arg0) + 0x44)) = motion_44;
        goto block_474;
+       }
        out_of_line_actor:
        if ((*((u8 *) (((char *) temp_s1) + 0x5A8))) == 3)
        {
