@@ -29,6 +29,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
   s32 var_s1_3;
   void *var_s0_2;
   u16 *var_s4;
+  s32 *marker;
   long var_s1_2;
   u32 var_s2;
   u32 var_s2_2;
@@ -80,6 +81,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
   full_size:
   var_s2 = 0;
 
+  marker = &sTrackMarkerTable + sp2C;
   var_s4 = D_800C7E08;
   var_s3 = (s8 *) (&positions);
   var_s1 = arg0;
@@ -102,7 +104,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
       *((u16 *) (((char *) temp_s0) + 0x22)) = (u16) (*((u16 *) (((char *) var_s3) + 8)));
       *((s16 *) (((char *) temp_s0) + 0x26)) = var_s7;
       *((s8 *) (((char *) temp_s0) + 0x29)) = (s8) var_s6;
-      func_800165E0(temp_s0, (&sTrackMarkerTable)[sp2C]);
+      func_800165E0(temp_s0, *marker);
       *((u16 *) (((char *) temp_s0) + 0x1E)) = (u16) (*var_s4);
     }
     var_s3 += 2;

@@ -30,7 +30,6 @@ extern void *D_800E4238;
 extern void *(*gDataBankAlloc)(s32, s32);
 void func_800891A8(S891A8 *arg0)
 {
-  volatile u64 scratch;
   u32 rate;
   u32 size;
   s32 bytes;

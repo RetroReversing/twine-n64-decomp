@@ -399,7 +399,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
     else
       if (temp_v1_6 == 0x84)
     {
-      if (!(arg1))
+      if (!arg1)
       {
         ((StateFields *) arg1)->state |= 0x2000;
         var_v0_6 = 0x84;
@@ -444,7 +444,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
     case 0x8B:
       temp_v1_7 = *((u8 *) (((char *) (*((void **) (((char *) arg0) + 0x24)))) + 0x1E));
       var_v0_6 = 0x1E;
-      if (temp_v1_7 >= 0x86)
+      if ((temp_v1_7 + 1) > 0x86)
     {
       var_v0_6 = 0x84;
       if ((((s32) temp_v1_7) >= 0x88) && ((temp_v1_7 >= 0x8C) || ((var_v0_6 = 0x88, (((s32) temp_v1_7) < 0x8A) != 0))))
