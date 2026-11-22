@@ -159,7 +159,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
       {
         if ((*((void **) (((char *) var_s1) + 0x70))) != NULL)
         {
-          temp_s6 = ((Field_s32 *) (((char *) var_s1) + 0x58))->v; temp_s3 = temp_s6 & 0x400;
+          temp_s3 = ((Field_u32 *) (((char *) var_s1) + 0x58))->v & 0x400;
           if (((!temp_s3) && (((Field_s32 *) (((char *) var_s1) + 0x5C))->v & 0x200)) && ((func_800487F0(var_s1, arg1, temp_fs2) << 0x18) != 0))
           {
             temp_s2 = *((void **) (((char *) var_s1) + 0x70));

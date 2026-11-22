@@ -1,4 +1,4 @@
-    #define spB0Buf bbox.lower
+#define spB0Buf bbox.lower
     #define spC0Buf bbox.upper
 s32 Sphere_OverlapsPoint(void *, void *, f32);
 f32 absFloat(f32);
@@ -688,15 +688,17 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   }
 
   block_137:
-  if (gPlayerActor != NULL)
+  {
+  void *hitActor = gPlayerActor;
+  if (hitActor != NULL)
   {
     if (arg9 != NULL)
     {
-      temp_v1_15 = ((Field_u16 *) (((char *) gPlayerActor) + 0x78))->v;
+      temp_v1_15 = ((Field_u16 *) (((char *) hitActor) + 0x78))->v;
       switch (temp_v1_15)
       {
         case 0xB:
-          if (((u32) ((*((u8 *) (((char *) (*((void **) (((char *) gPlayerActor) + 0x6C)))) + 0x4A))) - 4)) < 2U)
+          if (((u32) ((*((u8 *) (((char *) (*((void **) (((char *) hitActor) + 0x6C)))) + 0x4A))) - 4)) < 2U)
         {
           *arg9 = 0x10;
         }
@@ -715,23 +717,22 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     }
     if (arg11 != NULL)
     {
-      *arg11 = gPlayerActor;
+      *arg11 = hitActor;
     }
-    __repair_phase_temp_v1_16 = ((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v | arg8;
-    ((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v = __repair_phase_temp_v1_16;
+    __repair_phase_temp_v1_16 = ((Field_s32 *) (((char *) hitActor) + 0x60))->v | arg8;
+    ((Field_s32 *) (((char *) hitActor) + 0x60))->v = __repair_phase_temp_v1_16;
     if (sp104 == spFC)
     {
-      ((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v = __repair_phase_temp_v1_16 | 8;
+      ((Field_s32 *) (((char *) hitActor) + 0x60))->v = __repair_phase_temp_v1_16 | 8;
     }
     else
     {
-      ((Field_s32 *) (((char *) gPlayerActor) + 0x60))->v = __repair_phase_temp_v1_16 & (~8);
+      ((Field_s32 *) (((char *) hitActor) + 0x60))->v = __repair_phase_temp_v1_16 & (~8);
     }
+  }
   }
 
   {
-  void *neighbor = var_fp;
-  #define var_fp neighbor
   if (var_fp != NULL)
   {
     loop_159:
@@ -772,7 +773,6 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   }
   block_167:
   return (s8) spF7;
-  #undef var_fp
   }
 
 }

@@ -130,7 +130,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
               var_v1 = D_800E1564 - 1;
             }
             else
-              if (temp_v0_2)
+              if (D_800E157C)
             {
               var_v1 = inline_fn234(D_800E1564, 1);
             }
@@ -192,4 +192,5 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
     }
   }
 }
+
 
