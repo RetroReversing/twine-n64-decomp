@@ -82630,48 +82630,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
-  "function": "actorDrawLit",
-  "text": "Rechecked saved best 14799; it incorrectly uses sp27 for the middle color in both branches. Current 15318 revision 9df22d211c0a64a1e55d uses sp24/sp27 correctly. Removing a duplicate load did not change assembly; six local variants failed to improve. Target places byte locals at sp+0x20 rather than candidate sp+0x38; investigate stack layout and global float addressing. Numerous local repair proposals remain.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795174881.99865,
-  "score_before": 14799,
-  "score_after": 14799
- },
- {
-  "function": "actorDrawLit",
-  "text": "Resumed revision 478ec918803b6be91534 (rechecked baseline 14799). Ran try_local_repairs max_trials=6; first variant symbol_address_local worsened to 15420 and changed many diffs; remaining variants were stopped because claim/progress changed mid-run. Baseline retained; stack layout remains primary issue (first mismatch prologue: target sw $s5,0x5c(sp), candidate saved ra at 0x64 and s6 at 0x60). Historical exploration notes byte scratch offsets 0x18 too high; prior local-repair discovery budget paused, not exhausted. No new verified reusable rule.\n\n[Released without compiling it once; notes not checked by a compile.] Continued candidate 478ec918803b6be91534 from verified 14799. Ran try_local_repairs; symbol_address_local scored 15420, other generated trials stopped when claim state changed. Baseline retained. Main remaining mismatch is stack layout; candidate saves $ra at sp+0x64 while target saves $ra at sp+0x60 and has $s5 at sp+0x5c. Prior exploration notes byte scratch locals sit 0x18 too high; local repair generation is paused at its budget, not exhausted. No verified reusable convention found.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795185432.090913,
-  "score_before": 14799,
-  "score_after": 14799
- },
- {
-  "function": "actorDrawLit",
-  "text": "Session capacity ending. Verified best 14799 (82.4%); duplicate temp_v1_8 load removal leaves score unchanged. Replacing 15 individual byte locals with colors[15] before sp30 and padding placed most stack slots correctly (only 3 stack mismatches vs 34), but scored 15533 due to scheduling/regalloc; candidate revision a59ba83c242caca0edbb is worth continuing. Target first byte updates are ordered individually, whereas compiler schedules stores together; investigate aliasing/typed struct. Link warns .rodata+0 has no ROM address; inspect jump table switch. Three pointer-cast warnings remain.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795186692.975413,
-  "score_before": 14799,
-  "score_after": 14799
- },
- {
-  "function": "actorDrawLit",
-  "text": "Correcting first func_8000C34C middle colour argument from sp27 to sp24 scored 13944 versus rechecked 13838. Local repair batch interrupted by changed progress; no variant completed. Stack locals still at 0x38 versus target 0x20. Next step: explore shared byte locals across mutually exclusive branches to reduce frame use.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795235901.1288729,
-  "score_before": 13944,
-  "score_after": 13944,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
-  "function": "actorDrawLit",
-  "text": "Aliasing all five byte triples to one worsened 13944 to 26842. Aliasing only final triple to first scored 13838; removing padding scored 13854; moving sp30 declaration restored 13838. First stack byte remains 0x38 vs target 0x20.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795236608.061601,
-  "score_before": 13838,
-  "score_after": 13838,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
   "function": "func_80005D04",
   "text": "Best verified source remains score 1150 (current recheck); attempting to fix apparent packed-loop uninitialized var_a3 and wrong arg2 base was semantically motivated but worsened (1470), or partially improved when staging var_a3=var_s1+var_t2 (1215), still worse. Staging removal had no effect (1215); restored best. Existing handoffs include an alternate 1445 source with 151 instructions and address correction, not better. Key issue: current best source appears invalid; target packed block address pattern is (var_s1+var_t2)*4 + 8, and all three components derive from arg1.\nMismatched packed index/base correction scored 1470; index staging improved it to 1215 but remains worse than best 1150.\nBest baseline still has suspicious uninitialized var_a3 and arg2 source use; measured corrected candidates failed to beat it.",
   "by": "codex-gpt-6-luna-20",
@@ -82734,14 +82692,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
-  "function": "actorDrawLit",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No new compile this claim. Current candidate has multiple inherited handoffs, with likely winning 13838 source distinct from rechecked candidate 14799; current draft corruption around locals/stack offsets and global symbol pointers. Prior agents report duplicated/misplaced light-color locals and first prologue mismatch saved-register/stack positions; local searches extensive.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795253904.3969018,
-  "score_before": 13838,
-  "score_after": 13838
- },
- {
   "function": "func_80008750",
   "text": "Shared first-switch call near the last case reproduces the first branch's destination 0x110, but moves first-switch exit from target 0x120 to 0x118 and scores 17590. Fixing block_92 cursor use alone scored 17410. Volatile cursor worsened to 19080 on relocated call baseline.",
   "by": "codex-gpt-6.2-sol-6",
@@ -82769,42 +82719,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
-  "function": "actorDrawLit",
-  "text": "Verified baseline 10787, improved to 9872 by using volatile float pointers for base materialization in two D_80112FB0 updates and one sObjectMatrixF update. Inherited best still passes sp27 instead of sp24 to the first func_8000C34C and omits arg0 from resolveBorderCollision; target confirms both. Target tint globals D_80103041 and D_80107ECE load unsigned. Jump table at 0x800D2118 covers 1..16 with special cases 2,4,6,9; explicit remaining case labels scored 9957. Scalar decl reversal still placed first RGB at sp+0x38. Aggregate RGB[15] plus vec[3] placed nearly all stack accesses correctly (37 to 3 mismatches) but changed scheduling and worsened total score.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795282227.062658,
-  "score_before": 13833,
-  "score_after": 9872,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
-  "function": "actorDrawLit",
-  "text": "A single aggregate of 15 RGB bytes plus the position vector, followed by a volatile u32 padding local, reproduced the 0x68 frame and reduced stack-offset differences from 37 to 2, but changed register allocation and scored 10612 versus 9872. Reversing scalar declarations tied 9872 without fixing offsets. Fixing both known call arguments together scored 9978.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795283808.30254,
-  "score_before": 9872,
-  "score_after": 9872,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
-  "function": "actorDrawLit",
-  "text": "Tested scalar padding/vector reorderings and isolated RGB aggregate layouts. None beat the verified 9872 score, and the independent trials exhausted the no-improvement budget. First RGB triplet still starts at 0x38 vs target 0x20.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795284690.160935,
-  "score_before": 9872,
-  "score_after": 9872,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
-  "function": "actorDrawLit",
-  "text": "First RGB byte still at 0x38 vs target 0x20. Correcting first light call's sp27 to sp24 scored 9543; replacing u64 padding with u32[2] emitted identical instructions. Grouping the first RGB triplet alone scored 10316 and the judge flagged a regional improvement.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795287175.275743,
-  "score_before": 9872,
-  "score_after": 9502,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
   "function": "func_80005D04",
   "text": "Clean for-loop rewrite scored 2860 (worse than saved 1150): GCC strength-reduces the first loop pointers to +0x10 offsets; target keeps base pointers with 8/0xC/0x10 offsets. Keep the saved m2c goto-form draft.",
   "by": "claude-opus-low-3",
@@ -82812,33 +82726,6 @@
   "score_before": 1150,
   "score_after": 1150,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2d9064b4426cc052cee372f3d2335f0b9de596e13ffde6eba1c00530f11b76fb"
- },
- {
-  "function": "actorDrawLit",
-  "text": "Verified saved best 9483; first RGB remains at sp+0x38 versus target sp+0x20. Target lines 198\u2013202 and 306\u2013318 confirm that the two func_8000C34C branches share the call tail and the earlier branch reads green from sp+0x24 (sp24 in C, currently sp27). Explicit shared call tail with that correction scored 9732. Unsigned D_80103041 restores lbu but scored 9638 due to scheduling changes.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795289555.179614,
-  "score_before": 9502,
-  "score_after": 9502,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
-  "function": "actorDrawLit",
-  "text": "Four trials did not improve the inherited best. The aggregate recovers the initial RGB stack offsets, but changes scheduling and leaves the switch relocation unresolved. Releasing at the move-on limit.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795290687.800838,
-  "score_before": 9502,
-  "score_after": 9502,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
-  "function": "actorDrawLit",
-  "text": "Rechecked 8713. Float-typed zero arguments for guPositionF improved to 8608; explicit default aliases for selector values 1..16 recovered the target table range and improved to 8493. Verified ROM table entries 2,4,6,9 go to 0x80009C94, all others to 0x80009BC4. Correcting sp27 to sp24 alone worsened score to 8754 against 8713, but target uses sp+0x24. Aggregate configurations scored 9237/9253 and separate declaration orders tied. Matrix cursor store reorder scored 9808. Jump-table relocation and RGB stack offsets still differ.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795292449.3496199,
-  "score_before": 9502,
-  "score_after": 8493,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
  },
  {
   "function": "func_80008750",
@@ -82850,15 +82737,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
  },
  {
-  "function": "actorDrawLit",
-  "text": "Using sp24 for the first overlay call improved 8493 to 8334. A combined RGB/vector struct scored 9099 and the same struct with separate u64 padding scored 9139. Best still places the first RGB triplet at sp+0x38..0x3a instead of sp+0x20..0x22.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795298894.0819871,
-  "score_before": 8334,
-  "score_after": 8334,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
   "function": "func_80008750",
   "text": "Move-on limit reached at 4/4. Saved best 475 has 79 register differences and a cursor-store scheduling difference. Struct and register hints unchanged, direct constants scored 6240.",
   "by": "codex-gpt-6.2-sol-6",
@@ -82866,15 +82744,6 @@
   "score_before": 475,
   "score_after": 475,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
-  "function": "actorDrawLit",
-  "text": "Verified saved baseline 8134. Target frame 0x68, RGB outputs run 0x20\u20130x2e in five triplets, vector at 0x30\u20130x38. Candidate starts RGB at 0x38. Reordering declarations and scoping the vector tied; grouping RGB/vector with 8-byte tail yielded 366 displayed mismatch rows (vs 385) but score 8943. Overlay common call via goto scored 8342; unsigned D_80103041 emitted lbu but scored 8289.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795304073.454176,
-  "score_before": 8334,
-  "score_after": 8134,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
  },
  {
   "function": "func_80008750",
@@ -82921,15 +82790,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
  },
  {
-  "function": "actorDrawLit",
-  "text": "Two consecutive four-variant batches failed to improve the retained score of 8059, exceeding this claim's four-compile move-on threshold. The first RGB triplet is still at sp+0x38..0x3a versus target sp+0x20..0x22.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795309815.834613,
-  "score_before": 8134,
-  "score_after": 8059,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
   "function": "func_80005D04",
   "text": "Four trials hit move-on. Inherited score 1130 uses uninitialized var_a3 in packed indexing and extracts input Z after overwriting the input word. Correcting both and assembling Z/Y before X scored 1425, with one extra instruction and extensive register differences.",
   "by": "codex-gpt-6.2-sol-6",
@@ -82966,24 +82826,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
  },
  {
-  "function": "actorDrawLit",
-  "text": "Verified 7999, 847 candidate instructions vs 842 target. First RGB call uses sp+0x38..0x3A vs target sp+0x20..0x22. Block-local scalar RGB declarations produced identical output; block-local RGB array scored 9314. Separate 15-byte RGB array followed by vector and u64 padding scored 9243 but reduced mismatching rows from 382 to 366. Individually changing signed red globals to unsigned scored 8154 and 8004.\nReordered scalar locals and tried a separate RGB array before the vector.\nScalar reordering tied or regressed. Array plus padding improved one region but regressed globally.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795322059.612681,
-  "score_before": 8059,
-  "score_after": 7999,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
-  "function": "actorDrawLit",
-  "text": "Rechecked 7980. All 15 RGB locals are uniformly +0x18; target vector starts at sp+0x30. No-antidependence compiler trial was not run; both scheduling toggles worsened. A signed quotient cast emits a different sequence but scored 8574 overall. Candidate switch refers to .rodata+0x0, while target references jtbl_800D2118.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795322198.227534,
-  "score_before": 7999,
-  "score_after": 7980,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
   "function": "func_800358D4",
   "text": "Verified baseline 4192 (140 differing rows). Replacing D_80112F90 with sObjectMatrixF emitted identical code. The raw address warning near row 163 pairs sRenderState with the candidate's extra sMatrixPoolUsed reload. Target carries the first count in t0 from the limit check. Target alpha uses fs2 initialized from zero fs4 at the start of the palette loop.\nTested first pool counter reuse alone and with the shift folded into the slot expression. Tested direct unsigned alpha casts from literal zero and from sp60.\nPool variants removed the reload but scored 5587 and 5152. Literal alpha was identical at 4192; sp60 alpha scored 6727. Baseline retained.",
   "by": "codex-gpt-6.2-sol-9",
@@ -82991,15 +82833,6 @@
   "score_before": 4427,
   "score_after": 4192,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
- },
- {
-  "function": "actorDrawLit",
-  "text": "Verified 7955. Target frame 0x68 matches best, RGB addresses remain +0x18. RGB/vector aggregate with trailing u64 padding scored 9203, reducing displayed mismatches from 377 to 360. Local declaration reordering tied; two u64 pads gave frame 0x70 and score 7964. No strength reduction tied; disabling scheduling worsened.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795335823.9453561,
-  "score_before": 7980,
-  "score_after": 7955,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
  },
  {
   "function": "func_80005D04",
@@ -83027,15 +82860,6 @@
   "score_before": 4192,
   "score_after": 4192,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
- },
- {
-  "function": "actorDrawLit",
-  "text": "Verified 7955; frame matches, RGB at sp+0x38 instead of sp+0x20. Flat, 5x3 and RGB struct arrays scored 9219 without padding, 9254 with 8 bytes, 9270 with 16. Volatile combined RGB/vector scratched scored 9998\u201310014. Extra independent padding scored 7971.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795342168.3157,
-  "score_before": 7955,
-  "score_after": 7955,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
  },
  {
   "function": "func_80005D04",
@@ -83835,5 +83659,181 @@
   "score_before": 35,
   "score_after": 35,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Rechecked saved best 14799; it incorrectly uses sp27 for the middle color in both branches. Current 15318 revision 9df22d211c0a64a1e55d uses sp24/sp27 correctly. Removing a duplicate load did not change assembly; six local variants failed to improve. Target places byte locals at sp+0x20 rather than candidate sp+0x38; investigate stack layout and global float addressing. Numerous local repair proposals remain.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795174881.99865,
+  "score_before": 14799,
+  "score_after": 14799
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Resumed revision 478ec918803b6be91534 (rechecked baseline 14799). Ran try_local_repairs max_trials=6; first variant symbol_address_local worsened to 15420 and changed many diffs; remaining variants were stopped because claim/progress changed mid-run. Baseline retained; stack layout remains primary issue (first mismatch prologue: target sw $s5,0x5c(sp), candidate saved ra at 0x64 and s6 at 0x60). Historical exploration notes byte scratch offsets 0x18 too high; prior local-repair discovery budget paused, not exhausted. No new verified reusable rule.\n\n[Released without compiling it once; notes not checked by a compile.] Continued candidate 478ec918803b6be91534 from verified 14799. Ran try_local_repairs; symbol_address_local scored 15420, other generated trials stopped when claim state changed. Baseline retained. Main remaining mismatch is stack layout; candidate saves $ra at sp+0x64 while target saves $ra at sp+0x60 and has $s5 at sp+0x5c. Prior exploration notes byte scratch locals sit 0x18 too high; local repair generation is paused at its budget, not exhausted. No verified reusable convention found.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795185432.090913,
+  "score_before": 14799,
+  "score_after": 14799
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Session capacity ending. Verified best 14799 (82.4%); duplicate temp_v1_8 load removal leaves score unchanged. Replacing 15 individual byte locals with colors[15] before sp30 and padding placed most stack slots correctly (only 3 stack mismatches vs 34), but scored 15533 due to scheduling/regalloc; candidate revision a59ba83c242caca0edbb is worth continuing. Target first byte updates are ordered individually, whereas compiler schedules stores together; investigate aliasing/typed struct. Link warns .rodata+0 has no ROM address; inspect jump table switch. Three pointer-cast warnings remain.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795186692.975413,
+  "score_before": 14799,
+  "score_after": 14799
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Correcting first func_8000C34C middle colour argument from sp27 to sp24 scored 13944 versus rechecked 13838. Local repair batch interrupted by changed progress; no variant completed. Stack locals still at 0x38 versus target 0x20. Next step: explore shared byte locals across mutually exclusive branches to reduce frame use.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795235901.1288729,
+  "score_before": 13944,
+  "score_after": 13944,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Aliasing all five byte triples to one worsened 13944 to 26842. Aliasing only final triple to first scored 13838; removing padding scored 13854; moving sp30 declaration restored 13838. First stack byte remains 0x38 vs target 0x20.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795236608.061601,
+  "score_before": 13838,
+  "score_after": 13838,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No new compile this claim. Current candidate has multiple inherited handoffs, with likely winning 13838 source distinct from rechecked candidate 14799; current draft corruption around locals/stack offsets and global symbol pointers. Prior agents report duplicated/misplaced light-color locals and first prologue mismatch saved-register/stack positions; local searches extensive.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795253904.3969018,
+  "score_before": 13838,
+  "score_after": 13838
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Verified baseline 10787, improved to 9872 by using volatile float pointers for base materialization in two D_80112FB0 updates and one sObjectMatrixF update. Inherited best still passes sp27 instead of sp24 to the first func_8000C34C and omits arg0 from resolveBorderCollision; target confirms both. Target tint globals D_80103041 and D_80107ECE load unsigned. Jump table at 0x800D2118 covers 1..16 with special cases 2,4,6,9; explicit remaining case labels scored 9957. Scalar decl reversal still placed first RGB at sp+0x38. Aggregate RGB[15] plus vec[3] placed nearly all stack accesses correctly (37 to 3 mismatches) but changed scheduling and worsened total score.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795282227.062658,
+  "score_before": 13833,
+  "score_after": 9872,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "A single aggregate of 15 RGB bytes plus the position vector, followed by a volatile u32 padding local, reproduced the 0x68 frame and reduced stack-offset differences from 37 to 2, but changed register allocation and scored 10612 versus 9872. Reversing scalar declarations tied 9872 without fixing offsets. Fixing both known call arguments together scored 9978.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795283808.30254,
+  "score_before": 9872,
+  "score_after": 9872,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Tested scalar padding/vector reorderings and isolated RGB aggregate layouts. None beat the verified 9872 score, and the independent trials exhausted the no-improvement budget. First RGB triplet still starts at 0x38 vs target 0x20.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795284690.160935,
+  "score_before": 9872,
+  "score_after": 9872,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "First RGB byte still at 0x38 vs target 0x20. Correcting first light call's sp27 to sp24 scored 9543; replacing u64 padding with u32[2] emitted identical instructions. Grouping the first RGB triplet alone scored 10316 and the judge flagged a regional improvement.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795287175.275743,
+  "score_before": 9872,
+  "score_after": 9502,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Verified saved best 9483; first RGB remains at sp+0x38 versus target sp+0x20. Target lines 198\u2013202 and 306\u2013318 confirm that the two func_8000C34C branches share the call tail and the earlier branch reads green from sp+0x24 (sp24 in C, currently sp27). Explicit shared call tail with that correction scored 9732. Unsigned D_80103041 restores lbu but scored 9638 due to scheduling changes.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795289555.179614,
+  "score_before": 9502,
+  "score_after": 9502,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Four trials did not improve the inherited best. The aggregate recovers the initial RGB stack offsets, but changes scheduling and leaves the switch relocation unresolved. Releasing at the move-on limit.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795290687.800838,
+  "score_before": 9502,
+  "score_after": 9502,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Rechecked 8713. Float-typed zero arguments for guPositionF improved to 8608; explicit default aliases for selector values 1..16 recovered the target table range and improved to 8493. Verified ROM table entries 2,4,6,9 go to 0x80009C94, all others to 0x80009BC4. Correcting sp27 to sp24 alone worsened score to 8754 against 8713, but target uses sp+0x24. Aggregate configurations scored 9237/9253 and separate declaration orders tied. Matrix cursor store reorder scored 9808. Jump-table relocation and RGB stack offsets still differ.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795292449.3496199,
+  "score_before": 9502,
+  "score_after": 8493,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Using sp24 for the first overlay call improved 8493 to 8334. A combined RGB/vector struct scored 9099 and the same struct with separate u64 padding scored 9139. Best still places the first RGB triplet at sp+0x38..0x3a instead of sp+0x20..0x22.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795298894.0819871,
+  "score_before": 8334,
+  "score_after": 8334,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Verified saved baseline 8134. Target frame 0x68, RGB outputs run 0x20\u20130x2e in five triplets, vector at 0x30\u20130x38. Candidate starts RGB at 0x38. Reordering declarations and scoping the vector tied; grouping RGB/vector with 8-byte tail yielded 366 displayed mismatch rows (vs 385) but score 8943. Overlay common call via goto scored 8342; unsigned D_80103041 emitted lbu but scored 8289.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795304073.454176,
+  "score_before": 8334,
+  "score_after": 8134,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Two consecutive four-variant batches failed to improve the retained score of 8059, exceeding this claim's four-compile move-on threshold. The first RGB triplet is still at sp+0x38..0x3a versus target sp+0x20..0x22.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795309815.834613,
+  "score_before": 8134,
+  "score_after": 8059,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Verified 7999, 847 candidate instructions vs 842 target. First RGB call uses sp+0x38..0x3A vs target sp+0x20..0x22. Block-local scalar RGB declarations produced identical output; block-local RGB array scored 9314. Separate 15-byte RGB array followed by vector and u64 padding scored 9243 but reduced mismatching rows from 382 to 366. Individually changing signed red globals to unsigned scored 8154 and 8004.\nReordered scalar locals and tried a separate RGB array before the vector.\nScalar reordering tied or regressed. Array plus padding improved one region but regressed globally.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795322059.612681,
+  "score_before": 8059,
+  "score_after": 7999,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Rechecked 7980. All 15 RGB locals are uniformly +0x18; target vector starts at sp+0x30. No-antidependence compiler trial was not run; both scheduling toggles worsened. A signed quotient cast emits a different sequence but scored 8574 overall. Candidate switch refers to .rodata+0x0, while target references jtbl_800D2118.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795322198.227534,
+  "score_before": 7999,
+  "score_after": 7980,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Verified 7955. Target frame 0x68 matches best, RGB addresses remain +0x18. RGB/vector aggregate with trailing u64 padding scored 9203, reducing displayed mismatches from 377 to 360. Local declaration reordering tied; two u64 pads gave frame 0x70 and score 7964. No strength reduction tied; disabling scheduling worsened.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795335823.9453561,
+  "score_before": 7980,
+  "score_after": 7955,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
+ },
+ {
+  "function": "actorDrawLit",
+  "text": "Verified 7955; frame matches, RGB at sp+0x38 instead of sp+0x20. Flat, 5x3 and RGB struct arrays scored 9219 without padding, 9254 with 8 bytes, 9270 with 16. Volatile combined RGB/vector scratched scored 9998\u201310014. Extra independent padding scored 7971.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795342168.3157,
+  "score_before": 7955,
+  "score_after": 7955,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
  }
 ]

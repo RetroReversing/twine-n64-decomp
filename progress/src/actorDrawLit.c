@@ -95,6 +95,8 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
   s32 *temp_v1_10;
   s32 *temp_v1_9;
   s32 *var_a0_2;
+  s32 *var_a0_3;
+  s32 *var_a0_4;
   s32 temp_a0_5;
   u16 temp_a1_5;
   s32 temp_a2;
@@ -130,6 +132,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
   u8 temp_v1;
   u8 temp_v1_2;
   u8 temp_v1_6;
+  u8 temp_v1_7;
   s32 var_a1;
   int var_a2;
   u8 var_a3;
@@ -184,15 +187,16 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
       temp_v1_4 = *((s32 *) (((char *) arg1) + 0x100));
       if (temp_v1_4 & 2)
       {
-        do
         {
           if (((__repair_field_58 *) arg0)->value & 0x2000)
           {
             temp_v0_2 = trackFindNearestLight(arg0, &sp23, &sp24, &sp25);
-            *((u8 *) (((char *) arg0) + 0x7F)) = (u8) ((*((u8 *) (((char *) arg0) + 0x7F))) + ((sp23 >> 1) - ((*((u8 *) (((char *) arg0) + 0x7F))) >> 1)));
-            *((u8 *) (((char *) arg0) + 0x80)) = (u8) ((*((u8 *) (((char *) arg0) + 0x80))) + ((sp24 >> 1) - ((*((u8 *) (((char *) arg0) + 0x80))) >> 1)));
-
-            *((u8 *) (((char *) arg0) + 0x81)) = (u8) ((*((u8 *) (((char *) arg0) + 0x81))) + ((sp25 >> 1) - ((*((u8 *) (((char *) arg0) + 0x81))) >> 1)));
+                        temp_a0 = *((u8 *) (((char *) arg0) + 0x7F));
+            temp_a2_2 = *((u8 *) (((char *) arg0) + 0x81));
+            *((u8 *) (((char *) arg0) + 0x7F)) = (u8) (temp_a0 + ((sp23 >> 1) - (temp_a0 >> 1)));
+            temp_a0_2 = *((u8 *) (((char *) arg0) + 0x80));
+            *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_a0_2 + ((sp24 >> 1) - (temp_a0_2 >> 1)));
+            *((u8 *) (((char *) arg0) + 0x81)) = (u8) (temp_a2_2 + ((sp25 >> 1) - (temp_a2_2 >> 1)));
             { Gfx *g1 = (Gfx *) D_80115328; D_80115328 = (s32 *) (g1 + 1); g1->w0 = 0xFA000000; g1->w1 = (s32) ((((D_80103041 << 0x18) | (D_801032AC << 0x10)) | (D_8010302A << 8)) | (*((u8 *) (((char *) arg0) + 0x82)))); }
             { Gfx *g2 = (Gfx *) D_80115328; D_80115328 = (s32 *) (g2 + 1); g2->w0 = 0xFB000000; g2->w1 = (s32) ((((D_8010957C << 0x18) | (D_8010D374 << 0x10)) | (D_80103EB1 << 8)) | 0xFF); }
             func_80000A40(arg0, arg1, 0, 0, 0, arg3);
@@ -202,22 +206,13 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
             *((s32 *) (((char *) temp_a1_2) + 4)) = (s32) (((((*((u8 *) (((char *) arg1) + 0x143))) << 0x18) | ((*((u8 *) (((char *) arg1) + 0x144))) << 0x10)) | ((*((u8 *) (((char *) arg1) + 0x145))) << 8)) | 0xFF);
             if ((arg3 == 0) && ((*((u8 *) (((char *) arg0) + 0x82))) == 0xFF))
             {
-              var_v1 = D_80113022 + 1;
-              if (((u8) D_80113022) < 0xAU)
-              {
-                var_a3 = sp23;
-                var_v0 = sp25;
-                D_80113022 = var_v1;
-                func_8000C34C(arg0, temp_v0_2, arg1, var_a3, (u32) sp24, inline_fn2(var_v0));
-              }
+              if (D_80113022 < 0xAU) { D_80113022++; func_8000C34C(arg0, temp_v0_2, arg1, sp23, sp24, sp25); }
             }
           }
         }
-        while (0);
       }
       else
       {
-        do
         {
           if (temp_v1_4 & 4)
           {
@@ -227,8 +222,8 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               temp_a0_3 = *((u8 *) (0x7F + ((char *) arg0)));
               temp_a2_3 = *((u8 *) (((char *) arg0) + 0x81));
               *((u8 *) (((char *) arg0) + 0x7F)) = (u8) (temp_a0_3 + ((sp26 >> 1) - (temp_a0_3 >> 1)));
-              temp_a0_3 = *((u8 *) (((char *) arg0) + 0x80));
-              *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_a0_3 + ((sp27 >> 1) - (temp_a0_3 >> 1)));
+              temp_a1 = *((u8 *) (((char *) arg0) + 0x80));
+              *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_a1 + ((sp27 >> 1) - (temp_a1 >> 1)));
 
               *((u8 *) (((char *) arg0) + 0x81)) = (u8) (temp_a2_3 + ((sp28 >> 1) - (temp_a2_3 >> 1)));
               { Gfx *g1 = (Gfx *) D_80115328; D_80115328 = (s32 *) (g1 + 1); g1->w0 = 0xFA000000; g1->w1 = (s32) ((((D_80107ECE << 0x18) | (D_80108F94 << 0x10)) | (D_80103020 << 8)) | (*((u8 *) (((char *) arg0) + 0x82)))); }
@@ -240,14 +235,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               *((s32 *) (((char *) temp_a1_3) + 4)) = (s32) (((((*((u8 *) inline_fn(arg1))) << 0x18) | ((*((u8 *) (((char *) arg1) + 0x144))) << 0x10)) | ((*((u8 *) (((char *) arg1) + 0x145))) << 8)) | 0xFF);
               if ((arg3 == 0) && ((*((u8 *) (((char *) arg0) + 0x82))) == 0xFF))
               {
-                var_v1 = D_80113022 + 1;
-                if (((u8) D_80113022) < 0xAU)
-                {
-                  var_a3 = sp26;
-                  var_v0 = sp28;
-                  D_80113022 = var_v1;
-                  func_8000C34C(arg0, temp_v0_3, arg1, (u32) var_a3, inline_fn2(sp27), inline_fn2(var_v0));
-                }
+                if (D_80113022 < 0xAU) { D_80113022++; func_8000C34C(arg0, temp_v0_3, arg1, sp26, sp27, sp28); }
               }
             }
           }
@@ -266,14 +254,14 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               }
               temp_v1_6 = *((u8 *) (((char *) arg0) + 0x7F));
               *((u8 *) (((char *) arg0) + 0x7F)) = (u8) (temp_v1_6 + ((sp29 >> 1) - (temp_v1_6 >> 1)));
-              temp_v1_6 = *((u8 *) (((char *) arg0) + 0x80));
+              temp_v1_7 = *((u8 *) (((char *) arg0) + 0x80));
               temp_t1 = *((u8 *) (((char *) arg0) + 0x81));
-              *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_v1_6 + ((sp2A >> 1) - (temp_v1_6 >> 1)));
+              *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_v1_7 + ((sp2A >> 1) - (temp_v1_7 >> 1)));
               temp_t1_2 = temp_t1 + ((sp2B >> 1) - (temp_t1 >> 1));
               *((u8 *) (((char *) arg0) + 0x81)) = temp_t1_2;
               temp_t2 = *((void **) (((char *) temp_s4) + 0x20));
-              { u32 col = (s32) (((((inline_fn2((*((u8 *) (((char *) arg0) + 0x7F))) * (*((u8 *) (((char *) temp_t2) + 0x64)))) >> 8) << 0x18) | ((inline_fn2((*((u8 *) (((char *) arg0) + 0x80))) * (*((u8 *) (((char *) temp_t2) + 0x65)))) >> 8) << 0x10)) | (((temp_t1_2 & 0xFF) * (*((u8 *) (((char *) temp_t2) + 0x66)))) & 0xFF00)) | (*((u8 *) (((char *) arg0) + 0x82))));
-                Gfx *gg = (Gfx *) D_80115328; D_80115328 = (s32 *) (gg + 1); gg->w0 = 0xFA000000; gg->w1 = col; }
+              { u32 col = (s32) (((((inline_fn2((*((u8 *) (((char *) arg0) + 0x7F))) * (*((u8 *) (((char *) temp_t2) + 0x64)))) >> 8) << 0x18) | ((inline_fn2((*((u8 *) (((char *) arg0) + 0x80))) * (*((u8 *) (((char *) temp_t2) + 0x65)))) >> 8) << 0x10)) | (((temp_t1_2 & 0xFF) * (*((u8 *) (((char *) temp_t2) + 0x66)))) & 0xFF00)));
+                Gfx *gg = (Gfx *) D_80115328; D_80115328 = (s32 *) (gg + 1); gg->w0 = 0xFA000000; gg->w1 = col | (*((u8 *) (((char *) arg0) + 0x82))); }
               func_80000A40(arg0, arg1, 0, 0, 0, (s32) arg3);
               if ((arg3 == 0) && (((u8) D_80113022) < 0xAU))
               {
@@ -291,7 +279,6 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
             }
           }
         }
-        while (0);
       }
       goto block_72;
     }
@@ -326,50 +313,39 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
         temp_a0_5 = temp_a1_5 * sPrimTintR;
         temp_v0_5 = temp_a1_5 * sPrimTintG;
         var_a0_2 = D_80115328;
-        do
-        {
-          {
-            long long phantom_wide = arg2;
-          }
-          var_a2 = sPrimTintB;
           D_80115328 = var_a0_2 + 2;
           ((__repair_field_0 *) var_a0_2)->value = 0xFA000000;
-          var_a1 = (temp_a1_5 * var_a2) & 0xFF00;
-          *((s32 *) (((char *) var_a0_2) + 4)) = (s32) (((((temp_a0_5 >> 8) << 0x18) | ((inline_fn23(temp_v0_5) & 0xFF) << 0x10)) | ((temp_a1_5 * var_a2) & 0xFF00)) | (*((u8 *) (((char *) arg0) + 0x82))));
-        }
-        while (0);
+          *((s32 *) (((char *) var_a0_2) + 4)) = (s32) ((((inline_fn23(temp_a0_5) << 0x18) | ((inline_fn23(temp_v0_5) & 0xFF) << 0x10)) | ((temp_a1_5 * sPrimTintB) & 0xFF00)) | (*((u8 *) (((char *) arg0) + 0x82))));
       }
       else
         if (temp_v1_8 & 1)
       {
-        var_a0_2 = D_80115328;
-        D_80115328 = var_a0_2 + 2;
-        ((__repair_field_0 *) var_a0_2)->value = 0xFA000000;
-        temp_v0_6 = (var_a2 << 0x18) | (var_a1 << 0x10);
-        var_a1 = *((u8 *) (((char *) arg0) + 0x82));
-        *((s32 *) (((char *) var_a0_2) + 4)) = (temp_v0_6 | (var_a3_2 << 8)) | var_a1;
+        var_a0_3 = D_80115328;
+        D_80115328 = var_a0_3 + 2;
+        ((__repair_field_0 *) var_a0_3)->value = 0xFA000000;
+        *((s32 *) (((char *) var_a0_3) + 4)) = (var_a2 << 0x18) | (var_a1 << 0x10) | (var_a3_2 << 8) | *((u8 *) (((char *) arg0) + 0x82));
       }
       else
         if (temp_v1_8 & 4)
       {
-        var_a0_2 = D_80115328;
-        D_80115328 = var_a0_2 + 2;
-        ((__repair_field_0 *) var_a0_2)->value = 0xFA000000;
+        var_a0_4 = D_80115328;
+        D_80115328 = var_a0_4 + 2;
+        ((__repair_field_0 *) var_a0_4)->value = 0xFA000000;
         var_v0_2 = (((var_a2 << 0x18) | (var_a1 << 0x10)) | (var_a3_2 << 8)) | 0x80;
-        *((s32 *) (((char *) var_a0_2) + 4)) = var_v0_2;
+        *((s32 *) (((char *) var_a0_4) + 4)) = var_v0_2;
       }
-      do
       {
         if (((__repair_field_58 *) arg0)->value & 0x1000)
         {
           if (gRenderMode != 1)
           {
             gRenderMode = 1;
-            func_80038FA4(arg1, var_a1, var_a2, (s32 *) var_a3_2);
+            func_80038FA4(arg1);
           }
-          temp_v0_7 = (*((s32 *) (&sMatrixPoolUsed))) + 1;
-          if (inline_fn2(sMatrixPoolUsed) < inline_fn2(sMatrixPoolLimit))
+          temp_a0_6 = sMatrixPoolUsed;
+          if (temp_a0_6 < sMatrixPoolLimit)
           {
+            temp_v0_7 = temp_a0_6 + 1;
             sMatrixPoolUsed = temp_v0_7;
             D_8010D538 = (*((s32 *) (((char *) sRenderState) + 0x74C))) + (temp_v0_7 << 6);
             if (((__repair_field_58 *) arg0)->value & 0x8000)
@@ -406,13 +382,8 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
             func_80008598(temp_s1);
             if (((__repair_field_58 *) arg0)->value & 0x4000)
             {
-              temp_v1_10 = D_80115328;
-              D_80115328 = temp_v1_10 + 2;
-              D_80115328 = temp_v1_10 + 4;
-              ((__repair_field_0 *) temp_v1_10)->value = 0xD9FFFDFF;
-              *((s32 *) (((char *) temp_v1_10) + 4)) = 0;
-              *((s32 *) (((char *) temp_v1_10) + 8)) = 0xD9FFFFFF;
-              *((s32 *) (((char *) temp_v1_10) + 0xC)) = 0x400;
+              { Gfx *g1 = (Gfx *) D_80115328; D_80115328 = (s32 *) (g1 + 1); g1->w0 = 0xD9FFFDFF; g1->w1 = 0; }
+              { Gfx *g2 = (Gfx *) D_80115328; D_80115328 = (s32 *) (g2 + 1); g2->w0 = 0xD9FFFFFF; g2->w1 = 0x400; }
             }
             goto block_72;
           }
@@ -456,7 +427,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
                 if (gRenderMode)
               {
                 gRenderMode = 0;
-                emit_projection_viewport_commands(temp_a0_6, var_a1, var_a2, (s32 *) var_a3_2);
+                emit_projection_viewport_commands();
               }
                 temp_v1_11 = ((__repair_field_58 *) arg0)->value;
                 if (temp_v1_11 & 0x40000)
@@ -513,7 +484,6 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
           }
         }
       }
-      while (0);
     }
     else
     {
