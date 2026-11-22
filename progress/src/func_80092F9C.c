@@ -16,10 +16,9 @@ s32 func_80092F9C(u16 id, u16 sub, s32 arg2, s32 arg3, u8 flag)
   if (gWorkerThreadActive)
   {
     {
-      s32 offset = 0;
-      for (i = 0; i < sSceneGroupStackCount; i++, offset += 4)
+      for (i = 0; i < sSceneGroupStackCount; i++)
       {
-        p = *((char **) (((char *) sSceneGroupStack) + offset));
+        p = *((char **) (((char *) sSceneGroupStack) + (i << 2)));
         if ((*((u16 *) (p + 4))) == id)
         {
           if (*((u16 *) (p + 6)))
@@ -34,7 +33,7 @@ s32 func_80092F9C(u16 id, u16 sub, s32 arg2, s32 arg3, u8 flag)
           {
             if (n == sub)
             {
- do { if (flag) { result = func_8008F520(a, b, c, arg2, arg3); } else { workerLockAcquire(); result = func_8008F520(a, b, c, arg2, arg3); workerLockRelease(); } return result; } while (0);
+if (flag) { result = func_8008F520(a, b, c, arg2, arg3); } else { workerLockAcquire(); result = func_8008F520(a, b, c, arg2, arg3); workerLockRelease(); } return result;
             }
             c += 0x84;
             n = *((u16 *) c);
