@@ -37,14 +37,14 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
       __repair_phase_storage.pointer = D_800EE420;
       __repair_phase_storage.pointer = D_800EE420;
       temp_v1 = (((arg1 & 0xFF) * 0x86) + ((__repair_phase_temp_a2 * 0x860) + __repair_phase_storage.pointer)) + (temp_a3 & 0x1F);
-      var_v1 = *((u8 *) (((char *) temp_v1) + 0x20));
       temp_a2 = (*((u8 *) (((char *) temp_v1) + 0))) << 7;
+      var_v1 = *((u8 *) (((char *) temp_v1) + 0x20));
       goto block_19;
     }
-    if ((((u32) ((temp_a3 + 0x80) & 0xFF)) - 1) < (2U - 1))
+    if (((u32) ((temp_a3 + 0x80) & 0xFF)) < 2U)
     {
-      __repair_phase_storage.pointer = D_800EE420;
-      var_v1_2 = (void *) ((arg1 & 0xFF) * 0x86); var_v1_2 = (void *) (((char *) var_v1_2) + ((s32) ((__repair_phase_temp_a2 * 0x860) + __repair_phase_storage.pointer)));
+      char *bank = __repair_phase_temp_a2 * 0x860 + D_800EE420;
+      var_v1_2 = (arg1 & 0xFF) * 0x86 + bank;
       goto block_18;
     }
     if (((u32) ((temp_a3 + 0x7C) & 0xFF)) < 2U)

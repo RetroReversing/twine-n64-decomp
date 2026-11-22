@@ -173,10 +173,8 @@ volatile unsigned int func_80069DCC(void *arg0)
   f32 temp_fv1_8;
   f32 temp_fv1_9;
   f32 temp_s5;
-  f32 temp_s5_2;
   f32 temp_fv0_10;
   f32 temp_s6;
-  f32 temp_s6_2;
   f32 var_a2;
   f32 var_fp;
   f32 var_fs1;
@@ -1604,10 +1602,10 @@ case 2: case 3: goto out_of_line_actor;
           *((f32 *) (((char *) temp_s1) + 0x50)) = 0.05f;
         }
         var_fs3_8 = *((f32 *) (((char *) temp_s1) + 0x50));
-        temp_s5_2 = ((temp_s5 + var_fs3) + sp20[0]) + (var_fs3_8 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
+        var_s5 = ((temp_s5 + var_fs3) + sp20[0]) + (var_fs3_8 * sinAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         temp_ft1_2 = *inline_fn2(temp_s1);
         temp_fv1_11 = (((temp_fs5_2 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
-        temp_s6_2 = ((temp_s6 + D_800C7DC4) + sp20[2]) + (var_fs3_8 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
+        var_s6 = ((temp_s6 + D_800C7DC4) + sp20[2]) + (var_fs3_8 * cosAngle((*((f32 *) (((char *) arg0) + 0x40))) + 1024.0f));
         *((f32 *) (((char *) temp_s1) + 0x4C)) = (((temp_fs5_2 * 0.15f) - temp_ft1_2) * 0.05f) + temp_ft1_2;
         if (temp_fv1_11 < (-0.15f))
         {
@@ -1621,11 +1619,11 @@ case 2: case 3: goto out_of_line_actor;
         spherical_to_cartesian(sp20, *((f32 *) (((char *) temp_s1) + 0x4C)), (*((f32 *) (((char *) arg0) + 0x40))) * 0.0015339808f, temp_fs4 * 0.0015339808f);
         temp_v1_34 = *((void **) (((char *) arg0) + 0x68));
         *((f32 *) (((char *) temp_v1_34) + 0x34)) = 0.0f;
-        var_s5 = temp_s5_2 + sp20[0];
+        var_s5 = var_s5 + sp20[0];
         var_fs3 = (*((f32 *) (((char *) (*((void **) (((char *) sp64) + 0x20)))) + 0x5C))) - 0.3f;
         var_fp = (0.0f - sp20[1]) - sp20[1];
         temp_fv1_12 = *((f32 *) (((char *) arg0) + 0x28));
-        var_s6 = temp_s6_2 + sp20[2];
+        var_s6 = var_s6 + sp20[2];
         if (temp_fv1_12 < var_fs3)
         {
           if (var_fs3 < (temp_fv1_12 + var_fp))

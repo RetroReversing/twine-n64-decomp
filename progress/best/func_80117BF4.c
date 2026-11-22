@@ -86,8 +86,11 @@ void func_80117BF4(s32 map)
 
   dmaRomToRamUnaligned((u8 *) (&header), offset + base, 16);
   *((SearchRow **) 0x8011F068) = heapAllocTagged(0xB000, 0x34);
-  points = heapAllocTagged(header.rowBytes, 0x34);
-  edges = heapAllocTagged(header.edgeBytes, 0x34);
+  {
+    SearchPoint *p = heapAllocTagged(header.rowBytes, 0x34);
+    edges = heapAllocTagged(header.edgeBytes, 0x34);
+    points = p;
+  }
   dmaRomToRamUnaligned((u8 *) points, header.rowOffset + base, header.rowBytes);
   dmaRomToRamUnaligned((u8 *) edges, header.edgeOffset + base, header.edgeBytes);
   edgeCount = ((u32) header.edgeBytes) / 6;

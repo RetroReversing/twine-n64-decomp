@@ -61,7 +61,7 @@ void updateObjectColor(void *arg0)
     else
       if (temp_v1 & 0x80)
     {
-      temp_fs1 = sinTableLookup(D_800B1D78 * 0.02f); temp_fs0 = cosTableLookup(0.07f * D_800B1D78); temp_fs1_2 = (temp_fs1 * (temp_fs0 * 64.0f)) * sinTableLookup(D_800B1D78 * 0.04f); var_v1_3 = (u32) temp_fs1_2; var_v1_2 = var_v1_3;
+      temp_fs1 = sinTableLookup(D_800B1D78 * 0.02f); temp_fs0 = cosTableLookup(0.07f * D_800B1D78); temp_fs1_2 = (temp_fs1 * (temp_fs0 * 64.0f)) * sinTableLookup(D_800B1D78 * 0.04f); var_v1_3 = (u32) temp_fs1_2 + 64; var_v1_2 = var_v1_3;
       *((u8 *) (((char *) (*((void **) (((char *) arg0) + 0x20)))) + 0x64)) = (u8) var_v1_3;
       *((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x20)))) + 0x65)) = (s8) var_v1_3;
       *((u8 *) (((char *) (*((void **) (((char *) arg0) + 0x20)))) + 0x66)) = (u8) var_v1_3;
@@ -83,7 +83,7 @@ void updateObjectColor(void *arg0)
         if (temp_v0 == (temp_a0_2 * 0x1E))
         {
           var_v0_2 = guRandom(); temp_a0_3 = var_v0_2;
-          if (((u32) temp_a0_3) <= (0 - 1))
+          if (temp_a0_3 < 0)
           {
             var_v0_2 = temp_a0_3 + 0x7F;
           }
@@ -127,4 +127,5 @@ void updateObjectColor(void *arg0)
     }
   }
 }
+
 

@@ -13,7 +13,7 @@ extern void func_800328CC(s32, s32, s32, s32, s32, s32, s32, f32);
 extern void func_80032978(u8 *, s32, s32, s32, s32, s32 *);
 extern void gfxAppendTexture(u8 *, s32 *, s32, s32, s32, s32, s32 *);
 extern void func_800A0220(GfxPair **, s32);
-void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, long long a4, register f32 scale, s32 a6, s32 a7, s32 enable, s32 *vertices, s32 *commands)
+void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale, s32 a6, s32 a7, s32 enable, s32 *vertices, s32 *commands)
 {
   struct 
   {
@@ -249,4 +249,5 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, long long a4, register f32 
     ++(*commands);
   }
 }
+
 
