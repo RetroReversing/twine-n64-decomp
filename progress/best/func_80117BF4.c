@@ -97,7 +97,7 @@ void func_80117BF4(s32 map)
     i = 0;
     do
     {
-      SearchRow *row = &sSearchEntries[i];
+      SearchRow *row = (SearchRow *) (i * sizeof(SearchRow) + (s32) sSearchEntries);
       u8 *cursor = ((u8 *) row) + 0x3C;
       void *object;
       row->point = points;
@@ -122,7 +122,7 @@ void func_80117BF4(s32 map)
     {
       SearchEdge *edge = edges;
       SearchRow *rows = *((SearchRow **) 0x8011F068);
-      k = 0;
+      do { do { k = 0; } while (0); } while (0);
       do
       {
       s16 a = edge->a;

@@ -65,7 +65,6 @@ void func_80065D90(void *arg0)
   f32 temp_fs1;
   f32 temp_fs1_2;
   f32 temp_fs1_3;
-  f32 temp_fs1_4;
   f32 temp_fs3;
   f32 temp_fv0;
   f32 temp_fv0_10;
@@ -98,11 +97,6 @@ void func_80065D90(void *arg0)
   f32 __repair_var_fs0_1;
   f32 var_fs0_2;
   f32 var_fs0_3;
-  f32 var_fs1;
-  f32 var_fs1_2;
-  f32 var_fs1_3;
-  f32 var_fs1_4;
-  f32 var_fs1_5;
   f32 var_fs2;
   f32 var_fv0;
   f32 var_fv0_2;
@@ -485,15 +479,15 @@ f32 __repair_phase_var_fv1_8;
   if ((*((u16 *) (((char *) temp_v1_11) + 0xC))) & 1)
   {
     *((s32 *) (((char *) temp_v1_11) + 0x34)) = 0;
-    var_fs1 = func_80081B44(temp_s3, 8, 9);
+    temp_fs1 = func_80081B44(temp_s3, 8, 9);
     temp_fs0 = func_80081B44(temp_s3, 6, 7);
     if (D_80115088[temp_s3].f0 != 0)
     {
-      var_fs1 = -var_fs1;
+      temp_fs1 = -temp_fs1;
     }
     temp_fs0_2 = temp_fs0 * 0.5625f;
     var_v0_2 = 1;
-    temp_fs1_2 = var_fs1 * 0.6666667f;
+    temp_fs1_2 = temp_fs1 * 0.6666667f;
     if (!(temp_fs0_2 <= 0.0002f))
     {
       var_v0_2 = 0;
@@ -557,15 +551,15 @@ f32 __repair_phase_var_fv1_8;
     }
     temp_fv1_2 = (((Field_f32 *) (((char *) temp_s1) + 0x1C))->v);
     var_fs0_2 = 0.0f;
-    var_fs1_2 = 0.0f;
+    temp_fs1 = 0.0f;
     if (temp_fv1_2 < (-0.37f))
     {
-      var_fs1_2 = temp_fv1_2 + 0.37f;
+      temp_fs1 = temp_fv1_2 + 0.37f;
     }
     else
       if (temp_fv1_2 > 0.37f)
     {
-      var_fs1_2 = temp_fv1_2 - 0.37f;
+      temp_fs1 = temp_fv1_2 - 0.37f;
     }
     temp_fv1_3 = (((Field_f32 *) (((char *) temp_s1) + 0x20))->v);
     if (temp_fv1_3 < (-0.5f))
@@ -577,22 +571,22 @@ f32 __repair_phase_var_fv1_8;
     {
       var_fs0_2 = temp_fv1_3 - 0.5f;
     }
-    var_fs1_2 = var_fs1_2 * 0.47f;
+    temp_fs1 = temp_fs1 * 0.47f;
     var_v0_4 = 1;
-    temp_fs0_3 = var_fs0_2 * 0.34f;
-    if (!(var_fs1_2 <= 0.0002f))
+    var_fs0_2 = var_fs0_2 * 0.34f;
+    if (!(temp_fs1 <= 0.0002f))
     {
       var_v0_4 = 0;
     }
     var_v1_5 = 1;
-    if (!(var_fs1_2 >= (-0.0002f)))
+    if (!(temp_fs1 >= (-0.0002f)))
     {
       var_v1_5 = 0;
     }
     if (var_v0_4 & var_v1_5)
     {
       temp_fv1_4 = (((Field_f32 *) (((char *) temp_s1) + 0x2C))->v);
-      temp_fa0_3 = ((var_fs1_2 - temp_fv1_4) * 0.48f) + temp_fv1_4;
+      temp_fa0_3 = ((temp_fs1 - temp_fv1_4) * 0.48f) + temp_fv1_4;
       (((Field_f32 *) (((char *) temp_s1) + 0x2C))->v) = temp_fa0_3;
       if (func_800828D0(temp_fa0_3) < 0.01f)
       {
@@ -602,7 +596,7 @@ f32 __repair_phase_var_fv1_8;
     else
     {
       temp_fv0_9 = (((Field_f32 *) (((char *) temp_s1) + 0x2C))->v);
-      (((Field_f32 *) (((char *) temp_s1) + 0x2C))->v) = (f32) (((var_fs1_2 - temp_fv0_9) * 0.08f) + temp_fv0_9);
+      (((Field_f32 *) (((char *) temp_s1) + 0x2C))->v) = (f32) (((temp_fs1 - temp_fv0_9) * 0.08f) + temp_fv0_9);
     }
     temp_fv0_10 = (((Field_f32 *) (((char *) temp_s1) + 0x2C))->v);
     var_fv1_4 = -0.47f;
@@ -610,21 +604,21 @@ f32 __repair_phase_var_fv1_8;
     {
       (((Field_f32 *) (((char *) temp_s1) + 0x2C))->v) = var_fv1_4;
     }
-    temp_fs1_4 = (((Field_f32 *) (((char *) temp_s1) + 0x2C))->v);
+    temp_fs1 = (((Field_f32 *) (((char *) temp_s1) + 0x2C))->v);
     var_v0_5 = 1;
-    if (!(temp_fs0_3 <= 0.0002f))
+    if (!(var_fs0_2 <= 0.0002f))
     {
       var_v0_5 = 0;
     }
     var_v1_6 = 1;
-    if (!(temp_fs0_3 >= (-0.0002f)))
+    if (!(var_fs0_2 >= (-0.0002f)))
     {
       var_v1_6 = 0;
     }
     if (var_v0_5 & var_v1_6)
     {
       temp_fv1_5 = (((Field_f32 *) (((char *) temp_s1) + 0x30))->v);
-      temp_fa0_4 = ((temp_fs0_3 - temp_fv1_5) * 0.42000002f) + temp_fv1_5;
+      temp_fa0_4 = ((var_fs0_2 - temp_fv1_5) * 0.42000002f) + temp_fv1_5;
       (((Field_f32 *) (((char *) temp_s1) + 0x30))->v) = temp_fa0_4;
       if (func_800828D0(temp_fa0_4) < 0.01f)
       {
@@ -634,7 +628,7 @@ f32 __repair_phase_var_fv1_8;
     else
     {
       temp_fv0_11 = (((Field_f32 *) (((char *) temp_s1) + 0x30))->v);
-      (((Field_f32 *) (((char *) temp_s1) + 0x30))->v) = (f32) (((temp_fs0_3 - temp_fv0_11) * 0.07f) + temp_fv0_11);
+      (((Field_f32 *) (((char *) temp_s1) + 0x30))->v) = (f32) (((var_fs0_2 - temp_fv0_11) * 0.07f) + temp_fv0_11);
     }
     temp_fv0_12 = (((Field_f32 *) (((char *) temp_s1) + 0x30))->v);
     var_fv1_5 = -0.34f;
@@ -643,14 +637,14 @@ f32 __repair_phase_var_fv1_8;
       (((Field_f32 *) (((char *) temp_s1) + 0x30))->v) = var_fv1_5;
     }
     temp_fv0_13 = (((Field_f32 *) (((char *) temp_s1) + 0x3C))->v);
-    var_fs1_3 = temp_fs1_4 / temp_fv0_13;
+    temp_fs1_2 = temp_fs1 / temp_fv0_13;
     var_fs0_3 = ((((Field_f32 *) (((char *) temp_s1) + 0x30))->v)) / temp_fv0_13;
     if (!gWheelsGrounded)
     {
-      var_fs1_3 *= 0.4f;
+      temp_fs1_2 *= 0.4f;
       var_fs0_3 *= 0.7f;
     }
-    D_800E1A1C -= var_fs1_3 * 1024.0f;
+    D_800E1A1C -= temp_fs1_2 * 1024.0f;
     (((Field_f32 *) (((char *) temp_s1) + 0x34))->v) += var_fs0_3;
   }
   else
@@ -669,13 +663,13 @@ f32 __repair_phase_var_fv1_8;
       {
         var_v0_6 = 0;
       }
-      var_fs1_4 = 0.4f;
+      temp_fs1 = 0.4f;
       if (((var_v1_7 ^ 1) | (var_v0_6 ^ 1)) != 0)
       {
-        var_fs1_4 = 0.1f;
+        temp_fs1 = 0.1f;
       }
       temp_fv1_6 = (((Field_f32 *) (((char *) temp_s1) + 0x58))->v);
-      temp_fv0_15 = ((temp_fv0_14 - temp_fv1_6) * var_fs1_4) + temp_fv1_6;
+      temp_fv0_15 = ((temp_fv0_14 - temp_fv1_6) * temp_fs1) + temp_fv1_6;
       var_fv1_6 = -1.0f;
       (((Field_f32 *) (((char *) temp_s1) + 0x58))->v) = temp_fv0_15;
       if ((temp_fv0_15 < (-1.0f)) || ((var_fv1_6 = 1.0f, temp_fv0_15 > 1.0f)))
@@ -730,13 +724,13 @@ f32 __repair_phase_var_fv1_8;
       {
         var_v1_10 = 0;
       }
-      var_fs1_5 = 0.4f;
+      temp_fs1 = 0.4f;
       if (((var_v0_8 ^ 1) | (var_v1_10 ^ 1)) != 0)
       {
-        var_fs1_5 = 0.1f;
+        temp_fs1 = 0.1f;
       }
       temp_fv1_7 = (((Field_f32 *) (((char *) temp_s1) + 0x58))->v);
-      temp_fv0_17 = ((temp_fv0_16 - temp_fv1_7) * var_fs1_5) + temp_fv1_7;
+      temp_fv0_17 = ((temp_fv0_16 - temp_fv1_7) * temp_fs1) + temp_fv1_7;
       var_fv1_7 = -1.0f;
       (((Field_f32 *) (((char *) temp_s1) + 0x58))->v) = temp_fv0_17;
       if ((temp_fv0_17 < (-1.0f)) || ((var_fv1_7 = 1.0f, temp_fv0_17 > 1.0f)))

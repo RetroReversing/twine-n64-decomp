@@ -253,7 +253,7 @@ void *__repair_phase_temp_a1;
               }
             }
           }
-          temp_fs0 = (f32)table[(*((u32 *) ((char *)temp_s3 + 0x18C)) >> 12) & 15] * *((f32 *) ((char *)temp_s3 + 0x1B0));
+          temp_fs0 = *((f32 *) ((char *)temp_s3 + 0x1B0)) * (f32)table[(*((u32 *) ((char *)temp_s3 + 0x18C)) >> 12) & 15];
           temp_fv1 = temp_fs0 * 0.1f;
           var_a0 = (u32) temp_fv1;
           temp_v0_5 = randomIntBelow(var_a0);
