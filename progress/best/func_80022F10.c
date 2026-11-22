@@ -34,7 +34,6 @@ extern u8 gSaveKeyRelaxed;
 extern void *gSaveMenuState;
 void func_80022F10(MenuEntry22F *entry, u8 enabled)
 {
-  u8 *__base_gSaveKeyRelaxed;
   MenuPair22F *pair;
   register MenuSprite22F *sprite;
   s32 *color;
@@ -51,8 +50,7 @@ void func_80022F10(MenuEntry22F *entry, u8 enabled)
   if (sprite)
   {
  do { sprite->mode = 1 | ((-(enabled == 0)) & 7); pair->first->x = entry->x; pair->first->y = entry->y; } while (0);
-    __base_gSaveKeyRelaxed = &gSaveKeyRelaxed;
-    if (*__base_gSaveKeyRelaxed)
+    if (gSaveKeyRelaxed)
     {
       switch (entry->slot)
       {
@@ -91,7 +89,7 @@ void func_80022F10(MenuEntry22F *entry, u8 enabled)
   if (sprite)
   {
     sprite->mode = 1 | ((-(enabled == 0)) & 7);
-    if (*__base_gSaveKeyRelaxed)
+    if (*(volatile u8 *)&gSaveKeyRelaxed)
     {
       switch (entry->slot)
       {
@@ -137,3 +135,4 @@ void func_80022F10(MenuEntry22F *entry, u8 enabled)
   }
   func_80022B60(1);
 }
+

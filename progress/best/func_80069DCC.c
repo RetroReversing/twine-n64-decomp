@@ -128,7 +128,6 @@ void func_80069DCC(void *arg0)
    volatile f32 speed;
    u32 after_speed;
    void * roads;
-   volatile float repair_branch_zero;
    
   } frame;
   f32 motion_24;
@@ -1893,14 +1892,14 @@ repair_advance_state:
        temp_a0_6 = temp_s1 + 0x11C;
        func_80047B14(temp_a0_6, 0.8f, temp_a0_6);
        motion_24 = repair_shifted_float((f32 *) (((char *) arg0) + 0x24), var_s5);
-       motion_40 = repair_shifted_float((f32 *) (((char *) arg0) + 0x40), D_800E1A1C);
        motion_28 = repair_shifted_float((f32 *) (((char *) arg0) + 0x28), var_fp);
+       motion_40 = repair_shifted_float((f32 *) (((char *) arg0) + 0x40), D_800E1A1C);
        motion_2C = repair_shifted_float((f32 *) (((char *) arg0) + 0x2C), var_s6);
        motion_3C = repair_shifted_float((f32 *) (((char *) arg0) + 0x3C), frame.speed);
        motion_44 = repair_shifted_float((f32 *) (((char *) arg0) + 0x44), roll.number);
-       *((f32 *) (((char *) arg0) + 0x24)) = motion_24;
        *((f32 *) (((char *) arg0) + 0x40)) = motion_40;
        *((f32 *) (((char *) arg0) + 0x28)) = motion_28;
+       *((f32 *) (((char *) arg0) + 0x24)) = motion_24;
        *((f32 *) (((char *) arg0) + 0x2C)) = motion_2C;
        *((f32 *) (((char *) arg0) + 0x3C)) = motion_3C;
        *((f32 *) (((char *) arg0) + 0x44)) = motion_44;
@@ -1934,9 +1933,9 @@ case 4:
        if (((s8) (*((u8 *) (((char *) temp_s1) + 0x197)))) < 0)
        {
          temp_v1_26 = inline_fn((char *) temp_s1, 0x307);
-         *((u8 *) (((char *) temp_s1) + 0x197)) = 0xFU;
          temp_v1 = temp_v1_26;
-         temp_v1_26 = (temp_v1_26 < 0x64);
+         temp_v1_26 = (temp_v1 < 0x64);
+         *((u8 *) (((char *) temp_s1) + 0x197)) = 0xFU;
          if (temp_v1_26)
          {
            *((s8 *) (((char *) temp_s1) + 0x307)) = (s8) (temp_v1 + 1);

@@ -37,7 +37,7 @@ extern u8 * volatile gSaveMenuState;
 extern s32 sBonusObjectTable[];
 void func_80026F84(u8 arg0)
 {
-  volatile short v;
+  
   long slot;
   u8 *p;
   u8 *q;
@@ -78,6 +78,6 @@ void func_80026F84(u8 arg0)
     *((s32 **) (p + 0xC)) = &D_800BD8C4;
   }
   slot = arg0;
- do { D_801002AE = 0; gMenuNeedsRedraw = 1; if (sBonusObjectTable[slot] != 0) { gMenuSlot = arg0; } else { gMenuSlot = 0; } gMenuParamB = func_80081828(gMenuSlot); if (gMenuUseTextList != 0) { if (gBorderSkipActive) { v = 4; } else { v = 4; } } else if (1) { v = gMenuSlot; } sMenuListKind = v; do { D_80102EC0 = D_800BD664; gMenuSoundParams = sSaveMenuColorIdle; sMenuDefaultSoundParams = sSaveMenuFlagsB; } while (0); } while (0);
+ do { D_801002AE = 0; gMenuNeedsRedraw = 1; if (sBonusObjectTable[slot] != 0) { gMenuSlot = arg0; } else { gMenuSlot = 0; } gMenuParamB = func_80081828(gMenuSlot); if (gMenuUseTextList != 0) { if (gBorderSkipActive) { sMenuListKind = 4; goto done; } sMenuListKind = 4; } else { sMenuListKind = gMenuSlot; } done: do { D_80102EC0 = D_800BD664; gMenuSoundParams = sSaveMenuColorIdle; sMenuDefaultSoundParams = sSaveMenuFlagsB; } while (0); } while (0);
 }
 
