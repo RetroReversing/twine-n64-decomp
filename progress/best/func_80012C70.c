@@ -15,7 +15,7 @@ extern s16 D_800E093C;
 extern s16 D_800E093E;
 extern s16 gSaveSlotFlags[4];
 extern s32 gSaveCmdResult;
-extern volatile s16 D_801083D4[4];
+extern s16 D_801083D4[4];
 extern u8 D_80108F75;
 extern s16 gSaveSlotLoaded[4];
 extern s16 gSaveSlotValid[4];
@@ -32,13 +32,14 @@ u16 func_80012C70(void)
 {
   s16 *flags;
   s16 *loaded;
-  s32 state = inline_fn(1);
+  s32 state;
+  state = inline_fn(1);
   gSaveSlotCodeBuf = 0; D_8010A3C6 = 0; D_8010A3C7 = 0; D_8010A3C8 = 0;
   D_800E093E = 0;
   gSaveSlot = 0;
-  D_800E093C = inline_fn(1);
+  D_800E093C = -1;
   D_800E093E = 0;
-  D_800E0938 = inline_fn(1);
+  D_800E0938 = -1;
   saveSubmitCommand(0xD, 0, 0, 0, 0, 0, 0, 0);
   saveWaitCommand();
   flags = gSaveSlotFlags;
@@ -46,20 +47,24 @@ u16 func_80012C70(void)
   gSaveSlot = 0;
   for (;;)
   {
-    s32 i = gSaveSlot;
-    s16 *slotFlags = &flags[i];
-    s16 *slotLoaded = &loaded[i];
-    *slotFlags = 0;
+    s32 i;
+    s16 *slotFlags;
+    s16 *slotLoaded;
+    i = gSaveSlot;
+    slotFlags = &flags[i];
+    slotLoaded = &loaded[i];
+    do { *slotFlags = 0; } while (0);
     do
     {
       *slotLoaded = 0;
     }
     while (0);
-    gSaveSlotValid[i] = 0;
-    D_801083D4[i] = 0;
+    do { gSaveSlotValid[i] = 0; } while (0);
+    do { D_801083D4[i] = 0; } while (0);
     if (((D_800E076B[i * 4] == 0) && ((D_80108F75 >> i) != 0)) && (((D_800E0768[i * 2] & 0x1F07) != 5) || ((*slotFlags = 1, (D_800E076A[i * 4] & 1) != 0))))
     {
-      u32 state2 = saveVerifySlot();
+      u32 state2;
+      state2 = saveVerifySlot();
       switch (state2)
       {
         case 0xA4:
@@ -125,4 +130,5 @@ u16 func_80012C70(void)
   }
 
 }
+
 

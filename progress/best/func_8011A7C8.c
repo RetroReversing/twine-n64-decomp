@@ -60,6 +60,7 @@ inline static volatile s32 inline_fn23456(volatile s32 *arg0)
 
 void func_8011A7C8(void)
 {
+  s32 __repair_entry_index;
   s16 i;
   s32 index;
   s16 chosen = -1;
@@ -80,9 +81,10 @@ void func_8011A7C8(void)
           if (i < gSceneType.count)
           {
             {
+              __repair_entry_index = index;
               do
               {
- do { if (i == index) { goto next_scene; } entry = D_80102CD0[i]; loop_goto_1: { if ((entry == 0) || (entry->meta->disabled != 0)) { goto next_scene; } D_80102CD0[index]->meta->count++; } if (0) { goto loop_goto_1; } do { next_scene: i++; } while (0); } while (0);
+ do { if (i == __repair_entry_index) { goto next_scene; } entry = D_80102CD0[i]; loop_goto_1: { if ((entry == 0) || (entry->meta->disabled != 0)) { goto next_scene; } D_80102CD0[__repair_entry_index]->meta->count++; } if (0) { goto loop_goto_1; } do { next_scene: i++; } while (0); } while (0);
               }
               while (inline_fn23456((volatile s32 *) inline_fn2((u8 *) (&gSaveTotalSlots), inline_fn234())) > ((s16) i));
             }

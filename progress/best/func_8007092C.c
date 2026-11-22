@@ -18,6 +18,7 @@ void func_8007092C(void *arg0, s8 arg1)
   register s8 var_s6 = 0;
   volatile u32 pad[4];
   s32 savedIndex;
+  u8 ux;
   s32 temp_a1;
   s8 temp_a1_2;
   u8 temp_v0;
@@ -81,7 +82,8 @@ void func_8007092C(void *arg0, s8 arg1)
         continue;
       }
       savedIndex = (s8) temp_a1;
-      temp_a2[0xF] = (u8) (((u8) temp_a1) + temp_s4[(temp_a1 * 8) + 0x1FE]);
+      ux = temp_a1;
+      temp_a2[0xF] = (u8) (temp_a2[0xF] + temp_s4[(temp_a1 * 8) + 0x1FE]);
       temp_s2 = temp_s4 + (((s8) savedIndex) * 8);
       if (temp_s2[0x1FC] == 0)
       {
@@ -109,7 +111,7 @@ void func_8007092C(void *arg0, s8 arg1)
         if ((temp_s2[0x1FE] != 0) && ((func_80063D38(temp_s4, savedIndex) << 0x18) != 0))
         {
           temp_s2[0x1FE] = 0;
-          temp_v1_5 = *((u8 **) (((u8 *) arg0) + 0x68)); do { do { temp_v1_5[0xF] = temp_a1; } while (0); } while (0);
+          temp_v1_5 = *((u8 **) (((u8 *) arg0) + 0x68)); do { do { temp_v1_5[0xF] = ux; } while (0); } while (0);
         }
         else
         {
