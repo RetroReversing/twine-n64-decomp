@@ -26,7 +26,7 @@ u8 func_8001F4B8(s32 arg0, s32 arg1) {
     temp_v0_2 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0xC), 0xE);
     M2C_FIELD(gMenuState, u8 *, 0x2C) = 1U;
     M2C_FIELD(gMenuState, void **, 0x18) = temp_v0_2;
-    M2C_FIELD(*(void * volatile *)((u8 *)gMenuState + 0x18), M2C_UNK (**)(void *), 4)(gMenuState);
+    M2C_FIELD(*(void * volatile *)((u8 *)gMenuState + 0x18), M2C_UNK (**)(void), 4)();
     var_v0 = arg1 & 0xFF;
    }
    return var_v0;

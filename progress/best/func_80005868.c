@@ -30,7 +30,7 @@ void func_80005868(s16 *arg0, void *arg1, void *arg2, s32 arg3)
     u8 *base = local.matrices;
     if ((*arg0) >= 0)
     {
-      var_s3 = arg2; var_s2 = arg0;
+      var_s2 = arg0; var_s3 = arg2;
       __repair_rows:
       {
         s32 index = *var_s2;
@@ -40,3 +40,4 @@ void func_80005868(s16 *arg0, void *arg1, void *arg2, s32 arg3)
     }
   }
 }
+

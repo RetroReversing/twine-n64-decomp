@@ -62,13 +62,15 @@ inline static int inline_fn234(int arg0)
 
 void func_80118BCC(void *arg0)
 {
-  s32 sp38;
-  u8 sp28[0x10];
-  s32 sp3C;
-  int sp40;
-  register void *sp44;
-  s32 sp48;
-  s32 sp4C;
+  struct Scratch {
+    s32 sp28[4];
+    s32 sp38;
+    s32 sp3C;
+    s32 sp40;
+    void *sp44;
+    s32 sp48;
+    s32 sp4C;
+  } scratch;
   struct Coefficients
   {
     f32 values[6];
@@ -230,7 +232,7 @@ void func_80118BCC(void *arg0)
     if (((u32) ((*((u16 *) (((char *) temp_a1_3) + 0x78))) - 2)) < 2U)
     {
       temp_fv0_2 = approxDistance(temp_s0, temp_a1_3 + 0x24);
-      if (((temp_fv0_2 < 25.0f) && (((temp_fv0_2 < 6.0f) || (temp_s4 & 1)) || ((func_8007A9CC(arg0, temp_s0, &sp38, 1137.77783203125f) << 0x18) != 0))) && (inline_fn23(func_800158A4((*((s32 *) (((u8 *) (&sTrackMarkerTable)) + (((s8) (*((u8 *) (((char *) temp_s2) + 0x182)))) * 4)))) + 0x10, (*((void **) (((char *) temp_s2) + 0xC0))) + 0x24, *((s32 *) (((char *) arg0) + 0x20)), sp28, 0, 0, 0x20000, 1, 0)) != 0))
+      if (((temp_fv0_2 < 25.0f) && (((temp_fv0_2 < 6.0f) || (temp_s4 & 1)) || ((func_8007A9CC(arg0, temp_s0, &scratch.sp38, 1137.77783203125f) << 0x18) != 0))) && (inline_fn23(func_800158A4((*((s32 *) (((u8 *) (&sTrackMarkerTable)) + (((s8) (*((u8 *) (((char *) temp_s2) + 0x182)))) * 4)))) + 0x10, (*((void **) (((char *) temp_s2) + 0xC0))) + 0x24, *((s32 *) (((char *) arg0) + 0x20)), scratch.sp28, 0, 0, 0x20000, 1, 0)) != 0))
       {
         var_s3 = 1;
       }
@@ -265,7 +267,7 @@ void func_80118BCC(void *arg0)
         }
         else
         {
-          long long phantom_wide = sp38;
+          long long phantom_wide = scratch.sp38;
           var_a1_2 = 9;
           if (randomIntBelow(0x64) < 0x32U)
           {
@@ -447,13 +449,13 @@ void func_80118BCC(void *arg0)
 
     }
     func_80002EF0(arg0);
-    sp40 = 0;
-    sp44 = NULL;
-    sp4C = 0;
-    sp3C = 0;
-    sp48 = 0;
+    scratch.sp40 = 0;
+    scratch.sp44 = NULL;
+    scratch.sp4C = 0;
+    scratch.sp48 = 0;
+    scratch.sp3C = 0;
     *((s16 *) (((char *) arg0) + 0x7C)) = 0;
-    func_8006E648(temp_s5, arg0, 0x10, &sp3C, &sp40, &sp44, &sp48, &sp4C);
+    func_8006E648(temp_s5, arg0, 0x10, &scratch.sp3C, &scratch.sp40, &scratch.sp44, &scratch.sp48, &scratch.sp4C);
     if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x10)
     {
       temp_v1_8 = *((s16 *) (((char *) arg0) + 0x7A));
@@ -487,21 +489,21 @@ void func_80118BCC(void *arg0)
         func_80117EC8(arg0, var_a1_3);
       }
     }
-    if ((sp44 != NULL) && ((*((u16 *) (((char *) sp44) + 0x78))) == 0xB))
+    if ((scratch.sp44 != NULL) && ((*((u16 *) (((char *) scratch.sp44) + 0x78))) == 0xB))
     {
-      temp_v1_9 = *((u8 *) (((char *) (*((void **) (((char *) sp44) + 0x6C)))) + 0x4A));
-      if (((((s32) temp_v1_9) >= 4) && ((((s32) temp_v1_9) < 6) || ((inline_fn2((s32) temp_v1_9) < 0xE) && (((s32) temp_v1_9) >= 0xA)))) && ((*((s16 *) (((char *) sp44) + 0x7A))) == 0))
+      temp_v1_9 = *((u8 *) (((char *) (*((void **) (((char *) scratch.sp44) + 0x6C)))) + 0x4A));
+      if (((((s32) temp_v1_9) >= 4) && ((((s32) temp_v1_9) < 6) || ((inline_fn2((s32) temp_v1_9) < 0xE) && (((s32) temp_v1_9) >= 0xA)))) && ((*((s16 *) (((char *) scratch.sp44) + 0x7A))) == 0))
       {
-        if ((*((s32 *) (((char *) sp44) + 0x20))) == (*((s32 *) (((char *) arg0) + 0x20))))
+        if ((*((s32 *) (((char *) scratch.sp44) + 0x20))) == (*((s32 *) (((char *) arg0) + 0x20))))
         {
-          temp_v0 = *((s32 *) (((char *) sp44) + 0x60));
-          *((s32 *) (((char *) sp44) + 0x60)) = temp_v0 | 8;
+          temp_v0 = *((s32 *) (((char *) scratch.sp44) + 0x60));
+          *((s32 *) (((char *) scratch.sp44) + 0x60)) = temp_v0 | 8;
         }
         else
         {
-          *((s32 *) (((char *) sp44) + 0x60)) = (*((s32 *) (((char *) sp44) + 0x60))) & (~8);
+          *((s32 *) (((char *) scratch.sp44) + 0x60)) = (*((s32 *) (((char *) scratch.sp44) + 0x60))) & (~8);
         }
-        *((s32 *) (((char *) sp44) + 0x60)) = inline_fn2((*((s32 *) (((char *) sp44) + 0x60))) | 0x100800);
+        *((s32 *) (((char *) scratch.sp44) + 0x60)) = inline_fn2((*((s32 *) (((char *) scratch.sp44) + 0x60))) | 0x100800);
       }
     }
     *((s32 *) (((char *) arg0) + 0x58)) = inline_fn2((*((s32 *) (((char *) arg0) + 0x58))) | 1);
@@ -564,7 +566,6 @@ void func_80118BCC(void *arg0)
         if (temp_v1_10 & 0x40)
         {
           {
-            long long phantom_wide2 = sp38;
           }
           if (!((*((f32 *) (((char *) arg0) + 0x74))) > (*((f32 *) (((char *) temp_s2) + 0x1B0)))))
           {
@@ -586,6 +587,7 @@ void func_80118BCC(void *arg0)
     }
     if ((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8)
     {
+      long long phantom_wide2 = scratch.sp38;
       var_a0 = 0;
       if (D_80108F84 != NULL)
       {
@@ -679,7 +681,7 @@ void func_80118BCC(void *arg0)
         var_s3_2 = 0;
         if (randomIntBelow(0x64) < var_s0_2)
         {
-          var_s3_2 = inline_fn23(func_8007A9CC(arg0, ((s32) (*((void **) (((char *) temp_s2) + 0xC0)))) + 0x24, &sp38, 170.6666717529296875f)) != 0;
+          var_s3_2 = inline_fn23(func_8007A9CC(arg0, ((s32) (*((void **) (((char *) temp_s2) + 0xC0)))) + 0x24, &scratch.sp38, 170.6666717529296875f)) != 0;
         }
       }
       func_8006899C(arg0, var_s3_2);

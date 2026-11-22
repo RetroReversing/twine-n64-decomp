@@ -1336,15 +1336,15 @@ case 2: case 3: goto out_of_line_actor;
             goto block_333;
           }
           block_327:
-          temp_fv0_25 = func_80063758(*((f32 *) (((char *) arg0) + 0x40)), D_800E19F8 + 2048.0f, 64.0f);
+          temp_fs0_2 = func_80063758(*((f32 *) (((char *) arg0) + 0x40)), D_800E19F8 + 2048.0f, 64.0f);
 
           var_v1_20 = 1;
-          if (!(temp_fv0_25 <= 0.0002f))
+          if (!(temp_fs0_2 <= 0.0002f))
           {
             var_v1_20 = 0;
           }
           var_v0_21 = 1;
-          if (!(temp_fv0_25 >= (-0.0002f)))
+          if (!(temp_fs0_2 >= (-0.0002f)))
           {
             var_v0_21 = 0;
           }

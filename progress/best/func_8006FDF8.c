@@ -12,6 +12,11 @@ extern u8 gBorderFlipFlag;
 extern s32 gBorderSkipActive;
 extern s32 gVisibleSaveSlotCount;
 extern s32 sTrackMarkerTable;
+inline static s32 *inline_fn()
+{
+  return &sTrackMarkerTable;
+}
+
 void func_8006FDF8(void *arg0, s32 arg1)
 {
   struct 
@@ -55,18 +60,26 @@ void func_8006FDF8(void *arg0, s32 arg1)
   switch (gVisibleSaveSlotCount)
   {
     case 2:
-      if (gBorderFlipFlag == 1)
+      switch (gBorderFlipFlag)
     {
-      var_s7 = 0x50;
-    }
-    else
-    {
-      do
+      case 1:
       {
-        var_s6 = 0x3C;
+        var_s7 = 0x50;
       }
-      while (0);
+        break;
+
+      default:
+      {
+        do
+        {
+          var_s6 = 0x3C;
+        }
+        while (0);
+      }
+        break;
+
     }
+
       break;
 
     case 3:
@@ -81,7 +94,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
   full_size:
   var_s2 = 0;
 
-  marker = &sTrackMarkerTable + sp2C;
+  marker = inline_fn() + sp2C;
   var_s4 = D_800C7E08;
   var_s3 = (s8 *) (&positions);
   var_s1 = arg0;
@@ -102,7 +115,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
         s32 flags = *((s32 *) (((char *) temp_s0) + 0x28));
         u16 y;
         *((s32 *) (((char *) temp_s0) + 0x10)) = 0xFF;
-        *((s32 *) (((char *) temp_s0) + 0x28)) = (flags & ~0xFC) | 0x10;
+        *((s32 *) (((char *) temp_s0) + 0x28)) = (flags & (~0xFC)) | 0x10;
         *((u16 *) (((char *) temp_s0) + 0x20)) = *((u16 *) var_s3);
         y = *((u16 *) (var_s3 + 8));
         *((s16 *) (((char *) temp_s0) + 0x26)) = var_s7;
@@ -112,10 +125,20 @@ void func_8006FDF8(void *arg0, s32 arg1)
       func_800165E0(temp_s0, *marker);
       *((u16 *) (((char *) temp_s0) + 0x1E)) = (u16) (*var_s4);
     }
-    var_s3 += 2;
-    var_s4 += 1;
-    var_s2 += 1;
-    var_s1 += 4;
+    if (temp_s0)
+    {
+      var_s4 += 1;
+      var_s3 += 2;
+      var_s2 += 1;
+      var_s1 += 4;
+    }
+    else
+    {
+      var_s4 += 1;
+      var_s3 += 2;
+      var_s2 += 1;
+      var_s1 += 4;
+    }
   }
   while (var_s2 < 4U);
   if (gBorderSkipActive == 0)
@@ -135,7 +158,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
         {
           temp_a0 = *((void * volatile *) (((char *) var_s0) + 0x3E4));
           *((s32 *) (((char *) temp_a0) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_a0) + 0x28))) & (~0xFC)) | 0x10);
-          func_800165E0(*((void * volatile *) (((char *) var_s0) + 0x3E4)), (&sTrackMarkerTable)[sp2C]);
+          func_800165E0(*((void * volatile *) (((char *) var_s0) + 0x3E4)), inline_fn()[sp2C]);
           *((u16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x1E)) = 2U;
         }
         while (0);
@@ -183,6 +206,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
               break;
 
             case 23:
+
             case 20:
               initObjectFromBankEntry(*((void * volatile *) (((char *) var_s0) + 0x3E4)), 3, 0x2A);
               *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x20)) = 0;
@@ -202,7 +226,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
         var_s1_2 += 4;
         var_s0 += 4;
       }
-      while ((u32)var_s1_2 < 0x18);
+      while (((u32) var_s1_2) < 0x18);
     }
     var_s2_2 = 0;
     if (sp24 == 8)
@@ -217,10 +241,25 @@ void func_8006FDF8(void *arg0, s32 arg1)
         }
         *((s32 *) (((char *) (*((void * volatile *) (((char *) var_s0_2) + 0x3E4)))) + 0x10)) = 0xFF7F;
         temp_v1_3 = *((void * volatile *) (((char *) var_s0_2) + 0x3E4));
- do { *((s32 *) (((char *) temp_v1_3) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_v1_3) + 0x28))) & (~0xFC)) | 0x10); func_800165E0(*((void * volatile *) (((char *) var_s0_2) + 0x3E4)), (&sTrackMarkerTable)[sp2C]); do { var_a0 = 0x50; } while (0); if (var_s2_2 >= 2U) { var_a0 = (var_s7 * 2) - 0x70; var_s1_3 = 0x80; } var_v1 = 0x37; } while (0);
+        do
+        {
+          *((s32 *) (((char *) temp_v1_3) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_v1_3) + 0x28))) & (~0xFC)) | 0x10);
+          func_800165E0(*((void * volatile *) (((char *) var_s0_2) - (-0x3E4))), inline_fn()[sp2C]);
+          do
+          {
+            var_a0 = 0x50;
+          }
+          while (0);
+          if (var_s2_2 >= 2U)
+          {
+            var_a0 = (var_s7 * 2) - 0x70; var_s1_3 = 0x80;
+          }
+          var_v1 = 0x37;
+        }
+        while (0);
         if (((var_s2_2 == 0) | (var_s2_2 == 2)) == 0)
         {
-          var_v1 = (var_s6 * 2) - 0x57;
+          var_s2 = var_s6 * 2; var_v1 = var_s2 - 0x57;
           var_s1_3 |= 0x100;
         }
         *((s16 *) (((char *) (*((void * volatile *) (((char *) var_s0_2) + 0x3E4)))) + 0x20)) = var_a0;
@@ -235,3 +274,4 @@ void func_8006FDF8(void *arg0, s32 arg1)
     }
   }
 }
+
