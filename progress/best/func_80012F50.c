@@ -127,7 +127,7 @@ u16 func_80012F50(void)
         goto mapError;
       }
       *used = 1;
-      decodeTextField(name, ((char *) (((s32) D_80108408) + 14)) + rawOffset, 16);
+      decodeTextField(name, (D_80108408 + rawOffset) + 14, 16);
       do
       {
         decodeTextField(code, rawCode, 4);
@@ -135,8 +135,8 @@ u16 func_80012F50(void)
       while (0);
     }
     rawCode += 32;
-    name += 24;
     code += 24;
+    name += 24;
     used += 12;
     rawOffset += 32;
     raw += 32;
@@ -186,3 +186,4 @@ u16 func_80012F50(void)
   gSaveStatus = 0;
   return 0;
 }
+

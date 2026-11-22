@@ -99,6 +99,7 @@ inline static char *inline_fn23(char *arg0, int arg1)
 
 void func_80069DCC(void *arg0)
 {
+    s32 repair_signed_field;
     u32 repair_countdown_byte;
     u8 *__base_gSceneFlagsB;
   void *entry_road;
@@ -1217,8 +1218,9 @@ case 2: case 3: goto out_of_line_actor;
       case 2:
         if (D_800E1A20 <= 0)
       {
+        repair_signed_field = (*((s16 *) (((char *) (*((void **) (((char *) temp_s1) + 0xB8)))) + 0x94)));
         D_800E19F0 = 0.495f;
-        if ((*((s16 *) (((char *) (*((void **) (((char *) temp_s1) + 0xB8)))) + 0x94))) < 0xF)
+        if (repair_signed_field < 0xF)
         {
           if (func_800819EC((s32) temp_s4, 0x1B) != 0)
           {

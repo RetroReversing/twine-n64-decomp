@@ -40,13 +40,14 @@ void func_80117784(s32 arg0, s32 arg1, SVec3 *arg2, SVec3 *arg3)
   cur = NULL;
   if (count != 0)
   {
+    f32 neg = -1.0f;
     e = sSearchEntries;
     do
     {
       ((volatile SNode *) e)->a = 0;
       ((volatile SNode *) e)->next = 0;
       ((volatile SNode *) e)->parent = 0;
-      ((volatile SNode *) e)->cost = -1.0f;
+      ((volatile SNode *) e)->cost = neg;
       e++;
       i++;
     }

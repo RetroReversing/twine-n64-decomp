@@ -41,7 +41,7 @@ void func_80096758(s32 arg0, void *arg1, void *arg2) {
         M2C_FIELD(temp_v1_2, u8 *, 0x20) = (u8) M2C_FIELD(temp_v0, u8 *, 0x20);
         return;
     }
-    if ((u8)(arg0 + 0x80) < 2) {
+    if (((arg0 + 0x80) & 0xFF) < 2U) {
         var_v0 = temp_v1;
         goto pair_entry;
     }
@@ -68,3 +68,4 @@ void func_80096758(s32 arg0, void *arg1, void *arg2) {
         *to = *from;
     }
 }
+
