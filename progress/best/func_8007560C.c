@@ -133,7 +133,7 @@ f32 __repair_phase_temp_fs0_2;
       {
         func_80048794(var_s0, gProbeObjectList);
         var_fv0 = (f64) 0;
-        func_8004844C(*var_s1, 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset);
+        do { func_8004844C(*var_s1, 160.0f, 120.0f, 320.0f, 240.0f, (f32) xOffset, (f32) yOffset); } while (0);
         if (var_s0 >= gVisibleSaveSlotCount)
         {
           var_v1 = 1 << var_s0;

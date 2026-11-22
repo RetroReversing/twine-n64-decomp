@@ -1265,9 +1265,9 @@ case 2: case 3: goto out_of_line_actor;
       {
         *inline_fn2(temp_v0_9) = var_fv1_6;
       }
-        temp_fv1_5 = func_80081B44(temp_s4, 2, 3) * 0.2f;
+        temp_fs2_2 = func_80081B44(temp_s4, 2, 3) * 0.2f;
         temp_fv0_23 = *((f32 *) (((char *) temp_s1) + 0x50));
-        temp_fv1_5 = ((temp_fv1_5 - temp_fv0_23) * 0.3f) + temp_fv0_23;
+        temp_fv1_5 = ((temp_fs2_2 - temp_fv0_23) * 0.3f) + temp_fv0_23;
         *((f32 *) (((char *) temp_s1) + 0x50)) = temp_fv1_5;
         if (temp_fv1_5 < (-0.2f))
       {
@@ -1278,8 +1278,8 @@ case 2: case 3: goto out_of_line_actor;
       {
         *((f32 *) (((char *) temp_s1) + 0x50)) = 0.2f;
       }
-        temp_fv1_5 = *((f32 *) (((char *) temp_s1) + 0x50));
-        func_8011A234(arg0, *((void **) (((char *) temp_s1) + 0xB8)), *inline_fn2(*((void **) (((char *) temp_s1) + 0xB8))), temp_fv1_5, 0, 1);
+        temp_fs2_2 = *((f32 *) (((char *) temp_s1) + 0x50));
+        func_8011A234(arg0, *((void **) (((char *) temp_s1) + 0xB8)), *inline_fn2(*((void **) (((char *) temp_s1) + 0xB8))), temp_fs2_2, 0, 1);
         goto block_430;
 
       case 3:

@@ -194,10 +194,10 @@ __repair_literal = 2;
             temp_v1_4 = temp_s1 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 8);
             M2C_FIELD(temp_v1_4, u8 *, 0x1FC) += 1;
             var_a0_4 = 0xD9;
-            if (M2C_FIELD(arg0, u16 *, 0x78) != 3) {
-                requestSound(0xD9U);
-            } else {
+            if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
                 goto block_43;
+            } else {
+                requestSound(0xD9U);
             }
             goto block_45;
         }
@@ -231,9 +231,11 @@ block_45:
             temp_a1_2 = M2C_FIELD(temp_s4, s8 *, 4);
             var_v0 = 1;
             if (temp_a1_2 != 0) {
+                u8 tableByte;
                 temp_a0_3 = M2C_FIELD(temp_s2, u16 *, 0x3E);
-                temp_v1_6 = *(u8 *)(D_800C471C + ((temp_a0_3 + temp_a1_2) * 0xE8));
-                if (temp_v1_6 != M2C_FIELD(temp_s4, u8 *, 0x80)) {
+                tableByte = *(u8 *)(D_800C471C + ((temp_a0_3 + temp_a1_2) * 0xE8));
+                if (tableByte != M2C_FIELD(temp_s4, u8 *, 0x80)) {
+                    temp_v1_6 = tableByte;
                     if (M2C_FIELD((temp_s1 + ((s32) (func_80063C7C((s16) (temp_a0_3 + temp_a1_2)) << 0x10) >> 0xD)), s8 *, 0x1FF) == 0) {
                         M2C_FIELD((temp_s1 + ((s32) (func_80063C7C((s16) (M2C_FIELD(temp_s2, u16 *, 0x3E) + (s8) (u8) M2C_FIELD(temp_s4, s8 *, 4))) << 0x10) >> 0xD)), s8 *, 0x1FF) = 2;
                     } else {
@@ -280,4 +282,5 @@ block_66:
     var_v0 = 1;
     return var_v0;
 }
+
 

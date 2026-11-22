@@ -60,6 +60,7 @@ void func_80059944(void *arg0)
   s32 var_v0_3;
   s32 var_v0_4;
   s32 var_v0_7;
+  s32 var_v0_7_arm;
   u32 var_v1;
   s32 temp_a0_2;
   register s32 temp_a0_3;
@@ -825,9 +826,9 @@ void func_80059944(void *arg0)
 
         if ((temp_v0_23 == 0) || ((*(gTrackMarkerDone + temp_v0_23)) != 0))
         {
-          var_v0_7 = 0xF;
+          var_v0_7_arm = 0xF;
           block_217:
-          if ((((*((u8 *) (((char *) temp_s0) + 0x4A))) == var_v0_7) && ((temp_fv0_3 = (*((f32 *) (((char *) temp_s0) + 8))) - 1.0f, *((f32 *) (((char *) temp_s0) + 8)) = temp_fv0_3, temp_fv0_3 <= 0.0f))) || ((temp_v1_20 = getTrackTriggerMask(*((u16 *) (((char *) temp_s0) + 0x40))), (*((s32 *) (((char *) arg0) + 0x60))) & temp_v1_20)))
+          if ((((*((u8 *) (((char *) temp_s0) + 0x4A))) == var_v0_7_arm) && ((temp_fv0_3 = (*((f32 *) (((char *) temp_s0) + 8))) - 1.0f, *((f32 *) (((char *) temp_s0) + 8)) = temp_fv0_3, temp_fv0_3 <= 0.0f))) || ((temp_v1_20 = getTrackTriggerMask(*((u16 *) (((char *) temp_s0) + 0x40))), (*((s32 *) (((char *) arg0) + 0x60))) & temp_v1_20)))
           {
             goto block_220;
           }
