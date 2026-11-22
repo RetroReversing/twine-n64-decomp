@@ -1893,15 +1893,15 @@ repair_advance_state:
        func_80047B14(temp_a0_6, 0.8f, temp_a0_6);
        motion_24 = repair_shifted_float((f32 *) (((char *) arg0) + 0x24), var_s5);
        motion_28 = repair_shifted_float((f32 *) (((char *) arg0) + 0x28), var_fp);
-       motion_40 = repair_shifted_float((f32 *) (((char *) arg0) + 0x40), D_800E1A1C);
+       motion_40 = (f32) ((*(f32 *) (((char *) arg0) + 0x40)) + D_800E1A1C);
        motion_2C = repair_shifted_float((f32 *) (((char *) arg0) + 0x2C), var_s6);
        motion_3C = repair_shifted_float((f32 *) (((char *) arg0) + 0x3C), frame.speed);
-       motion_44 = repair_shifted_float((f32 *) (((char *) arg0) + 0x44), roll.number);
-       *((f32 *) (((char *) arg0) + 0x40)) = motion_40;
-       *((f32 *) (((char *) arg0) + 0x28)) = motion_28;
+       motion_44 = (f32) ((*(f32 *) (((char *) arg0) + 0x44)) + roll.number);
        *((f32 *) (((char *) arg0) + 0x24)) = motion_24;
-       *((f32 *) (((char *) arg0) + 0x2C)) = motion_2C;
        *((f32 *) (((char *) arg0) + 0x3C)) = motion_3C;
+       *((f32 *) (((char *) arg0) + 0x40)) = motion_40;
+       *((f32 *) (((char *) arg0) + 0x2C)) = motion_2C;
+       *((f32 *) (((char *) arg0) + 0x28)) = motion_28;
        *((f32 *) (((char *) arg0) + 0x44)) = motion_44;
        goto block_474;
        }

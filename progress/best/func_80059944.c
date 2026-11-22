@@ -25,12 +25,13 @@ inline static u16 *inline_fn(void *arg0, int arg1)
 
 void func_80059944(void *arg0)
 {
-  volatile struct 
+  volatile union
   {
-    f32 x;
-    f32 y;
-    f32 z;
-  } delta;
+    struct { f32 x, y, z; } delta;
+    s16 state;
+  } scratch;
+#define delta scratch.delta
+#define var_v0_5 scratch.state
   f32 temp_fs0;
   f32 temp_fs0_2;
   f32 temp_fv0;
@@ -51,7 +52,6 @@ void func_80059944(void *arg0)
   s32 temp_v1_7;
   s32 temp_v1_9;
   s32 var_v0_2;
-  volatile s16 var_v0_5;
   s32 var_v0_6;
   s32 temp_a0;
   s32 temp_v1_20;

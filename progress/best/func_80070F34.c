@@ -548,16 +548,8 @@ void func_80070F34(void *arg0)
         *((s32 *) (((char *) temp_v0_11) + 0x28)) = 0x80;
         *((s16 *) (((char *) temp_v0_11) + 0x20)) = 0;
         *((s16 *) (((char *) temp_v0_11) + 0x22)) = 0;
-        if (!(temp_fv1_12 >= 2.1474836e9f))
-        {
-          var_v1_4 = (s32) temp_fv1_12;
-          var_fv1_2 = 2.0f * height;
-        }
-        else
-        {
-          var_v1_4 = ((s32) (temp_fv1_12 - 2.1474836e9f)) | 0x80000000;
-          var_fv1_2 = 2.0f * height;
-        }
+        var_v1_4 = (u32) temp_fv1_12;
+        var_fv1_2 = 2.0f * height;
         *((s16 *) (((char *) temp_v0_11) + 0x26)) = (s16) var_v1_4;
         var_a1 = (u32) var_fv1_2;
         *((u16 *) (((char *) temp_v0_11) + 0x1E)) = 0x400U;

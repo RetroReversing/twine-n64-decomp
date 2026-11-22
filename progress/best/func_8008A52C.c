@@ -99,10 +99,10 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
   {
     var_a1 = ((s32) (temp_fv0 - D_800D6760)) | 0x80000000;
   }
+  temp_a0 = (*((volatile u32 *) (((char *) arg0) + 0x34))) + (*((volatile u32 *) (((char *) arg0) + 0x38)));
   temp_a3_2 = *((volatile u32 *) (((char *) arg0) + 0x38));
-  temp_a0 = (*((volatile u32 *) (((char *) arg0) + 0x34))) + (*((u32 *) (((char *) arg0) + 0x38)));
   sp28 = 2;
-  if ((((*((volatile u32 *) (((char *) arg0) + 0x38))) != 0) && (((var_v0 = temp_a0 < ((u32) var_a1), (*((u8 *) (((char *) arg0) + 1))) != 0)) || ((var_v0 = temp_a0 < ((u32) var_a1), (*((s32 *) (((char *) arg0) + 0x3C))) == 0)))) && (var_v0 == 0))
+  if (temp_a3_2 != 0 && (*((u8 *) (((char *) arg0) + 1)) != 0 || *((s32 *) (((char *) arg0) + 0x3C)) == 0) && temp_a0 >= (u32) var_a1)
   {
     var_s6 = 0;
     if (temp_a0 < ((u32) (var_a1 + temp_s0_2)))
@@ -356,16 +356,8 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
   }
   *((u16 *) (((char *) temp_s1) + 0x22)) = (u16) (*((u16 *) (((char *) arg0) + 4)));
   temp_fv1_9 = ((*((f64 *) (((char *) arg0) + 8))) - func_8008CD54(*((f64 *) (((char *) arg0) + 8)))) * D_800D6768;
-  if (!(D_800D6770 <= temp_fv1_9))
-  {
-    var_a0_2 = (s16) ((s32) temp_fv1_9);
-    *((s16 *) (((char *) temp_s1) + 0x20)) = (s16) ((s32) temp_fv1_9);
-  }
-  else
-  {
-    var_a0_2 = ((s32) (temp_fv1_9 - D_800D6770)) | 0x80000000;
-    *((s16 *) (((char *) temp_s1) + 0x20)) = var_a0_2;
-  }
+  var_a0_2 = (u32) temp_fv1_9;
+  *((s16 *) (((char *) temp_s1) + 0x20)) = var_a0_2;
   *((s32 *) (((char *) temp_s1) + 0x44)) = 0;
   *((s16 *) (((char *) temp_s1) + 0x4C)) = (s16) (var_a0_2 + (inline_fn2345(arg0) * sp10[4]));
   temp_v0 = ((*D_800E421C) * 0xA10) + D_800E4218;

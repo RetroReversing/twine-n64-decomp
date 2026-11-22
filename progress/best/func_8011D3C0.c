@@ -300,7 +300,7 @@ void func_8011D3C0(void)
                       }
                       *((s32 *) (((char *) temp_v0) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_v0) + 0x28))) & (~0xFC)) | 0xC);
                       func_800448A4(temp_v0, 0x17, 0x1B);
-                      *(var_v0_2 + (((var_s1 & 0xFFFF) * 0x10) + (__base_D_8011F2E8 + 0x10))) = temp_v0;
+                      *(void **)(var_v0_2 + (((var_s1 & 0xFFFF) * 0x10) + (__base_D_8011F2E8 + 0x10))) = temp_v0;
                     }
                   }
                   while (0);
