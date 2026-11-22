@@ -12,8 +12,8 @@ extern s32 D_800C7EA4;
 extern s32 D_800C7EC4;
 extern void *D_800E1A70[];
 extern s32 D_80109B98;
-extern u8 D_8010D2C0[];
-extern s32 D_8010D380;
+extern s32 D_8010D2C0[][7];
+extern s32 D_8010D380[][7];
 extern u8 gTrackMarkerDone[];
 extern s32 sBonusObjectTable;
 inline static u8 inline_fn(void *arg0)
@@ -66,14 +66,7 @@ void func_800740D0(void *arg0)
   switch (temp_v1)
   {
     case 0:
-      {
-        s32 row = *((u8 *) ((char *) temp_s1 + 0x33));
-        s32 *table = &D_8010D380;
-        s32 *entry = table + row * 7;
-        entry += *((u8 *) ((char *) temp_s1 + 0x34));
-        temp_v1_8 = entry;
-      }
-      if (*(volatile s32 *)temp_v1_8 == *((s32 *) ((char *) temp_s1 + 0x18)))
+      if (D_8010D380[*((u8 *) ((char *) temp_s1 + 0x33))][*((u8 *) ((char *) temp_s1 + 0x34))] == *((s32 *) ((char *) temp_s1 + 0x18)))
     {
       temp_s3 = *((void **) (((char *) temp_s1) + 4));
       if (((*((f32 *) (((char *) temp_s1) + 0xC))) != 65536.0f) && (func_80045590(temp_s1 + 8, sBonusObjectTable + 0x24) > (2.0f * (*((f32 *) (((char *) temp_s1) + 0x28))))))
@@ -219,21 +212,13 @@ void func_800740D0(void *arg0)
       *((void **) (((char *) temp_s1) + 4)) = NULL;
       if ((*((s32 *) (((char *) temp_s1) + 0x1C))) & 1)
     {
-      temp_v1_8 = (&D_8010D380) + (*((u8 *) (((char *) temp_s1) + 0x33))) * 7;
-      temp_v1_8 += *((u8 *) (((char *) temp_s1) + 0x34));
-      *temp_v1_8 += 1;
+      D_8010D380[*((u8 *) (((char *) temp_s1) + 0x33))][*((u8 *) (((char *) temp_s1) + 0x34))] += 1;
     }
       temp_a1_2 = *((u8 *) (((char *) temp_s1) + 0x34));
       temp_a1_3 = temp_a1_2;
       if (temp_a1_2 != 0)
     {
-      s32 *__repair_table_compare;
-      temp_v1_5 = (*((u8 *) (((char *) temp_s1) + 0x33))); temp_v0_7 = temp_v1_5 * 7;
-      __repair_table_compare = &D_8010D380;
-      __repair_table_compare += temp_v0_7;
-      __repair_table_compare += temp_a1_3;
-      __base_D_8010D2C0 = D_8010D2C0;
-      if ((*__repair_table_compare) == *(s32 *)(temp_a1_3 * 4 + (temp_v0_7 * 4 + __base_D_8010D2C0)))
+      if (D_8010D380[*((u8 *) (((char *) temp_s1) + 0x33))][temp_a1_3] == D_8010D2C0[*((u8 *) (((char *) temp_s1) + 0x33))][temp_a1_3])
       {
         temp_a0_6 = D_800E1A70[temp_a1_2];
         if (temp_a0_6 != NULL)
