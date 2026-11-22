@@ -111,7 +111,7 @@ void func_800770E4(void *arg0)
     do
     {
       origin_x = *((f32 *) (((char *) arg0) + 0x24));
-      origin_z = *((f32 *) (((char *) arg0) + 0x2C)); var_fv0 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A0)); var_fv1_2 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A8)); var_v1_2 = *((u32 *) (((char *) __repair_phase_storage.pointer) + 0x18C)); var_s2 = 0; var_s3 = 0;
+      origin_z = *((f32 *) (((char *) arg0) + 0x2C)); var_fv0 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A0)); var_fv1_2 = *((f32 *) (((char *) __repair_phase_storage.pointer) + 0x1A8)); var_v1_2 = *((u32 *) (((char *) __repair_phase_storage.pointer) + 0x18C)); var_s3 = 0; var_s2 = 0;
       *((s32 *) (((char *) __repair_phase_storage.pointer) + 0xCC)) = 0;
     }
     while (0);
@@ -430,7 +430,8 @@ void func_800770E4(void *arg0)
     }
     if ((*((s32 *) (((char *) arg0) + 0x60))) & 0x40)
     {
-      var_a1 = 0x85;
+      func_80077960(arg0, 0x85);
+      return;
     }
     else
     {
@@ -452,19 +453,16 @@ void func_800770E4(void *arg0)
       }
       if (randomIntBelow((u32) var_fv1) != 5)
       {
-        var_a1 = 0x15;
+        func_80077960(arg0, 0x15);
+        return;
       }
       else
       {
         *((s16 *) (((char *) temp_s0_2) + 0x7C)) = 0;
-        var_a1 = 0x1A;
+        func_80077960(arg0, 0x1A);
       }
     }
-    goto block_90;
   }
 
-  return;
-  block_90:
-  func_80077960(arg0, var_a1);
-
 }
+

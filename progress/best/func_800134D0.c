@@ -683,10 +683,10 @@ u32 __repair_phase_var_s3;
       {
         do
         {
-          __repair_phase_var_t3_4 = (u8) (*var_v1_8);
+          var_t3_3 = (u8) (*var_v1_8);
           var_v1_8 += 1;
           var_t1_8--;
-          *var_fp = __repair_phase_var_t3_4;
+          *var_fp = var_t3_3;
           var_fp += 1;
         }
         while (var_t1_8);

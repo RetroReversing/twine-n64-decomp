@@ -82,7 +82,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   long temp_v0_19;
   s32 temp_v0_21;
   s32 temp_v0_3;
-  unsigned long long temp_v0_4;
+  s32 temp_v0_4;
   int temp_v0_5;
   s32 temp_v0_6;
   s32 temp_v0_7;
@@ -210,18 +210,16 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     temp_v1_3 = *((s32 *) (((char *) arg0) + 0x60));
     if ((temp_v1_3 != (-1)) && ((temp_a1 = *((u8 *) (((char *) arg0) + 0x4A)), temp_a1 != 0xFF)))
     {
+      s8 value = temp_v1_3;
       temp_v0_2 = *((u8 *) (((char *) arg0) + 0x4B));
       if (temp_v0_2 == 0xFF)
       {
-        *(((s8 *) (&D_80100C7C)) + (temp_v1_3 & 0xFF)) = (s8) temp_v1_3;
+        ((s8 *) &D_80100C7C)[(u8) value] = value;
       }
       else
       {
-        do
-        {
-          *(((temp_v0_2 * 0x10) + ((s8 *) (&D_801007D9))) + temp_a1) = (s8) temp_v1_3;
-        }
-        while (0);
+        s8 (*rows)[16] = (s8 (*)[16]) &D_801007D9;
+        rows[temp_v0_2][temp_a1] = value;
       }
     }
     var_a1 = *((u8 *) (((char *) arg0) + 0xBF));
@@ -287,9 +285,11 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   }
   if ((*((s32 *) (((char *) arg0) + 0x9C))) == 0)
   {
-    s32 invalidVoice = -1;
-    s32 divisorReciprocal = 0x51EB851F;
+    s32 invalidVoice;
+    s32 divisorReciprocal;
     D_80100868 = 1;
+    invalidVoice = -1;
+    divisorReciprocal = 0x51EB851F;
     loop_25:
     D_800FDB9C = *((u32 *) (((char *) (*((void **) (((char *) arg0) + 4)))) + 0));
 
@@ -574,7 +574,8 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
           }
           else
           {
-            var_v1_2 = *(((temp_v0_16 * 0x10) + ((s8 *) (&D_801007D9))) + temp_a1_2);
+            s8 (*rows)[16] = (s8 (*)[16]) &D_801007D9;
+            var_v1_2 = rows[temp_v0_16][temp_a1_2];
             var_v0_3 = temp_v1_9 & 0xFF;
           }
           var_v0_2 = 0;
@@ -1172,6 +1173,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     *((s32 *) (((char *) arg0) + 0x9C)) = 0U;
   }
 }
+
 
 
 
