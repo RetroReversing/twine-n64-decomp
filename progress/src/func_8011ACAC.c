@@ -7,7 +7,7 @@ s32 func_80063C7C(s32 a, s32 b);
 void func_8007089C(void *a, s32 b, s32 c);
 
 void func_8011ACAC(void *a0, u8 *a1) {
-    s16 s0 = 0;
+    s32 s0 = 0;
     u16 s2 = 0;
     u8 *s1;
     u8 *p;
@@ -60,7 +60,7 @@ void func_8011ACAC(void *a0, u8 *a1) {
         s32 first = *(u16 *)(s1 + 2);
         s32 id = s0;
         s32 one = 1;
-        do { p = a1 + (first << 3); } while (0);
+        ret = first << 3; ret = (unsigned int)a1 - (0U - (unsigned int)ret); p = (u8 *)(unsigned int)ret;
         first = s0 - first;
         p[0x1FC] = one;
         p[0x1FE] = first;

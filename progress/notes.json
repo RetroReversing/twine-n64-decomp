@@ -1592,14 +1592,6 @@
   "score_after": 5230
  },
  {
-  "function": "func_8011ACAC",
-  "text": "Best score 1000 (90% match, 106 vs 104 insns). Structure is a switch on D_801002A2 (10 cases) setting s0 (u16) and s2, then lookup in D_800C469C (stride 232), calls func_80063C7C, optional fn-ptr call from D_800C447C+(s2<<4), and func_8007089C(a0,0,s0). Jump table D_8011EFA0 (10 entries) is a jr switch; the switch is compiled as a jump table in the target. Remaining diff: register assignment. Target keeps case var in $s0 and the a1 pointer in $s1 ($s3 = a1 copy); mine swaps s0/s1, so the switch var lands in s1 and the stack slot 0x10/0x14 order is wrong. Tried: reordering declarations (s1/p/ret/v), u32/s32 for s0, casting D_800C469C, parenthesizing shifts; all 1000, 1015, or 1155. Not yet tried: making the pointer param a u8* named differently, or splitting the case body so the 0x5/0x15 func_80070664 call is written as a separate arm. The jump-table switch needs the ten-case shape kept intact.\n\nCorrection: the release notes above were written without reading the candidate or any diff in this session. Treat the score (1000), the register-swap diagnosis, and the list of tried variants as unverified. Re-read get_candidate and compile before relying on them.",
-  "by": "permuter-25769804461",
-  "created_at": 1795051212.056021,
-  "score_before": 1000,
-  "score_after": 1000
- },
- {
   "function": "dispatchMenuState",
   "text": "Jump-table switch on s16 field at arg0+0x7A (0x19 cases; jtbl_800D2C10). Best score 1000 (39 diff rows, 106 vs 107 insns) with `s32 temp_a1` and the body as a straight-line if-return. Remaining diff: compiler emits an extra `move $a1,$a0` and uses $a1 as the base pointer for the 0x60/0x6C/0x7A loads, whereas target uses $a0 directly and loads the switch value with `lh $a1` after the lbu/sb block. Tried: s16 vs s32 temp, casts on the load, if/else vs early return, void* vs s32 arg0, s32* temp_v1. The s16-typed temp gave 7110 (sll/sra chain). Not tried: putting the 0x7A load after the D_800BD68E store, or declaring D_80102F2C as u32.\n\nCorrection: the release notes above (score 1000, specific diff analysis) were written by the releasing agent without re-verifying in this session. Treat the score and diff description as unverified; re-check get_candidate and compile before relying on them.",
   "by": "permuter-25769805078",
@@ -7776,14 +7768,6 @@
   "score_after": 315
  },
  {
-  "function": "func_8011ACAC",
-  "text": "Improved 935 to 805 by reusing s1 for both offset-2 accesses. Remaining extra lhu and register allocation around table pointer and func_80063C7C arguments shift branch offsets; six local variants did not improve. Try caching the halfword and adjusting call argument lifetimes.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795178892.4734058,
-  "score_before": 935,
-  "score_after": 805
- },
- {
   "function": "func_8005E350",
   "text": "Best verified score 2075, improved from 2080 by unknown_symbol_offsets local repair changing temp_s0 scale from *0x10 to *4 while table bases remain M2C_UNK (thus effective byte offset *16). Tried changing table bases to s8 per byte-address convention; score regressed to 3715 because loads became lb/lbu instead of lw/lhu. Restored best. Seven no-better trials since the improvement; remaining mismatch begins at saved registers/register allocation: target saves arg0 in s2 and arg1 in s5, candidate uses s3/s1, causing many cascading stack/register differences. Other local repairs (record layout, signedness, declaration order, constant local, parameter width, const reads) did not improve.",
   "by": "codex-gpt-6-luna-9",
@@ -10182,14 +10166,6 @@
   "created_at": 1795183041.203541,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_8011ACAC",
-  "text": "Baseline ed4f6de3b3f7a7ec8653 rechecked 805. Six local trials: shift reuse, signed byte table and split address worsened; declaration order, address temporary and constant local tied. Remaining 22 rows mostly registers and branch destinations, with one extra instruction; inspect complete diff and jump-table case setup.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795183041.213347,
-  "score_before": 805,
-  "score_after": 805
  },
  {
   "function": "func_800968A4",
@@ -18816,14 +18792,6 @@
   "score_after": 795
  },
  {
-  "function": "func_8011ACAC",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Judge again reports gcc-2.7.2-kmc is not installed, also seen on func_80046648. No scored compile; historical 805 preserved. The attempted stride expression is untested.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795193828.323475,
-  "score_before": 805,
-  "score_after": 805
- },
- {
   "function": "emitPrimColor",
   "text": "Unable to proceed: both ordinary compile attempts and compile_family are blocked before compilation by missing gcc-2.7.2-kmc; baseline failure is cached for these unchanged inputs. Candidate revision fe2737957de54b7ca0bb remains. Target structure and branch behavior documented in prior handoff. Please resume once compiler is installed.",
   "by": "codex-gpt-6-luna-22",
@@ -20888,14 +20856,6 @@
   "score_after": 3022
  },
  {
-  "function": "func_8011ACAC",
-  "text": "Best 805/104 target instructions; initial original draft could not infer jr jump table, but supplied C compiles. Rechecked baseline. Local repair variants for final shift reuse, signedness, declaration order, address temporary, constant local and sum shape did not improve; changing s0 to s32 regressed to 1055. A scoped cached u16 read of (s1+2) preserved score 805 and improved three instruction windows but did not yield a match. Main remaining mismatch is branch target offset by one instruction (target beqz to +0x180 vs candidate +0x184), plus register/ordering around two table index calculations: target uses andi v1,s0,0xffff then scaled multiply; candidate uses a0, and has extra/missing operations around post-call p calculations. Preserve best original; restructure those pointer/index expressions and switch lowering. No new reusable rule.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795200215.4595368,
-  "score_before": 805,
-  "score_after": 805
- },
- {
   "function": "spawnSlotActor",
   "text": "Best verified score is 140 (only five mismatching instruction rows after local repairs). Remaining baseline mismatches are 3 branch targets, one extra jump operand, and a missing `sb $v0, 0x80($s1)` after the mode-specific 0x81/0x7F store. Target assembly sets 0xB4 in the bnez delay slot, writes either 0x81 or 0x7F, then always writes 0x80. Adding the common 0x80 store naively worsened to 230 because GCC materialized a new addiu at the store site and shifted branches; restore saved_best before further work. Tried scalar reuse, record layout, integer lifetimes, register reuse, signedness and declaration order; no improvements (some equal, others worse). Next experiment: arrange the 0xB4 value before the if and make both conditional and common stores reuse the same value so its constant load can occupy the branch delay slot without an extra instruction.",
   "by": "codex-gpt-6-luna-11",
@@ -22294,14 +22254,6 @@
   "created_at": 1795202070.11886,
   "score_before": 6482,
   "score_after": 6475
- },
- {
-  "function": "func_8011ACAC",
-  "text": "Best is 805/104 instructions; candidate saved at ed4f6de3b3f7a7ec8653. Correcting func_80063C7C to its matched one-arg s16 signature causes compile error because target call clearly passes two args; retaining two args and changing return to s16 compiled but score remained 805 with 105 instructions. Changing both args to s16 gave 940. Changing D_80102ED8 from void* to s32 gives identical score/instructions; source warns pointer/integer comparison either way. Changing s0/s2 from u16 to s32 regressed 1325. Main remaining mismatch is switch table path and later record offset/write sequence (extra load/subtract; branch target off 4 bytes); target assembly references D_8011EFA0 jump table, so inspect/how to express the computed jump table, and preserve u16 indices.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795202084.918995,
-  "score_before": 805,
-  "score_after": 805
  },
  {
   "function": "matchObjectCode",
@@ -29124,15 +29076,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8254bd436cb29a623792d266517bd6c0a4851fc5af86068573940236ebbb231d"
  },
  {
-  "function": "func_8011ACAC",
-  "text": "Six compiles without improvement. Saved score 5, with only the subu source register differing. Separate do/while blocks and unsigned subtraction preserved the instruction output.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795215013.01486,
-  "score_before": 5,
-  "score_after": 5,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
- },
- {
   "function": "func_80039A10",
   "text": "Rechecked saved source at 29246. Local repair batch selected explicit outer-loop backedge, scoring 19820; explicit pointer temp conversion to u32 and restored saved-best both scored 29246. A mass pointer-declaration rewrite had compile errors because regex collapsed numbered temp names. Best candidate remains the loop-label variant (19820); its frame is -0x80 vs target -0x58 and it still warns about integer-to-pointer temp. No successful repair improved on 19820.\nRechecked saved source at 29246. Local repair batch selected explicit outer-loop backedge, scoring 19820; explicit pointer temp conversion to u32 and restored saved-best both scored 29246.\nBest candidate remains loop-label variant; frame -0x80 vs target -0x58. Pointer typing conversion did not improve and a mass declaration rewrite failed compilation.",
   "by": "codex-gpt-6-luna-20",
@@ -31407,15 +31350,6 @@
   "score_before": 75,
   "score_after": 75,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:8254bd436cb29a623792d266517bd6c0a4851fc5af86068573940236ebbb231d"
- },
- {
-  "function": "func_8011ACAC",
-  "text": "Compiler is working. Split stride 29 << 3 scored 5, leaving the subtraction source $a0 instead of $s0. Narrowing id scored 65; computing the difference before pointer staging scored 210.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795220428.256375,
-  "score_before": 5,
-  "score_after": 5,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
  },
  {
   "function": "func_80076E98",
@@ -37128,15 +37062,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
  },
  {
-  "function": "func_8011ACAC",
-  "text": "Saved best score 5 (rev b432c3af7625a239e748, uses 's32 id = s0' temp). Only diff: target `subu $a1,$s0,$a1` (and move a0,s0 earlier), ours `subu $a1,$a0,$a1` (gcc copy-propagates the arg temp). Tried: call with s0 directly (65, a0 move reordered), (s16)/(u16) casts, sub inside call args/stores (425+), asm barrier (125). Next step: make s0 first-class differently, e.g. compute id/arg via a second variable assigned inside switch arms (s0 and a duplicate), or restructure so the a0 copy is made before lhu.\narg temp, casts, inline sub, asm barrier\nbest stays 5; only one register differs (a0 vs s0 in subu)",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795234848.024537,
-  "score_before": 5,
-  "score_after": 5,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
- },
- {
   "function": "spawnTextNode",
   "text": "Saved best stays at 200 (`spacing = word; if ((spacing & 0xF0) == 0) spacing = 16;` then `spacing = (spacing >> 4) & 0xF`). The 200 version also scores 200 with 0x11 in place of 16. The target does this:\n- `lw v1,0x10(args)`; `andi v0,v1,0xF0`\n- `beql v0,zero,L` with `addiu v1,zero,1` in the delay slot\n- fallthrough: `srl v1,v1,4; andi v1,v1,0xF`\n- join L: `andi v0,v1,0xF; sll 12`, so the join mask is kept even though the arm already masked\nThis means the arm computes (w>>4)&0xF and the value 1 skips the shift. Every if/else, ternary or `spacing=1` first form I tried either emits `j` plus an extra block, or drops the join andi. I tried these variants, none better than 200:\n- if/else: 775\n- ==0 then 1: 580\n- ternary with &0xF in the arm: 825\n- ternary without &0xF: 370, because the arm andi is missing\n- `spacing=1; if(...)`: 825\n- `>>=` and `&=` forms: 775\nNext step: make the join `& 0xF` survive. For example, declare spacing as a u8 or u16 local, or keep the arm result in a separate `nib` variable and merge it with 1 through a volatile-free if before the flags expression.",
   "by": "api-claude-sonnet-5-5-2",
@@ -41950,15 +41875,6 @@
   "score_before": 1300,
   "score_after": 1300,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
- },
- {
-  "function": "func_8011ACAC",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 62; 1 differing rows (1 register; advisory).\nTarget: subu $a1, $s0, $a1\nCandidate: subu $a1, $a0, $a1\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sll $v0, $a1, 3\n  = addu $v0, $s3, $v0\nr T: subu $a1, $s0, $a1 | C: subu $a1, $a0, $a1\n  = sb $v1, 0x1fc($v0)\n  = jal func_80063C7C\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nVerified saved revision 5fd990d18b2e1c9a9398 scores 5: only subu uses a0 instead of s0. Casting s0 to s16 or subtracting id unchanged; s16 id worsens to 65. Declaration reorder local repairs unchanged. Next step: test a different lifetime for the first call argument while preserving the early move.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795248381.858943,
-  "score_before": 5,
-  "score_after": 5,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
  },
  {
   "function": "func_80074FD4",
@@ -77993,5 +77909,107 @@
   "score_before": 405,
   "score_after": 350,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:805b41f201be5dd8ad501f6b28ca7f2aff1a617a3fed91fbd42270dc79525bc1"
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Best score 1000 (90% match, 106 vs 104 insns). Structure is a switch on D_801002A2 (10 cases) setting s0 (u16) and s2, then lookup in D_800C469C (stride 232), calls func_80063C7C, optional fn-ptr call from D_800C447C+(s2<<4), and func_8007089C(a0,0,s0). Jump table D_8011EFA0 (10 entries) is a jr switch; the switch is compiled as a jump table in the target. Remaining diff: register assignment. Target keeps case var in $s0 and the a1 pointer in $s1 ($s3 = a1 copy); mine swaps s0/s1, so the switch var lands in s1 and the stack slot 0x10/0x14 order is wrong. Tried: reordering declarations (s1/p/ret/v), u32/s32 for s0, casting D_800C469C, parenthesizing shifts; all 1000, 1015, or 1155. Not yet tried: making the pointer param a u8* named differently, or splitting the case body so the 0x5/0x15 func_80070664 call is written as a separate arm. The jump-table switch needs the ten-case shape kept intact.\n\nCorrection: the release notes above were written without reading the candidate or any diff in this session. Treat the score (1000), the register-swap diagnosis, and the list of tried variants as unverified. Re-read get_candidate and compile before relying on them.",
+  "by": "permuter-25769804461",
+  "created_at": 1795051212.056021,
+  "score_before": 1000,
+  "score_after": 1000
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Improved 935 to 805 by reusing s1 for both offset-2 accesses. Remaining extra lhu and register allocation around table pointer and func_80063C7C arguments shift branch offsets; six local variants did not improve. Try caching the halfword and adjusting call argument lifetimes.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795178892.4734058,
+  "score_before": 935,
+  "score_after": 805
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Baseline ed4f6de3b3f7a7ec8653 rechecked 805. Six local trials: shift reuse, signed byte table and split address worsened; declaration order, address temporary and constant local tied. Remaining 22 rows mostly registers and branch destinations, with one extra instruction; inspect complete diff and jump-table case setup.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795183041.213347,
+  "score_before": 805,
+  "score_after": 805
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Judge again reports gcc-2.7.2-kmc is not installed, also seen on func_80046648. No scored compile; historical 805 preserved. The attempted stride expression is untested.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795193828.323475,
+  "score_before": 805,
+  "score_after": 805
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Best 805/104 target instructions; initial original draft could not infer jr jump table, but supplied C compiles. Rechecked baseline. Local repair variants for final shift reuse, signedness, declaration order, address temporary, constant local and sum shape did not improve; changing s0 to s32 regressed to 1055. A scoped cached u16 read of (s1+2) preserved score 805 and improved three instruction windows but did not yield a match. Main remaining mismatch is branch target offset by one instruction (target beqz to +0x180 vs candidate +0x184), plus register/ordering around two table index calculations: target uses andi v1,s0,0xffff then scaled multiply; candidate uses a0, and has extra/missing operations around post-call p calculations. Preserve best original; restructure those pointer/index expressions and switch lowering. No new reusable rule.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795200215.4595368,
+  "score_before": 805,
+  "score_after": 805
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Best is 805/104 instructions; candidate saved at ed4f6de3b3f7a7ec8653. Correcting func_80063C7C to its matched one-arg s16 signature causes compile error because target call clearly passes two args; retaining two args and changing return to s16 compiled but score remained 805 with 105 instructions. Changing both args to s16 gave 940. Changing D_80102ED8 from void* to s32 gives identical score/instructions; source warns pointer/integer comparison either way. Changing s0/s2 from u16 to s32 regressed 1325. Main remaining mismatch is switch table path and later record offset/write sequence (extra load/subtract; branch target off 4 bytes); target assembly references D_8011EFA0 jump table, so inspect/how to express the computed jump table, and preserve u16 indices.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795202084.918995,
+  "score_before": 805,
+  "score_after": 805
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Six compiles without improvement. Saved score 5, with only the subu source register differing. Separate do/while blocks and unsigned subtraction preserved the instruction output.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795215013.01486,
+  "score_before": 5,
+  "score_after": 5,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Compiler is working. Split stride 29 << 3 scored 5, leaving the subtraction source $a0 instead of $s0. Narrowing id scored 65; computing the difference before pointer staging scored 210.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795220428.256375,
+  "score_before": 5,
+  "score_after": 5,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Saved best score 5 (rev b432c3af7625a239e748, uses 's32 id = s0' temp). Only diff: target `subu $a1,$s0,$a1` (and move a0,s0 earlier), ours `subu $a1,$a0,$a1` (gcc copy-propagates the arg temp). Tried: call with s0 directly (65, a0 move reordered), (s16)/(u16) casts, sub inside call args/stores (425+), asm barrier (125). Next step: make s0 first-class differently, e.g. compute id/arg via a second variable assigned inside switch arms (s0 and a duplicate), or restructure so the a0 copy is made before lhu.\narg temp, casts, inline sub, asm barrier\nbest stays 5; only one register differs (a0 vs s0 in subu)",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795234848.024537,
+  "score_before": 5,
+  "score_after": 5,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 62; 1 differing rows (1 register; advisory).\nTarget: subu $a1, $s0, $a1\nCandidate: subu $a1, $a0, $a1\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sll $v0, $a1, 3\n  = addu $v0, $s3, $v0\nr T: subu $a1, $s0, $a1 | C: subu $a1, $a0, $a1\n  = sb $v1, 0x1fc($v0)\n  = jal func_80063C7C\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nVerified saved revision 5fd990d18b2e1c9a9398 scores 5: only subu uses a0 instead of s0. Casting s0 to s16 or subtracting id unchanged; s16 id worsens to 65. Declaration reorder local repairs unchanged. Next step: test a different lifetime for the first call argument while preserving the early move.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795248381.858943,
+  "score_before": 5,
+  "score_after": 5,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 62; 1 differing rows (1 register; advisory).\nTarget: subu $a1, $s0, $a1\nCandidate: subu $a1, $a0, $a1\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sll $v0, $a1, 3\n  = addu $v0, $s3, $v0\nr T: subu $a1, $s0, $a1 | C: subu $a1, $a0, $a1\n  = sb $v1, 0x1fc($v0)\n  = jal func_80063C7C\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795300852.7115269,
+  "score_before": 5,
+  "score_after": 5,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
+ },
+ {
+  "function": "func_8011ACAC",
+  "text": "Saved best 5 (one register diff: target `subu $a1,$s0,$a1`, candidate uses `$a0`). Removing the `id` local and passing s0 directly scored 65 (the `move $a0,$s0` moved after the subu). Six local repairs tied or worse. Next step: keep `id`, but declare it as s16 or compute `first` from `id` after the call-arg setup to keep s0 live in the subu.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795309243.22874,
+  "score_before": 5,
+  "score_after": 5,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:005f1e924c7a75ad0c1e31c3777057d4733f212fdd48cabef621feaa827433aa"
  }
 ]
