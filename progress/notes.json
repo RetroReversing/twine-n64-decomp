@@ -49811,107 +49811,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:62c690b83516e710175cc34b83a472f35ee7684b636cc4ae72747c3d6b242d87"
  },
  {
-  "function": "func_8008C870",
-  "text": "Not solved. Revision 987af444f800cfe87e38 is a truncated stub I wrote to probe the compiler; it is not a real reconstruction and scores 19380 (10.2%). Ignore it and start from the m2c draft (fb6f8aa90db0bf2042f6). Facts for the next agent: function is float-heavy (f32 and f64 mix). Takes 8 args, with 4 s16* outputs (arg0, arg1, arg5, arg7) and u32 args arg2/arg3/arg4/arg6. Clamps u32 to 0x7F0000 and uses 0x7FFFFF / 0x3FFFFF masks. Table reads: D_800CF330/D_800CF334 indexed by (x>>16)*4; D_800CF534 and D_800CF534+4 indexed by (x>>22)*4. Constants: 1.0f, 0.000015258789f, 0.00000023841858f, 23195.76f, 32767.0f, -23195.76f, plus f64 offsets D_800D67C0..E8 used for unsigned-to-double conversion. Target has 216 insns with frame -0x18 and the first insns are lw of stack args (0x28-0x34). Needs a proper prototype pass before any C is tuned.\n\nCorrection to the release note: the score 19380 (10.2%) is the only recorded attempt (revision 987af444f800), a truncated probe, not a reconstruction. The argument layout, constants, table indices and frame size in that note were read from the brief and were not verified by compiling. Re-check them against get_assembly and get_function(section=brief) before relying on them.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054383.886098,
-  "score_before": 19380,
-  "score_after": 19380
- },
- {
-  "function": "func_8008C870",
-  "text": "The inherited candidate is a 30-instruction stub against a 216-instruction target (score 19125), so this is not a local repair situation. Recompiled to verify and confirmed only the clamp plus one incomplete floating expression are emitted; compiler also creates unexpected .rodata constants. Target is repetitive fixed-point angle-to-trig interpolation: clamps unsigned angles to 0x7F0000, converts 16-bit angle fraction using double bias constants D_800D67C0..E8 for negative signed conversion, indexes D_800CF330/D_800CF334 and D_800CF534, interpolates adjacent float table entries, scales results by constants, and writes four s16 outputs via pointer args. Function args: arg0/arg1 outputs, arg2/arg3 angle-like words, arg4 likely an additional input, arg5 pointer output, arg6 another angle, arg7 output (confirm stack loads t0=arg4, t3=arg6,t6=arg5,t7=arg7; register args a0-a3). Need reconstruct complete repeated interpolation loops/expressions from full assembly before tuning. Last candidate revision d973914f771f1f1b3e53.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795179249.632668,
-  "score_before": 19125,
-  "score_after": 19125
- },
- {
-  "function": "func_8008C870",
-  "text": "Full interpolation reconstructed from draft with float tables; saved best 3081, revision bab49db61d318fb6f395. Local parameter width, branch orientation, operand order and frame repairs did not improve score. Remaining differences include frame size, unsigned-to-float conversion branches/constants, scheduling and register allocation. A 24-byte unused frame gives target stack size; investigate explicit staged double conversions and constant symbols.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795183750.945437,
-  "score_before": 19125,
-  "score_after": 3081
- },
- {
-  "function": "func_8008C870",
-  "text": "Restored saved_best c536e29c37255ad31818 before handoff; score 1351 rechecked. A compact rewrite tied at 1351 and linked with .rodata +0x20/+0x28 references absent in target, likely literal constants. Saved candidate's most obvious issue is the float lookup tables: D_800CF330/334/534 declaration as f32 arrays maps wrong strides; data evidence shows D_800CF334 contains 128 bytes of entries and D_800CF534 only 12 bytes (likely a small table, not large sine table). Target stack loads four trailing args after 0x18 frame. In rewrite target has bgez while candidate generates bgezl, plus cvt.s.d and wrong 8-byte frame due unprototyped float conversions/precision. Need define exact globals and their element widths, remove invented float constants, inspect signature/ABI and conversion source.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795202580.4004438,
-  "score_before": 1351,
-  "score_after": 1351
- },
- {
-  "function": "func_8008C870",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nVerified best 95, revision bf6c7c7e0a01f9a80f43: computing each y/w table index before unsigned float conversion removes branch and relocation discrepancies. Only 19 FPR register differences remain. Splitting products into float temporaries and direct s16 casts produced identical output. Claim ended at unchanged-output limit. Next test a structural expression or lifetime change rather than equivalent temporary assignments.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795206123.438974,
-  "score_before": 1351,
-  "score_after": 95
- },
- {
-  "function": "func_8008C870",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best 95 (revision bf6c7c7e0a01f9a80f43). Prior work: computing each table index before unsigned float conversion removed branch/relocation diffs; ~19 FPR register differences remain. Float temporaries and direct s16 casts gave identical output. Local random rewrites: 81 proposals, 0 improvements. Untested idea: the D_800CF534 table is small (12 bytes) and may be accessed via a different base/stride than the D_800CF330/334 pair; try a single float array with explicit offset arithmetic for the y/z lookups. Not re-verified in this session; no further compiles made here.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795208132.7962382,
-  "score_before": 95,
-  "score_after": 95
- },
- {
-  "function": "func_8008C870",
-  "text": "Best 95 (99.5%, 216 insns both). Re-verified candidate at bf6c7c7e0a01f9a80f43. Remaining diffs are only FPR allocation (19 rows): target uses $f0 for the first mul.s products where mine uses $f2/$f4, and trunc.w.s results go to $f2 vs my $f0. Prior work: per-index table computation before float conversion removed branch/relocation diffs; float temporaries and direct s16 casts gave identical output; ~81 local rewrites gave no improvement. Untested: reorder the v = r*-23195.76f branch (negate in the else arm) or split the y==0x800000 arm so the mul result lands in $f0 directly.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795209878.477056,
-  "score_before": 95,
-  "score_after": 95
- },
- {
-  "function": "func_8008C870",
-  "text": "Rechecked best 95, with 19 FPR differences and 216 instructions on both sides.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795215841.5517209,
-  "score_before": 95,
-  "score_after": 95,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
- },
- {
-  "function": "func_8008C870",
-  "text": "Reached the four-compile stall threshold. Swapped product operands and tested explicit cast and intermediate products. Best stays 95; all 19 differences are FPR operands.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795226776.4675012,
-  "score_before": 95,
-  "score_after": 95,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
- },
- {
-  "function": "func_8008C870",
-  "text": "Rechecked score 95. Parameter width variants scored 101, 3120, 2525, 2600; unused 24-byte frame local scored 101. Local repair family exhausted. Diff reports 19 register-only discrepancies, first target mul.s $f0,$f6,$f2 versus candidate mul.s $f2,$f6,$f2.\nAll four remaining automated local repairs plus repeated parameter-width check; no variant improved baseline.\nMove-on threshold reached. Mismatch is register allocation only according to diagnostic.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795237803.262016,
-  "score_before": 95,
-  "score_after": 95,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
- },
- {
-  "function": "func_8008C870",
-  "text": "Best remains 95, reverified; 216 instruction count matches target. Exactly 19 remaining FPR register discrepancies, starting at target row 63: target first product mul.s f0,f6,f2 where candidate uses f2; subsequent trunc.w.s / mfc1 destination shifts similarly. Three compiler profile trials: -fno-schedule-insns2 tied at 95; -fno-schedule-insns scored 1795; -fno-cse-skip-blocks 6563. Rewritten equivalent C ties 95. No untried applicable local repairs found.\nEquivalent rewrite and three flag trials including no schedule insns2; local register lifetime family scan yielded no candidates.\nNo improvements; FPR-only differences persist.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795252530.254766,
-  "score_before": 95,
-  "score_after": 95,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
- },
- {
-  "function": "func_8008C870",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 2; 50 differing rows (3 opcode, 30 register, 3 operand, 2 reordered, 12 deleted; advisory).\nTarget: lw $t3, 0x30($sp)\nCandidate: lw $t5, 0x2c($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x18\n  = lw $t0, 0x28($sp)\ni T: lw $t3, 0x30($sp) | C: lw $t5, 0x2c($sp)\ni T: lw $t6, 0x2c($sp) | C: lw $t7, 0x34($sp)\n| T: lw $t7, 0x34($sp) | C: lhu $t6, 0x32($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nSaved 52ef7da17bf4419ef02f improved 95 to 85 by splitting first interpolation from its product and placing *b stores in each branch. 17 FPR operands remain across 216 instructions. Compound assignment before *c and reusing t or p as product each scored 95. Next step: test distinct interpolation and product locals at the non-special *a output around target row 134.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795281008.1338282,
-  "score_before": 95,
-  "score_after": 85,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
- },
- {
   "function": "func_8005C6F8",
   "text": "Saved score 15: three register differences around var_v0, target uses v0 instead of v1. Signed loop index retained score; changing loop bound to != worsened control flow; narrowing var_v0 adds an unwanted mask. Investigate control flow/register lifetime.",
   "by": "codex-gpt-6.1-terra-4",
@@ -77876,5 +77775,160 @@
   "score_before": 4615,
   "score_after": 4480,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:328ea50f416a9149782e35072af807b9e5601f7ce4f9e4e115508d5dbe3ac886"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Not solved. Revision 987af444f800cfe87e38 is a truncated stub I wrote to probe the compiler; it is not a real reconstruction and scores 19380 (10.2%). Ignore it and start from the m2c draft (fb6f8aa90db0bf2042f6). Facts for the next agent: function is float-heavy (f32 and f64 mix). Takes 8 args, with 4 s16* outputs (arg0, arg1, arg5, arg7) and u32 args arg2/arg3/arg4/arg6. Clamps u32 to 0x7F0000 and uses 0x7FFFFF / 0x3FFFFF masks. Table reads: D_800CF330/D_800CF334 indexed by (x>>16)*4; D_800CF534 and D_800CF534+4 indexed by (x>>22)*4. Constants: 1.0f, 0.000015258789f, 0.00000023841858f, 23195.76f, 32767.0f, -23195.76f, plus f64 offsets D_800D67C0..E8 used for unsigned-to-double conversion. Target has 216 insns with frame -0x18 and the first insns are lw of stack args (0x28-0x34). Needs a proper prototype pass before any C is tuned.\n\nCorrection to the release note: the score 19380 (10.2%) is the only recorded attempt (revision 987af444f800), a truncated probe, not a reconstruction. The argument layout, constants, table indices and frame size in that note were read from the brief and were not verified by compiling. Re-check them against get_assembly and get_function(section=brief) before relying on them.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054383.886098,
+  "score_before": 19380,
+  "score_after": 19380
+ },
+ {
+  "function": "func_8008C870",
+  "text": "The inherited candidate is a 30-instruction stub against a 216-instruction target (score 19125), so this is not a local repair situation. Recompiled to verify and confirmed only the clamp plus one incomplete floating expression are emitted; compiler also creates unexpected .rodata constants. Target is repetitive fixed-point angle-to-trig interpolation: clamps unsigned angles to 0x7F0000, converts 16-bit angle fraction using double bias constants D_800D67C0..E8 for negative signed conversion, indexes D_800CF330/D_800CF334 and D_800CF534, interpolates adjacent float table entries, scales results by constants, and writes four s16 outputs via pointer args. Function args: arg0/arg1 outputs, arg2/arg3 angle-like words, arg4 likely an additional input, arg5 pointer output, arg6 another angle, arg7 output (confirm stack loads t0=arg4, t3=arg6,t6=arg5,t7=arg7; register args a0-a3). Need reconstruct complete repeated interpolation loops/expressions from full assembly before tuning. Last candidate revision d973914f771f1f1b3e53.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795179249.632668,
+  "score_before": 19125,
+  "score_after": 19125
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Full interpolation reconstructed from draft with float tables; saved best 3081, revision bab49db61d318fb6f395. Local parameter width, branch orientation, operand order and frame repairs did not improve score. Remaining differences include frame size, unsigned-to-float conversion branches/constants, scheduling and register allocation. A 24-byte unused frame gives target stack size; investigate explicit staged double conversions and constant symbols.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795183750.945437,
+  "score_before": 19125,
+  "score_after": 3081
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Restored saved_best c536e29c37255ad31818 before handoff; score 1351 rechecked. A compact rewrite tied at 1351 and linked with .rodata +0x20/+0x28 references absent in target, likely literal constants. Saved candidate's most obvious issue is the float lookup tables: D_800CF330/334/534 declaration as f32 arrays maps wrong strides; data evidence shows D_800CF334 contains 128 bytes of entries and D_800CF534 only 12 bytes (likely a small table, not large sine table). Target stack loads four trailing args after 0x18 frame. In rewrite target has bgez while candidate generates bgezl, plus cvt.s.d and wrong 8-byte frame due unprototyped float conversions/precision. Need define exact globals and their element widths, remove invented float constants, inspect signature/ABI and conversion source.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795202580.4004438,
+  "score_before": 1351,
+  "score_after": 1351
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nVerified best 95, revision bf6c7c7e0a01f9a80f43: computing each y/w table index before unsigned float conversion removes branch and relocation discrepancies. Only 19 FPR register differences remain. Splitting products into float temporaries and direct s16 casts produced identical output. Claim ended at unchanged-output limit. Next test a structural expression or lifetime change rather than equivalent temporary assignments.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795206123.438974,
+  "score_before": 1351,
+  "score_after": 95
+ },
+ {
+  "function": "func_8008C870",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best 95 (revision bf6c7c7e0a01f9a80f43). Prior work: computing each table index before unsigned float conversion removed branch/relocation diffs; ~19 FPR register differences remain. Float temporaries and direct s16 casts gave identical output. Local random rewrites: 81 proposals, 0 improvements. Untested idea: the D_800CF534 table is small (12 bytes) and may be accessed via a different base/stride than the D_800CF330/334 pair; try a single float array with explicit offset arithmetic for the y/z lookups. Not re-verified in this session; no further compiles made here.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795208132.7962382,
+  "score_before": 95,
+  "score_after": 95
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Best 95 (99.5%, 216 insns both). Re-verified candidate at bf6c7c7e0a01f9a80f43. Remaining diffs are only FPR allocation (19 rows): target uses $f0 for the first mul.s products where mine uses $f2/$f4, and trunc.w.s results go to $f2 vs my $f0. Prior work: per-index table computation before float conversion removed branch/relocation diffs; float temporaries and direct s16 casts gave identical output; ~81 local rewrites gave no improvement. Untested: reorder the v = r*-23195.76f branch (negate in the else arm) or split the y==0x800000 arm so the mul result lands in $f0 directly.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795209878.477056,
+  "score_before": 95,
+  "score_after": 95
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Rechecked best 95, with 19 FPR differences and 216 instructions on both sides.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795215841.5517209,
+  "score_before": 95,
+  "score_after": 95,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Reached the four-compile stall threshold. Swapped product operands and tested explicit cast and intermediate products. Best stays 95; all 19 differences are FPR operands.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795226776.4675012,
+  "score_before": 95,
+  "score_after": 95,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Rechecked score 95. Parameter width variants scored 101, 3120, 2525, 2600; unused 24-byte frame local scored 101. Local repair family exhausted. Diff reports 19 register-only discrepancies, first target mul.s $f0,$f6,$f2 versus candidate mul.s $f2,$f6,$f2.\nAll four remaining automated local repairs plus repeated parameter-width check; no variant improved baseline.\nMove-on threshold reached. Mismatch is register allocation only according to diagnostic.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795237803.262016,
+  "score_before": 95,
+  "score_after": 95,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Best remains 95, reverified; 216 instruction count matches target. Exactly 19 remaining FPR register discrepancies, starting at target row 63: target first product mul.s f0,f6,f2 where candidate uses f2; subsequent trunc.w.s / mfc1 destination shifts similarly. Three compiler profile trials: -fno-schedule-insns2 tied at 95; -fno-schedule-insns scored 1795; -fno-cse-skip-blocks 6563. Rewritten equivalent C ties 95. No untried applicable local repairs found.\nEquivalent rewrite and three flag trials including no schedule insns2; local register lifetime family scan yielded no candidates.\nNo improvements; FPR-only differences persist.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795252530.254766,
+  "score_before": 95,
+  "score_after": 95,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 2; 50 differing rows (3 opcode, 30 register, 3 operand, 2 reordered, 12 deleted; advisory).\nTarget: lw $t3, 0x30($sp)\nCandidate: lw $t5, 0x2c($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x18\n  = lw $t0, 0x28($sp)\ni T: lw $t3, 0x30($sp) | C: lw $t5, 0x2c($sp)\ni T: lw $t6, 0x2c($sp) | C: lw $t7, 0x34($sp)\n| T: lw $t7, 0x34($sp) | C: lhu $t6, 0x32($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nSaved 52ef7da17bf4419ef02f improved 95 to 85 by splitting first interpolation from its product and placing *b stores in each branch. 17 FPR operands remain across 216 instructions. Compound assignment before *c and reusing t or p as product each scored 95. Next step: test distinct interpolation and product locals at the non-special *a output around target row 134.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795281008.1338282,
+  "score_before": 95,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Reached the 4/4 move-on threshold. Tested two first-product lifetime changes (both 95) and direct s16 output casts (85, same differences). The retained baseline is 85 with 17 FPR register differences.\nReuse t for q*t, fold q*t into the output expression, cast output directly to s16.\nScores 95, 95, and 85 with identical displayed differences for the cast trial. Retained baseline first differs at row 63, mul.s destination f4 versus f0.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795283991.246603,
+  "score_before": 85,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Verified 85 with 17 FPR-only differences. Reusing p for q*t emitted identical instructions. Branch inversion scored 1840, narrowing x to u16 scored 2760 and added frame padding scored 91.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795290636.0372689,
+  "score_before": 85,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Reached the 4/4 move-on threshold in the judged variant batch. The first product and output scale operand swaps tied at 85, the combined swap with t reuse scored 95, and the second interpolation product swap scored 90. The retained baseline has 17 FPR-only differences.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795291906.271192,
+  "score_before": 85,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Reached 4/4 with verified baseline score 85. All 17 mismatches are floating-point register operands. The first difference is the q*t destination ($f0 target, $f4 candidate).",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795292843.685205,
+  "score_before": 85,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Verified score 85, 17 FPR operand mismatches. Reused p, inlined the product, staged the scale, and used block-local product (90/95/95/95). Next step: stage both conditional y outputs in separate local floats to test downstream live ranges.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795295599.66389,
+  "score_before": 85,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
+ },
+ {
+  "function": "func_8008C870",
+  "text": "Stage the two y products separately and reuse t for q*t in three independent variants.\nScores 85 (identical diff), 620 and 95. Baseline retained at 85 with 17 FPR differences starting at row 63.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795296738.3191402,
+  "score_before": 85,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
  }
 ]
