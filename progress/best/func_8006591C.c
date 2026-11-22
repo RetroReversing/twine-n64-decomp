@@ -17,16 +17,16 @@ void func_8006591C(void *arg0)
     if (*(&D_80115089 + slot*0xa0)) {
         marker = sTrackMarkerTable[slot];
         if (F(marker,0x11c) != target) {
-            tx = F(marker,0x110)/F(marker,0x78);
+            f32 __repair_clamped_float = F(marker,0x110)/F(marker,0x78);
             ty = -F(marker,0x114)/F(marker,0x7c);
-            if (tx < -1.0f) tx = -1.0f;
-            else if (tx > 1.0f) tx = 1.0f;
+            if (__repair_clamped_float < -1.0f) __repair_clamped_float = -1.0f;
+            else if (__repair_clamped_float > 1.0f) __repair_clamped_float = 1.0f;
             if (ty < -1.0f) ty = -1.0f;
             else if (ty > 1.0f) ty = 1.0f;
             rate = 0.5f;
             if (gGameMode == 0x19) rate = 1.01f;
             x = F(state,0x24);
-            dx = tx-x;
+            dx = __repair_clamped_float-x;
             y = F(state,0x28);
             dx *= rate;
             goto steer;

@@ -240,16 +240,11 @@ void func_80070F34(void *arg0)
         temp_a1 = *((void **) (((char *) temp_v1) + 0x418));
         temp_fv1_3 = ((2.0f * var_fs2) - 66.0f) - 8.0f;
         *((s32 *) (((char *) temp_a1) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_a1) + 0x28))) & (~0xFC)) | 0x10);
-        if (temp_fv1_3 >= 2.1474836e9f)
-        {
-          var_v1 = ((s32) (temp_fv1_3 - 2.1474836e9f)) | 0x80000000;
-          var_fv1 = 2.0f * var_fs1;
-        }
+        if (!(temp_fv1_3 >= 2147483648.0f))
+          var_v1 = (s32)temp_fv1_3;
         else
-        {
-          var_v1 = (s32) temp_fv1_3;
-          var_fv1 = 2.0f * var_fs1;
-        }
+          var_v1 = ((s32)(temp_fv1_3 - 2147483648.0f)) | 0x80000000U;
+        var_fv1 = 2.0f * var_fs1;
         temp_fv1_4 = var_fv1 - 48.0f;
         *((s16 *) (((char *) (*((void **) (((char *) ((void *) ((((int) var_s3) * 4) + ((s32) temp_s2)))) + 0x418)))) + 0x20)) = (s16) var_v1;
         temp_a0 = *((void **) (((char *) ((var_s3 * 4) + temp_s2)) + 0x418));

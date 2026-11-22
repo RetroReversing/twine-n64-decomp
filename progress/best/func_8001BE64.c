@@ -120,12 +120,11 @@ void func_8001BE64(void)
     D_80102FD4 = var_v1;
 
     *((u32 *) (((char *) var_s1) + (-0x14))) = var_v0;
-    var_v0_2 = 0xB1;
-    if (gSceneType == 7)
-    {
-      var_v0_2 = 0x1AD;
+    if (gSceneType == 7) {
+      *((s16 *)((char *)var_s1 - 0x28)) = 0x1AD;
+    } else {
+      *((s16 *)((char *)var_s1 - 0x28)) = 0xB1;
     }
-    *((s16 *) (((char *) var_s1) + (-0x28))) = var_v0_2;
     var_v0 = D_80117730;
     temp_v1 = *((volatile u32 *) (((char *) var_s1) - 0x14));
     if (temp_v1 < var_v0)
@@ -203,3 +202,4 @@ void func_8001BE64(void)
     }
   }
 }
+

@@ -188,9 +188,9 @@ void func_8011D3C0(void)
                     temp_fv1_3 = ((2.0f * var_fs2) - 16.0f) + ((f32) ((s16) sp1E));
                     var_a2_3 = (u32) temp_fv1_3;
                     var_fv1_2 = 2.0f * var_fs0;
-                    temp_fv1_4 = var_fv1_2 - 34.0f;
+                    var_fv1_2 = var_fv1_2 - 34.0f;
                     var_a2_2 = var_a2_3 & 0xFFFF;
-                    var_a3 = (u32) temp_fv1_4;
+                    var_a3 = (u32) var_fv1_2;
                     var_a1 = var_s1;
                     var_a0_2 = *__repair_phase_storage.pointer;
                     goto block_62;
