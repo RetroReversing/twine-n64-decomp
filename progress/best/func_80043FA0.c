@@ -33,6 +33,7 @@ void func_80043FA0(void *arg0)
     s32 *pointer;
     s32 value;
   } __repair_phase_storage;
+  s32 *t34;
   s32 *temp_s1;
   s32 *temp_s2;
   s32 *temp_s6;
@@ -63,14 +64,11 @@ void func_80043FA0(void *arg0)
       }
       func_800134C0();
       func_8000B9B8(sp30, D_54D910 + (*((s32 *) (((u8 *) arg0) + 4))), 0x20);
-      sp8C = *((s32 **) (((u8 *) arg0) + 0x34));
-      if (sp8C != ((u32) NULL))
+      t34 = *((s32 **) (((u8 *) arg0) + 0x34));
+      if (t34 == NULL)
       {
-        goto block_10;
-      }
       var_s5 = func_80083E90((*((u16 *) (((u8 *) sp30) + 4))) * 0x18, 0x2D);
-      if (var_s5 != NULL)
-      {
+      if (var_s5 == NULL) { goto block_24; }
         recordEnd = (s32 *) (((u8 *) var_s5) + ((*((u16 *) (((u8 *) sp30) + 4))) * 0xC));
         func_8000B9B8(sp50, D_54D910 + (*((s32 *) (((u8 *) sp30) + 0))), 0x20);
         temp_v0 = func_800149D4(sp50);
@@ -90,7 +88,11 @@ void func_80043FA0(void *arg0)
           while (0);
           func_80014A0C(recordEnd, var_s5);
         }
-        block_10:
+      }
+      else
+      {
+        sp8C = t34;
+      }
         temp_v0_3 = func_80083E90(((u32) (((*((u16 *) (((u8 *) sp30) + 0x14))) * 8) + (temp_v0_2 = (*((u16 *) (((u8 *) sp30) + 0x0C))) * 4))) + ((*((u16 *) (((u8 *) sp30) + 0x1C))) + temp_v0_2), 0x2D);
 
         if (temp_v0_3 != NULL)
@@ -162,16 +164,12 @@ void func_80043FA0(void *arg0)
         {
           goto block_24;
         }
-      }
-      else
-      {
         block_24:
         if (sp7C != NULL)
         {
           func_80084048(sp7C, 0x2D);
         }
 
-      }
       if ((*((s32 **) (((u8 *) arg0) + 0x34))) == NULL)
       {
         do

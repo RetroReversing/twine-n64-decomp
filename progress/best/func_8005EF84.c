@@ -103,12 +103,12 @@ s32 func_8005EF84(void *arg0, void *arg1)
         ++gTrackMarkerSerial;
         func_80073AF8(0, (&sTrackMarkerTable)[*((s8 *) (((char *) temp_s1) + 0x182))], sp30, -1, -1, 1, 0, 0, 0, 0, 0);
         temp_v1_2 = ((__repair_record_temp_s3 *) temp_s3)->field_28;
-        addition = ((const volatile s16 *) D_800C7C14)[temp_v1_2 * 2];
+        addition = *(volatile s16 *) ((char *) D_800C7C14 + temp_v1_2 * 4);
         temp_v1_3 = temp_s1 + (temp_v1_2 * 2);
         *inline_fn2(temp_v1_3) += addition;
-        temp_s2 = (u16) ((__repair_record_temp_s3 *) temp_s3)->field_28;
-        temp_a0 = temp_s1 + (temp_s2 * 2);
-        temp_v0_2 = D_800C7C16[temp_s2 * 2];
+        temp_v1_2 = (u16) ((__repair_record_temp_s3 *) temp_s3)->field_28;
+        temp_a0 = temp_s1 + (temp_v1_2 * 2);
+        temp_v0_2 = D_800C7C16[temp_v1_2 * 2];
         if (temp_v0_2 < (*inline_fn2(temp_a0)))
         {
           *inline_fn2(temp_a0) = temp_v0_2;

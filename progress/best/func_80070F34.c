@@ -40,6 +40,7 @@ extern s32 sTrackMarkerTable;
 void func_80070F34(void *arg0)
 {
   s16 *__base_D_800C7E10;
+  volatile u32 reserved[2];
   void *sp1C;
   char *temp_s0;
   f32 temp_fs0;
@@ -494,8 +495,8 @@ void func_80070F34(void *arg0)
           temp_v1_16 = *((void **) (((char *) temp_s2) + 0x490));
           *((u16 *) (((char *) temp_v1_16) + 0x1E)) = (u16) ((*((u16 *) (((char *) temp_v1_16) + 0x1E))) | 0x20);
         }
-        *((s32 *) (((char *) temp_v1_17) + 0x10)) = (s32) ((*((s32 *) (((char *) temp_v1_17) + 0x10))) | 0xFF);
         temp_v1_17 = *((void **) (((char *) temp_s2) + 0x490));
+        *((s32 *) (((char *) temp_v1_17) + 0x10)) = (s32) ((*((s32 *) (((char *) temp_v1_17) + 0x10))) | 0xFF);
       }
         break;
 

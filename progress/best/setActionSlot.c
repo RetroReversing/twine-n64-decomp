@@ -32,14 +32,15 @@ s32 setActionSlot(u8 *object, u8 action, s32 value)
       i++;
     }
     while (i < 30);
-    index = gPhaseSlotIds[action].index;
+    id = (u8)action;
+    index = gPhaseSlotIds[id].index;
     if (index != (-1))
     {
       object[0x1fc + (index * 8)] = 1;
     }
-    if (action < 31)
+    if ((u32)id < 31)
     {
-      *((u16 *) ((object + 0x138) + inline_fn(action))) = action | (value << 8);
+      *((u16 *) ((object + 0x138) + inline_fn(id))) = id | ((u8)value << 8);
       found:
       return 1;
 
@@ -47,4 +48,5 @@ s32 setActionSlot(u8 *object, u8 action, s32 value)
   }
   return 0;
 }
+
 

@@ -34,25 +34,25 @@ void func_8006591C(void *arg0)
     }
     if (*(u16 *)((char *)P(arg0,0x68)+0xc)&1) {
         tx = F(state,0x1c);
-        x = F(state,0x24);
-        tx = (tx-x)*0.5f;
+        fx = F(state,0x24);
+        tx = (tx-fx)*0.5f;
         dx = F(state,0x28);
         ty = (F(state,0x20)-0.05f-dx)*0.5f;
         goto follow;
     }
     if (gGameMode == 0x19) {
         tx = F(state,0x1c);
-        x = F(state,0x24);
-        tx -= x;
+        fx = F(state,0x24);
+        tx -= fx;
         ty = F(state,0x20);
         dx = F(state,0x28);
         tx *= 0.5f;
         ty -= dx;
         ty *= 0.5f;
 follow:
-        x += tx;
+        fx += tx;
         dx += ty;
-        F(state,0x24) = x;
+        F(state,0x24) = fx;
         F(state,0x28) = dx;
         return;
     }
