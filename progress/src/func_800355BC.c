@@ -2,7 +2,7 @@
 
 s32 func_80032630(s32);                         /* extern */
 s32 emitPrimColor(void *, void *);              /* extern */
-s32 emit_projection_viewport_commands(void *);                      /* extern */
+void emit_projection_viewport_commands(void);                      /* extern */
 extern s32 D_800B1AC8;
 extern s32 D_801032A0;
 extern void *gObjectListHead;
@@ -32,8 +32,8 @@ s32 *__repair_phase_temp_a0;
     if (var_s2 != NULL) {
         do {
             var_s1 = (*(void **)((char *)((*(void **)((char *)(var_s2) + 0x20))) + 0x58));
+            var_s0 = 1;
             if (var_s1 != NULL) {
-                var_s0 = 1;
                 do {
                     if ((*(u16 *)((char *)(var_s1) + 0x26)) & 0x800) {
                         temp_s4 = (*(void **)((char *)(var_s1) + 4));
@@ -41,7 +41,7 @@ s32 *__repair_phase_temp_a0;
                             if (var_s3) {
                                 if (gRenderMode != 0) {
                                     gRenderMode = 0;
-                                    emit_projection_viewport_commands(var_s2);
+                                    emit_projection_viewport_commands();
                                 }
                                 if (D_8010A924 != 8) {
                                     temp_v1 = sDisplayListCursor;
@@ -53,6 +53,13 @@ s32 *__repair_phase_temp_a0;
                                 if (D_801032A0 != 4) {
                                     temp_v1_2 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
                                     D_801032A0 = 4;
+                                    if (temp_v1_2 == 1) {
+                                        temp_v1_3 = sDisplayListCursor;
+                                        sDisplayListCursor = temp_v1_3 + 2;
+                                        ((__repair_field_0 *)temp_v1_3)->value = 0xFC121824;
+                                        (*(s32 *)((char *)(temp_v1_3) + 4)) = 0xFF33FFFF;
+
+                                    } else {
                                     switch (temp_v1_2) {
 case 4:
                                         temp_a0 = sDisplayListCursor;
@@ -66,14 +73,7 @@ case 4:
                                         ((__repair_field_0 *)temp_a0)->value = 0xFC119823;
                                         (*(s32 *)((char *)(temp_a0) + 4)) = 0xFF32FF7F;
                                         break;
-                                    case 1:
-                                        temp_v1_3 = sDisplayListCursor;
-                                        sDisplayListCursor = temp_v1_3 + 2;
-                                        ((__repair_field_0 *)temp_v1_3)->value = 0xFC121824;
-                                        (*(s32 *)((char *)(temp_v1_3) + 4)) = 0xFF33FFFF;
-                                        break;
-                                    case 0: break;
- /* irregular */
+                                    }
                                     }
                                 }
                                 __repair_phase_temp_a0 = sDisplayListCursor;
@@ -89,7 +89,7 @@ case 4:
                         }
                         do { func_80032630((*(s32 *)((char *)(temp_s4) + 0x3C))); } while (0);
                     }
-                    var_s1 = ((__repair_field_0 *)var_s1)->value;
+                    var_s1 = *(void **)var_s1;
                 } while (var_s1 != NULL);
             }
             var_s2 = (*(void **)((char *)(var_s2) + 0x1C));
