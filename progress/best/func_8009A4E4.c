@@ -37,6 +37,7 @@ s32 func_8009A4E4(void *arg0, u32 *arg1)
   else
     if (temp_lo_4 < temp_a1)
   {
+    s32 temp_v1_arm;
     temp_lo = ((u32) (temp_a1 << 0xC)) / temp_lo_4;
     var_a1 = 0;
     do
@@ -61,8 +62,8 @@ s32 func_8009A4E4(void *arg0, u32 *arg1)
     }
 
     *((s16 *) (((char *) arg0) + 0x50)) = inline_fn(((*((u8 *) (((char *) arg0) + 0x5C))) + (var_a1 * 0xC)) + var_a2);
-    temp_v1 = var_a2; temp_a1_2 = ((u16 *) __base_D_800CFD60)[temp_v1];
-    *((s8 *) (((char *) arg0) + 0xC0)) = (s8) (((u32) ((temp_lo_2 - temp_a1_2) * 0x64)) / ((u32) ((*((u16 *) ((((char *) __base_D_800CFD60) + temp_v1) + 2))) - temp_a1_2)));
+    temp_v1_arm = var_a2; temp_a1_2 = ((u16 *) __base_D_800CFD60)[temp_v1_arm];
+    *((s8 *) (((char *) arg0) + 0xC0)) = (s8) (((u32) ((temp_lo_2 - temp_a1_2) * 0x64)) / ((u32) ((*((u16 *) ((((char *) __base_D_800CFD60) + temp_v1_arm) + 2))) - temp_a1_2)));
   }
   else
   {

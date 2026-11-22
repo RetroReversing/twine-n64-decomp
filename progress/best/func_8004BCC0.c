@@ -69,15 +69,15 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
     u32 gap[2];
   } hit;
   void *spFC;
-  register f32 *sp11C;
-  s32 *sp104;
-  f32 *sp10C;
-  f32 *sp114;
-  f32 *sp124;
-  f32 *sp12C;
-  s16 *sp134;
-  f32 *sp13C;
-  f32 *sp144;
+
+
+
+
+
+
+
+
+
   f32 temp_fs2;
   f32 var_fs0;
   s32 temp_s0;
@@ -96,7 +96,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   s32 temp_v1_9;
   s32 var_s0;
   s32 var_s0_2;
-  volatile int pad2[3];
+  volatile int pad2;
   int var_s2;
   s32 var_s2_2;
   s32 var_s2_3;
@@ -125,7 +125,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   void *var_s1;
   register void *var_s3;
   void *var_s3_2;
-  u32 trailingGap[2];
+  u32 trailingGap[4];
   var_fs0 = arg3;
   var_s5 = arg0;
   spFC = arg2;
@@ -143,6 +143,12 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
     endpoint.v[2] = ((Field_f32 *) (((char *) arg1) + 8))->v;
     if (var_s1 != NULL)
     {
+      register f32 *sp11C;
+      s32 *sp104;
+      f32 *sp10C;
+      f32 *sp114;
+      f32 *sp124;
+      f32 *sp12C;
       sp104 = actorMatrix;
       sp10C = actorStart;
       sp114 = actorEnd;
@@ -245,6 +251,9 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
     }
     if (var_s5 != NULL)
     {
+      s16 *sp134;
+      f32 *sp13C;
+      f32 *sp144;
       sp134 = (s16 *) scratch.start.v;
       sp13C = objectEnd.v;
       sp144 = objectDirection.v;
@@ -368,7 +377,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
                   do
                   {
                     temp_v1_12 = *((u16 *) (((char *) (*((u8 **) (((char *) temp_s1) + 0x38)))) + (var_s0_6 * 2)));
-                    temp_a0_4 = ((Field_s32 *) (((char *) temp_s1) + 0x3C))->v + var_s2_4;
+                    temp_v0 = ((Field_s32 *) (((char *) temp_s1) + 0x3C))->v; temp_a0_4 = temp_v0 + var_s2_4;
                     if ((temp_s4 & temp_v1_12) && (temp_s3_2 & temp_v1_12))
                     {
                       temp_v1_13 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
@@ -404,4 +413,5 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   return 0;
 
 }
+
 

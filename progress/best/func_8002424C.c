@@ -45,6 +45,8 @@ inline static s32 inline_fn2(char *arg0, int arg1)
 void func_8002424C(void)
 {
   unsigned long long __repair_constant = 3;
+  int present;
+  int empty;
   char *__base_D_800BD5D0;
   s16 *temp_s3;
   s32 temp_a0;
@@ -61,6 +63,8 @@ void func_8002424C(void)
   var_s1 = 0;
   __base_D_800BD5D0 = D_800BD5D0;
   temp_s2 = __base_D_800BD5D0 - 0x4C;
+  present = 0xF;
+  empty = 0x10;
   temp_s3 = __base_D_800BD5D0 - 0x34;
   sSaveMenuSpriteSecond = spawnTextNode(__base_D_800BD5D0);
   sSaveMenuSpriteFirst = inline_fn2(__base_D_800BD5D0, 0x24);
@@ -75,11 +79,11 @@ void func_8002424C(void)
       *((s32 *) (D_80109C1C + temp_v0)) = 0;
       if (func_8002D09C(temp_a0) & 0xFFFF)
       {
-        *((s32 *) (((char *) temp_s2) + (-8))) = 0xF;
+        *((s32 *) (((char *) temp_s2) + (-8))) = present;
       }
       else
       {
-        *((s32 *) (((char *) temp_s2) + (-8))) = 0x10;
+        *((s32 *) (((char *) temp_s2) + (-8))) = empty;
       }
       *temp_s3 = var_s1 + 0x4000;
       *((s32 *) (D_80109C18 + (temp_s0 = (var_s1 & 0xFFFF) * 8))) = inline_fn2(temp_s3, 0x14);

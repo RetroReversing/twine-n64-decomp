@@ -233,31 +233,32 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                         temp_s3 = func_8003F83C(&D_800E0B18, &D_800E0B18, temp_s3);
                         if (temp_s3 > 0)
                         {
-                          for (j = 0; j < temp_s3; j++)
+                          f32 *y = (f32 *)((u8 *)&D_800E0B18 + 4);
+                          f32 *x = &D_800E0B18;
+                          for (i = 0; i < temp_s3; y += 9, i++, x += 9)
                           {
-                            f32 *p = (&D_800E0B18) + (j * 9);
-                            if (p[0] < box.values[0])
+                            if (*x < box.values[0])
                             {
                               if (i)
                               {
-                                box.values[0] = p[0];
+                                box.values[0] = *x;
                               }
                               else
                               {
-                                box.values[0] = p[0];
+                                box.values[0] = *x;
                               }
                             }
-                            if (p[0] > box.values[1])
+                            if (*x > box.values[1])
                             {
-                              box.values[1] = p[0];
+                              box.values[1] = *x;
                             }
-                            if (p[1] < box.values[2])
+                            if (*y < box.values[2])
                             {
-                              box.values[2] = p[1];
+                              box.values[2] = *y;
                             }
-                            if (p[1] > box.values[3])
+                            if (*y > box.values[3])
                             {
-                              box.values[3] = p[1];
+                              box.values[3] = *y;
                             }
                           }
 
