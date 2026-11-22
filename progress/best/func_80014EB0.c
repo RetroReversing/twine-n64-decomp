@@ -42,7 +42,6 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
   f32 *scratch;
   void *var_s6;
   void *var_a1;
-  void *var_a0;
   void *temp_s4;
   void *temp_a0;
   void *temp_a3;
@@ -113,12 +112,12 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
             scratch = D_80102E68; var_t0 = &D_800E09F8;
             do
             {
-              var_a0 = *((void **) (*((void **) (((u8 *) var_s6) + 8))));
-              if (var_a0 != NULL)
+              var_a1 = *((void **) (*((void **) (((u8 *) var_s6) + 8))));
+              if (var_a1 != NULL)
               {
                 do
                 {
-                  s32 flags = *((s32 *) (((u8 *) var_a0) + 0x58));
+                  s32 flags = *((s32 *) (((u8 *) var_a1) + 0x58));
                   if (!(flags & 0x20000))
                   {
                     goto nextChild;
@@ -126,14 +125,14 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                   if (!(flags & 0x800))
                   {
                     temp_v1 = gObjectList;
-                    *((s32 *) (((u8 *) var_a0) + 0x58)) = flags | 0x800; gObjectList = var_a0;
-                    *((void **) (((u8 *) var_a0) + 0x1C)) = temp_v1;
+                    *((s32 *) (((u8 *) var_a1) + 0x58)) = flags | 0x800; gObjectList = var_a1;
+                    *((void **) (((u8 *) var_a1) + 0x1C)) = temp_v1;
                   }
                   nextChild:
-                  var_a0 = *((void **) var_a0);
+                  var_a1 = *((void **) var_a1);
 
                 }
-                while (var_a0 != NULL);
+                while (var_a1 != NULL);
               }
               temp_ft0 = ((((*((f32 *) (((u8 *) D_8010D53C) + 0x10))) * (*((f32 *) (((u8 *) var_s6) + 0xC)))) + ((*((f32 *) (((u8 *) D_8010D53C) + 0x14))) * (*((f32 *) (((u8 *) var_s6) + 0x10))))) + ((*((f32 *) (((u8 *) D_8010D53C) + 0x18))) * (*((f32 *) (((u8 *) var_s6) + 0x14))))) + (*((f32 *) (((u8 *) var_s6) + 0x18))); D_800E0C3C = temp_ft0;
               if (!(temp_ft0 > (-0.2f)))

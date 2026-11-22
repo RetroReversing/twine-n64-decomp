@@ -71,9 +71,9 @@ void func_80069250(void *arg0)
   volatile f32 sp88;
   volatile long long pad;
   f32 sp98[2];
-  s32 spA8;
   f32 spC0[3];
   f32 spB0[3];
+  s32 spA8;
   void *spD4;
   volatile s32 framePad[2];
   f32 cameraAim;
@@ -111,13 +111,13 @@ void func_80069250(void *arg0)
   void *temp_v0_7;
   void *temp_v1;
   char *__base_D_80109A9C;
-  temp_s3 = *((void **) (((char *) arg0) + 0x6C));
+  spD4 = *((void **) (((char *) arg0) + 0x6C)); temp_s3=(void *)spD4;
   temp_s4 = *((void **) (((char *) temp_s3) + 0xAC));
   temp_s2 = inline_fn((void **) (((char *) temp_s3) + 0xB0));
   spD4 = *((void **) (((char *) temp_s3) + 0xA8));
   func_800643D8(temp_s4);
   func_800643D8(temp_s2);
-  if ((((*((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0xA8)))) + 0x7A))) == 0) && (((temp_t0 = ((Field_s8 *) (((char *) temp_s3) + 0x182))->v, spDC = (s32) temp_t0, temp_s5 = &sTrackMarkerTable[temp_t0], sp28[0] = *((f32 *) (((char *) inline_fn(temp_s5)) + 0x34)), temp_fp = ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) * 0xE8) + ((char *) (&sEnemyDefTable)), sp28[2] = 0, sp28[1] = *((f32 *) (((char *) (*temp_s5)) + 0x38)), var_v0 = temp_s4 != NULL, (((Field_s32 *) (((char *) temp_fp) + 0x60))->v & 0xC) != 0)) || ((var_v0 = temp_s4 != NULL, ((Field_s16 *) (((char *) arg0) + 0x7C))->v == 5)))) && (var_v0 & (temp_s2 != NULL)))
+  if ((((*((s16 *) (((char *) (*((void **) (((char *) temp_s3) + 0xA8)))) + 0x7A))) == 0) && (((temp_t0 = ((Field_s8 *) (((char *) temp_s3) + 0x182))->v, spDC = (s32) temp_t0, temp_s5 = &sTrackMarkerTable[temp_t0], temp_fp = ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE))) * 0xE8) + ((char *) (&sEnemyDefTable)), sp28[0] = *((f32 *) (((char *) inline_fn(temp_s5)) + 0x34)), sp28[1] = *((f32 *) (((char *) (*temp_s5)) + 0x38)), sp28[2] = 0, var_v0 = temp_s4 != NULL, (((Field_s32 *) (((char *) temp_fp) + 0x60))->v & 0xC) != 0)) || ((var_v0 = temp_s4 != NULL, ((Field_s16 *) (((char *) arg0) + 0x7C))->v == 5)))) && (var_v0 && (temp_s2 != NULL)))
   {
     temp_v0 = inline_fn(temp_s5);
     *((CameraVec *) sp38) = *((CameraVec *) (((char *) temp_v0) + 0x10));
@@ -164,8 +164,7 @@ void func_80069250(void *arg0)
     {
       *((CameraVec *) sp58) = *((CameraVec *) sp48);
     }
-    temp_v0_5 = (((Field_u16 *) (((char *) temp_fp) + 0x90))->v * 0xC) + inline_fn((char **) (((char *) (*((void **) (((char *) spD4) + 0x68)))) + 4));
-    *((CameraVec *) spB0) = *((CameraVec *) temp_v0_5);
+    *((CameraVec *) spB0) = *((CameraVec *) (void *)((((Field_u16 *) (((char *) temp_fp) + 0x90))->v * 0xC) + inline_fn((char **) (((char *) (*((void **) (((char *) spD4) + 0x68)))) + 4))));
     spB0[1] = -spB0[1];
     spB0[0] = -spB0[0];
     rotateVec3ByMat3((const void *) (&sp68), spB0);

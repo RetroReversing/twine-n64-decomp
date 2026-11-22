@@ -111,23 +111,25 @@ void func_800740D0(void *arg0)
         temp_v1_4 = *((u8 *) (((char *) temp_s1) + 0x34));
         if (temp_v1_4 == 3)
         {
-          var_v0 = 1;
+          
           *((s32 *) (((char *) temp_s3) + 0x10)) = 0;
-        }
+            *((s16 *) (((char *) arg0) + 0x7A)) = 1;
+}
         else
         {
           *((s32 *) (((char *) temp_s3) + 0x10)) = (s32) ((*((&D_800C7EC4) + temp_v1_4)) | 0xF0);
-          var_v0 = 7;
-        }
-        *((s16 *) (((char *) arg0) + 0x7A)) = var_v0;
+          
+            *((s16 *) (((char *) arg0) + 0x7A)) = 7;
+}
         *((void **) (((char *) arg0) + 0x18)) = (void *) (*((void **) (((char *) temp_s1) + 0)));
         if (((*((s8 *) (((char *) temp_s1) + 0x135))) != 0) && (((*((volatile s16 *) (&D_800C7EA0)) = (s16) (*((u8 *) (((char *) temp_s1) + 0x33))), D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))] != 0)) || ((D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))] = spawnTextNode((s16 *) (((s8 *) (&D_800C7EA0)) - 0x20)), D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))] != 0))))
         {
+          void *temp_a0_2_a1;
           *((s8 *) (((char *) D_800E1A70[inline_fn(temp_s1)]) + 0x29)) = 0x1C;
           *((s16 *) (((char *) D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))]) + 0x22)) = (s16) ((*((u16 *) (((char *) temp_s3) + 0x22))) - 5);
           *((s32 *) (((char *) D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))]) + 0x10)) = 0x88;
-          temp_a0_2 = D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))];
-          *((s32 *) (((char *) temp_a0_2) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_a0_2) + 0x28))) & (~0xFC)) | 0x10);
+          temp_a0_2_a1 = D_800E1A70[*((u8 *) (((char *) temp_s1) + 0x34))];
+          *((s32 *) (((char *) temp_a0_2_a1) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_a0_2_a1) + 0x28))) & (~0xFC)) | 0x10);
         }
         temp_a0_3 = *((u8 *) (((char *) temp_s1) + 0x32));
         if (temp_a0_3 != 0)
@@ -147,7 +149,7 @@ void func_800740D0(void *arg0)
       break;
 
     case 1:
-      temp_a0_2 = *((void * volatile *) (((char *) temp_s1) + 4));
+      temp_a0_2 = *((void **) (((char *) temp_s1) + 4));
       if (((*((u16 *) (((char *) arg0) + 0x7C))) & 2) && ((*((s8 *) (((char *) temp_s1) + 0x136))) != 0))
     {
       var_v0_2 = (*((&D_800C7EC4) + (*((u8 *) (((char *) temp_s1) + 0x34))))) | 0x10;
@@ -225,12 +227,13 @@ void func_800740D0(void *arg0)
       temp_a1_3 = temp_a1_2;
       if (temp_a1_2 != 0)
     {
+      s32 *__repair_table_compare;
       temp_v1_5 = (*((u8 *) (((char *) temp_s1) + 0x33))); temp_v0_7 = temp_v1_5 * 7;
-      temp_v1_8 = &D_8010D380;
-      temp_v1_8 += temp_v0_7;
-      temp_v1_8 += temp_a1_3;
+      __repair_table_compare = &D_8010D380;
+      __repair_table_compare += temp_v0_7;
+      __repair_table_compare += temp_a1_3;
       __base_D_8010D2C0 = D_8010D2C0;
-      if ((*temp_v1_8) == *(s32 *)(temp_a1_3 * 4 + (temp_v0_7 * 4 + __base_D_8010D2C0)))
+      if ((*__repair_table_compare) == *(s32 *)(temp_a1_3 * 4 + (temp_v0_7 * 4 + __base_D_8010D2C0)))
       {
         temp_a0_6 = D_800E1A70[temp_a1_2];
         if (temp_a0_6 != NULL)
@@ -254,5 +257,6 @@ void func_800740D0(void *arg0)
     }
   }
 }
+
 
 

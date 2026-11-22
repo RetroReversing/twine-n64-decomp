@@ -1,3 +1,9 @@
+extern const f64 D_800D2008;
+static inline f32 repair_unsigned_float(u32 x, f64 bias) {
+    f64 result = (s32)x;
+    if ((s32)x < 0) result += bias;
+    return (f32)result;
+}
 typedef struct 
 {
   s16 frameCount;
@@ -77,8 +83,8 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
   }
   packedWords = vectors * 3;
   validFrame = (cache->romOffset + (((packedWords + (count * 2)) * frame) * 2)) - (packedBytes = packedWords * 2);
+  romDmaRead((s32) out, (s32) (validFrame + D_000F8D70), totalWords * 4);
   i = 0;
-  romDmaRead((s32) out, (s32) (romBase + validFrame), totalWords * 4);
   packedStart = (u16 *) (((char *) out) + packedBytes);
   if (vectors > 0)
   {
@@ -108,13 +114,14 @@ void func_800055CC(s32 *out, u32 id, u32 frame, s32 expand)
     {
 s32 __block_dstIndex;
 
+      f64 repair_conversion_bias = D_800D2008;
       __block_dstIndex = totalWords;
       do
       {
         do
         {
           u32 word = out[coordWords + i];
-          decoded[0] = (f32) ((f64) ((word >> 22) * 4U)); decoded[1] = (f32) ((f64) ((word >> 10) & 0xffeU)); decoded[2] = (f32) ((f64) ((word << 1) & 0xffeU));
+          decoded[0] = repair_unsigned_float((word >> 22) * 4U, repair_conversion_bias); decoded[1] = repair_unsigned_float((word >> 10) & 0xffeU, repair_conversion_bias); decoded[2] = repair_unsigned_float((word << 1) & 0xffeU, repair_conversion_bias);
           D_800D9424(decoded, out + __block_dstIndex);
           __block_dstIndex += 4;
           i++;

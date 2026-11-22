@@ -32,6 +32,7 @@ void func_80005D04(u8 *arg0, const u8 *arg1, const u8 *arg2, f32 arg3) {
     s32 var_t2;
     u32 temp_v1;
     void *var_a0;
+    s32 shift_stage;
 
     temp_v0 = (*(const s32 *)((char *)(arg1) + 0));
     temp_s2 = temp_v0 >> 0x10;
@@ -84,7 +85,12 @@ void func_80005D04(u8 *arg0, const u8 *arg1, const u8 *arg2, f32 arg3) {
             temp_a3 = temp_v1 << 1;
             temp_v1 = ((u32 (*)[0x1]) arg2)[temp_a0_arm >> 2][0x2];
             temp_a1 = (u32)temp_a1 << 2;
-            temp_ft0_2 = (f32)((s32)(((temp_v1 >> 22) * 4U - temp_a1) << 20) >> 20) * arg3;
+            do
+            {
+              shift_stage = temp_v1 >> 22;
+            }
+            while (0);
+            temp_ft0_2 = (f32)((s32)((shift_stage * 4U - temp_a1) << 20) >> 20) * arg3;
             temp_a2 &= 0xFFE;
             temp_a3 &= 0xFFE;
             var_s1 += 1;

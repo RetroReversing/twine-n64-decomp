@@ -18,9 +18,9 @@ void func_80047068(const f32 *p, const CubicWord *q, const f32 *r, const f32 *s,
     by = ((y - qy.f * 2.5f) + (r[1] + r[1]) - s[1] * 0.5f) * h2;
     ay = ((y * -0.5f + qy.f * 1.5f) - r[1] * 1.5f + s[1] * 0.5f) * h3;
     cy = (y * -0.5f + r[1] * 0.5f) * h;
-    dy = (ay + by) + cy;
     dddy = ay * 6.0f;
     ddy = dddy + (by + by);
+    dy = (ay + by) + cy;
     z = p[2]; qz = q[2].f;
     bz = ((z - qz * 2.5f) + (r[2] + r[2]) - s[2] * 0.5f) * h2;
     az = ((z * -0.5f + qz * 1.5f) - r[2] * 1.5f + s[2] * 0.5f) * h3;
@@ -32,8 +32,8 @@ void func_80047068(const f32 *p, const CubicWord *q, const f32 *r, const f32 *s,
     out->x.i = qx.i;
     out->y.i = qy.i;
     out->z.f = qz;
-    out->dx.f = dx;
     out->dddx.f = dddx;
+    out->dx.f = dx;
     out->ddx.f = ddx;
     out->dy.f = dy;
     out->dddy.f = dddy;
