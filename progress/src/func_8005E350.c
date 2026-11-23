@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8000A894(u16);                         /* extern */
-M2C_UNK func_80073AF8(M2C_UNK, s32, s32, s16, s32, s32, s32, s32, s32, s32, s32); /* extern */
+M2C_UNK func_80073AF8(M2C_UNK, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_80084338(u16, void *);                 /* extern */
 s32 func_80087100(s32);                             /* extern */
 M2C_UNK setActionSlot(void *, s32, s32, M2C_UNK);   /* extern */
@@ -24,19 +24,23 @@ extern M2C_UNK D_800C4484;
 extern s32 D_8010302C;
 extern M2C_UNK sTrackMarkerTable;
 
-void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
+void func_8005E350(void *arg0, s32 arg1, s32 arg2_in) {
     M2C_UNK (*temp_v0)(void *);
     s32 var_s4;
     s32 var_s7;
     s32 temp_s0;
     s32 temp_s1;
     void *temp_s6;
+    s32 arg2;
 
+    temp_s0 = arg1;
+    arg2 = arg2_in;
+    arg2_in = 0;
     temp_s6 = M2C_FIELD(arg0, void **, 0x6C);
-    setActionSlot(temp_s6, arg1 & 0xFF, arg2 & 0xFF, 0);
-    temp_s1 = arg1 & 0xFFFF;
-    temp_s0 = temp_s1 * 0x10;
-    temp_v0 = *(M2C_UNK (**)(void *))((u8 *)&D_800C447C + temp_s0);
+    setActionSlot(temp_s6, temp_s0 & 0xFF, arg2 & 0xFF, 0);
+    temp_s1 = temp_s0 & 0xFFFF;
+    do { temp_s0 = temp_s1 * 0x10; } while (0);
+    do { do { do { temp_v0 = *(M2C_UNK (**)(void *))((u8 *)&D_800C447C + temp_s0); } while (0); } while (0); } while (0);
     var_s7 = -1;
     var_s4 = -1;
     if (temp_v0 != NULL) {
@@ -48,10 +52,18 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
         var_s7 = *(s16 *)((u8 *)&D_800C4478 + temp_s0);
         var_s4 = *(s16 *)((u8 *)&D_800C447A + temp_s0);
     }
-    func_80073AF8(0, *(s32 *)((u8 *)&sTrackMarkerTable + (M2C_FIELD(temp_s6, s8 *, 0x182) * 4)), func_80087100((arg1 | 0x7000) & 0xFFFF), var_s7, (s32) var_s4, 1, 0, 0, 0, 0, 0);
+    loop_goto_1:
+    {
+ func_80073AF8(0, *(s32 *)((u8 *)&sTrackMarkerTable + (M2C_FIELD(temp_s6, s8 *, 0x182) * 4)), func_80087100((arg1 | 0x7000) & 0xFFFF), var_s7, (s32) var_s4, 1, 0, 0, 0, 0, 0);
+    }
+    if (0)
+    {
+        goto loop_goto_1;
+    }
     if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
-        func_80084338(*(u16 *)((u8 *)&D_800C4484 + temp_s0), arg0 + 0x24);
+        do { do { do { func_80084338(*(u16 *)((u8 *)&D_800C4484 + temp_s0), arg0 + 0x24); } while (0); } while (0); } while (0);
         return;
     }
-    func_8000A894(*(&D_800C4484 + temp_s0));
+    do { do { do { func_8000A894(*(u16 *)((u8 *)&D_800C4484 + temp_s0)); } while (0); } while (0); } while (0);
 }
+

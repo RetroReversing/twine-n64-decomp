@@ -4816,14 +4816,6 @@
   "score_after": 1780
  },
  {
-  "function": "func_8005E350",
-  "text": "Compiled inherited draft with complete declarations: 2080 score. Tried typed 16-byte event table struct (short a,b; callback; pad; resource), which exposed the table layout but yielded 2810/87 instructions; it changed saved baseline compilation inputs and was worse. Parent pointer arithmetic via byte offsets in m2c draft gave 2080. Assembly confirms per-entry fields: s16 at +0, s16 +2, function pointer +4, resource u16 +12, stride 16. Key mismatch remains function register allocation/sequence, callback null test (`sltiu` desired), table access HI/LO symbol relocations rather than entry-relative loads, and stack-saved registers. Historical best source is prior m2c candidate; try repairing its declarations (D_800C4478/7A as signed 16-bit symbols, callback table at 7C, resource table at 84) before broader permutations.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795138908.999449,
-  "score_before": 2045,
-  "score_after": 2045
- },
- {
   "function": "updateFallingObjectHeight",
   "text": "Typed candidate f40e511c1c8cd8e1b75f (attempt 25769827705) reverified the inherited best of 150. Everything matches except the impact flag merge: on owner null or floor clamp the target sets v1=1 then copies v1 into v0 at the shared label, but the s32 two-local goto version sets v0=1 directly, omitting one move. A single u8 flag reproduced the 92-instruction extent and both copy positions, with only two andi v0,v1,0xff opcodes in place of moves (6057c6fb271212a1e3d9, score 400). Testing a final cast to u8 from s32 gave those same opcodes. The explicit separate bypass goto after an inverted compare regressed to 670. All floating-point constants, struct accesses, call arguments and trailing flag stores match.",
   "by": "codex-gpt-6.2-sol-5",
@@ -10656,14 +10648,6 @@
   "score_after": 805
  },
  {
-  "function": "func_8005E350",
-  "text": "Best verified score 2075, improved from 2080 by unknown_symbol_offsets local repair changing temp_s0 scale from *0x10 to *4 while table bases remain M2C_UNK (thus effective byte offset *16). Tried changing table bases to s8 per byte-address convention; score regressed to 3715 because loads became lb/lbu instead of lw/lhu. Restored best. Seven no-better trials since the improvement; remaining mismatch begins at saved registers/register allocation: target saves arg0 in s2 and arg1 in s5, candidate uses s3/s1, causing many cascading stack/register differences. Other local repairs (record layout, signedness, declaration order, constant local, parameter width, const reads) did not improve.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795178892.807341,
-  "score_before": 2045,
-  "score_after": 2045
- },
- {
   "function": "func_8011CAE4",
   "text": "Saved 530 baseline likely has incorrect 4x pointer scaling. Correct byte-stride load *(void **)((s8 *)&D_8011F338 + inner*16 + outer*4) scored 775, better than prior corrected 1340; candidate revision 7162b4a010d6a0ebfe68. Target hoists D_8011F338 in fp whereas corrected candidate reloads inside loop; investigate lifetimes and switch branch lowering.",
   "by": "codex-gpt-6.1-terra-5",
@@ -13734,14 +13718,6 @@
   "created_at": 1795182960.956289,
   "score_before": 1780,
   "score_after": 570
- },
- {
-  "function": "func_8005E350",
-  "text": "Baseline rechecked at 2075. Six local layout, assignment, signedness, declaration, constant and parameter-width variants did not improve. Machine draft uses s32 symbol bases with byte offsets, producing scaled accesses and an integer-to-function-pointer warning; reconstruct table field widths and byte-stride access from assembly before register tuning.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795182960.984703,
-  "score_before": 2045,
-  "score_after": 2045
  },
  {
   "function": "func_80006E78",
@@ -26016,14 +25992,6 @@
   "score_after": 640
  },
  {
-  "function": "func_8005E350",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No valid score: compile_and_diff rejected because gcc-2.7.2-kmc toolchain is not installed, despite the function brief naming that compiler. Tried diagnostic IDO 7.1; source doesn't compile due void* arithmetic at arg0+0x24. Target assembly is 100 lines, unambiguous full function ending in jr ra. Candidate's likely underlying logic matches target; target uses index sll by 4 for 16-byte records, handler function pointer from D_800C447C, special exclusion (id 0x1A and arg2==1), global increment, callback and final branch on field 0x78. Needs compiler restored before meaningful matching. Build issue is external to source.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795193763.356849,
-  "score_before": 2045,
-  "score_after": 2045
- },
- {
   "function": "func_80079928",
   "text": "[Released without compiling it once; notes not checked by a compile.] Could not verify baseline: gcc-2.7.2-kmc reported not installed on two consecutive claims after successful earlier compiles. No variants submitted; restore toolchain and recheck revision fb4373354a1c376092c3, including its candidate quality report.",
   "by": "codex-gpt-6.1-terra-1",
@@ -29088,14 +29056,6 @@
   "score_after": 1218
  },
  {
-  "function": "func_8005E350",
-  "text": "Current best score 2035 rechecked. Applied six independent local repairs: explicit_loop_backedge, inferred_record_layout, signedness, declaration_order, constant_local, parameter_width; none improved, one-shot callback loop form worsened. Main mismatch begins after matching s2=a0: target saves a1 in s5 at sp+0x44, then s0 at sp+0x30, candidate allocates different s-registers/stack. Source has pointer-from-integer warning around callback table lookup; match callee func_80084338 signature s32(s32,s32), inspect actual function pointer table types and assembly further. Candidate's arithmetic/data logic is a useful baseline; remaining work primarily register lifetime and callback/table data declarations.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795200015.194761,
-  "score_before": 2035,
-  "score_after": 2035
- },
- {
   "function": "func_8006201C",
   "text": "Could not improve the historical 810 candidate; current inputs rechecked a different draft at 1725. Corrected func_80044670 to its matched 3-argument prototype and removed the extraneous fourth argument; resulting code remained 1725. The first mismatch is the 0x6C pointer load allocated to $a0 rather than target $a3; downstream stores/order differ. Tried s8* versus void* for temp_a3 and declaration reorder, both produced identical assembly. address_temporary repairs also had no effect. Preserve saved historical best; next investigate register lifetime/variable types and argument positioning around temp_a3, then restore headers/input context if historical score comparability matters.",
   "by": "codex-gpt-6-luna-11",
@@ -31214,14 +31174,6 @@
   "created_at": 1795202017.985884,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_8005E350",
-  "text": "Best candidate revision d5cc25846df741f89469 scores 1120 after changing table stride from *4 to shift-left 4; later `*16` and raw arg1 shift rewrites score worse. Recovered most arithmetic, but register allocation/prologue differs substantially; function uses many saved regs and target retains arg0 in s2, arg1 in s5 then s0, arg2 in s3. Also current declaration of func_80084338(u16,void*) conflicts with matched callee s32(s32,s32); verify all caller signatures. Remaining target differences include sltiu-vs-sltu polarity/control shape, branches, and stack/register layout. Next: restore best and try reorganizing variable roles to preserve arg1 separately as s5 while index temp occupies s1, then address boolean expressions.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795202019.5213099,
-  "score_before": 2035,
-  "score_after": 1120
  },
  {
   "function": "quatSlerp",
@@ -33696,14 +33648,6 @@
   "score_after": 45
  },
  {
-  "function": "func_8005E350",
-  "text": "Improved baseline from 1120 to 330 by expressing exceptional test as positive empty arm and else with table loads: if (condition) {} else { loads }. Local repair batch (address_temporary, parameter_width, const_read, read_before_assign, guard_shape, independent_assignment_order) gave no better result; best remains 330. Main remaining differences are callee-saved register allocation: target keeps arg0 in $s2 and arg1 in $s5; candidate puts them in $s3/$s0. Other remaining branch targets are short by one instruction near final condition.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795204262.8580768,
-  "score_before": 1120,
-  "score_after": 330
- },
- {
   "function": "func_80044538",
   "text": "Current rechecked score 880, 76 instructions. I recovered best by setting loop counter i uninitialized at declaration but assigning i=0 only after loading count and pointer, before checking count; this preserved score. Explicitly setting var_a2=1 gives score 1340, setting it uninitialized gives 1275. At best there are 18 mismatches concentrated in loop prologue/body and register allocation. Target: after count and pointer loads, beqz count with a1=0 delay slot; setup threshold t1=4, t0=record offset, v1=pointer, loop loads record->active; if active, lbu state +0x46 and sltiu <5; beql false with sb threshold delay; then clear a2. Increment i then reload count and compare, loop increment pointer by 0x4c in branch delay. Candidate function currently reverts to inherited best source because most recent exploratory runs tested variations; saved best score 880. Next experiment: recover candidate at 78709a7fa812ab7ef201 and change counter initializer placement/declaration to reproduce loop setup registers and branch delay without disturbing call sequence.",
   "by": "codex-gpt-6-luna-15",
@@ -35048,14 +34992,6 @@
   "score_after": 150
  },
  {
-  "function": "func_8005E350",
-  "text": "Improved from historical 2430 to a verified 1575/376 bytes with a positive empty arm plus else table loads, then an explicit EventEntry record layout indexed by the event. Further tested signed/short field types and local repair families load_before_store, inferred_record_layout, constant_local, parameter_width, array_index_width, const_read; no score improvement. Best candidate uses record fields at offsets 0,2,4,0xC. Remaining primary differences include target callee-saved allocation ($s2/$s5/$s0 vs candidate regs), target signed halfword loads (lh) vs candidate unsigned (lhu), control-flow branch offsets, and D_80109688 index register. Saved best score is 1575.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795205598.179317,
-  "score_before": 330,
-  "score_after": 330
- },
- {
   "function": "func_8008B824",
   "text": "Stalled at score 1740 (revision c7785742c5f06e707a9e, unchanged). Ran try_local_repairs families: explicit_loop_backedge (no change), branch_orientation (no change), constant_local, parameter_width (u8 arg3 worse), array_index_width, symbol_address_local: none beat 1740. Remaining mismatch is register/order at prologue: target saves a2 in $s3 and a3 in $s2 (sw $s3,0x1c; move $s3,$a2), C allocates the pair swapped. Earlier attempts with s32/s16/u32 third parameter and explicit temp also failed. Next untested idea: reorder the local declarations or the initial D_800E4215 store relative to the arg0 deref to change which saved register gets a2/a3.",
   "by": "api-claude-haiku-5-5-8",
@@ -36144,14 +36080,6 @@
   "score_after": 6955
  },
  {
-  "function": "func_8005E350",
-  "text": "Stalled at 1575 (saved best e53cbb4812f5068f8fe4, 96 vs 94 insns). Signed-field EventEntry with plain void(*)(void*) callback gave 2365 (worse; sltu/sra/lhu mismatches, reg allocation shifted). Condition inversion, callback truthiness and reordered var inits gave 2865/1575/1580. Remaining diff: callee-saved register assignment (target s2=arg0, s5=arg1, s3=arg2, s0=temp) and the (==0x1A)&(arg2==1) condition lowering. Untested: separate u32 locals for arg1/arg2 and a local self pointer to steer s2/s5/s3 allocation.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795206653.177421,
-  "score_before": 330,
-  "score_after": 330
- },
- {
   "function": "func_80026F84",
   "text": "Stalled at 1295 on saved_best d098077f242c5b8cd87d (35 mismatches). Tried this session: local repair families unknown_symbol_offsets (inline offset on D_8010A500), volatile D_80109BB0, symbol-address local for D_800BD691, extra arg to func_80081828, arg0 as s32, D_800BD691 as u8[] array. Only the volatile-free/neutral variants held 1295; others worse (1745-3220). Core mismatch: first branch target after reset block (target beqz 0xb8 vs candidate 0xb4), target sets v0=-1 before clearing fields; field-store scheduling and address-use register mismatches remain.",
   "by": "api-claude-haiku-5-5-3",
@@ -36934,14 +36862,6 @@
   "created_at": 1795207680.816972,
   "score_before": 120,
   "score_after": 120
- },
- {
-  "function": "func_8005E350",
-  "text": "Stalled at 1575 (saved best e53cbb4812f5068f8fe4, 96 vs 94 insns). This session: tried inverting the condition to !((s1==0x1A)&(arg2&0xFFFF==1)) (worse/none), replacing M2C_FIELD for temp_s6 with a raw *(void**)cast (no change), splitting var init (no change). Remaining diff is callee-saved register assignment (target s2=arg0, s5=arg1, s3=arg2, s0=temp; C puts arg0 in s3 and spills s0 at 0x30 vs target s5 at 0x44) and the stack slot order of saved regs. Untested next: keep arg0/arg1/arg2 as separately typed u32 locals copied at entry to shift allocation; or model the frame with an extra local to shift saved-reg offsets.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795207681.06286,
-  "score_before": 330,
-  "score_after": 330
  },
  {
   "function": "func_8005C8C4",
@@ -39072,14 +38992,6 @@
   "score_after": 40
  },
  {
-  "function": "func_8005E350",
-  "text": "Stalled at 1575 (saved best e53cbb4812f5068f8fe4). Tried try_local_repairs families (record layout arg0, literal local, u16 arg1, unsigned-short index, const reads, read-before-assign): no improvement. Remaining diff is callee-saved register assignment: target s2=arg0, s5=arg1, s3=arg2, s0=temp*16, stack slots s2@0x38, s5@0x44, s0@0x30, s3@0x3C; C puts arg0 in s3. Untested: copy arg1 into a local first so s5/s0 allocation order changes.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795209373.940202,
-  "score_before": 330,
-  "score_after": 330
- },
- {
   "function": "sndStopNode",
   "text": "Current saved baseline 2067 (newer than old 4066). Proper func_80098A18(void *) declaration left score unchanged. Correcting func_8009876C to one pointer argument scored 2082, and signed -1 comparison did not change it. Target frame 0x28 versus 0x30.",
   "by": "codex-gpt-6.1-terra-2",
@@ -40606,14 +40518,6 @@
   "created_at": 1795210561.9685671,
   "score_before": 2275,
   "score_after": 2275
- },
- {
-  "function": "func_8005E350",
-  "text": "Stalled at 1575 (83.2%, 96 vs 94 insns). Tried this session: adding unused local copy of arg1 (no change). Prior sessions: local repair families, condition inversion, raw-cast field, var split: no improvement. Remaining diff is callee-saved register assignment and stack slot order: target s2=arg0, s5=arg1, s3=arg2, s0=temp*16; C puts arg0 in s3. Target also uses lh (signed) for field0/field2 loads where C emits lhu, and an extra sll/sra pair, so the s16 typing of var_s7/var_s4 may need to be int16 loaded directly into the variables.\nAdded unused local s32 keep1 = arg1 before the body.\nNo score change (1575); register allocation unchanged.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795210562.205806,
-  "score_before": 330,
-  "score_after": 330
  },
  {
   "function": "updateSfxPanFromMarker",
@@ -44226,15 +44130,6 @@
   "created_at": 1795214537.474436,
   "score_before": 192665,
   "score_after": 192665
- },
- {
-  "function": "func_8005E350",
-  "text": "Saved best remains 1535 after 6 local repair variants; explicit loop backedge and inferred struct layout did not help, parameter narrowing worsened to 1620. Target prologue saves args to $s2/$s5/$s0/$s3 in interleaved order and uses $s1/$s0 as index/offset; current candidate's prologue register allocation differs substantially. A malformed minimal compile_and_diff accidentally reached 9260; saved best remains intact. Next step: inspect full prologue mapping and use compile_variants on parameter/order/local-liveness changes to force the target saved-register allocation.\nBaseline score 1535; local repairs explicit_loop_backedge, inferred_record_layout, constant_local, parameter_width, array_index_width, const_read produced no improvement; narrowed arg1 increased score.\nNo candidate improved baseline. Target prologue saves incoming arg1 in $s5 then copies to $s0; current C retains arg1 in $s1, and remaining assembly differs in register allocation/order.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795214545.420235,
-  "score_before": 2430,
-  "score_after": 1535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_80098710",
@@ -48081,15 +47976,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:8bef3c17e603894c4155868526165d8da702b269b42cb5a49b351322c2c7df01"
  },
  {
-  "function": "func_8005E350",
-  "text": "Saved best score 1535 (revision 35d19f29cc63cac4994a). Named copied_arg1 in a scoped local before first call recompiled at same 1535. Current diff: target s5=arg1 and s0=s5, while candidate uses s1=arg1; target indexes and loads signed halfwords (lh) for the first two table fields, but candidate loads lhu and adds two sll/sra instructions. Candidate later has extra sll/sra from preserving signed values; first control-flow branch is 4 bytes earlier. Local repair batch tried record layout/constant local without change; loop and u16 parameter were worse. Last malformed body-only compile attempt failed and is not part of saved best.\nScoped copied_arg1 local before first call compiled at same score 1535; no improvement.\nNo score change. Diff evidence points to EventEntry.field0 and field2 requiring signed s16 loads; candidate uses unsigned u16 causing lhu plus sign-extension instructions. Target keeps original arg1 in s5 and copies to s0.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795218094.854486,
-  "score_before": 2430,
-  "score_after": 1535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
- },
- {
   "function": "func_800223E4",
   "text": "Current verified score remains 75/27 instructions. Tested explicitly assigning func_80087100 result to local before formatTextEntry and a nested-block temporary; no assembly changes, score remains 75. Diff shows target moves result $v0 into $a2 immediately after jal, before reloading gMenuState (target uses $v0 for that base); candidate reloads gMenuState in $v1 and transfers result later. Next try a prototype/local arrangement that binds return to the same local used as third formatTextEntry arg while forcing gMenuState into $v0 (e.g. use typed `void *menu = gMenuState` after call, then load field), preserving the call order.",
   "by": "codex-gpt-6-luna-17",
@@ -49826,15 +49712,6 @@
   "score_before": 75,
   "score_after": 75,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:efe3450dcf34282620274d198b5fcec1b70f503576260df29e8397730493011c"
- },
- {
-  "function": "func_8005E350",
-  "text": "Rechecked saved best at score 1535. C89 corrected arg1-local rewrite scored 2365; the first rewrite failed due to C89 mixed declarations. Baseline still differs in saved register allocation, signed table field loads, and branch lowering.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795221497.8203259,
-  "score_before": 1535,
-  "score_after": 1535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_8000D000",
@@ -51645,15 +51522,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
  },
  {
-  "function": "func_8005E350",
-  "text": "Best is 1535, 94 target instructions. Tried initializing a local copy of arg1 (lowered from 1710 to 1535); adding arg2 copy, changing arg1 to s16, and force_arg0 were neutral. Main mismatch is saved register allocation: target preserves arg0 in s2 and arg1 in s5, while C allocates different registers; table field loads also use lhu instead of target lh and branch distances differ. No match.\nInitialized copy_arg1=arg1, then arg2 copy, s16 arg1 prototype, force_arg0 local; only initialized arg1 copy produced prior score improvement (1710\u21921535).\nRemaining score 1535 unchanged. Main register allocation mismatch: target s2=arg0, s5=arg1, s3=arg2; candidate differs. Signed table reads also differ.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795224788.446656,
-  "score_before": 1535,
-  "score_after": 1535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
- },
- {
   "function": "soundVoiceStart",
   "text": "Rechecked 1390. Early in-range volume gotos, raw-first pan, and explicit pitch truncation paths scored 2690, 1460, and 1685. Move-on threshold reached at 4/4. First divergence remains the shared 127 clamp and successful jump to the call.\nEarly goto on in-range volume in each arm, raw-first pan clamp, and explicit signed truncation paths for pitch.\n2690, 1460 and 1685 respectively versus rechecked 1390. Baseline retained.",
   "by": "codex-gpt-6.2-sol-9",
@@ -52409,15 +52277,6 @@
   "score_before": 220,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:eacd88871da0a8cbb8e330e096d007863b7dbd7c41190b865142a671488078ad"
- },
- {
-  "function": "func_8005E350",
-  "text": "Restored proper M2C preamble and compiled; current remains 1535/94 target vs 96 candidate. Explicit s16 table fields likely needed: target lh while current lhu. Target retains $s5=$a1, current saves arg1 in other register. Next step: test signed s16 index local and field declaration, focusing on eliminating sll/sra around index and making callback/table offset use signed halfword directly.\nRecompiled restored saved-best source with complete M2C_DEFINES; unchanged score 1535.\nTarget uses lh for two table fields and lacks signed-index sll/sra pair; candidate uses lhu and has conversions.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795226195.8804271,
-  "score_before": 1535,
-  "score_after": 1535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_8003099C",
@@ -54687,15 +54546,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:e1621fb2734cd339a7ad307efe6ace526a69da0449642d4754ce185cf42bcc03"
  },
  {
-  "function": "func_8005E350",
-  "text": "Saved best rechecked at 1535/94 target instructions; valid C needs explicit M2C helper macro defs if using original draft. A plain C rewrite scored 2365. Restored saved_best and verified again at 1535. Tested local repairs: explicit callback loop degraded to 1570; struct field layout and constant local were unchanged. Remaining strong mismatches: target loads table entries with lh at base D_800C4478 while candidate uses lhu, target branch targets differ by 4 bytes (beqz 0x78 vs 0x74, bnez 0xc4 vs 0xc0); register allocation puts arg1 in s5 in target but s1 in candidate. Next step: model the event table's field0/field2 as signed s16 and preserve arg1 in a separate local used for lookupDataEntry, then compare.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795229815.143311,
-  "score_before": 2365,
-  "score_after": 1535,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
- },
- {
   "function": "func_80032978",
   "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked saved candidate now scores 55770 versus historical 26548; local trials stopped due to changed progress. Extensive previous attempts remain; saved best restored.",
   "by": "codex-gpt-6.1-terra-2",
@@ -55504,15 +55354,6 @@
   "score_before": 1440,
   "score_after": 1440,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
- },
- {
-  "function": "func_8005E350",
-  "text": "Full-width signed locals for the two table values improved 1535 to 290. Remaining difference is one missing argument move and register allocation. s16 argument worsened to 925; u16 produced unchanged assembly; explicit loop backedge scored 330.\nChanged table value locals from s16 to s32, then tested parameter widths and loop backedge.\nScore 1535 to 290; remaining missing move and register assignment.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795231159.783388,
-  "score_before": 1535,
-  "score_after": 290,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_8009D9F0",
@@ -57444,15 +57285,6 @@
   "score_before": 1640,
   "score_after": 1640,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:e115b32c8a9425f892e206a10a8cb60fa32e40749202459ff717e0e6b080d0b8"
- },
- {
-  "function": "func_8005E350",
-  "text": "Best 290 (saved). Target keeps TWO copies of arg1: s5=arg1 (used for ori 0x7000) and s0=copy (andi 0xFF, andi 0xFFFF, then s0 reused for id<<4); GCC merges the copy in my C (93 vs 94 insns). Tried temp_s0=arg1 reuse (290 same), static inline helper(arg0,arg1,arg2,idx=arg1) (330; copies still merged). Next step: make a distinct pseudo for the copy that CSE can't merge (e.g. second param of inline helper passed via different type like u16/s16 cast, or a volatile-free pointer deref of a local array).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795233501.3467588,
-  "score_before": 290,
-  "score_after": 290,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_8003DA68",
@@ -62612,15 +62444,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5283587a6f8c9938d9b65adc618079fbb97cc12d6e7630b8c674fe6817524dd3"
  },
  {
-  "function": "func_8005E350",
-  "text": "Session capacity ending. Corrected gTrackMarkers symbol and byte-offset arithmetic; score 3141. Three local repairs were equal or worse. Target uses signed halfword loads and different saved-register allocation.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795240007.509152,
-  "score_before": 290,
-  "score_after": 290,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
- },
- {
   "function": "func_8009DCD0",
   "text": "Candidate reset during IDO follow-up. Typed halfword buffers and corrected pointer strides compiled with KMC at 20748, retaining KMC's wrong frame (0xc0 vs 0xe0), high ra save, srl vs target sra, and missing argument homes. Trial 93517ae9ac99e00b1d87 preserves full C. IDO 7.1 rejected only arithmetic on void * (`var_v0 += 7`). Next step: recover that trial source, change var_v0 to u8 *, then compare IDO 7.1 and 5.3 at -O2 and -O1. Use a flat s16[52] for sp48 so the end pointer is within the same array.",
   "by": "codex-gpt-6.2-sol-6",
@@ -63250,15 +63073,6 @@
   "score_before": 1255,
   "score_after": 725,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:36265ccd965c0ade8f171337fb04fe39dd9137f24500c8321a05531bf073f231"
- },
- {
-  "function": "func_8005E350",
-  "text": "s32 table locals and positive bitwise condition; u16 index local and callee prototype widths\n3141 to 1106; u16 index worsened to 1557; prototype changes unchanged",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795241074.473849,
-  "score_before": 290,
-  "score_after": 290,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "setupSaveSlotMarkers",
@@ -64231,15 +64045,6 @@
   "created_at": 1795242549.670542,
   "score_before": 540,
   "score_after": 540
- },
- {
-  "function": "func_8005E350",
-  "text": "Verified 1106 \u2192 1101 by chaining the two -1 defaults. The extra $fp live range duplicates the table offset for requestSound and shifts the $ra save. Arg1 copy scored 1206/1231, recomputing the offset or using an explicit else was unchanged, and hoisting the sound read scored 1740. Reached judge's move-on limit. Next step: compare KMC -fno-cse-skip-blocks with existing source; check whether the duplicate offset copy and $fp save disappear.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795242554.769387,
-  "score_before": 290,
-  "score_after": 290,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_80069250",
@@ -65621,15 +65426,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:7651921d02483a853a7851b773c94b78fa2aec7522f828ad992481c3c5a79f33"
  },
  {
-  "function": "func_8005E350",
-  "text": "Session ending; corrected table symbol and byte offsets together scored 3141 vs 3139 baseline. Baseline has unresolved gTrackMarkerTable; target symbol is sTrackMarkerTable.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795245348.709856,
-  "score_before": 3139,
-  "score_after": 3139,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
- },
- {
   "function": "func_801183F4",
   "text": "Current saved candidate is only a stub (score 44305); earlier partial candidate from handoff is not available as saved_best. Machine draft fails on unresolved jump table. Recover prior partial source and jump-table targets before continuing.",
   "by": "codex-gpt-6.1-terra-2",
@@ -65808,15 +65604,6 @@
   "score_before": 140,
   "score_after": 140,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
- },
- {
-  "function": "func_8005E350",
-  "text": "Correcting sTrackMarkerTable and byte-offset halfword loads, then making var_s4 and var_s7 s32, scored 1315 (revision 4bde457fa1a486830905). Claim disappeared before handoff; remaining differences include condition inversion and register allocation. Next step: test positive bitwise inequality condition from that revision.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795245670.680963,
-  "score_before": 3139,
-  "score_after": 1315,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_8007C3F0",
@@ -68454,15 +68241,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:7e0c47ef9a3aa38e8bd4524ff949c22955a3b515321e1c708cbf789d26a45114"
  },
  {
-  "function": "func_8005E350",
-  "text": "Signedness, parameter width, declaration ordering and byte-base indexing\nBaseline 2440; byte-base rewrite 3206, u16 argument 2535; others unchanged or worse.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795250943.640518,
-  "score_before": 330,
-  "score_after": 330,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
- },
- {
   "function": "func_80044410",
   "text": "Current candidate reached score 2457 after explicit inner-loop backedge; best historical save is 3559 but current candidate is better. Repeated explicit-backedge compile unchanged (2/6); target frame is 0x40 vs C 0x28. Counts and fields likely use row-stride addressing; several predecessor trials got score 85 under a different profile. Claim objective is frame/stack access. Next step: recover the saved score-85 source from attempt 2ca6ccb4bda344d09cf4 or inspect its profile, then retest under current claim inputs.\nExplicit inner-loop backedge improved 4459 to 2457; recompiling same structure did not change instruction diff.\nStill 50 mismatching rows, principally stack frame (target 0x40 vs candidate 0x28), register/order diffs; no compile improvement.",
   "by": "codex-gpt-6-luna-15",
@@ -70389,15 +70167,6 @@
   "score_before": 3485,
   "score_after": 3485,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2beed609bddd97cc11d0e4237d0ae7a04c05b407e6f71eee2d213224a8aca336"
- },
- {
-  "function": "func_8005E350",
-  "text": "Claim ownership and saved candidate changed unexpectedly during session. Recovered 575 candidate. Empty positive equality arm fixes boolean lowering; s32 locals with signed halfword byte-offset loads and corrected function pointer addressing helped. Correcting both final D_800C4484 accesses worsened 575 to 1106; existing candidate still scales those offsets incorrectly.\nCorrected both final D_800C4484 byte-offset accesses\nScore 575 to 1106; correct address shape but extra saved register and frame differences",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795254917.3258471,
-  "score_before": 330,
-  "score_after": 330,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_80044410",
@@ -80302,15 +80071,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:776f7484bc99a6d1f7d633fd9848fefd8ebb916b917bfedaa51703b03d8a4940"
  },
  {
-  "function": "func_8005E350",
-  "text": "Reverified 515 (93/94 instructions). Inherited requestSound expression scales its byte offset again. Correcting it to the target halfword read restored the addressing semantics but raised the score to 1106 (96 instructions, extra saved register). Copying arg1 to a local for the first byte mask and index mask, together with widening func_80073AF8's fourth formal to s32, produced identical output to that 1106 trial.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795318977.56185,
-  "score_before": 330,
-  "score_after": 330,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
- },
- {
   "function": "func_80005868",
   "text": "Passed the move-on threshold. Pointer assignment order improved 250 to 240. Stack offsets already match. Early return 1070, pointer initialization inside guard 650\u2013665, volatile row index 846. Next step: test guarded do-while with row-index load at top and running input pointer in loop initializer.",
   "by": "codex-gpt-6.2-sol-6",
@@ -82405,15 +82165,6 @@
   "score_before": 10,
   "score_after": 10,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69ce8971f3ae4e7add909d1f7b63b6d83f4063aac17c85f59c921b5b4dd380f4"
- },
- {
-  "function": "func_8005E350",
-  "text": "Baseline 515 retains incorrect scaled requestSound address. Correct target is lhu from D_800C4484 plus index*16. Corrected read with copied action scored 1106; explicit lookup before func_80073AF8 scored 1066 and improved a region; u16 formals scored 1380.\nExplicit action copy and staged lookup with corrected halfword read\n1066 best corrected variant vs 515 inherited, first mismatch still saved-register setup",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795342111.811261,
-  "score_before": 330,
-  "score_after": 330,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "actorDrawLit",
@@ -85700,15 +85451,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
  },
  {
-  "function": "func_8005E350",
-  "text": "Tried `u16 id = arg1` local with temp_s1 = id: score 860 (worse than saved best 515). Residual is saved-register allocation (target keeps arg1 in s5, arg2 in s3). Saved best remains the baseline. Next step: restore saved_best and try making arg2 & 0xFFFF a u16 local up front.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795385141.338146,
-  "score_before": 330,
-  "score_after": 330,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
- },
- {
   "function": "func_8009ABD4",
   "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles this session. Prior best 1005 after 100 attempts and 27k automatic trials. Next step: try a fresh redraft from m2c with a struct prototype.",
   "by": "claude-sonnet-low-1",
@@ -86058,15 +85800,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a2c6da483f556e2ddf451e6e7d42ec60409462bc1ca4f7a7e09a47e3f0fcc8c"
  },
  {
-  "function": "func_8005E350",
-  "text": "Rechecked 755 (hist 515). 6 local families: no gain (param u16 860). Draft is raw m2c; remaining diff is saved-register allocation (target saves s5=arg1, s0 later). Next step: rewrite with u16 id = arg1 and u16 val = arg2 locals up front, and read the sound halfword via D_800C4484 + id*16 (not &D_800C4478 offsets).",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795387328.419819,
-  "score_before": 330,
-  "score_after": 330,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
- },
- {
   "function": "func_8008CEB0",
   "text": "[Released without compiling it once; notes not checked by a compile.] compiler_experiments: -fno-strength-reduce and -fno-schedule-insns both score 31328 (far worse) vs 727 baseline; flags are not the issue. Remaining: s3/s4 swap and arg1 spill at 0x27 vs 0x17. Next step: swap declaration order of sp17/sp1F against the frame_pad volatile array to move the arg spill slots.",
   "by": "claude-sonnet-low-1",
@@ -86299,14 +86032,6 @@
   "score_after": 345
  },
  {
-  "function": "func_8005E350",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session. Prior history: 76 local trials, best 330. Residual is saved-register allocation (target keeps arg1 in s5, arg2 in s3). Next step: restore saved_best and try an `a2 = arg2 & 0xFFFF` u16 local declared before the setActionSlot call.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795390697.276046,
-  "score_before": 290,
-  "score_after": 290
- },
- {
   "function": "func_8008CEB0",
   "text": "Stuck at 727 (100+ attempts). Tried swapping sp17/sp1F declaration order: 729, worse (arg spill slots unchanged relative to frame_pad). Next step: drop frame_pad and use a different-size volatile local to shift spill slots from 0x1f/0x27 to 0x17/0x1f.",
   "by": "claude-sonnet-low-1",
@@ -86349,15 +86074,6 @@
   "created_at": 1795392388.452534,
   "score_before": 660,
   "score_after": 660
- },
- {
-  "function": "func_8005E350",
-  "text": "Tried u16 id/val locals up front (rev 4aa75c56da1f8821a5a1): score 1130, worse than 755 rechecked. Target keeps arg1 in s5 and arg2 in s3 (copied early, before the setActionSlot call); my version keeps them in a1/a2 longer. Next step: try making arg1/arg2 s32 locals copied via volatile-free temporaries used after the call, e.g. declare `s32 a1 = arg1, a2 = arg2;` and use them in the function-pointer/compare section only.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795392413.292693,
-  "score_before": 330,
-  "score_after": 330,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_8009C420",
@@ -86418,15 +86134,6 @@
   "score_before": 210,
   "score_after": 15,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:980d4314d50c0a79bb6fbeba67b4f844c6dd7496ff87e97cbc33674a51f2afe6"
- },
- {
-  "function": "func_8005E350",
-  "text": "Compiled s32 a1=arg1,a2=arg2 copies: score 755 (worse than saved 515). Residual: target does `move $s5,$a1` early and keeps arg2 in s3; ours allocates s4/s3/s1. Next step: restore saved_best, try a local copy of arg0 used after the setActionSlot call, or u16 id param type.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795394031.21096,
-  "score_before": 330,
-  "score_after": 330,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
   "function": "func_8009C420",
@@ -89160,5 +88867,298 @@
   "created_at": 1795395105.326397,
   "score_before": 490,
   "score_after": 490
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Compiled inherited draft with complete declarations: 2080 score. Tried typed 16-byte event table struct (short a,b; callback; pad; resource), which exposed the table layout but yielded 2810/87 instructions; it changed saved baseline compilation inputs and was worse. Parent pointer arithmetic via byte offsets in m2c draft gave 2080. Assembly confirms per-entry fields: s16 at +0, s16 +2, function pointer +4, resource u16 +12, stride 16. Key mismatch remains function register allocation/sequence, callback null test (`sltiu` desired), table access HI/LO symbol relocations rather than entry-relative loads, and stack-saved registers. Historical best source is prior m2c candidate; try repairing its declarations (D_800C4478/7A as signed 16-bit symbols, callback table at 7C, resource table at 84) before broader permutations.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795138908.999449,
+  "score_before": 2045,
+  "score_after": 2045
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Best verified score 2075, improved from 2080 by unknown_symbol_offsets local repair changing temp_s0 scale from *0x10 to *4 while table bases remain M2C_UNK (thus effective byte offset *16). Tried changing table bases to s8 per byte-address convention; score regressed to 3715 because loads became lb/lbu instead of lw/lhu. Restored best. Seven no-better trials since the improvement; remaining mismatch begins at saved registers/register allocation: target saves arg0 in s2 and arg1 in s5, candidate uses s3/s1, causing many cascading stack/register differences. Other local repairs (record layout, signedness, declaration order, constant local, parameter width, const reads) did not improve.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795178892.807341,
+  "score_before": 2045,
+  "score_after": 2045
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Baseline rechecked at 2075. Six local layout, assignment, signedness, declaration, constant and parameter-width variants did not improve. Machine draft uses s32 symbol bases with byte offsets, producing scaled accesses and an integer-to-function-pointer warning; reconstruct table field widths and byte-stride access from assembly before register tuning.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795182960.984703,
+  "score_before": 2045,
+  "score_after": 2045
+ },
+ {
+  "function": "func_8005E350",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No valid score: compile_and_diff rejected because gcc-2.7.2-kmc toolchain is not installed, despite the function brief naming that compiler. Tried diagnostic IDO 7.1; source doesn't compile due void* arithmetic at arg0+0x24. Target assembly is 100 lines, unambiguous full function ending in jr ra. Candidate's likely underlying logic matches target; target uses index sll by 4 for 16-byte records, handler function pointer from D_800C447C, special exclusion (id 0x1A and arg2==1), global increment, callback and final branch on field 0x78. Needs compiler restored before meaningful matching. Build issue is external to source.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795193763.356849,
+  "score_before": 2045,
+  "score_after": 2045
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Current best score 2035 rechecked. Applied six independent local repairs: explicit_loop_backedge, inferred_record_layout, signedness, declaration_order, constant_local, parameter_width; none improved, one-shot callback loop form worsened. Main mismatch begins after matching s2=a0: target saves a1 in s5 at sp+0x44, then s0 at sp+0x30, candidate allocates different s-registers/stack. Source has pointer-from-integer warning around callback table lookup; match callee func_80084338 signature s32(s32,s32), inspect actual function pointer table types and assembly further. Candidate's arithmetic/data logic is a useful baseline; remaining work primarily register lifetime and callback/table data declarations.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795200015.194761,
+  "score_before": 2035,
+  "score_after": 2035
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Best candidate revision d5cc25846df741f89469 scores 1120 after changing table stride from *4 to shift-left 4; later `*16` and raw arg1 shift rewrites score worse. Recovered most arithmetic, but register allocation/prologue differs substantially; function uses many saved regs and target retains arg0 in s2, arg1 in s5 then s0, arg2 in s3. Also current declaration of func_80084338(u16,void*) conflicts with matched callee s32(s32,s32); verify all caller signatures. Remaining target differences include sltiu-vs-sltu polarity/control shape, branches, and stack/register layout. Next: restore best and try reorganizing variable roles to preserve arg1 separately as s5 while index temp occupies s1, then address boolean expressions.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795202019.5213099,
+  "score_before": 2035,
+  "score_after": 1120
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Improved baseline from 1120 to 330 by expressing exceptional test as positive empty arm and else with table loads: if (condition) {} else { loads }. Local repair batch (address_temporary, parameter_width, const_read, read_before_assign, guard_shape, independent_assignment_order) gave no better result; best remains 330. Main remaining differences are callee-saved register allocation: target keeps arg0 in $s2 and arg1 in $s5; candidate puts them in $s3/$s0. Other remaining branch targets are short by one instruction near final condition.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795204262.8580768,
+  "score_before": 1120,
+  "score_after": 330
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Improved from historical 2430 to a verified 1575/376 bytes with a positive empty arm plus else table loads, then an explicit EventEntry record layout indexed by the event. Further tested signed/short field types and local repair families load_before_store, inferred_record_layout, constant_local, parameter_width, array_index_width, const_read; no score improvement. Best candidate uses record fields at offsets 0,2,4,0xC. Remaining primary differences include target callee-saved allocation ($s2/$s5/$s0 vs candidate regs), target signed halfword loads (lh) vs candidate unsigned (lhu), control-flow branch offsets, and D_80109688 index register. Saved best score is 1575.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795205598.179317,
+  "score_before": 330,
+  "score_after": 330
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Stalled at 1575 (saved best e53cbb4812f5068f8fe4, 96 vs 94 insns). Signed-field EventEntry with plain void(*)(void*) callback gave 2365 (worse; sltu/sra/lhu mismatches, reg allocation shifted). Condition inversion, callback truthiness and reordered var inits gave 2865/1575/1580. Remaining diff: callee-saved register assignment (target s2=arg0, s5=arg1, s3=arg2, s0=temp) and the (==0x1A)&(arg2==1) condition lowering. Untested: separate u32 locals for arg1/arg2 and a local self pointer to steer s2/s5/s3 allocation.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795206653.177421,
+  "score_before": 330,
+  "score_after": 330
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Stalled at 1575 (saved best e53cbb4812f5068f8fe4, 96 vs 94 insns). This session: tried inverting the condition to !((s1==0x1A)&(arg2&0xFFFF==1)) (worse/none), replacing M2C_FIELD for temp_s6 with a raw *(void**)cast (no change), splitting var init (no change). Remaining diff is callee-saved register assignment (target s2=arg0, s5=arg1, s3=arg2, s0=temp; C puts arg0 in s3 and spills s0 at 0x30 vs target s5 at 0x44) and the stack slot order of saved regs. Untested next: keep arg0/arg1/arg2 as separately typed u32 locals copied at entry to shift allocation; or model the frame with an extra local to shift saved-reg offsets.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795207681.06286,
+  "score_before": 330,
+  "score_after": 330
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Stalled at 1575 (saved best e53cbb4812f5068f8fe4). Tried try_local_repairs families (record layout arg0, literal local, u16 arg1, unsigned-short index, const reads, read-before-assign): no improvement. Remaining diff is callee-saved register assignment: target s2=arg0, s5=arg1, s3=arg2, s0=temp*16, stack slots s2@0x38, s5@0x44, s0@0x30, s3@0x3C; C puts arg0 in s3. Untested: copy arg1 into a local first so s5/s0 allocation order changes.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795209373.940202,
+  "score_before": 330,
+  "score_after": 330
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Stalled at 1575 (83.2%, 96 vs 94 insns). Tried this session: adding unused local copy of arg1 (no change). Prior sessions: local repair families, condition inversion, raw-cast field, var split: no improvement. Remaining diff is callee-saved register assignment and stack slot order: target s2=arg0, s5=arg1, s3=arg2, s0=temp*16; C puts arg0 in s3. Target also uses lh (signed) for field0/field2 loads where C emits lhu, and an extra sll/sra pair, so the s16 typing of var_s7/var_s4 may need to be int16 loaded directly into the variables.\nAdded unused local s32 keep1 = arg1 before the body.\nNo score change (1575); register allocation unchanged.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795210562.205806,
+  "score_before": 330,
+  "score_after": 330
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Saved best remains 1535 after 6 local repair variants; explicit loop backedge and inferred struct layout did not help, parameter narrowing worsened to 1620. Target prologue saves args to $s2/$s5/$s0/$s3 in interleaved order and uses $s1/$s0 as index/offset; current candidate's prologue register allocation differs substantially. A malformed minimal compile_and_diff accidentally reached 9260; saved best remains intact. Next step: inspect full prologue mapping and use compile_variants on parameter/order/local-liveness changes to force the target saved-register allocation.\nBaseline score 1535; local repairs explicit_loop_backedge, inferred_record_layout, constant_local, parameter_width, array_index_width, const_read produced no improvement; narrowed arg1 increased score.\nNo candidate improved baseline. Target prologue saves incoming arg1 in $s5 then copies to $s0; current C retains arg1 in $s1, and remaining assembly differs in register allocation/order.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795214545.420235,
+  "score_before": 2430,
+  "score_after": 1535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Saved best score 1535 (revision 35d19f29cc63cac4994a). Named copied_arg1 in a scoped local before first call recompiled at same 1535. Current diff: target s5=arg1 and s0=s5, while candidate uses s1=arg1; target indexes and loads signed halfwords (lh) for the first two table fields, but candidate loads lhu and adds two sll/sra instructions. Candidate later has extra sll/sra from preserving signed values; first control-flow branch is 4 bytes earlier. Local repair batch tried record layout/constant local without change; loop and u16 parameter were worse. Last malformed body-only compile attempt failed and is not part of saved best.\nScoped copied_arg1 local before first call compiled at same score 1535; no improvement.\nNo score change. Diff evidence points to EventEntry.field0 and field2 requiring signed s16 loads; candidate uses unsigned u16 causing lhu plus sign-extension instructions. Target keeps original arg1 in s5 and copies to s0.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795218094.854486,
+  "score_before": 2430,
+  "score_after": 1535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Rechecked saved best at score 1535. C89 corrected arg1-local rewrite scored 2365; the first rewrite failed due to C89 mixed declarations. Baseline still differs in saved register allocation, signed table field loads, and branch lowering.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795221497.8203259,
+  "score_before": 1535,
+  "score_after": 1535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Best is 1535, 94 target instructions. Tried initializing a local copy of arg1 (lowered from 1710 to 1535); adding arg2 copy, changing arg1 to s16, and force_arg0 were neutral. Main mismatch is saved register allocation: target preserves arg0 in s2 and arg1 in s5, while C allocates different registers; table field loads also use lhu instead of target lh and branch distances differ. No match.\nInitialized copy_arg1=arg1, then arg2 copy, s16 arg1 prototype, force_arg0 local; only initialized arg1 copy produced prior score improvement (1710\u21921535).\nRemaining score 1535 unchanged. Main register allocation mismatch: target s2=arg0, s5=arg1, s3=arg2; candidate differs. Signed table reads also differ.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795224788.446656,
+  "score_before": 1535,
+  "score_after": 1535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Restored proper M2C preamble and compiled; current remains 1535/94 target vs 96 candidate. Explicit s16 table fields likely needed: target lh while current lhu. Target retains $s5=$a1, current saves arg1 in other register. Next step: test signed s16 index local and field declaration, focusing on eliminating sll/sra around index and making callback/table offset use signed halfword directly.\nRecompiled restored saved-best source with complete M2C_DEFINES; unchanged score 1535.\nTarget uses lh for two table fields and lacks signed-index sll/sra pair; candidate uses lhu and has conversions.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795226195.8804271,
+  "score_before": 1535,
+  "score_after": 1535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Saved best rechecked at 1535/94 target instructions; valid C needs explicit M2C helper macro defs if using original draft. A plain C rewrite scored 2365. Restored saved_best and verified again at 1535. Tested local repairs: explicit callback loop degraded to 1570; struct field layout and constant local were unchanged. Remaining strong mismatches: target loads table entries with lh at base D_800C4478 while candidate uses lhu, target branch targets differ by 4 bytes (beqz 0x78 vs 0x74, bnez 0xc4 vs 0xc0); register allocation puts arg1 in s5 in target but s1 in candidate. Next step: model the event table's field0/field2 as signed s16 and preserve arg1 in a separate local used for lookupDataEntry, then compare.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795229815.143311,
+  "score_before": 2365,
+  "score_after": 1535,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Full-width signed locals for the two table values improved 1535 to 290. Remaining difference is one missing argument move and register allocation. s16 argument worsened to 925; u16 produced unchanged assembly; explicit loop backedge scored 330.\nChanged table value locals from s16 to s32, then tested parameter widths and loop backedge.\nScore 1535 to 290; remaining missing move and register assignment.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795231159.783388,
+  "score_before": 1535,
+  "score_after": 290,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Best 290 (saved). Target keeps TWO copies of arg1: s5=arg1 (used for ori 0x7000) and s0=copy (andi 0xFF, andi 0xFFFF, then s0 reused for id<<4); GCC merges the copy in my C (93 vs 94 insns). Tried temp_s0=arg1 reuse (290 same), static inline helper(arg0,arg1,arg2,idx=arg1) (330; copies still merged). Next step: make a distinct pseudo for the copy that CSE can't merge (e.g. second param of inline helper passed via different type like u16/s16 cast, or a volatile-free pointer deref of a local array).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795233501.3467588,
+  "score_before": 290,
+  "score_after": 290,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Session capacity ending. Corrected gTrackMarkers symbol and byte-offset arithmetic; score 3141. Three local repairs were equal or worse. Target uses signed halfword loads and different saved-register allocation.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795240007.509152,
+  "score_before": 290,
+  "score_after": 290,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "s32 table locals and positive bitwise condition; u16 index local and callee prototype widths\n3141 to 1106; u16 index worsened to 1557; prototype changes unchanged",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795241074.473849,
+  "score_before": 290,
+  "score_after": 290,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Verified 1106 \u2192 1101 by chaining the two -1 defaults. The extra $fp live range duplicates the table offset for requestSound and shifts the $ra save. Arg1 copy scored 1206/1231, recomputing the offset or using an explicit else was unchanged, and hoisting the sound read scored 1740. Reached judge's move-on limit. Next step: compare KMC -fno-cse-skip-blocks with existing source; check whether the duplicate offset copy and $fp save disappear.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795242554.769387,
+  "score_before": 290,
+  "score_after": 290,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Session ending; corrected table symbol and byte offsets together scored 3141 vs 3139 baseline. Baseline has unresolved gTrackMarkerTable; target symbol is sTrackMarkerTable.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795245348.709856,
+  "score_before": 3139,
+  "score_after": 3139,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Correcting sTrackMarkerTable and byte-offset halfword loads, then making var_s4 and var_s7 s32, scored 1315 (revision 4bde457fa1a486830905). Claim disappeared before handoff; remaining differences include condition inversion and register allocation. Next step: test positive bitwise inequality condition from that revision.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245670.680963,
+  "score_before": 3139,
+  "score_after": 1315,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Signedness, parameter width, declaration ordering and byte-base indexing\nBaseline 2440; byte-base rewrite 3206, u16 argument 2535; others unchanged or worse.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795250943.640518,
+  "score_before": 330,
+  "score_after": 330,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Claim ownership and saved candidate changed unexpectedly during session. Recovered 575 candidate. Empty positive equality arm fixes boolean lowering; s32 locals with signed halfword byte-offset loads and corrected function pointer addressing helped. Correcting both final D_800C4484 accesses worsened 575 to 1106; existing candidate still scales those offsets incorrectly.\nCorrected both final D_800C4484 byte-offset accesses\nScore 575 to 1106; correct address shape but extra saved register and frame differences",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795254917.3258471,
+  "score_before": 330,
+  "score_after": 330,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Reverified 515 (93/94 instructions). Inherited requestSound expression scales its byte offset again. Correcting it to the target halfword read restored the addressing semantics but raised the score to 1106 (96 instructions, extra saved register). Copying arg1 to a local for the first byte mask and index mask, together with widening func_80073AF8's fourth formal to s32, produced identical output to that 1106 trial.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795318977.56185,
+  "score_before": 330,
+  "score_after": 330,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Baseline 515 retains incorrect scaled requestSound address. Correct target is lhu from D_800C4484 plus index*16. Corrected read with copied action scored 1106; explicit lookup before func_80073AF8 scored 1066 and improved a region; u16 formals scored 1380.\nExplicit action copy and staged lookup with corrected halfword read\n1066 best corrected variant vs 515 inherited, first mismatch still saved-register setup",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795342111.811261,
+  "score_before": 330,
+  "score_after": 330,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Tried `u16 id = arg1` local with temp_s1 = id: score 860 (worse than saved best 515). Residual is saved-register allocation (target keeps arg1 in s5, arg2 in s3). Saved best remains the baseline. Next step: restore saved_best and try making arg2 & 0xFFFF a u16 local up front.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795385141.338146,
+  "score_before": 330,
+  "score_after": 330,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Rechecked 755 (hist 515). 6 local families: no gain (param u16 860). Draft is raw m2c; remaining diff is saved-register allocation (target saves s5=arg1, s0 later). Next step: rewrite with u16 id = arg1 and u16 val = arg2 locals up front, and read the sound halfword via D_800C4484 + id*16 (not &D_800C4478 offsets).",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795387328.419819,
+  "score_before": 330,
+  "score_after": 330,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session. Prior history: 76 local trials, best 330. Residual is saved-register allocation (target keeps arg1 in s5, arg2 in s3). Next step: restore saved_best and try an `a2 = arg2 & 0xFFFF` u16 local declared before the setActionSlot call.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795390697.276046,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Tried u16 id/val locals up front (rev 4aa75c56da1f8821a5a1): score 1130, worse than 755 rechecked. Target keeps arg1 in s5 and arg2 in s3 (copied early, before the setActionSlot call); my version keeps them in a1/a2 longer. Next step: try making arg1/arg2 s32 locals copied via volatile-free temporaries used after the call, e.g. declare `s32 a1 = arg1, a2 = arg2;` and use them in the function-pointer/compare section only.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795392413.292693,
+  "score_before": 330,
+  "score_after": 330,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Compiled s32 a1=arg1,a2=arg2 copies: score 755 (worse than saved 515). Residual: target does `move $s5,$a1` early and keeps arg2 in s3; ours allocates s4/s3/s1. Next step: restore saved_best, try a local copy of arg0 used after the setActionSlot call, or u16 id param type.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795394031.21096,
+  "score_before": 330,
+  "score_after": 330,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  }
 ]
