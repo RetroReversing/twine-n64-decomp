@@ -45903,95 +45903,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:3aeea6a6ee09fd14623b15296e33aee8ee3ad68bfb7975aa0f914fd3a9fb0c93"
  },
  {
-  "function": "soundVoiceStart",
-  "text": "Reusing var_a1_3 for the first conversion and final test improved 1655 to 1510. Further lifetime, signedness, declaration, layout and address repairs did not improve. Remaining 39 rows mostly registers and clamp control flow, including mfc1 to a1 rather than v1; inspect full diff and tune conversion/clamp lifetimes.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795179083.688127,
-  "score_before": 1655,
-  "score_after": 1510
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Verified baseline score 1510. Two variants changing the first clamp and u8 cast syntax were unchanged; claim was reassigned while batch compiled. First difference is allocation of float conversion into a1 versus target v1.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795183173.606727,
-  "score_before": 1510,
-  "score_after": 1510
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Baseline 1510 verified. Tried 12 independent repair variants in two batches: inferred record layout, CFG integer lifetimes, signedness, declaration order, address temporary, split/merge integer lifetimes; no improvement. Residual mismatch begins near float-to-int conversion/call setup: target mfc1 $v1,$f0 while candidate mfc1 $a1,$f0; substantial register/control-flow differences remain. Continue by inspecting assembly around branch and call sites and considering a more structural rewrite. Candidate retained.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795183272.533984,
-  "score_before": 1510,
-  "score_after": 1510
- },
- {
-  "function": "soundVoiceStart",
-  "text": "[Released without compiling it once; notes not checked by a compile.] compile_and_diff attempted on m2c draft but failed before compilation because gcc-2.7.2-kmc is not installed in the toolchain environment. No current diff possible; candidate cb56f13c11a3e79315e7 was left unchanged. Once restored, check flag branch clamping and conversion signedness against target.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795193920.5576162,
-  "score_before": 1510,
-  "score_after": 1510
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Best candidate score 1390, 30 differing rows of 172 instructions. Started with matched callee signatures and machine draft; compiled baseline, then tried branch orientation, forward/inverted clamp forms, shared scalar lifetimes, struct layout, signedness/declaration order, and local repair batches. None improved. Persistent core issue is branch/control-flow lowering around float-to-u8 clamp paths: target branches to shared clamp labels and uses move in delay slot, while straightforward if/else yields branch-likely/jump sequences. No reusable rule established.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795202204.879015,
-  "score_before": 1390,
-  "score_after": 1390
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Verified 1390. Individual clamp branch inversions worsened or were unchanged; changing clamp temporary widths likewise unchanged or worse. Main discrepancy is shared clamp path and branch-likely scheduling.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795204455.972409,
-  "score_before": 1390,
-  "score_after": 1390
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Stalled at 1390 (30 differing rows). This session: 3 more variants on df0c299e279ddca2f716 (drop the __repair temp in the first clamp; restructure the second clamp as if-assign; use >= 0x4000 for the last clamp). All worse (1655, 1460, 1645). Target clamp paths use float->u32 with 2^31 compare (c.le.s / bc1tl / or 0x80000000) then andi 0xFF, and branch to shared clamp label (0x118 region) which the C does not reproduce. Next untested idea: express the first clamp as a single shared-label form, e.g. goto-style clamp, or test the 2^31 u32 cast with the float input kept as f32 precision.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795205724.6780212,
-  "score_before": 1390,
-  "score_after": 1390
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Stalled at 1390 (30 differing rows) on df0c299e279ddca2f716. This session tried 3 more variants (all worse: 2690, 1460, 1660): (1) first clamp as u32 assign + (u8) + if>=0x80; (2) second clamp as (u8)(u32) then if>=0x80; (3) last clamp as u32 then if>=0x4000 -> 0x3FFF. Target float->u32 for the 2^31 path uses c.le.s/bc1tl with sub.s and or 0x80000000, then andi 0xFF, and branches to a shared clamp at 0x118 that the C does not reproduce (C emits j/addiu for the 0x7F store instead). Next untested: express the 0x80000000 OR path explicitly via separate if (v >= 2^31) branch with (u32)(v-2^31) | 0x80000000 and keep the shared clamp label structure via goto-free ordering.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795207822.920901,
-  "score_before": 1390,
-  "score_after": 1390
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Stalled at best 1390 (30 differing rows, revision df0c299e279ddca2f716). This session tried a clean rewrite with a shared clamp per channel (revision 42cfe20fac13d49e33b1): 3030, much worse; the target's 2^31 float->u32 sequence (c.le.s/bc1tl/sub.s/or 0x80000000) plus separate fallthrough and else arms with a shared clamp at 0x118 is not reproduced by the plain C forms. Untested: split the first branch's u32 conversion into two explicit arms (value<2^31 vs value-2^31 | 0x80000000) with the join at the sltiu 0x80 clamp.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795209382.419818,
-  "score_before": 1390,
-  "score_after": 1390
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Stalled at best 1390 (30 differing rows, df0c299e279ddca2f716). Tried explicit ternary for first branch float->u32 (p>=2^31 ? (u32)(p-2^31)|0x80000000 : (u32)p) & 0xFF: 2984, worse (frame 0x38, extra saved FPRs). Target keeps f20/f22/f24 saved, frame 0x30, bc1tl with sub.s in delay slot, shared clamp at 0x118; not reproduced. Untested: hoist the float products into locals so more FPRs are live across the calls.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795210679.452679,
-  "score_before": 1390,
-  "score_after": 1390
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Reached 4/4. First mismatch is still the extra unconditional jump after the first clamp comparison.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795215396.935842,
-  "score_before": 4194,
-  "score_after": 1490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
   "function": "func_800224E4",
   "text": "Stays 75. Tried: local s32 r = func_80087100() before formatTextEntry; s8** cast of field; volatile gMenuState; char* gMenuState; r+=0 \u2014 all identical score 75 (candidate uses $v1 for gMenuState base, move a2 after loads; target moves a2 first and reuses $v0). Sibling func_800223E4 has same issue.",
   "by": "api-claude-sonnet-5-5-2",
@@ -46672,15 +46583,6 @@
   "score_before": 785,
   "score_after": 785,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:f893403517bba52590ec1e59ea24c0877aa607af9cf394a3b343b2c983a316f0"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Rechecked 1390. Explicit goto shared volume clamp scored 1430; defaulting pan to raw then clamping scored 1460; inverted pitch clamp scored 1575 but improved a local region. First mismatch is the shared 127 clamp and its jump-to-call path.\nShared volume clamp with explicit gotos\n1430 versus 1390",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795220891.59427,
-  "score_before": 1430,
-  "score_after": 1430,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_80099AF0",
@@ -48606,15 +48508,6 @@
   "score_before": 875,
   "score_after": 875,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Rechecked 1390. Early in-range volume gotos, raw-first pan, and explicit pitch truncation paths scored 2690, 1460, and 1685. Move-on threshold reached at 4/4. First divergence remains the shared 127 clamp and successful jump to the call.\nEarly goto on in-range volume in each arm, raw-first pan clamp, and explicit signed truncation paths for pitch.\n2690, 1460 and 1685 respectively versus rechecked 1390. Baseline retained.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795224789.342001,
-  "score_before": 1430,
-  "score_after": 1390,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_8005C8C4",
@@ -56717,15 +56610,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:dec8d74f60b84ba07da2f00bcfa4d0c5c899f970fded3666a37187aa44bcf2a2"
  },
  {
-  "function": "soundVoiceStart",
-  "text": "Best stays 1390 (rev 26b9d933fe2ed600ce12 = saved best + trivial newline). Remaining diffs: 3 clamp sites. Target clamps: arm1 of first block shares the 0x7F tail with else arm (beqz->0x7f; move a1,v1; j end; else-arm: bnez end; nop; addiu 0x7f). Second clamp (E4A8) wants 'sltiu; bnez L; move a1,v1; addiu a1,0x7f' but mine gives beqz+addiu before move; only the 3rd/4th clamps match with 'var_a1_3 = var_v1_3; if (var_v1_3>=0x80U) var_a1_3=0x7F' using s32 v1 / u32 a1. Tried: swapping 2nd clamp to that form (1460 / 1970 worse), s32 v1_2 (no change). Also note args a1/a2 are passed in int regs (mtc1), stack args at 0x40/0x44.\nif/else vs assign-then-if clamp forms, s32/u32 locals for 2nd clamp\n1390->1460/1970 worse",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795236651.059368,
-  "score_before": 4325,
-  "score_after": 1390,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
   "function": "flushDmaRequestQueue",
   "text": "Best score 60 after declaring D_800FDBB0 volatile, forcing the target's second count load. Remaining 12 differences are register allocation: index D_80108F70 in a3 rather than target a2 and base D_80103EB4 in a2 rather than a3. Explicit index/base locals and alternate pointer arithmetic all compiled identically; volatile index worsened score.",
   "by": "codex-gpt-6.1-terra-6",
@@ -57383,15 +57267,6 @@
   "score_before": 190,
   "score_after": 190,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:62c690b83516e710175cc34b83a472f35ee7684b636cc4ae72747c3d6b242d87"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Score 1390/688 bytes retained. Baseline rechecked, one equivalent no-op patch reproduced exact same mismatch. Target 172 instructions vs candidate 170, 30 differing rows. Main differences are saturated integer control-flow for channels: target bnez to shared clamp and move $a1,$v1; candidate emits branch-likely zero test and literal 0x7f, shifting subsequent blocks. Prior variants tested by earlier agents also worsened. Next step: represent clamp as a common post-branch block reached by both paths while leaving converted value in a single u32 local; inspect target full assembly around 0x20-0x120.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795237625.471238,
-  "score_before": 1390,
-  "score_after": 1390,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_8002323C",
@@ -70039,15 +69914,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
  },
  {
-  "function": "soundVoiceStart",
-  "text": "Reverified saved best at 449. Initializing the repair-phase byte to zero scored 908 with a 0x70 frame. Explicit shared clamp/send labels and matched callee prototypes scored 1004 with a 0x40 frame and two branch-likely clamps. Restored the 449 candidate. The inherited C has a potentially uninitialized byte in a condition whose two arms assign the same constant.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795284101.003632,
-  "score_before": 1390,
-  "score_after": 908,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
   "function": "func_80053940",
   "text": "Rechecked baseline 13643, byte output unchanged. The judge reports 5/4 without improvement. Target frame is eight bytes smaller and uses s7 instead of fp for arg4.\nOrdinary judge baseline recheck\nIdentical instructions at 13643",
   "by": "codex-gpt-6.2-sol-6",
@@ -70414,15 +70280,6 @@
   "score_after": 1135
  },
  {
-  "function": "soundVoiceStart",
-  "text": "Judge reached 4/4. Best scoring source still has a potentially uninitialized byte. Clean variant 93d6624e0740b1fafb06 scored 1770, with regular clamp branches still rendered branch-likely.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795289691.4842849,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
   "function": "Ray_CastObjects",
   "text": "Verified 6081; target frame 0x1F0, candidate 0x208. Six independent padding edits worsened the score. Shrinking object pad7C to four bytes scored 6641; removing padC4, padCC, pad6C, pad5C or pad54 scored 6451, 6449, 6089, 6102 and 6642 respectively.",
   "by": "codex-gpt-6.2-sol-6",
@@ -70502,15 +70359,6 @@
   "score_before": 9643,
   "score_after": 4291,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4e1325928c2ed18c6c53470d95b4f869e869db9304cc818ac196992289d6df9c"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Defined clamp/goto rewrite (bfb06e66f6818dd73fca) and three diagnostic compiler profiles.\nDefined rewrite scored 1770 with four fewer instructions and integer branch-likely clamps. No-schedule-insns2 scored 2280, no-thread-jumps stayed 1770, mno-branch-likely was rejected. Saved 449 source still has an uninitialized-byte concern.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795291244.1175401,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_80053940",
@@ -70681,15 +70529,6 @@
   "score_before": 155,
   "score_after": 155,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bd0ee42ea13b2d868c445f5ef59c35f286854341cbaa0c4ebc3d75f08c1e5e40"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Reached 4/4. Removing the uninitialized read scored 964, with 0x40 vs 0x30 frame and second gain clamp lowered to branch-likely. Prototyping calls and replacing integer 64 with 64.0f each produced identical output. A shared gain clamp goto scored 1004 and lost $v1 allocation on the first conversion. Historical best remains quality-flagged.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795293183.90695,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_80053940",
@@ -70987,15 +70826,6 @@
   "score_before": 1565,
   "score_after": 1565,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e1fb02b280173fbcbff035715b70fff66d13eda1668883c617acdc967f1d015c"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Move-on at 8/4. Replacing the suspect uninitialized operand with `if (var_a1_3 != 0 || temp_s0 != 0)` tied 449 with a distinct diff (14 rows changed), and preserves the enclosing clamp's semantics. Zero initialization scored 908, retesting the float conversion scored 2604, and rereading flags scored 964. Explicit shared clamp goto scored 1004. A single-call second clamp plus local repairs scored 739 (revision 26bf1118bafcb7a73b26), with a 0x68 vs 0x30 frame and branch-likely on the third clamp. Saved best restored.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795297367.067586,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_80096460",
@@ -71680,15 +71510,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2e8f414903ae0b03a23916e7b0881b4e634debfc29b5881921f2a8928db63fbf"
  },
  {
-  "function": "soundVoiceStart",
-  "text": "The prior initialized condition tied 449 again. The inherited candidate contains a suspect uninitialized read.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795307029.42415,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
   "function": "func_80096758",
   "text": "Best 70 (4 rows). Target's first bnez jumps to +0x9c with `andi $v0,$v1,0xff` in its delay slot; ours omits it. Dropping the comma-assign var_v0 in the second || operand: no change. Next step: set var_v0 inside the first operand's comma expression instead of before the if.",
   "by": "claude-sonnet-low-1",
@@ -72037,15 +71858,6 @@
   "score_before": 40,
   "score_after": 40,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:c5feeaed2dbfbd305974a0114bfcd3b6cbf6cac8f5ad195afa2e49b9e743b67c"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Best 449, unchanged. Local repairs gave 449 (branch flip, struct views) and 1034/1149 (worse). Frame is -0x78 vs target -0x30: the candidate's u32 casts and repair_phase temps bloat the stack. The candidate also has a dubious uninitialized read. Next step: rewrite from scratch with one u8 clamp helper pattern per parameter (no __repair temps), f32 args, and check that the frame shrinks to 0x30.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795308092.5478451,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_80096460",
@@ -72814,15 +72626,6 @@
   "created_at": 1795310858.145087,
   "score_before": 6408,
   "score_after": 6408
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Hit move-on after four trials. Clean unsigned conversions with ordinary clamps restored the prologue but scored 1770. Duplicating both middle setter calls scored 1460 and recovered regular branches, with the wrong moves in their delay slots. Historical 449 candidate contains a suspect uninitialized read.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795310859.481056,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_80036BBC",
@@ -75338,15 +75141,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:7860cef1dc2879e945e4cbd46dc5ad400eddadd164fd31779f327da768c65c0b"
  },
  {
-  "function": "soundVoiceStart",
-  "text": "Judge reached 10/4 without improving the saved best. Zero initialization removed the suspect uninitialized read but scored 908 with a 0x70 frame versus 0x30. Clean unsigned mask rewrite with duplicated setter branches and separate pitch predicate scored 1405; regular clamp branch placement still differs.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795337062.024284,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
   "function": "func_80018E38",
   "text": "Reverified score 245, 300 instructions. Remaining regions: common length update rows 76/87/89 uses v1 instead of v0; copy loop swaps a0/a1 and has andi rather than move at row 224.\nRemove the u8 cast from the final indexed store, and separately index sp20 directly.\nUncast pointer indexing scored 345. Direct sp20 indexing scored 675. Baseline retained at 245.",
   "by": "codex-gpt-6.2-sol-9",
@@ -76463,15 +76257,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:67bcf1eceb79d1fede6ee376caf02f5452df286fdd3d9d63aa02fd79e383f1d5"
  },
  {
-  "function": "soundVoiceStart",
-  "text": "Replacing the historical potentially uninitialized OR with var_a1_3 & 0x80 gives defined control flow and ties 449 at revision a68214d24837f5e7c9fd. The frame remains 0x58 vs 0x30; first volume clamp branches past the shared saturation load rather than to it. Explicit gotos and typed callees in a clean rewrite produced the 0x30 frame but score 1755\u20131770 because clamp branches became branch-likely. Disabling delayed branches or second scheduling worsened the clean rewrite.\nReplaced the uninitialized OR with a byte-mask predicate, then tried signed-byte predicate, typed setter declarations and a direct 64.0f constant independently.\nMask rewrite tied 449. The signed-byte predicate, prototypes and float constant each left displayed assembly unchanged.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795344301.814972,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
   "function": "func_80008750",
   "text": "Previous session reached the move-on limit. Rechecked saved score 475 and tested three independent call wrappers, all with identical output. First mismatch swaps the cursor and command word registers.",
   "by": "codex-gpt-6.2-sol-6",
@@ -76858,15 +76643,6 @@
   "score_after": 20
  },
  {
-  "function": "soundVoiceStart",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795349992.5461051,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
   "function": "func_80047068",
   "text": "Four judged compiles reached the limit. Complete forward-difference candidate b49ae0959e434d3f9276 scored 11375 (152/163 instructions) with the target 0x60 frame; unpadded 94d251145f83217de86c scored 11525. The two operation-staged rewrites scored 17319 and 19413 and emitted excess transfers and constant loads. Saved best 69826e70e89f105e37b8 still reads uninitialized inv and omits stores. The complete candidate lacks much of the target's spill/reload traffic and uses sw instead of swc1 at out+0x20.",
   "by": "codex-gpt-6.2-sol-9",
@@ -77225,15 +77001,6 @@
   "score_before": 480,
   "score_after": 480,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:da39dfe01a7e8306c8d68e745216d36e6ab4f9487084ca9de7400203ae092ab1"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Judge advised move-on. Verified baseline 449 has a 0x78 frame vs 0x30 and an incorrect first clamp join. Existing byte-mask alternative avoids the potentially uninitialized read at the same score.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795354337.626796,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_800821B4",
@@ -77710,15 +77477,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4c6a53c3ffd7a1a00eda9d917d1c94de3f8977a6ac3a579f762df796feeecbb1"
  },
  {
-  "function": "soundVoiceStart",
-  "text": "Attempt 25770151570 (revision 00725f10106d1cb40fb2) is an independent 172-instruction, correct-frame rewrite with the entire first volume region matching. Three subsequent clamp branches have reversed sense and place the limit assignment in the delay slot. Pitch also needs $a1 for the raw conversion and $v0 for the clamped value. Assignment-before-goto forms reverted to branch-likely and scored 1755. Historical best 449 is still selected, with a frame discrepancy and an uninitialized read warning.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795358275.465772,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
   "function": "buildPlaneFromPoints",
   "text": "The judge reached 6/6 without improvement. Volatile normal or output and explicit output access sequencing regressed. Interleaving cross-product terms with staged p2 Y or Y/Z loads improved part of the prologue but scored 605/610. Verified 480 retained, with the first p2 Y load, prologue saves, and Y/Z instruction scheduling still differing.",
   "by": "codex-gpt-6.2-sol-9",
@@ -77978,15 +77736,6 @@
   "score_before": 245,
   "score_after": 245,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8568b0d36d644f85f40f0578935a50588e6a2e59cb35a6a768e51456e18119ab"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "Correct-frame rewrite 56e6fdaa0ec060fb2b37 scored 955, with three reversed clamp branches and pitch register differences after the first volume block. Single pan conditional overwrite and ternary both scored 960, pitch overwrite scored 2545. Restored saved best, whose quality warning still applies. Next step: on the correct-frame rewrite, try computing each raw value and comparison independently before assigning the call argument, so the raw move can fill the taken branch delay slot.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795361506.481069,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
   "function": "func_80092A68",
@@ -78414,14 +78163,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b596b3f3c7ea884cca2ee049fad605fca3901802cc7f905ecb89cd8c7731fd1c"
  },
  {
-  "function": "soundVoiceStart",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles this session. Best stays 449. Frame -0x78 vs target -0x30. Next step: rewrite from scratch without repair temps, one u8 clamp pattern per param, f32 args; check frame shrinks to 0x30.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795385469.440713,
-  "score_before": 449,
-  "score_after": 449
- },
- {
   "function": "func_80096460",
   "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles by me. Best stays 355, and it still reads an uninitialized pointer. Prior work was 68 local-repair trials and 16 patches. Next step: rewrite from scratch as a plain u8 chain over two tables (D_800EE420 and D_800F2720), with no repair temps or goto blocks.",
   "by": "claude-sonnet-low-1",
@@ -78589,14 +78330,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a2c6da483f556e2ddf451e6e7d42ec60409462bc1ca4f7a7e09a47e3f0fcc8c"
  },
  {
-  "function": "soundVoiceStart",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles. Best stays 449; two prior agents also stalled. Next step: rewrite with f32 args, and one helper-free u8 clamp per param: v=(u32)(x*127.0f)&0xFF; a1 = v<0x80 ? v : 0x7F. Check the frame is 0x30.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795387483.644921,
-  "score_before": 449,
-  "score_after": 449
- },
- {
   "function": "func_80096460",
   "text": "Merged-pointer rewrite (p chosen by bank!=0xFF, then shared body) scored 14675 with 73 of 190 insns. The target duplicates the full body, including the index math, for each table. Next step: write two fully separate if/else bodies, one per table, each with its own u8 temps. Do not share p.",
   "by": "claude-sonnet-low-1",
@@ -78718,23 +78451,6 @@
   "score_after": 345
  },
  {
-  "function": "soundVoiceStart",
-  "text": "Tried the helper-free rewrite from the earlier handoff: f32 args, a shared f for the first clamp, and a ternary u8 clamp per param. It scored 4245 with 146 insns against the target's 172, so it is much worse than 449. Keep the saved best at 449. The target's first clamp is branched separately per arm (the two 0x100000 arms), not shared. Next step: patch the saved best and test the target's `move $a1,$v1` and `bnez` pattern in the else-arm clamps.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795390837.6327171,
-  "score_before": 449,
-  "score_after": 449,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session; best stays 449 after several stalled agents. Next step: patch saved best to match the target's `move $a1,$v1` before the clamp calls.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795392530.642865,
-  "score_before": 449,
-  "score_after": 449
- },
- {
   "function": "func_80047068",
   "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session; score 8465 is far from a match. Next step: reorder float temporaries h, h2, h3 so FP callee-save order matches the target.",
   "by": "claude-sonnet-low-1",
@@ -78751,14 +78467,6 @@
   "score_before": 210,
   "score_after": 15,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:980d4314d50c0a79bb6fbeba67b4f844c6dd7496ff87e97cbc33674a51f2afe6"
- },
- {
-  "function": "soundVoiceStart",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Local repair pass interrupted (progress changed); baseline 449 rechecked. Next step: patch first-clamp arms to be separately branched with target's `move $a1,$v1` before clamp calls.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795394143.099159,
-  "score_before": 449,
-  "score_after": 449
  },
  {
   "function": "setActionSlot",
@@ -89924,5 +89632,388 @@
   "score_before": 3520,
   "score_after": 3520,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:823d8a95c539523396e12bfaacfeab46732f51dc46a455cda97a32ae6b4ec687"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Reusing var_a1_3 for the first conversion and final test improved 1655 to 1510. Further lifetime, signedness, declaration, layout and address repairs did not improve. Remaining 39 rows mostly registers and clamp control flow, including mfc1 to a1 rather than v1; inspect full diff and tune conversion/clamp lifetimes.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795179083.688127,
+  "score_before": 1655,
+  "score_after": 1510
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Verified baseline score 1510. Two variants changing the first clamp and u8 cast syntax were unchanged; claim was reassigned while batch compiled. First difference is allocation of float conversion into a1 versus target v1.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795183173.606727,
+  "score_before": 1510,
+  "score_after": 1510
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Baseline 1510 verified. Tried 12 independent repair variants in two batches: inferred record layout, CFG integer lifetimes, signedness, declaration order, address temporary, split/merge integer lifetimes; no improvement. Residual mismatch begins near float-to-int conversion/call setup: target mfc1 $v1,$f0 while candidate mfc1 $a1,$f0; substantial register/control-flow differences remain. Continue by inspecting assembly around branch and call sites and considering a more structural rewrite. Candidate retained.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795183272.533984,
+  "score_before": 1510,
+  "score_after": 1510
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] compile_and_diff attempted on m2c draft but failed before compilation because gcc-2.7.2-kmc is not installed in the toolchain environment. No current diff possible; candidate cb56f13c11a3e79315e7 was left unchanged. Once restored, check flag branch clamping and conversion signedness against target.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795193920.5576162,
+  "score_before": 1510,
+  "score_after": 1510
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Best candidate score 1390, 30 differing rows of 172 instructions. Started with matched callee signatures and machine draft; compiled baseline, then tried branch orientation, forward/inverted clamp forms, shared scalar lifetimes, struct layout, signedness/declaration order, and local repair batches. None improved. Persistent core issue is branch/control-flow lowering around float-to-u8 clamp paths: target branches to shared clamp labels and uses move in delay slot, while straightforward if/else yields branch-likely/jump sequences. No reusable rule established.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795202204.879015,
+  "score_before": 1390,
+  "score_after": 1390
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Verified 1390. Individual clamp branch inversions worsened or were unchanged; changing clamp temporary widths likewise unchanged or worse. Main discrepancy is shared clamp path and branch-likely scheduling.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795204455.972409,
+  "score_before": 1390,
+  "score_after": 1390
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Stalled at 1390 (30 differing rows). This session: 3 more variants on df0c299e279ddca2f716 (drop the __repair temp in the first clamp; restructure the second clamp as if-assign; use >= 0x4000 for the last clamp). All worse (1655, 1460, 1645). Target clamp paths use float->u32 with 2^31 compare (c.le.s / bc1tl / or 0x80000000) then andi 0xFF, and branch to shared clamp label (0x118 region) which the C does not reproduce. Next untested idea: express the first clamp as a single shared-label form, e.g. goto-style clamp, or test the 2^31 u32 cast with the float input kept as f32 precision.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795205724.6780212,
+  "score_before": 1390,
+  "score_after": 1390
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Stalled at 1390 (30 differing rows) on df0c299e279ddca2f716. This session tried 3 more variants (all worse: 2690, 1460, 1660): (1) first clamp as u32 assign + (u8) + if>=0x80; (2) second clamp as (u8)(u32) then if>=0x80; (3) last clamp as u32 then if>=0x4000 -> 0x3FFF. Target float->u32 for the 2^31 path uses c.le.s/bc1tl with sub.s and or 0x80000000, then andi 0xFF, and branches to a shared clamp at 0x118 that the C does not reproduce (C emits j/addiu for the 0x7F store instead). Next untested: express the 0x80000000 OR path explicitly via separate if (v >= 2^31) branch with (u32)(v-2^31) | 0x80000000 and keep the shared clamp label structure via goto-free ordering.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795207822.920901,
+  "score_before": 1390,
+  "score_after": 1390
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Stalled at best 1390 (30 differing rows, revision df0c299e279ddca2f716). This session tried a clean rewrite with a shared clamp per channel (revision 42cfe20fac13d49e33b1): 3030, much worse; the target's 2^31 float->u32 sequence (c.le.s/bc1tl/sub.s/or 0x80000000) plus separate fallthrough and else arms with a shared clamp at 0x118 is not reproduced by the plain C forms. Untested: split the first branch's u32 conversion into two explicit arms (value<2^31 vs value-2^31 | 0x80000000) with the join at the sltiu 0x80 clamp.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795209382.419818,
+  "score_before": 1390,
+  "score_after": 1390
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Stalled at best 1390 (30 differing rows, df0c299e279ddca2f716). Tried explicit ternary for first branch float->u32 (p>=2^31 ? (u32)(p-2^31)|0x80000000 : (u32)p) & 0xFF: 2984, worse (frame 0x38, extra saved FPRs). Target keeps f20/f22/f24 saved, frame 0x30, bc1tl with sub.s in delay slot, shared clamp at 0x118; not reproduced. Untested: hoist the float products into locals so more FPRs are live across the calls.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795210679.452679,
+  "score_before": 1390,
+  "score_after": 1390
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Reached 4/4. First mismatch is still the extra unconditional jump after the first clamp comparison.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795215396.935842,
+  "score_before": 4194,
+  "score_after": 1490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Rechecked 1390. Explicit goto shared volume clamp scored 1430; defaulting pan to raw then clamping scored 1460; inverted pitch clamp scored 1575 but improved a local region. First mismatch is the shared 127 clamp and its jump-to-call path.\nShared volume clamp with explicit gotos\n1430 versus 1390",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795220891.59427,
+  "score_before": 1430,
+  "score_after": 1430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Rechecked 1390. Early in-range volume gotos, raw-first pan, and explicit pitch truncation paths scored 2690, 1460, and 1685. Move-on threshold reached at 4/4. First divergence remains the shared 127 clamp and successful jump to the call.\nEarly goto on in-range volume in each arm, raw-first pan clamp, and explicit signed truncation paths for pitch.\n2690, 1460 and 1685 respectively versus rechecked 1390. Baseline retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795224789.342001,
+  "score_before": 1430,
+  "score_after": 1390,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Best stays 1390 (rev 26b9d933fe2ed600ce12 = saved best + trivial newline). Remaining diffs: 3 clamp sites. Target clamps: arm1 of first block shares the 0x7F tail with else arm (beqz->0x7f; move a1,v1; j end; else-arm: bnez end; nop; addiu 0x7f). Second clamp (E4A8) wants 'sltiu; bnez L; move a1,v1; addiu a1,0x7f' but mine gives beqz+addiu before move; only the 3rd/4th clamps match with 'var_a1_3 = var_v1_3; if (var_v1_3>=0x80U) var_a1_3=0x7F' using s32 v1 / u32 a1. Tried: swapping 2nd clamp to that form (1460 / 1970 worse), s32 v1_2 (no change). Also note args a1/a2 are passed in int regs (mtc1), stack args at 0x40/0x44.\nif/else vs assign-then-if clamp forms, s32/u32 locals for 2nd clamp\n1390->1460/1970 worse",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795236651.059368,
+  "score_before": 4325,
+  "score_after": 1390,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Score 1390/688 bytes retained. Baseline rechecked, one equivalent no-op patch reproduced exact same mismatch. Target 172 instructions vs candidate 170, 30 differing rows. Main differences are saturated integer control-flow for channels: target bnez to shared clamp and move $a1,$v1; candidate emits branch-likely zero test and literal 0x7f, shifting subsequent blocks. Prior variants tested by earlier agents also worsened. Next step: represent clamp as a common post-branch block reached by both paths while leaving converted value in a single u32 local; inspect target full assembly around 0x20-0x120.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795237625.471238,
+  "score_before": 1390,
+  "score_after": 1390,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Reverified saved best at 449. Initializing the repair-phase byte to zero scored 908 with a 0x70 frame. Explicit shared clamp/send labels and matched callee prototypes scored 1004 with a 0x40 frame and two branch-likely clamps. Restored the 449 candidate. The inherited C has a potentially uninitialized byte in a condition whose two arms assign the same constant.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795284101.003632,
+  "score_before": 1390,
+  "score_after": 908,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Judge reached 4/4. Best scoring source still has a potentially uninitialized byte. Clean variant 93d6624e0740b1fafb06 scored 1770, with regular clamp branches still rendered branch-likely.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795289691.4842849,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Defined clamp/goto rewrite (bfb06e66f6818dd73fca) and three diagnostic compiler profiles.\nDefined rewrite scored 1770 with four fewer instructions and integer branch-likely clamps. No-schedule-insns2 scored 2280, no-thread-jumps stayed 1770, mno-branch-likely was rejected. Saved 449 source still has an uninitialized-byte concern.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795291244.1175401,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Reached 4/4. Removing the uninitialized read scored 964, with 0x40 vs 0x30 frame and second gain clamp lowered to branch-likely. Prototyping calls and replacing integer 64 with 64.0f each produced identical output. A shared gain clamp goto scored 1004 and lost $v1 allocation on the first conversion. Historical best remains quality-flagged.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795293183.90695,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Move-on at 8/4. Replacing the suspect uninitialized operand with `if (var_a1_3 != 0 || temp_s0 != 0)` tied 449 with a distinct diff (14 rows changed), and preserves the enclosing clamp's semantics. Zero initialization scored 908, retesting the float conversion scored 2604, and rereading flags scored 964. Explicit shared clamp goto scored 1004. A single-call second clamp plus local repairs scored 739 (revision 26bf1118bafcb7a73b26), with a 0x68 vs 0x30 frame and branch-likely on the third clamp. Saved best restored.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795297367.067586,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "The prior initialized condition tied 449 again. The inherited candidate contains a suspect uninitialized read.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795307029.42415,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Best 449, unchanged. Local repairs gave 449 (branch flip, struct views) and 1034/1149 (worse). Frame is -0x78 vs target -0x30: the candidate's u32 casts and repair_phase temps bloat the stack. The candidate also has a dubious uninitialized read. Next step: rewrite from scratch with one u8 clamp helper pattern per parameter (no __repair temps), f32 args, and check that the frame shrinks to 0x30.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795308092.5478451,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Hit move-on after four trials. Clean unsigned conversions with ordinary clamps restored the prologue but scored 1770. Duplicating both middle setter calls scored 1460 and recovered regular branches, with the wrong moves in their delay slots. Historical 449 candidate contains a suspect uninitialized read.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795310859.481056,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Judge reached 10/4 without improving the saved best. Zero initialization removed the suspect uninitialized read but scored 908 with a 0x70 frame versus 0x30. Clean unsigned mask rewrite with duplicated setter branches and separate pitch predicate scored 1405; regular clamp branch placement still differs.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795337062.024284,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Replacing the historical potentially uninitialized OR with var_a1_3 & 0x80 gives defined control flow and ties 449 at revision a68214d24837f5e7c9fd. The frame remains 0x58 vs 0x30; first volume clamp branches past the shared saturation load rather than to it. Explicit gotos and typed callees in a clean rewrite produced the 0x30 frame but score 1755\u20131770 because clamp branches became branch-likely. Disabling delayed branches or second scheduling worsened the clean rewrite.\nReplaced the uninitialized OR with a byte-mask predicate, then tried signed-byte predicate, typed setter declarations and a direct 64.0f constant independently.\nMask rewrite tied 449. The signed-byte predicate, prototypes and float constant each left displayed assembly unchanged.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795344301.814972,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795349992.5461051,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Judge advised move-on. Verified baseline 449 has a 0x78 frame vs 0x30 and an incorrect first clamp join. Existing byte-mask alternative avoids the potentially uninitialized read at the same score.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795354337.626796,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Attempt 25770151570 (revision 00725f10106d1cb40fb2) is an independent 172-instruction, correct-frame rewrite with the entire first volume region matching. Three subsequent clamp branches have reversed sense and place the limit assignment in the delay slot. Pitch also needs $a1 for the raw conversion and $v0 for the clamped value. Assignment-before-goto forms reverted to branch-likely and scored 1755. Historical best 449 is still selected, with a frame discrepancy and an uninitialized read warning.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795358275.465772,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Correct-frame rewrite 56e6fdaa0ec060fb2b37 scored 955, with three reversed clamp branches and pitch register differences after the first volume block. Single pan conditional overwrite and ternary both scored 960, pitch overwrite scored 2545. Restored saved best, whose quality warning still applies. Next step: on the correct-frame rewrite, try computing each raw value and comparison independently before assigning the call argument, so the raw move can fill the taken branch delay slot.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795361506.481069,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles this session. Best stays 449. Frame -0x78 vs target -0x30. Next step: rewrite from scratch without repair temps, one u8 clamp pattern per param, f32 args; check frame shrinks to 0x30.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795385469.440713,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles. Best stays 449; two prior agents also stalled. Next step: rewrite with f32 args, and one helper-free u8 clamp per param: v=(u32)(x*127.0f)&0xFF; a1 = v<0x80 ? v : 0x7F. Check the frame is 0x30.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795387483.644921,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Tried the helper-free rewrite from the earlier handoff: f32 args, a shared f for the first clamp, and a ternary u8 clamp per param. It scored 4245 with 146 insns against the target's 172, so it is much worse than 449. Keep the saved best at 449. The target's first clamp is branched separately per arm (the two 0x100000 arms), not shared. Next step: patch the saved best and test the target's `move $a1,$v1` and `bnez` pattern in the else-arm clamps.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795390837.6327171,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session; best stays 449 after several stalled agents. Next step: patch saved best to match the target's `move $a1,$v1` before the clamp calls.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795392530.642865,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Local repair pass interrupted (progress changed); baseline 449 rechecked. Next step: patch first-clamp arms to be separately branched with target's `move $a1,$v1` before clamp calls.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795394143.099159,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Handoff (cle7m3). Saved best stays 449 (21 reg rows, 14 stack rows: frame 0x78 vs 0x30, 4 reordered). Target: per clamp (3x 0x7F, 1x 0x3FFF) `andi v1,v1,0xff; sltiu v0,v1,0x80; bnez v0,L; move a1,v1 (slot); li a1,0x7f; L: jal; move a0,s0`, value v1, flag v0, arg a1; region 4: w=a1, flag=v0, r=v0 (`bnez; move v0,a1; li v0,0x3fff; andi a1,v0,0xffff`). Callees take s32 handle + u8/u8/u8/u16 value (matched wrappers pass `arg1 & 0xFF`), return s32. \nWhat worked (isolated judge): per-clamp locals (own value var, own result var; do NOT share one `a`): ternary/if-else regions give value v1/arg a1 and region 4 w=a1/flag=v0 right (s5best style, 1530, frame 0x30 right) but layout mirrored (`beqz v0,L; li (slot); move; L:`): jump.c hoists the const arm (jump.c:699) and reorg takes the li as slot. Calls-in-arms (saved best style) gives the right layout but value lands in a1 (no conflict with the arg pseudo). identical-arm guard `if (a>=0x80U){ if (x) a=0x7F; else a=0x7F; }` in region 1's else arm fixes that arm (bnez/nop/li) but costs an unused local area (vars=16..56) because jump.c turns the equal constants into store-flag arithmetic; a float-compare guard keeps the frame but not the layout.\nTried, no gain: do-while(0) wrappers, flag-first, goto forms, switch, inline clamp helpers, u8/u16 prototypes, register, cap local, all single-flag profile changes (-fno-schedule-insns gives target layout but breaks the rest), prove_chain all families from every variant (only paired_integer_lifetimes 1655->1630).\nStall, stated precisely: target needs copy before branch (reorg fills the slot from before first; optimize_skip only when nothing precedes) AND value not tied to the sltiu result (local-alloc ties output to a dying local input; sched1 puts the copy before the sltiu so the value dies at sltiu and ties: `andi v0; move a1,v0; sltiu v0,a1`). No source shape found that makes the value global/untied without also giving it a1. Evidence: docs/learnings/experiment/float-byte-clamp-copy-before-branch.md (PR 2941, merged). Next idea: a source where the value pseudo is live out of its block without a use that changes code.",
+  "by": "manual-f152d9d4dd124cc1",
+  "created_at": 1795397870.74025,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "handed off at 449: per-clamp locals fix registers but hoisted-const layout mirrors; see note and docs/learnings/experiment/float-byte-clamp-copy-before-branch.md",
+  "by": "manual-f152d9d4dd124cc1",
+  "created_at": 1795397879.956769,
+  "score_before": null,
+  "score_after": null,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "Local repairs (branch orientation, signedness, record layout, copy reuse) all stay at 449 with 41 diff rows. The frame is 0x78 vs target 0x30. The candidate is full of __repair_phase_* temporaries and dummy locals. Next step: rewrite clean from the assembly. Use a helper-free pattern per clamp: v=(u32)(x*127.0f)&0xFF; if(v>=0x80) v=0x7F; callee(s0,v). Make f32 args plain float params (a1/a2 via mtc1, stack floats at 0x40/0x44) and drop the unused locals.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795399139.4702022,
+  "score_before": 449,
+  "score_after": 449,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not taken: this function is reserved by another agent for this run.",
+  "by": "manual-ac95a7710a524ad2",
+  "created_at": 1795402697.959258,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] claimed by mistake by an agent told not to take it; no work done",
+  "by": "manual-134eab4641e949f4",
+  "created_at": 1795404218.1845279,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Released at once: not assigned to this session.",
+  "by": "manual-41388b66981f4e65",
+  "created_at": 1795429149.405351,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] excluded by session instructions; released unworked",
+  "by": "manual-d0db41e32b6d42c4",
+  "created_at": 1795430979.842158,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Released at once: excluded from this session by instruction.",
+  "by": "manual-ce64d15dd9324a78",
+  "created_at": 1795432634.3194492,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Released at once: not in this session scope.",
+  "by": "manual-e993e1970a584675",
+  "created_at": 1795433834.2648478,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Released at once: not to be claimed per operator instruction.",
+  "by": "manual-c3fff79cedfe448d",
+  "created_at": 1795435449.6004732,
+  "score_before": 449,
+  "score_after": 449
+ },
+ {
+  "function": "soundVoiceStart",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Released at once: this function was excluded from this session by instruction, not attempted.",
+  "by": "manual-bd15a4f584fb4ec2",
+  "created_at": 1795439738.009383,
+  "score_before": 449,
+  "score_after": 449
  }
 ]
