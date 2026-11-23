@@ -16,296 +16,135 @@ void setActorStatusBits(void *);
 extern int sprintf(char *, const char *, ...);
 s16 timerGetTotalSeconds(s32 *);
 s32 unlinkNode(void *, void *, void *);
-extern s32 D_8010969C;
-extern s32 D_8011ED10;
-extern s32 D_8011EFE0;
-extern s32 D_8011EFEC;
-extern s32 D_8011F170;
+extern const s32 D_8010969C;
+typedef struct { s16 a; char pad[0x22]; } TrackRec;
+extern TrackRec D_8011ED10[];
+extern char D_8011EFE0[];
+extern char D_8011EFEC[];
+extern char D_8011F170[];
 extern s32 D_8011F29C;
 extern s32 D_8011F2A0;
 extern u8 gSceneType;
-extern s32 sBonusObjectTable;
-extern s32 sProbeActive;
-extern s32 sProbeActors;
-extern s32 sProbeHandles;
-extern s32 sProbeObjects;
-extern s32 sProbeOriginTable;
-extern s32 sProbePositions;
-extern s32 sProbeStates;
+extern void *sBonusObjectTable[];
+extern u8 sProbeActive[];
+extern void *sProbeActors[];
+extern s32 sProbeHandles[];
+extern void *sProbeObjects[];
+extern void *sProbeOriginTable[];
+extern ProbeTriple sProbePositions[];
+extern void *sProbeStates[];
 extern s32 sProbeTimer;
-extern s32 sProbeTimes;
-extern s32 sTrackMarkerTable;
-inline static u8 *inline_fn(s32 *arg0, s32 arg1)
-{
-  return ((u8 *) arg0) + arg1;
-}
-
-inline static char *inline_fn2(void *arg0)
-{
-  return (char *) arg0;
-}
-
+extern s32 sProbeTimes[];
+extern void *sTrackMarkerTable[];
 void func_8011B5F0(void *arg0)
 {
-  s32 *sp34;
-  void **sp3C;
-  s32 var_a2;
-  s32 var_a2_2;
-  s32 var_a2_3;
-  s32 *temp_s0_5;
-  s32 *temp_s0_7;
-  s32 temp_a0;
-  s32 temp_a1;
-  s32 temp_a1_2;
-  s32 temp_a1_3;
-  s32 temp_a1_4;
-  s32 temp_s0;
-  s32 temp_s0_3;
-  unsigned int temp_s0_6;
-  s32 temp_s0_8;
-  s32 temp_s0_9;
-  s32 temp_s1;
-  s32 temp_s1_2;
-  s32 temp_s1_3;
-  s32 temp_s3_2;
-  s32 temp_s3_3;
-  s32 temp_s3_4;
-  s32 temp_s5;
-  s32 temp_s6_2;
-  s32 temp_v0_5;
-  s32 temp_v0_7;
-  s32 temp_v0_8;
-  s32 temp_v1;
-  s32 __repair_phase_temp_v1;
-  s32 var_a0;
-  s32 var_a0_2;
-  s32 var_a0_3;
-  s32 var_a0_4;
-  s32 var_s5;
-  s32 sceneTwo;
-  u16 var_v0;
-  u16 temp_v0_4;
-  u8 temp_s6;
-  union 
-  {
-    void **pointer;
-    s32 value;
-  } __repair_phase_storage;
-  void **temp_s3;
-  void **temp_s7;
-  void *temp_a0_2;
-  void *temp_a0_4;
-  void *temp_a0_5;
-  void *temp_s4;
-  void *temp_v0;
-  void *temp_v0_2;
-  void *temp_v0_3;
-  void *temp_v0_6;
-  temp_s6 = *((u8 *) (((char *) arg0) + 0x7B));
-  temp_s0 = temp_s6 & 0xFF;
-  *((s32 *) (inline_fn2(arg0) + 0x58)) = (s32) ((*((s32 *) (inline_fn2(arg0) + 0x58))) | 1);
-  temp_a0 = temp_s0 * 4;
-  temp_s3 = (void **) (((u8 *) (&sProbeOriginTable)) + (temp_s0 * 4));
-  temp_v0 = *temp_s3;
-  var_s5 = 0;
-  if (temp_v0 != NULL)
-  {
-    if ((*((f32 *) (((char *) temp_v0) + 0x74))) > 0.0f)
-    {
-      temp_v0_2 = *((void **) (inline_fn2(*((void **) (((char *) temp_v0) + 0x68))) + 4));
-      *((ProbeTriple *) (((char *) arg0) + 0x24)) = *((ProbeTriple *) (inline_fn2(temp_v0_2) + 0x9c));
-      temp_v0_3 = *temp_s3;
-      *((ProbeTriple *) (((char *) arg0) + 0x3C)) = *((ProbeTriple *) (inline_fn2(temp_v0_3) + 0x3C));
-      if (gSceneType != 3)
-      {
-        do
-        {
-          *((f32 *) (inline_fn2(arg0) + 0x40)) = (f32) ((*((f32 *) (inline_fn2(arg0) + 0x40))) + 1024.0f);
-        }
-        while (0);
+  u8 id;
+  u16 n;
+  void *o;
+  void *o0;
+  void *p;
+  void *q;
+  s32 gg;
+  void **tab;
+  s32 y1;
+  s32 a1;
+  s32 b1;
+  s32 c1;
+  s32 d1;
+  s32 a2;
+  s32 b2;
+  s32 c2;
+  s32 d2;
+  s32 a3;
+  s32 b3;
+  s32 c3;
+  s32 d3;
+  id = *((u8 *) (((char *) arg0) + 0x7B));
+  *((s32 *) (((char *) arg0) + 0x58)) |= 1;
+  o0 = sProbeOriginTable[id];
+  n = 0;
+  if (o0 != NULL) {
+    if (*((f32 *) (((char *) o0) + 0x74)) > 0.0f) {
+      p = *((void **) (*((char **) (((char *) o0) + 0x68)) + 4));
+      *((ProbeTriple *) (((char *) arg0) + 0x24)) = *((ProbeTriple *) (((char *) p) + 0x9C));
+      *((ProbeTriple *) (((char *) arg0) + 0x3C)) = *((ProbeTriple *) (((char *) sProbeOriginTable[id]) + 0x3C));
+      if (gSceneType != 3) {
+        *((f32 *) (((char *) arg0) + 0x40)) += 1024.0f;
       }
       actorUnlinkFromSurface(arg0);
-      objectListInsert(arg0, *((s32 *) (inline_fn2(*temp_s3) + 0x20)));
+      objectListInsert(arg0, *((s32 *) (((char *) sProbeOriginTable[id]) + 0x20)));
     }
-  }
-  else
-  {
-    sceneTwo = 2;
-    sp34 = (s32 *) inline_fn(&sProbeHandles, temp_s0 * 4);
-    temp_s7 = (void **) (((u8 *) (&sProbeStates)) + (temp_s0 * 4));
-    sp3C = temp_s3;
-    var_v0 = 0 & 0xFFFF;
-    loop_6:
-    __repair_phase_storage.pointer = (void **) (((u8 *) (&sBonusObjectTable)) + (var_v0 * 4));
-
-    if (temp_s0)
-    {
-      if (var_a0_4 || arg0)
-      {
-        temp_a0_2 = *__repair_phase_storage.pointer;
+  } else {
+    for (n = 0; n < 4; n++) {
+      o = sBonusObjectTable[n];
+      if (o == NULL) {
+        continue;
       }
-      else
-      {
-        temp_a0_2 = *__repair_phase_storage.pointer;
+      if ((*((u16 *) (((char *) o) + 0x78)) == 0x4D) | (*((u16 *) (((char *) o) + 0x78)) == 0x61)) {
+        continue;
       }
-    }
-    else
-    {
-      temp_a0_2 = *__repair_phase_storage.pointer;
-    }
-    if (temp_a0_2 == NULL)
-    {
-      goto next_object;
-    }
-    temp_v0_4 = *((u16 *) (inline_fn2(temp_a0_2) + 0x78));
-    if (((temp_v0_4 == 0x4D) | (temp_v0_4 == 0x61)) != 0)
-    {
-      goto next_object;
-    }
-    if (!(approxDistance(temp_a0_2 + 0x24, arg0 + 0x24) < 2.0f))
-    {
-      goto next_object;
-    }
-    temp_s4 = *((void **) (((char *) (*__repair_phase_storage.pointer)) + 0x6C));
-    __repair_phase_storage.value = temp_s0 == 0;
-    if (temp_s4 != NULL)
-    {
-      var_a0 = -__repair_phase_storage.value;
-      if ((*((u8 *) (((char *) (*((void **) (inline_fn2(temp_s4) + 0xB4)))) + 0x12))) == temp_s0)
-      {
-        if ((*(((u8 *) (&sProbeActive)) + temp_s0)) != 0)
-        {
-          goto next_object;
+      if (!(approxDistance(((char *) o) + 0x24, ((char *) arg0) + 0x24) < 2.0f)) {
+        continue;
+      }
+      q = *((void **) (((char *) sBonusObjectTable[n]) + 0x6C));
+      if (q != NULL && *((u8 *) (*((char **) (((char *) q) + 0xB4)) + 0x12)) == id) {
+        if (sProbeActive[id] != 0) {
+          continue;
         }
-        temp_s3_3 = lookupDataEntry(((-(temp_s0 != 0)) & 0x6F) | 0x6E);
-        var_a0_3 = 0x290;
-        temp_s0_6 = lookupDataEntry(0x28E);
-        if (gSceneType == sceneTwo)
-        {
-          var_a0_3 = 0x28F;
-        }
-        temp_v0_7 = lookupDataEntry(var_a0_3);
-        var_a2_2 = 5;
-        do
-        {
-          if (temp_s0 == 0)
-          {
-            if (temp_s7)
-            {
-              var_a2_2 = 0xC;
-            }
-            else
-            {
-              var_a2_2 = 0xC;
-            }
-          }
-          sprintf(inline_fn2(&D_8011F170), (char *) (&D_8011EFE0), var_a2_2, temp_s3_3, temp_s0_6, temp_v0_7);
-          requestSound(0x219);
-          func_80073AF8(0, D_8010969C, &D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
-          temp_v0_8 = temp_s0 * 0xC;
-        }
-        while (0);
-        *(((u8 *) (&sProbeActive)) + temp_s0) = 1;
-        *((ProbeTriple *) (((char *) arg0) + 0x30)) = *((ProbeTriple *) (inline_fn2(&sProbePositions) + temp_v0_8));
-        *((ProbeTriple *) (inline_fn2(arg0) + 0x24)) = *((ProbeTriple *) (((char *) arg0) + 0x30));
-        temp_s1_3 = temp_s0 * 4;
-        temp_s0_7 = (s32 *) (((u8 *) (&sProbeHandles)) + temp_s1_3);
-        listUnlinkFree(*temp_s0_7);
-        *temp_s0_7 = 0;
+        a1 = lookupDataEntry((-(id != 0) & 0x6F) | 0x6E);
+        b1 = lookupDataEntry(0x28E);
+        d1 = lookupDataEntry(gSceneType == 2 ? 0x28F : 0x290);
+        sprintf(D_8011F170, D_8011EFE0, id == 0 ? 0xC : 5, a1, b1, d1);
+        requestSound(0x219);
+        func_80073AF8(0, D_8010969C, (s32 *) D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+        sProbeActive[id] = 1;
+        *((ProbeTriple *) (((char *) arg0) + 0x30)) = sProbePositions[id];
+        *((ProbeTriple *) (((char *) arg0) + 0x24)) = *((ProbeTriple *) (((char *) arg0) + 0x30));
+        listUnlinkFree(sProbeHandles[id]);
+        sProbeHandles[id] = 0;
         actorUnlinkFromSurface(arg0);
-        objectListInsert(arg0, *((s32 *) (inline_fn2(*((void **) (((char *) (&sProbeObjects)) + temp_s1_3))) + 0x20)));
-        *((s32 *) (inline_fn2(arg0) + 0x3C)) = 0;
-        *((f32 *) (inline_fn2(arg0) + 0x40)) = 0.0f;
-        *((s32 *) (inline_fn2(arg0) + 0x44)) = 0;
-        setActorStatusBits(*((void **) (inline_fn2(&sProbeActors) + (temp_s0 * 4))));
-        temp_a0_4 = *((void **) (((u8 *) (&sProbeStates)) + temp_s1_3));
-        *((s32 *) (((char *) temp_a0_4) + 0x28)) = (s32) (((*((s32 *) (inline_fn2(temp_a0_4) + 0x28))) & (~0xFC)) | 0x1C);
+        objectListInsert(arg0, *((s32 *) (((char *) sProbeObjects[id]) + 0x20)));
+        *((s32 *) (((char *) arg0) + 0x3C)) = 0;
+        *((f32 *) (((char *) arg0) + 0x40)) = 0.0f;
+        *((s32 *) (((char *) arg0) + 0x44)) = 0;
+        setActorStatusBits(sProbeActors[id]);
+        *((s32 *) (((char *) sProbeStates[id]) + 0x28)) = (*((s32 *) (((char *) sProbeStates[id]) + 0x28)) & ~0xFC) | 0x1C;
         return;
       }
-      goto block_26;
+      a2 = lookupDataEntry((-(id == 0) & 0x6F) | 0x6E);
+      b2 = lookupDataEntry(0x28C);
+      c2 = lookupDataEntry((-(id != 0) & 0x6F) | 0x6E);
+      d2 = lookupDataEntry(gSceneType == 2 ? 0x28F : 0x290);
+      sprintf(D_8011F170, D_8011EFEC, id == 0 ? 5 : 0xC, a2, b2, id == 0 ? 0xC : 5, c2, d2);
+      func_80073AF8(0, D_8010969C, (s32 *) D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+      sProbeHandles[id] = requestSound(0x21E);
+      sProbeActive[id] = 0;
+      sProbeOriginTable[id] = sBonusObjectTable[n];
+      func_80064370(arg0, n);
+      *((s32 *) (((char *) sProbeStates[id]) + 0x28)) = (*((s32 *) (((char *) sProbeStates[id]) + 0x28)) & ~0xFC) | 0x10;
+      tab = sTrackMarkerTable;
+      y1 = *((s8 *) (((char *) q) + 0x182));
+      unlinkNode(sProbeStates[id], tab[D_8011ED10[id].a], tab[y1]);
+      D_8011ED10[id].a = (s16) ((s8) ((u8) (*((s8 *) (((char *) q) + 0x182)))));
+      return;
     }
-    var_a0 = -__repair_phase_storage.value;
-    block_26:
-    temp_s6_2 = lookupDataEntry((var_a0 & 0x6F) | 0x6E);
-
-    temp_s0_8 = lookupDataEntry(0x28C);
-    var_a0_4 = 0x290;
-    temp_s3_4 = lookupDataEntry(((-(temp_s0 != 0)) & 0x6F) | 0x6E);
-    if (gSceneType == sceneTwo)
-    {
-      var_a0_4 = 0x28F;
-    }
-    var_a2_3 = 0xC;
-    temp_v1 = lookupDataEntry(var_a0_4);
-    if (temp_s0 == 0)
-    {
-      var_a2_3 = 5;
-    }
-    sprintf((char *) (&D_8011F170), (char *) (&D_8011EFEC), var_a2_3, temp_s6_2, temp_s0_8, (temp_s0 == 0) ? ((s32) 0xC) : ((s32) 5), temp_s3_4, temp_v1);
-    func_80073AF8(0, D_8010969C, &D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
-    temp_a1_4 = var_s5 & 0xFFFF;
-    *sp34 = requestSound(0x21E);
-    *(((u8 *) (&sProbeActive)) + temp_s0) = 0;
-    *sp3C = *((void **) (((u8 *) (&sBonusObjectTable)) + (temp_a1_4 * 4)));
-    func_80064370(arg0, temp_a1_4);
-    temp_a0_5 = *temp_s7;
-    temp_s0_9 = temp_s0 * 0x24;
-    *((s32 *) (((char *) temp_a0_5) + 0x28)) = (s32) (((*((s32 *) (inline_fn2(temp_a0_5) + 0x28))) & (~0xFC)) | 0x10);
-    unlinkNode(*temp_s7, ((void **) (&sTrackMarkerTable))[*((s16 *) (((char *) (&D_8011ED10)) + temp_s0_9))], ((void **) (&sTrackMarkerTable))[*((s8 *) (inline_fn2(temp_s4) + 0x182))]);
-    *((s16 *) (((char *) (&D_8011ED10)) + temp_s0_9)) = (s16) ((s8) ((u8) (*((s8 *) (inline_fn2(temp_s4) + 0x182)))));
-    return;
-    next_object:
-    var_s5++;
-
-    var_v0 = var_s5 & 0xFFFF;
-    if (((u32) var_v0) < 4U)
-    {
-      goto loop_6;
-    }
-    temp_s3_2 = temp_s6 & 0xFF;
-    temp_s0_3 = temp_s3_2 * 4;
-    if ((((*((void **) (((char *) (&sProbeOriginTable)) + temp_s0_3))) == 0) && ((*((u8 *) (inline_fn2(&sProbeActive) + temp_s3_2))) == 0)) && (((u32) (timerGetTotalSeconds(&sProbeTimer) - (*((s32 *) (((char *) (&sProbeTimes)) + temp_s0_3))))) >= 0xAU))
-    {
-      if ((*((u8 *) (((char *) (&sProbeActive)) + temp_s3_2))) == 0)
-      {
-        temp_v1 = lookupDataEntry(((-(temp_s3_2 != 0)) & 0x6F) | 0x6E);
-        var_a0_2 = 0x290;
-        if (gSceneType == sceneTwo)
-        {
-          if (temp_s3)
-          {
-            var_a0_2 = 0x28F;
-          }
-          else
-          {
-            var_a0_2 = 0x28F;
-          }
-        }
-        temp_s0_3 = lookupDataEntry(var_a0_2);
-        temp_s3_4 = lookupDataEntry(0x291);
-        var_a2 = 5;
-        if (temp_s3_2 == 0)
-        {
-          var_a2 = 0xC;
-        }
-        sprintf((char *) (&D_8011F170), inline_fn2(&D_8011EFE0), var_a2, temp_v1, temp_s0_3, temp_s3_4);
-        func_80073AF8(0, D_8010969C, &D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+    if (sProbeOriginTable[id] == 0 && sProbeActive[id] == 0 && (u32) (timerGetTotalSeconds(&sProbeTimer) - sProbeTimes[id]) >= 10) {
+      if (sProbeActive[id] == 0) {
+        a3 = lookupDataEntry((-(id != 0) & 0x6F) | 0x6E);
+        b3 = lookupDataEntry(gSceneType == 2 ? 0x28F : 0x290);
+        c3 = lookupDataEntry(0x291);
+        sprintf(D_8011F170, D_8011EFE0, id == 0 ? 0xC : 5, a3, b3, c3);
+        func_80073AF8(0, D_8010969C, (s32 *) D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
       }
-      temp_s1 = temp_s6 & 0xFF;
-      temp_v0_6 = (s32 *) inline_fn(&sProbePositions, temp_s1 * 0xC);
-      *((ProbeTriple *) (inline_fn2(arg0) + 0x24)) = *((ProbeTriple *) temp_v0_6);
-      *((ProbeTriple *) (((char *) arg0) + 0x30)) = *((ProbeTriple *) temp_v0_6);
-      *((u8 *) (((char *) (&sProbeActive)) + temp_s1)) = 1;
-      temp_s1_2 = temp_s1 * 4;
-      temp_s0_5 = (s32 *) inline_fn(&sProbeHandles, temp_s1_2);
-      *((void **) (inline_fn2(&sProbeOriginTable) + temp_s1_2)) = 0;
-      listUnlinkFree(*temp_s0_5);
-      *temp_s0_5 = 0;
+      *((ProbeTriple *) (((char *) arg0) + 0x24)) = sProbePositions[id];
+      *((ProbeTriple *) (((char *) arg0) + 0x30)) = sProbePositions[id];
+      sProbeActive[id] = 1;
+      sProbeOriginTable[id] = 0;
+      listUnlinkFree(sProbeHandles[id]);
+      sProbeHandles[id] = 0;
       actorUnlinkFromSurface(arg0);
-      objectListInsert(arg0, *((s32 *) (inline_fn2(*((void **) (((char *) (&sProbeObjects)) + temp_s1_2))) + 0x20)));
-      setActorStatusBits(*((void **) (inline_fn2(&sProbeActors) + temp_s1_2)));
+      objectListInsert(arg0, *((s32 *) (((char *) sProbeObjects[id]) + 0x20)));
+      setActorStatusBits(sProbeActors[id]);
     }
   }
 }
-
-
