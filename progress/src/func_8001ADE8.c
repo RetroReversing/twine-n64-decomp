@@ -75,7 +75,10 @@ void func_8001ADE8(void)
   char *temp_s0_3;
   volatile u8 *savedByte;
   volatile u8 *savedByteLate;
+  volatile long *probe;
+  volatile u8 *savedByteLate2;
   void *menuState;
+  void *stateX;
   void *actor;
   s32 entry;
   volatile u8 *slotField;
@@ -99,6 +102,7 @@ void func_8001ADE8(void)
   s32 var_s0_3;
   s32 var_s0_4;
   s32 var_s2;
+  s32 mult;
   s32 off111;
   s32 off10b;
   s32 var_v0;
@@ -177,8 +181,9 @@ void func_8001ADE8(void)
     entry = sp34;
     *((void **) (((char *) temp_fp) + (-0x18))) = inline_fn(savedByte) + (off111 = savedByte - 0x111);
     func_80019E28(entry);
+    mult = inline_fn(savedByte);
     temp_s0_4 = savedByte - 0x109;
-    formatTextEntry(temp_s7, temp_s0_3, inline_fn(savedByte) + temp_s0_4);
+    formatTextEntry(temp_s7, temp_s0_3, mult + temp_s0_4);
     *((void **) (((char *) temp_s7) + (-0x18))) = (void *) (inline_fn(savedByte) + temp_s0_4);
     temp_v1 = inline_fn(savedByte);
     D_80104311 = (*((&D_801001A0) + temp_v1)) / 10U;
@@ -213,75 +218,74 @@ void func_8001ADE8(void)
       formatTextEntry(temp_s5, sFmtEntryName, lookupDataEntry(var_a0));
 
         break;
-
     }
 
     if ((*((u8 *) (((char *) gSaveMenuState) + 8))) != 1)
     {
+      void *sound;
+      s32 ba;
       temp_v1_3 = *((void **) (((char *) gSaveMenuState) + 0x18));
       temp_v0_2 = *((u16 *) (((char *) temp_v1_3) + 0xC));
       temp_a0_2 = temp_v0_2 & 0xF;
       if (temp_a0_2 != 0)
       {
-        void *sound1;
-        s32 v1_;
-        s32 a1_;
-        sound1 = *((void **) (((char *) temp_v1_3) + 8));
-        v1_ = sMenuItemParamTable[temp_a0_2];
-        a1_ = *((u8 *) (((char *) gSaveMenuState) + 0x30));
-        *((s32 *) (((char *) sound1) + 0x10)) = (v1_ & (~0xFF)) | a1_;
+        s32 ba_1;
+        s32 var_v0_1;
+        sound = *((void **) (((char *) temp_v1_3) + 8));
+        var_v0_1 = sMenuItemParamTable[temp_a0_2];
+        ba_1 = *((u8 *) (((char *) gSaveMenuState) + 0x30));
+        *((s32 *) (((char *) sound) + 0x10)) = (var_v0_1 & (~0xFF)) | ba_1;
       }
       else
       {
         if (temp_v0_2 & 0x80)
         {
-          void *sound2;
-          s32 v2_;
-          s32 a2_;
-          sound2 = *((void **) (((char *) temp_v1_3) + 8));
-          v2_ = D_80102EBC;
-          a2_ = *((u8 *) (((char *) sound2) + 0x13));
-          *((s32 *) (((char *) sound2) + 0x10)) = (v2_ & (~0xFF)) | a2_;
+          s32 ba_2;
+          s32 var_v0_2_;
+          sound = *((void **) (((char *) temp_v1_3) + 8));
+          var_v0_2_ = D_80102EBC;
+          do { ba_2 = *((u8 *) (((char *) sound) + 0x13)); }
+          while (0);
+          *((s32 *) (((char *) sound) + 0x10)) = (var_v0_2_ & (~0xFF)) | ba_2;
         }
         else
         {
-          void *sound3;
-          s32 v3_;
-          s32 a3_;
-          sound3 = *((void **) (((char *) temp_v1_3) + 8));
-          v3_ = D_80102EC4;
-          a3_ = *((u8 *) (((char *) sound3) + 0x13));
-          *((s32 *) (((char *) sound3) + 0x10)) = (v3_ & (~0xFF)) | a3_;
+          s32 ba_3;
+          s32 var_v0_3;
+          sound = *((void **) (((char *) temp_v1_3) + 8));
+          var_v0_3 = D_80102EC4;
+          do { ba_3 = *((u8 *) (((char *) sound) + 0x13)); }
+          while (0);
+          *((s32 *) (((char *) sound) + 0x10)) = (var_v0_3 & (~0xFF)) | ba_3;
         }
       }
+      
+      stateX = gSaveMenuState;
+      *((u8 *) (((char *) stateX) + 8)) = 1U;
       menuState = gSaveMenuState;
-      *((u8 *) (((char *) gSaveMenuState) + 8)) = 1U;
 
       {
-        *((void **) (((char *) gSaveMenuState) + 0x18)) = (void *) (temp_s7 - 0x28); temp_v0_3 = *((void * volatile *) (((char *) menuState) + 0x18)); temp_a1 = *((void **) (((char *) temp_v0_3) + 8));
+        *((void **) (((char *) stateX) + 0x18)) = (void *) (temp_s7 - 0x28); temp_v0_3 = *((void * volatile *) (((char *) menuState) + 0x18)); temp_a1 = *((void **) (((char *) temp_v0_3) + 8));
         if (temp_a1 != NULL)
         {
           temp_v0_4 = (*((u16 *) (((char *) temp_v0_3) + 0xC))) & 0xF;
           if (temp_v0_4 != 0)
           {
-            s32 v4_;
-            s32 a4_;
-            v4_ = sMenuItemParamTable[temp_v0_4];
-            a4_ = *((u8 *) (((char *) menuState) + 0x30));
-            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((v4_ & (~0xFF)) | a4_);
+            s32 var_a0_3_1;
+            s32 var_v0_2_1;
+            var_v0_2_1 = sMenuItemParamTable[temp_v0_4]; var_a0_3_1 = *((u8 *) (((char *) menuState) + 0x30));
+            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((var_v0_2_1 & (~0xFF)) | var_a0_3_1);
           }
           else
           {
-            s32 v5_;
-            s32 a5_;
-            v5_ = D_80102EC0;
-            a5_ = *((u8 *) (((char *) temp_a1) + 0x13));
-            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((v5_ & (~0xFF)) | a5_);
+            s32 var_a0_3_2;
+            s32 var_v0_2_2;
+            var_v0_2_2 = D_80102EC0; var_a0_3_2 = *((u8 *) (((char *) temp_a1) + 0x13));
+            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((var_v0_2_2 & (~0xFF)) | var_a0_3_2);
           }
         }
         layoutTextBox(*((s32 *) (((char *) gSaveMenuState) + 0x1C)), *((void **) (((char *) gSaveMenuState) + 0x18)), 0);
       }
-
     }
     savedByteLate = &gPickupSavedByte;
     temp_a0_3 = temp_s6 - 0x28;
@@ -335,9 +339,9 @@ void func_8001ADE8(void)
       *((u8 *) (((char *) gPickupActor) + 0x81)) = 0xFF;
       *((f32 *) (((char *) gPickupActor) + 0x24)) = 1.25f;
       *((f32 *) (((char *) gPickupActor) + 0x28)) = 0.15f;
- do { *((f32 *) (((char *) gPickupActor) + 0x2C)) = -3.0f; func_8002B8AC(); actorLinkToSurface(*gProbeObjectList, *((s32 *) actorSlot), 1); } while (0);
-      savedByteLate = &gPickupSavedByte;
-      temp_v1_4 = *((u16 *) (*((u16 **) (((u8 *) (&D_800C3CF8)) + (func_8002B9CC(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)))) * 0xC)))));
+ do { *((f32 *) (((char *) gPickupActor) + 0x2C)) = (probe = gProbeObjectList, -3.0f); actorLinkToSurface(*probe, (s32) *actorSlot, 1); func_8002B8AC(); } while (0);
+      savedByteLate2 = &gPickupSavedByte;
+      temp_v1_4 = *((u16 *) (*((u16 **) (((u8 *) (&D_800C3CF8)) + (func_8002B9CC(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate2)))) * 0xC)))));
       gSharedItemArg = -1;
       gSharedItemBusy = 1;
       {
@@ -345,13 +349,13 @@ void func_8001ADE8(void)
         *itemId = temp_v1_4;
         activateIdList(itemId);
       }
-      model = *((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)));
+      model = *((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate2)));
       gSharedItemBusy = 0;
       model = func_8002B9CC(model);
-      func_8000237C(*((s32 *) actorSlot), model, 0, *((&D_801001A3) + inline_fn(savedByteLate)));
+      func_8000237C(*((s32 *) actorSlot), model, 0, *((&D_801001A3) + inline_fn(savedByteLate2)));
       func_80002BD0(*((s32 *) actorSlot), 0x14D);
       *((f32 *) (((char *) (*((void **) (((char *) gPickupActor) + 0x68)))) + 0x34)) = 0.05f;
-      if (!(getKeyEntryFlag(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)))) & 0xFF))
+      if (!(getKeyEntryFlag(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate2)))) & 0xFF))
       {
         clearProbeState(*((s32 *) actorSlot), 0x2A9);
       }
