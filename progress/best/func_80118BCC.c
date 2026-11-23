@@ -64,7 +64,7 @@ void func_80118BCC(void *arg0)
 {
   struct Scratch {
     s32 sp28[4];
-    s32 sp38;
+    u32 sp38;
     s32 sp3C;
     s32 sp40;
     void *sp44;

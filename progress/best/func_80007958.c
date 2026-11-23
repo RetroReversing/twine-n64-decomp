@@ -140,10 +140,12 @@ void func_80007958(void)
   u32 mask;
   u32 __repair_phase_alpha;
   u32 __repair_phase___repair_phase_alpha;
-  register s32 transitioning;
+  register s8 transitioning;
+  s32 postBytes;
   s32 __repair_phase_layer;
   s32 __repair_phase___repair_phase_layer;
   f32 opacity;
+  f32 zero;
   u8 *modeFlags;
   sRenderState = slot->buffer;
   D_8010A928 = 0x798 + ((u8 *) slot);
@@ -190,7 +192,8 @@ void func_80007958(void)
       {
         goto next_view;
       }
-      opacity = (view->opacity > 0.0f) ? (view->opacity) : (0.0f);
+      opacity = view->opacity;
+      if (opacity < (zero = 0.0f)) { opacity = zero; }
       inline_fn2345(view)->alpha = inline_fn23456(opacity);
       func_800344DC(view);
       if ((*entry)->flags & 0x40)
@@ -201,7 +204,7 @@ void func_80007958(void)
         {
           (*entry)->flags &= ~0x40;
         }
-        transitioning = 1;
+        do { transitioning = 1; } while (0);
       }
       else
         if (!transitioning)
@@ -220,7 +223,7 @@ void func_80007958(void)
           sDisplayListCursor = cmd + 1;
           func_8003C228(view, i, 5);
         }
-        if (modeFlags[-2] & mask)
+        do { if (modeFlags[-2] & mask)
         {
           __repair_phase_cmd = sDisplayListCursor;
           __repair_phase_cmd->w0 = 0xDE000000;
@@ -228,7 +231,7 @@ void func_80007958(void)
           view = *entry;
           sDisplayListCursor = __repair_phase_cmd + 1;
           func_80038000(view, i);
-        }
+        } } while (0);
         if (modeFlags[-1] & mask)
         {
           __repair_phase_layer = 4;
@@ -288,13 +291,13 @@ void func_80007958(void)
   }
   func_80044410(0);
   cmd = sDisplayListCursor++;
-  transitioning = inline_fn2(cmd, (unsigned short) 0x30) - ((u32) slot);
+  postBytes = inline_fn2(cmd, (unsigned short) 0x30) - ((u32) slot);
   cmd->w0 = 0xE9000000;
   cmd->w1 = 0;
   cmd = sDisplayListCursor++;
   cmd->w0 = 0xDF000000;
   cmd->w1 = 0;
-  func_800A0220(slot->buffer, transitioning);
+  func_800A0220(slot->buffer, postBytes);
   func_800A0220(slot->buffer, inline_fn234567(inline_fn(), (u32) slot));
   func_800A0220(slot->buffer, inline_fn234567(inline_fn23(D_80109CB8), (u32) slot));
   func_800A0220(slot->buffer, inline_fn234567((u32) D_801002FC, 0x1AA8) - ((u32) slot));
@@ -363,3 +366,4 @@ void func_80007958(void)
  do { D_800B1D70++; D_8010A4B0++; if (sMatrixPoolSlotCount <= D_8010A4B0) { D_8010A4B0 = 0; } } while (0);
   }
 }
+

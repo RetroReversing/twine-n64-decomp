@@ -45,7 +45,10 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
   void *temp_s4;
   void *temp_a0;
   void *temp_a3;
-  void *temp_v1;
+  void *temp_v1_1;
+  void *temp_v1_2;
+  void *temp_v1_3;
+  void *temp_v1_4_;
   s32 temp_s3;
   s32 temp_v0;
   s32 var_s7;
@@ -70,17 +73,17 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
         {
           if (arg1)
           {
-            temp_v1 = gObjectList;
+            temp_v1_1 = gObjectList;
             *((s32 *) (((u8 *) var_a1) + 0x58)) = flags | 0x800;
             gObjectList = var_a1;
-            *((void **) (((u8 *) var_a1) + 0x1C)) = temp_v1;
+            *((void **) (((u8 *) var_a1) + 0x1C)) = temp_v1_1;
           }
           else
           {
-            temp_v1 = gObjectList;
+            temp_v1_2 = gObjectList;
             *((s32 *) (((u8 *) var_a1) + 0x58)) = flags | 0x800;
             gObjectList = var_a1;
-            *((void **) (((u8 *) var_a1) + 0x1C)) = temp_v1;
+            *((void **) (((u8 *) var_a1) + 0x1C)) = temp_v1_2;
           }
         }
         nextHead:
@@ -124,9 +127,9 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                   }
                   if (!(flags & 0x800))
                   {
-                    temp_v1 = gObjectList;
+                    temp_v1_3 = gObjectList;
                     *((s32 *) (((u8 *) var_a1) + 0x58)) = flags | 0x800; gObjectList = var_a1;
-                    *((void **) (((u8 *) var_a1) + 0x1C)) = temp_v1;
+                    *((void **) (((u8 *) var_a1) + 0x1C)) = temp_v1_3;
                   }
                   nextChild:
                   var_a1 = *((void **) var_a1);
@@ -144,9 +147,9 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
               {
                 if (!((*((s32 *) (((u8 *) temp_a0) + 0x58))) & 0x800))
                 {
-                  temp_v1 = gObjectList;
+                  temp_v1_4_ = gObjectList;
                   *((s32 *) (((u8 *) temp_a0) + 0x58)) |= 0x800; gObjectList = temp_a0;
-                  *((void **) (((u8 *) temp_a0) + 0x1C)) = temp_v1;
+                  *((void **) (((u8 *) temp_a0) + 0x1C)) = temp_v1_4_;
                 }
                 if ((*((s16 *) (((u8 *) temp_a0) + 0x7A))) == 0)
                 {

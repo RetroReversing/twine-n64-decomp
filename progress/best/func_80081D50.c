@@ -50,11 +50,15 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
   u8 bonus;
   u16 a2;
   u8 v;
+  u8 v_web;
+  u16 ii;
   SlotOut *o;
   SlotEnt *e;
   s32 t1;
+  s32 t1_web;
   s32 t2;
   s32 s1;
+  s32 s1_web;
   s32 t3;
   s32 one;
   if (arg0[0].idx == (-1))
@@ -64,15 +68,11 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
   {
     do
     {
-      do
       {
-        e = inline_fn2((u16) i, sizeof(*arg0), (u32) arg0);
+        ii = i;
+        e = (SlotEnt *) ((ii * sizeof(*arg0)) + (u32) arg0);
         idx = e->idx;
-        do
-        {
-          s1 = 0;
-        }
-        while (0);
+        s1 = 0;
         if ((D_800CEEB0 == 2) || ((u16) func_8002D0BC(0xA3, arg1 & 0xFF)))
         {
           a2 = 0;
@@ -89,9 +89,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
           {
             t2 = (arg2 & E(i).mask) != 0;
             t2 ^= E(i).flags & 1;
-            t2 = t2 == 0;
-            t3 = a2 == 0;
-            if (((u16) t3) & t2)
+            if ((t2 == 0) & (a2 == 0))
             {
               goto update;
             }
@@ -105,8 +103,8 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
               }
               else
               {
-                t1 = (u16) a2;
-    s1 = (arg2 & E(i).val) | t1;
+                t1_web = (u16) a2;
+    s1 = (arg2 & E(i).val) | t1_web;
               }
               if (E(i).flags & 8)
               {
@@ -156,7 +154,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
         if (s1) one = 1; else if (!s1) one = 1; else one = 0;
         if (!one) goto advance;
         v = ((volatile SlotOut *) arg3)[idx].a;
-        t1 = (v >> 2) & 1; t2 = t1 ^ ((v >> 3) & 1);
+        s1_web = (v >> 2) & 1; t2 = s1_web ^ ((v >> 3) & 1);
         if ((v & 8) && (t2 & 1))
         {
           arg3[idx].a = v | 0x10;
@@ -165,12 +163,11 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
         {
           arg3[idx].a &= 0xEF;
         }
-        v = inline_fn234(arg3, idx);
-        arg3[idx].a = (v & 8) ? (v | 4) : (v & 0xFB);
+        v_web = inline_fn234(arg3, idx);
+        arg3[idx].a = (v_web & 8) ? (v_web | 4) : (v_web & 0xFB);
         arg3[idx].a &= 0xF7;
         advance: ;
       }
-      while (0);
       i++;
     }
     while (E(i).idx != (-1));
