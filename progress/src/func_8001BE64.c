@@ -54,7 +54,7 @@ void func_8001BE64(void)
   void *temp_s6;
   void *temp_s7;
   void *var_a2_2;
-  void *var_s1;
+  void *var_s1; s32 la; s32 *fmtp;
   gMenuNeedsRedraw = 1;
   temp_fp = findEntryById(&D_800BD9A0, 0x5B);
   temp_s6 = findEntryById(&D_800BD9A0, 0x5C);
@@ -151,13 +151,6 @@ void func_8001BE64(void)
       formatTextEntry(var_s1, var_a1, var_a2);
     }
     else
-      if (temp_s5)
-    {
-      var_a1 = &sFmtEntryName;
-      var_a2 = lookupDataEntry(0x5F);
-      formatTextEntry(var_s1, var_a1, var_a2);
-    }
-    else
     {
       var_a1 = &sFmtEntryName;
       var_a2 = lookupDataEntry(0x5F);
@@ -168,16 +161,29 @@ void func_8001BE64(void)
     {
       var_a0 = 0x68;
     }
-    formatTextEntry(temp_s5, &sFmtEntryName, lookupDataEntry(var_a0));
- do { var_a0_2 = 0xA; if (D_801002D5) { var_a0_2 = 9; } formatTextEntry(temp_s4, &sFmtEntryName, lookupDataEntry(var_a0_2)); switch (gPauseFlag) { case 0: var_a0_3 = 0xA; goto pause_lookup; default: var_a0_3 = 0x2E4; goto pause_lookup; case 1: var_v0_4 = lookupDataEntry(0x2E2); var_a1 = &sFmtEntryName; goto pause_format; case 2: var_v0_4 = lookupDataEntry(0x2E3); var_a1 = &sFmtEntryName; goto pause_format; } pause_lookup: var_v0_4 = lookupDataEntry(var_a0_3) & 0xFF; var_a1 = &sFmtEntryName; pause_format: formatTextEntry(temp_s2, var_a1, var_v0_4); temp_a0 = temp_s4 - 0x28; if (gSaveKeyRelaxed) { if (var_a1) { menuSetItemLabelIndices(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 0x16C, 1); } else if (temp_s6) { menuSetItemLabelIndices(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 0x16C, 1); } else { menuSetItemLabelIndices(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 0x16C, 1); } } else { func_80025E9C(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 1, 0xD); } } while (0);
-    temp_a0_2 = temp_s5 - 0x28;
+    formatTextEntry(temp_s5, ((s32 *) ((u8 *) &D_800D2858 + 0xC)), lookupDataEntry(var_a0));
+    var_a0_2 = 0xA;
+    if (D_801002D5) { var_a0_2 = 9; }
+    formatTextEntry(temp_s4, ((s32 *) ((u8 *) &D_800D2858 + 0xC)), lookupDataEntry(var_a0_2));
+    switch (gPauseFlag) {
+      case 1: formatTextEntry(temp_s2, ((s32 *) ((u8 *) &D_800D2858 + 0xC)), lookupDataEntry(0x2E2)); break;
+      case 2: formatTextEntry(temp_s2, ((s32 *) ((u8 *) &D_800D2858 + 0xC)), lookupDataEntry(0x2E3)); break;
+      case 0: la = 0xA; goto L;
+      default: la = 0x2E4;
+      L: formatTextEntry(temp_s2, &sFmtEntryName, lookupDataEntry(la)); break;
+    }
+    if (gSaveKeyRelaxed) {
+      menuSetItemLabelIndices(temp_s4 - 0x28, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 0x16C, 1);
+    } else {
+      func_80025E9C(temp_s4 - 0x28, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 1, 0xD);
+    }
     if (gSaveSlotCount == 2)
     {
-      menuSetItemLabelIndices(temp_a0_2, temp_s5, temp_s6, temp_s2 - 0x28, 0x66, 1);
+      menuSetItemLabelIndices(temp_s5 - 0x28, temp_s5, temp_s6, temp_s2 - 0x28, 0x66, 1);
     }
     else
     {
-      func_80025E9C(temp_a0_2, temp_s5, temp_s6, temp_s2 - 0x28, 1, 0xD);
+      func_80025E9C(temp_s5 - 0x28, temp_s5, temp_s6, temp_s2 - 0x28, 1, 0xD);
     }
     if (gSceneType == 8)
     {
@@ -186,20 +192,11 @@ void func_8001BE64(void)
     }
     if (gSceneType == 7)
     {
-      var_a2_2 = temp_s3 - 0x28;
-      ;
-      menuSetItemLabelIndices(var_s1 - 0x28, var_s1, var_a2_2, temp_s7, 0x1AD, 1);
+      menuSetItemLabelIndices(var_s1 - 0x28, var_s1, temp_s3 - 0x28, temp_s7, 0x1AD, 1);
     }
     else
     {
-      do
-      {
-        ;
-        var_a2_2 = temp_s3 - 0x28;
-        menuSetItemLabelIndices(var_s1 - 0x28, var_s1, var_a2_2, temp_s7, 0xB1, 1);
-      }
-      while (0);
+      menuSetItemLabelIndices(var_s1 - 0x28, var_s1, temp_s3 - 0x28, temp_s7, 0xB1, 1);
     }
   }
 }
-
