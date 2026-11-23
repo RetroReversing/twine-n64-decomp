@@ -8,7 +8,7 @@ s32 func_80067A24(void *, u16);
 s32 func_80067A7C(void *, void *, u16);
 void func_8006832C(void *, void *);
 s32 func_8007A9CC(void *, void *, s32 *, f32);
-char func_800818AC(int, s32);
+s32 func_800818AC(int, s32);
 s32 func_8008194C(int, s32);
 s32 func_80081AA4(s32, s32);
 s32 func_80082834(s8, s32, u8);
@@ -70,9 +70,9 @@ void func_8006899C(void *arg0, u8 arg1)
   u8 temp_a1_2;
   u8 temp_a1_3;
   u8 temp_v0_2;
-  u8 temp_v0_5;
+  s8 temp_v0_5;
   void **temp_v0;
-  volatile f32 cameraAngles[3];
+  f32 cameraAngles[3];
   void **var_a3;
   void *temp_a1;
   void *temp_s0;
@@ -84,6 +84,7 @@ void func_8006899C(void *arg0, u8 arg1)
   void *temp_v1_3;
   void *var_s1;
   void *var_s5;
+  void *actor2;
   temp_s2 = *((void **) (((char *) arg0) + 0x6C));
   temp_fp = *((s8 *) inline_fn2((char *) temp_s2, 0x182));
   {
@@ -98,13 +99,13 @@ void func_8006899C(void *arg0, u8 arg1)
       f32 yaw = *((f32 *) (((char *) marker) + 0x34));
       s32 kind = *((s8 *) (((char *) actor) + 0xE));
       cameraAngles[0] = yaw;
+      var_s6 = 1;
+      sp37 = arg1;
+      temp_s4 = ((char *) (&sEnemyDefTable)) + (kind * 0xE8);
       {
         f32 pitch = *((f32 *) (((char *) (*temp_v0)) + 0x38));
-        var_s6 = 1;
-        sp37 = arg1;
         cameraAngles[1] = pitch;
       }
-      temp_s4 = ((char *) (&sEnemyDefTable)) + (kind * 0xE8);
     }
   }
   cameraAngles[2] = 0.0f;
@@ -172,11 +173,12 @@ void func_8006899C(void *arg0, u8 arg1)
                 var_a0 &= -inline_fn234(temp_a1);
                 break;
 
-              case 18:
-
-              case 19:
-
+              case 10:
+              case 11:
+              case 12:
+              case 13:
               case 20:
+                break;
 
               default:
                 var_a0 = 0;
@@ -269,9 +271,9 @@ void func_8006899C(void *arg0, u8 arg1)
   {
     if (((*((s8 *) inline_fn2((char *) (*((void **) inline_fn2((char *) arg0, 0x68))), 0xE))) != 0x1C) || (func_800818AC(temp_fp, 0x18) == 0))
     {
-      temp_v0 = (void *) (*((u8 *) inline_fn2((char *) temp_s2, 0x19A))); temp_v0_5 = ((u32) temp_v0) - 1;
+      temp_v0_5 = (*((u8 *) inline_fn2((char *) temp_s2, 0x19A))) - 1;
       *((u8 *) inline_fn23((char *) temp_s2, 0x19A)) = temp_v0_5;
-      if (temp_v0_5 & 0x80)
+      if (temp_v0_5 < 0)
       {
         *((u8 *) inline_fn23((char *) temp_s2, 0x19A)) = 0xFU;
         if ((*((u16 *) (((char *) arg0) + 0x78))) == 3)
@@ -287,11 +289,11 @@ void func_8006899C(void *arg0, u8 arg1)
     goto block_62;
   }
   temp_v0_6 = *((s32 *) inline_fn23((char *) temp_s2, 0x10));
-  temp_v0_7 = temp_v0_6 - 1;
   if (inline_fn(temp_v0_6))
   {
-    *((s32 *) inline_fn2((char *) temp_s2, 0x10)) = temp_v0_7;
-    if (temp_v0_7 == 0)
+    temp_v0_6 = temp_v0_6 - 1;
+    *((s32 *) inline_fn2((char *) temp_s2, 0x10)) = temp_v0_6;
+    if (temp_v0_6 == 0)
     {
       if (inline_fn(*((s16 *) inline_fn23((char *) temp_s4, 0x34))))
       {
@@ -318,13 +320,11 @@ void func_8006899C(void *arg0, u8 arg1)
       }
       if ((func_800648FC(arg0, 1) << 0x18) != 0)
       {
-        __repair_store_0 = (s16) (*((u8 *) (((char *) temp_s4) + 0x36)));
-        __repair_store_1 = (s16) (*((u8 *) inline_fn23((char *) temp_s4, 0x36)));
-        *((s16 *) (((char *) temp_s2) + 0x176)) = __repair_store_0;
-        *((s16 *) (((char *) temp_s2) + 0x176)) = __repair_store_1;
+        *((s16 *) (((char *) temp_s2) + 0x176)) = (s16) (*((u8 *) (((char *) temp_s4) + 0x36)));
+        *((s16 *) (((char *) temp_s2) + 0x176)) = (s16) (*((u8 *) inline_fn23((char *) temp_s4, 0x36)));
         temp_v1_3 = *((void **) (((char *) temp_s2) + 0xA8));
-        *((s16 *) inline_fn2((char *) temp_s2, 0x178)) = 0;
         *((u16 *) (((char *) temp_s2) - (-0x17A))) = (u16) (*((u16 *) inline_fn2((char *) (((*((u8 *) (((char *) inline_fn23(temp_s2, (*((s8 *) (((char *) (*((void **) inline_fn2((char *) arg0, 0x68)))) + 0xE))) * 8)) + 0x1FD))) * 2) + temp_s4), 0x24)));
+        *((s16 *) inline_fn2((char *) temp_s2, 0x178)) = 0;
         if (temp_v1_3 != NULL)
         {
           *((s16 *) (((char *) temp_v1_3) + 0x7A)) = 5;
@@ -343,7 +343,7 @@ void func_8006899C(void *arg0, u8 arg1)
     if ((func_80081AA4(temp_fp, 0xE) != 0) || (((s8) sp37) == 1))
     {
       block_76:
-      if (((*((s16 *) (((char *) temp_s2) + 0x176))) == (-1)) && (((s32) (*((s16 *) inline_fn2((char *) temp_s2, 0x178)))) == 0))
+      if (((*((s16 *) (((char *) temp_s2) + 0x176))) == (-1)) && ((*((s32 *) inline_fn2((char *) temp_s2, 0x178))) == 0))
       {
         temp_v0_8 = *((s16 *) (((char *) temp_s4) + 0x34));
         if (inline_fn(temp_v0_8))
@@ -399,13 +399,11 @@ void func_8006899C(void *arg0, u8 arg1)
           if ((temp_v0_11 << 0x10) <= 0)
           {
             temp_a0_3 = *((s32 *) inline_fn2((char *) temp_s2, 8));
-            if (temp_a0_3 == (-1))
+            if (temp_a0_3 != (-1))
             {
-              *((s16 *) inline_fn23((char *) temp_s2, 0x178)) = 0;
-              return;
+              listUnlinkFree(temp_a0_3);
+              *((s32 *) inline_fn2((char *) temp_s2, 8)) = -1;
             }
-            listUnlinkFree(temp_a0_3);
-            *((s32 *) inline_fn2((char *) temp_s2, 8)) = -1;
             *((s16 *) inline_fn2((char *) temp_s2, 0x178)) = 0;
             return;
           }
@@ -437,8 +435,9 @@ void func_8006899C(void *arg0, u8 arg1)
             }
 
             D_800E1A28 |= 0x10000;
+            actor2 = *((void **) (((char *) arg0) + 0x68));
             D_800E1A2C = (s32) (*((u8 *) inline_fn2((char *) temp_s4, 0x5E)));
-            temp_a0_5 = *((u16 *) inline_fn2((char *) (((*((u8 *) (((char *) inline_fn2(temp_s2, (*((s8 *) inline_fn2((char *) (*((void **) inline_fn2((char *) arg0, 0x68))), 0xE))) * 8)) + 0x1FD))) * 2) + temp_s4), 0x4E));
+            temp_a0_5 = *((u16 *) inline_fn2((char *) (((*((u8 *) (((char *) inline_fn2(temp_s2, (*((s8 *) inline_fn2((char *) actor2, 0xE))) * 8)) + 0x1FD))) * 2) + temp_s4), 0x4E));
             if ((temp_a0_5 != 0) && ((*((s32 *) inline_fn2((char *) temp_s2, 8))) == (-1)))
             {
               if ((*((u16 *) inline_fn2((char *) arg0, 0x78))) == 3)
