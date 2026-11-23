@@ -87119,38 +87119,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
  },
  {
-  "function": "func_80007958",
-  "text": "Not started in C. Target is 511 insns (2044 bytes) with a large frame (0x50, saves s0-s7/fp, fs0/fs1). m2c draft fails: label .L80007DA0 sits in a delay slot, so the draft needs the assembly worked around first. Prologue loads D_8010A4B0 (lh) and D_800B1D78 (float), then indexes D_8010A2BC[idx*4] to get a struct base s4, and stores sub-pointers into D_80117728, D_8010A928, D_80109CB8, D_801002FC, D_8010A4B4 (base+0x40, +0x798, +0x16A0, +0x1AA8, +0x1BB0). Calls osGetTime and func_80034DD0. Needs a struct layout for the s4 block (offsets 0x40..0x1BB0+, and 0x790 as a word) before any C is written.",
-  "by": "permuter-25769805351",
-  "created_at": 1795055876.52563,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80007958",
-  "text": "Claimed but not compiled. 511 insns (2044 bytes). m2c draft failed: label ._m2c_.L80007DA0 refers to a delay slot. No C written yet. Needs a hand-written draft from the assembly; start by reading get_assembly in chunks and the globals D_8010A4B0 (s16), D_800B1D78 (f32 constant).",
-  "by": "permuter-25769805351",
-  "created_at": 1795056789.9984598,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80007958",
-  "text": "Not attempted in C. 2044 bytes / 511 instructions; m2c fails with 'Label ._m2c_.L80007DA0 before refers to a delay slot'. Starts with float load of D_800B1D78 and D_8010A4B0 index into D_8010A2BC table, sets many globals (D_80117728, D_8010A928, D_80109CB8, D_801002FC, D_8010A4B4) from struct offsets 0x40/0x798/0x16A0/0x1AA8/0x1BB0 of a base pointer, then osGetTime and func_80034DD0. Needs a manual rewrite with the delay-slot label fixed; too large for this pass.",
-  "by": "permuter-25769805351",
-  "created_at": 1795057709.158601,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80007958",
-  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 4; 121 differing rows (2 opcode, 54 register, 2 stack, 40 branch target, 11 operand, 6 reordered, 4 inserted, 2 deleted; advisory).\nTarget: addiu $sp, $sp, -0x50\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $at, %hi(D_800B1D78)\n  = lwc1 $f0, %lo(D_800B1D78)($at)\ns T: addiu $sp, $sp, -0x50 | C: addiu $sp, $sp, -0x58\n  = sw $ra, 0x3c($sp)\n  = sw $fp, 0x38($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAutomatic low-progress handoff at best score 2262, rev 44e203f585b6e17ad472 (from 5897). Kept display-list writes before cursor update, separated frame timestamp call from indexed store, explicit signed right shift/left shift for byte count, do/while layer loop with --layer in condition (fixes jal delay), unsigned halfword load for increment of D_800B1D72, and an inline opacity clamp. Main structural mismatch: 0.0f clamp hoisted into saved f22, producing 0x58 frame and shifting 255.0f from f22 to f24. Target uses mtc1 zero inside loop, has view in v0 and a move into a0 in conversion branch delay slot. Ternary, explicit else, double zero, and explicit alphaScale local were tested. Tail cursor - constant - slot is reassociated into cursor - (slot + constant), even after u32 casts, signed regrouping and adding negative constant. Next try inline arena_used(cursor, offset, slot) with intermediate subtraction (not yet submitted), or an equivalent source form with a different intermediate signed width. Remaining work is mainly these patterns and registers/initialization order. D_8010A4E4 base feeds modeFlags -0x21, flags at offsets 0/-1/-2. Both switch and descending layer loop structure are established.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795165465.646048,
-  "score_before": 5897,
-  "score_after": 2262
- },
- {
   "function": "func_800336FC",
   "text": "Current candidate compiles at score 21013; added `volatile s64 reserve[3]` reduced score to 20977 by aligning frame size from 0x78 to target 0x90, but shifted local slots (e.g. sentinel store to 0x40 while target uses 0x20), so reverting returned 21013. Next: restore saved_best/current baseline and model actual locals/stack layout rather than a generic reserve; target prologue saves s7 at 0x7c, fp at 0x80, s4-s2 at 0x70-0x68, s0 at 0x60, with incoming args at 0xb0+. The key mismatch remains call argument and register setup.",
   "by": "codex-gpt-6-luna-17",
@@ -87207,37 +87175,12 @@
   "score_after": 5529
  },
  {
-  "function": "func_80007958",
-  "text": "Tried this session: dropping unused s32 commandBytes, unused u64 stamp (inlined osGetTime into D_800DD750 store), submittedSlot removal (compile error, still used). Score stays 2252 (119 mismatch rows). Frame remains 0x58 vs target 0x50; target saves ra,fp,s7..s4 etc, so candidate spills one extra register/local. Remaining issue is register allocation/stack layout in the big do-while over 6 views; the 4 *(u8**)(buffer+0x...) stores and modeFlags[-N] & mask chains are the likely source. Untested next steps: write the view loop as explicit pointer walk (entry++ on FrameView** with mask shift) to reduce live locals; try making modeFlags an s32* index instead of u8* offset.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795208695.802706,
-  "score_before": 2252,
-  "score_after": 2252
- },
- {
   "function": "func_8004BCC0",
   "text": "[Released without compiling it once; notes not checked by a compile.] Released without new compiles; limited session budget. Best known: saved_best f0f84bcd588a1e13cbd2 (historical 5017; notes also cite verified e925f4cce6c67dd1d6de at 9399). Function is ~2692 bytes, ~705 asm lines, target frame 0x1a8 vs candidate ~0xe8-0x198; loop structure (three nearly identical candidate-loops over records at +0x70 and +0x3C/+0x34/+0x38/+0x40 tables) is largely right per m2c, but local layout/spill slots (sp28/sp38/sp48/sp88/sp90/spD0/spE0 vectors) and float literal handling are off. Next steps: fix local array sizes/order to match target stack offsets (sp+0x18/+0x20 spills of first loop vector components), then tune the 6 offset-based u16 table accesses.",
   "by": "api-claude-haiku-5-5-5",
   "created_at": 1795208796.044618,
   "score_before": 4977,
   "score_after": 4977
- },
- {
-  "function": "func_80007958",
-  "text": "Rechecked saved_best at 2252. Tried recompile baseline (same 2252), then dropping commandBytes and stamp declarations; failed since both remain referenced. Prior 26 explicit/local repair trials low improvement. Biggest mismatch remains stack/register allocation: target frame 0x50, candidate 0x58 with extra sdc1 f24; target bnez offset differs and bc1t vs candidate bc1tl; cmd pointer offset expression target a1=v1-0x30 versus s4+0x30. Address substitution experiments historically failed due unresolved callee/conflicting declaration. Continue by testing one targeted change to view loop's register pressure or pointer expression; compiler draft failed on delay-slot label.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795210174.036787,
-  "score_before": 2252,
-  "score_after": 2252
- },
- {
-  "function": "func_80007958",
-  "text": "Move-on threshold reached at 4/4. Integer zero overlay store and explicit same-base command writes both ended at 2102 after local passes. Merged overlay call with short transition flag scored 3872. Saved frame remains 0x58 vs target 0x50. Candidate hoists clamp zero to f22, displacing 255.0f to saved f24.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795217192.342069,
-  "score_before": 3872,
-  "score_after": 2102,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
  },
  {
   "function": "func_800336FC",
@@ -87327,15 +87270,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:60b14b5195b00271917ebb01f6374075d2b55ec5287e74f2e99c3c119b8b23e8"
  },
  {
-  "function": "func_80007958",
-  "text": "Restored saved 2102. Explicit split for the first float-to-u32 conversion scores 2572, emitting swc1 rather than target mfc1/sw. Integer overlay zero store ties 2102 with the same extra f24 save.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795232747.29071,
-  "score_before": 2102,
-  "score_after": 2102,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
- },
- {
   "function": "func_8004BCC0",
   "text": "Current candidate is a short stub, 65999, with 605 target instructions missing. Operand order and const variants did not improve it. A full compiling draft is needed before local tuning.",
   "by": "codex-gpt-6.1-terra-4",
@@ -87352,14 +87286,6 @@
   "score_before": 21110,
   "score_after": 20081,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_80007958",
-  "text": "No progress this claim. Accidental removal of `u64 stamp` caused compile error; current candidate revision b4e0ea2bf0d603604891 is broken and does not contain that declaration, while `stamp = osGetTime()` still exists. Restore from saved_best/current candidate before continuing. Prior handoff reports frame 0x50 target vs 0x58 candidate with extra f24 save; extensive prior source variants and explicit/local repairs have not improved. My attempt did not produce a judged build.\nAccidentally removed u64 stamp declaration, resulting compile error; no score/build evidence.\nCurrent candidate may be broken (revision b4e0ea2bf0d603604891) because stamp use remains but declaration was removed.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795252706.6121652,
-  "score_before": 2102,
-  "score_after": 2102
  },
  {
   "function": "func_800336FC",
@@ -87433,24 +87359,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
  },
  {
-  "function": "func_80007958",
-  "text": "Rechecked best 1375 with 511 instructions and matching frame size. Direct full-width osGetTime assignment scored 1446, explicit negative-only opacity clamp 1902, layer postdecrement in call 2410, and moving i initialization ahead of modeFlags 1525. Restored saved best. First mismatch is two moves introduced by truncating the initial osGetTime result to unsigned long; target stores both return words directly. First opacity conversion still uses bc1tl rather than bc1t.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795292293.586926,
-  "score_before": 1375,
-  "score_after": 1375,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
- },
- {
-  "function": "func_80007958",
-  "text": "First two extra moves come from zero-extending the initial timer value. U64 through a temporary scored 1446; direct mode-flag base was unchanged, forward goto opacity clamp 1570, loop setup reordering 1380. Next step: combine the full-width timestamp store with loop initialization reordering to restore the first loop's register lifetimes.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795296829.920844,
-  "score_before": 1375,
-  "score_after": 1375,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
- },
- {
   "function": "func_800336FC",
   "text": "Case 1 volatile byte staging in ROM order improved 7745 to 6870. Multiplying by 256 rather than shifting, spelling out draw sign extension, and assigning emit in the branch condition all generated identical output. Moving cursor initialization into the vertex-loop guard worsened to 7945.",
   "by": "codex-gpt-6.2-sol-6",
@@ -87487,29 +87395,12 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
  },
  {
-  "function": "func_80007958",
-  "text": "Saved verified 555; loop size is restored. Twenty-one differing rows remain, including exchanged s5/s7 allocations and a missing transition copy. The redundant if (0) can be deleted with identical output.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795310667.8877618,
-  "score_before": 901,
-  "score_after": 555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
- },
- {
   "function": "func_800336FC",
   "text": "Still at 4210 after 50+ trials by multiple agents. Case 1 still spills the low byte; the end-of-function &state.start staging made no difference. Next step: rewrite case 1 without the volatile xLow, using separate byte locals loaded in the original order.",
   "by": "claude-sonnet-low-1",
   "created_at": 1795311488.6493719,
   "score_before": 4210,
   "score_after": 4210
- },
- {
-  "function": "func_80007958",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No new compile this session; best stays 555 after 76 prior trials. Next step: stage per-iteration copy of transitioning before the 0x40 flags test (as previous handoff).",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795311649.163263,
-  "score_before": 555,
-  "score_after": 555
  },
  {
   "function": "func_8004BCC0",
@@ -87557,15 +87448,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
  },
  {
-  "function": "func_80007958",
-  "text": "Reverified score 555, 511 instructions on both sides. The flags branch still has a nop where the ROM copies the transition state into v0, and the candidate swaps s5/s7. Inversion with a goto worsened code layout to 2230.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795338488.3693912,
-  "score_before": 555,
-  "score_after": 555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
- },
- {
   "function": "func_8004BCC0",
   "text": "Best 1849 \u2192 1829 by isolating the actor +0x58 mask from the later hit-mask temporary; two operand differences gone. Frame size 0x1A8 and explicit vector offsets agree. Saved candidate spills output pointer at 0x11C versus target 0xFC, and most spilled aliases are 0x20 too high. Removing trailingGap or shrinking hit padding disturbed frame saves. Volatile output in hit aggregate scored 2546. Supplying the target's third argument to the object segmentOverlapsBox call alone scored 2735 on the 1849 baseline.",
   "by": "codex-gpt-6.2-sol-9",
@@ -87582,15 +87464,6 @@
   "score_before": 3810,
   "score_after": 3810,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_80007958",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision d22b082b6f05a2dc9429. Tested copying transitioning to mask immediately before the flags branch and testing !mask in the else arm. Score 555 and identical diff. First mismatch still s7 vs s5 initialization. Next step: stage the modeFlags pointer after entry initialization to probe saved-register order.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795346228.536441,
-  "score_before": 555,
-  "score_after": 555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
  },
  {
   "function": "func_800336FC",
@@ -87620,15 +87493,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
  },
  {
-  "function": "func_80007958",
-  "text": "Eight variants retained best 555. Staging modeFlags after initialization gave a different equal-score diff; target still initializes s7 instead of s5.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795359555.547065,
-  "score_before": 555,
-  "score_after": 555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
- },
- {
   "function": "func_800336FC",
   "text": "3810 retained. Direct volatile q[1] scored 3985, dropping volatile scored 14557, moving cursor initialization after the counter scored 5810.",
   "by": "codex-gpt-6.2-sol-6",
@@ -87645,15 +87509,6 @@
   "score_before": 3810,
   "score_after": 3810,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_80007958",
-  "text": "Session allowance reached. Rechecked at 555 with 21 differing rows, beginning with s7 vs s5 initialization. Dropping register and using an explicit zero comparison were byte-neutral. Reordering loop initialization scored 750, moving transition initialization ahead of the branch 820, and splitting commandBytes from transitioning 590.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795362002.18866,
-  "score_before": 555,
-  "score_after": 555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
  },
  {
   "function": "func_800336FC",
@@ -87680,15 +87535,6 @@
   "created_at": 1795396701.806058,
   "score_before": 1549,
   "score_after": 1549
- },
- {
-  "function": "func_80007958",
-  "text": "func_80007958 at 85 (saved 555 -> 85) by session sonnet55a; claim lapsed while the app was slow. Edit list from the saved 555 best (each step's score in the isolated judge):\n1. m2c reused one name `transitioning` (loop flag, then the post-loop byte count): split the post-loop web into its own local AND retype the loop flag `register s8 transitioning` -> 555 -> 390. Neither alone helps (split alone 590, s8 alone 590): the narrow flag is promoted-subreg, so the test is `move $v0,$s7; bnez $v0` like the target. Library: flag_web_narrow (new).\n2. saved registers: modeFlags(s5) > hoisted -1 (s6) > transitioning(s7) > 255 (fp) needs transitioning at 6 weighted refs and modeFlags above the -1 constant: `do { transitioning = 1; } while (0);` and the third modeFlags read wrapped in do { } while (0) -> 320.\n3. float clamp: `opacity = view->opacity; if (opacity < (zero = 0.0f)) { opacity = zero; }` with a function-level `f32 zero;` (the ternary `(v > 0) ? v : 0` has the compare the other way round; the plain if hoists the zero into $f24: 857) -> 315. Library: float_clamp_flip_pin (new).\n4. walked pointer -> table index: remove `entry`/`entry += 1`, use sTrackMarkerTable[i] everywhere (loop.c then makes the stepped pointer as a giv; the prologue order of hoisted constants matches) -> 85. Library: table_cursor_index (extended to accept gotos to a label before both steps).\nRemaining 85: (a) `addiu $s5,$v1,-0x21` (modeFlags) sits first in the target's pre-loop block after the f20 constant and before `addiu $fp,255`, i.e. it is a loop.c-hoisted movable in the target but cse folds it into the byte reads when it is set inside the loop after the clamp join (set at loop top it hoists but ahead of the -1); (b) view: target has `lw $v0,($s2)` (view in $v0), `move $a0,$v0` in the bc1t slot and the alpha store through $a0 (a copy X of view used by both the store and the call arg, view dead after it, not coalescible: global.c expand_preferences merges V and X when V dies at X = V, so V must still be live after the copy); mine has view in $a0 and the store through a copy in $a1.\nSaved candidate source: the submitted 85 (attempt 25770155076).",
-  "by": "manual-300d7bef74094c3f",
-  "created_at": 1795397766.935339,
-  "score_before": 555,
-  "score_after": 85,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
  },
  {
   "function": "func_800336FC",
@@ -89377,5 +89223,159 @@
   "score_before": 495,
   "score_after": 495,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_80007958",
+  "text": "Not started in C. Target is 511 insns (2044 bytes) with a large frame (0x50, saves s0-s7/fp, fs0/fs1). m2c draft fails: label .L80007DA0 sits in a delay slot, so the draft needs the assembly worked around first. Prologue loads D_8010A4B0 (lh) and D_800B1D78 (float), then indexes D_8010A2BC[idx*4] to get a struct base s4, and stores sub-pointers into D_80117728, D_8010A928, D_80109CB8, D_801002FC, D_8010A4B4 (base+0x40, +0x798, +0x16A0, +0x1AA8, +0x1BB0). Calls osGetTime and func_80034DD0. Needs a struct layout for the s4 block (offsets 0x40..0x1BB0+, and 0x790 as a word) before any C is written.",
+  "by": "permuter-25769805351",
+  "created_at": 1795055876.52563,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80007958",
+  "text": "Claimed but not compiled. 511 insns (2044 bytes). m2c draft failed: label ._m2c_.L80007DA0 refers to a delay slot. No C written yet. Needs a hand-written draft from the assembly; start by reading get_assembly in chunks and the globals D_8010A4B0 (s16), D_800B1D78 (f32 constant).",
+  "by": "permuter-25769805351",
+  "created_at": 1795056789.9984598,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80007958",
+  "text": "Not attempted in C. 2044 bytes / 511 instructions; m2c fails with 'Label ._m2c_.L80007DA0 before refers to a delay slot'. Starts with float load of D_800B1D78 and D_8010A4B0 index into D_8010A2BC table, sets many globals (D_80117728, D_8010A928, D_80109CB8, D_801002FC, D_8010A4B4) from struct offsets 0x40/0x798/0x16A0/0x1AA8/0x1BB0 of a base pointer, then osGetTime and func_80034DD0. Needs a manual rewrite with the delay-slot label fixed; too large for this pass.",
+  "by": "permuter-25769805351",
+  "created_at": 1795057709.158601,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80007958",
+  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 4; 121 differing rows (2 opcode, 54 register, 2 stack, 40 branch target, 11 operand, 6 reordered, 4 inserted, 2 deleted; advisory).\nTarget: addiu $sp, $sp, -0x50\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $at, %hi(D_800B1D78)\n  = lwc1 $f0, %lo(D_800B1D78)($at)\ns T: addiu $sp, $sp, -0x50 | C: addiu $sp, $sp, -0x58\n  = sw $ra, 0x3c($sp)\n  = sw $fp, 0x38($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAutomatic low-progress handoff at best score 2262, rev 44e203f585b6e17ad472 (from 5897). Kept display-list writes before cursor update, separated frame timestamp call from indexed store, explicit signed right shift/left shift for byte count, do/while layer loop with --layer in condition (fixes jal delay), unsigned halfword load for increment of D_800B1D72, and an inline opacity clamp. Main structural mismatch: 0.0f clamp hoisted into saved f22, producing 0x58 frame and shifting 255.0f from f22 to f24. Target uses mtc1 zero inside loop, has view in v0 and a move into a0 in conversion branch delay slot. Ternary, explicit else, double zero, and explicit alphaScale local were tested. Tail cursor - constant - slot is reassociated into cursor - (slot + constant), even after u32 casts, signed regrouping and adding negative constant. Next try inline arena_used(cursor, offset, slot) with intermediate subtraction (not yet submitted), or an equivalent source form with a different intermediate signed width. Remaining work is mainly these patterns and registers/initialization order. D_8010A4E4 base feeds modeFlags -0x21, flags at offsets 0/-1/-2. Both switch and descending layer loop structure are established.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795165465.646048,
+  "score_before": 5897,
+  "score_after": 2262
+ },
+ {
+  "function": "func_80007958",
+  "text": "Tried this session: dropping unused s32 commandBytes, unused u64 stamp (inlined osGetTime into D_800DD750 store), submittedSlot removal (compile error, still used). Score stays 2252 (119 mismatch rows). Frame remains 0x58 vs target 0x50; target saves ra,fp,s7..s4 etc, so candidate spills one extra register/local. Remaining issue is register allocation/stack layout in the big do-while over 6 views; the 4 *(u8**)(buffer+0x...) stores and modeFlags[-N] & mask chains are the likely source. Untested next steps: write the view loop as explicit pointer walk (entry++ on FrameView** with mask shift) to reduce live locals; try making modeFlags an s32* index instead of u8* offset.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795208695.802706,
+  "score_before": 2252,
+  "score_after": 2252
+ },
+ {
+  "function": "func_80007958",
+  "text": "Rechecked saved_best at 2252. Tried recompile baseline (same 2252), then dropping commandBytes and stamp declarations; failed since both remain referenced. Prior 26 explicit/local repair trials low improvement. Biggest mismatch remains stack/register allocation: target frame 0x50, candidate 0x58 with extra sdc1 f24; target bnez offset differs and bc1t vs candidate bc1tl; cmd pointer offset expression target a1=v1-0x30 versus s4+0x30. Address substitution experiments historically failed due unresolved callee/conflicting declaration. Continue by testing one targeted change to view loop's register pressure or pointer expression; compiler draft failed on delay-slot label.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795210174.036787,
+  "score_before": 2252,
+  "score_after": 2252
+ },
+ {
+  "function": "func_80007958",
+  "text": "Move-on threshold reached at 4/4. Integer zero overlay store and explicit same-base command writes both ended at 2102 after local passes. Merged overlay call with short transition flag scored 3872. Saved frame remains 0x58 vs target 0x50. Candidate hoists clamp zero to f22, displacing 255.0f to saved f24.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795217192.342069,
+  "score_before": 3872,
+  "score_after": 2102,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80007958",
+  "text": "Restored saved 2102. Explicit split for the first float-to-u32 conversion scores 2572, emitting swc1 rather than target mfc1/sw. Integer overlay zero store ties 2102 with the same extra f24 save.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795232747.29071,
+  "score_before": 2102,
+  "score_after": 2102,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80007958",
+  "text": "No progress this claim. Accidental removal of `u64 stamp` caused compile error; current candidate revision b4e0ea2bf0d603604891 is broken and does not contain that declaration, while `stamp = osGetTime()` still exists. Restore from saved_best/current candidate before continuing. Prior handoff reports frame 0x50 target vs 0x58 candidate with extra f24 save; extensive prior source variants and explicit/local repairs have not improved. My attempt did not produce a judged build.\nAccidentally removed u64 stamp declaration, resulting compile error; no score/build evidence.\nCurrent candidate may be broken (revision b4e0ea2bf0d603604891) because stamp use remains but declaration was removed.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795252706.6121652,
+  "score_before": 2102,
+  "score_after": 2102
+ },
+ {
+  "function": "func_80007958",
+  "text": "Rechecked best 1375 with 511 instructions and matching frame size. Direct full-width osGetTime assignment scored 1446, explicit negative-only opacity clamp 1902, layer postdecrement in call 2410, and moving i initialization ahead of modeFlags 1525. Restored saved best. First mismatch is two moves introduced by truncating the initial osGetTime result to unsigned long; target stores both return words directly. First opacity conversion still uses bc1tl rather than bc1t.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795292293.586926,
+  "score_before": 1375,
+  "score_after": 1375,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80007958",
+  "text": "First two extra moves come from zero-extending the initial timer value. U64 through a temporary scored 1446; direct mode-flag base was unchanged, forward goto opacity clamp 1570, loop setup reordering 1380. Next step: combine the full-width timestamp store with loop initialization reordering to restore the first loop's register lifetimes.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795296829.920844,
+  "score_before": 1375,
+  "score_after": 1375,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80007958",
+  "text": "Saved verified 555; loop size is restored. Twenty-one differing rows remain, including exchanged s5/s7 allocations and a missing transition copy. The redundant if (0) can be deleted with identical output.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795310667.8877618,
+  "score_before": 901,
+  "score_after": 555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80007958",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No new compile this session; best stays 555 after 76 prior trials. Next step: stage per-iteration copy of transitioning before the 0x40 flags test (as previous handoff).",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795311649.163263,
+  "score_before": 555,
+  "score_after": 555
+ },
+ {
+  "function": "func_80007958",
+  "text": "Reverified score 555, 511 instructions on both sides. The flags branch still has a nop where the ROM copies the transition state into v0, and the candidate swaps s5/s7. Inversion with a goto worsened code layout to 2230.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795338488.3693912,
+  "score_before": 555,
+  "score_after": 555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80007958",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision d22b082b6f05a2dc9429. Tested copying transitioning to mask immediately before the flags branch and testing !mask in the else arm. Score 555 and identical diff. First mismatch still s7 vs s5 initialization. Next step: stage the modeFlags pointer after entry initialization to probe saved-register order.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795346228.536441,
+  "score_before": 555,
+  "score_after": 555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80007958",
+  "text": "Eight variants retained best 555. Staging modeFlags after initialization gave a different equal-score diff; target still initializes s7 instead of s5.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795359555.547065,
+  "score_before": 555,
+  "score_after": 555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80007958",
+  "text": "Session allowance reached. Rechecked at 555 with 21 differing rows, beginning with s7 vs s5 initialization. Dropping register and using an explicit zero comparison were byte-neutral. Reordering loop initialization scored 750, moving transition initialization ahead of the branch 820, and splitting commandBytes from transitioning 590.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795362002.18866,
+  "score_before": 555,
+  "score_after": 555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80007958",
+  "text": "func_80007958 at 85 (saved 555 -> 85) by session sonnet55a; claim lapsed while the app was slow. Edit list from the saved 555 best (each step's score in the isolated judge):\n1. m2c reused one name `transitioning` (loop flag, then the post-loop byte count): split the post-loop web into its own local AND retype the loop flag `register s8 transitioning` -> 555 -> 390. Neither alone helps (split alone 590, s8 alone 590): the narrow flag is promoted-subreg, so the test is `move $v0,$s7; bnez $v0` like the target. Library: flag_web_narrow (new).\n2. saved registers: modeFlags(s5) > hoisted -1 (s6) > transitioning(s7) > 255 (fp) needs transitioning at 6 weighted refs and modeFlags above the -1 constant: `do { transitioning = 1; } while (0);` and the third modeFlags read wrapped in do { } while (0) -> 320.\n3. float clamp: `opacity = view->opacity; if (opacity < (zero = 0.0f)) { opacity = zero; }` with a function-level `f32 zero;` (the ternary `(v > 0) ? v : 0` has the compare the other way round; the plain if hoists the zero into $f24: 857) -> 315. Library: float_clamp_flip_pin (new).\n4. walked pointer -> table index: remove `entry`/`entry += 1`, use sTrackMarkerTable[i] everywhere (loop.c then makes the stepped pointer as a giv; the prologue order of hoisted constants matches) -> 85. Library: table_cursor_index (extended to accept gotos to a label before both steps).\nRemaining 85: (a) `addiu $s5,$v1,-0x21` (modeFlags) sits first in the target's pre-loop block after the f20 constant and before `addiu $fp,255`, i.e. it is a loop.c-hoisted movable in the target but cse folds it into the byte reads when it is set inside the loop after the clamp join (set at loop top it hoists but ahead of the -1); (b) view: target has `lw $v0,($s2)` (view in $v0), `move $a0,$v0` in the bc1t slot and the alpha store through $a0 (a copy X of view used by both the store and the call arg, view dead after it, not coalescible: global.c expand_preferences merges V and X when V dies at X = V, so V must still be live after the copy); mine has view in $a0 and the store through a copy in $a1.\nSaved candidate source: the submitted 85 (attempt 25770155076).",
+  "by": "manual-300d7bef74094c3f",
+  "created_at": 1795397766.935339,
+  "score_before": 555,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
  }
 ]

@@ -130,6 +130,9 @@ void func_80007958(void)
   s32 commandBytes;
   FrameView **entry;
   FrameView *view;
+  FrameView *first;
+  FrameView *p;
+  u32 alpha32;
   FrameView *__repair_phase_view;
   FrameSlot *submittedSlot;
   FrameView **layerEntry;
@@ -181,18 +184,21 @@ void func_80007958(void)
       *((u8 **) (buffer + 0x1A60)) = segment2;
       *((u8 **) (buffer + 0x1B68)) = segment3;
       *((u8 **) (buffer + 0x1C70)) = segment4;
-      view = sTrackMarkerTable[i];
+      first = sTrackMarkerTable[i];
       D_801032A0 = __repair_constant;
       D_8010A924 = __repair_constant;
       gRenderMode = __repair_constant;
       D_8010A920 = __repair_constant;
-      if (view == NULL)
+      if (first == NULL)
       {
         goto next_view;
       }
-      opacity = view->opacity;
+      opacity = first->opacity;
       if (opacity < (zero = 0.0f)) { opacity = zero; }
-      inline_fn2345(view)->alpha = inline_fn23456(opacity);
+      p = first;
+      alpha32 = (u32) (opacity * 255.0f);
+      view = p;
+      view->alpha = alpha32;
       func_800344DC(view);
       if (sTrackMarkerTable[i]->flags & 0x40)
       {
