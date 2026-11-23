@@ -211,7 +211,9 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
   count = D_80112EBC;
   if (count != 0)
   {
-    var_fv1 = ((arg4 / ((f32) count)) * 30.0f) - 15.0f;
+    var_fv1 = arg4 / ((f32) count);
+    var_fv1 = var_fv1 * 30.0f;
+    var_fv1 = var_fv1 - 15.0f;
     if (var_fv1 < 1.0f)
     {
       var_fv1 = 1.0f;
@@ -236,5 +238,6 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
     }
   }
 }
+
 
 

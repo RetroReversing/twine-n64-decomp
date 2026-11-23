@@ -151,7 +151,8 @@ void func_8008B25C(void)
         temp_a0_2 = &((u16 *) (&D_800E4228))[cursor]; temp_v1 = ((s16 **) (&sMixBufferA))[cursor];
       }
       D_800E421C = temp_a0_2; D_800E4218 = temp_v1; temp_v1_2 = temp_v1 + 8; D_8010D378 = ((s32) temp_v1_2) & (~0xF); D_8010D42C = (s32) temp_v1_2;
-      *temp_a0_2 = 0; temp_s2 = temp_s4 & 0xFFFF;
+      *temp_a0_2 = 0; var_s1 = temp_s4 & 0xFFFF;
+    temp_s2 = var_s1;
       *D_800E4218 = 0;
       if (D_800E4268 != temp_s2)
       {
@@ -316,5 +317,6 @@ void func_8008B25C(void)
     D_800E4268 = temp_s4;
   }
   func_8008C188();
+  return;
 }
 
