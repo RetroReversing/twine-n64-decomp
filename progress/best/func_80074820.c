@@ -141,9 +141,9 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
   if (sp230[0] != 0)
   {
     s8 *buffer = sp30;
-    var_a0_2 = 0;
     while (*var_s1 != 0)
     {
+      var_a0_2 = 0;
       var_v0 = *var_s1;
       temp_a1 = var_s1;
       if (inline_fn2(var_v0 == 0, var_v0) == 0)
@@ -191,7 +191,6 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       advance:
       var_s1 += (*var_s1) != 0;
 
-      var_a0_2 = 0;
     }
   }
   count = D_80112EBC;

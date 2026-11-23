@@ -41,97 +41,82 @@ void func_8011D158(unsigned short slot)
 {
   volatile s32 *count = &gVisibleSaveSlotCount;
   short index = (s16) slot;
+  s32 temp;
+  u16 t2;
   s32 id;
   s32 kind;
   Save *save;
   Slot **cursor;
-  s32 temp;
   s32 unused[2];
   Label **label;
   if (index < (*count))
   {
     save = D_80102CD0[index]->save;
     kind = save->kind;
-    temp = kind;
+    t2 = kind;
     cursor = D_80102CD0;
-    if (temp == 2)
+    if (t2 == 2)
     {
       s32 delta = save->start - save->end;
       s32 rank = gSaveTotalSlots;
       temp = 0;
-      do
+      if (rank > 0)
       {
-        if (rank > 0)
+        do
         {
-          unsigned char limit = rank;
-          do
+          if (temp != index)
           {
-            if ((temp++) != index)
-            {
-              Save *other = inline_fn2(cursor);
-              do
-              {
-                rank -= (other->start - other->end) <= delta;
-              }
-              while (0);
-            }
-            if (temp)
-            {
-              cursor++;
-            }
-            else
-            {
-              cursor++;
-            }
+            Save *other = (*cursor)->save;
+            rank -= (other->start - other->end) <= delta;
           }
-          while (temp < limit);
+          temp++;
+          cursor++;
         }
-        switch (rank)
-        {
-          case 1:
-            id = 0x2E5;
-            goto format;
-
-          case 2:
-            id = 0x2E6;
-            goto format;
-
-          case 3:
-            id = 0x2E7;
-            goto format;
-
-          case 4:
-            id = 0x2E8;
-            goto format;
-            format:
-          sprintf(D_8011F2B8[(s16) slot], lookupDataEntry(id));
-
-
-        }
-
+        while (temp < gSaveTotalSlots);
       }
-      while (0);
+      switch (rank)
+      {
+        case 1:
+          id = 0x2E5;
+          goto format;
+        case 2:
+          id = 0x2E6;
+          goto format;
+        case 3:
+          id = 0x2E7;
+          goto format;
+        case 4:
+          id = 0x2E8;
+          format:
+          sprintf(D_8011F2B8[(s16) slot], lookupDataEntry(id));
+      }
       index = (s16) slot;
-      label = ((u32) D_8011F3E8) + index;
- do { (*label)->flags = ((*label)->flags & (~0xFC)) | 0xC; (*label)->color = -1; D_8011F3E0[index] = 60; } while (0);
+      {
+        Label **la = (Label **) inline_fn((char *) D_8011F3E8, (s32) (((u32) index) << 16));
+        (*la)->flags = ((*la)->flags & (~0xFC)) | 0xC;
+        (*la)->color = -1;
+        D_8011F3E0[index] = 60;
+      }
     }
     else
     {
       id = 0x2E6;
-      if (D_8011F15C[temp] >= D_8011F15C[1 - temp])
+      if (D_8011F15C[t2] >= D_8011F15C[1 - t2])
       {
         id = 0x2E5;
       }
       sprintf(D_8011F2B8[index], lookupDataEntry(id));
-      label = (Label **) inline_fn((char *) D_8011F3E8, (s32) (((u32) slot) << 16));
-      (*label)->flags = ((*label)->flags & (~0xFC)) | 0xC;
+      {
+      Label **lb = (Label **) inline_fn((char *) D_8011F3E8, (s32) (((u32) slot) << 16));
+      (*lb)->flags = ((*lb)->flags & (~0xFC)) | 0xC;
       if (kind == 0)
       {
-        (*label)->color = 0xFF2020FF;
+        (*lb)->color = 0xFF2020FF;
       }
       else
       {
-        (*label)->color = 0x2020FFFF;
+        (*lb)->color = 0x2020FFFF;
+      }
       }
       *((s16 *) (((char *) D_8011F3E0) + (((s32) (((u32) slot) << 16)) >> 15))) = 60;
     }
@@ -149,3 +134,4 @@ void func_8011D158(unsigned short slot)
     }
   }
 }
+

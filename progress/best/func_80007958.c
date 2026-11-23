@@ -170,7 +170,6 @@ void func_80007958(void)
     transitioning = 0;
     modeFlags = ((u8 *) renderMode) - 0x21;
     i = 0;
-    entry = sTrackMarkerTable;
     D_80113022 = 0;
     do
     {
@@ -183,7 +182,7 @@ void func_80007958(void)
       *((u8 **) (buffer + 0x1A60)) = segment2;
       *((u8 **) (buffer + 0x1B68)) = segment3;
       *((u8 **) (buffer + 0x1C70)) = segment4;
-      view = *entry;
+      view = sTrackMarkerTable[i];
       D_801032A0 = __repair_constant;
       D_8010A924 = __repair_constant;
       gRenderMode = __repair_constant;
@@ -196,13 +195,13 @@ void func_80007958(void)
       if (opacity < (zero = 0.0f)) { opacity = zero; }
       inline_fn2345(view)->alpha = inline_fn23456(opacity);
       func_800344DC(view);
-      if ((*entry)->flags & 0x40)
+      if (sTrackMarkerTable[i]->flags & 0x40)
       {
-        func_80035060(*entry);
-        (*entry)->transition--;
-        if ((*entry)->transition < 0)
+        func_80035060(sTrackMarkerTable[i]);
+        sTrackMarkerTable[i]->transition--;
+        if (sTrackMarkerTable[i]->transition < 0)
         {
-          (*entry)->flags &= ~0x40;
+          sTrackMarkerTable[i]->flags &= ~0x40;
         }
         do { transitioning = 1; } while (0);
       }
@@ -212,14 +211,14 @@ void func_80007958(void)
         mask = 1U << i;
         if (modeFlags[0] & mask)
         {
-          func_80035060(*entry);
+          func_80035060(sTrackMarkerTable[i]);
         }
         if (modeFlags[-1] & mask)
         {
           cmd = sDisplayListCursor;
           cmd->w0 = 0xDE000000;
           cmd->w1 = D_800B1BE0;
-          view = *entry;
+          view = sTrackMarkerTable[i];
           sDisplayListCursor = cmd + 1;
           func_8003C228(view, i, 5);
         }
@@ -228,15 +227,15 @@ void func_80007958(void)
           __repair_phase_cmd = sDisplayListCursor;
           __repair_phase_cmd->w0 = 0xDE000000;
           __repair_phase_cmd->w1 = (u32) D_800B1BE0;
-          view = *entry;
+          view = sTrackMarkerTable[i];
           sDisplayListCursor = __repair_phase_cmd + 1;
           func_80038000(view, i);
         } } while (0);
         if (modeFlags[-1] & mask)
         {
           __repair_phase_layer = 4;
-          layerEntry = entry;
-          emitScissorFromWindow(*entry);
+          layerEntry = &sTrackMarkerTable[i];
+          emitScissorFromWindow(sTrackMarkerTable[i]);
           do
           {
             func_8003C228(*layerEntry, i, __repair_phase_layer);
@@ -254,13 +253,13 @@ void func_80007958(void)
       {
         goto next_view;
       }
-      __repair_phase_view = *entry;
+      __repair_phase_view = sTrackMarkerTable[i];
       if (__repair_phase_view->overlay > 0.01f)
       {
         do
         {
           __repair_phase_alpha = (u32) inline_fn234(__repair_phase_view->overlay);
-          if ((*entry)->flags & 2)
+          if (sTrackMarkerTable[i]->flags & 2)
           {
             func_800075C4(__repair_phase_alpha, i, 0, 255, 0);
           }
@@ -268,7 +267,7 @@ void func_80007958(void)
           {
             func_800075C4(__repair_phase_alpha, i, 255, 255, 255);
           }
-          (*entry)->overlay *= 0.9f;
+          sTrackMarkerTable[i]->overlay *= 0.9f;
         }
         while (0);
       }
@@ -276,16 +275,15 @@ void func_80007958(void)
       {
         __repair_phase_view->overlay = 0.0f;
       }
-      __repair_phase___repair_phase_alpha = (*entry)->alpha;
+      __repair_phase___repair_phase_alpha = sTrackMarkerTable[i]->alpha;
       if (__repair_phase___repair_phase_alpha != 255)
       {
         func_800075C4(255 - __repair_phase___repair_phase_alpha, i, 0, 0, 0);
       }
-      func_800389F0(*entry);
+      func_800389F0(sTrackMarkerTable[i]);
       next_view:
       i += 1;
 
-      entry += 1;
     }
     while (i < 6);
   }

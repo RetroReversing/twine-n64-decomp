@@ -76,6 +76,11 @@ inline static s32 inline_fn2(unsigned short arg0)
   return *((s32 *) (((u8 *) (&gSaveSlotInfo)) + ((getSaveSlotIndex(arg0) & 0xFFFF) * 0x18)));
 }
 
+inline static int inline_fn23(s32 arg0)
+{
+  return ((arg0 + 1) - 1) < 2;
+}
+
 void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
 {
   void *arg1;
@@ -563,7 +568,7 @@ void *func_80064A18(s16 arg0, void *arg1_in, void *arg2, void *arg3)
     {
       do
       {
-        if ((((((s32) sDifficultyLevel) + 1) - 1) < 2) || ((var_v0 = temp_s4, sDifficultyLevel != 2)))
+        if (inline_fn23((s32) sDifficultyLevel) || ((var_v0 = temp_s4, sDifficultyLevel != 2)))
         {
           var_fv0 = 12.0f; var_fv1 = 18.0f; D_800C7C98 = var_fv0;
           D_800C7C9C = var_fv1;
