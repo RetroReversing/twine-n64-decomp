@@ -73,6 +73,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
         e = (SlotEnt *) ((ii * sizeof(*arg0)) + (u32) arg0);
         idx = e->idx;
         s1 = 0;
+        if (s1) one = 1; else if (!s1) one = 1; else one = 0;
         if ((D_800CEEB0 == 2) || ((u16) func_8002D0BC(0xA3, arg1 & 0xFF)))
         {
           a2 = 0;
@@ -151,7 +152,6 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
           arg3[idx].a &= 0xFE;
         }
         arg3[idx].a |= s1 ? 8 : 0;
-        if (s1) one = 1; else if (!s1) one = 1; else one = 0;
         if (!one) goto advance;
         v = ((volatile SlotOut *) arg3)[idx].a;
         s1_web = (v >> 2) & 1; t2 = s1_web ^ ((v >> 3) & 1);
