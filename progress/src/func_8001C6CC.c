@@ -60,7 +60,8 @@ void func_8001C6CC(void)
   s16 var_v0;
   s32 temp_s0;
   s32 __repair_phase_temp_s0;
-  s32 temp_s2;
+  u16 temp_s2;
+  s32 off2;
   s32 temp_s5;
   s32 var_a0;
   s32 __repair_phase_var_s1;
@@ -131,7 +132,9 @@ void func_8001C6CC(void)
         }
       }
       temp_s0_4 = timerGetTotalSeconds(&D_80102EFC);
-      if (temp_s0_4 <= timerGetTotalSeconds(inline_fn234(temp_s5) + ((((u16) func_800316B8()) * 8) + (&D_80117578))))  {
+      temp_s2 = func_800316B8();
+      off2 = (temp_s5 & 0xFFFF) * 0x18;
+      if (temp_s0_4 <= timerGetTotalSeconds(inline_fn23(inline_fn23(temp_s2 * 8, &D_80117578), off2)))  {
         var_a0 = func_80030C58();
         switch (var_a0)  {
           case 2: if ((func_800316B8() & 0xFFFF) == 1)  {
