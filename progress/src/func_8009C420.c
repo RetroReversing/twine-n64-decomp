@@ -39,9 +39,7 @@ s32 func_8009C420(u32 arg0_in, s32 arg1_in, u8 arg2, u8 arg3, u8 arg4, u8 arg5, 
   temp_v0 = func_800982B4(temp_s5);
   if (temp_v0 != 0)
   {
-    do
     {
-      do
       {
         temp_v0_2 = func_80098D18(inline_fn(temp_s7), inline_fn(lo), arg1 & 0xFFFF, ((u32) inline_fn(var_s4)) >> 7);
         if (temp_v0_2 != (-1))
@@ -72,14 +70,14 @@ s32 func_8009C420(u32 arg0_in, s32 arg1_in, u8 arg2, u8 arg3, u8 arg4, u8 arg5, 
           *((s16 *) (temp_s0 + 0x64)) = temp_s5;
           *((s16 *) (temp_s0 + 0xBA)) = arg1;
           *((s16 *) (temp_s0 + 0x2C)) = 0x400;
-          do { *((s32 *) (temp_s0 + 0)) = temp_v0; } while (0);
+          { *((s32 *) (temp_s0 + 0)) = temp_v0; }
           *((s32 *) (temp_s0 + 4)) = temp_v0 + (arg7 * 8);
           ;
 hi = temp_s5 << 0x10;
 *((s16 *) (temp_s0 + 0x4E)) = var_s4;
+*((s16 *) (temp_s0 + 0x50)) = var_s4;
 *((s8 *) (temp_s0 + 0xC0)) = 0;
 *((u8 *) (temp_s0 + 0x52)) = arg3;
-*((s16 *) (temp_s0 + 0x50)) = var_s4;
 *((u8 *) (temp_s0 + 0x53)) = arg4;
 *((u8 *) (temp_s0 + 0x56)) = inline_fn(arg8);
 *((s32 *) (temp_s0 + 0x10)) = -1;
@@ -100,10 +98,9 @@ hi = temp_s5 << 0x10;
           return *((s32 *) (temp_s0 + 0x60));
         }
       }
-      while (0);
     }
-    while (0);
   }
   return -1;
 }
+
 
