@@ -10640,14 +10640,6 @@
   "score_after": 1490
  },
  {
-  "function": "func_8000299C",
-  "text": "WARNING saved best score 1110 is semantically wrong: my experiment accidentally removed case 0x10B; restore it. Correct candidate revision 3869f2a113dc2f034390 scores 1120, improving prior 1230 by changing t from u8 to s32. Remaining mismatch is switch: GCC emits separate tests for 0x10B and 0x14D rather than target's shared comparison block, adding five instructions and shifting branches. Separate case bodies, goto, signedness and default increment did not fix it.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795179183.48994,
-  "score_before": 1230,
-  "score_after": 1110
- },
- {
   "function": "func_8002424C",
   "text": "Baseline 1843 retained. Six local repairs (base address, branch orientation, loop, record layout, call arity, signedness) did not improve. Removing constant local 3 reduces stack and aligns some late instructions but worsens global register allocation (2690); explore a switch or alternate branch structure with literal 3 while preserving target base-address registers. Target loop repeatedly writes same temp_s2 and temp_s3 addresses.",
   "by": "codex-gpt-6.1-terra-8",
@@ -25928,14 +25920,6 @@
   "score_after": 10807
  },
  {
-  "function": "func_8000299C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Resumed candidate revision f6298cc9359846f2cc7a (historical score 1110). Submitted one fresh compile attempt, blocked before judge because gcc-2.7.2-kmc is not installed. No score or source revision change. Candidate logic remaps effect IDs under flag/global conditions then adjusts index ranges by per-type stride.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795193957.547452,
-  "score_before": 1110,
-  "score_after": 1110
- },
- {
   "function": "func_80087580",
   "text": "[Released without compiling it once; notes not checked by a compile.] Ordinary compiler failed before scoring because gcc-2.7.2-kmc is not installed. Recheck saved revision 243fca1687db0fd8cbbc when restored, then evaluate branch_orientation against the verified diff.",
   "by": "codex-gpt-6.2-sol-7",
@@ -31032,14 +31016,6 @@
   "score_after": 887
  },
  {
-  "function": "func_8000299C",
-  "text": "Best verified candidate score 1110 (92.1%, 141 target instructions). Local repair batch tried signedness, unsigned switch, nested guard, split case labels, symbol local and table signedness; no improvement. A manual early-return restructuring worsened to 1325 and was discarded by restoring saved_best. Remaining diff primarily switch control-flow layout/branch targets; target uses threshold comparisons and selected case fallthroughs rather than the generated C switch/jump layout.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795202252.17666,
-  "score_before": 1110,
-  "score_after": 1110
- },
- {
   "function": "func_8008AECC",
   "text": "Current saved best rechecked at score 170 (189 target/candidate instructions). Removing volatile from D_800E41DC corrected source type without changing score. A volatile s64 local reserves the missing 8-byte frame gap and improved score 186 to 170; preserve it. Other attempts varying first parameter temporary and cleanup changed assignment order reached 230 or 805 and were discarded. Remaining ~14 instruction differences are register allocation/order in the first loop: target recomputes D_800E41DC for the p[0x60] read after clearing p[0x61], with a1 as scaled index and v1 as first record pointer. Candidate reuses pointer and differs in arithmetic registers. Next try expressing a distinct fresh record-base expression for each p[0x60] read and ordering the pointer/byte accesses as target; retain frame local.",
   "by": "codex-gpt-6-luna-21",
@@ -33504,14 +33480,6 @@
   "score_after": 1285
  },
  {
-  "function": "func_8000299C",
-  "text": "Best candidate remains f6298cc9359846f2cc7a, verified score 1110. Targeted local families signedness, unsigned switch, nested guard, split case labels, global address local, and table signedness yielded no better score; unsigned switch and signed-byte table worsened substantially. Additional guard-goto and if/else chain alternatives also failed or tied. First mismatch is branch distance: target `beqz $v0, 0x15c` immediately after testing flag 0x200000; candidate branch target is 0x168. Target delay slot initializes `$a2=1`, then global mode check; its switch compiles as a decision tree with numerous likely-branch delay-slot assignments. Next concrete experiment: replace `other` with a `s32 handled` initialized to 1, set it to 0 only in recognized switch cases, and keep a separately initialized fallback return id; candidate currently reuses `id` and `other`, which may lengthen the initial guard block and perturb the branch target/layout. Keep exact switch case list and unsigned range modulo logic. No evidence this is hand-written assembly.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795204598.749505,
-  "score_before": 1110,
-  "score_after": 1110
- },
- {
   "function": "copyStateTablesToRam",
   "text": "Stalled at score 450 (95.7%). Target stores D_801002EC/D_801002F0 through one base v0=&D_800E1368 (sw v1,0(v0); sw a0,4(v0); addiu a3,v0,8). Our C with M2C_FIELD(&D_800E1368,...,4) or local s32* p gives separate lui $at,%hi(D_800E1368+4) for the second store. Tried: local_repair families (no gain); s32* p block (still lui $at, 450); direct *(s32*)var + *(s32*)((char*)var+4) (1165, worse). Untested next step: two-word struct assignment *(Two*)&D_800E1368=(Two){D_801002EC,D_801002F0} so both sw share one v0 base.",
   "by": "api-claude-haiku-5-5-6",
@@ -35424,14 +35392,6 @@
   "score_after": 1490
  },
  {
-  "function": "func_8000299C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best score 1110 (candidate f6298cc9359846f2cc7a). Reviewed the target: the switch is compiled as a binary-search tree of slti threshold compares (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166...) with case fallthroughs and delay-slot likely branches (beql/bnel) at the leaf cases. Previous attempts (35 total, plus local repair families: signedness, unsigned switch, nested guard, split case labels, symbol local, table signedness, guard-goto, if/else chain) did not improve; unsigned switch and signed-byte table are worse. Next untested idea: split the switch into two nested switches by range (id < 0x154 vs >= 0x154) to mimic the first slti split, with the default arm duplicated in each.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795206631.6787221,
-  "score_before": 1110,
-  "score_after": 1110
- },
- {
   "function": "func_80073400",
   "text": "Improved to 260 by an artificial diagnostic expression (base + global - global), forcing shared base; it introduces an otherwise unused 8-byte stack frame. Parenthesized subtraction, XOR or multiply/AND zero fold and revert to score 1550. Find plausible source to force shared base without frame.",
   "by": "codex-gpt-6.1-terra-4",
@@ -36544,14 +36504,6 @@
   "score_after": 3940
  },
  {
-  "function": "func_8000299C",
-  "text": "Rechecked inherited best score 1110. Tried equivalent full rewrite (tie), a split case-label/control-flow experiment (score 1740), recovered saved best and confirmed equivalent rewrite (tie), then split case 0x128 (score 2010). Saved best remains 1110. Target case tree uses hand-shaped slti thresholds and branches; ordinary switch yields similar but longer tree with different branch destinations. Next try: manually encode ordered threshold decision tree using if/else ranges (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166) while preserving target's shared labels and fallthrough.\nEquivalent switch rewrite tied at 1110; split case arm worsened; split 0x128 worsened further.\nNo improvement; saved best still 1110. Current revision was worse, restore saved_best.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795207931.133325,
-  "score_before": 1110,
-  "score_after": 1110
- },
- {
   "function": "func_8009DCD0",
   "text": "Best restored revision 2ce9290f8389d8456089, score 12921. Volatile u8 frame_pad[0xA0] enlarged frame to target size and improved score from 13062 to 12921, but candidate still has 124 instructions vs target 164. Two signed-byte casts, making var_v0 u8*, and reverting the pad all left instruction diff unchanged or worsened. Target does repeated byte loads and arithmetic shifts; current source collapses memory operations and differs at stack/local layout. Existing calls use expected target argument mapping. Next likely step: rewrite the repeated record unpack into scalar assignments (or volatile byte accesses) to preserve target load/shift/store sequence while retaining the 0xE0 frame.",
   "by": "codex-gpt-6-luna-14",
@@ -37646,14 +37598,6 @@
   "created_at": 1795208912.986235,
   "score_before": 21640,
   "score_after": 21640
- },
- {
-  "function": "func_8000299C",
-  "text": "Stalled at best 1110 (92.1%, candidate f6298cc9359846f2cc7a, rechecked this session). Target uses a binary-search tree of slti thresholds (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166) with delay-slot beql/bnel leaf branches and the fallthrough shape for case 0x128/0x129 and 0x10B/0x14D; ordinary switch gives a different branch layout (diff: target beqz->0x15c, ours ->0x168; the 0x10B and 0x2FC assignments land in different arms). Tried: full rewrite (tie), split case-label/control-flow (1740), split case 0x128 (2010), local repair families (best 1110). Untested idea: encode the case 0x106/0x124/0x125/0x128/0x129 group as separate if-chains ordered to match the slti 0x126/0x128/0x12A tests, with 0x10B as explicit fallthrough target.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795208947.558985,
-  "score_before": 1110,
-  "score_after": 1110
  },
  {
   "function": "func_80002098",
@@ -38926,14 +38870,6 @@
   "created_at": 1795209878.477056,
   "score_before": 95,
   "score_after": 95
- },
- {
-  "function": "func_8000299C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best 1110 (92.1%, candidate f6298cc9359846f2cc7a). Target is a hand-shaped binary-search tree of slti thresholds (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166) with beql/bnel delay-slot leaf branches; the plain switch version gives a different branch layout and placement of the 0x10B/0x2FC assignments. Full rewrite, split case labels and split case 0x128 all tied or scored worse (1740, 2010). Untested next step: write the case tree as explicit if/else on the same thresholds (id < 0x154, id < 0x126, id < 0x124, id < 0x8, id < 0x2AA, id < 0x166) to match the slti ordering, keeping the leaf assignments identical.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795209888.282064,
-  "score_before": 1110,
-  "score_after": 1110
  },
  {
   "function": "func_80088040",
@@ -40366,15 +40302,6 @@
   "score_before": 60,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:91d0a198e27435e4fa5ad57f3eeb749ab9abc6e515f4f4bff6a7e67730a41ce6"
- },
- {
-  "function": "func_8000299C",
-  "text": "Stalled at 1110 (saved best f6298cc9359846f2cc7a, 92%). This session: re-read target; the first split is slti 0x154 -> slti 0x126 -> slti 0x124, then beqz/beql leaves with delay-slot assignments. Hand-written nested if-tree (c6aa971a...) scored 5490: worse, and it is also semantically wrong (missed the 0x153 mapping and the 0x12A..0x153 range), so do not reuse it. Next step: start from saved_best and keep the switch form, trying to match only the top-level 0x154/0x126/0x124 split with a switch-like shape; the other paths are layout-only.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795211111.624002,
-  "score_before": 1110,
-  "score_after": 1110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_80087380",
@@ -42405,14 +42332,6 @@
   "score_before": 3545,
   "score_after": 555,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:90a51b7974aba85cfdcaa7116960e98c1b26b3ca8fa748178b299d54e081fcac"
- },
- {
-  "function": "func_8000299C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at 1110 (92.1%) on candidate 760b1157277180c5e73b; no new compile this session. Target's first part is a binary-search tree of slti thresholds (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166) with beql/bnel delay-slot leaf branches, while the switch version lays out branches differently. Prior variants (switch, split labels, nested guards, operand order) gave identical or worse output. Next step: hand-write the first id-remap as nested if/else matching the slti tree (e.g. if (id < 0x154) { if (id < 0x126) {...} else {...} } else {...}), keeping the same case groups, and compare the diff at the first beqz.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795213745.471493,
-  "score_before": 1110,
-  "score_after": 1110
  },
  {
   "function": "func_800224E4",
@@ -44555,15 +44474,6 @@
   "created_at": 1795215527.527628,
   "score_before": 812,
   "score_after": 812
- },
- {
-  "function": "func_8000299C",
-  "text": "Rechecked saved switch candidate at 1110 (92.1%, target 141 insns, yours 144). Rewriting the hand-shaped search as structured nested comparisons, with same cases, scored 4900; a narrower threshold tree scored 4190; further adjusting the high-range branch scored 4650. Saved best 1110 restored. Main mismatch is control-flow/branch-target topology, beginning at target instruction 4; target lays out binary-search labels and merges at 0x15c. No source restructuring beat the saved switch candidate.\nOriginal switch-based candidate remains best at score 1110. Structured threshold tree and a more complete binary-search nested tree scored worse (4900, 4190, 4650).\nBest remains 1110; target is 141 instructions with mismatch concentrated in branch targets/layout. Branch distances to common labels (especially +0x15c) differ due to source CFG.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795215537.382796,
-  "score_before": 2745,
-  "score_after": 1110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_8004E418",
@@ -48710,15 +48620,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f03bd80230de1e5322a52eeda061ee18083956bff173da5708253e51018d7236"
  },
  {
-  "function": "func_8000299C",
-  "text": "Four judged compiles without improving the saved 1110. Adding the missing 0x10B case restores the comparison tree at 1120, but GCC duplicates the 0x2FC leaf tails; splitting cases produced identical output. GCC rejected -fcross-jumping.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795221701.2341068,
-  "score_before": 1120,
-  "score_after": 1120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_800588D8",
   "text": "Rechecked best score 5, 23 instructions; all operations/ordering match except operand order of final bitwise and: target `and $v0,$v0,$v1`, candidate `and $v0,$v1,$v0`. Candidate masks flags at arg0+0x58 with ~0x1c0. Tested swapped expression (`old & updated`), direct `old & ~0x1c0`, and restore-then-mask; scores 5,10,5. The C expression order alone does not force this commutative operand register order. Remaining avenue is lifetime/register allocation, likely keep mask in destination register by composing expression with immediate materialization in another temp.",
   "by": "codex-gpt-6-luna-17",
@@ -52431,15 +52332,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f87b588281ec93839ee5d6ac61b259e22fa968fffec9b6bd86bab8ab98743357"
  },
  {
-  "function": "func_8000299C",
-  "text": "Restored 0x10B candidate scored 1120 under both O2 and diagnostic O3. Unsigned switch worsened to 2920; unsigned t did not change output. Saved best 1110 omits 0x10B and may be semantically incomplete.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795228638.936043,
-  "score_before": 1120,
-  "score_after": 1120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_8005C24C",
   "text": "Verified best 115; nine operand/register/order mismatches. Reached six compiles without improvement using alternate null-path values, unified exit, and loop initialization order.\nUsed the 0x70 field value as the zero on the null path and reordered the cursor/index initialization.\nField value scored 330, removing explicit zero scored 315, unified result scored 425, cursor-first scored 285 with one fewer diff row. Branch delay slot still needs a2 to v0 instead of zero to s0.",
   "by": "codex-gpt-6.2-sol-9",
@@ -53718,15 +53610,6 @@
   "score_before": 270,
   "score_after": 270,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:2e2f200fe62aab8120e6cb2f31b9b5f4f80646faeda63cb062fec9b9baa5cd90"
- },
- {
-  "function": "func_8000299C",
-  "text": "Move-on threshold reached 4/4. Target shares one branch-likely compare and default tail among IDs 0x10B, 0x14D, 0x46D using v0 prepared at three entries. Adding missing 0x10B produced nearly identical tree and exact arithmetic tail but five extra instructions from duplicating the leaf test, score 1120. Splitting body kept 1120, O3 and CSE flags kept 1120, disabling delay branches scored 10820. Removing 0x14D/0x46D scored 1320, checking all three in default scored 3870. Restored saved 1110.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795230599.279735,
-  "score_before": 1120,
-  "score_after": 1120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_8000237C",
@@ -59157,15 +59040,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:f111ff44f43d0621fab5ea0ce96079a4b9705bad352980807567bf28f04732c8"
  },
  {
-  "function": "func_8000299C",
-  "text": "Found missing case 0x10B (\u21920x2FC; target compares a1 with 0x10B) \u2014 semantically needed, score 1120 vs saved 1110 though (extra insns). Remaining diff: target tail-merges the 0x10B, 0x14D, 0x46D leaf compares into ONE `beql a1,v0,end; addiu a1,0x2FC; j end; addiu a2,1` (each does `addiu v0,CONST; j shared`), whereas GCC emits separate copies (146 vs 141 insns). Case order in source and case ranges (0x124 ... 0x125) make no difference. Next step: try making those three values not part of the switch (e.g. separate if (id==0x10B||id==0x14D||id==0x46D) chain / goto) or a different grouping where they have a different body label than the other 0x2FC cases.\ncase order permutations, case ranges, adding 0x10B\nscore unchanged 1120; same shape, leaf compares for 0x10B/0x14D/0x46D not merged\n\nAlready set aside earlier this session; no live claim remains.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795237146.884704,
-  "score_before": 1110,
-  "score_after": 1110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_8006CD34",
   "text": "Reconstructed and saved the previously transient 765 candidate (316/316 instructions, 24 differing diagnostic rows). Clamp branches must access the updated float through *temp_s0_2 after the increment/decrement; using the cached object for the comparison/store loses four instructions (1715). Integer casts and pointer indexing on the table base were neutral; an explicit preloaded 0x14 float scored 775. Passing sp18 directly to rotate and assigning arg0 afterward scored 880 but improved a matrix-call region.",
   "by": "codex-gpt-6.2-sol-9",
@@ -59809,15 +59683,6 @@
   "score_before": 1025,
   "score_after": 1025,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:aa0767e3bd7846419bb24fe21fe78f432c3471223032b9a1066da4b65d04b277"
- },
- {
-  "function": "func_8000299C",
-  "text": "Saved best rechecked 1110. Signedness local repair tied, unsigned switch worsened to 2910, nested guard tied. Attempted replacing switch with explicit threshold tree but malformed patch left stale case labels and failed to compile; restored saved best. Target is clearly balanced threshold tree with branch-likely (beql/bnel) and delay-slot assignments; prior handoff records variants. No candidate improvement in this lease.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795238186.085495,
-  "score_before": 1110,
-  "score_after": 1110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_800473AC",
@@ -66916,15 +66781,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:7651921d02483a853a7851b773c94b78fa2aec7522f828ad992481c3c5a79f33"
  },
  {
-  "function": "func_8000299C",
-  "text": "unsigned_switch worsened score 2910; nested guard tied at 1110; switch_case_order compile error duplicate case; symbol_address_local worsened 8870/compile error\nBaseline remains score 1110, first divergence control flow at branch 0x15c vs 0x168; after five total compiles moved beyond limit.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795251466.858814,
-  "score_before": 1110,
-  "score_after": 1110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "updateRandomMenuItem",
   "text": "Reconstructed unsigned random and single-argument lookup scored 2750 (revision fb560527900ef2f4a719); signedness, declaration order and address temporary left instructions unchanged. Candidate and ownership reset before clamp experiment. Next: reconstruct that revision and test an if/else clamp with signed switch; raw target flag address 0x80112F7B differs from candidate 0x80112F7D.",
   "by": "codex-gpt-6.1-terra-5",
@@ -68818,15 +68674,6 @@
   "score_before": 19820,
   "score_after": 15770,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:d59547c238ccab4a89fdaa73b932af32e168502ccb9dbc858df541b7062c5c7e"
- },
- {
-  "function": "func_8000299C",
-  "text": "Verified 1110 baseline. Removing other=0 worsened to 1300 and removed target's move in branch delay slot; unsigned t and nested guard left output unchanged.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795256167.7512882,
-  "score_before": 1110,
-  "score_after": 1110,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_80002098",
@@ -72509,15 +72356,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4e2f5e2acdfa55221c903d37bd3ab13f5178aa5af5c642b740b09003287ca35d"
  },
  {
-  "function": "func_8000299C",
-  "text": "Verified 660. Three branches still invert the likely condition and exchange their delay-slot assignments. Explicit success goto and shared fallback label stayed identical; switch and explicit failure-first branch scored 1350.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795281496.11308,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_8011A2A0",
   "text": "Verified and retained 2435. Splitting volatile slot address lifetimes advanced the first jump-table destination by 8 bytes but regressed globally to 2855. A shared slot-value temporary scored 2465. Removing maximum initialization regressed to 2605 and was discarded because it leaves an uninitialized read.",
   "by": "codex-gpt-6.2-sol-6",
@@ -72624,15 +72462,6 @@
   "score_before": 6474,
   "score_after": 6081,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:395aff0cf66ba02cb1436773a6715ceaec91735d40f35ea0978723dd62dd8a1f"
- },
- {
-  "function": "func_8000299C",
-  "text": "Rechecked score 660. Remaining three beql/bnel inversions and exchanged delay-slot assignments. Booleanizing other before testing it scored 2650.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795283286.927976,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_80048F10",
@@ -73477,15 +73306,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
  },
  {
-  "function": "func_8000299C",
-  "text": "Move-on threshold reached. Shared and separate fallback labels were unchanged at 660, recomputing the failure predicate scored 1400. Three inverted likely branches exchange assignments. Next step: nest enclosing range splits inside positive guards.\nShared and separate fallback labels; recomputed failure predicate.\nLabels unchanged at 660, predicate scored 1400.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795293532.4194949,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_80096460",
   "text": "Move-on threshold reached. Restoring the banked pair test to <2 so it includes control 0x80 scored 1620 at revision 58ebcf66ab42a9a02da7 (190 instructions). A cast to u8 for the masked control tied; truncating the shared control at entry to the banked path scored 2370. Next step: recover the semantically corrected 1620 trial and split the lifetimes of the control scratch and bank base around the first range check.\nRestored banked pair <2, then tested u8 cast and in-place truncation.\nCorrected test scored 1620; cast tied; in-place truncation scored 2370.",
   "by": "codex-gpt-6.2-sol-6",
@@ -73702,15 +73522,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
  },
  {
-  "function": "func_8000299C",
-  "text": "Nine mismatch rows remain, driven by three branch-likely inversions and their exchanged assignments.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795296653.28643,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_80048F10",
   "text": "Rechecked the saved candidate after the hit-temporary trial. The instruction diff is unchanged at 27506 and the judge reports the move-on budget is exhausted. The frame remains 0x2a8 versus target 0x290.\nRecompiled the saved candidate after the hit-temporary trial.\nUnchanged instruction diff at 27506. Candidate still loads the first byte-triangle index with lhu.",
   "by": "codex-gpt-6.2-sol-9",
@@ -73871,15 +73682,6 @@
   "score_before": 8334,
   "score_after": 8334,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1310db980503d0489b9cfe5d1e808e8abf9c4a5b253f3388661bb209ced3949e"
- },
- {
-  "function": "func_8000299C",
-  "text": "Reverified 660 with all 141 instructions. Three bnel should be beql, exchanging the id replacement and other=1 delay slots for IDs 0x15F, 0x20A, 0x2E9. The ID 2 branch already matches.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795299492.092503,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_80073AF8",
@@ -74391,15 +74193,6 @@
   "score_before": 525,
   "score_after": 525,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f001a307e6c9983fa40f94322332d3c28efa0628c5d6aef2d8a442998ecff830"
- },
- {
-  "function": "func_8000299C",
-  "text": "Verified 660, 141 instructions on both sides. At rows 49, 56 and 65 the target takes beql with the ID assignment in the delay slot, while the candidate takes bnel with the fallback assignment in the delay slot. The corresponding jumps carry the opposite assignments.\nExplicit success jumps, reversed if/else order, and a shared failure label across the three inversions.\nExplicit jumps and shared failure retained all nine differences at 660. Reversed arm order scored 1600.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795305450.210146,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_8004C750",
@@ -75063,15 +74856,6 @@
   "score_before": 60,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:91d0a198e27435e4fa5ad57f3eeb749ab9abc6e515f4f4bff6a7e67730a41ce6"
- },
- {
-  "function": "func_8000299C",
-  "text": "Best 660, unchanged. This session's local repairs: constant local, u32 t, byte table signedness (860), removing the guard and cloning the join all tied or got worse. Nine rows differ: three if/else pairs where the target uses beql with the id assignment in the delay slot and the candidate uses bnel with the other assignment. Next step: write those three cases as `other = (id != X); if (!other) id = Y;`-style ternaries, or swap the then/else order of just the id==0x2 / 0x15F / 0x2E9 tests.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795308168.326485,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_80037DC0",
@@ -75848,15 +75632,6 @@
   "score_before": 2136,
   "score_after": 2136,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a057367db9d7c68c06c1d6b5c54014e76b6edab53d0e93c16932a354265ad953"
- },
- {
-  "function": "func_8000299C",
-  "text": "Three branch-likely pairs remain inverted at verified 660. Boolean assignment, switching the case and scheduling flags failed to improve.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795310594.06735,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_8000C34C",
@@ -78837,15 +78612,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e9e1ca00a6dfbe0ac5807bd0493185169bc8ff4afade9e56ba6b0a97c6d3cad2"
  },
  {
-  "function": "func_8000299C",
-  "text": "Inverted if/else, extra guard, switch, and failure goto all regressed from 660. Judge reached move-on limit.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795337365.253963,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_800473AC",
   "text": "Verified 520. Only substantive difference is the second determinant guard: target beqz/nop/j/move zero, candidate bnel/move zero, shifting later labels by 8 bytes.",
   "by": "codex-gpt-6.2-sol-9",
@@ -80124,15 +79890,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e9e1ca00a6dfbe0ac5807bd0493185169bc8ff4afade9e56ba6b0a97c6d3cad2"
  },
  {
-  "function": "func_8000299C",
-  "text": "Reverified 660. Three branch-likely pairs have inverted polarity and swapped delay-slot assignments. Explicit success goto and shared failure goto gave identical assembly.\nExplicit success goto versus shared failure goto\nBoth score 660 with identical output.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795344468.165496,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_80008750",
   "text": "Rechecked baseline 475, with 83 mismatches (79 register). Six edits to the first command block, including cursor load staging, produced identical diffs.",
   "by": "codex-gpt-6.2-sol-9",
@@ -80762,15 +80519,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8568b0d36d644f85f40f0578935a50588e6a2e59cb35a6a768e51456e18119ab"
  },
  {
-  "function": "func_8000299C",
-  "text": "Comma-condition and both goto layouts at the 0x20A case are byte-identical to baseline score 660. Materializing comparison as other scored 1660. Next step: probe branch scheduling flags against the three inverted branch-likely delay-slot pairs.\nComma-condition and comparison temporary\n660 unchanged and 1660 respectively",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795351206.964085,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_800848EC",
   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
   "by": "codex-gpt-6.2-sol-9",
@@ -81048,15 +80796,6 @@
   "score_before": 965,
   "score_after": 965,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2d9064b4426cc052cee372f3d2335f0b9de596e13ffde6eba1c00530f11b76fb"
- },
- {
-  "function": "func_8000299C",
-  "text": "Rechecked 660. Three branch-likely opcodes and their paired delay-slot assignments differ. Mapping test after the assignment scored 1350, shared-failure goto and void ternary gave identical output, and relocating the 0x20A success label into the upper dispatch scored 1330 (140 versus 141 instructions). Judge reached 9/4. Restored saved best.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795353388.582562,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_8009D5D4",
@@ -81695,15 +81434,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:dde3527d4637a1be93c45bd53e85528bc4274120cf4e13cfc06c95b3216056df"
  },
  {
-  "function": "func_8000299C",
-  "text": "Judge threshold reached; three likely branches retain inverted polarity and swapped delay-slot assignments at 660.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795357637.705636,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_8007514C",
   "text": "Four source trials failed to improve 530. The target still has two register moves absent from baseline.",
   "by": "codex-gpt-6.2-sol-6",
@@ -81981,15 +81711,6 @@
   "score_before": 220,
   "score_after": 220,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
-  "function": "func_8000299C",
-  "text": "Judge move-on threshold reached at best 660. Three upper equality branches remain inverted and their delay slots swapped after separate goto, switch and predicate staging trials.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795360115.6755579,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_80047068",
@@ -82791,15 +82512,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:03d16b97e89a0f3db7effa48c95d895070aa466a90290e8660c7954b92387d33"
  },
  {
-  "function": "func_8000299C",
-  "text": "Still 660 (rev 1b5b98dc). Local repairs (signedness, literal local, temp hoist, decl scope, operand order) unchanged or worse. Remaining: 3 branch-likely polarity inversions (target beql, ours bnel) with swapped delay-slot. Next step: rewrite the id==0x15F / 0x20A / 0x2E9 arms as `if (id != X) {other=1;} else id=Y;` ordering (invert if/else) rather than gotos.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795385518.4561589,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
- },
- {
   "function": "func_80005D04",
   "text": "Rechecked 695 (rev 672053bc). Local repairs (signedness, decl order, lifetime split, hoists) equal or worse. Target keeps callbackFlag in $t3 (we use $t1): register allocation only. Next step: try -fno-schedule-insns-free source reorder: declare callbackFlag later / use it directly as (temp_v0 & 1) in the final if.",
   "by": "claude-sonnet-low-1",
@@ -83020,14 +82732,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:c2a0ef5b5f58859da9e600b69ca0e90674d63cc892e926b1d84c2cb4114f9e91"
  },
  {
-  "function": "func_8000299C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles. Best stays 660; two prior agents also stalled on the inverted beql arms. Next step: try a switch with dense cases.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795387536.853459,
-  "score_before": 660,
-  "score_after": 660
- },
- {
   "function": "func_80005D04",
   "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles. Best stays 695, with only the callbackFlag register ($t3 in the target, $t1 in ours) left. Next step: drop the callbackFlag local and test (temp_v0 & 1) directly in the final if.",
   "by": "claude-sonnet-low-1",
@@ -83219,14 +82923,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b86260286bc912f61a9c5292d30d836bb430a462f4e12759308e0e8d29be8ce6"
  },
  {
-  "function": "func_8000299C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles this session. Best stays 660 (rev 1b5b98dc8f99b28e01bb); inverted beql arms remain. Next step: try a switch with dense cases, or try_local_repairs temporary_hoist_block.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795392388.452534,
-  "score_before": 660,
-  "score_after": 660
- },
- {
   "function": "func_8009C420",
   "text": "[Released without compiling it once; notes not checked by a compile.] 100+ attempts, best 760 unchanged. Target copies arg0/arg2 via move at entry into saved regs; my versions keep them in arg regs. Next step: declare s32 copies of arg0/arg2 before other temps, starting from saved best f4fdfedcf1621d5f5977.",
   "by": "claude-sonnet-low-1",
@@ -83311,15 +83007,6 @@
   "created_at": 1795394143.099159,
   "score_before": 449,
   "score_after": 449
- },
- {
-  "function": "func_8000299C",
-  "text": "6 local repairs (signedness, literal, temp hoists, operand order): all 660 or worse. Only 9 rows differ: the id==0x15f arm (target beql with id=0x2fa in delay slot; ours bnel with other=1). Next step: write the 0x15f/0x2 arms as `if (id != X) other = 1; else id = 0x2FA;` ordering swap.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795394157.205736,
-  "score_before": 660,
-  "score_after": 660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  },
  {
   "function": "func_80005D04",
@@ -89350,5 +89037,336 @@
   "score_before": 25609,
   "score_after": 24406,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f84ebab0b09436c7a1ddec1c1ecef98d61d54e87a02fd1a84528204d5fe592fc"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "WARNING saved best score 1110 is semantically wrong: my experiment accidentally removed case 0x10B; restore it. Correct candidate revision 3869f2a113dc2f034390 scores 1120, improving prior 1230 by changing t from u8 to s32. Remaining mismatch is switch: GCC emits separate tests for 0x10B and 0x14D rather than target's shared comparison block, adding five instructions and shifting branches. Separate case bodies, goto, signedness and default increment did not fix it.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795179183.48994,
+  "score_before": 1230,
+  "score_after": 1110
+ },
+ {
+  "function": "func_8000299C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Resumed candidate revision f6298cc9359846f2cc7a (historical score 1110). Submitted one fresh compile attempt, blocked before judge because gcc-2.7.2-kmc is not installed. No score or source revision change. Candidate logic remaps effect IDs under flag/global conditions then adjusts index ranges by per-type stride.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795193957.547452,
+  "score_before": 1110,
+  "score_after": 1110
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Best verified candidate score 1110 (92.1%, 141 target instructions). Local repair batch tried signedness, unsigned switch, nested guard, split case labels, symbol local and table signedness; no improvement. A manual early-return restructuring worsened to 1325 and was discarded by restoring saved_best. Remaining diff primarily switch control-flow layout/branch targets; target uses threshold comparisons and selected case fallthroughs rather than the generated C switch/jump layout.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795202252.17666,
+  "score_before": 1110,
+  "score_after": 1110
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Best candidate remains f6298cc9359846f2cc7a, verified score 1110. Targeted local families signedness, unsigned switch, nested guard, split case labels, global address local, and table signedness yielded no better score; unsigned switch and signed-byte table worsened substantially. Additional guard-goto and if/else chain alternatives also failed or tied. First mismatch is branch distance: target `beqz $v0, 0x15c` immediately after testing flag 0x200000; candidate branch target is 0x168. Target delay slot initializes `$a2=1`, then global mode check; its switch compiles as a decision tree with numerous likely-branch delay-slot assignments. Next concrete experiment: replace `other` with a `s32 handled` initialized to 1, set it to 0 only in recognized switch cases, and keep a separately initialized fallback return id; candidate currently reuses `id` and `other`, which may lengthen the initial guard block and perturb the branch target/layout. Keep exact switch case list and unsigned range modulo logic. No evidence this is hand-written assembly.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795204598.749505,
+  "score_before": 1110,
+  "score_after": 1110
+ },
+ {
+  "function": "func_8000299C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best score 1110 (candidate f6298cc9359846f2cc7a). Reviewed the target: the switch is compiled as a binary-search tree of slti threshold compares (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166...) with case fallthroughs and delay-slot likely branches (beql/bnel) at the leaf cases. Previous attempts (35 total, plus local repair families: signedness, unsigned switch, nested guard, split case labels, symbol local, table signedness, guard-goto, if/else chain) did not improve; unsigned switch and signed-byte table are worse. Next untested idea: split the switch into two nested switches by range (id < 0x154 vs >= 0x154) to mimic the first slti split, with the default arm duplicated in each.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795206631.6787221,
+  "score_before": 1110,
+  "score_after": 1110
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Rechecked inherited best score 1110. Tried equivalent full rewrite (tie), a split case-label/control-flow experiment (score 1740), recovered saved best and confirmed equivalent rewrite (tie), then split case 0x128 (score 2010). Saved best remains 1110. Target case tree uses hand-shaped slti thresholds and branches; ordinary switch yields similar but longer tree with different branch destinations. Next try: manually encode ordered threshold decision tree using if/else ranges (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166) while preserving target's shared labels and fallthrough.\nEquivalent switch rewrite tied at 1110; split case arm worsened; split 0x128 worsened further.\nNo improvement; saved best still 1110. Current revision was worse, restore saved_best.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795207931.133325,
+  "score_before": 1110,
+  "score_after": 1110
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Stalled at best 1110 (92.1%, candidate f6298cc9359846f2cc7a, rechecked this session). Target uses a binary-search tree of slti thresholds (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166) with delay-slot beql/bnel leaf branches and the fallthrough shape for case 0x128/0x129 and 0x10B/0x14D; ordinary switch gives a different branch layout (diff: target beqz->0x15c, ours ->0x168; the 0x10B and 0x2FC assignments land in different arms). Tried: full rewrite (tie), split case-label/control-flow (1740), split case 0x128 (2010), local repair families (best 1110). Untested idea: encode the case 0x106/0x124/0x125/0x128/0x129 group as separate if-chains ordered to match the slti 0x126/0x128/0x12A tests, with 0x10B as explicit fallthrough target.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795208947.558985,
+  "score_before": 1110,
+  "score_after": 1110
+ },
+ {
+  "function": "func_8000299C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best 1110 (92.1%, candidate f6298cc9359846f2cc7a). Target is a hand-shaped binary-search tree of slti thresholds (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166) with beql/bnel delay-slot leaf branches; the plain switch version gives a different branch layout and placement of the 0x10B/0x2FC assignments. Full rewrite, split case labels and split case 0x128 all tied or scored worse (1740, 2010). Untested next step: write the case tree as explicit if/else on the same thresholds (id < 0x154, id < 0x126, id < 0x124, id < 0x8, id < 0x2AA, id < 0x166) to match the slti ordering, keeping the leaf assignments identical.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795209888.282064,
+  "score_before": 1110,
+  "score_after": 1110
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Stalled at 1110 (saved best f6298cc9359846f2cc7a, 92%). This session: re-read target; the first split is slti 0x154 -> slti 0x126 -> slti 0x124, then beqz/beql leaves with delay-slot assignments. Hand-written nested if-tree (c6aa971a...) scored 5490: worse, and it is also semantically wrong (missed the 0x153 mapping and the 0x12A..0x153 range), so do not reuse it. Next step: start from saved_best and keep the switch form, trying to match only the top-level 0x154/0x126/0x124 split with a switch-like shape; the other paths are layout-only.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795211111.624002,
+  "score_before": 1110,
+  "score_after": 1110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at 1110 (92.1%) on candidate 760b1157277180c5e73b; no new compile this session. Target's first part is a binary-search tree of slti thresholds (0x154, 0x126, 0x124, 0x8, 0x2AA, 0x166) with beql/bnel delay-slot leaf branches, while the switch version lays out branches differently. Prior variants (switch, split labels, nested guards, operand order) gave identical or worse output. Next step: hand-write the first id-remap as nested if/else matching the slti tree (e.g. if (id < 0x154) { if (id < 0x126) {...} else {...} } else {...}), keeping the same case groups, and compare the diff at the first beqz.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795213745.471493,
+  "score_before": 1110,
+  "score_after": 1110
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Rechecked saved switch candidate at 1110 (92.1%, target 141 insns, yours 144). Rewriting the hand-shaped search as structured nested comparisons, with same cases, scored 4900; a narrower threshold tree scored 4190; further adjusting the high-range branch scored 4650. Saved best 1110 restored. Main mismatch is control-flow/branch-target topology, beginning at target instruction 4; target lays out binary-search labels and merges at 0x15c. No source restructuring beat the saved switch candidate.\nOriginal switch-based candidate remains best at score 1110. Structured threshold tree and a more complete binary-search nested tree scored worse (4900, 4190, 4650).\nBest remains 1110; target is 141 instructions with mismatch concentrated in branch targets/layout. Branch distances to common labels (especially +0x15c) differ due to source CFG.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795215537.382796,
+  "score_before": 2745,
+  "score_after": 1110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Four judged compiles without improving the saved 1110. Adding the missing 0x10B case restores the comparison tree at 1120, but GCC duplicates the 0x2FC leaf tails; splitting cases produced identical output. GCC rejected -fcross-jumping.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795221701.2341068,
+  "score_before": 1120,
+  "score_after": 1120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Restored 0x10B candidate scored 1120 under both O2 and diagnostic O3. Unsigned switch worsened to 2920; unsigned t did not change output. Saved best 1110 omits 0x10B and may be semantically incomplete.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795228638.936043,
+  "score_before": 1120,
+  "score_after": 1120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Move-on threshold reached 4/4. Target shares one branch-likely compare and default tail among IDs 0x10B, 0x14D, 0x46D using v0 prepared at three entries. Adding missing 0x10B produced nearly identical tree and exact arithmetic tail but five extra instructions from duplicating the leaf test, score 1120. Splitting body kept 1120, O3 and CSE flags kept 1120, disabling delay branches scored 10820. Removing 0x14D/0x46D scored 1320, checking all three in default scored 3870. Restored saved 1110.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795230599.279735,
+  "score_before": 1120,
+  "score_after": 1120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Found missing case 0x10B (\u21920x2FC; target compares a1 with 0x10B) \u2014 semantically needed, score 1120 vs saved 1110 though (extra insns). Remaining diff: target tail-merges the 0x10B, 0x14D, 0x46D leaf compares into ONE `beql a1,v0,end; addiu a1,0x2FC; j end; addiu a2,1` (each does `addiu v0,CONST; j shared`), whereas GCC emits separate copies (146 vs 141 insns). Case order in source and case ranges (0x124 ... 0x125) make no difference. Next step: try making those three values not part of the switch (e.g. separate if (id==0x10B||id==0x14D||id==0x46D) chain / goto) or a different grouping where they have a different body label than the other 0x2FC cases.\ncase order permutations, case ranges, adding 0x10B\nscore unchanged 1120; same shape, leaf compares for 0x10B/0x14D/0x46D not merged\n\nAlready set aside earlier this session; no live claim remains.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795237146.884704,
+  "score_before": 1110,
+  "score_after": 1110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Saved best rechecked 1110. Signedness local repair tied, unsigned switch worsened to 2910, nested guard tied. Attempted replacing switch with explicit threshold tree but malformed patch left stale case labels and failed to compile; restored saved best. Target is clearly balanced threshold tree with branch-likely (beql/bnel) and delay-slot assignments; prior handoff records variants. No candidate improvement in this lease.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795238186.085495,
+  "score_before": 1110,
+  "score_after": 1110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "unsigned_switch worsened score 2910; nested guard tied at 1110; switch_case_order compile error duplicate case; symbol_address_local worsened 8870/compile error\nBaseline remains score 1110, first divergence control flow at branch 0x15c vs 0x168; after five total compiles moved beyond limit.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795251466.858814,
+  "score_before": 1110,
+  "score_after": 1110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Verified 1110 baseline. Removing other=0 worsened to 1300 and removed target's move in branch delay slot; unsigned t and nested guard left output unchanged.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795256167.7512882,
+  "score_before": 1110,
+  "score_after": 1110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Verified 660. Three branches still invert the likely condition and exchange their delay-slot assignments. Explicit success goto and shared fallback label stayed identical; switch and explicit failure-first branch scored 1350.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795281496.11308,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Rechecked score 660. Remaining three beql/bnel inversions and exchanged delay-slot assignments. Booleanizing other before testing it scored 2650.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795283286.927976,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Move-on threshold reached. Shared and separate fallback labels were unchanged at 660, recomputing the failure predicate scored 1400. Three inverted likely branches exchange assignments. Next step: nest enclosing range splits inside positive guards.\nShared and separate fallback labels; recomputed failure predicate.\nLabels unchanged at 660, predicate scored 1400.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795293532.4194949,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Nine mismatch rows remain, driven by three branch-likely inversions and their exchanged assignments.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795296653.28643,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Reverified 660 with all 141 instructions. Three bnel should be beql, exchanging the id replacement and other=1 delay slots for IDs 0x15F, 0x20A, 0x2E9. The ID 2 branch already matches.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795299492.092503,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Verified 660, 141 instructions on both sides. At rows 49, 56 and 65 the target takes beql with the ID assignment in the delay slot, while the candidate takes bnel with the fallback assignment in the delay slot. The corresponding jumps carry the opposite assignments.\nExplicit success jumps, reversed if/else order, and a shared failure label across the three inversions.\nExplicit jumps and shared failure retained all nine differences at 660. Reversed arm order scored 1600.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795305450.210146,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Best 660, unchanged. This session's local repairs: constant local, u32 t, byte table signedness (860), removing the guard and cloning the join all tied or got worse. Nine rows differ: three if/else pairs where the target uses beql with the id assignment in the delay slot and the candidate uses bnel with the other assignment. Next step: write those three cases as `other = (id != X); if (!other) id = Y;`-style ternaries, or swap the then/else order of just the id==0x2 / 0x15F / 0x2E9 tests.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795308168.326485,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Three branch-likely pairs remain inverted at verified 660. Boolean assignment, switching the case and scheduling flags failed to improve.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795310594.06735,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Inverted if/else, extra guard, switch, and failure goto all regressed from 660. Judge reached move-on limit.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795337365.253963,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Reverified 660. Three branch-likely pairs have inverted polarity and swapped delay-slot assignments. Explicit success goto and shared failure goto gave identical assembly.\nExplicit success goto versus shared failure goto\nBoth score 660 with identical output.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795344468.165496,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Comma-condition and both goto layouts at the 0x20A case are byte-identical to baseline score 660. Materializing comparison as other scored 1660. Next step: probe branch scheduling flags against the three inverted branch-likely delay-slot pairs.\nComma-condition and comparison temporary\n660 unchanged and 1660 respectively",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795351206.964085,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Rechecked 660. Three branch-likely opcodes and their paired delay-slot assignments differ. Mapping test after the assignment scored 1350, shared-failure goto and void ternary gave identical output, and relocating the 0x20A success label into the upper dispatch scored 1330 (140 versus 141 instructions). Judge reached 9/4. Restored saved best.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795353388.582562,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Judge threshold reached; three likely branches retain inverted polarity and swapped delay-slot assignments at 660.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795357637.705636,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Judge move-on threshold reached at best 660. Three upper equality branches remain inverted and their delay slots swapped after separate goto, switch and predicate staging trials.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795360115.6755579,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Still 660 (rev 1b5b98dc). Local repairs (signedness, literal local, temp hoist, decl scope, operand order) unchanged or worse. Remaining: 3 branch-likely polarity inversions (target beql, ours bnel) with swapped delay-slot. Next step: rewrite the id==0x15F / 0x20A / 0x2E9 arms as `if (id != X) {other=1;} else id=Y;` ordering (invert if/else) rather than gotos.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795385518.4561589,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles. Best stays 660; two prior agents also stalled on the inverted beql arms. Next step: try a switch with dense cases.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795387536.853459,
+  "score_before": 660,
+  "score_after": 660
+ },
+ {
+  "function": "func_8000299C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles this session. Best stays 660 (rev 1b5b98dc8f99b28e01bb); inverted beql arms remain. Next step: try a switch with dense cases, or try_local_repairs temporary_hoist_block.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795392388.452534,
+  "score_before": 660,
+  "score_after": 660
+ },
+ {
+  "function": "func_8000299C",
+  "text": "6 local repairs (signedness, literal, temp hoists, operand order): all 660 or worse. Only 9 rows differ: the id==0x15f arm (target beql with id=0x2fa in delay slot; ours bnel with other=1). Next step: write the 0x15f/0x2 arms as `if (id != X) other = 1; else id = 0x2FA;` ordering swap.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795394157.205736,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Tried `if (id != 0x15F) other = 1; else id = 0x2FA;` -> 1060 (worse than 660). Target uses beql with the id constant in delay slot for the equal arms; ours emits bnel. Next step: restructure the equal arms as a switch/if-chain without gotos, so GCC emits beql with the constant in the delay slot.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795397245.404921,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
+ },
+ {
+  "function": "func_8000299C",
+  "text": "Still 660. Replacing the `if/else` with `if (id == 0x15F) { id = 0x2FA; goto joined; } other = 1;` scored 660, the same as before. It still emits bnel rather than beql in 3 places (rows 49, 56, 65). Next step: rewrite the whole range-check tree as a switch on id, so GCC lays the equal-arm branches out as beql with the constant in the delay slot.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795398190.274405,
+  "score_before": 660,
+  "score_after": 660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fbe71fcdecf85ce753d805c87abde7980312cdc1be8050a580dbcf3f87c27fb3"
  }
 ]
