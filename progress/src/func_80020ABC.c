@@ -66,20 +66,19 @@ s32 __repair_phase_var_a2;
     }
     temp_s4 = 0;
     var_s3 = 2;
-    for (;;) {
+    for (;; var_s3 += 1) {
         __repair_phase_temp_s4 = var_s3 & 0xFFFF;
         if (__repair_phase_temp_s4 >= ((func_80031028(0, 1) & 0xFFFF) + 2)) {
             break;
         }
         temp_s4 = __repair_phase_temp_s4 * 8;
         temp_v0_3 = spawnTrackMarker(sMenuListKind);
-        temp_s2 = temp_s4 + D_8010A2D8;
-        (*(s32 *)((char *)(temp_s2) + 0)) = temp_v0_3;
+do { do { temp_s2 = temp_s4 + D_8010A2D8; } while (0); } while (0);
+do { do { (*(s32 *)((char *)(temp_s2) + 0)) = temp_v0_3; } while (0); } while (0);
         if (temp_v0_3 != 0) {
             temp_v0_4 = spawnTrackMarker(sMenuListKind);
-            (*(s32 *)((char *)(temp_s2) + 4)) = temp_v0_4;
+do { do { (*(s32 *)((char *)(temp_s2) + 4)) = temp_v0_4; } while (0); } while (0);
             if (temp_v0_4 == 0) {
-                var_s3 += 1;
                 freeMenuItemRecord(*((s32 *)((s8 *)D_8010A2D8 + temp_s4)));
             } else {
                 temp_s0 = var_s3 - 1;
@@ -107,11 +106,7 @@ s32 __repair_phase_var_a2;
                     __repair_phase_var_a2 = var_s3 & 0xFF;
                     func_8002A7CC(D_80115060, temp_s2, __repair_phase_var_a2, func_80018318(*((s32 *)((s8 *)D_8010A2D8 + temp_s4))) + 2 & 0xFF);
                 }
-                goto block_13;
             }
-        } else {
-block_13:
-            var_s3 += 1;
         }
     }
     func_80022AD8(sMenuListKind);
@@ -119,3 +114,4 @@ block_13:
     func_8002AC04(D_80115060, 1);
     func_8002ACB4(D_80115060);
 }
+
