@@ -1,5 +1,5 @@
 s32 actorLinkToSurface(s32, void *, s32);
-s32 effectSetAnimFrame(void *, unsigned short, int);
+s32 effectSetAnimFrame(void *, int, int);
 u8 func_80017490(u16, u16, u16);
 s32 func_8001751C(s32, u8, void *, s32);
 void *spawnEffectObject(s32, void *, s32);
@@ -34,9 +34,9 @@ typedef struct
 void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, short arg10, u16 arg11, s32 arg12, u8 arg13)
 {
   u16 sp16;
-  u16 sp1E;
   u16 sp26;
   int var_a1;
+  void *var_a0;
   unsigned int var_a2;
   s32 temp_v0_2;
   s32 temp_v0_3;
@@ -76,12 +76,14 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5
             case 0:
               temp_v0_2 = (arg5 & 0xFFFF) * 0xE8;
 
+            var_a0 = temp_v0;
             var_a1 = *((s16 *) (((u8 *) (&D_800C4706)) + temp_v0_2)); var_a2 = *((s16 *) (((u8 *) (&D_800C4708)) + temp_v0_2));
             goto block_17;
           }
           while (0);
           case 1:
             temp_v0_3 = arg5 * 0x10;
+            var_a0 = temp_v0;
             var_a1 = *((s16 *) (((u8 *) (&D_800C4478)) + temp_v0_3));
             var_a2 = *((s16 *) (((u8 *) (&D_800C447A)) + temp_v0_3));
             goto block_17;
@@ -95,27 +97,22 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5
       else
       {
         direct:
+        var_a0 = temp_v0;
         var_a1 = arg2;
 
-        var_a2 = arg3 & 0xFFFF;
+        do { var_a2 = arg3 & 0xFFFF; } while (0);
         block_17:
-        effectSetAnimFrame(temp_v0, var_a1, var_a2);
+        effectSetAnimFrame(var_a0, var_a1, var_a2);
 
       }
-      ((__repair_record_temp_s0 *) temp_s0)->field_26 = sp1E;
+      ((__repair_record_temp_s0 *) temp_s0)->field_26 = arg4;
       ((__repair_record_temp_s0 *) temp_s0)->field_28 = arg5;
       ((__repair_record_temp_s0 *) temp_s0)->field_2A = arg6;
       ((__repair_record_temp_s0 *) temp_s0)->field_30 = 0;
       actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
- *((s32 *) (((char *) temp_v0) - (-0x5C))) = (s32) ((*((s32 *) (((char *) temp_v0) + 0x5C))) | 0x400); *((f32 *) (((char *) temp_v0) + 0x54)) = 0.015625f; ((__repair_record_temp_s0 *) temp_s0)->field_1C = (f32) ((*((f32 *) (((char *) temp_v0) + 0x28))) - 1.0f);
-      if (((((u32) ((short) (arg5 - 0x18))) < 2U) | (arg5 == 0x17)) != 0)
+ *((s32 *) (((char *) temp_v0) - (-0x5C))) = (s32) ((*((s32 *) (((char *) temp_v0) + 0x5C))) | 0x400); *((f32 *) (((char *) temp_v0) + 0x54)) = 0.015625f; ((__repair_record_temp_s0 *) temp_s0)->field_1C = (f32) ((*((f32 *) (((char *) temp_v0) + 0x28))) - 1.0f);        if (((((u32) ((short) (arg5 - 0x18))) < 2U) | (arg5 == 0x17)) != 0)
       {
         ((__repair_record_temp_s0 *) temp_s0)->field_2E = 1;
-      }
-      else
-        if (arg4)
-      {
-        ((__repair_record_temp_s0 *) temp_s0)->field_2E = 0;
       }
       else
       {
@@ -127,3 +124,4 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5
   }
   return NULL;
 }
+
