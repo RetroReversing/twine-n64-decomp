@@ -27,8 +27,8 @@ u16 func_80012F50(void)
   s32 i;
   s32 j;
   u16 done;
-  char *name;
-  char *code;
+  char *np;
+  char *cp;
   gSaveSlot = 0;
   gSaveFoundSlot = -1;
   if (saveRefreshStatus())
@@ -53,18 +53,18 @@ u16 func_80012F50(void)
   i = 0;
   do
   {
-    name = gSaveSlotHeaders[i].name;
-    code = gSaveSlotHeaders[i].code;
     saveSubmitCommand(5, (s32) (gSaveSlotTable + (gSaveSlot * 104)), i, (s32) &D_80108408[i], 0, 0, 0, 0);
     if (saveWaitCommand() == 5)
     {
       gSaveSlotHeaders[i].used = 0;
       j = 15;
-      do { name[j] = ' '; } while (--j >= 0);
-      name[16] = 0;
+      do { gSaveSlotHeaders[i].name[j] = ' '; } while (--j >= 0);
+      np = gSaveSlotHeaders[i].name;
+      np[16] = 0;
       j = 3;
-      do { code[j] = ' '; } while (--j >= 0);
-      code[4] = 0;
+      do { gSaveSlotHeaders[i].code[j] = ' '; } while (--j >= 0);
+      cp = gSaveSlotHeaders[i].code;
+      cp[4] = 0;
       D_80108408[i].clear = 0;
       gSaveCmdResult = 0;
     }
@@ -75,8 +75,8 @@ u16 func_80012F50(void)
         return func_80010B60(gSaveCmdResult);
       }
       gSaveSlotHeaders[i].used = 1;
-      decodeTextField(name, D_80108408[i].name, 16);
-      decodeTextField(code, &D_80108408[i].codeByte, 4);
+      decodeTextField(gSaveSlotHeaders[i].name, D_80108408[i].name, 16);
+      decodeTextField(gSaveSlotHeaders[i].code, &D_80108408[i].codeByte, 4);
     }
     i++;
   }
