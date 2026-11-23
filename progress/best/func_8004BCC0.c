@@ -69,15 +69,6 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
     u32 gap[2];
   } hit;
   void *spFC;
-
-
-
-
-
-
-
-
-
   f32 temp_fs2;
   f32 var_fs0;
   s32 temp_s0;
@@ -220,7 +211,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
                 var_s4_2 = *((u8 **) (((char *) temp_s2) + 0x3C));
                 if (temp_v1 < ((u16) ((Field_u16 *) (((char *) temp_s2) + 0x40))->v))
                 {
-                  var_s0_2 = 0;
+ do { var_s0_2 = 0; } while (0);
                   var_s3_2 = var_s4_2 + 2;
                   do
                   {
@@ -413,5 +404,3 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   return 0;
 
 }
-
-

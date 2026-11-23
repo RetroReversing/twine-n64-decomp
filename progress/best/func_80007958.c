@@ -168,7 +168,6 @@ void func_80007958(void)
   else
   {
     transitioning = 0;
-    modeFlags = ((u8 *) renderMode) - 0x21;
     i = 0;
     D_80113022 = 0;
     do
@@ -209,11 +208,11 @@ void func_80007958(void)
         if (!transitioning)
       {
         mask = 1U << i;
-        if (modeFlags[0] & mask)
+        if (((u8 *) &D_8010A4E4)[-0x21] & mask)
         {
           func_80035060(sTrackMarkerTable[i]);
         }
-        if (modeFlags[-1] & mask)
+        if (((u8 *) &D_8010A4E4)[-0x22] & mask)
         {
           cmd = sDisplayListCursor;
           cmd->w0 = 0xDE000000;
@@ -222,7 +221,7 @@ void func_80007958(void)
           sDisplayListCursor = cmd + 1;
           func_8003C228(view, i, 5);
         }
-        do { if (modeFlags[-2] & mask)
+        do { if (((u8 *) &D_8010A4E4)[-0x23] & mask)
         {
           __repair_phase_cmd = sDisplayListCursor;
           __repair_phase_cmd->w0 = 0xDE000000;
@@ -231,7 +230,7 @@ void func_80007958(void)
           sDisplayListCursor = __repair_phase_cmd + 1;
           func_80038000(view, i);
         } } while (0);
-        if (modeFlags[-1] & mask)
+        if (((u8 *) &D_8010A4E4)[-0x22] & mask)
         {
           __repair_phase_layer = 4;
           layerEntry = &sTrackMarkerTable[i];
@@ -364,4 +363,5 @@ void func_80007958(void)
  do { D_800B1D70++; D_8010A4B0++; if (sMatrixPoolSlotCount <= D_8010A4B0) { D_8010A4B0 = 0; } } while (0);
   }
 }
+
 

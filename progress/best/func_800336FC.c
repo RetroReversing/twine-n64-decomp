@@ -3,7 +3,7 @@
 #define VERTICES(step, read)     q = p + 2;     first = D_8010D2B4;     i = 0;     if (p[1]) do {         read;         if (draw) {             func_800328CC(D_8010D2B4, model, a2, state.vertexTransform, x, y, z, scale);             D_8010D2B4 += 16;         } else {             ++*vertices;         }         ++i;         q += step;     } while (i < p[1]);     if (draw) {         gfx = gGfxPtr;         gGfxPtr = gfx + 1;         n = p[1];         gfx->w1 = first - 0x80000000U;         gfx->w0 = (n << 12) | (((n & 127) << 1) | 0x01000000);     } else {         ++*commands;     }     ++p
 typedef struct 
 {
-  u32 w0;
+  s32 w0;
   u32 w1;
 } GfxPair;
 extern GfxPair *gGfxPtr;

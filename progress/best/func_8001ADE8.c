@@ -30,7 +30,7 @@ s32 getKeyEntryFlag(s32);
 s32 layoutTextBox(s32, void *, s32);
 void *spawnEffectObject(s32, s32, s32);
 s32 sprintf(void *, char *, void *, s32);
-extern s32 sMenuItemParamTable;
+extern s32 sMenuItemParamTable[];
 extern s8 gMenuNeedsRedraw;
 extern u8 D_800BF688;
 extern s32 D_800C3CF8;
@@ -87,15 +87,20 @@ void func_8001ADE8(void)
   s32 *markers;
   s32 markerFlags;
   u32 temp_a0;
-  s32 temp_a0_2;
+  u8 temp_a0_2;
   s32 temp_s3;
   s32 temp_v0;
   register s32 temp_v0_4;
   s32 temp_v1;
   s32 var_a0;
   s32 var_a3;
-  s32 var_s0;
+  s32 var_s0_1;
+  s32 var_s0_2;
+  s32 var_s0_3;
+  s32 var_s0_4;
   s32 var_s2;
+  s32 off111;
+  s32 off10b;
   s32 var_v0;
   s32 var_v0_2;
   register u16 temp_v0_2;
@@ -132,11 +137,11 @@ void func_8001ADE8(void)
       markers = D_80102F48;
       do
       {
-        var_s0 = (u16) var_s2;
-        temp_s3 = getSaveSlotIndex(var_s0);
+        var_s0_1 = (u16) var_s2;
+        temp_s3 = getSaveSlotIndex(var_s0_1);
         temp_v0 = spawnTrackMarker(sMenuListKind);
-        var_s0 = (s32) (&markers[var_s0]);
-        *((s32 *) var_s0) = temp_v0;
+        var_s0_2 = (var_s0_1 * 4) + (s32) markers;
+        *((s32 *) var_s0_2) = temp_v0;
         if (temp_v0 != 0)
         {
           temp_s1 = lookupDataEntry((var_s2 + 0x4008) & 0xFFFF);
@@ -151,13 +156,13 @@ void func_8001ADE8(void)
           }
           func_800160FC(*((var_s2 & 0xFFFF) + markers), temp_s1, 0x40);
         }
-        var_s0 = (u16) var_s2;
-        temp_s0_2 = markers + var_s0;
+        var_s0_3 = (u16) var_s2;
+        temp_s0_2 = (s32 *) ((var_s0_3 * 4) + (s32) markers);
         var_s2 += 1;
         temp_a0 = *temp_s0_2;
         markerFlags = func_80018318(temp_a0);
         func_8002A7CC(&gPickupSearchBox, *temp_s0_2, temp_s3 & 0xFF, markerFlags & 0xFF);
-        var_s0 = var_s2 & 0xFFFF;
+        var_s0_4 = var_s2 & 0xFFFF;
       }
       while (((s32) ((u16) var_s2)) < gSaveTotalSlots);
     }
@@ -170,7 +175,7 @@ void func_8001ADE8(void)
     temp_s0_3 = sFmtEntryName;
     formatTextEntry(temp_fp, temp_s0_3, func_8002BA6C(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByte)))));
     entry = sp34;
-    *((void **) (((char *) temp_fp) + (-0x18))) = inline_fn(savedByte) + (savedByte - 0x111);
+    *((void **) (((char *) temp_fp) + (-0x18))) = inline_fn(savedByte) + (off111 = savedByte - 0x111);
     func_80019E28(entry);
     temp_s0_4 = savedByte - 0x109;
     formatTextEntry(temp_s7, temp_s0_3, inline_fn(savedByte) + temp_s0_4);
@@ -178,7 +183,7 @@ void func_8001ADE8(void)
     temp_v1 = inline_fn(savedByte);
     D_80104311 = (*((&D_801001A0) + temp_v1)) / 10U;
     formatTextEntry(temp_s6, D_800D2858, (void *) (*((&D_801001A0) + temp_v1)));
-    *((void **) (((char *) temp_s5) + (-0x18))) = (void *) (inline_fn(savedByte) + (savedByte - 0x10B));
+    *((void **) (((char *) temp_s5) + (-0x18))) = (void *) (inline_fn(savedByte) + (off10b = savedByte - 0x10B));
     temp_v1_2 = *((&sSaveSlotInfo) + inline_fn(savedByte));
     switch (temp_v1_2)
     {
@@ -219,18 +224,9 @@ void func_8001ADE8(void)
       temp_a0_2 = temp_v0_2 & 0xF;
       if (temp_a0_2 != 0)
       {
-        if (markers || savedByte)
-        {
-          sound = *((void **) (((char *) temp_v1_3) + 8));
-          var_v0 = *((&sMenuItemParamTable) + temp_a0_2);
-          var_a0 = *((u8 *) (((char *) gSaveMenuState) + 0x30));
-        }
-        else
-        {
-          sound = *((void **) (((char *) temp_v1_3) + 8));
-          var_v0 = *((&sMenuItemParamTable) + temp_a0_2);
-          var_a0 = *((u8 *) (((char *) gSaveMenuState) + 0x30));
-        }
+        sound = *((void **) (((char *) temp_v1_3) + 8));
+        var_v0 = sMenuItemParamTable[temp_a0_2];
+        var_a0 = *((u8 *) (((char *) gSaveMenuState) + 0x30));
       }
       else
       {
@@ -249,7 +245,7 @@ void func_8001ADE8(void)
       *((s32 *) (((char *) sound) + 0x10)) = (var_v0 & (~0xFF)) | var_a0;
       menuState = gSaveMenuState;
       *((u8 *) (((char *) gSaveMenuState) + 8)) = 1U;
-      do
+
       {
         *((void **) (((char *) gSaveMenuState) + 0x18)) = (void *) (temp_s7 - 0x28); temp_v0_3 = *((void * volatile *) (((char *) menuState) + 0x18)); temp_a1 = *((void **) (((char *) temp_v0_3) + 8));
         if (temp_a1 != NULL)
@@ -257,7 +253,7 @@ void func_8001ADE8(void)
           temp_v0_4 = (*((u16 *) (((char *) temp_v0_3) + 0xC))) & 0xF;
           if (temp_v0_4 != 0)
           {
-            var_v0_2 = *((&sMenuItemParamTable) + temp_v0_4); var_a0_3 = *((u8 *) (((char *) menuState) + 0x30));
+            var_v0_2 = sMenuItemParamTable[temp_v0_4]; var_a0_3 = *((u8 *) (((char *) menuState) + 0x30));
           }
           else
           {
@@ -274,7 +270,7 @@ void func_8001ADE8(void)
         }
         layoutTextBox(*((s32 *) (((char *) gSaveMenuState) + 0x1C)), *((void **) (((char *) gSaveMenuState) + 0x18)), 0);
       }
-      while (0);
+
     }
     savedByteLate = &gPickupSavedByte;
     temp_a0_3 = temp_s6 - 0x28;
@@ -287,7 +283,7 @@ void func_8001ADE8(void)
       D_801002E6 = 1;
       D_801002E7 = 1;
       func_80025F78(temp_a0_3, 0xD);
-      func_80025F78(temp_s6, 0xD);
+      do { func_80025F78(temp_s6, 0xD); } while (0);
       func_80025F78(temp_s5 - 0x28, 0xD);
       func_80025F78(temp_s5, 0xD);
       formatTextEntry(temp_s6, D_800D2858, (void *) ((*((&D_800BF688) + ((*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)))) * 0xC))) * 5));
@@ -295,7 +291,7 @@ void func_8001ADE8(void)
     }
     else
     {
-      do
+
       {
         *((s8 *) (((char *) temp_s7) + (-1))) = 3;
         *((s8 *) (((char *) temp_fp) + (-2))) = 5; D_801002E8 = 7; D_801002E9 = 3; D_801002E6 = 1;
@@ -304,7 +300,7 @@ void func_8001ADE8(void)
         func_80025F78(temp_s6, 0);
         func_80025F78(temp_s5 - 0x28, 0);
       }
-      while (0);
+
       func_80025F78(temp_s5, 0);
     }
     actorSlot = &gPickupActor;
@@ -355,3 +351,4 @@ void func_8001ADE8(void)
     }
   }
 }
+
