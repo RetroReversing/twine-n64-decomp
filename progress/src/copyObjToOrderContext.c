@@ -2,4 +2,4 @@
 extern char D_80108040[];
 void linkSourceNodesByNearestPart(int obj, int ctx);
 /* Copies the object's fields into the context block held in the current order state. */
-void copyObjToOrderContext(int obj) { linkSourceNodesByNearestPart(obj, *(int *)(D_80108040 + 0x23D0)); }
+void func_80015E30(int obj) { linkSourceNodesByNearestPart(obj, *(int *)(D_80108040 + 0x23D0)); }
