@@ -134,7 +134,7 @@ void func_8011B5F0(void *arg0)
         b3 = lookupDataEntry(gSceneType == 2 ? 0x28F : 0x290);
         c3 = lookupDataEntry(0x291);
         sprintf(D_8011F170, D_8011EFE0, id == 0 ? 0xC : 5, a3, b3, c3);
-        func_80073AF8(0, D_8010969C, (s32 *) D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+        { const s32 *state = &D_8010969C; func_80073AF8(0, *state, (s32 *) D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C); }
       }
       *((ProbeTriple *) (((char *) arg0) + 0x24)) = sProbePositions[id];
       *((ProbeTriple *) (((char *) arg0) + 0x30)) = sProbePositions[id];
