@@ -112,15 +112,11 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
               block_14:
               *var_t0 = current;
 
-              temp_v0 = __repair_inline(*var_s0);
+              var_v1 = *var_s0;
               var_t0 += 1;
               var_a3 += 1;
-              if (temp_v0 == 0)
+              if (var_v1 != 0)
               {
-              }
-              else
-              {
-                var_v1 = temp_v0;
                 continue;
               }
             }
@@ -145,19 +141,10 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
   if (sp230[0] != 0)
   {
     s8 *buffer = sp30;
-    s32 *entries = (s32 *) (&D_80100B20);
-    if (var_a0)
+    var_a0_2 = 0;
+    while (*var_s1 != 0)
     {
       var_v0 = *var_s1;
-      var_a0_2 = 0;
-    }
-    else
-    {
-      var_v0 = *var_s1;
-      var_a0_2 = 0;
-    }
-    do
-    {
       temp_a1 = var_s1;
       if (inline_fn2(var_v0 == 0, var_v0) == 0)
       {
@@ -173,6 +160,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       temp_v0_3 = func_80073AF8(0, arg0, buffer, -1, -1, 1, 0, 0, arg5 & 0xFF, 0, 0x1E);
       {
         u16 index = D_80112EBC;
+        s32 *entries = (s32 *) (&D_80100B20);
         u16 next = index + 1;
         __repair_phase_storage.pointer = (s32 *) ((((s32) (index << 16)) >> 14) + ((s8 *) entries));
         D_80112EBC = next;
@@ -203,10 +191,8 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       advance:
       var_s1 += (*var_s1) != 0;
 
-      var_v0 = *var_s1;
       var_a0_2 = 0;
     }
-    while (var_v0 != 0);
   }
   count = D_80112EBC;
   if (count != 0)
@@ -221,23 +207,18 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
     __repair_phase_storage.value = 0;
     if (count > 0)
     {
-      var_a0_3 = &D_80100B20;
       do
       {
-        temp_v0_4 = *var_a0_3;
-        __repair_phase_storage.value += 1;
+        temp_v0_4 = ((void **) &D_80100B20)[__repair_phase_storage.value];
         if (temp_v0_4 != NULL)
         {
           temp_v0_5 = *((void **) (((char *) temp_v0_4) + 0x6C));
           *((s16 *) (((char *) temp_v0_5) + 0x30)) = (s16) ((s32) var_fv1);
           *((f32 *) (((char *) temp_v0_5) + 0x14)) = (f32) (4096.0f / var_fv1);
         }
-        var_a0_3 = var_a0_3 + 1;
+        __repair_phase_storage.value += 1;
       }
       while (__repair_phase_storage.value < count);
     }
   }
 }
-
-
-

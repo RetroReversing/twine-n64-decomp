@@ -37,6 +37,11 @@ extern u8 D_80102EDC;
 extern u8 D_80102EDE;
 extern MenuData *D_80102F2C;
 extern MenuObject *D_80109BB0;
+inline static int inline_fn()
+{
+  return !D_800BD640;
+}
+
 void func_8002F068(void *unused, void *arg1)
 {
   s32 asset;
@@ -68,15 +73,13 @@ void func_8002F068(void *unused, void *arg1)
       color = palette + 9;
     }
     else
+      if (inline_fn())
     {
-      if (!(D_800BD640))
-      {
-        color = palette + 1;
-      }
-      else
-      {
-        color = palette + 1;
-      }
+      color = palette + 1;
+    }
+    else
+    {
+      color = palette + 1;
     }
     current = D_800E1560;
     item->color = (*color) & (~255);

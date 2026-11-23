@@ -61,7 +61,7 @@ void func_8006899C(void *arg0, u8 arg1)
   s32 temp_v0_6;
   s32 temp_v0_7;
   s32 var_a0;
-  s32 var_s6;
+  short var_s6;
   s32 temp_fp;
   u16 temp_a0_5;
   u16 temp_v0_11;
@@ -262,8 +262,8 @@ void func_8006899C(void *arg0, u8 arg1)
   }
   if (func_8008194C(temp_fp, 0xE) == 0)
   {
-      *((u16 *) inline_fn2((char *) temp_s2, 0x17A)) = 0U;
-      goto block_61;
+    *((u16 *) inline_fn2((char *) temp_s2, 0x17A)) = 0U;
+    goto block_61;
   }
   if ((func_80064860(arg0, *((u8 *) inline_fn2((char *) temp_s4, 0x81)), 0U) << 0x18) == 0)
   {
@@ -476,5 +476,4 @@ void func_8006899C(void *arg0, u8 arg1)
 
 
 }
-
 
