@@ -82142,226 +82142,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
  },
  {
-  "function": "func_800336FC",
-  "text": "Current candidate compiles at score 21013; added `volatile s64 reserve[3]` reduced score to 20977 by aligning frame size from 0x78 to target 0x90, but shifted local slots (e.g. sentinel store to 0x40 while target uses 0x20), so reverting returned 21013. Next: restore saved_best/current baseline and model actual locals/stack layout rather than a generic reserve; target prologue saves s7 at 0x7c, fp at 0x80, s4-s2 at 0x70-0x68, s0 at 0x60, with incoming args at 0xb0+. The key mismatch remains call argument and register setup.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795172802.28654,
-  "score_before": 20944,
-  "score_after": 20944
- },
- {
-  "function": "func_800336FC",
-  "text": "Rechecked revision c683d06ccedeb8a65abf at 20977. Two six-variant local repair batches found no improvement: signedness and declaration changes tied; branch inversions, widening and const changes worsened. Remaining 437 mismatch rows, beginning with early -1 stack initialization and global load allocation; revisit control flow and call arguments. Further cached local proposals remain.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795184843.1202261,
-  "score_before": 20944,
-  "score_after": 20944
- },
- {
-  "function": "func_800336FC",
-  "text": "Rechecked best 20977. Case 2 uses uninitialized var_v0_4 after assigning count to __repair_result_var_v0_4; assigning count to var_v0_4 fixes semantics but scores 21088 and changes frame allocation. Prototype with float last argument and adding missing arg5 to first call scored 30327; inspect actual callee signature and first call. Target uses swc1 at outgoing 0x1c; unprototyped calls promote float to double. Control flow, calls, and stack remain substantially different.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795185544.884386,
-  "score_before": 20944,
-  "score_after": 20944
- },
- {
-  "function": "func_800336FC",
-  "text": "Saved best retains an unreachable global-base assignment and needs semantic repair; inspect direct global references and call signatures.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795217740.832232,
-  "score_before": 20332,
-  "score_after": 20081,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Rechecked saved baseline 20081. Correcting uninitialized case 2 count scored 21110; symbol-address caching scored 27875; signedness and local declaration reorder tied. Callee calls still omit float and some arguments; source has .rodata linker diagnostic.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795235364.095592,
-  "score_before": 21110,
-  "score_after": 20081,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Target callee reads f32 at outgoing 0x1c. Passing it at the call sites and supplying both repeated indices in the short call recovers the float stores (20505); fixing case 2 count too scored 20494. Dropping cached D_8010D2B4 base scored 36495.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795253251.162147,
-  "score_before": 21110,
-  "score_after": 20494,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Recovered and rechecked candidate score 20081. Existing handoff and work section disagree on next experiment; candidate quality identifies uninitialized case 2 count and callee call omissions. No edits or compiles yet. Objective specifically recommends one changed call/argument producer; need inspect funcs 800328CC and 80032978 signatures and target outgoing float arg before source changes.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795254221.716981,
-  "score_before": 20081,
-  "score_after": 20081
- },
- {
-  "function": "func_800336FC",
-  "text": "Rechecked 19981. Inherited base assignment is before a switch case and is skipped by dispatch; case 2 also reads an uninitialized count. Four prototyped calls with f32 arg5 and repeated indices in case 2, corrected count, direct s32 global accesses scored 36295 (561 vs 559 instructions, frame 0x88). Retaining corrected base pointer with 8-byte padding scored 31876; the direct-global variant with 8-byte padding scored 35685. Candidate still has register allocation and jump-table reloc differences.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795274116.678168,
-  "score_before": 20494,
-  "score_after": 19981,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Saved 9175 (551/559 instructions) with correct 0x90 frame, corrected texture and vertex calls, full-width case 1/2 indices, and byte temporaries for narrow paths. The linker still reports the local jump table as .rodata+0x0. Target wide cases use sll/addu, candidate uses sll/or. Diagnostic -fno-strength-reduce with -fno-schedule-insns reached 10366 on the earlier 11730 baseline with nonvolatile q.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795282632.2794392,
-  "score_before": 19981,
-  "score_after": 9175,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Case 1 volatile byte staging in ROM order improved 7745 to 6870. Multiplying by 256 rather than shifting, spelling out draw sign extension, and assigning emit in the branch condition all generated identical output. Moving cursor initialization into the vertex-loop guard worsened to 7945.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795299865.361194,
-  "score_before": 7745,
-  "score_after": 6870,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Rechecked 4720 baseline. Changing a4 to s32 corrected incoming stack offsets (4533), reducing savedSpace by two words restored the 0x90 frame (4475), and signed byte draw improved to 4270. Case 1 still spills xLow and emits OR instead of addu. Changing xLow alone to volatile u8 on the saved candidate scored 4365.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795305768.206549,
-  "score_before": 6870,
-  "score_after": 4270,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Four case-1 trials failed to improve verified 4270. Removing volatile from xLow worsened overall. Cast and arithmetic changes emitted identical code.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795309487.028377,
-  "score_before": 4270,
-  "score_after": 4270,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Judge called move-on after several unsuccessful control flow and epilogue variants. Best 4210 restores the initial delay slot; case 1 still spills the low byte.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795310547.424692,
-  "score_before": 4270,
-  "score_after": 4210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Still at 4210 after 50+ trials by multiple agents. Case 1 still spills the low byte; the end-of-function &state.start staging made no difference. Next step: rewrite case 1 without the volatile xLow, using separate byte locals loaded in the original order.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795311488.6493719,
-  "score_before": 4210,
-  "score_after": 4210
- },
- {
-  "function": "func_800336FC",
-  "text": "Removed the case 1 low-byte spill and restored the 0x90 frame with savedSpace[8]. Explicit high-byte staging and widening inline_fn's return scored 3810. Operand swaps and third-byte alias tied; widening shared y/z and regrouping w0 worsened. Case 1 x remains in a2 vs target t0, and vertex-loop setup lacks the move into s0.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795326938.086041,
-  "score_before": 4210,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Move-on threshold reached. Best 3810 verified. Moving yLow before x assembly scored 4385, and staging the transform argument as a branch-local scored 16695. Cursor forms hit C89 declaration after label.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795338300.048722,
-  "score_before": 3810,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Rechecked saved score 3810 (93.1%). Vertex loop setup still writes p+2 directly to s0 rather than staging through v1; case 0 also stages y through a3 and schedules the call arguments differently.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795344983.5841238,
-  "score_before": 3810,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Verified 3810 (93.1%); target computes p+2 into v1 before the count guard and moves it to s0 at loop entry. Candidate directly initializes s0, and case 0 stages y through a3 in the draw branch delay slot.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795353162.483265,
-  "score_before": 3810,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Verified 3810. Case 0 y read and vertex loop cursor setup remain divergent.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795354123.627061,
-  "score_before": 3810,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Best rechecked 3810. Separate cursor across all vertex cases scored 4180 and swapped s0/s1. Reordering case 0 byte reads scored 3995; u32 locals scored 4300. Case 0 q local and register q each tied 3810.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795355851.506301,
-  "score_before": 3810,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "3810 retained. Direct volatile q[1] scored 3985, dropping volatile scored 14557, moving cursor initialization after the counter scored 5810.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795360734.425439,
-  "score_before": 3810,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Saved 3810 rechecks at 6610. Volatile emit scored 6670 and moved its store ahead of the branch, while volatile reset of D_80109A94 scored 7095.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795361730.357184,
-  "score_before": 3810,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Historical 3810 source rechecks at 6610. Current continuation 4990 after scoping GfxPair pointers for case 4 and epilogue. First mismatch is case 0 vertex cursor initialized in s0 instead of v1. Epilogue shift of state.emit is still folded. Move-on threshold reached.\nScoped and split case 4 display-list appends, then scoped the epilogue pointer. Tried split appends in case 5 (6220), and a macro-local cursor declaration (GCC 2.7.2 syntax error because the macro expands after statements in case 2).\n6610 to 5100 to 4990 on current compiler inputs. Saved historical 3810 remains distinct. First remaining mismatch is cursor allocation at case 0 entry.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795363869.818076,
-  "score_before": 3810,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "Saved C rechecks at 3370. try_local_repairs gave no gain. Tried case 1 with plain in-order byte loads (no reordered zLow load): 3815, worse. Next step: in case 1, keep the original load order (q[5] early) but make q a non-volatile u8* so the first vertex load pair uses $v1/$v0 as in target (target does addiu $v1,$s1,2; move $s0,$v1).",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795396288.355138,
-  "score_before": 3810,
-  "score_after": 3810,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
-  "function": "func_800336FC",
-  "text": "try_local_repairs this session: baseline rechecks 3370; branch flip 4055, field order 3460, hoists/scope no change. Still 191 diff rows, mostly register. First mismatch: target addiu $v1,$s1,2 vs ours $s0. Next step: in case 0 VERTICES, make q a non-volatile u8* and keep volatile only for the inline_fn read.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795397982.311598,
-  "score_before": 3810,
-  "score_after": 3370,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
- },
- {
   "function": "func_800515D0",
   "text": "Not attempted: 9068-byte function, m2c draft is a goto-heavy mess (block_73/block_121/block_196/block_205/block_258/block_260/block_269/block_270/block_274 labels, undeclared sp188/sp184, many temp vars). Needs structural recovery of the collision loops (three sphere/triangle-style branches per object list) before any tuning. Consider splitting at internal entries first.",
   "by": "permuter-25769805351",
@@ -89830,5 +89610,225 @@
   "score_before": 2525,
   "score_after": 10,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:88c3a0a1576aedd929315e294342f58e51514b8927d0274150e6101a53e0bbcf"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Current candidate compiles at score 21013; added `volatile s64 reserve[3]` reduced score to 20977 by aligning frame size from 0x78 to target 0x90, but shifted local slots (e.g. sentinel store to 0x40 while target uses 0x20), so reverting returned 21013. Next: restore saved_best/current baseline and model actual locals/stack layout rather than a generic reserve; target prologue saves s7 at 0x7c, fp at 0x80, s4-s2 at 0x70-0x68, s0 at 0x60, with incoming args at 0xb0+. The key mismatch remains call argument and register setup.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795172802.28654,
+  "score_before": 20944,
+  "score_after": 20944
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Rechecked revision c683d06ccedeb8a65abf at 20977. Two six-variant local repair batches found no improvement: signedness and declaration changes tied; branch inversions, widening and const changes worsened. Remaining 437 mismatch rows, beginning with early -1 stack initialization and global load allocation; revisit control flow and call arguments. Further cached local proposals remain.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795184843.1202261,
+  "score_before": 20944,
+  "score_after": 20944
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Rechecked best 20977. Case 2 uses uninitialized var_v0_4 after assigning count to __repair_result_var_v0_4; assigning count to var_v0_4 fixes semantics but scores 21088 and changes frame allocation. Prototype with float last argument and adding missing arg5 to first call scored 30327; inspect actual callee signature and first call. Target uses swc1 at outgoing 0x1c; unprototyped calls promote float to double. Control flow, calls, and stack remain substantially different.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795185544.884386,
+  "score_before": 20944,
+  "score_after": 20944
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Saved best retains an unreachable global-base assignment and needs semantic repair; inspect direct global references and call signatures.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795217740.832232,
+  "score_before": 20332,
+  "score_after": 20081,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Rechecked saved baseline 20081. Correcting uninitialized case 2 count scored 21110; symbol-address caching scored 27875; signedness and local declaration reorder tied. Callee calls still omit float and some arguments; source has .rodata linker diagnostic.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795235364.095592,
+  "score_before": 21110,
+  "score_after": 20081,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Target callee reads f32 at outgoing 0x1c. Passing it at the call sites and supplying both repeated indices in the short call recovers the float stores (20505); fixing case 2 count too scored 20494. Dropping cached D_8010D2B4 base scored 36495.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795253251.162147,
+  "score_before": 21110,
+  "score_after": 20494,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Recovered and rechecked candidate score 20081. Existing handoff and work section disagree on next experiment; candidate quality identifies uninitialized case 2 count and callee call omissions. No edits or compiles yet. Objective specifically recommends one changed call/argument producer; need inspect funcs 800328CC and 80032978 signatures and target outgoing float arg before source changes.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795254221.716981,
+  "score_before": 20081,
+  "score_after": 20081
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Rechecked 19981. Inherited base assignment is before a switch case and is skipped by dispatch; case 2 also reads an uninitialized count. Four prototyped calls with f32 arg5 and repeated indices in case 2, corrected count, direct s32 global accesses scored 36295 (561 vs 559 instructions, frame 0x88). Retaining corrected base pointer with 8-byte padding scored 31876; the direct-global variant with 8-byte padding scored 35685. Candidate still has register allocation and jump-table reloc differences.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795274116.678168,
+  "score_before": 20494,
+  "score_after": 19981,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Saved 9175 (551/559 instructions) with correct 0x90 frame, corrected texture and vertex calls, full-width case 1/2 indices, and byte temporaries for narrow paths. The linker still reports the local jump table as .rodata+0x0. Target wide cases use sll/addu, candidate uses sll/or. Diagnostic -fno-strength-reduce with -fno-schedule-insns reached 10366 on the earlier 11730 baseline with nonvolatile q.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795282632.2794392,
+  "score_before": 19981,
+  "score_after": 9175,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Case 1 volatile byte staging in ROM order improved 7745 to 6870. Multiplying by 256 rather than shifting, spelling out draw sign extension, and assigning emit in the branch condition all generated identical output. Moving cursor initialization into the vertex-loop guard worsened to 7945.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795299865.361194,
+  "score_before": 7745,
+  "score_after": 6870,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Rechecked 4720 baseline. Changing a4 to s32 corrected incoming stack offsets (4533), reducing savedSpace by two words restored the 0x90 frame (4475), and signed byte draw improved to 4270. Case 1 still spills xLow and emits OR instead of addu. Changing xLow alone to volatile u8 on the saved candidate scored 4365.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795305768.206549,
+  "score_before": 6870,
+  "score_after": 4270,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Four case-1 trials failed to improve verified 4270. Removing volatile from xLow worsened overall. Cast and arithmetic changes emitted identical code.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795309487.028377,
+  "score_before": 4270,
+  "score_after": 4270,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Judge called move-on after several unsuccessful control flow and epilogue variants. Best 4210 restores the initial delay slot; case 1 still spills the low byte.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795310547.424692,
+  "score_before": 4270,
+  "score_after": 4210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Still at 4210 after 50+ trials by multiple agents. Case 1 still spills the low byte; the end-of-function &state.start staging made no difference. Next step: rewrite case 1 without the volatile xLow, using separate byte locals loaded in the original order.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795311488.6493719,
+  "score_before": 4210,
+  "score_after": 4210
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Removed the case 1 low-byte spill and restored the 0x90 frame with savedSpace[8]. Explicit high-byte staging and widening inline_fn's return scored 3810. Operand swaps and third-byte alias tied; widening shared y/z and regrouping w0 worsened. Case 1 x remains in a2 vs target t0, and vertex-loop setup lacks the move into s0.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795326938.086041,
+  "score_before": 4210,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Move-on threshold reached. Best 3810 verified. Moving yLow before x assembly scored 4385, and staging the transform argument as a branch-local scored 16695. Cursor forms hit C89 declaration after label.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795338300.048722,
+  "score_before": 3810,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Rechecked saved score 3810 (93.1%). Vertex loop setup still writes p+2 directly to s0 rather than staging through v1; case 0 also stages y through a3 and schedules the call arguments differently.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795344983.5841238,
+  "score_before": 3810,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Verified 3810 (93.1%); target computes p+2 into v1 before the count guard and moves it to s0 at loop entry. Candidate directly initializes s0, and case 0 stages y through a3 in the draw branch delay slot.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795353162.483265,
+  "score_before": 3810,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Verified 3810. Case 0 y read and vertex loop cursor setup remain divergent.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795354123.627061,
+  "score_before": 3810,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Best rechecked 3810. Separate cursor across all vertex cases scored 4180 and swapped s0/s1. Reordering case 0 byte reads scored 3995; u32 locals scored 4300. Case 0 q local and register q each tied 3810.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795355851.506301,
+  "score_before": 3810,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "3810 retained. Direct volatile q[1] scored 3985, dropping volatile scored 14557, moving cursor initialization after the counter scored 5810.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795360734.425439,
+  "score_before": 3810,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Saved 3810 rechecks at 6610. Volatile emit scored 6670 and moved its store ahead of the branch, while volatile reset of D_80109A94 scored 7095.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795361730.357184,
+  "score_before": 3810,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Historical 3810 source rechecks at 6610. Current continuation 4990 after scoping GfxPair pointers for case 4 and epilogue. First mismatch is case 0 vertex cursor initialized in s0 instead of v1. Epilogue shift of state.emit is still folded. Move-on threshold reached.\nScoped and split case 4 display-list appends, then scoped the epilogue pointer. Tried split appends in case 5 (6220), and a macro-local cursor declaration (GCC 2.7.2 syntax error because the macro expands after statements in case 2).\n6610 to 5100 to 4990 on current compiler inputs. Saved historical 3810 remains distinct. First remaining mismatch is cursor allocation at case 0 entry.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795363869.818076,
+  "score_before": 3810,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "Saved C rechecks at 3370. try_local_repairs gave no gain. Tried case 1 with plain in-order byte loads (no reordered zLow load): 3815, worse. Next step: in case 1, keep the original load order (q[5] early) but make q a non-volatile u8* so the first vertex load pair uses $v1/$v0 as in target (target does addiu $v1,$s1,2; move $s0,$v1).",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795396288.355138,
+  "score_before": 3810,
+  "score_after": 3810,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_800336FC",
+  "text": "try_local_repairs this session: baseline rechecks 3370; branch flip 4055, field order 3460, hoists/scope no change. Still 191 diff rows, mostly register. First mismatch: target addiu $v1,$s1,2 vs ours $s0. Next step: in case 0 VERTICES, make q a non-volatile u8* and keep volatile only for the inline_fn read.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795397982.311598,
+  "score_before": 3810,
+  "score_after": 3370,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
  }
 ]
