@@ -45,6 +45,7 @@ void func_800068B4(void)
 {
   s32 var_a0_2;
   f32 temp_fv1;
+  f32 temp_fv1_b;
   f32 var_fv0;
   s32 var_s0;
   s32 var_a0;
@@ -147,9 +148,10 @@ void func_800068B4(void)
     {
       __repair_record_D_80109688 *marker = TRACK_MARKER;
       marker->field_12C = (f32) (marker->field_12C - 0.033333335f);
-      temp_fv1 = ((__repair_record_D_80109688 *) (D_80109688))->field_12C;
+      marker = D_80109688;
+      temp_fv1_b = marker->field_12C;
       D_80103EB0 = 0;
-      if (temp_fv1 < 0.0f)
+      if (temp_fv1_b < 0.0f)
       {
         marker->field_12C = 0.0f;
         func_8000A310();
@@ -263,12 +265,12 @@ void func_800068B4(void)
       func_8000CA3C();
       return;
 
-    case 13:
-      D_800DC734 = 0.06666667f;
-      goto block_52;
-
     case 12:
       D_800DC734 = -0.06666667f;
+      goto block_52;
+
+    case 13:
+      D_800DC734 = 0.06666667f;
       block_52:
     D_800DC730 = 4;
 
@@ -282,7 +284,7 @@ void func_800068B4(void)
       marker = D_80109688;
       do
     {
-      if (((temp_fv1 = ((__repair_record_D_80109688 *) (D_80109688))->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f))
+      if (((temp_fv1 = marker->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f))
       {
         if (temp_fv1 < 0.0f)
         {
@@ -326,6 +328,7 @@ void func_800068B4(void)
   }
 
 }
+
 
 
 
