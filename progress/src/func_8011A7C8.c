@@ -1,3 +1,4 @@
+
 typedef struct SlotMeta
 {
   u8 pad[0xC];
@@ -86,7 +87,7 @@ void func_8011A7C8(void)
               {
  do { if (i == __repair_entry_index) { goto next_scene; } entry = D_80102CD0[i]; loop_goto_1: { if ((entry == 0) || (entry->meta->disabled != 0)) { goto next_scene; } D_80102CD0[__repair_entry_index]->meta->count++; } if (0) { goto loop_goto_1; } do { next_scene: i++; } while (0); } while (0);
               }
-              while (inline_fn23456((volatile s32 *) inline_fn2((u8 *) (&gSaveTotalSlots), inline_fn234())) > ((s16) i));
+              while (inline_fn23456((volatile s32 *) (&gSaveTotalSlots)) > ((s16) i));
             }
           }
         }
@@ -102,7 +103,7 @@ void func_8011A7C8(void)
     s16 i_a1;
     i_a1 = 0;
     count = gSaveTotalSlots;
-    do
+    loop_goto_2:
     {
       if (count <= 0)
       {
@@ -124,7 +125,10 @@ void func_8011A7C8(void)
       }
       while (i_a1 < gSaveTotalSlots);
     }
-    while (0);
+    if (0)
+    {
+        goto loop_goto_2;
+    }
   }
   update:
   i = 0;
@@ -133,31 +137,15 @@ void func_8011A7C8(void)
   {
     do
     {
-      if (inline_fn23(i) != ((s16) chosen))
+      if (inline_fn23(i) == ((s16) chosen)) goto skip3;
+      bonus = sBonusObjectTable[(s16) i];
+      if (bonus != 0)
       {
-        if (sBonusObjectTable)
-        {
-          bonus = sBonusObjectTable[(s16) i];
-        }
-        else
-        {
-          bonus = sBonusObjectTable[(s16) i];
-        }
-        if (bonus != 0)
-        {
-          if ((bonus->type ^ 0) == 2)
-          {
-            bonus->state = 2;
-          }
-          else
-          {
-            bonus->state = 6;
-          }
-        }
+        if ((bonus->type ^ 0) == 2) { bonus->state = 2; } else { bonus->state = 6; }
       }
-      i++;
+      do { skip3: i++; } while (0);
     }
-    while (((s16) i) < inline_fn23456((volatile s32 *) (&gSaveTotalSlots)));
+    while (inline_fn23456((volatile s32 *) (&gSaveTotalSlots)) > ((s16) i));
   }
   done:
   if (((s16) chosen) < 0)
@@ -166,3 +154,4 @@ void func_8011A7C8(void)
   }
 
 }
+
