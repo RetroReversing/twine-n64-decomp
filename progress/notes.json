@@ -80522,154 +80522,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
  },
  {
-  "function": "func_80064A18",
-  "text": "Rechecked saved best at 8873; current generated candidate was 11578. Ran six independent local repair families (branch orientation, integer lifetime merging, statement boundary, switch layout, signedness, declaration order); none improved. Recompiled the saved-best source and confirmed 8873 with move-on at 10/10. Historical attempts had tested arg0 as u16 (better than s16), but no current improvement to saved best. Remaining mismatch starts with prologue register allocation/stack placement: target saves fp and uses s7=arg0, while candidate uses s0=arg0; target float global zero stores use mtc1/swc1. Also resolve the candidate's .rodata+0 link warning. Next: inspect function assembly and test declarations/lifetime changes that force original saved-register allocation, then address float zero store typing.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795174899.832057,
-  "score_before": 8873,
-  "score_after": 8873
- },
- {
-  "function": "func_80064A18",
-  "text": "Resumed at revision ef16f11c4a2a5c3c8a01, rechecked baseline 8673. Ran six independent local repair variants (table_read_width, debug_statement_boundary, switch_layout, branch_orientation, signedness, declaration_order); none improved (scores 8873/8673/8698/9643/8673/8673). Main issue remains register/stack allocation: target prologue saves fp at 0x40(sp), candidate saves s0 at 0x20(sp), with widespread register mismatches. Keep candidate; next useful direction is restructure function locals/prototype and early control flow to reproduce target's saved-register set, possibly inspect get_assembly mismatch and callee widths.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795185502.3448262,
-  "score_before": 8673,
-  "score_after": 8673
- },
- {
-  "function": "func_80064A18",
-  "text": "Rechecked saved best score 8673 (89.0%); exploratory baseline scored 8693. Tried local table-read-width, debug statement-boundary, and switch-layout variants without improvement; changing D_800C7C98 alone or both D_800C7C98/D_800C7C9C from s32 to f32 worsened to 9293/9593. Saved best was restored and verified again at 8673. Remaining dominant differences start in prologue/register allocation (target saves $fp and uses $fp=$a1, $s7=$a0; candidate uses $s0/$s5), branch extent bnez target 0x5c vs 0x60, six immediate-to-float stores around D_800C7C98, and broad downstream scheduling/register differences. Continue from saved_best; investigate argument/local liveness and float constant/store representation.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795186933.4242811,
-  "score_before": 8673,
-  "score_after": 8673
- },
- {
-  "function": "func_80064A18",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Resumed at saved best 33b5f3319496b02daab4 (score 7708 in brief; ~8673 under current baseline). Did not compile new variants this session. Prior attempts (36 local repairs, 7 explicit patches) found no improvement from table-read-width, debug boundary, switch layout, branch orientation, signedness, declaration order, or f32 vs s32 on D_800C7C98/9C. Remaining diff starts in prologue/register allocation: target saves $fp at 0x40(sp) with $fp=$a1 and $s7=$a0, candidate saves s0 at 0x20(sp). The candidate contains repair artifacts (__repair_phase_storage union, D_800C7D74 - 0x20 pointer, duplicate return) that should be cleaned up into plain C before further tuning. Next step: rewrite the top section so arg1 is kept live in $fp across calls, and reorder the first call sequence (func_800164F8 then func_80077C00) to match prologue.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795208728.530391,
-  "score_before": 7708,
-  "score_after": 7708
- },
- {
-  "function": "func_80064A18",
-  "text": "Judge requested move-on at 7/4. Removing the stack pad scored 7719, narrowing it scored 7708, and omitting both the pad and arg2 alias scored 7759. Using gTrackMarkerTable resolves the linker diagnostic at 7708. Arg2 spill offset and the prologue save order remain different.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795218174.01426,
-  "score_before": 7708,
-  "score_after": 7708,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "Two-claim session limit reached. Verified improvement 7708 to 5273. Early difficulty rejection and f32 tail with explicit branch labels and separate zero arm improved. Last variants moving sp14 initialization, swapping byte stores, reordering float declarations and dropping the pad volatile scored 5975, 5283, 5273 and 5284. Remaining 203 diff rows include 100 register differences. Target saves fp/arg1 first, then s6/arg3, then s7/arg0. Candidate saves s7/arg0 first.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795238009.92413,
-  "score_before": 6513,
-  "score_after": 5273,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "Machine draft compiled after relaxing conflicting func_800162BC and func_80022DBC prototypes. Corrected gTrackMarkerTable to existing sTrackMarkerTable; score 15465, with unresolved .rodata relocation and substantial register/address differences. Earlier historical best was substantially better, but unavailable on claim.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795242460.393308,
-  "score_before": 5273,
-  "score_after": 5273,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "Local repair continuation reached revision 301a4ead117971e5f8c7, score 15350 (baseline 15740): reused temp_s0 for two scalar lifetimes and moved var_v0_4 assignment after the debug loop. Subsequent repair changed candidate and claim was lost; revision 842dd1d9c97aecf8f0fa fails due to too-few-argument prototypes for func_800162BC and func_80022DBC. Next step: recover saved best and inspect call prototypes before further repairs.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795254090.4609861,
-  "score_before": 15455,
-  "score_after": 15350,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "Changing padding[4] to padding[2] fixed the frame (0x48) and scored 5818 (revision 08616956fac284a2e373, new best). sp14=arg1 was worse (6685). The target keeps arg1 in fp, arg3 in s6 and arg0 in s7, and spills a2 to 0x14(sp).",
-  "by": "claude-opus-low-3",
-  "created_at": 1795289545.525711,
-  "score_before": 7295,
-  "score_after": 5818,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not worked this session (3180-byte function, best 5818). Prior notes stand: frame fixed with padding[2]; target keeps arg1 in fp, arg3 in s6, arg0 in s7. Next step: rebuild from m2c redraft with proper struct types for temp_s3 to reduce temporaries.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795311829.944633,
-  "score_before": 5273,
-  "score_after": 5273
- },
- {
-  "function": "func_80064A18",
-  "text": "Use byte rather than word arithmetic for sBonusObjectTable. Tested padding order/alignment, volatile sp14, register arg1.\n5328 to 5313 for byte offset. Volatile sp14 5880, other variants unchanged. a2 spill still 0x1c vs 0x14, arg1 remains s5 vs fp.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795312006.727128,
-  "score_before": 5818,
-  "score_after": 5313,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "Four trials without improvement. Shared-store tail switch scored 6184 and added an unmatched .rodata reference. Volatile aggregate for arg2 scored 5420, padding[1] gave identical 5123 output, and padding[3] scored 5138. The saved candidate retains the correct 0x48 frame but has the wrong arg2 spill offset and saved register for arg1.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795320900.7021341,
-  "score_before": 5313,
-  "score_after": 5123,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "Ordered tail scored 5474 and shrank the frame to 0x40. Six local/parameter experiments were unchanged or worse. Verified baseline remains 5123.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795320978.860523,
-  "score_before": 5123,
-  "score_after": 5123,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "Score 4653 after passing zero as argument 3 to func_800164F8, using byte-address +4 for spawnTextNode, and staging the halfword store through a local pointer. A volatile aggregate with only its second word used placed arg2 at 0x14(sp) but scored 5390 on an earlier base. Target ordinary spawnTextNode arguments are base -0x20.\nStandalone s32/u16 arg0, register arg1, and volatile sp14.\nScores 4993, 5263, 4653 and 5220. Target prologue still wants arg1 in fp and arg2 at 0x14(sp).",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795334600.761581,
-  "score_before": 5123,
-  "score_after": 4653,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "Baseline rechecked at 4128. Explicit ordered goto difficulty tail scored 4684 and introduced an unmatched .rodata reference. Volatile sp14 plus a scalar pad put the a2 spill at the required 0x14 but used a 0x40 frame and scored 4560. Recovered saved best.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795334703.079825,
-  "score_before": 4653,
-  "score_after": 4560,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 45e036cab542c05011ab, score 4013. Explicit goto for rejected difficulty improved from 4128. Reordering padding/sp14 declarations left identical instructions. Frame 0x48 agrees; a2 spill at 0x1c should be 0x14. Next step: try an aggregate with sp14 as first member and eight bytes of trailing padding. Judge auto-released the claim.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795340109.564354,
-  "score_before": 4128,
-  "score_after": 4013,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80064A18",
-  "text": "try_local_repairs (6 variants) no gain; baseline 3893. Target frame 0x48 saves $fp/arg1 in $fp; candidate saves s1 first (different saved-reg allocation, stack layout). Next step: redraft from m2c with clean structs.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795396784.360181,
-  "score_before": 3893,
-  "score_after": 3893,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
   "function": "func_8008B824",
   "text": "Best current verified score 1740; did not match. Corrected data usage by naming D_800D6780 and treating D_8010319E as a byte array, replaced nested unsigned divisions with staged q/192U, and used a u32 float conversion; these brought score from 5405 to 1740. Further parameter-width, branch orientation, local-call scope, volatile pointer/store and source-order experiments did not improve the 1740 best. Remaining diff is dominated by register assignment/order (target saves arg0 in s1, arg1 in s0, arg2 in s3, arg3 in s2; candidate swaps the arg2/arg3 save order and often uses s2 for arg0). The integer division body now has target-like reciprocal constants and only register differences there. Try local declaration/lifetime changes to steer argument registers, and inspect the later FP/strings region; avoid volatile global stores which generated address computations and score 2850. The unsigned float cast matched the target conversion branch much better than hand-written signed branches.",
   "by": "codex-gpt-6-luna-11",
@@ -90015,5 +89867,170 @@
   "created_at": 1795439738.009383,
   "score_before": 449,
   "score_after": 449
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Rechecked saved best at 8873; current generated candidate was 11578. Ran six independent local repair families (branch orientation, integer lifetime merging, statement boundary, switch layout, signedness, declaration order); none improved. Recompiled the saved-best source and confirmed 8873 with move-on at 10/10. Historical attempts had tested arg0 as u16 (better than s16), but no current improvement to saved best. Remaining mismatch starts with prologue register allocation/stack placement: target saves fp and uses s7=arg0, while candidate uses s0=arg0; target float global zero stores use mtc1/swc1. Also resolve the candidate's .rodata+0 link warning. Next: inspect function assembly and test declarations/lifetime changes that force original saved-register allocation, then address float zero store typing.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795174899.832057,
+  "score_before": 8873,
+  "score_after": 8873
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Resumed at revision ef16f11c4a2a5c3c8a01, rechecked baseline 8673. Ran six independent local repair variants (table_read_width, debug_statement_boundary, switch_layout, branch_orientation, signedness, declaration_order); none improved (scores 8873/8673/8698/9643/8673/8673). Main issue remains register/stack allocation: target prologue saves fp at 0x40(sp), candidate saves s0 at 0x20(sp), with widespread register mismatches. Keep candidate; next useful direction is restructure function locals/prototype and early control flow to reproduce target's saved-register set, possibly inspect get_assembly mismatch and callee widths.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795185502.3448262,
+  "score_before": 8673,
+  "score_after": 8673
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Rechecked saved best score 8673 (89.0%); exploratory baseline scored 8693. Tried local table-read-width, debug statement-boundary, and switch-layout variants without improvement; changing D_800C7C98 alone or both D_800C7C98/D_800C7C9C from s32 to f32 worsened to 9293/9593. Saved best was restored and verified again at 8673. Remaining dominant differences start in prologue/register allocation (target saves $fp and uses $fp=$a1, $s7=$a0; candidate uses $s0/$s5), branch extent bnez target 0x5c vs 0x60, six immediate-to-float stores around D_800C7C98, and broad downstream scheduling/register differences. Continue from saved_best; investigate argument/local liveness and float constant/store representation.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795186933.4242811,
+  "score_before": 8673,
+  "score_after": 8673
+ },
+ {
+  "function": "func_80064A18",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Resumed at saved best 33b5f3319496b02daab4 (score 7708 in brief; ~8673 under current baseline). Did not compile new variants this session. Prior attempts (36 local repairs, 7 explicit patches) found no improvement from table-read-width, debug boundary, switch layout, branch orientation, signedness, declaration order, or f32 vs s32 on D_800C7C98/9C. Remaining diff starts in prologue/register allocation: target saves $fp at 0x40(sp) with $fp=$a1 and $s7=$a0, candidate saves s0 at 0x20(sp). The candidate contains repair artifacts (__repair_phase_storage union, D_800C7D74 - 0x20 pointer, duplicate return) that should be cleaned up into plain C before further tuning. Next step: rewrite the top section so arg1 is kept live in $fp across calls, and reorder the first call sequence (func_800164F8 then func_80077C00) to match prologue.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795208728.530391,
+  "score_before": 7708,
+  "score_after": 7708
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Judge requested move-on at 7/4. Removing the stack pad scored 7719, narrowing it scored 7708, and omitting both the pad and arg2 alias scored 7759. Using gTrackMarkerTable resolves the linker diagnostic at 7708. Arg2 spill offset and the prologue save order remain different.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795218174.01426,
+  "score_before": 7708,
+  "score_after": 7708,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Two-claim session limit reached. Verified improvement 7708 to 5273. Early difficulty rejection and f32 tail with explicit branch labels and separate zero arm improved. Last variants moving sp14 initialization, swapping byte stores, reordering float declarations and dropping the pad volatile scored 5975, 5283, 5273 and 5284. Remaining 203 diff rows include 100 register differences. Target saves fp/arg1 first, then s6/arg3, then s7/arg0. Candidate saves s7/arg0 first.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795238009.92413,
+  "score_before": 6513,
+  "score_after": 5273,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Machine draft compiled after relaxing conflicting func_800162BC and func_80022DBC prototypes. Corrected gTrackMarkerTable to existing sTrackMarkerTable; score 15465, with unresolved .rodata relocation and substantial register/address differences. Earlier historical best was substantially better, but unavailable on claim.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242460.393308,
+  "score_before": 5273,
+  "score_after": 5273,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Local repair continuation reached revision 301a4ead117971e5f8c7, score 15350 (baseline 15740): reused temp_s0 for two scalar lifetimes and moved var_v0_4 assignment after the debug loop. Subsequent repair changed candidate and claim was lost; revision 842dd1d9c97aecf8f0fa fails due to too-few-argument prototypes for func_800162BC and func_80022DBC. Next step: recover saved best and inspect call prototypes before further repairs.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795254090.4609861,
+  "score_before": 15455,
+  "score_after": 15350,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Changing padding[4] to padding[2] fixed the frame (0x48) and scored 5818 (revision 08616956fac284a2e373, new best). sp14=arg1 was worse (6685). The target keeps arg1 in fp, arg3 in s6 and arg0 in s7, and spills a2 to 0x14(sp).",
+  "by": "claude-opus-low-3",
+  "created_at": 1795289545.525711,
+  "score_before": 7295,
+  "score_after": 5818,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not worked this session (3180-byte function, best 5818). Prior notes stand: frame fixed with padding[2]; target keeps arg1 in fp, arg3 in s6, arg0 in s7. Next step: rebuild from m2c redraft with proper struct types for temp_s3 to reduce temporaries.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795311829.944633,
+  "score_before": 5273,
+  "score_after": 5273
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Use byte rather than word arithmetic for sBonusObjectTable. Tested padding order/alignment, volatile sp14, register arg1.\n5328 to 5313 for byte offset. Volatile sp14 5880, other variants unchanged. a2 spill still 0x1c vs 0x14, arg1 remains s5 vs fp.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795312006.727128,
+  "score_before": 5818,
+  "score_after": 5313,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Four trials without improvement. Shared-store tail switch scored 6184 and added an unmatched .rodata reference. Volatile aggregate for arg2 scored 5420, padding[1] gave identical 5123 output, and padding[3] scored 5138. The saved candidate retains the correct 0x48 frame but has the wrong arg2 spill offset and saved register for arg1.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795320900.7021341,
+  "score_before": 5313,
+  "score_after": 5123,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Ordered tail scored 5474 and shrank the frame to 0x40. Six local/parameter experiments were unchanged or worse. Verified baseline remains 5123.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795320978.860523,
+  "score_before": 5123,
+  "score_after": 5123,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Score 4653 after passing zero as argument 3 to func_800164F8, using byte-address +4 for spawnTextNode, and staging the halfword store through a local pointer. A volatile aggregate with only its second word used placed arg2 at 0x14(sp) but scored 5390 on an earlier base. Target ordinary spawnTextNode arguments are base -0x20.\nStandalone s32/u16 arg0, register arg1, and volatile sp14.\nScores 4993, 5263, 4653 and 5220. Target prologue still wants arg1 in fp and arg2 at 0x14(sp).",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795334600.761581,
+  "score_before": 5123,
+  "score_after": 4653,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Baseline rechecked at 4128. Explicit ordered goto difficulty tail scored 4684 and introduced an unmatched .rodata reference. Volatile sp14 plus a scalar pad put the a2 spill at the required 0x14 but used a 0x40 frame and scored 4560. Recovered saved best.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795334703.079825,
+  "score_before": 4653,
+  "score_after": 4560,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 45e036cab542c05011ab, score 4013. Explicit goto for rejected difficulty improved from 4128. Reordering padding/sp14 declarations left identical instructions. Frame 0x48 agrees; a2 spill at 0x1c should be 0x14. Next step: try an aggregate with sp14 as first member and eight bytes of trailing padding. Judge auto-released the claim.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795340109.564354,
+  "score_before": 4128,
+  "score_after": 4013,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "try_local_repairs (6 variants) no gain; baseline 3893. Target frame 0x48 saves $fp/arg1 in $fp; candidate saves s1 first (different saved-reg allocation, stack layout). Next step: redraft from m2c with clean structs.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795396784.360181,
+  "score_before": 3893,
+  "score_after": 3893,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session; best 3893. Target frame 0x48 keeps arg1 in $fp, but the candidate saves s1 first. Next step: redraft from m2c with clean structs, and keep arg1/arg2 as plain params (no arg1_in copy and no volatile padding).",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795398107.809084,
+  "score_before": 3693,
+  "score_after": 3693
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Matched (0) from a clean rewrite of the target asm plus one named edit at a time. Source notes: the two text templates are one array (D_800C7D54[0]/[1], marker field at +0x20); s16 parameter with (u16) masks; arm-head constants (x0,y0,dy); a call written in each arm of the border/gGameMode if-else (two jals cross-jump); tbl/tbl2 pointer lookups with the table base staged (ex = (s16) arg0; tab = sTrackMarkerTable; p = &tab[ex]); marker word updates as compound temporaries (w, w2); typed Obj struct for the object (casts for the record). Scaffolding the match relies on: the staging locals (ex, tab, ex2, tab2), the temporaries w/w2/yy/t, and the byte/typed split of the 0xE8-row table reads (frame size). No profile change. Library families: decomp-repair 1401, 1405, 1406, 1411.",
+  "by": "manual-8c591f2da97f490b",
+  "created_at": 1795448052.471675,
+  "score_before": 3693,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
  }
 ]
