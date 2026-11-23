@@ -87125,36 +87125,12 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8c20999937abf9eef5e141487fe8f7a8fa60a0cec04a3cdf5a56b228f0b543aa"
  },
  {
-  "function": "func_8002F068",
-  "text": "Best 555 (95.2%), 116/118 instructions, revision 24d576086935882d8533. Second incoming argument is preserved in s0; base palette choices are byte offsets 4 and 0x24. Separate halfword externs D_800BFC94 and D_800BFC96 give correct relocations and avoid CSE of the common pulse address. Use a volatile global pointer read and a volatile lvalue for just the second color store. Remaining structural gap: target copies result to a0 after allocation, then a0 to a2 in the palette beqz delay slot; our compiler uses a2 directly and picks bnez with the other offset in its delay slot, dropping the extra jump. Reversing the if, giving it an explicit goto, and separating palette load from pointer reload all produced identical output. Target also places the tick LHU before the second color store; moving tick read to an explicit local schedules too early and alters register allocation, including with a volatile tick read. The entire alternate path matches apart from shifted control-flow targets.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795139006.7400372,
-  "score_before": 1360,
-  "score_after": 555
- },
- {
   "function": "func_800358D4",
   "text": "Retained baseline revision 7cf002274a5fc01ad662; current rechecked score 12170, same as saved best. Local repair batch exhausted move-on budget at 10/10; first branch-orientation variant worsened score to 15045, other generated variants were not compiled due to 60s batch cap. Main mismatch remains stack layout/frame size: target frame -0x110, candidate -0xf0; target saves fp at +0xd8, candidate saves s7 at +0xd4. Further work should investigate locals/register pressure and recover target assembly around mismatch. No reusable convention established.",
   "by": "codex-gpt-6-luna-19",
   "created_at": 1795173116.8614552,
   "score_before": 12170,
   "score_after": 12170
- },
- {
-  "function": "func_8002F068",
-  "text": "Rechecked baseline 555; six local variants did not improve. Target selects palette through beqz and explicit jump with item in a0; candidate reverses branch and keeps item in a2, two instructions shorter. Rework palette selection and pointer lifetimes, preserving verified constants.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795178506.0479228,
-  "score_before": 555,
-  "score_after": 555
- },
- {
-  "function": "func_8002F068",
-  "text": "Verified 555 retained. Six type, declaration and constant repairs did not improve. Target contains two instructions absent from candidate, causing branch-offset differences; inspect full diff and reconstruct missing operations in pulse/color update before register tuning.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795182829.544203,
-  "score_before": 555,
-  "score_after": 555
  },
  {
   "function": "func_800358D4",
@@ -87213,55 +87189,6 @@
   "score_after": 9212
  },
  {
-  "function": "func_8002F068",
-  "text": "Rechecked score 555. Equivalent modulo, inverted palette conditional, explicit goto, and moving the global pointer reload after the first store produce the same assembly. Target has separate beqz/j around palette selection and moves item pointer through a0 then a2; candidate folds the paths and uses a2 directly. Explore separate branch-local color loads/stores or altered item pointer lifetimes.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795193615.266675,
-  "score_before": 555,
-  "score_after": 555
- },
- {
-  "function": "func_8002F068",
-  "text": "Best current score 555 (95.2%), candidate b771f875ad5f52dae4c2; fresh compile of the supplied draft reached this score. Two palette selection rewrites (`if (global&1)` with direct table expressions, and conditional table index) both scored 815 and were worse. Changing the first `item->color` store to `D_800E1560->color` scored 720, also worse. Keep b771 as best. Main remaining mismatch: target branch/jump shape and delays in palette selection (`beqz` plus explicit jump) vs candidate `bnez`, causing several downstream branches to be 8 bytes short. Target captures the returned item pointer in `$a0` before storing it globally; candidate assigns local `item` in `$a2`. Target palette code uses the full `D_800BFC92` value in `$v0`, table base in `$v1`, and `beqz` branch with a jump to indexed load; candidate register allocation differs. Further work: test struct pointer/global reload or local lifetime shaping to get returned item in `$a0`; then restructure palette selection to preserve target's branch+jump and verify exact delay slots. Do not repeat tested palette rewrites or direct global dereference store.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795199671.7702951,
-  "score_before": 555,
-  "score_after": 555
- },
- {
-  "function": "func_8002F068",
-  "text": "Verified 555. Palette selection folds to bnez with the +4 add in its delay slot; target uses beqz with an item copy, then j with +4. Tick load also follows the packed-color store instead of preceding it.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795201635.483571,
-  "score_before": 555,
-  "score_after": 555
- },
- {
-  "function": "func_8002F068",
-  "text": "Verified 555 baseline. Six type, control and constant variants failed to improve; target has two instructions missing in candidate and register/control differences.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795202622.8327522,
-  "score_before": 555,
-  "score_after": 555
- },
- {
-  "function": "func_8002F068",
-  "text": "Score 555 -> 520 with the candidate at rev 3262b671d0211ca5f60e: replaced `mode = D_800BFC92; palette=...; if (mode & 1)` with a direct reload `if (D_800BFC92 & 1)` (target reloads the halfword for the color branch). Remaining diff: target's color if-block is 2 insns longer: `beqz v0,L144; addu a2,a0,zero (item copy); j L148; addiu v0,v1,4`, while ours is bnez-form with no item copy in that block, so all later branch targets are off by 8 bytes and regs a0/a2 swap. Tried: inverting the if/else (same 520), ternary (same 520), dropping `current` alias / using D_800E1560 directly (695-1185, worse), `current = item` after store (725, worse). Untested ideas: make the copy of item happen inside the color branch (e.g. local `DisplayItem *cur2 = item;` used only in the volatile store, or reorder item->color store after the color if), and check whether the first branch to the else block needs a different condition shape.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795204819.79104,
-  "score_before": 555,
-  "score_after": 520
- },
- {
-  "function": "func_8002F068",
-  "text": "Rechecked saved baseline at score 520. Historical record shows 28 local repair trials and 20 explicit patches; prior alternatives for local storage, parameter storage, callee width, global type, field width, assignment-at-use, const reads, and table signedness did not improve it. This turn's separate branch-store rewrite worsened to 1120, so the saved best was restored as the continuation. Next step: preserve the saved-best expression shape while experimenting with just the conditional palette pointer selection; target is a reload of D_800BFC92 followed by `beqz` and a jump with `addiu v0,v1,4` in the delay slot.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795214592.14718,
-  "score_before": 1955,
-  "score_after": 1120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
   "function": "func_800358D4",
   "text": "Candidate saved_best is retained. Current verified score 7034; stack frame allocation is 8 bytes short (-0x108 vs target -0x110). Local repair families tested without improvement. Try correctly sized unused local aggregate as next step, then inspect stack slots and register scheduling.",
   "by": "codex-gpt-6-luna-22",
@@ -87269,15 +87196,6 @@
   "score_before": 7034,
   "score_after": 7034,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
- },
- {
-  "function": "func_8002F068",
-  "text": "Verified 520 with explicit goto. Reversed if and both ternaries also scored 520. Loading palette entry into phase ahead of the volatile global reload scored 530. Mixing named array and local base scored 525. Disabling delay-slot scheduling scored 880.\nExplicit normal_color/apply_color jumps and alternate palette selectors.\nScore 520. Target retains both branch and join jump and copies the display item from a0 to a2 in the condition's delay slot.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795226320.492845,
-  "score_before": 520,
-  "score_after": 520,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
  },
  {
   "function": "func_800358D4",
@@ -87289,83 +87207,12 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
  },
  {
-  "function": "func_8002F068",
-  "text": "Stuck at 520. Target keeps call result in a0 (pseudo A, stored to D_800E1560) and copies it to a2 (pseudo B, sits in delay slot of the color-select beqz) used for item->color store and func_8002B050 arg2; ours uses single pseudo in a2. Target color select is beqz-form with `move a2,a0; j; addiu v0,v1,4` / else addiu 0x24; ours is bnez-form. Tried: item = D_800E1560 = call (825, volatile reload), copies via current/p temps (no change/worse), ternary/inverted if forms (520 unchanged). Next step: find a source shape forcing two distinct pseudos for the call result (e.g. a non-volatile global item pointer or separate local assigned after the phase computation).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795232847.204126,
-  "score_before": 520,
-  "score_after": 520,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "Current candidate accidentally submitted without shared declarations, causing compile error. Original claimed candidate in prior receipt had historical best 520. Context contains proper symbols/prototypes; recover prior candidate and continue control-flow/register tuning. Do not repeat malformed standalone source.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795239525.743427,
-  "score_before": 520,
-  "score_after": 520
- },
- {
-  "function": "func_8002F068",
-  "text": "Current best 2170. First target branch after menuItemIsActive(0x23) goes to shared exit 0x14c but candidate's compound condition branches to an internal join 0x130. Try sequential positive guard structure around common inactive path; previous automated repairs did not improve.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795240743.698837,
-  "score_before": 520,
-  "score_after": 520,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
   "function": "func_800358D4",
   "text": "Empty candidate confirmed by compile (no symbol). Historical best reported 9212. Draft is mostly complete but missing sp84/sp88; prior note: those are likely vector components in &sp80 output from vector helpers, and adding scalar locals scored 15278. Next step: use three-float vector arrays for sp28/sp2C/sp30 and sp80/sp84/sp88, then compile; ensure missing declarations are supplied from candidate/header.",
   "by": "codex-gpt-6-luna-15",
   "created_at": 1795242597.137503,
   "score_before": 6315,
   "score_after": 6315
- },
- {
-  "function": "func_8002F068",
-  "text": "Corrected table choices to &D_800BD640 and &D_800BD640 + 1, improving 2170 to 2145. Sequential goto guards emitted identical code. Volatile access to D_800BFC94 worsened to 2425. Claim unexpectedly ended on that trial; recover revision 88d1cd78d293cd306e93. Next step: separate the two halfword globals to recover repeated address materialization.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795243194.412085,
-  "score_before": 520,
-  "score_after": 520,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "Best current score 1360. Separate first store to D_800BFC96 and u32 temporary improved code; target selects base+4 or base+0x24. Direct arm stores scored 2045; explicit direct addresses 1480; branch inversion and pointer increment scored 1360. Remaining table branch and register scheduling differ.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795243591.1753302,
-  "score_before": 520,
-  "score_after": 520,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "Session context allowance nearly exhausted, so cannot continue this claim. Verified score 1685 at revision 94952e51d8cfd33a41ca. Corrected second argument and byte offsets, then assigned table base before branch. Remaining target color block has beqz, item copy, and jump; candidate uses branch-likely. Prior historical 520 candidate was unavailable.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795250681.14695,
-  "score_before": 1830,
-  "score_after": 1685,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "Session context allowance nearly exhausted. The remaining palette branch and item pointer lifetime require further control flow reconstruction; direct addresses in both branches scored 2170, reversing arms scored 1675. Cannot establish a closer candidate within this session.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795251676.483856,
-  "score_before": 1685,
-  "score_after": 1675,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "Using s32 temp_v1 for the masked halfword and comparison instead of u16 temp_v1_2 scored 1360 (revision 998ad7a5436b9909a123); the service reset the claim after this improvement. Loading the selected color inside each branch scored 1900 on the original baseline, introducing separate global addresses. Next step: preserve the shared table base and try a conditional pointer expression or explicit goto to obtain the target beqz/j sequence.\n\nMasked halfword promoted to s32 improved 1675 to 1360. Conditional offset and explicit goto both scored 1370, retaining branch-likely; local scalar and signedness changes did not improve. Moving on after repeated unchanged results.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795252090.384413,
-  "score_before": 1675,
-  "score_after": 1360,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
  },
  {
   "function": "func_800358D4",
@@ -87375,33 +87222,6 @@
   "score_before": 11858,
   "score_after": 11858,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
- },
- {
-  "function": "func_8002F068",
-  "text": "Current candidate 1865; second parameter restores target a1. Conditional byte-offset table expression scored 1865 but base address still differs; reversed arms also 1865 and changes semantics.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795254595.384945,
-  "score_before": 1360,
-  "score_after": 1360,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "Six local variants did not improve the verified score 900; moving on at the limit.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795257631.4149199,
-  "score_before": 1350,
-  "score_after": 900,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "Local call-in-arms, scalar reuse, signedness, declaration order, and constant local variants\nScores 900\u20131595; baseline retained at 900",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795260263.0922081,
-  "score_before": 900,
-  "score_after": 900,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
  },
  {
   "function": "func_800358D4",
@@ -87440,15 +87260,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
  },
  {
-  "function": "func_8002F068",
-  "text": "Judge reached 14/6 without improvement after plain pointer branches, goto, offsets and separate tick preload were tested. Recovered saved best 490.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795318115.298347,
-  "score_before": 490,
-  "score_after": 490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
   "function": "func_800358D4",
   "text": "Judge reached 5/4 without improvement. Color staging scored 4982, volatile alpha conversion 6341, and splitting palette advance 4427. Saved best 4422 still has missing alpha conversion and global address differences.",
   "by": "codex-gpt-6.2-sol-6",
@@ -87474,15 +87285,6 @@
   "score_before": 4192,
   "score_after": 4192,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
- },
- {
-  "function": "func_8002F068",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nVolatile pulse alpha reached 490 from prior 555. Direct ternary and explicit positive if/else palette pointer both scored 520 (116 vs target 118 instructions). Judge closed claim. Next step: try placing the palette address choice in a nested expression that keeps a distinct joined pointer before loading the color, while retaining the volatile alpha test.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795341701.9392,
-  "score_before": 490,
-  "score_after": 490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
  },
  {
   "function": "func_800358D4",
@@ -87566,15 +87368,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
  },
  {
-  "function": "func_8002F068",
-  "text": "Rechecked baseline 630 (saved 490). Local repairs (prototype types, tick signedness, field order) no gain; replacing item->color with current->color worsened to 1550. Target keeps call result in $a0 (stored to D_800E1560) while candidate uses $a2. Next step: restore saved_best and try dropping `item` local, using only D_800E1560 loads for the later func_8002B050 arg.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795385104.435549,
-  "score_before": 490,
-  "score_after": 490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
   "function": "func_800358D4",
   "text": "Local repairs (narrow store, scalar reuse, loop backedge) gave no gain; baseline 3748 (138 rows differ). Next step: restructure the startup color/flag block (first beqz branch target offset differs, $t1 vs $v0 for 0xff constant).",
   "by": "claude-sonnet-low-1",
@@ -87582,41 +87375,6 @@
   "score_before": 4062,
   "score_after": 3748,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b018b40a905793ee1ddd5c26d3195652f9b074dc6ac42d38936f8d64543cc0cb"
- },
- {
-  "function": "func_8002F068",
-  "text": "Saved best 490. Dropping `item` (use D_800E1560 for func_8002B050 arg) scored 830; direct-store-then-read 925. Target keeps call result in $a0 across, copies `move $a2,$a0` before the call. Next step: keep item local but make it the only var, store via `*(DisplayItem*volatile*)&D_800E1560 = item` with D_800E1560 non-volatile-read elsewhere.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795386285.073664,
-  "score_before": 490,
-  "score_after": 490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "Rechecked 630 (hist 490). 6 local families no gain (proto widths 830, temp hoists 795). Remaining: call result kept in $a0 (target) vs $a2 (candidate). Next step: restore saved_best and try passing the call result directly: `D_800E1560 = func_80027408(...)` then reuse D_800E1560 loads, no `item` local.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795387299.4578261,
-  "score_before": 490,
-  "score_after": 490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "Rechecked 630 (hist 490). Six more local families gave no gain (prototype widths 830, temp hoist 795, others equal). Remaining diff: call result kept in $a0 (target) vs $a2 (candidate). Next step: restore the saved best, then try a `register DisplayItem *item asm`-free approach: assign item = func_80027408(...) in the same statement as the D_800E1560 store, and move the D_800BFC94 load before the call.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795390690.6259599,
-  "score_before": 490,
-  "score_after": 490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
-  "function": "func_8002F068",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not re-attempted beyond review; still ~490. Remaining: call result in $a0 (target) vs $a2. Next step: drop the `item` local and use D_800E1560 = func_80027408(...) then reuse volatile loads.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795395105.326397,
-  "score_before": 490,
-  "score_after": 490
  },
  {
   "function": "func_800358D4",
@@ -87627,38 +87385,12 @@
   "score_after": 3748
  },
  {
-  "function": "func_8002F068",
-  "text": "func_8002F068 notes (cs55a, claim lost to another session at ~20 min). Saved best 470 has 5 differing rows: the target keeps TWO pseudos for the call result, T (move $a0,$v0; sw $a0,D_800E1560) and item (move $a2,$a0 in the delay slot of the colour beqz, used for sw 0x10($a2) and as 3rd arg of func_8002B050), and lays the colour if/else as beqz->else, then-arm with j. Every spelling with one pseudo (item = call(); D_800E1560 = item) gives one 'move $a2,$v0' and reorg then fills the beqz slot from the thread (bnez, no j) = the whole 470. Nothing in the best's volatile cast store is needed for that part.\nMeasured in the isolated judge: a copy tmp -> item placed after the phase block (before palette = D_800BD640;) with tmp as the stored value and item used only for the func_8002B050 arg (or the reverse) gives 80 (structure identical to target: beqz, move in slot, j; only T/item registers differ: T=$a3,item=$a2 because T's last use (store 0x10(T)) is after the $a0 mask). The same copy with no later use of tmp collapses back to 470 (global.c expand_preferences merges T's and item's register preferences, so both take $a2 and the move is deleted).\nCompiler fact (global.c, read): T takes $a0 (first free after $v0/$v1) only if it does NOT merge with item's $a2 preference: that needs T live at item's birth (a use of T after the copy) while T still dies before block 3's mask (li $a0,-0x100, local-alloc'd). Not found a faithful spelling yet: tried tmp/item/held chains, reusing asset/unused/x as the result variable (asset reuse gives 130 but moves 'move $a0,$v0' early), copies at call/phase/colour positions, non-volatile D_800E1560 (1310, scheduling differs: volatile pointer var + plain store through current is closest for the counter order).",
-  "by": "manual-7ce6163165104081",
-  "created_at": 1795397570.683796,
-  "score_before": 470,
-  "score_after": 470
- },
- {
-  "function": "func_8002F068",
-  "text": "Saved best 470. Splitting `item = call; D_800E1560 = item;` gives 1150 (same as combined). Remaining diff: target has `move $a1,$zero` in the call delay slot and keeps the call result in $a0. Next step: restore saved best, pass call result directly to func_8002B050 without the `item` local.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795397578.088852,
-  "score_before": 490,
-  "score_after": 490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
- },
- {
   "function": "func_800358D4",
   "text": "[Released without compiling it once; notes not checked by a compile.] No new work; 2100-byte function, best 3748, candidate is m2c goto soup. Next step: rewrite as clean nested loops from the assembly, then restructure the startup colour/flag block.",
   "by": "claude-sonnet-low-1",
   "created_at": 1795397911.7646909,
   "score_before": 3748,
   "score_after": 3748
- },
- {
-  "function": "func_8002F068",
-  "text": "Tried dropping the `item` local: D_800E1560 = func_80027408(func_80087100(0x2E9),0,mode?0xA0:0xDC,mode?0xB0:0x45); then pass `current` to func_8002B050. Scored 1575 (worse than saved best 470): mode computation gets hoisted before the jal and the colour-branch polarity flips (bnez vs beqz). Next step: restore saved best and keep the separate x/y/asset locals (they keep the lookupDataEntry call before the sMenuAnimFlags load); instead try only changing the second pointer (`current`) to be a copy of the call result held in a second local, as the 5 remaining rows are register-only.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795398598.160448,
-  "score_before": 490,
-  "score_after": 490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
  },
  {
   "function": "func_800358D4",
@@ -89588,5 +89320,291 @@
   "score_before": 727,
   "score_after": 727,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:dde3527d4637a1be93c45bd53e85528bc4274120cf4e13cfc06c95b3216056df"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Best 555 (95.2%), 116/118 instructions, revision 24d576086935882d8533. Second incoming argument is preserved in s0; base palette choices are byte offsets 4 and 0x24. Separate halfword externs D_800BFC94 and D_800BFC96 give correct relocations and avoid CSE of the common pulse address. Use a volatile global pointer read and a volatile lvalue for just the second color store. Remaining structural gap: target copies result to a0 after allocation, then a0 to a2 in the palette beqz delay slot; our compiler uses a2 directly and picks bnez with the other offset in its delay slot, dropping the extra jump. Reversing the if, giving it an explicit goto, and separating palette load from pointer reload all produced identical output. Target also places the tick LHU before the second color store; moving tick read to an explicit local schedules too early and alters register allocation, including with a volatile tick read. The entire alternate path matches apart from shifted control-flow targets.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795139006.7400372,
+  "score_before": 1360,
+  "score_after": 555
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Rechecked baseline 555; six local variants did not improve. Target selects palette through beqz and explicit jump with item in a0; candidate reverses branch and keeps item in a2, two instructions shorter. Rework palette selection and pointer lifetimes, preserving verified constants.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795178506.0479228,
+  "score_before": 555,
+  "score_after": 555
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Verified 555 retained. Six type, declaration and constant repairs did not improve. Target contains two instructions absent from candidate, causing branch-offset differences; inspect full diff and reconstruct missing operations in pulse/color update before register tuning.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795182829.544203,
+  "score_before": 555,
+  "score_after": 555
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Rechecked score 555. Equivalent modulo, inverted palette conditional, explicit goto, and moving the global pointer reload after the first store produce the same assembly. Target has separate beqz/j around palette selection and moves item pointer through a0 then a2; candidate folds the paths and uses a2 directly. Explore separate branch-local color loads/stores or altered item pointer lifetimes.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795193615.266675,
+  "score_before": 555,
+  "score_after": 555
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Best current score 555 (95.2%), candidate b771f875ad5f52dae4c2; fresh compile of the supplied draft reached this score. Two palette selection rewrites (`if (global&1)` with direct table expressions, and conditional table index) both scored 815 and were worse. Changing the first `item->color` store to `D_800E1560->color` scored 720, also worse. Keep b771 as best. Main remaining mismatch: target branch/jump shape and delays in palette selection (`beqz` plus explicit jump) vs candidate `bnez`, causing several downstream branches to be 8 bytes short. Target captures the returned item pointer in `$a0` before storing it globally; candidate assigns local `item` in `$a2`. Target palette code uses the full `D_800BFC92` value in `$v0`, table base in `$v1`, and `beqz` branch with a jump to indexed load; candidate register allocation differs. Further work: test struct pointer/global reload or local lifetime shaping to get returned item in `$a0`; then restructure palette selection to preserve target's branch+jump and verify exact delay slots. Do not repeat tested palette rewrites or direct global dereference store.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795199671.7702951,
+  "score_before": 555,
+  "score_after": 555
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Verified 555. Palette selection folds to bnez with the +4 add in its delay slot; target uses beqz with an item copy, then j with +4. Tick load also follows the packed-color store instead of preceding it.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795201635.483571,
+  "score_before": 555,
+  "score_after": 555
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Verified 555 baseline. Six type, control and constant variants failed to improve; target has two instructions missing in candidate and register/control differences.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795202622.8327522,
+  "score_before": 555,
+  "score_after": 555
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Score 555 -> 520 with the candidate at rev 3262b671d0211ca5f60e: replaced `mode = D_800BFC92; palette=...; if (mode & 1)` with a direct reload `if (D_800BFC92 & 1)` (target reloads the halfword for the color branch). Remaining diff: target's color if-block is 2 insns longer: `beqz v0,L144; addu a2,a0,zero (item copy); j L148; addiu v0,v1,4`, while ours is bnez-form with no item copy in that block, so all later branch targets are off by 8 bytes and regs a0/a2 swap. Tried: inverting the if/else (same 520), ternary (same 520), dropping `current` alias / using D_800E1560 directly (695-1185, worse), `current = item` after store (725, worse). Untested ideas: make the copy of item happen inside the color branch (e.g. local `DisplayItem *cur2 = item;` used only in the volatile store, or reorder item->color store after the color if), and check whether the first branch to the else block needs a different condition shape.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795204819.79104,
+  "score_before": 555,
+  "score_after": 520
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Rechecked saved baseline at score 520. Historical record shows 28 local repair trials and 20 explicit patches; prior alternatives for local storage, parameter storage, callee width, global type, field width, assignment-at-use, const reads, and table signedness did not improve it. This turn's separate branch-store rewrite worsened to 1120, so the saved best was restored as the continuation. Next step: preserve the saved-best expression shape while experimenting with just the conditional palette pointer selection; target is a reload of D_800BFC92 followed by `beqz` and a jump with `addiu v0,v1,4` in the delay slot.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795214592.14718,
+  "score_before": 1955,
+  "score_after": 1120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Verified 520 with explicit goto. Reversed if and both ternaries also scored 520. Loading palette entry into phase ahead of the volatile global reload scored 530. Mixing named array and local base scored 525. Disabling delay-slot scheduling scored 880.\nExplicit normal_color/apply_color jumps and alternate palette selectors.\nScore 520. Target retains both branch and join jump and copies the display item from a0 to a2 in the condition's delay slot.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795226320.492845,
+  "score_before": 520,
+  "score_after": 520,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Stuck at 520. Target keeps call result in a0 (pseudo A, stored to D_800E1560) and copies it to a2 (pseudo B, sits in delay slot of the color-select beqz) used for item->color store and func_8002B050 arg2; ours uses single pseudo in a2. Target color select is beqz-form with `move a2,a0; j; addiu v0,v1,4` / else addiu 0x24; ours is bnez-form. Tried: item = D_800E1560 = call (825, volatile reload), copies via current/p temps (no change/worse), ternary/inverted if forms (520 unchanged). Next step: find a source shape forcing two distinct pseudos for the call result (e.g. a non-volatile global item pointer or separate local assigned after the phase computation).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795232847.204126,
+  "score_before": 520,
+  "score_after": 520,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Current candidate accidentally submitted without shared declarations, causing compile error. Original claimed candidate in prior receipt had historical best 520. Context contains proper symbols/prototypes; recover prior candidate and continue control-flow/register tuning. Do not repeat malformed standalone source.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795239525.743427,
+  "score_before": 520,
+  "score_after": 520
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Current best 2170. First target branch after menuItemIsActive(0x23) goes to shared exit 0x14c but candidate's compound condition branches to an internal join 0x130. Try sequential positive guard structure around common inactive path; previous automated repairs did not improve.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795240743.698837,
+  "score_before": 520,
+  "score_after": 520,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Corrected table choices to &D_800BD640 and &D_800BD640 + 1, improving 2170 to 2145. Sequential goto guards emitted identical code. Volatile access to D_800BFC94 worsened to 2425. Claim unexpectedly ended on that trial; recover revision 88d1cd78d293cd306e93. Next step: separate the two halfword globals to recover repeated address materialization.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795243194.412085,
+  "score_before": 520,
+  "score_after": 520,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Best current score 1360. Separate first store to D_800BFC96 and u32 temporary improved code; target selects base+4 or base+0x24. Direct arm stores scored 2045; explicit direct addresses 1480; branch inversion and pointer increment scored 1360. Remaining table branch and register scheduling differ.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795243591.1753302,
+  "score_before": 520,
+  "score_after": 520,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Session context allowance nearly exhausted, so cannot continue this claim. Verified score 1685 at revision 94952e51d8cfd33a41ca. Corrected second argument and byte offsets, then assigned table base before branch. Remaining target color block has beqz, item copy, and jump; candidate uses branch-likely. Prior historical 520 candidate was unavailable.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795250681.14695,
+  "score_before": 1830,
+  "score_after": 1685,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Session context allowance nearly exhausted. The remaining palette branch and item pointer lifetime require further control flow reconstruction; direct addresses in both branches scored 2170, reversing arms scored 1675. Cannot establish a closer candidate within this session.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795251676.483856,
+  "score_before": 1685,
+  "score_after": 1675,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Using s32 temp_v1 for the masked halfword and comparison instead of u16 temp_v1_2 scored 1360 (revision 998ad7a5436b9909a123); the service reset the claim after this improvement. Loading the selected color inside each branch scored 1900 on the original baseline, introducing separate global addresses. Next step: preserve the shared table base and try a conditional pointer expression or explicit goto to obtain the target beqz/j sequence.\n\nMasked halfword promoted to s32 improved 1675 to 1360. Conditional offset and explicit goto both scored 1370, retaining branch-likely; local scalar and signedness changes did not improve. Moving on after repeated unchanged results.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795252090.384413,
+  "score_before": 1675,
+  "score_after": 1360,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Current candidate 1865; second parameter restores target a1. Conditional byte-offset table expression scored 1865 but base address still differs; reversed arms also 1865 and changes semantics.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795254595.384945,
+  "score_before": 1360,
+  "score_after": 1360,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Six local variants did not improve the verified score 900; moving on at the limit.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795257631.4149199,
+  "score_before": 1350,
+  "score_after": 900,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Local call-in-arms, scalar reuse, signedness, declaration order, and constant local variants\nScores 900\u20131595; baseline retained at 900",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795260263.0922081,
+  "score_before": 900,
+  "score_after": 900,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Judge reached 14/6 without improvement after plain pointer branches, goto, offsets and separate tick preload were tested. Recovered saved best 490.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795318115.298347,
+  "score_before": 490,
+  "score_after": 490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nVolatile pulse alpha reached 490 from prior 555. Direct ternary and explicit positive if/else palette pointer both scored 520 (116 vs target 118 instructions). Judge closed claim. Next step: try placing the palette address choice in a nested expression that keeps a distinct joined pointer before loading the color, while retaining the volatile alpha test.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795341701.9392,
+  "score_before": 490,
+  "score_after": 490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Rechecked baseline 630 (saved 490). Local repairs (prototype types, tick signedness, field order) no gain; replacing item->color with current->color worsened to 1550. Target keeps call result in $a0 (stored to D_800E1560) while candidate uses $a2. Next step: restore saved_best and try dropping `item` local, using only D_800E1560 loads for the later func_8002B050 arg.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795385104.435549,
+  "score_before": 490,
+  "score_after": 490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Saved best 490. Dropping `item` (use D_800E1560 for func_8002B050 arg) scored 830; direct-store-then-read 925. Target keeps call result in $a0 across, copies `move $a2,$a0` before the call. Next step: keep item local but make it the only var, store via `*(DisplayItem*volatile*)&D_800E1560 = item` with D_800E1560 non-volatile-read elsewhere.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795386285.073664,
+  "score_before": 490,
+  "score_after": 490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Rechecked 630 (hist 490). 6 local families no gain (proto widths 830, temp hoists 795). Remaining: call result kept in $a0 (target) vs $a2 (candidate). Next step: restore saved_best and try passing the call result directly: `D_800E1560 = func_80027408(...)` then reuse D_800E1560 loads, no `item` local.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795387299.4578261,
+  "score_before": 490,
+  "score_after": 490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Rechecked 630 (hist 490). Six more local families gave no gain (prototype widths 830, temp hoist 795, others equal). Remaining diff: call result kept in $a0 (target) vs $a2 (candidate). Next step: restore the saved best, then try a `register DisplayItem *item asm`-free approach: assign item = func_80027408(...) in the same statement as the D_800E1560 store, and move the D_800BFC94 load before the call.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795390690.6259599,
+  "score_before": 490,
+  "score_after": 490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not re-attempted beyond review; still ~490. Remaining: call result in $a0 (target) vs $a2. Next step: drop the `item` local and use D_800E1560 = func_80027408(...) then reuse volatile loads.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795395105.326397,
+  "score_before": 490,
+  "score_after": 490
+ },
+ {
+  "function": "func_8002F068",
+  "text": "func_8002F068 notes (cs55a, claim lost to another session at ~20 min). Saved best 470 has 5 differing rows: the target keeps TWO pseudos for the call result, T (move $a0,$v0; sw $a0,D_800E1560) and item (move $a2,$a0 in the delay slot of the colour beqz, used for sw 0x10($a2) and as 3rd arg of func_8002B050), and lays the colour if/else as beqz->else, then-arm with j. Every spelling with one pseudo (item = call(); D_800E1560 = item) gives one 'move $a2,$v0' and reorg then fills the beqz slot from the thread (bnez, no j) = the whole 470. Nothing in the best's volatile cast store is needed for that part.\nMeasured in the isolated judge: a copy tmp -> item placed after the phase block (before palette = D_800BD640;) with tmp as the stored value and item used only for the func_8002B050 arg (or the reverse) gives 80 (structure identical to target: beqz, move in slot, j; only T/item registers differ: T=$a3,item=$a2 because T's last use (store 0x10(T)) is after the $a0 mask). The same copy with no later use of tmp collapses back to 470 (global.c expand_preferences merges T's and item's register preferences, so both take $a2 and the move is deleted).\nCompiler fact (global.c, read): T takes $a0 (first free after $v0/$v1) only if it does NOT merge with item's $a2 preference: that needs T live at item's birth (a use of T after the copy) while T still dies before block 3's mask (li $a0,-0x100, local-alloc'd). Not found a faithful spelling yet: tried tmp/item/held chains, reusing asset/unused/x as the result variable (asset reuse gives 130 but moves 'move $a0,$v0' early), copies at call/phase/colour positions, non-volatile D_800E1560 (1310, scheduling differs: volatile pointer var + plain store through current is closest for the counter order).",
+  "by": "manual-7ce6163165104081",
+  "created_at": 1795397570.683796,
+  "score_before": 470,
+  "score_after": 470
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Saved best 470. Splitting `item = call; D_800E1560 = item;` gives 1150 (same as combined). Remaining diff: target has `move $a1,$zero` in the call delay slot and keeps the call result in $a0. Next step: restore saved best, pass call result directly to func_8002B050 without the `item` local.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795397578.088852,
+  "score_before": 490,
+  "score_after": 490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Tried dropping the `item` local: D_800E1560 = func_80027408(func_80087100(0x2E9),0,mode?0xA0:0xDC,mode?0xB0:0x45); then pass `current` to func_8002B050. Scored 1575 (worse than saved best 470): mode computation gets hoisted before the jal and the colour-branch polarity flips (bnez vs beqz). Next step: restore saved best and keep the separate x/y/asset locals (they keep the lookupDataEntry call before the sMenuAnimFlags load); instead try only changing the second pointer (`current`) to be a copy of the call result held in a second local, as the 5 remaining rows are register-only.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795398598.160448,
+  "score_before": 490,
+  "score_after": 490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "Saved best 25 (5 register rows only, every instruction and its order equals the target). Chain from the old 470: (1) copy `item2 = item` after the first if block + drop m2c's stray 3rd arg of func_8002B050 (other callers pass 2) -> 280 (decomp-repair call_result_join_copy, merged); (2) collapse `else if (inline_fn()) A else A` + flip colour-if polarity -> 60 (chained_identical_arm_flip, merged); (3) target loads the counter lhu D_800BFC94 after the packed-colour `or` and before the volatile store; the cast store is non-struct so sched.c keeps a later load behind it. A WAR edge from `or` (counter local sharing the masked-colour variable m: m = cc & ~255; ...; m = D_800BFC94; sw; D_800BFC94 = m + 1) puts it there -> 30, scalar_storage_reuse -> 25. Remaining: m has two deaths so it is a global pseudo ($a0); target has m=$v1 (tied local), counter=$v0. Sharing the shifted-alpha var instead is register-consistent ($v0) but sched puts sll behind `and` (non-birthing) and a global s cannot share the alpha temp's reg. A separate local counter (c16) floats the lhu above sll (priority 1, load cost 3). Needs an or->lhu dependence with all-local pseudos; unknown source shape. Tried: structs, volatile counter, nonstruct/volcast first store, ~300 statement/local forms, prove_chain all families with combine.",
+  "by": "manual-39d016285bf24c53",
+  "created_at": 1795426292.539925,
+  "score_before": 30,
+  "score_after": 25,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8002F068",
+  "text": "25, 5 register rows left; see add_note (needs or->lhu edge with all-local pseudos)",
+  "by": "manual-39d016285bf24c53",
+  "created_at": 1795429002.771702,
+  "score_before": null,
+  "score_after": null,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
  }
 ]

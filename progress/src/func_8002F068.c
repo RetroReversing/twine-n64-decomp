@@ -56,6 +56,7 @@ void func_8002F068(void *unused, void *arg1)
   u32 t;
   u32 m;
   u32 cur;
+  u16 c;
   DisplayItem *item2;
   if (((!((u8) func_80027CE0(0x23))) && (!((u8) func_80027CE0(0x2A)))) && (!D_80102EDE))
   {
@@ -85,10 +86,12 @@ void func_8002F068(void *unused, void *arg1)
     item2->color = (*color) & (~255);
     m = current->color & (~255);
     t = D_800BFC96;
-    cur = m | (t << 3);
-    m = D_800BFC94;
-    *((volatile u32 *) (&current->color)) = cur;
-    D_800BFC94 = m + 1;
+    phase = m | (t << 3);
+    do {
+    c = D_800BFC94;
+    } while (0);
+    *((volatile u32 *) (&current->color)) = phase;
+    D_800BFC94 = c + 1;
     if (D_80102EDC)
     {
       func_8002B050(D_800E1584, 1);
@@ -104,4 +107,5 @@ void func_8002F068(void *unused, void *arg1)
     func_8002FBD4(arg1, 4);
   }
 }
+
 
