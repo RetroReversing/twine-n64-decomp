@@ -63,11 +63,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   s32 objectMatrix[10];
   RayVec objectEnd;
   RayVec objectDirection;
-  struct 
-  {
-    f32 distance;
-    u32 gap[2];
-  } hit;
+  f32 hitd;
   void *spFC;
   f32 temp_fs2;
   f32 var_fs0;
@@ -87,7 +83,6 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   s32 temp_v1_9;
   s32 var_s0;
   s32 var_s0_2;
-  volatile int pad2;
   int var_s2;
   s32 var_s2_2;
   s32 var_s2_3;
@@ -101,6 +96,11 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   u16 temp_v1_6;
   u16 temp_v1_8;
   u32 temp_s3;
+  u32 condA;
+  u32 condB;
+  f32 fz;
+  u32 firstVertex;
+  RayVec *var_fp;
   u32 temp_v1;
   u32 var_s0_3;
   register u32 var_s0_4;
@@ -111,14 +111,14 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   void *temp_a0_2;
   void *temp_a0_3;
   void *temp_a0_4;
-  void *temp_s1;
-  void *temp_s2;
   void *var_s1;
+  void *temp_s2;
   register void *var_s3;
   void *var_s3_2;
-  u32 trailingGap[4];
+
   var_fs0 = arg3;
   var_s5 = arg0;
+  var_fp = arg1;
   spFC = arg2;
   temp_fs2 = var_fs0;
   if (var_s5 == NULL)
@@ -127,17 +127,17 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   }
   {
     var_s1 = *var_s5;
-    endpoint.v[0] = ((Field_f32 *) (((char *) arg1) + 0))->v;
-    endpoint.v[1] = ((Field_f32 *) (((char *) arg1) + 4))->v + var_fs0;
+    endpoint.v[0] = ((Field_f32 *) (((char *) var_fp) + 0))->v;
+    endpoint.v[1] = ((Field_f32 *) (((char *) var_fp) + 4))->v + var_fs0;
     gPlayerActor = NULL;
     D_80108F84 = NULL;
-    endpoint.v[2] = ((Field_f32 *) (((char *) arg1) + 8))->v;
+    endpoint.v[2] = ((Field_f32 *) (((char *) var_fp) + 8))->v;
     if (var_s1 != NULL)
     {
-      register f32 *sp11C;
       s32 *sp104;
       f32 *sp10C;
       f32 *sp114;
+      f32 *sp11C;
       f32 *sp124;
       f32 *sp12C;
       sp104 = actorMatrix;
@@ -151,16 +151,16 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
         if ((*((void **) (((char *) var_s1) + 0x70))) != NULL)
         {
           temp_s3 = ((Field_u32 *) (((char *) var_s1) + 0x58))->v & 0x400;
-          if (((!temp_s3) && (((Field_s32 *) (((char *) var_s1) + 0x5C))->v & 0x200)) && ((func_800487F0(var_s1, arg1, temp_fs2) << 0x18) != 0))
+          if (((!temp_s3) && (((Field_s32 *) (((char *) var_s1) + 0x5C))->v & 0x200)) && ((func_800487F0(var_s1, var_fp, temp_fs2) << 0x18) != 0))
           {
             temp_s2 = *((void **) (((char *) var_s1) + 0x70));
             scratch.actor.angles[0] = (s16) ((s32) (-((Field_f32 *) (((char *) var_s1) + 0x3C))->v));
             scratch.actor.angles[1] = (s16) ((s32) (-((Field_f32 *) (((char *) var_s1) + 0x40))->v));
             scratch.actor.angles[2] = (s16) ((s32) (-((Field_f32 *) (((char *) var_s1) + 0x44))->v));
             func_80082D24(scratch.actor.angles, sp104);
-            actorStart[0] = ((Field_f32 *) (((char *) arg1) + 0))->v - ((Field_f32 *) (((char *) var_s1) + 0x24))->v;
-            actorStart[1] = ((Field_f32 *) (((char *) arg1) + 4))->v - ((Field_f32 *) (((char *) var_s1) + 0x28))->v;
-            actorStart[2] = ((Field_f32 *) (((char *) arg1) + 8))->v - ((Field_f32 *) (((char *) var_s1) + 0x2C))->v;
+            actorStart[0] = ((Field_f32 *) (((char *) var_fp) + 0))->v - ((Field_f32 *) (((char *) var_s1) + 0x24))->v;
+            actorStart[1] = ((Field_f32 *) (((char *) var_fp) + 4))->v - ((Field_f32 *) (((char *) var_s1) + 0x28))->v;
+            actorStart[2] = ((Field_f32 *) (((char *) var_fp) + 8))->v - ((Field_f32 *) (((char *) var_s1) + 0x2C))->v;
             actorEnd[0] = endpoint.v[0] - ((Field_f32 *) (((char *) var_s1) + 0x24))->v;
             actorEnd[1] = endpoint.v[1] - ((Field_f32 *) (((char *) var_s1) + 0x28))->v;
             actorEnd[2] = endpoint.v[2] - ((Field_f32 *) (((char *) var_s1) + 0x2C))->v;
@@ -174,34 +174,38 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
               temp_s7 = temp_v0 & 0xFF;
               temp_s6 = temp_v0 & 0xFF00;
               rotateVec3ByMat3(sp104, sp11C);
-              var_s0 = ((Field_u8 *) (((char *) temp_s2) + 0x48))->v; temp_v1 = var_s0 & 4;
+              temp_v1 = ((Field_u8 *) (((char *) temp_s2) + 0x48))->v & 4;
               if (temp_v1 != 0)
               {
                 projected.x = actorStart[0];
                 projected.z = actorStart[2];
                 var_s4 = *((u16 **) (((char *) temp_s2) + 0x3C));
-                if (temp_s3 < ((u16) ((Field_u16 *) (((char *) temp_s2) + 0x40))->v))
+                condA = temp_s3 < ((u16) ((Field_u16 *) (((char *) temp_s2) + 0x40))->v);
+                var_s0_2 = 0;
+                if (condA)
                 {
-                  var_s0 = 0;
                   var_s3 = ((u8 *) var_s4) + 4;
                   do
                   {
-                    temp_v1_2 = *((u16 *) (((char *) (*((u8 **) (((char *) temp_s2) + 0x38)))) + ((var_s0 & 0xFFFF) * 2)));
+                    temp_v1_2 = *((u16 *) (((char *) (*((u8 **) (((char *) temp_s2) + 0x38)))) + ((var_s0_2 & 0xFFFF) * 2)));
                     if ((temp_s7 & temp_v1_2) && (temp_s6 & temp_v1_2))
                     {
-                      temp_v1_3 = ((Field_s32 *) (((char *) temp_s2) + 0x34))->v;
-                      if (((rayHitsTriangleXZ(actorStart, scratch.actor.direction.v, temp_v1_3 + ((*((u16 *) var_s4)) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s3) + (-2)))) * 0xC), temp_v1_3 + (((Field_u16 *) (((char *) var_s3) + 0))->v * 0xC), sp124) & 0xFF) && (scratch.actor.hitWide >= 0.0f)) && (scratch.actor.hitWide < var_fs0))
+                      if (((rayHitsTriangleXZ(actorStart, scratch.actor.direction.v, ((Field_s32 *) (((char *) temp_s2) + 0x34))->v + ((*((u16 *) var_s4)) * 0xC), ((Field_s32 *) (((char *) temp_s2) + 0x34))->v + ((*((u16 *) (((char *) var_s3) + (-2)))) * 0xC), ((Field_s32 *) (((char *) temp_s2) + 0x34))->v + (((Field_u16 *) (((char *) var_s3) + 0))->v * 0xC), sp124) & 0xFF)))
                       {
+                        fz = 0.0f;
+                        if ((scratch.actor.hitWide >= fz) && (scratch.actor.hitWide < var_fs0))
+                        {
                         var_fs0 = scratch.actor.hitWide;
                         gPlayerActor = var_s1;
                         D_80108F84 = NULL;
+                        }
                       }
                     }
                     var_s3 += 6;
                     var_s4 += 6;
-                    ++var_s0;
+                    ++var_s0_2;
                   }
-                  while (((u32) (var_s0 & 0xFFFF)) < ((u16) ((Field_u16 *) (((char *) temp_s2) + 0x40))->v));
+                  while (((u32) (var_s0_2 & 0xFFFF)) < ((u16) ((Field_u16 *) (((char *) temp_s2) + 0x40))->v));
                 }
               }
               else
@@ -209,21 +213,25 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
                 projected.x = actorStart[0];
                 projected.z = actorStart[2];
                 var_s4_2 = *((u8 **) (((char *) temp_s2) + 0x3C));
-                if (temp_v1 < ((u16) ((Field_u16 *) (((char *) temp_s2) + 0x40))->v))
+                condB = temp_v1 < ((u16) ((Field_u16 *) (((char *) temp_s2) + 0x40))->v);
+                var_s0_2 = 0;
+                if (condB)
                 {
- do { var_s0_2 = 0; } while (0);
                   var_s3_2 = var_s4_2 + 2;
                   do
                   {
                     temp_v1_4 = *((u16 *) (((char *) (*((u8 **) (((char *) temp_s2) + 0x38)))) + ((var_s0_2 & 0xFFFF) * 2)));
                     if ((temp_s7 & temp_v1_4) && (temp_s6 & temp_v1_4))
                     {
-                      temp_v1_5 = ((Field_s32 *) (((char *) temp_s2) + 0x34))->v;
-                      if (((rayHitsTriangleXZ(actorStart, scratch.actor.direction.v, temp_v1_5 + ((*((u8 *) var_s4_2)) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), temp_v1_5 + (((Field_u8 *) (((char *) var_s3_2) + 0))->v * 0xC), sp12C) & 0xFF) && (scratch.actor.hitNarrow >= 0.0f)) && (scratch.actor.hitNarrow < var_fs0))
+                      if (((rayHitsTriangleXZ(actorStart, scratch.actor.direction.v, ((Field_s32 *) (((char *) temp_s2) + 0x34))->v + ((*((u8 *) var_s4_2)) * 0xC), ((Field_s32 *) (((char *) temp_s2) + 0x34))->v + ((*((u8 *) (((char *) var_s3_2) + (-1)))) * 0xC), ((Field_s32 *) (((char *) temp_s2) + 0x34))->v + (((Field_u8 *) (((char *) var_s3_2) + 0))->v * 0xC), sp12C) & 0xFF)))
                       {
+                        fz = 0.0f;
+                        if ((scratch.actor.hitNarrow >= fz) && (scratch.actor.hitNarrow < var_fs0))
+                        {
                         var_fs0 = scratch.actor.hitNarrow;
                         gPlayerActor = var_s1;
                         D_80108F84 = NULL;
+                        }
                       }
                     }
                     var_s3_2 += 3;
@@ -245,17 +253,21 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
       s16 *sp134;
       f32 *sp13C;
       f32 *sp144;
+      s32 *spMat;
+      f32 *spHit;
       sp134 = (s16 *) scratch.start.v;
       sp13C = objectEnd.v;
+      spMat = objectMatrix;
       sp144 = objectDirection.v;
+      spHit = &hitd;
       do
       {
         if (1)
         {
-          if ((((Field_s32 *) (((char *) var_s5) + 0x50))->v & 0x200) && ((Sphere_OverlapsPoint(((u8 *) var_s5) + 0x40, arg1, temp_fs2) << 0x18) != 0))
+          if ((((Field_s32 *) (((char *) var_s5) + 0x50))->v & 0x200) && ((Sphere_OverlapsPoint(((u8 *) var_s5) + 0x40, var_fp, temp_fs2) << 0x18) != 0))
           {
-            temp_s1 = *((void **) (((char *) var_s5) + 0x3C));
-            scratch.start = *arg1;
+            var_s1 = *((void **) (((char *) var_s5) + 0x3C));
+            scratch.start = *var_fp;
             objectEnd = endpoint;
             if ((((u32) ((Field_u32 *) (((char *) var_s5) + 0x5C))->v) >> 0x17) & 1)
             {
@@ -268,12 +280,12 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
             }
             if ((((u32) ((Field_u32 *) (((char *) var_s5) + 0x5C))->v) >> 0x17) & 2)
             {
-              func_80047E4C(var_s5, 0, objectMatrix);
-              func_80083B64(objectMatrix, sp134);
-              func_80083B64(objectMatrix, (s16 *) sp13C);
+              func_80047E4C(var_s5, 0, spMat);
+              func_80083B64(spMat, sp134);
+              func_80083B64(spMat, (s16 *) sp13C);
             }
-            temp_s0_2 = temp_s1 + 0x18;
-            if ((func_800488D4(temp_s0_2, (f32 *) sp134) << 0x18) != 0)
+            temp_s0_2 = var_s1 + 0x18;
+            if ((func_800488D4(temp_s0_2, (f32 *) sp134, sp13C) << 0x18) != 0)
             {
               objectDirection = D_800D3E24;
               temp_v0_2 = func_8004E418(temp_s0_2, (f32 *) sp134, sp13C);
@@ -281,22 +293,23 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
               temp_s3_2 = temp_v0_2 & 0xFF00;
               if ((!((((u32) ((Field_u32 *) (((char *) var_s5) + 0x5C))->v) >> 0x17) & 2)) || ((func_80083B64(objectMatrix, (s16 *) sp144), ((((u32) ((Field_u32 *) (((char *) var_s5) + 0x5C))->v) >> 0x17) & 2) == 0)))
               {
-                if (((Field_u8 *) (((char *) temp_s1) + 0x48))->v & 4)
+                if (((Field_u8 *) (((char *) var_s1) + 0x48))->v & 4)
                 {
-                  if (((Field_u16 *) (((char *) temp_s1) + 0x40))->v != 0)
+                  var_s0_3 = 0;
+                  if (((Field_u16 *) (((char *) var_s1) + 0x40))->v > var_s0_3)
                   {
-                    var_s0_3 = 0;
                     var_s2 = 0;
                     do
                     {
-                      temp_a0 = ((Field_s32 *) (((char *) temp_s1) + 0x3C))->v + var_s2;
-                      temp_v1_6 = *((u16 *) (((char *) (*((u8 **) (((char *) temp_s1) + 0x38)))) + (var_s0_3 * 2)));
+                      temp_a0 = ((Field_s32 *) (((char *) var_s1) + 0x3C))->v;
+
+                      temp_a0 += var_s2;
+                      temp_v1_6 = *((u16 *) (((char *) (*((u8 **) (((char *) var_s1) + 0x38)))) + (var_s0_3 * 2)));
                       if ((temp_s4 & temp_v1_6) && (temp_s3_2 & temp_v1_6))
                       {
-                        temp_v1_7 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                        if (((func_8004D910(scratch.start.v, objectDirection.v, temp_v1_7 + (((Field_u16 *) (((char *) temp_a0) + 0))->v * 0xC), temp_v1_7 + (((Field_u16 *) (((char *) temp_a0) + 2))->v * 0xC), temp_v1_7 + (((Field_u16 *) (((char *) temp_a0) + 4))->v * 0xC), &hit.distance) & 0xFF) && (hit.distance >= 0.0f)) && (hit.distance < var_fs0))
+                        if (((func_8004D910(scratch.start.v, objectDirection.v, ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u16 *) (((char *) temp_a0) + 0))->v * 0xC), ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u16 *) (((char *) temp_a0) + 2))->v * 0xC), ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u16 *) (((char *) temp_a0) + 4))->v * 0xC), spHit) & 0xFF) && (hitd >= 0.0f)) && (hitd < var_fs0))
                         {
-                          var_fs0 = hit.distance;
+                          var_fs0 = hitd;
                           gPlayerActor = NULL;
                           D_80108F84 = var_s5;
                         }
@@ -304,24 +317,26 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
                       var_s2 += 6;
                       var_s0_3 += 1;
                     }
-                    while (var_s0_3 < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v));
+                    while (var_s0_3 < ((u16) ((Field_u16 *) (((char *) var_s1) + 0x40))->v));
                   }
                 }
                 else
-                  if (((Field_u16 *) (((char *) temp_s1) + 0x40))->v != 0)
                 {
                   var_s0_4 = 0;
+                  if (((Field_u16 *) (((char *) var_s1) + 0x40))->v > var_s0_4)
+                  {
                   var_s2_2 = 0;
                   do
                   {
-                    temp_a0_2 = ((Field_s32 *) (((char *) temp_s1) + 0x3C))->v + var_s2_2;
-                    temp_v1_8 = *((u16 *) (((char *) (*((u8 **) (((char *) temp_s1) + 0x38)))) + (var_s0_4 * 2)));
+                    temp_a0_2 = ((Field_s32 *) (((char *) var_s1) + 0x3C))->v;
+
+                    temp_a0_2 += var_s2_2;
+                    temp_v1_8 = *((u16 *) (((char *) (*((u8 **) (((char *) var_s1) + 0x38)))) + (var_s0_4 * 2)));
                     if ((temp_s4 & temp_v1_8) && (temp_s3_2 & temp_v1_8))
                     {
-                      temp_v1_9 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                      if (((func_8004D910(scratch.start.v, objectDirection.v, temp_v1_9 + (((Field_u8 *) (((char *) temp_a0_2) + 0))->v * 0xC), temp_v1_9 + (((Field_u8 *) (((char *) temp_a0_2) + 1))->v * 0xC), temp_v1_9 + (((Field_u8 *) (((char *) temp_a0_2) + 2))->v * 0xC), &hit.distance) & 0xFF) && (hit.distance >= 0.0f)) && (hit.distance < var_fs0))
+                      if (((func_8004D910(scratch.start.v, objectDirection.v, ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u8 *) (((char *) temp_a0_2) + 0))->v * 0xC), ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u8 *) (((char *) temp_a0_2) + 1))->v * 0xC), ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u8 *) (((char *) temp_a0_2) + 2))->v * 0xC), spHit) & 0xFF) && (hitd >= 0.0f)) && (hitd < var_fs0))
                       {
-                        var_fs0 = hit.distance;
+                        var_fs0 = hitd;
                         gPlayerActor = NULL;
                         D_80108F84 = var_s5;
                       }
@@ -329,26 +344,28 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
                     ++var_s0_4;
                     var_s2_2 += 3;
                   }
-                  while (var_s0_4 < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v));
+                  while (var_s0_4 < ((u16) ((Field_u16 *) (((char *) var_s1) + 0x40))->v));
+                }
                 }
               }
               else
-                if (((Field_u8 *) (((char *) temp_s1) + 0x48))->v & 4)
+                if (((Field_u8 *) (((char *) var_s1) + 0x48))->v & 4)
               {
                 var_s0_5 = 0;
-                if (((Field_u16 *) (((char *) temp_s1) + 0x40))->v != 0)
+                if (((Field_u16 *) (((char *) var_s1) + 0x40))->v > var_s0_5)
                 {
                   var_s2_3 = 0;
                   do
                   {
-                    temp_a0_3 = ((Field_s32 *) (((char *) temp_s1) + 0x3C))->v + var_s2_3;
-                    temp_v1_10 = *((u16 *) (((char *) (*((u8 **) (((char *) temp_s1) + 0x38)))) + (var_s0_5 * 2)));
+                    temp_a0_3 = ((Field_s32 *) (((char *) var_s1) + 0x3C))->v;
+
+                    temp_a0_3 += var_s2_3;
+                    temp_v1_10 = *((u16 *) (((char *) (*((u8 **) (((char *) var_s1) + 0x38)))) + (var_s0_5 * 2)));
                     if ((temp_s4 & temp_v1_10) && (temp_s3_2 & temp_v1_10))
                     {
-                      temp_v1_11 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                      if (((func_8004D910(scratch.start.v, objectDirection.v, temp_v1_11 + (((Field_u16 *) (((char *) temp_a0_3) + 0))->v * 0xC), temp_v1_11 + (((Field_u16 *) (((char *) temp_a0_3) + 2))->v * 0xC), temp_v1_11 + (((Field_u16 *) (((char *) temp_a0_3) + 4))->v * 0xC), &hit.distance) & 0xFF) && (hit.distance >= 0.0f)) && (hit.distance < var_fs0))
+                      if (((func_8004D910(scratch.start.v, objectDirection.v, ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u16 *) (((char *) temp_a0_3) + 0))->v * 0xC), ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u16 *) (((char *) temp_a0_3) + 2))->v * 0xC), ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u16 *) (((char *) temp_a0_3) + 4))->v * 0xC), spHit) & 0xFF) && (hitd >= 0.0f)) && (hitd < var_fs0))
                       {
-                        var_fs0 = hit.distance;
+                        var_fs0 = hitd;
                         gPlayerActor = NULL;
                         D_80108F84 = var_s5;
                       }
@@ -356,25 +373,25 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
                     var_s0_5 += 1;
                     var_s2_3 += 6;
                   }
-                  while (var_s0_5 < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v));
+                  while (var_s0_5 < ((u16) ((Field_u16 *) (((char *) var_s1) + 0x40))->v));
                 }
               }
               else
               {
                 var_s0_6 = 0;
-                if (((Field_u16 *) (((char *) temp_s1) + 0x40))->v != 0)
+                if (((Field_u16 *) (((char *) var_s1) + 0x40))->v > var_s0_6)
                 {
                   var_s2_4 = 0;
                   do
                   {
-                    temp_v1_12 = *((u16 *) (((char *) (*((u8 **) (((char *) temp_s1) + 0x38)))) + (var_s0_6 * 2)));
-                    temp_v0 = ((Field_s32 *) (((char *) temp_s1) + 0x3C))->v; temp_a0_4 = temp_v0 + var_s2_4;
-                    if ((temp_s4 & temp_v1_12) && (temp_s3_2 & temp_v1_12))
+                    temp_v1_12 = *((u16 *) (((char *) (*((u8 **) (((char *) var_s1) + 0x38)))) + (var_s0_6 * 2)));
+                    temp_a0_4 = ((Field_s32 *) (((char *) var_s1) + 0x3C))->v;
+                    temp_a0_4 += var_s2_4;
+                    if ((temp_s4 & temp_v1_12) && ((temp_v0 = temp_s3_2 & temp_v1_12) != 0))
                     {
-                      temp_v1_13 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
-                      if (((func_8004D910(scratch.start.v, objectDirection.v, temp_v1_13 + (((Field_u8 *) (((char *) temp_a0_4) + 0))->v * 0xC), temp_v1_13 + (((Field_u8 *) (((char *) temp_a0_4) + 1))->v * 0xC), temp_v1_13 + (((Field_u8 *) (((char *) temp_a0_4) + 2))->v * 0xC), &hit.distance) & 0xFF) && (hit.distance >= 0.0f)) && (hit.distance < var_fs0))
+                      if (((func_8004D910(scratch.start.v, objectDirection.v, ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u8 *) (((char *) temp_a0_4) + 0))->v * 0xC), ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u8 *) (((char *) temp_a0_4) + 1))->v * 0xC), ((Field_s32 *) (((char *) var_s1) + 0x34))->v + (((Field_u8 *) (((char *) temp_a0_4) + 2))->v * 0xC), spHit) & 0xFF) && (hitd >= 0.0f)) && (hitd < var_fs0))
                       {
-                        var_fs0 = hit.distance;
+                        var_fs0 = hitd;
                         gPlayerActor = NULL;
                         D_80108F84 = var_s5;
                       }
@@ -382,7 +399,7 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
                     ++var_s0_6;
                     var_s2_4 += 3;
                   }
-                  while (var_s0_6 < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v));
+                  while (var_s0_6 < ((u16) ((Field_u16 *) (((char *) var_s1) + 0x40))->v));
                 }
               }
             }
@@ -394,9 +411,9 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
     }
     if (var_fs0 != temp_fs2)
     {
-      ((Field_f32 *) (((char *) spFC) + 0))->v = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
-      ((Field_f32 *) (((char *) spFC) + 4))->v = (f32) (((Field_f32 *) (((char *) arg1) + 4))->v + var_fs0);
-      ((Field_f32 *) (((char *) spFC) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
+      ((Field_f32 *) (((char *) spFC) + 0))->v = (f32) ((Field_f32 *) (((char *) var_fp) + 0))->v;
+      ((Field_f32 *) (((char *) spFC) + 4))->v = (f32) (((Field_f32 *) (((char *) var_fp) + 4))->v + var_fs0);
+      ((Field_f32 *) (((char *) spFC) + 8))->v = (f32) ((Field_f32 *) (((char *) var_fp) + 8))->v;
       return 1;
     }
   }
@@ -404,3 +421,5 @@ s32 func_8004BCC0(void **arg0, RayVec *arg1, void *arg2, f32 arg3)
   return 0;
 
 }
+
+
