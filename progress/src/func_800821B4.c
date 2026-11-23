@@ -90,13 +90,10 @@ void func_800821B4(void)
     { s32 w = func_800828EC(v & -(func_800828D8(v) >= 0x21));
     if (w != D_80115108[i].h) { D_80115108[i].h = w; D_80115108[i].f = w; } else { D_80115108[i].f = 0; } }
   }
-  n = 4;
-  if (gBorderSkipFlag != 0) { n = D_801002BA; }
-  if ((s16)n > 0)
+  if (gBorderSkipFlag == 0) { n = 4; } else { n = D_801002BA; }
   {
     s32 __block_var_s6;
-    __block_var_s6 = 0;
-    do
+    for (__block_var_s6 = 0; __block_var_s6 < (s16)n; __block_var_s6++)
     {
       s32 p8 = __block_var_s6 * 8;
       memset(D_80112E98, 0, 0x24);
@@ -119,163 +116,51 @@ void func_800821B4(void)
           switch (var_v0_3)
           {
             default:
-              if (temp_a2 != 0)
-            {
-              var_a0 = 1;
-            }
-            else
-              if (temp_a3 != 0)
-            {
-              var_a0 = 2;
-            }
-            else
-              if (temp_t0 != 0)
-            {
-              var_a0 = 3;
-            }
-            else
-            {
-              block_75:
-              var_a1 = 0;
-
-            }
+              if (temp_a2 != 0) { var_a0 = 1; }
+              else if (temp_a3 != 0) { var_a0 = 2; }
+              else if (temp_t0 != 0) { var_a0 = 3; }
+              else { var_a1 = 0; }
               break;
-
             case 1:
-              if (temp_a2)
-            {
-              D_80112E98[1] = 1;
-              var_a1 = 0;
-              if (((u32) temp_a3) != 0)
-              {
-                D_80112E98[2] = 1;
-              }
-            }
-            else
-            {
-              var_a0 = 0;
-            }
+              if (temp_a2 != 0) {
+                D_80112E98[1] = 1;
+                var_a1 = 0;
+                if (temp_a3 != 0) { D_80112E98[2] = 1; }
+              } else { var_a0 = 0; }
               break;
-
             case 2:
-              if (temp_a3)
-            {
-              if (temp_a2 != 0)
-              {
-                D_80112E98[5] = 1;
-                var_a0 = 4;
+              if (temp_a3 != 0) {
+                if (temp_a2 != 0) { D_80112E98[5] = 1; var_a0 = 4; }
+                else if (temp_t0 != 0) { D_80112E98[6] = 1; var_a0 = 5; }
+                else { var_a1 = 0; }
+              } else {
+                if (!(var_a0 & 8)) { D_80112E98[2] = 1; }
+                var_a0 = 0;
               }
-              else
-                if (temp_t0 != 0)
-              {
-                D_80112E98[6] = 1;
-                var_a0 = 5;
-              }
-              else
-              {
-                goto block_75;
-              }
-            }
-            else
-              if (!(var_a0 & 8))
-            {
-              D_80112E98[2] = 1;
-              block_65:
-              var_a0 = 0;
-
-            }
-            else
-            {
-              var_a0 = 0;
-            }
-              if (var_s2_2 || temp_a3)
-            {
               break;
-            }
-            else
-            {
-              break;
-            }
-
             case 3:
-              if (temp_t0)
-            {
-              if (((u32) temp_a2) != 0)
-              {
-                D_80112E98[3] = 1;
-                var_a0 = 6;
+              if (temp_t0 != 0) {
+                if (temp_a2 != 0) { D_80112E98[3] = 1; var_a0 = 6; }
+                else if (temp_a3 != 0) { D_80112E98[7] = 1; var_a0 = 7; }
+                else { var_a1 = 0; }
+              } else {
+                if (!(var_a0 & 8)) { D_80112E98[4] = 1; }
+                var_a0 = 0;
               }
-              else
-                if (temp_a3 != 0)
-              {
-                D_80112E98[7] = 1;
-                var_a0 = 7;
-              }
-              else
-              {
-                goto block_75;
-              }
-            }
-            else
-            {
-              if (!(var_a0 & 8))
-              {
-                D_80112E98[4] = 1;
-              }
-              goto block_65;
-            }
               break;
-
             case 4:
-              if (temp_a2 == 0)
-            {
-              var_a0 = temp_t2 & 0xA;
-            }
-            else
-            {
-              goto block_75;
-            }
+              if (temp_a2 != 0) { var_a1 = 0; } else { var_a0 = temp_t2 & 0xA; }
               break;
-
             case 5:
-              if (temp_t0 == 0)
-            {
-              var_a0 = temp_t2 & 0xA;
-            }
-            else
-            {
-              goto block_75;
-            }
-              do
-            {
+              if (temp_t0 != 0) { var_a1 = 0; } else { var_a0 = temp_t2 & 0xA; }
               break;
-            }
-            while (0);
-
             case 6:
-              if (temp_a2 == 0)
-            {
-              var_a0 = temp_t1 & 0xB;
-            }
-            else
-            {
-              goto block_75;
-            }
+              if (temp_a2 != 0) { var_a1 = 0; } else { var_a0 = temp_t1 & 0xB; }
               break;
-
             case 7:
-              if (temp_a3 == 0)
-            {
-              var_a0 = 0xB & temp_t1;
-            }
-            else
-            {
-              var_a1 = 0;
-            }
+              if (temp_a3 != 0) { var_a1 = 0; } else { var_a0 = temp_t1 & 0xB; }
               break;
-
           }
-
           var_v0_3 = var_a0 & 7;
         }
         while (var_a1 != 0);
@@ -326,9 +211,7 @@ void func_800821B4(void)
             break;
         }
       }
-      __block_var_s6 += 1;
     }
-    while (__block_var_s6 < (s16)n);
   }
 }
 
