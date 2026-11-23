@@ -27,9 +27,9 @@ void func_8007514C(void *obj)
   {
     return;
   }
-  objectIndex = *((s16 *) (((u8 *) obj) + 0x7C));
+  entryOffset = *((s16 *) (((u8 *) obj) + 0x7C));
   bonus = sBonusObjectTable;
-  mode = D_800C7EE8[objectIndex * 12];
+  mode = D_800C7EE8[entryOffset * 12];
   limit = 3.0f;
   actor = *((void **) (((u8 *) bonus) + 0x6C));
   force = 0;
@@ -57,29 +57,30 @@ void func_8007514C(void *obj)
     {
       return;
     }
+      near = force;
       goto check;
 
     case 4:
-      force = 1;
       if (!(*((u8 *) (((u8 *) actor) + 0x23C))))
     {
       return;
     }
+      force = 1;
       goto joined;
 
     case 5:
-      force = 1;
       if ((*((s8 *) (((u8 *) (*((void **) (((u8 *) sBonusObjectTable) + 0x68)))) + 0xE))) != 41)
     {
       return;
     }
+      force = 1;
       goto joined;
 
   }
 
   joined:
-  check:
   near = force;
+  check:
   bonus = ((u8 *) obj) + 0x24;
 
   if ((!near) && (!(Vec3_DistanceSq(bonus, ((u8 *) sBonusObjectTable) + 0x24) < limit)))
@@ -124,5 +125,6 @@ void func_8007514C(void *obj)
   }
   *((s32 *) (((u8 *) obj) + 0x60)) |= 1;
 }
+
 
 

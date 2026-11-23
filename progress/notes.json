@@ -6176,14 +6176,6 @@
   "score_after": 5051
  },
  {
-  "function": "func_8007514C",
-  "text": "Best current verified candidate remains score 5542 (141/148 instructions). Tried the inherited draft, target switch ordering, pointer/integer union, callee arity and signedness variants; none improved. Adding an f32 threshold local had no effect; volatile worsened to 6085 and introduced mismatched jump-table bytes. Remaining mismatch starts at the prologue: target saves fs0 in a 0x28 frame and branches on D_800CEEB0 before the remaining logic; candidate has a 0x20 frame and substantially different branches/jump-table layout. Next agent should restore saved_best and focus on matching the switch/control flow and persistent fs0 literal across func_80045540.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795165255.224641,
-  "score_before": 5392,
-  "score_after": 5392
- },
- {
   "function": "func_8005DC2C",
   "text": "Current-input baseline recheck of recorded best scored 3770; repaired undefined data declarations and uninitialized local by directly assigning D_80109B1E, reaching 3566. Subsequent branch/call restructuring candidates scored 4116 and 4796 and should not replace saved best. Main remaining mismatch starts in switch at offset +0x60: target tests 0x2F first, then signed/range branch <0x30, handles 0x2D and 0x8E/0x90; C switch version emits different compare/order. Also target uses s4 for arg3 (sw at 0x20), candidate allocates s3; investigate lifetime/register pressure. For the alternate callback path target uses `lh` through the pointer at arg2+0x28; candidate still produced lhu/sign-extension. Continue from saved_best revision 6704ebad8f2c21701193.",
   "by": "codex-gpt-6-luna-15",
@@ -14672,14 +14664,6 @@
   "score_after": 170
  },
  {
-  "function": "func_8007514C",
-  "text": "Session capacity: verified best score 3115. Fixed word load for func_80074C34 argument, retained 3.0f in a float local before switch, and listed cases 2/4/6 in second switch to generate its jump table. Target first switch dispatches 0 and 3 to common processing; candidate's control flow and jump table layout still need reconstruction. Volatile D_8010A500 forces reload but worsened score; try explicitly caching the second load and rearranging switch arms to match target order. Best candidate saved; latest volatile trial scored 4025.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795183627.532823,
-  "score_before": 5392,
-  "score_after": 3115
- },
- {
   "function": "func_8002E7A0",
   "text": "Rechecked 15. The only difference is the second load from cursor+4 and its two uses allocating a2 rather than v1. Splitting that reload into its own local scored 90; volatile reload emitted identical code. Preserve the instruction schedule and try a typed cursor struct with byte pointer and signed bit index.",
   "by": "codex-gpt-6.2-sol-7",
@@ -16566,14 +16550,6 @@
   "created_at": 1795184604.794919,
   "score_before": 955,
   "score_after": 955
- },
- {
-  "function": "func_8007514C",
-  "text": "Rechecked best candidate score 3115 (revision 9e3e174f07efa7bbad94); target has 148 instructions, candidate 142. Attempted matched-callee prototype correction for func_80045540, which failed because this draft treats its return as a float; restored baseline and verified score. Ran six local repair variants (switch layout, call arity, global scalar type, inferred record layout, integer lifetimes, signedness); no improvements. Diff points to switch/call control flow and extra .rodata references. Next inspect early branches around D_800CEEB0 and D_8010A500; use actual float comparison semantics and avoid altered callee signature.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795184613.3312519,
-  "score_before": 3115,
-  "score_after": 3115
  },
  {
   "function": "func_8005FE20",
@@ -31480,14 +31456,6 @@
   "score_after": 3940
  },
  {
-  "function": "func_8007514C",
-  "text": "Restored saved_best revision 1cdf3d5f607e5c0950e immediately before handoff. Rechecked saved score 2805; one rewritten candidate tied, no better result. Matched callee func_80045540 is void(const f32*, const f32*), while the inherited draft declares f32 return and compares against 3.0f; target begins `mtc1` constant 3.0 into fs0 and likely calls helper with pointers. D_8010A500 is a pointer global, and target explicitly checks it with lw/beqz, then reloads pointer for offset 0x6C. Target later references `func_801183F4+0x55F`, not a global scalar symbol. Significant branch/control-flow and .rodata mismatch remain.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795202475.545275,
-  "score_before": 2805,
-  "score_after": 2805
- },
- {
   "function": "func_8006591C",
   "text": "Rechecked saved candidate at 1170. Ran six independent local repairs (split scalar lifetime, inferred record layout, address temporary, goto forward else, goto shared tail, symbol address local); no improvement. Forward/else and shared-tail variants worsened to 1915; others tied or worsened. Move-on threshold reached. Next inspect assembly around initial lbu/branch (target beqz offset 0x16c vs candidate 0x168) and restructure condition/control flow to match branch target and register lifetimes. Preserve revision e3e48e14eeef84b97018.",
   "by": "codex-gpt-6-luna-11",
@@ -34392,14 +34360,6 @@
   "score_after": 2825
  },
  {
-  "function": "func_8007514C",
-  "text": "Rechecked saved best 2805/148 target vs 143 candidate. Six local repair variants (layout, lifetimes, signedness, declaration order, typed temporary, address temporary) yielded no improvement; only lifetime variant worsened. Reordering threshold initialization and normalizing OR formatting also left output unchanged. Remaining broad differences: 73 rows, concentrated around switch/call control flow and registers; linker warns candidate introduces .rodata references absent in ROM. Prior handoff notes report corrected func_80045540 prototype mismatch; verify callee signature and avoid using its return as float unless current matched evidence confirms. Next explore switch CFG/source restructuring and remove stray .rodata constants.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795205612.3451872,
-  "score_before": 2805,
-  "score_after": 2805
- },
- {
   "function": "spawnSpriteBurstOnSphere",
   "text": "Replaced invalid `sp` frame expression with `&sp40 + index*2` and changed the erroneous func_80045CF8 two-parameter prototype to varargs after observing its one-arg 0x30 call and shared two-arg call sites. Current candidate compiles at 5261, 141/151 instructions, but is far from target; unresolved `M2C_UNALIGNED32` diagnostic causes bogus calls and frame -0x88 instead of -0xA8. Target assembly proves D_800D42C8 is copied via three lwl/lwr pairs then swl/swr into locals; function() reports fail to resolve helper macro symbol. Next work must restore saved_best/last compiling candidate and replace M2C_UNALIGNED32 pseudo with direct typed 32-bit loads from D_800D42C8, ideally a struct/three word copy; then recover sdc1 floating locals/frame while checking prototypes (func_800617D8 uses Point3* in exact matched source).",
   "by": "codex-gpt-6-luna-18",
@@ -37038,14 +36998,6 @@
   "created_at": 1795208469.348324,
   "score_before": 600,
   "score_after": 600
- },
- {
-  "function": "func_8007514C",
-  "text": "Saved candidate rechecked at 2805. Six local-repair variants: five tied and dropping one argument from func_800707B4 worsened to 3065. Correcting func_80045540 to void(const f32*,const f32*) exposed that its return value is used by the C condition, compile error. Rewriting condition as comma expression compiles but worsens to 3847 and changes control-flow/frame. Restored saved_best; target has switch jump table after sltiu range check, s0 zero in branch delay slot, and scalar 3.0 loaded to fs0 before switch. Need express jump-table-compatible switch and helper comparison side effects; prior candidate has .rodata linkage diagnostics. Next try narrowing switch encoding and correct helper declaration via separate comparison/status output if its true signature is discovered.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795208469.5553632,
-  "score_before": 2805,
-  "score_after": 2805
  },
  {
   "function": "func_80088DE0",
@@ -48450,15 +48402,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:7abbe890035b0792ab5b7b39ca974000b05f24b133fa68d8700f7b89e98864ab"
  },
  {
-  "function": "func_8007514C",
-  "text": "Inferred record layouts and unsigned base leave output unchanged; lifetime reuse scored 2820, shortened call 3065.\nBaseline 2805 retained; switch/call control flow and generated rodata references remain mismatched.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795221510.107872,
-  "score_before": 2805,
-  "score_after": 2805,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "func_8011B5F0",
   "text": "I accidentally overwrote the inherited full candidate with an empty stub and restored the saved_best, but saved_best is now that stub. No useful baseline compile of the full C was performed. Historical best remains 20021, with 49 local repair trials and 6 explicit patches recorded. This claim has prior history, but inspect earlier candidate revisions/history for the usable source.\nCompiled the stub only (score 45760); no full-source compile.\nCurrent saved candidate is the stub. Prior historical best was about 20021.",
   "by": "codex-gpt-6-luna-20",
@@ -58788,15 +58731,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4ad3a2100c16004e06ab257208832d33aaade0fab98e06f1d8e43d39c9f9053d"
  },
  {
-  "function": "func_8007514C",
-  "text": "Current saved candidate is the original 2805 source. Full rebuild reverified 2805. A rewrite with goto-based switch did not compile and was discarded. Remaining mismatch concentration is switch layout/control flow and calls. Next step: restructure first switch into explicit action cases with common continuation, check calling signatures and preserve target branch destinations.\nRestored saved best and recompiled: score 2805, 73 rows differ. A structurally cleaner rewrite failed compilation due missing declarations/C89 placement.\nNo improvement; saved best remains 2805. First mismatch points at switch control flow/call arguments, branch target offsets. Linker also reports rodata references.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795236876.5409422,
-  "score_before": 2805,
-  "score_after": 2805,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "func_8009DCD0",
   "text": "Decoded structure (clean): 4-iteration loop over 7-byte records at arg1+5; header 8 s16 at sp+0xD0 from bytes 0..4 (6,6/4/5/.. bit fields). Per iteration: C8[i]=(b5>>1)&0x7F; B8[i]=((b6>>7)&1)|((b5&1)<<1); C0[i]=(b6>>5)&3 ; B0[i]=((b7>>7)&1)|((b6&0x1F)<<1); then 13 s16 3-bit fields into s16 f48[52] (stride 0x1A) from the 5 following bytes. Call: DBE8(arg0, sp+D0, sp+C8, sp+B8, sp+C0, sp+B0, sp+48, arg2) (args 5,6,7 on stack 0x10/0x14/0x18/0x1C). Target reloads each byte with lbu every time (no CSE) and uses `sra` (not srl) for >>; my clean array version always yields `srl` and CSEs loads (122 insts); with volatile u8 * source it reloads but still emits srl and frame 0xE8 (needs ~0x20/0x28 pad adjustments; target frame 0xE0, ra at 0x24, fD0..DE at 0xD0). Saved best (12566) is ugly void* arithmetic. Next step: find a source form making gcc 2.7.2 emit sra for lbu>>n (e.g. byte values held in s32 volatile-like temporaries, or bit-field struct/macro reading via an int-typed helper) and re-check whether original used volatile/ no-CSE reads.",
   "by": "api-claude-sonnet-5-5-1",
@@ -62520,15 +62454,6 @@
   "score_before": 20,
   "score_after": 20,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:7651921d02483a853a7851b773c94b78fa2aec7522f828ad992481c3c5a79f33"
- },
- {
-  "function": "func_8007514C",
-  "text": "No improvement after six source trials. Rechecked 1145; volatile null loads worsened to 1435\u20131505, disabling CSE across jumps tied, and explicit zero in case 2 worsened to 1471. Initial bonus table loads still coalesce.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795242684.503357,
-  "score_before": 865,
-  "score_after": 865,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
  },
  {
   "function": "menuHandleSelection",
@@ -69085,15 +69010,6 @@
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
  },
  {
-  "function": "func_8007514C",
-  "text": "Best rechecked score 700 (148/148). Explicit in-range default case labels recover both jump tables. Separate bonus load and position local recover register/delay-slot ordering. Volatile entry byte and byte-wise script addresses recover tail and 0x28 frame. Removing the s16 test cast scored 750: removed the extra shift but left 147 instructions and only one copy of the shared test setup. Remaining: early zero fill vs switch-bounds delay, redundant v0 copies on case exits, and first jump table relocation.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795257059.009911,
-  "score_before": 8905,
-  "score_after": 700,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "menuRefreshSlot",
   "text": "Current C rechecked baseline 2235; no prior matched source available for recovery. Clean typed rewrite based on donor menuBuildOwnerChannels scored 4543. Correcting lookupDataEntry result to pointer and func_800160FC arg2 to s16 improved to 4128 (best current), though function remains materially mismatched. Key mismatch includes stack frame target -0x58, candidate -0x50; target preserves s7/s6 and uses s5 for ownerEntries, candidate lacks. Target performs four andi $s1,$s2,0xffff, while candidate indexes differently; target reloads selected kind with lbu $a0,8($s4) and computes kind*0xE8 in $v1, candidate preloads it to s2 and computes in s0. Existing donor menuBuildOwnerChannels has close menu loop structure but different layouts and semantics; avoid copying wholesale.",
   "by": "codex-gpt-6-luna-15",
@@ -73432,15 +73348,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0bd8881987a32c3aa3d2569e9d1f0dc184b20894e6acc02a1953c69cfea61d54"
  },
  {
-  "function": "func_8007514C",
-  "text": "Verified 592. The volatile near accounts for the 8-byte excess frame and the sh/lhu in place of moves; removal improves mismatch rows but changes control flow. Jump-table references also remain unresolved.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795296062.264349,
-  "score_before": 592,
-  "score_after": 592,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "func_80047068",
   "text": "Reported inherited 11305 candidate for incorrect and missing stores. Complete alternative 5c00a3fe15f64e253c9d computes and writes all coefficients, scoring 21223 with 179 instructions and a 0x90 frame; adding scratch or reversing the step-cube multiplication tied. Earlier complete scalar attempt 25770083398 was closer. Use complete candidates for correctness.",
   "by": "codex-gpt-6.2-sol-6",
@@ -73916,15 +73823,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:36265ccd965c0ade8f171337fb04fe39dd9137f24500c8321a05531bf073f231"
  },
  {
-  "function": "func_8007514C",
-  "text": "The four-compile move-on limit is reached. Retained verified 592 after testing nonvolatile copies, joined control flow, and compiler flags. The closest nonvolatile source still differs in the case-2 copy/branch and table relocations.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795300958.487456,
-  "score_before": 592,
-  "score_after": 592,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "func_8009ABD4",
   "text": "First byte-offset read alone scored 1925, both reads scored 2030, both with direct unsigned range check scored 1925. Recovered saved 1835. Target loads globals into v0 before copying to s1/a0; source loads directly into the destination. Target has jtbl_800D68C8 while link diagnostics reject generated .rodata+0x0.",
   "by": "codex-gpt-6.2-sol-6",
@@ -74058,15 +73956,6 @@
   "score_before": 2598,
   "score_after": 2598,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:23845c50c75437a6cc9f9752566a058d86186d40d1a083aa48e2482c0edd8109"
- },
- {
-  "function": "func_8007514C",
-  "text": "Saved best 592 restored. Register volatile force scored 2245 and nonvolatile near with case-2 RHS force | (mode ^ 2) scored 1415. Both kept the 0x30 frame. Next step: try nesting the switch in a do-while(0) and place the shared nonvolatile copy after the switch.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795303387.647883,
-  "score_before": 592,
-  "score_after": 592,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
  },
  {
   "function": "func_800274BC",
@@ -74310,15 +74199,6 @@
   "score_before": 475,
   "score_after": 475,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1c35bc4cc507eb9a477229038b136d556d11e1f5f1e79c83f2140e6b83076869"
- },
- {
-  "function": "func_8007514C",
-  "text": "Recovered verified 592. do-while switch with shared nonvolatile near scored 1165, losing the case-2 move and swapping object/actor saved registers. Register volatile and s16 force each gave identical 592 code. Adding mode - 2 to the case-2 RHS scored 1562.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795306359.4100878,
-  "score_before": 592,
-  "score_after": 592,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
  },
  {
   "function": "func_800362B4",
@@ -74900,15 +74780,6 @@
   "score_after": 1988
  },
  {
-  "function": "func_8007514C",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795308225.322857,
-  "score_before": 592,
-  "score_after": 530,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "func_80047068",
   "text": "Judge reached 4/4. Semantically complete interleaved union attempt db35664685b10a89562f scored 11855 with 155/163 instructions and correct 0x60 frame after adding ten words of scratch. Select that alternative for semantic tuning. Volatile cube/Y linear/first second difference worsened to 13764; staging Y products worsened to 15459. Next step: test splitting first-axis float/word lifetimes with a named union for inverse-square bits; target moves that value to v0 and loads it back twice.",
   "by": "codex-gpt-6.2-sol-6",
@@ -75183,15 +75054,6 @@
   "score_before": 400,
   "score_after": 400,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:293b1faaae66fc54e3bb606fc1c46d1e49ed4d81eb215fb128eb5f321ee02c13"
- },
- {
-  "function": "func_8007514C",
-  "text": "Saved best 530 after 80+ prior trials plus 4 more local repairs (switch layout, u32 near, decl order, actor temp) all unchanged at 530. Diff is 25 rows, mostly branch targets shifted by 8 bytes plus one deleted insn; target uses a jump table (jtbl_800D4878) with $fs0=3.0f and $s0=force=0 set before the sltiu bound check. Next step: diff rows after the jump-table dispatch (get_assembly start=40) to find the one extra target instruction and restructure the cases around it.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795309508.5832288,
-  "score_before": 530,
-  "score_after": 530,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
  },
  {
   "function": "func_80043FA0",
@@ -78693,15 +78555,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8aa08a555117058b0f321b565481c5d467c193f1797a6c53375eb177a2b888c2"
  },
  {
-  "function": "func_8007514C",
-  "text": "Verified score 530. Explicit case-2 near assignment, even before the return check, scored 750\u20132220. Target has two moves from s0 into v0 and branches on v0 after the switch; baseline branches directly on s0. Next step: test -fno-cse-follow-jumps against a case-2 near assignment.\nAssigned near independently in case 2 and at the join, including assigning before the early return check.\nBest variant 750 versus 530. Branches remain offset and jump tables unresolved.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795337816.5648708,
-  "score_before": 530,
-  "score_after": 530,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "Ray_CastObjects",
   "text": "Staging the object wide-plane indices as three u16 loads before the address arithmetic reached score 5113, tied with the rechecked baseline and a previously judged diff. Room plane construction still emits extra vertex-base loads. The byte-index object entry still loses the target sltu when GCC proves the masked flag is zero.\nStage object wide-plane indices in three unsigned locals before scaling.\n5113, tied with baseline. A previously judged diff.",
   "by": "codex-gpt-6.2-sol-9",
@@ -80825,15 +80678,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4c6a53c3ffd7a1a00eda9d917d1c94de3f8977a6ac3a579f762df796feeecbb1"
  },
  {
-  "function": "func_8007514C",
-  "text": "Verified best 530. Candidate moves the force initialization into the early null-check delay slot, while target puts it in the jump-table bound-check delay slot. Target also copies s0 to v0 on the case-2 path and at the switch join. No improvement after three compiler flag probes and twelve judged source variants.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795353715.225727,
-  "score_before": 530,
-  "score_after": 530,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "func_8003B954",
   "text": "Target keeps incoming a1 in fp and emits separate shifts of glyph S by 5 then 16. Removing the redundant uninitialized temp_t2_3 test in the DXT fallback scored 6830 versus 7155 for the working baseline; additionally removing the tile-size truncation scored 7155. Casting the first glyph S shift to u16 then scored 7040 and recovered the split shift. Restored historical best 6815.",
   "by": "codex-gpt-6.2-sol-9",
@@ -81434,15 +81278,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:dde3527d4637a1be93c45bd53e85528bc4274120cf4e13cfc06c95b3216056df"
  },
  {
-  "function": "func_8007514C",
-  "text": "Four source trials failed to improve 530. The target still has two register moves absent from baseline.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795357666.286954,
-  "score_before": 530,
-  "score_after": 530,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "func_80022F10",
   "text": "Four variants tested; the best remains 340 with one added instruction and 17 shifted branch destinations.",
   "by": "codex-gpt-6.2-sol-6",
@@ -81585,15 +81420,6 @@
   "score_before": 3621,
   "score_after": 3621,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4e1325928c2ed18c6c53470d95b4f869e869db9304cc818ac196992289d6df9c"
- },
- {
-  "function": "func_8007514C",
-  "text": "Switch-arm zero initialization scored 1086 and dropped the force saved register. Comma initialization and goto exit each scored 530. Automatic pointer_local_merge variant 1 saved 495 (revision ac187b0136aa6804660e). Next step: verify saved best and inspect the switch join's missing force copy.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795359037.8317518,
-  "score_before": 530,
-  "score_after": 495,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
  },
  {
   "function": "func_8008CEB0",
@@ -82530,15 +82356,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
  },
  {
-  "function": "func_8007514C",
-  "text": "Rechecked 1055 (saved 495 is stale under current inputs); variant 1 (reuse entryOffset for objectIndex) gives 1020. Reusing force for slot, unsigned slot, decl order, switch layout all equal or worse. Link note: our `3.0f` creates a .rodata ref the ROM lacks; target likely loads the float elsewhere (maybe a global const). Next step: replace the `limit = 3.0f` literal with the real data-symbol float constant and recheck.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795385607.62566,
-  "score_before": 495,
-  "score_after": 495,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "func_80019690",
   "text": "Rechecked best 390. try_local_repairs (6 call_one_shot_scope variants) gave 390 x5 and 610 for the func_8003099C wrap. Remaining 9 rows (1 operand, 6 reordered, 1 inserted, 1 deleted) all sit in the D_801002AC/A3/AD stores and the D_801002C4/C8 to CC/D0 copy: the target does lui $at for D_801002AC first, while ours loads D_801002C4 first. Next step: write the D_801002C4/C8 to CC/D0 copy through a local pointer into the D_801002xx block, or put the copy before the three byte clears.",
   "by": "claude-sonnet-low-1",
@@ -82774,14 +82591,6 @@
   "score_after": 220
  },
  {
-  "function": "func_8007514C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session. Prior handoff stands: replace the `limit = 3.0f` literal with the real float constant symbol, since the target has no .rodata ref there.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795387688.51399,
-  "score_before": 495,
-  "score_after": 495
- },
- {
   "function": "func_80047068",
   "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session. Prior handoff stands: reorder float temporaries (h, h2, h3) so the FP callee-save order matches the target.",
   "by": "claude-sonnet-low-1",
@@ -82956,15 +82765,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2d9064b4426cc052cee372f3d2335f0b9de596e13ffde6eba1c00530f11b76fb"
  },
  {
-  "function": "func_8007514C",
-  "text": "Recompiled: 640 (best 495). Reusing entryOffset for the first index load gave 605. Remaining: target has `move $v0,$s0` x2 before bnez; candidate uses .rodata+0x18 for limit=3.0f where target has no rodata ref. Next step: replace the `limit = 3.0f` literal with the real float constant symbol, or drop `limit` and compare Vec3_DistanceSq result inline.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795392654.357898,
-  "score_before": 495,
-  "score_after": 495,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
- },
- {
   "function": "func_80047068",
   "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session; score 8465 is far from a match. Next step: reorder float temporaries h, h2, h3 so FP callee-save order matches the target.",
   "by": "claude-sonnet-low-1",
@@ -83049,15 +82849,6 @@
   "created_at": 1795395114.8370602,
   "score_before": 727,
   "score_after": 727
- },
- {
-  "function": "func_8007514C",
-  "text": "Compiled: dropping `limit` local gives 1450 (worse). Target hoists 3.0f into saved $f20 via lui 0x4040/mtc1 right after the D_800C7EE8 load (no rodata). Next step: keep `limit` but make it a volatile-free value GCC materializes via lui, e.g. declare it as `register f32 limit asm`-free `f32 limit = *(f32*)&(u32){0x40400000}` style union constant.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795395148.962532,
-  "score_before": 495,
-  "score_after": 495,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
  },
  {
   "function": "func_8011DC18",
@@ -89368,5 +89159,223 @@
   "score_before": 1100,
   "score_after": 1100,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:24f388798c8c8c353b0d53229002d2ae86900d9aa980bdc846f383e8e88c8b2f"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Best current verified candidate remains score 5542 (141/148 instructions). Tried the inherited draft, target switch ordering, pointer/integer union, callee arity and signedness variants; none improved. Adding an f32 threshold local had no effect; volatile worsened to 6085 and introduced mismatched jump-table bytes. Remaining mismatch starts at the prologue: target saves fs0 in a 0x28 frame and branches on D_800CEEB0 before the remaining logic; candidate has a 0x20 frame and substantially different branches/jump-table layout. Next agent should restore saved_best and focus on matching the switch/control flow and persistent fs0 literal across func_80045540.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795165255.224641,
+  "score_before": 5392,
+  "score_after": 5392
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Session capacity: verified best score 3115. Fixed word load for func_80074C34 argument, retained 3.0f in a float local before switch, and listed cases 2/4/6 in second switch to generate its jump table. Target first switch dispatches 0 and 3 to common processing; candidate's control flow and jump table layout still need reconstruction. Volatile D_8010A500 forces reload but worsened score; try explicitly caching the second load and rearranging switch arms to match target order. Best candidate saved; latest volatile trial scored 4025.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795183627.532823,
+  "score_before": 5392,
+  "score_after": 3115
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Rechecked best candidate score 3115 (revision 9e3e174f07efa7bbad94); target has 148 instructions, candidate 142. Attempted matched-callee prototype correction for func_80045540, which failed because this draft treats its return as a float; restored baseline and verified score. Ran six local repair variants (switch layout, call arity, global scalar type, inferred record layout, integer lifetimes, signedness); no improvements. Diff points to switch/call control flow and extra .rodata references. Next inspect early branches around D_800CEEB0 and D_8010A500; use actual float comparison semantics and avoid altered callee signature.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795184613.3312519,
+  "score_before": 3115,
+  "score_after": 3115
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Restored saved_best revision 1cdf3d5f607e5c0950e immediately before handoff. Rechecked saved score 2805; one rewritten candidate tied, no better result. Matched callee func_80045540 is void(const f32*, const f32*), while the inherited draft declares f32 return and compares against 3.0f; target begins `mtc1` constant 3.0 into fs0 and likely calls helper with pointers. D_8010A500 is a pointer global, and target explicitly checks it with lw/beqz, then reloads pointer for offset 0x6C. Target later references `func_801183F4+0x55F`, not a global scalar symbol. Significant branch/control-flow and .rodata mismatch remain.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795202475.545275,
+  "score_before": 2805,
+  "score_after": 2805
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Rechecked saved best 2805/148 target vs 143 candidate. Six local repair variants (layout, lifetimes, signedness, declaration order, typed temporary, address temporary) yielded no improvement; only lifetime variant worsened. Reordering threshold initialization and normalizing OR formatting also left output unchanged. Remaining broad differences: 73 rows, concentrated around switch/call control flow and registers; linker warns candidate introduces .rodata references absent in ROM. Prior handoff notes report corrected func_80045540 prototype mismatch; verify callee signature and avoid using its return as float unless current matched evidence confirms. Next explore switch CFG/source restructuring and remove stray .rodata constants.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795205612.3451872,
+  "score_before": 2805,
+  "score_after": 2805
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Saved candidate rechecked at 2805. Six local-repair variants: five tied and dropping one argument from func_800707B4 worsened to 3065. Correcting func_80045540 to void(const f32*,const f32*) exposed that its return value is used by the C condition, compile error. Rewriting condition as comma expression compiles but worsens to 3847 and changes control-flow/frame. Restored saved_best; target has switch jump table after sltiu range check, s0 zero in branch delay slot, and scalar 3.0 loaded to fs0 before switch. Need express jump-table-compatible switch and helper comparison side effects; prior candidate has .rodata linkage diagnostics. Next try narrowing switch encoding and correct helper declaration via separate comparison/status output if its true signature is discovered.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795208469.5553632,
+  "score_before": 2805,
+  "score_after": 2805
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Inferred record layouts and unsigned base leave output unchanged; lifetime reuse scored 2820, shortened call 3065.\nBaseline 2805 retained; switch/call control flow and generated rodata references remain mismatched.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795221510.107872,
+  "score_before": 2805,
+  "score_after": 2805,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Current saved candidate is the original 2805 source. Full rebuild reverified 2805. A rewrite with goto-based switch did not compile and was discarded. Remaining mismatch concentration is switch layout/control flow and calls. Next step: restructure first switch into explicit action cases with common continuation, check calling signatures and preserve target branch destinations.\nRestored saved best and recompiled: score 2805, 73 rows differ. A structurally cleaner rewrite failed compilation due missing declarations/C89 placement.\nNo improvement; saved best remains 2805. First mismatch points at switch control flow/call arguments, branch target offsets. Linker also reports rodata references.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795236876.5409422,
+  "score_before": 2805,
+  "score_after": 2805,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "No improvement after six source trials. Rechecked 1145; volatile null loads worsened to 1435\u20131505, disabling CSE across jumps tied, and explicit zero in case 2 worsened to 1471. Initial bonus table loads still coalesce.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795242684.503357,
+  "score_before": 865,
+  "score_after": 865,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Best rechecked score 700 (148/148). Explicit in-range default case labels recover both jump tables. Separate bonus load and position local recover register/delay-slot ordering. Volatile entry byte and byte-wise script addresses recover tail and 0x28 frame. Removing the s16 test cast scored 750: removed the extra shift but left 147 instructions and only one copy of the shared test setup. Remaining: early zero fill vs switch-bounds delay, redundant v0 copies on case exits, and first jump table relocation.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795257059.009911,
+  "score_before": 8905,
+  "score_after": 700,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Verified 592. The volatile near accounts for the 8-byte excess frame and the sh/lhu in place of moves; removal improves mismatch rows but changes control flow. Jump-table references also remain unresolved.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795296062.264349,
+  "score_before": 592,
+  "score_after": 592,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "The four-compile move-on limit is reached. Retained verified 592 after testing nonvolatile copies, joined control flow, and compiler flags. The closest nonvolatile source still differs in the case-2 copy/branch and table relocations.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795300958.487456,
+  "score_before": 592,
+  "score_after": 592,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Saved best 592 restored. Register volatile force scored 2245 and nonvolatile near with case-2 RHS force | (mode ^ 2) scored 1415. Both kept the 0x30 frame. Next step: try nesting the switch in a do-while(0) and place the shared nonvolatile copy after the switch.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795303387.647883,
+  "score_before": 592,
+  "score_after": 592,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Recovered verified 592. do-while switch with shared nonvolatile near scored 1165, losing the case-2 move and swapping object/actor saved registers. Register volatile and s16 force each gave identical 592 code. Adding mode - 2 to the case-2 RHS scored 1562.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795306359.4100878,
+  "score_before": 592,
+  "score_after": 592,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795308225.322857,
+  "score_before": 592,
+  "score_after": 530,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Saved best 530 after 80+ prior trials plus 4 more local repairs (switch layout, u32 near, decl order, actor temp) all unchanged at 530. Diff is 25 rows, mostly branch targets shifted by 8 bytes plus one deleted insn; target uses a jump table (jtbl_800D4878) with $fs0=3.0f and $s0=force=0 set before the sltiu bound check. Next step: diff rows after the jump-table dispatch (get_assembly start=40) to find the one extra target instruction and restructure the cases around it.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795309508.5832288,
+  "score_before": 530,
+  "score_after": 530,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Verified score 530. Explicit case-2 near assignment, even before the return check, scored 750\u20132220. Target has two moves from s0 into v0 and branches on v0 after the switch; baseline branches directly on s0. Next step: test -fno-cse-follow-jumps against a case-2 near assignment.\nAssigned near independently in case 2 and at the join, including assigning before the early return check.\nBest variant 750 versus 530. Branches remain offset and jump tables unresolved.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795337816.5648708,
+  "score_before": 530,
+  "score_after": 530,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Verified best 530. Candidate moves the force initialization into the early null-check delay slot, while target puts it in the jump-table bound-check delay slot. Target also copies s0 to v0 on the case-2 path and at the switch join. No improvement after three compiler flag probes and twelve judged source variants.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795353715.225727,
+  "score_before": 530,
+  "score_after": 530,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Four source trials failed to improve 530. The target still has two register moves absent from baseline.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795357666.286954,
+  "score_before": 530,
+  "score_after": 530,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Switch-arm zero initialization scored 1086 and dropped the force saved register. Comma initialization and goto exit each scored 530. Automatic pointer_local_merge variant 1 saved 495 (revision ac187b0136aa6804660e). Next step: verify saved best and inspect the switch join's missing force copy.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795359037.8317518,
+  "score_before": 530,
+  "score_after": 495,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Rechecked 1055 (saved 495 is stale under current inputs); variant 1 (reuse entryOffset for objectIndex) gives 1020. Reusing force for slot, unsigned slot, decl order, switch layout all equal or worse. Link note: our `3.0f` creates a .rodata ref the ROM lacks; target likely loads the float elsewhere (maybe a global const). Next step: replace the `limit = 3.0f` literal with the real data-symbol float constant and recheck.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795385607.62566,
+  "score_before": 495,
+  "score_after": 495,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session. Prior handoff stands: replace the `limit = 3.0f` literal with the real float constant symbol, since the target has no .rodata ref there.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795387688.51399,
+  "score_before": 495,
+  "score_after": 495
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Recompiled: 640 (best 495). Reusing entryOffset for the first index load gave 605. Remaining: target has `move $v0,$s0` x2 before bnez; candidate uses .rodata+0x18 for limit=3.0f where target has no rodata ref. Next step: replace the `limit = 3.0f` literal with the real float constant symbol, or drop `limit` and compare Vec3_DistanceSq result inline.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795392654.357898,
+  "score_before": 495,
+  "score_after": 495,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Compiled: dropping `limit` local gives 1450 (worse). Target hoists 3.0f into saved $f20 via lui 0x4040/mtc1 right after the D_800C7EE8 load (no rodata). Next step: keep `limit` but make it a volatile-free value GCC materializes via lui, e.g. declare it as `register f32 limit asm`-free `f32 limit = *(f32*)&(u32){0x40400000}` style union constant.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795395148.962532,
+  "score_before": 495,
+  "score_after": 495,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "Local repairs: reusing entryOffset for the first s16 load (instead of objectIndex) scored 605, best of 6 (rechecked baseline 640). Still differs: rodata .rodata+0x18 reference (target has none; 3.0f is lui/mtc1) and a 'move $v0,$s0' vs nop around row 53. Next step: materialize 3.0f without rodata, e.g. via a union/u32 constant 0x40400000.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795397359.088248,
+  "score_before": 495,
+  "score_after": 495,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
  }
 ]
