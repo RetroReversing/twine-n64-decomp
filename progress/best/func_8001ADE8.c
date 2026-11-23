@@ -218,31 +218,42 @@ void func_8001ADE8(void)
 
     if ((*((u8 *) (((char *) gSaveMenuState) + 8))) != 1)
     {
-      void *sound;
       temp_v1_3 = *((void **) (((char *) gSaveMenuState) + 0x18));
       temp_v0_2 = *((u16 *) (((char *) temp_v1_3) + 0xC));
       temp_a0_2 = temp_v0_2 & 0xF;
       if (temp_a0_2 != 0)
       {
-        sound = *((void **) (((char *) temp_v1_3) + 8));
-        var_v0 = sMenuItemParamTable[temp_a0_2];
-        var_a0 = *((u8 *) (((char *) gSaveMenuState) + 0x30));
+        void *sound1;
+        s32 v1_;
+        s32 a1_;
+        sound1 = *((void **) (((char *) temp_v1_3) + 8));
+        v1_ = sMenuItemParamTable[temp_a0_2];
+        a1_ = *((u8 *) (((char *) gSaveMenuState) + 0x30));
+        *((s32 *) (((char *) sound1) + 0x10)) = (v1_ & (~0xFF)) | a1_;
       }
       else
       {
         if (temp_v0_2 & 0x80)
         {
-          sound = *((void **) (((char *) temp_v1_3) + 8));
-          var_v0 = D_80102EBC;
+          void *sound2;
+          s32 v2_;
+          s32 a2_;
+          sound2 = *((void **) (((char *) temp_v1_3) + 8));
+          v2_ = D_80102EBC;
+          a2_ = *((u8 *) (((char *) sound2) + 0x13));
+          *((s32 *) (((char *) sound2) + 0x10)) = (v2_ & (~0xFF)) | a2_;
         }
         else
         {
-          sound = *((void **) (((char *) temp_v1_3) + 8));
-          var_v0 = D_80102EC4;
+          void *sound3;
+          s32 v3_;
+          s32 a3_;
+          sound3 = *((void **) (((char *) temp_v1_3) + 8));
+          v3_ = D_80102EC4;
+          a3_ = *((u8 *) (((char *) sound3) + 0x13));
+          *((s32 *) (((char *) sound3) + 0x10)) = (v3_ & (~0xFF)) | a3_;
         }
-        var_a0 = *((u8 *) (((char *) sound) + 0x13));
       }
-      *((s32 *) (((char *) sound) + 0x10)) = (var_v0 & (~0xFF)) | var_a0;
       menuState = gSaveMenuState;
       *((u8 *) (((char *) gSaveMenuState) + 8)) = 1U;
 
@@ -253,19 +264,19 @@ void func_8001ADE8(void)
           temp_v0_4 = (*((u16 *) (((char *) temp_v0_3) + 0xC))) & 0xF;
           if (temp_v0_4 != 0)
           {
-            var_v0_2 = sMenuItemParamTable[temp_v0_4]; var_a0_3 = *((u8 *) (((char *) menuState) + 0x30));
+            s32 v4_;
+            s32 a4_;
+            v4_ = sMenuItemParamTable[temp_v0_4];
+            a4_ = *((u8 *) (((char *) menuState) + 0x30));
+            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((v4_ & (~0xFF)) | a4_);
           }
           else
           {
-            var_v0_2 = D_80102EC0; var_a0_3 = *((u8 *) (((char *) temp_a1) + 0x13));
-          }
-          if (D_800D285C)
-          {
-            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((var_v0_2 & (~0xFF)) | var_a0_3);
-          }
-          else
-          {
-            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((var_v0_2 & (~0xFF)) | var_a0_3);
+            s32 v5_;
+            s32 a5_;
+            v5_ = D_80102EC0;
+            a5_ = *((u8 *) (((char *) temp_a1) + 0x13));
+            *((s32 *) (((char *) temp_a1) + 0x10)) = (s32) ((v5_ & (~0xFF)) | a5_);
           }
         }
         layoutTextBox(*((s32 *) (((char *) gSaveMenuState) + 0x1C)), *((void **) (((char *) gSaveMenuState) + 0x18)), 0);

@@ -63,6 +63,7 @@ inline static u32 inline_fn2()
 
 void func_800358D4(void *arg0)
 {
+    s32 *hoist_D_80112F90;
   union 
   {
     unsigned char bytes[144];
@@ -264,6 +265,7 @@ void func_800358D4(void *arg0)
 
     if (var_fp != NULL)
     {
+      hoist_D_80112F90 = &D_80112F90;
       for (;;)
       {
         var_s3 = *((void **) (((char *) var_fp) + 0x14));
@@ -279,8 +281,8 @@ void func_800358D4(void *arg0)
                 temp_a1_2 = (void *) (*((s32 *) (&sMatrixPoolUsed))); temp_v0_2 = (u32) temp_a1_2 + 1;
                 *((s32 *) (&sMatrixPoolUsed)) = temp_v0_2;
                 var_s4 = temp_v0_2 << 6; D_8010D538 = ((Field_s32 *) (((char *) sRenderState) + 0x74C))->v + var_s4;
-                func_800083DC(&D_80112F90, m2c_initial_frame.view_sp28.value * 64.0f, m2c_initial_frame.view_sp2C.value * 64.0f, m2c_initial_frame.view_sp30.value * 64.0f, m2c_initial_frame.view_sp94.value);
-                guMtxF2L(&D_80112F90, D_8010D538);
+                func_800083DC(hoist_D_80112F90, m2c_initial_frame.view_sp28.value * 64.0f, m2c_initial_frame.view_sp2C.value * 64.0f, m2c_initial_frame.view_sp30.value * 64.0f, m2c_initial_frame.view_sp94.value);
+                guMtxF2L(hoist_D_80112F90, D_8010D538);
                 ((Field_s32 *) (((char *) D_80115328) + 0))->v = 0xDA380003;
                 ((Field_s32 *) (((char *) D_80115328) + 4))->v = (s32) inline_fn(0x80000000);
                 ((Field_s32 *) (((char *) D_80115328) + 8))->v = 0xFA000000;
@@ -363,10 +365,10 @@ void func_800358D4(void *arg0)
                         temp_v0_3 = (*((s32 *) (&sMatrixPoolUsed))) + 1;
                         D_8010D538 = ((Field_s32 *) (((char *) sRenderState) + 0x74C))->v + (temp_v0_3 << 6);
                         *((s32 *) (&sMatrixPoolUsed)) = temp_v0_3;
-                        guTranslateF(&D_80112F90, m2c_initial_frame.view_sp80.value * 64.0f, m2c_initial_frame.view_sp84.value * 64.0f, m2c_initial_frame.view_sp88.value * 64.0f);
+                        guTranslateF(hoist_D_80112F90, m2c_initial_frame.view_sp80.value * 64.0f, m2c_initial_frame.view_sp84.value * 64.0f, m2c_initial_frame.view_sp88.value * 64.0f);
                         func_800A3940(&sParentMatrixF, temp_fs0, temp_fs0, temp_fs0);
-                        func_800A3840(&sParentMatrixF, &D_80112F90, &D_80112F90);
-                        guMtxF2L(&D_80112F90, D_8010D538);
+                        func_800A3840(&sParentMatrixF, hoist_D_80112F90, hoist_D_80112F90);
+                        guMtxF2L(hoist_D_80112F90, D_8010D538);
                         temp_v1_4 = D_80109CB8;
                         temp_a1_2 = temp_v1_4 + 8;
                         ((Field_s32 *) (((char *) temp_v1_4) + 4))->v = (s32) inline_fn(0x80000000);

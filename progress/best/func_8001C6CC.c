@@ -51,7 +51,7 @@ inline static int inline_fn234(s32 arg0)
 
 inline static u8 *inline_fn2345(int arg0, u16 arg1, u8 *arg2)
 {
-  return arg0 + inline_fn23(arg1 * 8, arg2 + 0x18);
+  return inline_fn23(inline_fn23(arg2 + 0x18, arg1 * 8), arg0);
 }
 
 void func_8001C6CC(void)
@@ -67,7 +67,7 @@ void func_8001C6CC(void)
   s32 var_s2;
   s32 temp_v0;
   void *temp_s0_2;
-  do  {
+  {
     D_80102CBC = 0;
     D_80102CBE = 0;
     D_80102CC0 = 0;
@@ -81,16 +81,17 @@ void func_8001C6CC(void)
       temp_s5 = lookupItemSlotIndex(func_80030C58());
       var_s2 = temp_s5;
       temp_v0 = func_800316B8();
-      __repair_phase_temp_s0 = temp_s5 & 0xFFFF;
-      temp_s0 = __repair_phase_temp_s0 * 0x18;
-      if (((timerGetTotalSeconds(inline_fn23((temp_v0 * 8) + (&D_80117428), temp_s0)) << 0x10) == 0) || ((p_ee0 += 0x1C, func_8002B2B0(inline_fn23(((u16) func_800316B8()) * 8, &D_80117428) + temp_s0, p_ee0) & 0xFF)))  {
+      temp_s0 = (temp_s5 & 0xFFFF) * 0x18;
+      if (((timerGetTotalSeconds(inline_fn23((temp_v0 * 8) + (&D_80117428), temp_s0)) << 0x10) == 0) || ((p_ee0 += 0x1C, func_8002B2B0(inline_fn23(inline_fn23(((u16) func_800316B8()) * 8, &D_80117428), temp_s0), p_ee0) & 0xFF)))  {
         func_8002B3C0(inline_fn23(inline_fn23(((u16) func_800316B8()) * 8, inline_fn2(&D_80117428)), temp_s0), &D_80102EFC);
       }
+      do  {
       __repair_phase_temp_s0 = 0;
       func_8002B000(inline_fn23(((u16) func_800316B8()) * 8, &D_80117410), 0x1E);
+      p_ee0 = &D_80117410;
       do  {
-        temp_s0_2 = inline_fn23((func_800316B8() & 0xFFFF) * 8, &D_80117410);
-        func_8002B2FC(temp_s0_2, inline_fn2345((__repair_phase_temp_s0 & 0xFFFF) * 0x18, (u16) func_800316B8(), &D_80117410));
+        temp_s0_2 = inline_fn23(p_ee0, (func_800316B8() & 0xFFFF) * 8);
+        func_8002B2FC(temp_s0_2, inline_fn2345((__repair_phase_temp_s0 & 0xFFFF) * 0x18, (u16) func_800316B8(), p_ee0));
         __repair_phase_temp_s0 += 1;
       }
       while (((u32) (__repair_phase_temp_s0 & 0xFFFF)) < 0xEU);
@@ -229,9 +230,9 @@ void func_8001C6CC(void)
           break;
         }
       }
+      } while (0);
     }
     return;
     block_59: D_80102CBC = var_v0;
-  }
-  while (0);
+    }
 }

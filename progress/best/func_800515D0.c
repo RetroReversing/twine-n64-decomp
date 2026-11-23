@@ -162,7 +162,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   u16 sp1C6;
   f32 *sp1CC;
   register s16 *sp1D4;
-  u16 sp1E6;
+  s16 sp1E6;
   u16 sp1DE;
   void *sp214;
   u16 *sp1EC;
