@@ -48,20 +48,18 @@ u16 func_80012C70(void)
   for (;;)
   {
     s32 i;
+    s32 j;
     s16 *slotFlags;
     s16 *slotLoaded;
     i = gSaveSlot;
-    slotFlags = &flags[i];
-    slotLoaded = &loaded[i];
-    do { *slotFlags = 0; } while (0);
-    do
-    {
-      *slotLoaded = 0;
-    }
-    while (0);
-    do { gSaveSlotValid[i] = 0; } while (0);
-    do { D_801083D4[i] = 0; } while (0);
-    if (((D_800E076B[i * 4] == 0) && ((D_80108F75 >> i) != 0)) && (((D_800E0768[i * 2] & 0x1F07) != 5) || ((*slotFlags = 1, (D_800E076A[i * 4] & 1) != 0))))
+    slotFlags = (s16 *)(i * 2 + (s32)flags);
+    slotLoaded = (s16 *)(i * 2 + (s32)loaded);
+    j = i * 4;
+    *slotFlags = 0;
+    do { *slotLoaded = 0; } while (0);
+    gSaveSlotValid[i] = 0;
+    do { do { D_801083D4[i] = 0; } while (0); } while (0);
+    do { if (((D_800E076B[j] == 0) && ((D_80108F75 >> i) != 0)) && (((*(u16 *)((u8 *)D_800E0768 + j) & 0x1F07) != 5) || ((*slotFlags = 1, (D_800E076A[j] & 1) != 0))))
     {
       u32 state2;
       state2 = saveVerifySlot();
@@ -104,7 +102,7 @@ u16 func_80012C70(void)
 
       }
 
-    }
+    } } while (0);
     if ((++gSaveSlot) >= 4)
     {
       if (state == 0)
