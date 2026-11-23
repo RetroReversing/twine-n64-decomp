@@ -23,10 +23,9 @@ void func_80039EFC(Gfx **arg0, u32 arg1, u32 arg2, s32 arg3, u32 arg4, u32 arg5,
   f32 ratioY = (f32) arg7 / (f32) arg5;
   s32 stepX = (f32) arg8 * ratioX;
   s32 stepY = (f32) arg9 * ratioY;
-  s32 t = arg15;
-  u32 fmt = arg2 & 7;
+  s32 t;
   u32 y;
-  for (y = arg11; y < arg13; y += arg9, t += stepY)
+  for (y = arg11, t = arg15; y < arg13; y += arg9, t += stepY)
   {
     u32 x;
     s32 s = arg14;
@@ -46,23 +45,23 @@ void func_80039EFC(Gfx **arg0, u32 arg1, u32 arg2, s32 arg3, u32 arg4, u32 arg5,
       if (arg3 == 0)
       {
         s32 line = (((x1 - x0 + 1) >> 1) + 7) >> 3;
-        SETIMG(g++, fmt, 1, arg4 >> 1, arg1);
-        SETTILE(g++, fmt, 1, line, 0, 7, 0, 2, 0, 0, 2, 0, 0);
+        SETIMG(g++, arg2, 1, arg4 >> 1, arg1);
+        SETTILE(g++, arg2, 1, line, 0, 7, 0, 2, 0, 0, 2, 0, 0);
         SYNC(g++, 0xE6);
         TILECMD(g++, 0xF4, 7, x0 * 2, y0 * 4, x1 * 2, y1 * 4);
         SYNC(g++, 0xE7);
-        SETTILE(g++, fmt, 0, line, 0, 0, 0, 2, 0, 0, 2, 0, 0);
+        SETTILE(g++, arg2, 0, line, 0, 0, 0, 2, 0, 0, 2, 0, 0);
         TILECMD(g++, 0xF2, 0, x0 * 4, y0 * 4, x1 * 4, y1 * 4);
       }
       else
       {
         s32 line = (x1 - x0 + 8) >> 3;
-        SETIMG(g++, fmt, 1, arg4, arg1);
-        SETTILE(g++, fmt, 1, line, 0, 7, 0, 2, 0, 0, 2, 0, 0);
+        SETIMG(g++, arg2, 1, arg4, arg1);
+        SETTILE(g++, arg2, 1, line, 0, 7, 0, 2, 0, 0, 2, 0, 0);
         SYNC(g++, 0xE6);
         TILECMD(g++, 0xF4, 7, x0 * 4, y0 * 4, x1 * 4, y1 * 4);
         SYNC(g++, 0xE7);
-        SETTILE(g++, fmt, 1, line, 0, 0, 0, 2, 0, 0, 2, 0, 0);
+        SETTILE(g++, arg2, 1, line, 0, 0, 0, 2, 0, 0, 2, 0, 0);
         TILECMD(g++, 0xF2, 0, x0 * 4, y0 * 4, x1 * 4, y1 * 4);
       }
       a = s + stepX; b = t + stepY;
