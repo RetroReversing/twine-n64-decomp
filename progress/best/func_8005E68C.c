@@ -43,7 +43,6 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5
   void *temp_s0;
   void *temp_v0;
   sp16 = arg2;
-  sp1E = arg4 & 0xFF;
   sp26 = arg6;
   func_8001751C(arg12, arg13, arg0, arg1);
   if ((func_80017490(arg7, arg8, arg9) << 0x18) != 0)
@@ -89,6 +88,7 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5
 
           case 2:
             goto direct;
+
         }
 
       }
@@ -96,6 +96,7 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5
       {
         direct:
         var_a1 = arg2;
+
         var_a2 = arg3 & 0xFFFF;
         block_17:
         effectSetAnimFrame(temp_v0, var_a1, var_a2);
@@ -103,12 +104,10 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5
       }
       ((__repair_record_temp_s0 *) temp_s0)->field_26 = sp1E;
       ((__repair_record_temp_s0 *) temp_s0)->field_28 = arg5;
-      ((__repair_record_temp_s0 *) temp_s0)->field_2A = sp26;
+      ((__repair_record_temp_s0 *) temp_s0)->field_2A = arg6;
       ((__repair_record_temp_s0 *) temp_s0)->field_30 = 0;
       actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
-      *((s32 *) (((char *) temp_v0) - (-0x5C))) = (s32) ((*((s32 *) (((char *) temp_v0) + 0x5C))) | 0x400);
-      *((f32 *) (((char *) temp_v0) + 0x54)) = 0.015625f;
-      ((__repair_record_temp_s0 *) temp_s0)->field_1C = (f32) ((*((f32 *) (((char *) temp_v0) + 0x28))) - 1.0f);
+ *((s32 *) (((char *) temp_v0) - (-0x5C))) = (s32) ((*((s32 *) (((char *) temp_v0) + 0x5C))) | 0x400); *((f32 *) (((char *) temp_v0) + 0x54)) = 0.015625f; ((__repair_record_temp_s0 *) temp_s0)->field_1C = (f32) ((*((f32 *) (((char *) temp_v0) + 0x28))) - 1.0f);
       if (((((u32) ((short) (arg5 - 0x18))) < 2U) | (arg5 == 0x17)) != 0)
       {
         ((__repair_record_temp_s0 *) temp_s0)->field_2E = 1;
@@ -128,4 +127,3 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5
   }
   return NULL;
 }
-

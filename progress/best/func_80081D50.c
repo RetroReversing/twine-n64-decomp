@@ -48,7 +48,7 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
   s32 i = 0;
   s32 idx;
   u8 bonus;
-  int a2;
+  u16 a2;
   u8 v;
   SlotOut *o;
   SlotEnt *e;
@@ -68,7 +68,11 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
       {
         e = inline_fn2((u16) i, sizeof(*arg0), (u32) arg0);
         idx = e->idx;
-        s1 = 0;
+        do
+        {
+          s1 = 0;
+        }
+        while (0);
         if ((D_800CEEB0 == 2) || ((u16) func_8002D0BC(0xA3, arg1 & 0xFF)))
         {
           a2 = 0;
@@ -174,5 +178,6 @@ void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3)
     while (E(i).idx != (-1));
   }
 }
+
 
 

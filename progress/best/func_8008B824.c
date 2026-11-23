@@ -34,6 +34,7 @@ void func_8008B824(u32 *arg0, s32 arg1, s32 arg2, s32 arg3)
   s32 temp_v0;
   s32 __repair_temp_v0_1;
   s32 var_a1;
+  s32 var_a1_b1;
   u32 rate;
   s32 first;
   s32 var_s0;
@@ -84,14 +85,17 @@ void func_8008B824(u32 *arg0, s32 arg1, s32 arg2, s32 arg3)
   D_8010309D = 0x10;
   D_8010309C = 1;
   D_80103098 = rate;
-  var_a1 = 0;
+  /*__repair_loop_weight*/do { var_a1_b1 = 0; } while (0);
   if (first != 0) {
     do {
-      var_v0_2 = var_a1 & 0xFF;
-      D_8010319E[var_v0_2] = (u8) D_800D6780[var_v0_2];
-      var_a1 += 1;
-      var_v0_2 = var_a1 & 0xFF;
-    } while (D_800D6780[var_v0_2] != 0);
+      if (D_800E4238) {
+        D_8010319E[var_a1_b1 & 0xFF] = (u8) D_800D6780[var_a1_b1 & 0xFF];
+        var_a1_b1 += 1;
+      } else {
+        D_8010319E[var_a1_b1 & 0xFF] = (u8) D_800D6780[var_a1_b1 & 0xFF];
+        var_a1_b1 += 1;
+      }
+    } while (D_800D6780[var_a1_b1 & 0xFF] != 0);
   }
-  D_8010319E[var_a1 & 0xFF] = 0;
+  D_8010319E[var_a1_b1 & 0xFF] = 0;
 }
