@@ -62,9 +62,13 @@ void func_8011D158(unsigned short slot)
       temp = 0;
       if (rank > 0)
       {
+        s32 limit;
+        s32 idx;
         do
         {
-          if (temp != index)
+          idx = index;
+          limit = (&gVisibleSaveSlotCount)[-3];
+          if (temp != idx)
           {
             Save *other = (*cursor)->save;
             rank -= (other->start - other->end) <= delta;
@@ -72,7 +76,7 @@ void func_8011D158(unsigned short slot)
           temp++;
           cursor++;
         }
-        while (temp < gSaveTotalSlots);
+        while (temp < limit);
       }
       switch (rank)
       {
