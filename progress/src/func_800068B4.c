@@ -56,13 +56,9 @@ void func_800068B4(void)
   {
     case 0:
       func_80026F84(0);
-      do
-    {
       func_800450F0();
-    }
-    while (0);
       var_a0 = 0x12;
-      ((__repair_record_D_80109688 *) TRACK_MARKER)->field_12C = 0.0f;
+      *(s32 *)&((__repair_record_D_80109688 *) TRACK_MARKER)->field_12C = 0;
       goto block_63;
 
     default:
