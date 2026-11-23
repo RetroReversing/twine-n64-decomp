@@ -86767,14 +86767,6 @@
   "score_after": null
  },
  {
-  "function": "func_8000D6A0",
-  "text": "Best candidate score 5219; the baseline was rechecked. Six local repair families gave no improvement (two variants worsened substantially; the others tied). Correcting func_800839F0 to the matched callee's void(void*,void*,void*) signature and removing the erroneous fourth argument compiled but emitted identical instructions and score. Target begins by saving arg0 in s2 and materializing D_800B2710 before scaled record arithmetic; candidate starts with s16 sign-extension and has major register/stack mismatch. Remaining work should investigate pointer/integer types and local array/struct declarations; repeated superficial scalar signedness changes did not help. Brief flags caller/callee prototype inconsistency; func_800839F0 should be three arguments. No shared reusable matching rule established.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795165394.7754722,
-  "score_before": 4004,
-  "score_after": 4004
- },
- {
   "function": "func_80118BCC",
   "text": "No usable machine draft: m2c cannot identify the jump table at jr around assembly line 253, which loads D_8011EF48. Redrafting with an extern declaration did not provide a candidate. The compiled empty skeleton is only a placeholder (score 96805), not an implementation. Next step: fix the jump-table symbol/recognition in the disassembly or manually reconstruct the 970-instruction function before tuning.",
   "by": "codex-gpt-6.1-terra-8",
@@ -86783,68 +86775,12 @@
   "score_after": 96805
  },
  {
-  "function": "func_8000D6A0",
-  "text": "Current-best candidate reached score 4199 at revision 1bc6e764534a092ee6d0 by changing the prototype from `void func_8000D6A0(s16 arg0)` to `void func_8000D6A0(s32 arg0)`. Keep s32 argument. A subsequent local-repair batch lost the claim and reset current candidate to an autopilot s16 draft (score 8280); do not use that reset as the best. This function's 218-instruction move-on threshold not reached after improvement. Latest high-score diff: target prologue saves input in s2; argument width change removed sign-extend pair and improved score. Next likely inspect mismatch around output vectors and ensure declarations of func_800839F0/outputs consistent.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795183807.6166232,
-  "score_before": 4004,
-  "score_after": 4004
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Changing argument from s16 to s32 improved verified score from 8280 to 7299; target preserves the incoming full word. Claim ended automatically after this compile. Stack layout and float conversions remain substantially different.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795183808.0152981,
-  "score_before": 4004,
-  "score_after": 4004
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Rechecked baseline score 6985 (revision 30188cdd7ae8953e71b5). Tried parameter signedness s32\u2192u32 and local signedness edits to sp10/sp14; no instruction changes. Target frame is 0x58 and keeps arg0 in $s2; candidate frame 0x50. Main remaining structural differences include target trunc.w.s/mfc1/sh scalar conversions, candidate f22 double spills. Local repairs reported no remaining applicable proposals for callee_parameter_width/local_widening. Explore struct typing/float fields and stack lifetime/layout.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795183961.147297,
-  "score_before": 4004,
-  "score_after": 4004
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Rechecked saved candidate at 6985 and compiled the exact saved source with the required declarations: score remains 6985, 191/218 instructions. Tried only the draft structure and queried the hinted local repairs; no applicable variants were available. Large mismatch is primarily stack/frame and FP-to-s16 conversions (target trunc.w.s/mfc1/sh sequence), with pointer globals incorrectly typed as scalar in the old source. Next agent should rebuild pointer/global and callee signatures from callers, model the vector records with typed structs, and keep float-to-s16 conversion locals explicit. Historical saved best is 6985.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795184949.958124,
-  "score_before": 4004,
-  "score_after": 4004
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Rechecked best 3192. Six local repairs tested: pointer reuse worsened to 3217, s16 argument worsened to 4957; field record, signedness, declaration order and address temporary were unchanged. Stack/register and control flow discrepancies remain.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795203549.710287,
-  "score_before": 3192,
-  "score_after": 3192
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Rechecked baseline at 3192. Best verified score improved to 2425/872 bytes by writing the three computed float stack values to the destination via u32 pointer punning; this recovered target integer lw/sw transfers and many instructions. Shared proposal #25769839711 with evidence. Tested base-pointer ordering variants, global declaration as u8[], u32 arg0, and six local repair families (pointer_local_reuse, target_call_arity, explicit_loop_backedge, inferred_record_layout, single_field_record, parameter_width); no better. Current best 2425 uses s32 arg0 and the original integer global declaration. Main remaining issue is index stays in $s5 rather than target $s2, changing prologue/address arithmetic and relocation order; float reduction control-flow and several registers also differ. Restore saved best before continuing; exploratory address/type trials scored 2510 or 5646.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795206579.5416472,
-  "score_before": 3192,
-  "score_after": 2425
- },
- {
   "function": "func_80118BCC",
   "text": "[Released without compiling it once; notes not checked by a compile.] No compile was run in this claim; the supplied candidate remains the empty skeleton (96805 historical score). I verified that assembly lines 246-253 implement a bounds-checked switch over arg0->unk7A with 11 entries: `sltiu v0,v1,0xB`, `sll v0,v1,2`, load indexed word, `jr v0`. Renamed data D_8011EF48 to jtbl_8011EF48 because this is a confirmed jump table (0 matched functions affected). With redraft context `extern void *jtbl_8011EF48[11];`, m2c now emits a full 970-instruction pseudocode draft with this switch reconstructed, instead of failing. The draft has many `?` types/prototypes and `arg0->unk...` member accesses while arg0 is void*, so it is not yet compilable. guess_struct(arg0) indicates S_D_800B1A00; guess_struct(arg0+0x6C) indicates S_func_80018700_arg0. Next step: include these two struct definitions (or minimal offset-compatible subsets) and prototypes for the unknown callees in redraft context; then replace remaining `?` placeholders, compile the complete draft once, and use its first meaningful diff to choose the main structural repair. Target entry frame is 0x98 and saves s0-s6, fp, ra plus fs0. Function length is 3880 bytes / 970 instructions. I am handing off due remaining context limits, not because the function appears irreducible.",
   "by": "codex-gpt-6-luna-17",
   "created_at": 1795208966.5631208,
   "score_before": 96805,
   "score_after": 96805
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Rechecked saved candidate at 2286. Correcting sp20 additions to occur in x,y,z order recovered word-copy behavior and scored 2262, current best. A while/do-while shape variation was identical. Adding a diagnostic write to reserved frame local worsened to 2882, then removed it, returning to 2262. Remaining differences: frame is 0x60 vs target 0x58; early base pointer/index values have wrong saved register allocations; final coordinate store sequence target loads three words from stack then stores to temp_s3, candidate interleaves and reads from wrong offsets. Best candidate revision 0e71270ffc46af1c75d6.\nSwapped initialization to float stack values, then restored additions in x/y/z order; angle loop forms equivalent; unused-frame local write worsened and removed.\nBest verified score improved to 2262 from historical 2286. Exact saved candidate rechecks at 2262.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795209016.013619,
-  "score_before": 2274,
-  "score_after": 2262
  },
  {
   "function": "func_80118BCC",
@@ -86990,15 +86926,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:123cd4b87e6ad90e85377a77133c2fc02bf5ac73ce868faccfc3d62491051ea3"
  },
  {
-  "function": "func_8000D6A0",
-  "text": "Saved best omits the third argument to func_800839F0 and reads uninitialized sp20: target explicitly passes sp+0x20 in a2. Corrected candidate e8cd78ac1bd6cb292d0b scored 2306; retain semantic correction despite historical best 2274.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795215018.771905,
-  "score_before": 2274,
-  "score_after": 2274,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
- },
- {
   "function": "func_80118BCC",
   "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked 13-instruction skeleton score 95787 vs 970 target; no useful body generated. Confirmed dispatch at target lines ~246 onward: signed halfword state 0x7A bounds check sltiu <11, then loads jtbl_8011EF48 indexed by state and jr. Cases begin immediately following dispatch; long 970-instruction switch body includes many scene actions. Generator failure is due unresolved jump table; manual C reconstruction needed. Existing variants and repair trials did not address this.",
   "by": "codex-gpt-6-luna-17",
@@ -87102,33 +87029,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:123cd4b87e6ad90e85377a77133c2fc02bf5ac73ce868faccfc3d62491051ea3"
  },
  {
-  "function": "func_8000D6A0",
-  "text": "Target passes sp20 as third argument to func_800839F0; corrected uninitialized-output candidate. A typed three-word assignment improved corrected candidate 2306 to 1956. While loop identical; removing third argument of buildRotationMatrixS16 worsened to 2236. Frame now matches size; saved registers and early ordering differ.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795234468.974093,
-  "score_before": 2306,
-  "score_after": 1956,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 3; 40 differing rows (30 register, 10 reordered; advisory).\nTarget: lui $a2, %hi(gObjectRecords)\nCandidate: lui $a1, %hi(gObjectRecords)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s2, 0x40($sp)\n  = move $s2, $a0\nr T: lui $a2, %hi(gObjectRecords) | C: lui $a1, %hi(gObjectRecords)\nr T: lw $a2, %lo(gObjectRecords)($a2) | C: lw $a1, %lo(gObjectRecords)($a1)\n  = sll $v0, $s2, 1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAutomatic handoff at verified 450, revision 67fca2e46e2b4758fa1d. Two-arg buildRotationMatrixS16 confirmed from callee (a2 overwritten immediately); integer offset-before-base restored the missing addu, and explicit integer index-first address to func_800839F0 fixed operand order. Target and candidate both 218 instructions; 30 register and 10 reorder rows remain. Casting 0xFF to u8 was identical. Next step: read parentRecord->parent into a local before both object-pointer loads to probe the early lbu/lw allocation.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795237336.665376,
-  "score_before": 1035,
-  "score_after": 450,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Rechecked 450 with the full target instruction count. Changing the rotation-matrix address to base plus stride then a separate 0x9C addition scored 565 in both typed-pointer and integer forms. Reversing the existing addition tied at 450. Judge reached move-on threshold.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795239087.1156218,
-  "score_before": 450,
-  "score_after": 450,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
- },
- {
   "function": "func_80118BCC",
   "text": "Move-on threshold passed. Typed 24-byte records scored 14528 unchanged. Volatile word loads scored 15623 and 15703, so kept the verified 14528 baseline.",
   "by": "codex-gpt-6.2-sol-6",
@@ -87136,15 +87036,6 @@
   "score_before": 14528,
   "score_after": 14528,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:123cd4b87e6ad90e85377a77133c2fc02bf5ac73ce868faccfc3d62491051ea3"
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Read matched callee signatures; rewrote using u8 * object base, s16 index and typed rotation/matrix calls; first rewrite failed due to C89 declaration placement. Fixed declarations to precede statements and compiled at 9074, worse than present source's current recheck 8360. Current candidate retained. Large diff stems from different address/index calculation and register/frame layout; target saves s2 and derives record index from s2 using multiply-by-0xD4 sequence, while rewrite sign-extends a0 to v1 and does not save s2. No winning repair identified.\nRewrote raw field access with typed u8 object pointers and narrowed index; first version failed C89, second scored 9074 vs current 8360.\nScore worsened; target starts with saved s2 and repeated s2-based multiply by 0xD4. Rewrite starts with a0 sign-extension into v1.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795257191.315572,
-  "score_before": 8360,
-  "score_after": 8360,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
  },
  {
   "function": "func_80118BCC",
@@ -87172,24 +87063,6 @@
   "score_before": 8724,
   "score_after": 8724,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:123cd4b87e6ad90e85377a77133c2fc02bf5ac73ce868faccfc3d62491051ea3"
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Best 270 (rechecked). Local repairs (signedness, decl order, sum_shape, call_arity, lifetimes) gave 270/270/505/715/515: no gain. Remaining: 22 rows, mostly register (target uses $a2 for gObjectRecords base, candidate $a1) and 6 reordered. Next step: clean rewrite of the permuter-mangled C, keeping records loaded once into a local and computing arg0*53<<2 in a separate temp used after the call.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795309992.3642812,
-  "score_before": 270,
-  "score_after": 270,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Target holds the child record in a0. Candidate uses s0, which also holds the later parent object pointer. Other differences affect packed selector extraction and global-load scheduling.\nRegroup matrix argument, swap final comparisons, reverse child address addition\n590, 280, 270 respectively. Last trial unchanged. Retained verified 270.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795318748.430656,
-  "score_before": 270,
-  "score_after": 270,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
  },
  {
   "function": "func_80118BCC",
@@ -87297,32 +87170,6 @@
   "created_at": 1795385284.6727848,
   "score_before": 8110,
   "score_after": 8110
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Best 260. try_local_repairs (6 variants) gave no gain: 260/260/260/260/280/665. Remaining 20 rows: 12 register ($a2 vs $a1 for gObjectRecords base), 2 operand, 6 reordered. Next step: rewrite the permuter-mangled C from scratch, loading gObjectRecords once into a local and computing arg0*53<<2 in a separate temp used after the call.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795385632.815398,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
- },
- {
-  "function": "func_8000D6A0",
-  "text": "Best 260 (rev fe50b7489847). Swapping sp20/sp30 declaration order scored 278 (stack offsets move: target has the s16 array at sp+0x30, the f32 temp at sp+0x20-ish). Do{}while wrapping was worse. Remaining: gObjectRecords base held in a2 in target, a1 in candidate. Next step: keep original decl order but make the s16 array larger/declared last so it lands at 0x30, and load gObjectRecords before the arg0*53 multiply.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795387926.8777049,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
- },
- {
-  "function": "func_8000D6A0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Unchanged at 260; not compiled this session. Next step: rewrite from scratch (not the permuter-mangled draft), loading gObjectRecords once into a local and computing arg0*53<<2 in a separate temp after the call.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795395165.914637,
-  "score_before": 260,
-  "score_after": 260
  },
  {
   "function": "func_80081D50",
@@ -89247,5 +89094,176 @@
   "created_at": 1795394186.9924638,
   "score_before": 655,
   "score_after": 655
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Best candidate score 5219; the baseline was rechecked. Six local repair families gave no improvement (two variants worsened substantially; the others tied). Correcting func_800839F0 to the matched callee's void(void*,void*,void*) signature and removing the erroneous fourth argument compiled but emitted identical instructions and score. Target begins by saving arg0 in s2 and materializing D_800B2710 before scaled record arithmetic; candidate starts with s16 sign-extension and has major register/stack mismatch. Remaining work should investigate pointer/integer types and local array/struct declarations; repeated superficial scalar signedness changes did not help. Brief flags caller/callee prototype inconsistency; func_800839F0 should be three arguments. No shared reusable matching rule established.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795165394.7754722,
+  "score_before": 4004,
+  "score_after": 4004
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Current-best candidate reached score 4199 at revision 1bc6e764534a092ee6d0 by changing the prototype from `void func_8000D6A0(s16 arg0)` to `void func_8000D6A0(s32 arg0)`. Keep s32 argument. A subsequent local-repair batch lost the claim and reset current candidate to an autopilot s16 draft (score 8280); do not use that reset as the best. This function's 218-instruction move-on threshold not reached after improvement. Latest high-score diff: target prologue saves input in s2; argument width change removed sign-extend pair and improved score. Next likely inspect mismatch around output vectors and ensure declarations of func_800839F0/outputs consistent.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795183807.6166232,
+  "score_before": 4004,
+  "score_after": 4004
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Changing argument from s16 to s32 improved verified score from 8280 to 7299; target preserves the incoming full word. Claim ended automatically after this compile. Stack layout and float conversions remain substantially different.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795183808.0152981,
+  "score_before": 4004,
+  "score_after": 4004
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Rechecked baseline score 6985 (revision 30188cdd7ae8953e71b5). Tried parameter signedness s32\u2192u32 and local signedness edits to sp10/sp14; no instruction changes. Target frame is 0x58 and keeps arg0 in $s2; candidate frame 0x50. Main remaining structural differences include target trunc.w.s/mfc1/sh scalar conversions, candidate f22 double spills. Local repairs reported no remaining applicable proposals for callee_parameter_width/local_widening. Explore struct typing/float fields and stack lifetime/layout.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795183961.147297,
+  "score_before": 4004,
+  "score_after": 4004
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Rechecked saved candidate at 6985 and compiled the exact saved source with the required declarations: score remains 6985, 191/218 instructions. Tried only the draft structure and queried the hinted local repairs; no applicable variants were available. Large mismatch is primarily stack/frame and FP-to-s16 conversions (target trunc.w.s/mfc1/sh sequence), with pointer globals incorrectly typed as scalar in the old source. Next agent should rebuild pointer/global and callee signatures from callers, model the vector records with typed structs, and keep float-to-s16 conversion locals explicit. Historical saved best is 6985.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795184949.958124,
+  "score_before": 4004,
+  "score_after": 4004
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Rechecked best 3192. Six local repairs tested: pointer reuse worsened to 3217, s16 argument worsened to 4957; field record, signedness, declaration order and address temporary were unchanged. Stack/register and control flow discrepancies remain.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795203549.710287,
+  "score_before": 3192,
+  "score_after": 3192
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Rechecked baseline at 3192. Best verified score improved to 2425/872 bytes by writing the three computed float stack values to the destination via u32 pointer punning; this recovered target integer lw/sw transfers and many instructions. Shared proposal #25769839711 with evidence. Tested base-pointer ordering variants, global declaration as u8[], u32 arg0, and six local repair families (pointer_local_reuse, target_call_arity, explicit_loop_backedge, inferred_record_layout, single_field_record, parameter_width); no better. Current best 2425 uses s32 arg0 and the original integer global declaration. Main remaining issue is index stays in $s5 rather than target $s2, changing prologue/address arithmetic and relocation order; float reduction control-flow and several registers also differ. Restore saved best before continuing; exploratory address/type trials scored 2510 or 5646.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795206579.5416472,
+  "score_before": 3192,
+  "score_after": 2425
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Rechecked saved candidate at 2286. Correcting sp20 additions to occur in x,y,z order recovered word-copy behavior and scored 2262, current best. A while/do-while shape variation was identical. Adding a diagnostic write to reserved frame local worsened to 2882, then removed it, returning to 2262. Remaining differences: frame is 0x60 vs target 0x58; early base pointer/index values have wrong saved register allocations; final coordinate store sequence target loads three words from stack then stores to temp_s3, candidate interleaves and reads from wrong offsets. Best candidate revision 0e71270ffc46af1c75d6.\nSwapped initialization to float stack values, then restored additions in x/y/z order; angle loop forms equivalent; unused-frame local write worsened and removed.\nBest verified score improved to 2262 from historical 2286. Exact saved candidate rechecks at 2262.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795209016.013619,
+  "score_before": 2274,
+  "score_after": 2262
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Saved best omits the third argument to func_800839F0 and reads uninitialized sp20: target explicitly passes sp+0x20 in a2. Corrected candidate e8cd78ac1bd6cb292d0b scored 2306; retain semantic correction despite historical best 2274.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795215018.771905,
+  "score_before": 2274,
+  "score_after": 2274,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Target passes sp20 as third argument to func_800839F0; corrected uninitialized-output candidate. A typed three-word assignment improved corrected candidate 2306 to 1956. While loop identical; removing third argument of buildRotationMatrixS16 worsened to 2236. Frame now matches size; saved registers and early ordering differ.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795234468.974093,
+  "score_before": 2306,
+  "score_after": 1956,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 3; 40 differing rows (30 register, 10 reordered; advisory).\nTarget: lui $a2, %hi(gObjectRecords)\nCandidate: lui $a1, %hi(gObjectRecords)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $s2, 0x40($sp)\n  = move $s2, $a0\nr T: lui $a2, %hi(gObjectRecords) | C: lui $a1, %hi(gObjectRecords)\nr T: lw $a2, %lo(gObjectRecords)($a2) | C: lw $a1, %lo(gObjectRecords)($a1)\n  = sll $v0, $s2, 1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAutomatic handoff at verified 450, revision 67fca2e46e2b4758fa1d. Two-arg buildRotationMatrixS16 confirmed from callee (a2 overwritten immediately); integer offset-before-base restored the missing addu, and explicit integer index-first address to func_800839F0 fixed operand order. Target and candidate both 218 instructions; 30 register and 10 reorder rows remain. Casting 0xFF to u8 was identical. Next step: read parentRecord->parent into a local before both object-pointer loads to probe the early lbu/lw allocation.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795237336.665376,
+  "score_before": 1035,
+  "score_after": 450,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Rechecked 450 with the full target instruction count. Changing the rotation-matrix address to base plus stride then a separate 0x9C addition scored 565 in both typed-pointer and integer forms. Reversing the existing addition tied at 450. Judge reached move-on threshold.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795239087.1156218,
+  "score_before": 450,
+  "score_after": 450,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Read matched callee signatures; rewrote using u8 * object base, s16 index and typed rotation/matrix calls; first rewrite failed due to C89 declaration placement. Fixed declarations to precede statements and compiled at 9074, worse than present source's current recheck 8360. Current candidate retained. Large diff stems from different address/index calculation and register/frame layout; target saves s2 and derives record index from s2 using multiply-by-0xD4 sequence, while rewrite sign-extends a0 to v1 and does not save s2. No winning repair identified.\nRewrote raw field access with typed u8 object pointers and narrowed index; first version failed C89, second scored 9074 vs current 8360.\nScore worsened; target starts with saved s2 and repeated s2-based multiply by 0xD4. Rewrite starts with a0 sign-extension into v1.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795257191.315572,
+  "score_before": 8360,
+  "score_after": 8360,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Best 270 (rechecked). Local repairs (signedness, decl order, sum_shape, call_arity, lifetimes) gave 270/270/505/715/515: no gain. Remaining: 22 rows, mostly register (target uses $a2 for gObjectRecords base, candidate $a1) and 6 reordered. Next step: clean rewrite of the permuter-mangled C, keeping records loaded once into a local and computing arg0*53<<2 in a separate temp used after the call.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795309992.3642812,
+  "score_before": 270,
+  "score_after": 270,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Target holds the child record in a0. Candidate uses s0, which also holds the later parent object pointer. Other differences affect packed selector extraction and global-load scheduling.\nRegroup matrix argument, swap final comparisons, reverse child address addition\n590, 280, 270 respectively. Last trial unchanged. Retained verified 270.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795318748.430656,
+  "score_before": 270,
+  "score_after": 270,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Best 260. try_local_repairs (6 variants) gave no gain: 260/260/260/260/280/665. Remaining 20 rows: 12 register ($a2 vs $a1 for gObjectRecords base), 2 operand, 6 reordered. Next step: rewrite the permuter-mangled C from scratch, loading gObjectRecords once into a local and computing arg0*53<<2 in a separate temp used after the call.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795385632.815398,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Best 260 (rev fe50b7489847). Swapping sp20/sp30 declaration order scored 278 (stack offsets move: target has the s16 array at sp+0x30, the f32 temp at sp+0x20-ish). Do{}while wrapping was worse. Remaining: gObjectRecords base held in a2 in target, a1 in candidate. Next step: keep original decl order but make the s16 array larger/declared last so it lands at 0x30, and load gObjectRecords before the arg0*53 multiply.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795387926.8777049,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Unchanged at 260; not compiled this session. Next step: rewrite from scratch (not the permuter-mangled draft), loading gObjectRecords once into a local and computing arg0*53<<2 in a separate temp after the call.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795395165.914637,
+  "score_before": 260,
+  "score_after": 260
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "sw1 (claim lost to another session at 220, saved best 220 = split locals version). Edits from the 450 best, each measured: (1) split m2c-shared temp_a0 into child record / parent object locals (450->440); (2) the late arg0*0xD4 product into its OWN local (off) instead of reusing temp_s1: temp_s1 is multi-block so global; a block-local variable ties the whole mult chain into one callee-saved reg (475->275); (3) ptr/word: tt=*(u32*)(obj+0x70); tw=*(u32*)(tt+0x30); ua=tw>>4; ua&=0xFFFF; ub=tw>>20 (in-place shift+and puts ua in its own reg, word stays local and ties to $v0) (275->225); (4) MatMul arg (u32)ph2*0xD4+(u32)gObjectRecords+0x9C (225->220). Remaining 14 rows: records/0xFF swapped ($a1/$a2) and buildRotationMatrixS16 arg wants (s1+records)+0x9c as a separate sum from the parent-record sum. cse1 AND cse2 merge it with the parent sum (do{}while(0) fences only stop cse1; a label that is only a branch-around target does not stop either). A join label of an if/else DOES stop it (mini test: if(a)sp[2]=1;else sp[2]=2; before the call gives addu s,r then +156 exactly like the target), so the target has an if/else join (identical-arm arms that jump2 cross-jumps away) between the parent loads and the call arg. if(arg0){sp30[0]=..}else{sp30[0]=..} gave 260 (registers shifted: temp_s1 priority); try other guard variables/positions. Scaffolding in 220 source: the ObjectRecordFields typedef view and u32 casts.",
+  "by": "manual-edacf69cab32457a",
+  "created_at": 1795397694.354649,
+  "score_before": 260,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "claim lost to another session at 220; notes added",
+  "by": "manual-edacf69cab32457a",
+  "created_at": 1795397698.653286,
+  "score_before": null,
+  "score_after": null,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
  }
 ]

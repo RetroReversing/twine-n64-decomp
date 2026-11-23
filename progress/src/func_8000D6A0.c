@@ -1,3 +1,4 @@
+
 f32 approxDistance(); s32 func_80082D24(); s32 buildRotationMatrixS16(); s32 MatMul3x3InPlace(); s32 func_800839F0(); extern char *gObjectRecords;
 typedef struct { u32 x, y, z; } ObjectVectorWords;
 void func_8000D6A0(s32 arg0){
@@ -6,7 +7,7 @@ f32 sp20[3]; s16 sp30[3]; f32 var_fv0;
 s32 temp_a0_2, temp_s1, ph1, ph2;
 u32 temp_a1, temp_v0_4;
 void *temp_a0, *pobj, *temp_s3, *temp_v1, *temp_v0_3;
-s32 off;u32 tt,tw,ua,ub;
+s32 off; char *recs;u32 tt,tw,ua,ub;
 ph1 = (arg0*53)<<2;
 temp_a0 = ph1 + records;
 ph2 = *(u8*)((char*)temp_a0+0x98);
@@ -19,10 +20,11 @@ if (ph2 != 0xFF) {
     temp_s3=childRecord->object;
     pobj=parentRecord->object;
     if(parentRecord->parent==0xFF){
+      parentRecord=0;
       sp30[0]=(s16)(s32)*(f32*)((char*)pobj+0x3C);
       sp30[1]=(s16)(s32)*(f32*)((char*)pobj+0x40);
       sp30[2]=(s16)(s32)*(f32*)((char*)pobj+0x44);
-      buildRotationMatrixS16(sp30,(u32)records+(u32)(temp_s1+0x9C));
+      buildRotationMatrixS16(sp30,(u32)temp_s1+(u32)records+0x9C);
     }
   }
   sp10 = *(ObjectVectorWords *)(gObjectRecords + ph1 + 0x14);
@@ -43,13 +45,15 @@ if (ph2 != 0xFF) {
      *(s16*)((char*)temp_v1+0x96)=(s16)(s32)((f32)*(s16*)((char*)temp_v1+0x96)+(var_fv0/period)*4096.0f);}
   }}
   sp30[0]=(s16)(s32)*(f32*)((char*)temp_s3+0x3C);
-  off=arg0*0xD4;
   sp30[1]=(s16)(s32)*(f32*)((char*)temp_s3+0x40);
-  sp30[2]=(s16)(s32)(*(f32*)((char*)temp_s3+0x44)+(f32)*(s16*)((char*)(gObjectRecords+off)+0x96));
-  off+=0x14;
-  func_80082D24(sp30,gObjectRecords+off+0x88);
+  recs=gObjectRecords;
+  off=arg0*0xD4;
+  sp30[2]=(s16)(s32)(*(f32*)((char*)temp_s3+0x44)+(f32)*(s16*)((char*)(off+recs)+0x96));
+  off=off+0x14;
+  func_80082D24(sp30,recs+off+0x88);
   MatMul3x3InPlace((u32)ph2*0xD4+(u32)gObjectRecords+0x9C,gObjectRecords+off+0x88);
   *(s16*)((char*)temp_s3+0x7C)=arg0;
   *(s32*)((char*)temp_s3+0x58)|=0x40000;
 }
 }
+
