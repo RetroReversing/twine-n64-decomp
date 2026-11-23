@@ -135,7 +135,7 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
         {
           var_a3 = temp_a0 + 0x7FF;
         }
-        var_a2 = (((u32) ((temp_s2 * temp_s3) + 1)) >> 1); var_v1 = var_a2 - 1;
+        var_v1 = (((u32) ((temp_s2 * temp_s3) + 1)) >> 1) - 1;
         if (var_v1 >= 0x800U)
         {
           var_v1 = 0x7FF;
@@ -189,42 +189,16 @@ block_17:
         var_a2 = 0;
         if ((temp_s7 == 0) & (temp_s6 == 0))
         {
-          temp_a3 = temp_s3 == 0x40;
-          if (temp_a3 && (temp_s2 == 0x40))
-          {
-            var_a1 = 1;
-            var_a2 = 5;
-          }
-          else
-          {
-            temp_a0_3 = temp_s2 == 0x20;
-            if (temp_a0_3 && (temp_s3 == 0x80))
-            {
-              var_a1 = 1;
-              var_a2 = 4;
-            }
-            else
-            {
-              temp_v1_2 = temp_s3 == 0x20;
-              if (temp_v1_2 && (temp_s2 == 0x80))
-              {
-                var_a1 = 1;
-                var_a2 = 3;
-              }
-              else
-                if (temp_a0_3 && temp_a3)
-              {
-                var_a1 = 1;
-                var_a2 = 2;
-              }
-              else
-                if (temp_a0_3 && temp_v1_2)
-              {
-                var_a1 = 1;
-                var_a2 = 1;
-              }
-            }
-          }
+          if ((temp_s2 == 0x40) && (temp_s3 == 0x40))
+          { var_a1 = 1; var_a2 = 5; }
+          else if ((temp_s2 == 0x20) && (temp_s3 == 0x80))
+          { var_a1 = 1; var_a2 = 4; }
+          else if ((temp_s2 == 0x80) && (temp_s3 == 0x20))
+          { var_a1 = 1; var_a2 = 3; }
+          else if ((temp_s2 == 0x20) && (temp_s3 == 0x40))
+          { var_a1 = 1; var_a2 = 2; }
+          else if ((temp_s2 == 0x20) && (temp_s3 == 0x20))
+          { var_a1 = 1; var_a2 = 1; }
         }
         temp_s1_3 = gGfxPtr;
         gGfxPtr = temp_s1_3 + 8;
@@ -245,7 +219,7 @@ block_17:
           {
             var_v1_2 = var_a1_2_a1 + 0x7FF;
           }
-          var_a3_3 = (((u32) ((temp_s2 * temp_s3) + 3)) >> 2); var_a0 = var_a3_3 - 1;
+          var_a0 = (((u32) ((temp_s2 * temp_s3) + 3)) >> 2) - 1;
           var_a2_2_a1 = var_a2 << 0x18;
           if (var_a0 >= 0x800U)
           {
@@ -272,8 +246,8 @@ block_17:
           width_log = func_80032830(temp_s2);
           var_a3_2 = 0x800;
           { u32 mask = (temp_s6 << 18); u32 height = ((temp_s0_3 & 15) << 14) | 0x07000000; u32 tile = (mask | height) | (temp_s7 << 8);
-          var_a1_2_a2 = (u32) gGfxPtr;
-          ((__repair_field_C *) temp_s1_3)->value = tile | ((width_log & 15) << 4); }
+          ((__repair_field_C *) temp_s1_3)->value = tile | ((width_log & 15) << 4);
+          var_a1_2_a2 = (u32) gGfxPtr; }
           temp_a0_4 = temp_s2 >> 4;
           gGfxPtr = var_a1_2_a2 + 8;
           *((s32 *) (((char *) var_a1_2_a2) + 0)) = 0xE6000000;
@@ -319,37 +293,16 @@ block_17:
       var_a1 = 0;
       if ((temp_s7 == 0) & (temp_s6 == 0))
       {
-        temp_a2_2 = temp_s3 == 0x40;
-        if ((temp_s2 == 0x40) && temp_a2_2)
-        {
-          var_a1 = 1;
-        }
-        else
-        {
-          temp_a0_6 = temp_s2 == 0x20;
-          if (temp_a0_6 && (temp_s3 == 0x80))
-          {
-            var_a1 = 1;
-          }
-          else
-          {
-            temp_v1_3 = temp_s3 == 0x20;
-            if ((temp_s2 == 0x80) && temp_v1_3)
-            {
-              var_a1 = 1;
-            }
-            else
-              if (temp_a0_6 & temp_a2_2)
-            {
-              var_a1 = 1;
-            }
-            else
-              if (temp_a0_6 & temp_v1_3)
-            {
-              var_a1 = 1;
-            }
-          }
-        }
+          if ((temp_s2 == 0x40) && (temp_s3 == 0x40))
+          { var_a1 = 1; }
+          else if ((temp_s2 == 0x20) && (temp_s3 == 0x80))
+          { var_a1 = 1; }
+          else if ((temp_s2 == 0x80) && (temp_s3 == 0x20))
+          { var_a1 = 1; }
+          else if ((temp_s2 == 0x20) && (temp_s3 == 0x40))
+          { var_a1 = 1; }
+          else if ((temp_s2 == 0x20) && (temp_s3 == 0x20))
+          { var_a1 = 1; }
       }
       if (((s8) var_a1) == 0)
       {
@@ -386,8 +339,8 @@ block_17:
         width_log = func_80032830(temp_s2);
         var_a3_3 = 0x800;
         { u32 mask = (temp_s6 << 18); u32 height = ((temp_s0_5 & 15) << 14) | 0x07000000; u32 tile = (mask | height) | (temp_s7 << 8);
-        temp_a1_3 = gGfxPtr;
-        ((__repair_field_C *) temp_s1_4)->value = tile | ((width_log & 15) << 4); }
+        ((__repair_field_C *) temp_s1_4)->value = tile | ((width_log & 15) << 4);
+        temp_a1_3 = gGfxPtr; }
         temp_a0_7 = temp_s2 >> 3;
         gGfxPtr = temp_a1_3 + 8;
         *((s32 *) (((char *) temp_a1_3) + 0)) = 0xE6000000;
@@ -453,8 +406,8 @@ block_17:
         width_log = func_80032830(temp_s2);
         var_a3_4 = 0x800;
         { u32 mask = (temp_s6 << 18); u32 height = ((temp_s0_7 & 15) << 14) | 0x07000000; u32 tile = (mask | height) | (temp_s7 << 8);
-        var_a1_2_a3 = (u32) gGfxPtr;
-        ((__repair_field_C *) temp_s1_6)->value = tile | ((width_log & 15) << 4); }
+        ((__repair_field_C *) temp_s1_6)->value = tile | ((width_log & 15) << 4);
+        var_a1_2_a3 = (u32) gGfxPtr; }
         temp_a0_9 = temp_s2 >> 4;
         gGfxPtr = var_a1_2_a3 + 8;
         *((s32 *) (((char *) var_a1_2_a3) + 0)) = 0xE6000000;

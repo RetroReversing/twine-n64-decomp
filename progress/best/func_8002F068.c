@@ -21,7 +21,7 @@ typedef struct
 DisplayItem *func_80027408(s32, s32, s16, u8);
 void func_800278AC(s32, u32, u16);
 s32 func_80027CE0(s32);
-void func_8002B050(void *, s32, DisplayItem *);
+void func_8002B050(void *, s32);
 void func_8002B150(void *, s32, s8);
 void func_8002FBD4(void *, s16);
 s32 func_80087100(s32);
@@ -53,6 +53,10 @@ void func_8002F068(void *unused, void *arg1)
   u32 *color;
   u32 *palette;
   DisplayItem *current;
+  u32 t;
+  u32 m;
+  u32 cur;
+  DisplayItem *item2;
   if (((!((u8) func_80027CE0(0x23))) && (!((u8) func_80027CE0(0x2A)))) && (!D_80102EDE))
   {
     asset = func_80087100(0x2E9);
@@ -67,27 +71,27 @@ void func_8002F068(void *unused, void *arg1)
     {
       D_800BFC96 = 63 - phase;
     }
+    item2 = item;
     palette = D_800BD640;
-    if (!(D_800BFC92 & 1))
+    if (D_800BFC92 & 1)
+    {
+      color = palette + 1;
+    }
+    else
     {
       color = palette + 9;
     }
-    else
-      if (inline_fn())
-    {
-      color = palette + 1;
-    }
-    else
-    {
-      color = palette + 1;
-    }
     current = D_800E1560;
-    item->color = (*color) & (~255);
-    *((volatile u32 *) (&current->color)) = (current->color & (~255)) | (D_800BFC96 << 3);
-    D_800BFC94++;
+    item2->color = (*color) & (~255);
+    m = current->color & (~255);
+    t = D_800BFC96;
+    cur = m | (t << 3);
+    m = D_800BFC94;
+    *((volatile u32 *) (&current->color)) = cur;
+    D_800BFC94 = m + 1;
     if (D_80102EDC)
     {
-      func_8002B050(D_800E1584, 1, item);
+      func_8002B050(D_800E1584, 1);
     }
   }
   else

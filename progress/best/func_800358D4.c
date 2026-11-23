@@ -63,7 +63,6 @@ inline static u32 inline_fn2()
 
 void func_800358D4(void *arg0)
 {
-    s32 *hoist_D_80112F90;
   union 
   {
     unsigned char bytes[144];
@@ -181,7 +180,7 @@ void func_800358D4(void *arg0)
   f32 var_fv0;
   s32 *temp_a0;
   u8 *var_s2;
-  s32 var_s1;
+  
   s32 var_s4;
   register s32 var_v0;
   u32 temp_v0_2;
@@ -265,7 +264,6 @@ void func_800358D4(void *arg0)
 
     if (var_fp != NULL)
     {
-      hoist_D_80112F90 = &D_80112F90;
       for (;;)
       {
         var_s3 = *((void **) (((char *) var_fp) + 0x14));
@@ -281,8 +279,8 @@ void func_800358D4(void *arg0)
                 temp_a1_2 = (void *) (*((s32 *) (&sMatrixPoolUsed))); temp_v0_2 = (u32) temp_a1_2 + 1;
                 *((s32 *) (&sMatrixPoolUsed)) = temp_v0_2;
                 var_s4 = temp_v0_2 << 6; D_8010D538 = ((Field_s32 *) (((char *) sRenderState) + 0x74C))->v + var_s4;
-                func_800083DC(hoist_D_80112F90, m2c_initial_frame.view_sp28.value * 64.0f, m2c_initial_frame.view_sp2C.value * 64.0f, m2c_initial_frame.view_sp30.value * 64.0f, m2c_initial_frame.view_sp94.value);
-                guMtxF2L(hoist_D_80112F90, D_8010D538);
+                func_800083DC(&D_80112F90, m2c_initial_frame.view_sp28.value * 64.0f, m2c_initial_frame.view_sp2C.value * 64.0f, m2c_initial_frame.view_sp30.value * 64.0f, m2c_initial_frame.view_sp94.value);
+                guMtxF2L(&D_80112F90, D_8010D538);
                 ((Field_s32 *) (((char *) D_80115328) + 0))->v = 0xDA380003;
                 ((Field_s32 *) (((char *) D_80115328) + 4))->v = (s32) inline_fn(0x80000000);
                 ((Field_s32 *) (((char *) D_80115328) + 8))->v = 0xFA000000;
@@ -294,7 +292,7 @@ void func_800358D4(void *arg0)
                 if ((((((u32) ((Field_s32 *) (((char *) var_s3) + 0x58))->v) >> 2) & 2) && ((m2c_initial_frame.view_sp38.value = func_8004478C(1, 0x18A), m2c_initial_frame.view_sp3C.value = func_8004478C(2, 0x18A), m2c_initial_frame.view_sp40.value = func_8004478C(3, 0x18A), m2c_initial_frame.view_sp44.value = func_8004478C(4, 0x18A), m2c_initial_frame.view_sp48.value = func_8004478C(5, 0x18A), (func_800158A4(arg0 + 0x10, temp_s1, ((Field_s32 *) (((char *) arg0) + 0xF4))->v, &m2c_initial_frame.view_sp50.value, 0, 0, 0, 1, 0) << 0x18) != 0))) && ((temp_fv0_2 = func_80046140(m2c_initial_frame.view_sp28.value, m2c_initial_frame.view_sp2C.value), var_fs1 = temp_fv0_2, temp_fv0_2 < 127.0f)))
                 {
                   temp_fv0_3 = 25.0f / m2c_initial_frame.view_sp30.value;
-                  var_s1 = 0;
+                  var_a0 = 0;
                   var_s2 = &D_800C06C4;
                   var_s4 = 0;
                   m2c_initial_frame.view_sp60.value = 0.0f;
@@ -308,7 +306,7 @@ void func_800358D4(void *arg0)
                   {
                     func_80047B14(&m2c_initial_frame.view_sp70.value, *((s32 *) (((s8 *) (&D_800C0670)) + var_s4)), &m2c_initial_frame.view_sp80.value);
                     vec3Add(&m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp80.value, &m2c_initial_frame.view_sp80.value);
-                    if (var_s1 == 0)
+                    if (var_a0 == 0)
                     {
                       var_fs1 = func_80046140(m2c_initial_frame.view_sp80.value, m2c_initial_frame.view_sp84.value);
                       var_fs0 = (16.0f - var_fs1) * 0.03125f;
@@ -365,10 +363,10 @@ void func_800358D4(void *arg0)
                         temp_v0_3 = (*((s32 *) (&sMatrixPoolUsed))) + 1;
                         D_8010D538 = ((Field_s32 *) (((char *) sRenderState) + 0x74C))->v + (temp_v0_3 << 6);
                         *((s32 *) (&sMatrixPoolUsed)) = temp_v0_3;
-                        guTranslateF(hoist_D_80112F90, m2c_initial_frame.view_sp80.value * 64.0f, m2c_initial_frame.view_sp84.value * 64.0f, m2c_initial_frame.view_sp88.value * 64.0f);
+                        guTranslateF(&D_80112F90, m2c_initial_frame.view_sp80.value * 64.0f, m2c_initial_frame.view_sp84.value * 64.0f, m2c_initial_frame.view_sp88.value * 64.0f);
                         func_800A3940(&sParentMatrixF, temp_fs0, temp_fs0, temp_fs0);
-                        func_800A3840(&sParentMatrixF, hoist_D_80112F90, hoist_D_80112F90);
-                        guMtxF2L(hoist_D_80112F90, D_8010D538);
+                        func_800A3840(&sParentMatrixF, &D_80112F90, &D_80112F90);
+                        guMtxF2L(&D_80112F90, D_8010D538);
                         temp_v1_4 = D_80109CB8;
                         temp_a1_2 = temp_v1_4 + 8;
                         ((Field_s32 *) (((char *) temp_v1_4) + 4))->v = (s32) inline_fn(0x80000000);
@@ -378,7 +376,7 @@ void func_800358D4(void *arg0)
                         D_80109CB8 = temp_v0_4;
                         ((Field_s32 *) (((char *) temp_v1_4) + 8))->v = 0xFA000000;
                         {
-                          u32 rgb = (((*((u8 *) (((s8 *) (&D_800C06D0)) + var_s1))) << 0x18) | (((*((u8 *) (((s8 *) (&D_800C06DC)) + var_s1))) << 0x10) | ((*((u8 *) (((s8 *) (&D_800C06E8)) + var_s1))) << 8)));
+                          u32 rgb = (((*((u8 *) (((s8 *) (&D_800C06D0)) + var_a0))) << 0x18) | (((*((u8 *) (((s8 *) (&D_800C06DC)) + var_a0))) << 0x10) | ((*((u8 *) (((s8 *) (&D_800C06E8)) + var_a0))) << 8)));
                           u32 alpha = (u32)(*(volatile f32 *)&m2c_initial_frame.view_sp60.value);
                           ((Field_s32 *)temp_a1_2)[1].v = rgb | (alpha & 255);
                         }
@@ -403,9 +401,9 @@ void func_800358D4(void *arg0)
                       block_45:
                       ++var_s2;
 
-                      var_s1 += 1;
+                      var_a0 += 1;
                       var_s4 += 4;
-                      if (var_s1 >= 0xA)
+                      if (var_a0 >= 0xA)
                       {
                         temp_v0_5 = D_80109CB8;
                         D_80109CB8 = temp_v0_5 + 8;
