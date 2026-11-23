@@ -83730,14 +83730,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19efe78e88efa25d9c868d6298e091bf6a11bd6cc3a4dfc219f332d512a9e72f"
  },
  {
-  "function": "func_80097A40",
-  "text": "Rechecked best 740/55 target instructions (86.5%). Fixes that improved it: use s32/u32 for the loaded 16-bit sentinel so GCC keeps the target's direct comparison; calculate table byte offset as `(var_a2*2 + var_a2)*4`; explicitly mask arg0 only after the sentinel check. Best still lacks target's `andi $v1,$a3,0xffff` after ori sentinel, and differs in later register allocation/branch offsets/callee scratch-pointer stack store. Reverting var_a3 to u16 or local branch/address repairs regressed/equaled. Callee `func_8008C7B8` is a matched empty stub; caller needs args despite its `(void)` signature.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795137657.5409548,
-  "score_before": 1486,
-  "score_after": 740
- },
- {
   "function": "func_80081D50",
   "text": "The initial compile call mistakenly submitted empty source and produced no candidate; no decompilation attempt was compiled. Start from the machine draft in the claim receipt or request a fresh draft, and compile it immediately.",
   "by": "codex-gpt-6-luna-15",
@@ -83762,30 +83754,6 @@
   "score_after": 8873
  },
  {
-  "function": "func_80097A40",
-  "text": "Rechecked and retained best score 740. Tried original m2c loop candidate, volatile u16 key (score 1866), then signed s32 key and an early-return sentinel variant; latter returned to identical 740 instruction output. Main unresolved target difference begins after lhu key: target emits ori -1, andi key, beq masked key; compiler omits redundant andi from direct u16 load. Remaining diffs include branch distances and call argument/stack ordering. Likely need alternate source representation that forces 16-bit truncation in a distinct register without volatile spill.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795176866.5667331,
-  "score_before": 740,
-  "score_after": 740
- },
- {
-  "function": "func_80097A40",
-  "text": "Improved 740\u2192210 by staging offset and base loads before the stack request pointer, advancing record by 8 in a standalone statement to prepare a1, and storing the computed address before the helper. Remaining target instructions: first key mask into v1 (compiler removes both u32\u2192u16 casts; u16 key scored 480) and second 0xFFFF load should be before loop rather than on backedge. Subsequent branch discrepancies follow from the mask and constant placement.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795182111.39083,
-  "score_before": 740,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Four repairs exhausted the move-on budget without beating the rechecked 210 (inline scalar, branch orientation, address temporary, literal local). First real delta is missing `andi v1,a3,0xffff` after initial lhu a3, with the sentinel branch comparing raw a3 in the candidate. Keep current loop and call topology. Next probe should reconstruct merged first/subsequent key lifetimes with a u16 sentinel expression and a full-width key live through the call; the empty matched callee cannot resolve original parameter types.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795183328.936642,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "func_80081D50",
   "text": "Rechecked saved candidate at 5260. Tried bounded local repairs: inferred_record_layout and masked_value_reuse produced identical code; cfg_integer_lifetimes worsened to 5800; signedness/declaration_order/branch_orientation variants were interrupted when project progress changed. Current candidate remains revision f4ab1e5d890d98984de0. Structural mismatch begins in prologue/register allocation (target saves s5 then moves arg0 to s5; candidate has no prologue operations at first diff). Further work should re-evaluate signature and exact compiler profile (function reports gcc-2.7.2-kmc -O1 although project default is O2), then redesign source rather than repeat these repairs.",
   "by": "codex-gpt-6-luna-19",
@@ -83800,14 +83768,6 @@
   "created_at": 1795183694.117752,
   "score_before": 3850,
   "score_after": 3850
- },
- {
-  "function": "func_80097A40",
-  "text": "Retained verified 210. Signed first halfword load then u16 cast scored 290; volatile unsigned first halfword load scored 300; signed wide key and explicit u16 initial sentinel each emitted the unchanged 210 code. Remaining target-only andi v1,a3,0xFFFF follows the first lhu; the later 0xFFFF constant also needs to move before the loop. The KMC optimizer removes the mask on an unsigned narrow load. A useful next diagnostic is compiling the loop with a distinct 16-bit first-iteration key lifetime and inspecting whether a changed optimization profile retains the andi without disturbing the call block.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795184464.886435,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "func_80081D50",
@@ -83834,92 +83794,12 @@
   "score_after": 8673
  },
  {
-  "function": "func_80097A40",
-  "text": "Rechecked baseline 210. Explicit u16 cast on the initial guard was optimized away; u16 for the live ID worsened to 480; payload temporary and flattened loop exit each tied 210. First missing instruction is andi $v1,$a3,0xffff after the initial lhu, with $a3 still live for lookup. Try giving the initial sentinel check a distinct 16-bit local derived from a wider load whose low-half range is opaque to the optimizer, while retaining a3 as the loop/call ID. Check exact call preparation order after recovering the initial mask.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795185508.79174,
-  "score_before": 210,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Verified retained best 210. Separate first u16 ID produced identical code; signed -1 initial test scored 496; shared u16 sentinel 540; upper-bit OR 580. Earliest delta remains target andi v1,a3,0xffff directly after initial lhu; the second ori 0xffff also sits on the backedge instead of before the loop. All call setup rows otherwise match on baseline. Next test a narrow ID lifetime in an inline loop-entry helper whose return passes the wide ID through, and check whether it retains the redundant mask.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795186741.058187,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "func_80064A18",
   "text": "Rechecked saved best score 8673 (89.0%); exploratory baseline scored 8693. Tried local table-read-width, debug statement-boundary, and switch-layout variants without improvement; changing D_800C7C98 alone or both D_800C7C98/D_800C7C9C from s32 to f32 worsened to 9293/9593. Saved best was restored and verified again at 8673. Remaining dominant differences start in prologue/register allocation (target saves $fp and uses $fp=$a1, $s7=$a0; candidate uses $s0/$s5), branch extent bnez target 0x5c vs 0x60, six immediate-to-float stores around D_800C7C98, and broad downstream scheduling/register differences. Continue from saved_best; investigate argument/local liveness and float constant/store representation.",
   "by": "codex-gpt-6-luna-11",
   "created_at": 1795186933.4242811,
   "score_before": 8673,
   "score_after": 8673
- },
- {
-  "function": "func_80097A40",
-  "text": "Rechecked best 210: target has an additional andi of initial loaded sentinel and constant 0xffff scheduled before loop. Signed-halfword load plus u16 comparison generated andi but wrong lh (290); adding 0x10000 to unsigned load generated unwanted two instructions (370). Next investigate how to retain lhu while forcing initial truncation, then schedule sentinel constant before loop.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795188788.354642,
-  "score_before": 210,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Rechecked saved score 210. Branch orientation worsened to 1155; address temporary, sum shape and constant local tied at 210. Target has an extra andi v1,a3,0xffff after initial lhu and differs in branch destinations and scheduling. Saved candidate has a correctness concern: matched-ID path does not advance to the next record; inspect target loop and fix before further tuning. Remaining local repairs available.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795189880.588937,
-  "score_before": 210,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Best remains 210 (96.1%), exact candidate saved from baseline. Initial rewrite with callee called as void(void) scored 1745; restoring the prior call arguments recovered 210. Changing var_a3 from u32 to u16 worsened to 480. Remaining target differences are largely branch offsets/control flow near loop exits and missing `andi $v1,$a3,0xffff` at target instruction 19; target has bnel traversal and a branch to +0xc8 while best candidate branches to +0xc4. Inspect latest diff and try shaping sentinel comparison/loop exit while retaining the original u32 var_a3 declaration.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795190952.317255,
-  "score_before": 210,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Verified 210 baseline. Branch orientation and address temporary did not improve; initial sentinel comparisons via signed cast and left shift scored 496 and 490. Target exits immediately after incrementing matching record, so current match-path termination is correct. Remaining first difference is missing andi v1,a3,0xffff after lhu; subsequent branch offsets and sentinel placement follow. Explore a distinct narrow first-iteration lifetime or compiler profile.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795192166.176268,
-  "score_before": 210,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Rechecked 210. Explicit u16 cast on initial sentinel and unsigned stride locals tie; u16 key local or comparison narrows too much and worsens. Initial andi v1,a3,0xffff still absent, with two schedule shifts. Try first loading a signed halfword and keeping an independently masked unsigned key live through the initial check and loop; check both lhu and andi. Preserve all four arguments to matched empty stub.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795197432.401335,
-  "score_before": 210,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Saved best score 210 (96.1%) rechecked; function 55 instructions, only 8 rows differ mainly branch offsets/control shape. Tested explicit u16 masks on comparisons; worse at 295 and introduces redundant mask on arg0; preserve saved candidate. Target explicitly emits `andi $v1,$a3,0xffff` before sentinel compare, but C source's u16 loads are optimized and omit it; candidate equality compare directly uses a3. Try a widened s32 temporary for loaded header, mask into distinct variable used in sentinel branch, retaining original a3 for the later bnel and loop compare. Budget reached.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795198382.0926778,
-  "score_before": 210,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Rechecked baseline 210 (54 C instructions vs target 55), very close. Mismatches are one missing instruction around initial sentinel check and branch target shifts cascading from it, plus loop address registers. Tried changing var_a3 from u32 to u16; it regressed to 480/56 instructions due extra masks and altered loop registers. Best is original u32 candidate. Target around offset 0x84 loads a3, materializes 0xffff, ANDs a3 into v1, then compares v1; C's `if(var_a3 != 0xFFFF)` omitted that and later constant materialization; consider expressing a separate u16-normalized copy for sentinel test while retaining a3 for loop compare. This may restore instruction count and branch targets.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795200549.1757069,
-  "score_before": 210,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Started from 210-score candidate. Recompiled equivalent source at 210; casts around the first u16 comparison increased score to 295 by generating an extra mask and changing branch registers. Restored saved_best. First unresolved target-only instruction is andi v1,a3,0xffff before equality branch; further differences are branch distances (+4), sentinel placement/order, and resulting registers. Original draft lacks target's initial mask although it had broadly correct flow.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795201765.820637,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "func_80081D50",
@@ -83938,36 +83818,12 @@
   "score_after": 3850
  },
  {
-  "function": "func_80097A40",
-  "text": "Verified score 210. Casting or masking the initial unsigned halfword comparison did not add the target's redundant andi; signed loading worsened score to 290. Remaining differences are that andi and placement of sentinel constant.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795203888.044729,
-  "score_before": 210,
-  "score_after": 210
- },
- {
-  "function": "func_80097A40",
-  "text": "Best stays 210 (96.1%), candidate rev 59d1811a00fd076a618b. Remaining diff starts at target 'andi $v1,$a3,0xffff' after lhu $a3 (target masks the loaded u16 before comparing to 0xFFFF, then beq $v1,$v0; ours compares $a3 directly). Tried: (u16)var_a3 cast, var_a3&0xFFFF, (u32)0xFFFF, declaring var_a3 as u16 (480, worse), (u16)cast in the loop-tail compare: all compiler-folded or worse. Unbalanced split-local attempt not compiled properly. Untested next: a separate u16 local for the first load with explicit masking in an expression like ((u16)*(u16*)var_a1 != 0xFFFF) combined with var_a3 assignment after; or matching the sp10 call args ordering (target writes sw at 0x10($sp) before addu v0; remaining branch-target offsets follow from the andi).",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795205086.384147,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "func_80081D50",
   "text": "Inherited saved best candidate restored (revision 3b8e2f8397dd1ebba2a0; historical score 5235). Rechecked current work: local repairs yielded 7576, 6955, 6825, 6955, 6955, 6605; two hand rewrites were unsuccessful, one compile error and another score 12245. Compile cap says move on at 9/8. Target is 214 instructions; current mismatch requires control-flow and argument-width reconstruction, then register allocation.",
   "by": "codex-gpt-6-luna-6",
   "created_at": 1795206098.25198,
   "score_before": 5235,
   "score_after": 5235
- },
- {
-  "function": "func_80097A40",
-  "text": "Verified baseline score 210, retained by variants. First guard lacks andi v1,a3,0xffff after lhu; tail compares a3 directly as desired. Scoped u16 first then explicit cast emits identical code; increment-and-wrap, shift-compare, and unsigned less-than scored 495, 490, 585. After the initial guard the second sentinel ori also differs in placement.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795206341.802283,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "func_8011D158",
@@ -84002,15 +83858,6 @@
   "score_after": 7708
  },
  {
-  "function": "func_80097A40",
-  "text": "Baseline score 210. Local repair families local_width, branch_orientation, address_temporary, constant_local, sum_shape, and call_arity did not improve it; earlier direct casts/masks were optimized away. Mismatch remains the initial sentinel guard: target emits andi after lhu before compare; candidate branches on the loaded register directly.\nLocal repair batch across six families, none improved baseline.\nBaseline remained score 210 at move-on threshold.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795213271.322583,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
   "function": "func_80081D50",
   "text": "Reused temp_v0_2 and moved two conditional byte stores into their respective branches; tested inline, layout, branch inversion, masked reuse and signedness variants.\nCurrent score 5850 versus rechecked initial 6955; latest six variants did not improve. 133 mismatch rows remain, chiefly registers and control flow.",
   "by": "codex-gpt-6.1-terra-4",
@@ -84029,15 +83876,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
  },
  {
-  "function": "func_80097A40",
-  "text": "Best remains 210 (rev 59d1811a00fd076a618b). Struct-based natural rewrite (u16 arg0, E* with while(e->id!=0xFFFF)) scored 1850 - worse (search loop codegen differs). Diff: target masks a3 (andi v1,a3,0xFFFF) in first guard only and hoists ori v0,0xFFFF before the loop. Next step: keep the m2c goto structure but try guard compare against a separate s32 temp copy of the lhu result.\nstruct rewrite with while loop (1850)\nworse",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795219192.52895,
-  "score_before": 2335,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
   "function": "func_80081D50",
   "text": "Reused masked temporary and split two shared stores into branch arms; tested inline scalar, inferred record, reversed branch and s32 local.\nCurrent baseline 6955 improved to 5850; remaining tests tied or worsened. Historical best 5235 rechecks at 6955.",
   "by": "codex-gpt-6.1-terra-2",
@@ -84045,24 +83883,6 @@
   "score_before": 6955,
   "score_after": 5850,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
- },
- {
-  "function": "func_80097A40",
-  "text": "Saved best remains 210. New finding: a typed struct (E{u16 id;u16 cnt;s32 off;s32 dst;void*p;u8 pad[12]}) with param u16 arg0 and `for(; e->id != 0xFFFF; e=(E*)((char*)e+0x1C)) { if (e->id==arg0) {...; e->cnt++; break;} }` DOES produce the target's `ori v0,0xffff; andi v1,a3,0xffff; beq` guard (score 1305). But then D_800F38F4+i*12 is hoisted as lui/addiu before loop (target computes i*12 into v1 before loop and lui/addu/lw inside), and the call passes e->id reload instead of a3. Assigning a3=e->id inside the loop condition loses the andi (1340). Next step: combine d60f-style loop with idx precomputed `t=i*12` in a form that keeps lui inside loop (e.g. (char*)D_800F38F4 via volatile-less u8* cast add), and pass saved id.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795221361.8976839,
-  "score_before": 1580,
-  "score_after": 1305,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_80097A40",
-  "text": "Inline scalar shapes, branch orientation and u16 cast on first sentinel comparison.\nCast and inline shapes unchanged at 210; reversed branch worsened to 1155.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795227614.257142,
-  "score_before": 1305,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
   "function": "func_8011D158",
@@ -84137,15 +83957,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
  },
  {
-  "function": "func_80097A40",
-  "text": "Current verified baseline 210, same as saved best. Direct `(u16)` casts made score 295; no gains. Historical attempts already included u16 scoping/casts, masks, and alternate wrap checks. Core mismatch: target masks loaded u16 into v1 before equality to argument, while C promotion folds this away; trailing loop sentinel and branch offsets also differ. Last diagnostic patch is worse; saved best should be restored. Next step: try expressing initial comparison via a separately assigned volatile u32 temporary from the loaded field, preserving 16-bit mask, then compile.\nAdded explicit u16 casts on both sides of the first key comparison; score 295 versus verified 210.\nCompiler removed the target's andi; remaining branch offsets/loop control differ.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795245697.897384,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
   "function": "func_80081D50",
   "text": "Target forms bonus offset before the first masked loop index and recomputes several slot/output addresses that GCC shares. First visible extra instruction is an early move of zero to a2.",
   "by": "codex-gpt-6.2-sol-6",
@@ -84155,15 +83966,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
  },
  {
-  "function": "func_80097A40",
-  "text": "Explicit loop comparison mask compiles identically, score 210. Missing mask is before initial sentinel comparison; remaining differences are branch offsets and sentinel placement.\nMask loop comparison\nNo instruction difference; score 210",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795246627.138416,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
   "function": "func_80064A18",
   "text": "Local repair continuation reached revision 301a4ead117971e5f8c7, score 15350 (baseline 15740): reused temp_s0 for two scalar lifetimes and moved var_v0_4 assignment after the debug loop. Subsequent repair changed candidate and claim was lost; revision 842dd1d9c97aecf8f0fa fails due to too-few-argument prototypes for func_800162BC and func_80022DBC. Next step: recover saved best and inspect call prototypes before further repairs.",
   "by": "codex-gpt-6.1-terra-4",
@@ -84171,15 +83973,6 @@
   "score_before": 15455,
   "score_after": 15350,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80097A40",
-  "text": "Compared inline load, constant local, and reduced call arity\nFirst two unchanged at 210; call arity worsened to 545",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795254996.504716,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
   "function": "func_8011D158",
@@ -84200,78 +83993,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:bff4e5003887f535163c11959622d3c9b5eabe8ed7809652910eb73da390b912"
  },
  {
-  "function": "func_80097A40",
-  "text": "Move-on threshold reached. Volatile first read plus cast scored 300, narrowing the carried variable scored 480, baseline 210 restored.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795267002.561773,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_80097A40",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 0a1a8c539916725cb6a5 retained, score 210 rechecked. Swapping offset/base loads scored 945; explicit u16 initial temporary and sentinel cast left andi missing. Next step: test a compiler flag hypothesis targeting the redundant post-lhu mask and loop sentinel scheduling.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795267995.0161479,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_80097A40",
-  "text": "Move-on threshold reached; score 210. Missing andi after first lhu, remaining branch/order differences. Signed first load restored some local instructions but scored 290, signed sentinels 496/626, narrow compare 295.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795270053.218237,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_80097A40",
-  "text": "Reached 4/4 without improvement; rechecked 210 and restored its revision. The volatile first load and sentinel cast scored 300. Inline identity unchanged; inverted branch scored 1155.\nVolatile initial halfword with u16 sentinel cast\nRestored mask but v0 held raw value and a3 held masked value; sentinel literal was still scheduled late.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795271531.27776,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_80097A40",
-  "text": "Exceeded 4-compilation move-on limit. Verified 210. First lhu still lacks mask before sentinel branch; loop-tail sentinel immediate schedules late.\nNarrow key or XOR/increment sentinel tests.\n480 or 495 versus retained 210.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795273745.781706,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_80097A40",
-  "text": "Reached threshold at verified 210. Initial redundant mask is absent and tail sentinel remains late. Halfword cast and explicit mask tied. Volatile unsigned and signed initial load variants scored 300 and 375.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795275580.371519,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_80097A40",
-  "text": "Compared upper-bit OR then narrowing, volatile narrowed load, loop-tail sentinel local, and narrowed self-assignment. Volatile variant scored 300; others preserved score 210 and the missing initial andi plus late tail sentinel. Move-on budget exhausted.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795276577.0734122,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_80097A40",
-  "text": "Struct view: KeyEntry 0x1C {u16 id; u16 count; s32 offset; s32 addr; u8 rest[0x10]}, sKeyTableSlots[] stride 12 {void*ptr;...}, D_800F38F4[] stride 12. Frame 0x28 needs sp10 of 8 bytes (void *sp10[2]); [3] gives 0x30 frame in struct version. Struct versions (840-890) all store e->addr before the call-arg setup (target computes sp10/a1 first, stores addr in jal delay slot) \u2014 saved-best's explicit local order (offset, base, sp10[0]=, a1+=8, store) is what fixes that. Target's andi on first id test only: none of u16/u32 id variants reproduced it while keeping loop compare clean.",
-  "by": "claude-opus-13",
-  "created_at": 1795289059.809772,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
   "function": "func_80064A18",
   "text": "Changing padding[4] to padding[2] fixed the frame (0x48) and scored 5818 (revision 08616956fac284a2e373, new best). sp14=arg1 was worse (6685). The target keeps arg1 in fp, arg3 in s6 and arg0 in s7, and spills a2 to 0x14(sp).",
   "by": "claude-opus-low-3",
@@ -84279,14 +84000,6 @@
   "score_before": 7295,
   "score_after": 5818,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
- },
- {
-  "function": "func_80097A40",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No new trials; prior agents exhausted budget at 210. Next step: restructure the loop-tail sentinel/initial andi per prior notes.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795300111.0132601,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "func_80081D50",
@@ -84465,15 +84178,6 @@
   "score_before": 720,
   "score_after": 720,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:45736c2a205375ad89199b4b7a38941a3e9753119b4587f04a9c668af83723fd"
- },
- {
-  "function": "func_80097A40",
-  "text": "Saved best stays at 210. Changing var_a3 from u32 to u16 scored 620: it adds andi instructions and shifts the loop tail. Next step: keep var_a3 as u32 and make the first compare use a separate u16 temporary, `(u16)`-cast only on the initial sentinel test.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795385345.731331,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
   "function": "heapAllocTagged",
@@ -88434,5 +88138,319 @@
   "created_at": 1795387560.6997812,
   "score_before": 230,
   "score_after": 230
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked best 740/55 target instructions (86.5%). Fixes that improved it: use s32/u32 for the loaded 16-bit sentinel so GCC keeps the target's direct comparison; calculate table byte offset as `(var_a2*2 + var_a2)*4`; explicitly mask arg0 only after the sentinel check. Best still lacks target's `andi $v1,$a3,0xffff` after ori sentinel, and differs in later register allocation/branch offsets/callee scratch-pointer stack store. Reverting var_a3 to u16 or local branch/address repairs regressed/equaled. Callee `func_8008C7B8` is a matched empty stub; caller needs args despite its `(void)` signature.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795137657.5409548,
+  "score_before": 1486,
+  "score_after": 740
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked and retained best score 740. Tried original m2c loop candidate, volatile u16 key (score 1866), then signed s32 key and an early-return sentinel variant; latter returned to identical 740 instruction output. Main unresolved target difference begins after lhu key: target emits ori -1, andi key, beq masked key; compiler omits redundant andi from direct u16 load. Remaining diffs include branch distances and call argument/stack ordering. Likely need alternate source representation that forces 16-bit truncation in a distinct register without volatile spill.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795176866.5667331,
+  "score_before": 740,
+  "score_after": 740
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Improved 740\u2192210 by staging offset and base loads before the stack request pointer, advancing record by 8 in a standalone statement to prepare a1, and storing the computed address before the helper. Remaining target instructions: first key mask into v1 (compiler removes both u32\u2192u16 casts; u16 key scored 480) and second 0xFFFF load should be before loop rather than on backedge. Subsequent branch discrepancies follow from the mask and constant placement.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795182111.39083,
+  "score_before": 740,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Four repairs exhausted the move-on budget without beating the rechecked 210 (inline scalar, branch orientation, address temporary, literal local). First real delta is missing `andi v1,a3,0xffff` after initial lhu a3, with the sentinel branch comparing raw a3 in the candidate. Keep current loop and call topology. Next probe should reconstruct merged first/subsequent key lifetimes with a u16 sentinel expression and a full-width key live through the call; the empty matched callee cannot resolve original parameter types.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795183328.936642,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Retained verified 210. Signed first halfword load then u16 cast scored 290; volatile unsigned first halfword load scored 300; signed wide key and explicit u16 initial sentinel each emitted the unchanged 210 code. Remaining target-only andi v1,a3,0xFFFF follows the first lhu; the later 0xFFFF constant also needs to move before the loop. The KMC optimizer removes the mask on an unsigned narrow load. A useful next diagnostic is compiling the loop with a distinct 16-bit first-iteration key lifetime and inspecting whether a changed optimization profile retains the andi without disturbing the call block.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795184464.886435,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked baseline 210. Explicit u16 cast on the initial guard was optimized away; u16 for the live ID worsened to 480; payload temporary and flattened loop exit each tied 210. First missing instruction is andi $v1,$a3,0xffff after the initial lhu, with $a3 still live for lookup. Try giving the initial sentinel check a distinct 16-bit local derived from a wider load whose low-half range is opaque to the optimizer, while retaining a3 as the loop/call ID. Check exact call preparation order after recovering the initial mask.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795185508.79174,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Verified retained best 210. Separate first u16 ID produced identical code; signed -1 initial test scored 496; shared u16 sentinel 540; upper-bit OR 580. Earliest delta remains target andi v1,a3,0xffff directly after initial lhu; the second ori 0xffff also sits on the backedge instead of before the loop. All call setup rows otherwise match on baseline. Next test a narrow ID lifetime in an inline loop-entry helper whose return passes the wide ID through, and check whether it retains the redundant mask.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795186741.058187,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked best 210: target has an additional andi of initial loaded sentinel and constant 0xffff scheduled before loop. Signed-halfword load plus u16 comparison generated andi but wrong lh (290); adding 0x10000 to unsigned load generated unwanted two instructions (370). Next investigate how to retain lhu while forcing initial truncation, then schedule sentinel constant before loop.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795188788.354642,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked saved score 210. Branch orientation worsened to 1155; address temporary, sum shape and constant local tied at 210. Target has an extra andi v1,a3,0xffff after initial lhu and differs in branch destinations and scheduling. Saved candidate has a correctness concern: matched-ID path does not advance to the next record; inspect target loop and fix before further tuning. Remaining local repairs available.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795189880.588937,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Best remains 210 (96.1%), exact candidate saved from baseline. Initial rewrite with callee called as void(void) scored 1745; restoring the prior call arguments recovered 210. Changing var_a3 from u32 to u16 worsened to 480. Remaining target differences are largely branch offsets/control flow near loop exits and missing `andi $v1,$a3,0xffff` at target instruction 19; target has bnel traversal and a branch to +0xc8 while best candidate branches to +0xc4. Inspect latest diff and try shaping sentinel comparison/loop exit while retaining the original u32 var_a3 declaration.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795190952.317255,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Verified 210 baseline. Branch orientation and address temporary did not improve; initial sentinel comparisons via signed cast and left shift scored 496 and 490. Target exits immediately after incrementing matching record, so current match-path termination is correct. Remaining first difference is missing andi v1,a3,0xffff after lhu; subsequent branch offsets and sentinel placement follow. Explore a distinct narrow first-iteration lifetime or compiler profile.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795192166.176268,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked 210. Explicit u16 cast on initial sentinel and unsigned stride locals tie; u16 key local or comparison narrows too much and worsens. Initial andi v1,a3,0xffff still absent, with two schedule shifts. Try first loading a signed halfword and keeping an independently masked unsigned key live through the initial check and loop; check both lhu and andi. Preserve all four arguments to matched empty stub.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795197432.401335,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Saved best score 210 (96.1%) rechecked; function 55 instructions, only 8 rows differ mainly branch offsets/control shape. Tested explicit u16 masks on comparisons; worse at 295 and introduces redundant mask on arg0; preserve saved candidate. Target explicitly emits `andi $v1,$a3,0xffff` before sentinel compare, but C source's u16 loads are optimized and omit it; candidate equality compare directly uses a3. Try a widened s32 temporary for loaded header, mask into distinct variable used in sentinel branch, retaining original a3 for the later bnel and loop compare. Budget reached.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795198382.0926778,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked baseline 210 (54 C instructions vs target 55), very close. Mismatches are one missing instruction around initial sentinel check and branch target shifts cascading from it, plus loop address registers. Tried changing var_a3 from u32 to u16; it regressed to 480/56 instructions due extra masks and altered loop registers. Best is original u32 candidate. Target around offset 0x84 loads a3, materializes 0xffff, ANDs a3 into v1, then compares v1; C's `if(var_a3 != 0xFFFF)` omitted that and later constant materialization; consider expressing a separate u16-normalized copy for sentinel test while retaining a3 for loop compare. This may restore instruction count and branch targets.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795200549.1757069,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Started from 210-score candidate. Recompiled equivalent source at 210; casts around the first u16 comparison increased score to 295 by generating an extra mask and changing branch registers. Restored saved_best. First unresolved target-only instruction is andi v1,a3,0xffff before equality branch; further differences are branch distances (+4), sentinel placement/order, and resulting registers. Original draft lacks target's initial mask although it had broadly correct flow.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795201765.820637,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Verified score 210. Casting or masking the initial unsigned halfword comparison did not add the target's redundant andi; signed loading worsened score to 290. Remaining differences are that andi and placement of sentinel constant.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795203888.044729,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Best stays 210 (96.1%), candidate rev 59d1811a00fd076a618b. Remaining diff starts at target 'andi $v1,$a3,0xffff' after lhu $a3 (target masks the loaded u16 before comparing to 0xFFFF, then beq $v1,$v0; ours compares $a3 directly). Tried: (u16)var_a3 cast, var_a3&0xFFFF, (u32)0xFFFF, declaring var_a3 as u16 (480, worse), (u16)cast in the loop-tail compare: all compiler-folded or worse. Unbalanced split-local attempt not compiled properly. Untested next: a separate u16 local for the first load with explicit masking in an expression like ((u16)*(u16*)var_a1 != 0xFFFF) combined with var_a3 assignment after; or matching the sp10 call args ordering (target writes sw at 0x10($sp) before addu v0; remaining branch-target offsets follow from the andi).",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795205086.384147,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Verified baseline score 210, retained by variants. First guard lacks andi v1,a3,0xffff after lhu; tail compares a3 directly as desired. Scoped u16 first then explicit cast emits identical code; increment-and-wrap, shift-compare, and unsigned less-than scored 495, 490, 585. After the initial guard the second sentinel ori also differs in placement.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795206341.802283,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Baseline score 210. Local repair families local_width, branch_orientation, address_temporary, constant_local, sum_shape, and call_arity did not improve it; earlier direct casts/masks were optimized away. Mismatch remains the initial sentinel guard: target emits andi after lhu before compare; candidate branches on the loaded register directly.\nLocal repair batch across six families, none improved baseline.\nBaseline remained score 210 at move-on threshold.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795213271.322583,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Best remains 210 (rev 59d1811a00fd076a618b). Struct-based natural rewrite (u16 arg0, E* with while(e->id!=0xFFFF)) scored 1850 - worse (search loop codegen differs). Diff: target masks a3 (andi v1,a3,0xFFFF) in first guard only and hoists ori v0,0xFFFF before the loop. Next step: keep the m2c goto structure but try guard compare against a separate s32 temp copy of the lhu result.\nstruct rewrite with while loop (1850)\nworse",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795219192.52895,
+  "score_before": 2335,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Saved best remains 210. New finding: a typed struct (E{u16 id;u16 cnt;s32 off;s32 dst;void*p;u8 pad[12]}) with param u16 arg0 and `for(; e->id != 0xFFFF; e=(E*)((char*)e+0x1C)) { if (e->id==arg0) {...; e->cnt++; break;} }` DOES produce the target's `ori v0,0xffff; andi v1,a3,0xffff; beq` guard (score 1305). But then D_800F38F4+i*12 is hoisted as lui/addiu before loop (target computes i*12 into v1 before loop and lui/addu/lw inside), and the call passes e->id reload instead of a3. Assigning a3=e->id inside the loop condition loses the andi (1340). Next step: combine d60f-style loop with idx precomputed `t=i*12` in a form that keeps lui inside loop (e.g. (char*)D_800F38F4 via volatile-less u8* cast add), and pass saved id.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795221361.8976839,
+  "score_before": 1580,
+  "score_after": 1305,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Inline scalar shapes, branch orientation and u16 cast on first sentinel comparison.\nCast and inline shapes unchanged at 210; reversed branch worsened to 1155.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795227614.257142,
+  "score_before": 1305,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Current verified baseline 210, same as saved best. Direct `(u16)` casts made score 295; no gains. Historical attempts already included u16 scoping/casts, masks, and alternate wrap checks. Core mismatch: target masks loaded u16 into v1 before equality to argument, while C promotion folds this away; trailing loop sentinel and branch offsets also differ. Last diagnostic patch is worse; saved best should be restored. Next step: try expressing initial comparison via a separately assigned volatile u32 temporary from the loaded field, preserving 16-bit mask, then compile.\nAdded explicit u16 casts on both sides of the first key comparison; score 295 versus verified 210.\nCompiler removed the target's andi; remaining branch offsets/loop control differ.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795245697.897384,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Explicit loop comparison mask compiles identically, score 210. Missing mask is before initial sentinel comparison; remaining differences are branch offsets and sentinel placement.\nMask loop comparison\nNo instruction difference; score 210",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795246627.138416,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Compared inline load, constant local, and reduced call arity\nFirst two unchanged at 210; call arity worsened to 545",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795254996.504716,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Move-on threshold reached. Volatile first read plus cast scored 300, narrowing the carried variable scored 480, baseline 210 restored.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795267002.561773,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 0a1a8c539916725cb6a5 retained, score 210 rechecked. Swapping offset/base loads scored 945; explicit u16 initial temporary and sentinel cast left andi missing. Next step: test a compiler flag hypothesis targeting the redundant post-lhu mask and loop sentinel scheduling.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795267995.0161479,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Move-on threshold reached; score 210. Missing andi after first lhu, remaining branch/order differences. Signed first load restored some local instructions but scored 290, signed sentinels 496/626, narrow compare 295.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795270053.218237,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Reached 4/4 without improvement; rechecked 210 and restored its revision. The volatile first load and sentinel cast scored 300. Inline identity unchanged; inverted branch scored 1155.\nVolatile initial halfword with u16 sentinel cast\nRestored mask but v0 held raw value and a3 held masked value; sentinel literal was still scheduled late.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795271531.27776,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Exceeded 4-compilation move-on limit. Verified 210. First lhu still lacks mask before sentinel branch; loop-tail sentinel immediate schedules late.\nNarrow key or XOR/increment sentinel tests.\n480 or 495 versus retained 210.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795273745.781706,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Reached threshold at verified 210. Initial redundant mask is absent and tail sentinel remains late. Halfword cast and explicit mask tied. Volatile unsigned and signed initial load variants scored 300 and 375.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795275580.371519,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Compared upper-bit OR then narrowing, volatile narrowed load, loop-tail sentinel local, and narrowed self-assignment. Volatile variant scored 300; others preserved score 210 and the missing initial andi plus late tail sentinel. Move-on budget exhausted.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795276577.0734122,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Struct view: KeyEntry 0x1C {u16 id; u16 count; s32 offset; s32 addr; u8 rest[0x10]}, sKeyTableSlots[] stride 12 {void*ptr;...}, D_800F38F4[] stride 12. Frame 0x28 needs sp10 of 8 bytes (void *sp10[2]); [3] gives 0x30 frame in struct version. Struct versions (840-890) all store e->addr before the call-arg setup (target computes sp10/a1 first, stores addr in jal delay slot) \u2014 saved-best's explicit local order (offset, base, sp10[0]=, a1+=8, store) is what fixes that. Target's andi on first id test only: none of u16/u32 id variants reproduced it while keeping loop compare clean.",
+  "by": "claude-opus-13",
+  "created_at": 1795289059.809772,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No new trials; prior agents exhausted budget at 210. Next step: restructure the loop-tail sentinel/initial andi per prior notes.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795300111.0132601,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Saved best stays at 210. Changing var_a3 from u32 to u16 scored 620: it adds andi instructions and shifts the loop tail. Next step: keep var_a3 as u32 and make the first compare use a separate u16 temporary, `(u16)`-cast only on the initial sentinel test.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795385345.731331,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Best 165 (rechecked). Target has extra `andi v1,a3,0xffff` before the first 0xFFFF compare. Tried u16 temp and (u16)var_a3 casts on compares: identical asm. Next step: make var_a3 an s32 loaded via halfword read so the compare needs an explicit mask.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795387180.716268,
+  "score_before": 165,
+  "score_after": 165,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked 165. try_local_repairs 6 variants: no improvement (u16 width/inline/addr temp/literal neutral; branch orient 1285, call arity 350 worse). Still missing only `andi v1,a3,0xffff` before first 0xFFFF compare (4 rows). Next step: load first element into a separate s32 via (s32)*(u16*)var_a1 for the sentinel compare, then reload var_a3 in the loop.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795388142.6111429,
+  "score_before": 165,
+  "score_after": 165,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  }
 ]
