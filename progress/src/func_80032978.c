@@ -56,6 +56,7 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
   long var_v1_6;
   u8 temp_v1;
   void *temp_a0_2;
+  void *temp_a0_x;
   void *temp_a0_5;
   void *temp_a0_8;
   void *temp_a1;
@@ -283,8 +284,8 @@ block_17:
         *((s32 *) (((char *) temp_s1_3) + 8)) = (s32) ((((((u32) ((temp_s2 >> 1) + 7)) >> 3) & 0x1FF) << 9) | var_v1_4);
         temp_s0_4 = func_80032830(temp_s3);
         width_log = func_80032830(temp_s2);
-        temp_a0_5 = gGfxPtr;
         ((__repair_field_C *) temp_s1_3)->value = (s32) ((((temp_s6 << 0x12) | ((temp_s0_4 & 0xF) << 0xE)) | (temp_s7 << 8)) | ((width_log & 0xF) * 0x10));
+        temp_a0_5 = gGfxPtr;
         gGfxPtr = temp_a0_5 + 8;
         *((s32 *) (((char *) temp_a0_5) + 0)) = 0xF2000000;
         *((s32 *) (((char *) temp_a0_5) + 4)) = (s32) (((((temp_s2 - 1) * 4) & 0xFFF) << 0xC) | (((temp_s3 - 1) * 4) & 0xFFF));
@@ -359,24 +360,27 @@ block_17:
         temp_a2_3 = ((var_v1_5 & 0xFFF) << 0xC) | 0x07000000;
         if (temp_a0_7 != 0)
         {
-          var_v0_6 = (var_a3_3 / temp_a0_7) & 0xFFF;
+          s32 var_v0_a1;
+          var_v0_a1 = (var_a3_3 / temp_a0_7) & 0xFFF;
+          ((__repair_field_C *) temp_a1_3)->value = (s32) (temp_a2_3 | var_v0_a1);
         }
         else
         {
-          var_v0_6 = var_a3_3 & 0xFFF;
+          s32 var_v0_a2;
+          var_v0_a2 = var_a3_3 & 0xFFF;
+          ((__repair_field_C *) temp_a1_3)->value = (s32) (temp_a2_3 | var_v0_a2);
         }
-        ((__repair_field_C *) temp_a1_3)->value = (s32) (temp_a2_3 | var_v0_6);
         temp_s1_5 = gGfxPtr;
         gGfxPtr = temp_s1_5 + 8;
         *((s32 *) (((char *) temp_s1_5) + 0)) = 0xE7000000;
         gGfxPtr = temp_s1_5 + 0x10;
         *((s32 *) (((char *) temp_s1_5) + 4)) = 0;
         *((s32 *) (((char *) temp_s1_5) + 8)) = (s32) ((((((u32) (temp_s2 + 7)) >> 3) & 0x1FF) << 9) | 0xF5880000);
-        width_log = func_80032830(temp_s2);
         temp_s0_6 = func_80032830(temp_s3);
+        width_log = func_80032830(temp_s2);
+        ((__repair_field_C *) temp_s1_5)->value = (s32) ((((temp_s6 << 0x12) | ((temp_s0_6 & 0xF) << 0xE)) | (temp_s7 << 8)) | ((width_log & 0xF) * 0x10));
         temp_a0_8 = gGfxPtr;
         gGfxPtr = temp_a0_8 + 8;
-        ((__repair_field_C *) temp_s1_5)->value = (s32) ((((temp_s6 << 0x12) | ((temp_s0_6 & 0xF) << 0xE)) | (temp_s7 << 8)) | ((width_log & 0xF) * 0x10));
         *((s32 *) (((char *) temp_a0_8) + 0)) = 0xF2000000;
         *((s32 *) (((char *) temp_a0_8) + 4)) = (s32) (((((temp_s2 - 1) * 4) & 0xFFF) << 0xC) | (((temp_s3 - 1) * 4) & 0xFFF));
       }
@@ -445,11 +449,11 @@ block_17:
         *((s32 *) (((char *) temp_s1_3) + 8)) = (s32) ((((((u32) ((temp_s2 >> 1) + 7)) >> 3) & 0x1FF) << 9) | ((unsigned) __repair_phase_var_v1_4));
         __repair_phase_temp_s0_4 = func_80032830(temp_s3);
         width_log = func_80032830(temp_s2);
-        temp_a0_5 = gGfxPtr;
         ((__repair_field_C *) temp_s1_3)->value = (s32) ((((temp_s6 << 0x12) | ((__repair_phase_temp_s0_4 & 0xF) << 0xE)) | (temp_s7 << 8)) | ((width_log & 0xF) * 0x10));
-        gGfxPtr = temp_a0_5 + 8;
-        *((s32 *) (((char *) temp_a0_5) + 0)) = 0xF2000000;
-        *((s32 *) (((char *) temp_a0_5) + 4)) = (s32) (((((temp_s2 - 1) * 4) & 0xFFF) << 0xC) | (((temp_s3 - 1) * 4) & 0xFFF));
+        temp_a0_x = gGfxPtr;
+        gGfxPtr = temp_a0_x + 8;
+        *((s32 *) (((char *) temp_a0_x) + 0)) = 0xF2000000;
+        *((s32 *) (((char *) temp_a0_x) + 4)) = (s32) (((((temp_s2 - 1) * 4) & 0xFFF) << 0xC) | (((temp_s3 - 1) * 4) & 0xFFF));
         return;
       }
 
