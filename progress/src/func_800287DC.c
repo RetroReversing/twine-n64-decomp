@@ -17,8 +17,7 @@ void func_800287DC(void)
   s16 temp_v0_2;
   s16 temp_v0_3;
   s16 var_v0_2;
-  s32 temp_v1_4;
-  s32 var_a1;
+  u16 var_a1;
   s32 var_a2;
   s32 var_v0;
   u32 temp_a3;
@@ -62,8 +61,8 @@ void func_800287DC(void)
       var_a2 = 0;
       if (temp_a3 < ((u8) (*((u8 *) (((char *) (*((s32 **) (((char *) items) + 0x10)))) + 5)))))
       {
+        s32 k255 = 0xFF;
         void *loopItems = items;
-        s32 *flags = &sSaveMenuColorIdle;
         do
         {
           __repair_operand = *((s32 *) (((char *) (*((s32 **) (((char *) items) + 0x10)))) + 0));
@@ -74,16 +73,15 @@ void func_800287DC(void)
             var_a1 = 0xFF;
             if (temp_v0_2 < 0)
             {
-              temp_v1_4 = ((-temp_v0_2) * 0x16) & 0xFFFFu;
-              if (temp_v1_4 >= 0)
+              if (((-temp_v0_2) * 0x16) >= 0)
               {
-                if (temp_v1_4 >= 0x100)
+                if (((-temp_v0_2) * 0x16) >= 0x100)
                 {
                   var_v0 = 0;
                 }
                 else
                 {
-                  var_v0 = 0xFF - temp_v1_4;
+                  var_v0 = k255 - ((-temp_v0_2) * 0x16);
                 }
               }
               else
@@ -92,19 +90,17 @@ void func_800287DC(void)
               }
               var_a1 = var_v0;
             }
-            *((s32 *) (((char *) (*((void **) (((char *) (((var_a2 & 0xFFFF) * 0x28) + (*(*((s32 **) (((char *) loopItems) + 0x10)))))) + 8)))) + 0x10)) = (s32) (((*flags) & (~0xFF)) | (var_a1 & 0xFFFF));
+            *((s32 *) (((char *) (*((void **) (((char *) (((var_a2 & 0xFFFF) * 0x28) + (*(*((s32 **) (((char *) loopItems) + 0x10)))))) + 8)))) + 0x10)) = (s32) (((*(s32 *)((char *)&sSaveMenuColorIdle)) & (~0xFF)) | (var_a1 & 0xFFFF));
           }
           items = gSaveMenuState;
           var_a2 += 1;
         }
         while (((u32) (var_a2 & 0xFFFF)) < ((u8) (*((u8 *) (((char *) (*((s32 **) (((char *) items) + 0x10)))) + 5)))));
       }
-      *((u16 *) (((char *) gSaveMenuState) + 0x32)) += 6;
-      do
-      {
-        menu = sActiveMenu; var_v0_2 = 0x96;
-      }
-      while (0);
+      { u16 t = *((u16 *) (((char *) gSaveMenuState) + 0x32));
+      menu = sActiveMenu;
+      *((u16 *) (((char *) gSaveMenuState) + 0x32)) = t + 6; 
+      do { var_v0_2 = 0x96; } while (0);}
       goto block_23;
     }
   }
@@ -121,4 +117,5 @@ void func_800287DC(void)
   *((s16 *) (((char *) menu) + 0x7C)) = var_v0_2;
 
 }
+
 
