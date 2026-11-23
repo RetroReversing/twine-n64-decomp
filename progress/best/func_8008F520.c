@@ -33,7 +33,7 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
   s32 var_s1_3;
   long var_s1_4;
   s32 var_s1_5;
-  s32 var_s1_6;
+  
   s32 var_s1_7;
   s32 var_v0;
   s32 var_v1;
@@ -236,9 +236,9 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x28) + 0x578)) = 0;
       *((s32 *) (((char *)temp_s2 + var_s1_4 * 0x28) + 0x57C)) = 0;
       temp_v0_4 = var_a1_3[var_s1_4];
-      temp_v0_5 = (void *) (temp_v0_4 + ((s32) arg3));
       if (temp_v0_4 != 0)
       {
+        temp_v0_5 = (void *) (temp_v0_4 + ((s32) arg3));
         *((void **) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x128)) = temp_v0_5;
         *((void **) (((char *)temp_s2 + var_s1_4 * 0x10) + 0x12C)) = temp_v0_5;
       }
@@ -260,15 +260,15 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       var_a0_7 = ((s32) var_s1_5) & 0xFF;
     }
     while (var_s1_5 < 0x10);
-    var_s1_6 = 0xF;
     var_v0_3 = (void *) (0x3C + ((s32) temp_s2));
+    var_s1_5 = 0xF;
     do
     {
       *((s32 *) (((char *) var_v0_3) + 0xF80)) = -1;
-      var_s1_6 -= 1;
+      var_s1_5 -= 1;
       var_v0_3 -= 4;
     }
-    while (var_s1_6 >= 0);
+    while (var_s1_5 >= 0);
     var_t1 = ((__repair_field_4 *) temp_s2)->value;
     var_v1_3 = (void *) (8 + ((s32) temp_s2));
     var_a3 = 0;

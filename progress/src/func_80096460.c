@@ -9,6 +9,8 @@ u16 func_80096460(s32 arg0, s32 arg1, s32 arg2) {
     u32 temp_t0;
     u8 *var_v0;
     u8 *var_v0_2;
+    u8 *var_v0b;
+    u32 var_t;
     u32 var_v1;
     void *temp_v1;
     void *temp_v1_2;
@@ -56,7 +58,7 @@ u16 func_80096460(s32 arg0, s32 arg1, s32 arg2) {
             return 0;
         }
             { u8 *bp = D_800EE420; u8 *bank = bp + temp_a2 * 0x860; var_v0 = (u8 *)((arg1 & 0xFF) * 0x86) + (s32)bank + temp_t0; }
-        goto block_27;
+        return *var_v0 << 7;
     }
     temp_a2 = cmd & 0xFF;
     if (temp_a2 < 0x40U) {
@@ -80,10 +82,9 @@ block_19:
 block_22:
         return -((u8) *var_v0_2 >= 0x40U) & 0x3FFF;
     }
-    if ((u32) ((arg0 - 0x60) & 0xFF) >= 6U) {
-        { u8 *bp = D_800F2720; u32 bb; u8 *sm; bb = (arg1 & 0xFF); sm = bp + bb * 0x86; do { var_v0 = sm + temp_a2; } while (0); }
-block_27:
-        return *var_v0 << 7;
+    if ((u32) ((arg0 - 0x60) & 0xFF) < 6U) {
+        return 0;
     }
-    return 0;
+        { u32 bb; u8 *bp; bb = (arg1 & 0xFF); bp = D_800F2720; var_v0b = bp + bb * 0x86 + temp_a2; }
+    return *var_v0b << 7;
 }

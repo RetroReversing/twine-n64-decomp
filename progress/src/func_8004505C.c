@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80015E30(s32);                         /* extern */
+M2C_UNK copyObjToOrderContext(s32);                         /* extern */
 extern s32 *gProbeObjectList;
 
 void func_8004505C(void) {
-    func_80015E30(*gProbeObjectList);
+    copyObjToOrderContext(*gProbeObjectList);
 }

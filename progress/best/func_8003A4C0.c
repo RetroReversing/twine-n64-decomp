@@ -111,26 +111,22 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
         if (D_800E176D == 1)
         {
           s32 __repair_branch_sp4C_0;
-          void *command;
           D_800E176D = 0;
-          command = D_80115328;
-          D_80115328 = command + 8;
-          *((s32 *) (((char *) command) + 0)) = 0xE200001C;
+          D_80115328 += 8;
+          *((s32 *) (((char *) D_80115328) + 0)) = 0xE200001C;
           __repair_branch_sp4C_0 = 0x504340;
-          *((s32 *) (((char *) command) + 4)) = __repair_branch_sp4C_0;
+          *((s32 *) (((char *) D_80115328) + 4)) = __repair_branch_sp4C_0;
         }
       }
       else
         if (D_800E176D == 0)
       {
         s32 __repair_branch_sp4C_1;
-        void *command;
         D_800E176D = 1;
-        command = D_80115328;
-        D_80115328 = command + 8;
-        *((s32 *) (((char *) command) + 0)) = 0xE200001C;
+        D_80115328 += 8;
+        *((s32 *) (((char *) D_80115328) + 0)) = 0xE200001C;
         __repair_branch_sp4C_1 = 0x5040C0;
-        *((s32 *) (((char *) command) + 4)) = __repair_branch_sp4C_1;
+        *((s32 *) (((char *) D_80115328) + 4)) = __repair_branch_sp4C_1;
       }
       temp_v1_2 = D_80115328;
       var_t2 = 0x2000;
@@ -238,7 +234,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
     {
       var_a2 = temp_a0_3 + 0x7FF;
     }
-    __repair_phase_temp_t6 = ((s32) ((temp_a1_2 * ((__repair_record_arg2 *) arg2)->field_28) + 3)) >> 2; var_v1 = __repair_phase_temp_t6 - 1;
+    __repair_phase_temp_t6 = (((s32) ((temp_a1_2 * ((__repair_record_arg2 *) arg2)->field_28) + 3)) >> 2); var_v1 = __repair_phase_temp_t6 - 1;
     if (var_v1 >= 0x800)
     {
       var_v1 = 0x7FF;
@@ -300,7 +296,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
                 temp_a1_5 = temp_t2 + ((__repair_record_arg2 *) arg2)->field_26;
                 ((__repair_field_8 *) temp_a3)->value = 0xE1000000;
                 *((s32 *) (((char *) temp_a3) + 4)) = (s32) inline_fn2((((temp_t2 * 4) & (((s32) (~temp_t2_2)) >> 0x1F)) & 0xFFC) << 0xC, ((var_t1 * 4) & (((s32) (~((s16) (var_t1 * 4)))) >> 0x1F)) & 0xFFC);
-                var_t2 = ((__repair_record_arg2 *) arg2)->field_29 * 2; temp_a2 = var_t1 + var_t2;
+                var_t2 = (((__repair_record_arg2 *) arg2)->field_29 * 2); temp_a2 = var_t1 + var_t2;
                 D_80115328 = temp_a3 + 0x10;
                 *((s32 *) (((char *) temp_a3) + 0)) = (s32) inline_fn2((((temp_a1_5 * 4) & (((s32) (~((s16) (temp_a1_5 * 4)))) >> 0x1F)) & 0xFFC) << 0xC, (((temp_a2 * 4) & (((s32) (~((s16) (temp_a2 * 4)))) >> 0x1F)) & 0xFFC) | 0xE4000000);
                 if (temp_t2_2 < 0)
@@ -315,7 +311,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
                     var_v0_3 = ((s32) (temp_t2_2 * ((s16) var_s6))) >> 7;
                     var_v1_2 = -(var_v0_3 < 1);
                   }
-                  *((s32 *) (((char *) temp_t0_2) + 4)) = (s32) (((var_s1 - (var_v1_2 & var_v0_3)) << 0x10) | temp_s4);
+                  *((s32 *) (((char *) temp_t0_2) + 4)) = (s32) (((var_s1 - (var_v0_3 & var_v1_2)) << 0x10) | temp_s4);
                 }
                 else
                 {
@@ -347,7 +343,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
                     var_v0_4 = ((s32) (temp_t3 * ((s16) var_s6))) >> 7;
                     var_v1_3 = -(var_v0_4 < 1);
                   }
-                  var_t3 = var_s1 - (var_v0_4 & var_v1_3); var_a0_3 = var_t3 << 0x10;
+                  var_t3 = (var_s1 - (var_v0_4 & var_v1_3)); var_a0_3 = var_t3 << 0x10;
                 }
                 else
                 {
@@ -359,7 +355,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
                   if (__repair_phase_temp_t6 < 0)
                   {
                     temp_t2 = ((s32) (((s16) (temp_v0_3 * 4)) * __repair_phase_temp_t6)) >> 7;
-                    sp4C = (var_t8 - (temp_t2 & (((s32) (~temp_t2)) >> 0x1F))) & 0xFFFF; var_v0_5 = var_a0_3 | sp4C;
+                    sp4C = ((var_t8 - (temp_t2 & (((s32) (~temp_t2)) >> 0x1F))) & 0xFFFF); var_v0_5 = var_a0_3 | sp4C;
                   }
                   else
                   {

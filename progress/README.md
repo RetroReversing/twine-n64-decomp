@@ -14,8 +14,8 @@ Want to start your own decompilation? Follow [RetroReversing's AI-assisted N64 d
 - **Compiler:** gcc-2.7.2-kmc
 <!-- decompdecomp:details:end -->
 <!-- decompdecomp:progress:start -->
-- **Progress:** 1679 matching function(s), 178 best attempt(s)
-- **Completion:** 1,679 / 1,793 functions (93.6%). 104 set aside, excluded from completion.
+- **Progress:** 1722 matching function(s), 135 best attempt(s)
+- **Completion:** 1,722 / 1,793 functions (96.0%). 104 set aside, excluded from completion.
 <!-- decompdecomp:progress:end -->
 
 ## What's in this folder

@@ -8,6 +8,8 @@ typedef struct { unsigned char pad[412]; int value; } __repair_field_19C;
 static inline short __repair_store_halfword(int x){x=(unsigned int)x<<16;x=(int)x>>16;return x;}
 
 void func_8009D5D4(void *arg0) {
+    u16 __repair_narrow_0;
+    s16 __repair_narrow_1;
     s32 temp_v0_2;
     s32 temp_v0_3;
     u32 temp_v1_2;
@@ -30,8 +32,10 @@ u32 __repair_result_var_s1;
     if (((*(s8 *)((char *)(arg0) + 0x11DC)) != 0) && (osRecvMesg(arg0 + 0x11AC, 0, 0) >= 0)) {
         if ((*(s32 *)((char *)(arg0) + 0x11D0)) == 0) {
             __repair_phase_temp_v1_3 = (*(u32 *)((char *)(arg0) + 0x1A4));
-            (*(u16 *)((char *)(arg0) + 0x11A0)) = (u16) ((__repair_phase_temp_v1_3 >> 0x10) & 0xFFFF);
-            (*(s16 *)((char *)(arg0) + 0x11A2)) = (s16) (__repair_phase_temp_v1_3 & 0xFFFF);
+            __repair_narrow_0 = (u16) ((__repair_phase_temp_v1_3 >> 0x10) & 0xFFFF);
+            (*(u16 *)((char *)(arg0) + 0x11A0)) = __repair_narrow_0;
+            __repair_narrow_1 = (s16) (__repair_phase_temp_v1_3 & 0xFFFF);
+            (*(s16 *)((char *)(arg0) + 0x11A2)) = __repair_narrow_1;
             (*(u32 *)((char *)(arg0) + 0x11A4)) = (u32) ((*(s32 *)((char *)(arg0) + 0x1A8)) & 0xFFFFFF);
             (*(u32 *)((char *)(arg0) + 0x11C8)) = 0x60U;
         }

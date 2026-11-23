@@ -24,8 +24,8 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   u8 *var_s1 = NULL;
   s16 *var_s6 = NULL;
   u8 *var_s5 = NULL;
-  register u8 *var_s2;
   s16 *var_s4;
+  u8 op;
   register u8 var_t2;
   u32 var_fp;
   u8 *var_s3;
@@ -60,7 +60,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   }
   goto loop_48;
   dispatch:
-  switch (var_s0[0])
+  switch (op)
   {
     do
     {
@@ -141,8 +141,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
         var_s0 += 2; var_fp = 0;
         if (var_t2)
         {
-          var_s2 = inline_fn23(var_s0); var_s4 = var_s6 + 2; var_s3 = var_s5 + 2;
-          do
+                    do
           {
             if (1)
             {
@@ -152,67 +151,59 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
                 {
                   u8 first = var_s1[var_s0[0]];
                   u8 second;
-                  *var_s5 = first; second = var_s1[var_s2[((s32) (var_fp * 3)) - 1]];
-                  var_s3[inline_fn2()] = second;
-                  tmp8 = var_s1[var_s2[var_fp * 3]]; a2 = first & 0xFF;
-                  var_s5 += 3;
+                  *var_s5 = first; second = var_s1[var_s0[1]];
+                  var_s5[1] = second;
+                  tmp8 = var_s1[var_s0[2]]; a2 = first & 0xFF;
                   a2_c = second & 0xFF;
                   v1_2 = tmp8 & 0xFF;
-                  var_s3[0] = tmp8;
-                  var_s3 += 3;
+                  var_s5[2] = tmp8; var_s5 += 3;
                   goto after;
                 }
 
                 case 2:
                   t16_2 = BE16(var_s1 + (var_s0[0] * 2));
                   *var_s6 = t16_2;
-                  t16b_2 = BE16(var_s1 + (var_s2[((s32) (var_fp * 3)) - 1] * 2));
-                  var_s4[inline_fn2()] = t16b_2;
+                  t16b_2 = BE16(var_s1 + (var_s0[1] * 2));
+                  var_s6[1] = t16b_2;
                   a2 = t16_2 & 0xFFFF;
-                  var_s6 += 3;
-                  tmp8 = var_s2[var_fp * 3];
+                  tmp8 = var_s0[2];
                   t16c = BE16(var_s1 + (tmp8 * 2));
                   v1_2 = t16c & 0xFFFF;
                   a2_c = t16b_2 & 0xFFFF;
-                  var_s4[0] = t16c;
-                  var_s4 += 3;
+                  var_s6[2] = t16c; var_s6 += 3;
                   break;
 
                 case 0:
                 {
                   u8 first = var_s1[var_s0[0] * 3];
                   u8 second;
-                  *var_s5 = first; second = var_s1[var_s2[((s32) (var_fp * 3)) - 1] * 3];
-                  var_s3[inline_fn2()] = second;
-                  tmp8 = var_s1[var_s2[var_fp * 3] * 3]; a2 = first & 0xFF;
-                  var_s5 += 3;
+                  *var_s5 = first; second = var_s1[var_s0[1] * 3];
+                  var_s5[1] = second;
+                  tmp8 = var_s1[var_s0[2] * 3]; a2 = first & 0xFF;
                   a2_c = second & 0xFF;
                   v1_2 = tmp8 & 0xFF;
-                  var_s3[0] = tmp8;
-                  var_s3 += 3;
+                  var_s5[2] = tmp8; var_s5 += 3;
                   goto after;
                 }
 
                 default:
                   t16_default = BE16(var_s1 + (var_s0[0] * 6));
                   *var_s6 = t16_default;
-                  t16b_default = BE16(var_s1 + (var_s2[((s32) (var_fp * 3)) - 1] * 6));
-                  var_s4[inline_fn2()] = t16b_default;
+                  t16b_default = BE16(var_s1 + (var_s0[1] * 6));
+                  var_s6[1] = t16b_default;
                   a2 = t16_default & 0xFFFF;
-                  var_s6 += 3;
-                  tmp8 = var_s2[var_fp * 3] * 3;
+                  tmp8 = var_s0[2] * 3;
                   t16c = BE16(var_s1 + (tmp8 * 2));
                   a2_c = t16b_default & 0xFFFF;
                   v1_2 = t16c & 0xFFFF;
-                  var_s4[0] = t16c;
-                  var_s4 += 3;
+                  var_s6[2] = t16c; var_s6 += 3;
                   break;
 
               }
 
               after:
               buildPlaneFromPoints(&sp10, *((s32 *) (((u8 *) arg0) + 0x34)) + (a2 * 12), *((s32 *) (((u8 *) arg0) + 0x34)) + (a2_c * 12), *((s32 *) (((u8 *) arg0) + 0x34)) + (v1_2 * 12));
-              var_fp += 1; var_s0 += 3;
+              var_s0 += 3; var_fp += 1;
               *var_t0 = 0;
               var_t0++;
             }
@@ -226,17 +217,17 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
           switch (var_s7)
           {
             case 3:
-              tmp8 = var_s1[var_s0[1]];
-              var_s5[0] = tmp8;
-              v1_2 = var_s1[var_s0[2]];
-              var_s5[1] = (u8) v1_2;
-              tmp8 = var_s1[var_s0[3]];
-              a2 = inline_fn(var_s1, var_s0[1]);
-              a2 = (u8) tmp8;
-              a2_c = v1_2 & 0xFF;
+            {
+              u8 first = var_s1[var_s0[1]];
+              u8 second;
+              var_s5[0] = first; second = var_s1[var_s0[2]];
+              var_s5[1] = second;
+              tmp8 = var_s1[var_s0[3]]; a2 = first & 0xFF;
+              a2_c = second & 0xFF;
               v1_2 = tmp8 & 0xFF;
               var_s5[2] = tmp8;
               var_s5 += 3;
+            }
               break;
 
             case 2:
@@ -304,7 +295,8 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
 
 
   loop_48:
-  if (var_s0[0] != 12)
+  op = var_s0[0];
+  if (op != 12)
   {
     {
       long long phantom_wide = var_s7;

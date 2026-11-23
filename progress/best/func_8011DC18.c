@@ -147,7 +147,11 @@ void func_8011DC18(void)
             var_v0 = var_s5 & 0xFFFF;
           }
           temp_v0_3 = *((void **) (((char *) (*((void **) (((char *) (&sBonusObjectTable)) + (((s32) var_v0) * 4))))) + 0x68));
-          var_s1 = 0;
+          do
+          {
+            var_s1 = 0;
+          }
+          while (0);
           if (temp_v0_3 != NULL)
           {
             var_s1 = (s8) (*((u8 *) (((char *) temp_v0_3) + 0xE)));
@@ -205,9 +209,9 @@ void func_8011DC18(void)
           *((s16 *) (((char *) temp_s0_4) + 0x1C)) = strlen(*((s8 **) (((char *) temp_s0_4) + 0x18)));
           if ((*(((u8 *) (&sSaveSlotInfo)) + (temp_a3 * 0x18))) != 0)
           {
-            var_s2 = 0;
             if (0 < gSaveTotalSlots)
             {
+              var_s2 = 0;
               var_v1 = 0 & 0xFFFF;
               temp_s6 = temp_a3 * 4;
               temp_s4 = (void **) (((char *) (&sBonusObjectTable)) + temp_s6);
@@ -233,17 +237,17 @@ void func_8011DC18(void)
                       actorSteerTowardTarget(temp_s1_2, *temp_s4, (*temp_s0_5) + 0x24, temp_a3);
                       temp_ft0 = *((f32 *) (((char *) (*temp_s0_5)) + 0x28));
                       temp_fv1_3 = *((f32 *) (((char *) (*temp_s4)) + 0x28));
-                      if (temp_fv1_3 < (temp_ft0 - 1.0f))
-                      {
-                        var_a1 = 0x17;
-                      }
-                      else
+                      if (!(temp_fv1_3 < (temp_ft0 - 1.0f)))
                       {
                         var_a1 = 0x1A;
                         if (!((temp_ft0 + 1.0f) < temp_fv1_3))
                         {
                           var_a1 = 0x1B;
                         }
+                      }
+                      else
+                      {
+                        var_a1 = 0x17;
                       }
                       initObjectFromBankEntry(temp_s1_2, var_a1, 0x1B);
                       if (gSceneType == 8)
