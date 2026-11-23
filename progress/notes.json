@@ -86774,14 +86774,6 @@
   "score_after": 1740
  },
  {
-  "function": "func_8007092C",
-  "text": "Current rechecked best 1113 (91.6%); historical saved 923 source no longer compiles with current callee declarations. Correct caller interface is func_80063D38(slot_base, signed_index); target call setup confirms a0=slot_base and a1=index at both calls. Rebuilt using this prototype and calls; target mismatch mainly frame/register allocation: target frame 0x40 with s1 arg0, s0 arg1, s6 flag=0, s5 signed byte, s4 slot base; candidate frame 0x30 maps arg1 to s6, flag to s5, slot base to s3. Status switch/jump table and loop are close. Tried s8 arg1, pointer-vs-integer base declaration, register qualifiers, inferred field records; no improvement. Next focus on modeling s0/s5/s6 live ranges and the target's 16-byte larger frame; do not repeat prototype or local-record alternatives.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795164760.7159958,
-  "score_before": 923,
-  "score_after": 923
- },
- {
   "function": "func_8011A7C8",
   "text": "Baseline 7095; best 7090 after local inferred record layout on fields +0x78/+0x7A. Tried branch orientation, CFG integer lifetimes, signedness, address temporary, constant local, and a typed state struct; no further score gain. Current best C has the typed state struct declaration but equivalent state access; saved best is 7090 (candidate revision before signedness exploration: 0627a1d045a17ff6fb92). Target begins by materializing D_801002A0 into $a1 and using it for both state and count at +0x14. Candidate still emits a different base register and direct accesses; align the state/count object layout and simplify loop CFG. Compiler move-on count reached 7/8 before a final signedness family trial, which was worse.",
   "by": "codex-gpt-6-luna-18",
@@ -86798,14 +86790,6 @@
   "score_after": 1740
  },
  {
-  "function": "func_8007092C",
-  "text": "Best 923 retained. Target casts incoming arg1 to signed byte before loop; assigning arg1=(s8)arg1 before loop and adding 16-byte local pad yielded score 930, but register allocation differs. Both func_80063D38 calls target (temp_s4, index); first draft's four arguments are inaccurate though compiler optimized unused setup. Try explicit signed-byte local used twice and tune allocation; current target also saves original index in two saved registers. Padding fixes frame size but source reason remains uncertain.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795183462.4413,
-  "score_before": 923,
-  "score_after": 923
- },
- {
   "function": "func_8011A7C8",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 0; 135 differing rows (16 opcode, 35 register, 13 branch target, 7 operand, 14 reordered, 22 inserted, 28 deleted; advisory).\nTarget: lui $a1, %hi(D_801002A0)\nCandidate: lui $v1, %hi(D_801002A0)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\nr T: lui $a1, %hi(D_801002A0) | C: lui $v1, %hi(D_801002A0)\n< T: addiu $a1, $a1, %lo(D_801002A0) | C: \ni T: lbu $v1, ($a1) | C: lbu $v1, %lo(D_801002A0)($v1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nLocal trials improved 9160 to 8875 (revision f2cd472c1a8e9fa4a8e4): struct field access, reversed branch, corrected scaled pointer indexing. Low-progress handoff released claim automatically. Still 133 diff rows and pointer conversion warnings; reconstruct loops and declare D_80102CD0/D_8010A500 as pointer arrays before tuning.",
   "by": "codex-gpt-6.1-terra-1",
@@ -86820,14 +86804,6 @@
   "created_at": 1795184305.512686,
   "score_before": 1740,
   "score_after": 1740
- },
- {
-  "function": "func_8007092C",
-  "text": "Current verified best 548: corrected both func_80063D38 calls to (temp_s4, index), narrowed arg1 after the early-return guard, and used s16 loop flag. Target stack is 0x40 vs 0x30 and several register choices/index calculations differ; target has three additional instructions. Narrowing temp_a1 to s8 improved register layout but scored 613; s16/u8 were worse. Saved historical 923 source no longer compiles because its calls have inconsistent argument counts. Continue from verified best and inspect source structure causing stack allocation and index copies.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795184579.727328,
-  "score_before": 923,
-  "score_after": 548
  },
  {
   "function": "func_8011A7C8",
@@ -86862,14 +86838,6 @@
   "score_after": 1740
  },
  {
-  "function": "func_8007092C",
-  "text": "Rechecked starting score 548. Corrected func_80063D38 prototype to (s32,s16), matching callee evidence; no score change. Added unused volatile frame padding: 2 words changed frame -0x30\u2192-0x38 but no score change; 4 words improved score 548\u2192530, frame change alignment and several mismatch sites reduced. Increasing to 6 words worsened to 548. Restored saved_best score 530 (revision 64ca80f54cf30300fee6) before handoff; this candidate is verified current best. Remaining mismatches mainly registers/control flow at early switch/loop, target 133 instructions vs candidate 130. Do not blindly add more padding.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795202471.9415529,
-  "score_before": 548,
-  "score_after": 530
- },
- {
   "function": "func_8011A7C8",
   "text": "Restored/rechecked saved candidate; current score 6275. A cleanup rewrite based on draft scored 6985. Candidate is 143 target instructions vs 134 compiled, with major first-block layout mismatch. Target explicitly materializes D_801002A0 address in a1 once, loads byte through it, and later uses a2=a1+0x14; list base D_80102CD0 in t1; loops via sra index, sll x2 and addu. Current candidate instead repeated direct globals, leading to lui v1 and D_801002B4 direct loads, wrong scaling, and changed branch targets. No exact match. Historical local repairs already numerous; avoid repeating generic families.",
   "by": "codex-gpt-6-luna-6",
@@ -86884,14 +86852,6 @@
   "created_at": 1795204474.611598,
   "score_before": 1740,
   "score_after": 1740
- },
- {
-  "function": "func_8007092C",
-  "text": "Baseline saved_best revision 63b8684406c22764ff99, score 2401 rechecked at startup. Local repairs sum_shape and symbol_address_local did not improve it, preserving diagnostic: candidate references .rodata+0x0 where ROM code has no address. Two manual rewrites failed compilation due omission of candidate helper declarations and undeclared M2C_FIELD / globals; ignore those. Target prologue retains arg0 in s1 and dispatches through jtbl_800D4710. Restore saved_best as the usable candidate. The unresolved .rodata linkage is the priority before register work.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795205317.3204129,
-  "score_before": 530,
-  "score_after": 530
  },
  {
   "function": "func_8008B824",
@@ -86926,14 +86886,6 @@
   "score_after": 1740
  },
  {
-  "function": "func_8007092C",
-  "text": "Best candidate rev 60eb2707834529f4e102, score 2347 (82.3%). Rewrote as flat switch with case 0/2/4/8 body using explicit byte-offset accesses (*(u8**)((u8*)arg0+0x68))[0xF] etc.) and fallthrough to case 1.. return; this compiles. Remaining diff: target frame is 0x40 with saved regs s0-s7 at 0x20..0x3c and ra at 0x3c; ours is larger (0x50 when 4-word volatile pad added, which scored 2354, worse). Next: try pad of 2 words or none; the stack-slot ordering (sw s1 at 0x24 first in target) suggests s1 holds arg0 (move $s1,$a0) and temp_s4 should be loaded from arg0 differently (target: lw s4,0x6c(s1)). Try declaring arg0 as a typed struct pointer or reordering so arg0 lives in s1 and temp_s4 in s4.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795207943.0638862,
-  "score_before": 530,
-  "score_after": 530
- },
- {
   "function": "func_8011A7C8",
   "text": "Rechecked saved baseline score 4605 (previous source notes also report a separate 5720 intermediate). Ran six independent local repair variants: result_debris, goto_backward_loop, local_widening, comma_temporary_inline, inferred_record_layout, branch_orientation. No improvement; best remained 4605. Mismatch diagnostic now reports target branch bne $v1,$v0,0x118 vs candidate target 0x108 and sentinel -1 allocated to t0 vs t1. Prior handoff showed staging global D_801002A0 in char* helped first limit path and recommended applying staged base consistently; further remaining global address materialization/control flow need reconstruction.",
   "by": "codex-gpt-6-luna-22",
@@ -86948,14 +86900,6 @@
   "created_at": 1795209065.83992,
   "score_before": 1740,
   "score_after": 1740
- },
- {
-  "function": "func_8007092C",
-  "text": "Initialized previously uninitialized var_s6 to zero, improving 1708 to 1673; two-word stack pad improves to 1663. Padding sizes 1 and 3 and narrower flag types did not improve. Linker reports .rodata+0 where ROM has no address; target uses jtbl_800D4710.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795209330.047261,
-  "score_before": 530,
-  "score_after": 530
  },
  {
   "function": "func_8008B824",
@@ -86975,14 +86919,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
  },
  {
-  "function": "func_8007092C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Best saved candidate is revision 1f07a9f87cbf75ad5e82 (score 1020, pad[2]). Tried a pad[4] variant (a445c840826971108e13): score 1038, frame -0x48 vs target -0x40, s-register save slots shifted, lb into $s2 instead of $a1, and jump target differences. Frame size is the first mismatch: the target needs -0x40 frame, so the padding must be reduced, not increased. Remaining diffs are register allocation (target lb $a1 / sll $a0 via $a1, target moves via $v1) and branch targets in the for-loop. Next step: keep pad[2] or try removing the pad and reshaping the first loop body so the byte-index variable is temp_a1 (s8) reused for the stride multiply, to match target 'sll $a0,$a1,3'.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795214934.702018,
-  "score_before": 530,
-  "score_after": 530
- },
- {
   "function": "func_8008B824",
   "text": "Reached 4/4. Entry arg2 and arg3 save slots are swapped, and the division chain uses different caller-saved registers.",
   "by": "codex-gpt-6.2-sol-6",
@@ -86990,15 +86926,6 @@
   "score_before": 3940,
   "score_after": 1740,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
- },
- {
-  "function": "func_8007092C",
-  "text": "Saved best 1020; verified input with external declarations scores 1020. A focused u16 dereference patch mis-parenthesized the condition and did not compile. Previous measured candidate with correctly expressed u16 load scored 1543, worse; target lhu appears but table layout/linking and switch jump-table issue also matter.\nBaseline extern-declared compile scored 1020; direct u16 load trial scored 1543 and produced unresolved .rodata jump table. A second patch failed syntax due missing closing parenthesis.\nno improvement; counter should be 3/4 after prior three compiles including worse candidate; saved best preserved.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795215933.564388,
-  "score_before": 1038,
-  "score_after": 1020,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
  },
  {
   "function": "setActionSlot",
@@ -87141,15 +87068,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:980d4314d50c0a79bb6fbeba67b4f844c6dd7496ff87e97cbc33674a51f2afe6"
  },
  {
-  "function": "func_8007092C",
-  "text": "Changed 0x469E entry to u16 and staged saved index, removed incidental a2 call argument. Tried split stride and array pointer variants.\n1020 to 830, lhu restored. Explicit 232-byte stride scored 1553. Array indexing and s8 saved copy unchanged. Three instructions absent around signed index and second offset calculation.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795225253.39111,
-  "score_before": 1020,
-  "score_after": 830,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
   "function": "setActionSlot",
   "text": "Address reassociation, reuse of loop counter for index, unsigned loop counter, and register qualifier\nFirst two and register qualifier unchanged at 360; unsigned counter worsened to 1355.",
   "by": "codex-gpt-6.1-terra-5",
@@ -87166,15 +87084,6 @@
   "score_before": 840,
   "score_after": 490,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:980d4314d50c0a79bb6fbeba67b4f844c6dd7496ff87e97cbc33674a51f2afe6"
- },
- {
-  "function": "func_8007092C",
-  "text": "Verified 830 \u2192 235. Saved frame now matches 0x40 with pad[4]. Missing gate delay-slot move v1,a1 shifts branches by four bytes. Current base pointer and final index occupy s3/s4 in reverse.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795231351.508903,
-  "score_before": 830,
-  "score_after": 235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
  },
  {
   "function": "func_8011A7C8",
@@ -87276,14 +87185,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:980d4314d50c0a79bb6fbeba67b4f844c6dd7496ff87e97cbc33674a51f2afe6"
  },
  {
-  "function": "func_8007092C",
-  "text": "Candidate source was accidentally erased by compile attempts; the current source is empty and cannot be measured. Historical best 235. Prior C exists in claim record but must be re-entered as a full definition. Next step: reuse the complete candidate from the claim with the shared header automatically prepended; compile it and inspect the resulting score and target jump-table handling.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795251674.8950331,
-  "score_before": 235,
-  "score_after": 235
- },
- {
   "function": "func_8011A7C8",
   "text": "Session capacity reached. Verified 3730 from rechecked 7890. Corrected table addressing, used signed halfword indices, and made failed scene/bonus searches and successful exits explicit. Remaining: branch-likely delay-slot increments, sentinel join and register allocation. No-strength-reduce tied on intermediate C, -O1 regressed.",
   "by": "codex-gpt-6.2-sol-9",
@@ -87320,33 +87221,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:980d4314d50c0a79bb6fbeba67b4f844c6dd7496ff87e97cbc33674a51f2afe6"
  },
  {
-  "function": "func_8007092C",
-  "text": "Verified saved best at 235. Twin-style s8 index and local stride with a separate restore index scored 864. Restored saved best. Missing move v1,a1 in table flag branch delay slot; s3/s4 are swapped.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795293438.53988,
-  "score_before": 235,
-  "score_after": 235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
-  "function": "func_8007092C",
-  "text": "235 verified. Missing move v1,a1 in the table flag check delay slot, plus s3/s4 and a0/a2 allocation differences.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795296635.744054,
-  "score_before": 235,
-  "score_after": 235,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
-  "function": "func_8007092C",
-  "text": "Use savedIndex in the byte addition immediately after the enemy table flag check.\nScore rose from 220 to 500. The verified 220 baseline was retained. It lacks the delay-slot move v1,a1 and differs in s3/s4 and the scaled-index register.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795304916.882637,
-  "score_before": 235,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
   "function": "setActionSlot",
   "text": "Best 280 (22 diff rows, mostly register/branch target). Local repairs families address_association, cfg_integer_lifetimes, constant_local, array_index_width, shared_return tried: no gain (signedness worse 895, constant_local 475). Next step: try restructuring so `move $t0,$a1` precedes andi (copy value arg to a local before computing id).",
   "by": "claude-sonnet-low-1",
@@ -87365,15 +87239,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
  },
  {
-  "function": "func_8007092C",
-  "text": "Best 220 stays. Local repairs (branch orientation, signedness, decl order, const arg, unsigned switch) equal or worse. Remaining diff: target keeps lw 0x6c(s1) in s4 where candidate uses s3, plus missing move v1,a1 delay slot. Next step: force s3/s4 numbering with a dummy live local or reorder the first two loads.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795309430.353546,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
   "function": "func_8011A7C8",
   "text": "try_local_repairs (6 variants: u32 global, hoisted &gSaveTotalSlots, s8 disabled, decl order, branch flip, nested guard) all >=1560, none better. Register allocation differs (target a3/t2/a2 vs cand t3/t4/t2). Next step: reduce live temporaries in the first loop (reuse one local for slot/entry) to free argument regs.",
   "by": "claude-sonnet-low-1",
@@ -87381,15 +87246,6 @@
   "score_before": 3730,
   "score_after": 1560,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69758c3cdf7a03d680cd143cd0020d2684aa1249979c80d7e6d18670e241917d"
- },
- {
-  "function": "func_8007092C",
-  "text": "The judge reached its 4/4 move-on threshold after three donor-style staged index variants and one independent sum-byte variant all scored worse than the verified 220 baseline.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795311397.196338,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
  },
  {
   "function": "func_8008B824",
@@ -87437,15 +87293,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69758c3cdf7a03d680cd143cd0020d2684aa1249979c80d7e6d18670e241917d"
  },
  {
-  "function": "func_8007092C",
-  "text": "Judge reached move-on limit. The 220 candidate reads uninitialized temp_a2; the direct sound call removes that read and scores 235.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795337429.186384,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
   "function": "func_8008B824",
   "text": "Judge threshold exceeded. Staged divisions and explicit first multiply worsened the verified 305 baseline.\nStaged native /1000 and /192 in two round-up forms, then explicit first magic multiplication.\nScores 1005, 355, 765 versus verified 305. Target uses shifts 6 and 7 where baseline uses 12 and 1.",
   "by": "codex-gpt-6.2-sol-6",
@@ -87473,15 +87320,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:69758c3cdf7a03d680cd143cd0020d2684aa1249979c80d7e6d18670e241917d"
  },
  {
-  "function": "func_8007092C",
-  "text": "Use measured revision d8344b3c4eb010313ee4 (235, 132/133 instructions) as the sound-path baseline; it removes the saved best's uninitialized read. The principal missing instruction is move v1,a1 in the enemy-table rejection branch delay slot.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795344619.127038,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
   "function": "func_8008B824",
   "text": "Judge move-on threshold reached at 8/4. Explicit second magic multiply with >>39 scored 665 and splitting off the high word scored 755. Both recovered shift immediates 6 and 7 but inserted an mflo and other instructions. Saved 305 candidate restored.",
   "by": "codex-gpt-6.2-sol-9",
@@ -87489,15 +87327,6 @@
   "score_before": 305,
   "score_after": 305,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
- },
- {
-  "function": "func_8007092C",
-  "text": "Measured revision a626c0ac755bdbe83500 scores 235 (132/133 instructions) and uses the direct sound call. Historical saved best 220 reads uninitialized temp_a2 in the sound path. Work from the measured revision.\nRetargeted the matched donor index block, staged the byte before the guard, and tested operand order, integer address arithmetic and a signed byte load.\nDonor retarget scored 759; staging before the guard scored 440; narrowly scoped changes tied at 235. Missing move v1,a1 in the rejection delay slot, plus s3/s4 and argument-register allocation differences.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795352029.665786,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
  },
  {
   "function": "setActionSlot",
@@ -87561,15 +87390,6 @@
   "score_after": 305
  },
  {
-  "function": "func_8007092C",
-  "text": "Use the defined direct-call candidate 4173ca8cdf16b90901a5 (235). Saved 220 reads an uninitialized local. Reusing savedIndex in the adjusted byte sum scored 505, disturbed saved-register allocation, and still omitted the delay-slot move.\nUse savedIndex in the byte addition\n235 to 505; delay-slot move still missing",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795355230.131975,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
   "function": "setActionSlot",
   "text": "Verified saved 280. The store path omits the value byte mask. Wider action types with explicit masks restored target instruction count but scheduled an entry move and moved most register assignments.",
   "by": "codex-gpt-6.2-sol-6",
@@ -87597,15 +87417,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
  },
  {
-  "function": "func_8007092C",
-  "text": "Use direct-call revision a626c0ac755bdbe83500, reverified at 235 with 132/133 instructions. Saved best 220 reads uninitialized temp_a2 in the sound branch. Target has move $v1,$a1 after the table check and uses $v1 in the byte addition. Candidate coalesces the copy into $a1.\nSeparate signed-byte local for sum; reuse calculated slot pointer for sum; use byte memory compound assignment.\nScores 235 (one changed diff row), 460, and 298 respectively. Baseline retained in batch.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795360060.380975,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
   "function": "func_8008B824",
   "text": "Current recheck of inherited revision scored 585. Replacing the split shift/division with successive unsigned /1000U and /192U restored target shifts (6 and 7) and scored 305 at revision 224867fcc4ee59d478d1. Simplifying the duplicated loop body scored 380: it removed the conversion-result register differences and reduced the candidate to the target's 157 instructions, but worsened loop entry and backedge scheduling. Remaining issues on the rechecked 305 variant are allocation arithmetic registers and loop register/scheduling differences, including an extra move $a1,$zero.",
   "by": "codex-gpt-6.2-sol-9",
@@ -87613,15 +87424,6 @@
   "score_before": 305,
   "score_after": 305,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
- },
- {
-  "function": "func_8007092C",
-  "text": "Defined direct-call revision a626c0ac755bdbe83500 rechecked at 375, 132/133 instructions; missing delay-slot move plus register allocation. Saved 220 uses uninitialized temp_a2.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795362596.189624,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
  },
  {
   "function": "func_8011A7C8",
@@ -87650,15 +87452,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
  },
  {
-  "function": "func_8007092C",
-  "text": "Rechecked 360 (rev 965e7e0a); saved 220 is stale. Local repairs (branch orientation, narrow store, signedness, decl order, hoists) all equal or worse. Target saved regs shifted by one (s4 vs our s3) with an extra saved reg. Candidate still reads uninitialized temp_a2 in the sound branch. Next step: remove the temp_a2 branch, and add a dummy extra live local (e.g. keep arg1 in a register var) to force one more saved register.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795385552.214411,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
- },
- {
   "function": "setActionSlot",
   "text": "Switch(id){case 23..25:return 0;} with u32 id scored 2110 (worse than 255): GCC emits sltiu range checks, loses the target's `addiu v1,a1,-0x17; andi; sltiu 2` + xori 0x19 form and the sp frame. Keep the `(u8)(action-23)<2 | id==25` form. Next step: keep saved best and try making `action` param s32 with explicit &0xff in the search compare to get the andi at the store guard.",
   "by": "claude-sonnet-low-1",
@@ -87674,14 +87467,6 @@
   "created_at": 1795387431.112651,
   "score_before": 305,
   "score_after": 305
- },
- {
-  "function": "func_8007092C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not worked this session. Prior handoff stands: remove uninitialised temp_a2 branch and add a dummy live local to shift saved regs by one.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795387678.633378,
-  "score_before": 220,
-  "score_after": 220
  },
  {
   "function": "func_8011A7C8",
@@ -88417,5 +88202,220 @@
   "score_before": 325,
   "score_after": 325,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:134aba52ae182a7f89d1fd8ede068a67e8799c66ef315166a4f3fe246070c1eb"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Current rechecked best 1113 (91.6%); historical saved 923 source no longer compiles with current callee declarations. Correct caller interface is func_80063D38(slot_base, signed_index); target call setup confirms a0=slot_base and a1=index at both calls. Rebuilt using this prototype and calls; target mismatch mainly frame/register allocation: target frame 0x40 with s1 arg0, s0 arg1, s6 flag=0, s5 signed byte, s4 slot base; candidate frame 0x30 maps arg1 to s6, flag to s5, slot base to s3. Status switch/jump table and loop are close. Tried s8 arg1, pointer-vs-integer base declaration, register qualifiers, inferred field records; no improvement. Next focus on modeling s0/s5/s6 live ranges and the target's 16-byte larger frame; do not repeat prototype or local-record alternatives.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795164760.7159958,
+  "score_before": 923,
+  "score_after": 923
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Best 923 retained. Target casts incoming arg1 to signed byte before loop; assigning arg1=(s8)arg1 before loop and adding 16-byte local pad yielded score 930, but register allocation differs. Both func_80063D38 calls target (temp_s4, index); first draft's four arguments are inaccurate though compiler optimized unused setup. Try explicit signed-byte local used twice and tune allocation; current target also saves original index in two saved registers. Padding fixes frame size but source reason remains uncertain.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795183462.4413,
+  "score_before": 923,
+  "score_after": 923
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Current verified best 548: corrected both func_80063D38 calls to (temp_s4, index), narrowed arg1 after the early-return guard, and used s16 loop flag. Target stack is 0x40 vs 0x30 and several register choices/index calculations differ; target has three additional instructions. Narrowing temp_a1 to s8 improved register layout but scored 613; s16/u8 were worse. Saved historical 923 source no longer compiles because its calls have inconsistent argument counts. Continue from verified best and inspect source structure causing stack allocation and index copies.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795184579.727328,
+  "score_before": 923,
+  "score_after": 548
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Rechecked starting score 548. Corrected func_80063D38 prototype to (s32,s16), matching callee evidence; no score change. Added unused volatile frame padding: 2 words changed frame -0x30\u2192-0x38 but no score change; 4 words improved score 548\u2192530, frame change alignment and several mismatch sites reduced. Increasing to 6 words worsened to 548. Restored saved_best score 530 (revision 64ca80f54cf30300fee6) before handoff; this candidate is verified current best. Remaining mismatches mainly registers/control flow at early switch/loop, target 133 instructions vs candidate 130. Do not blindly add more padding.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795202471.9415529,
+  "score_before": 548,
+  "score_after": 530
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Baseline saved_best revision 63b8684406c22764ff99, score 2401 rechecked at startup. Local repairs sum_shape and symbol_address_local did not improve it, preserving diagnostic: candidate references .rodata+0x0 where ROM code has no address. Two manual rewrites failed compilation due omission of candidate helper declarations and undeclared M2C_FIELD / globals; ignore those. Target prologue retains arg0 in s1 and dispatches through jtbl_800D4710. Restore saved_best as the usable candidate. The unresolved .rodata linkage is the priority before register work.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795205317.3204129,
+  "score_before": 530,
+  "score_after": 530
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Best candidate rev 60eb2707834529f4e102, score 2347 (82.3%). Rewrote as flat switch with case 0/2/4/8 body using explicit byte-offset accesses (*(u8**)((u8*)arg0+0x68))[0xF] etc.) and fallthrough to case 1.. return; this compiles. Remaining diff: target frame is 0x40 with saved regs s0-s7 at 0x20..0x3c and ra at 0x3c; ours is larger (0x50 when 4-word volatile pad added, which scored 2354, worse). Next: try pad of 2 words or none; the stack-slot ordering (sw s1 at 0x24 first in target) suggests s1 holds arg0 (move $s1,$a0) and temp_s4 should be loaded from arg0 differently (target: lw s4,0x6c(s1)). Try declaring arg0 as a typed struct pointer or reordering so arg0 lives in s1 and temp_s4 in s4.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795207943.0638862,
+  "score_before": 530,
+  "score_after": 530
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Initialized previously uninitialized var_s6 to zero, improving 1708 to 1673; two-word stack pad improves to 1663. Padding sizes 1 and 3 and narrower flag types did not improve. Linker reports .rodata+0 where ROM has no address; target uses jtbl_800D4710.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795209330.047261,
+  "score_before": 530,
+  "score_after": 530
+ },
+ {
+  "function": "func_8007092C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Best saved candidate is revision 1f07a9f87cbf75ad5e82 (score 1020, pad[2]). Tried a pad[4] variant (a445c840826971108e13): score 1038, frame -0x48 vs target -0x40, s-register save slots shifted, lb into $s2 instead of $a1, and jump target differences. Frame size is the first mismatch: the target needs -0x40 frame, so the padding must be reduced, not increased. Remaining diffs are register allocation (target lb $a1 / sll $a0 via $a1, target moves via $v1) and branch targets in the for-loop. Next step: keep pad[2] or try removing the pad and reshaping the first loop body so the byte-index variable is temp_a1 (s8) reused for the stride multiply, to match target 'sll $a0,$a1,3'.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795214934.702018,
+  "score_before": 530,
+  "score_after": 530
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Saved best 1020; verified input with external declarations scores 1020. A focused u16 dereference patch mis-parenthesized the condition and did not compile. Previous measured candidate with correctly expressed u16 load scored 1543, worse; target lhu appears but table layout/linking and switch jump-table issue also matter.\nBaseline extern-declared compile scored 1020; direct u16 load trial scored 1543 and produced unresolved .rodata jump table. A second patch failed syntax due missing closing parenthesis.\nno improvement; counter should be 3/4 after prior three compiles including worse candidate; saved best preserved.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795215933.564388,
+  "score_before": 1038,
+  "score_after": 1020,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Changed 0x469E entry to u16 and staged saved index, removed incidental a2 call argument. Tried split stride and array pointer variants.\n1020 to 830, lhu restored. Explicit 232-byte stride scored 1553. Array indexing and s8 saved copy unchanged. Three instructions absent around signed index and second offset calculation.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795225253.39111,
+  "score_before": 1020,
+  "score_after": 830,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Verified 830 \u2192 235. Saved frame now matches 0x40 with pad[4]. Missing gate delay-slot move v1,a1 shifts branches by four bytes. Current base pointer and final index occupy s3/s4 in reverse.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795231351.508903,
+  "score_before": 830,
+  "score_after": 235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Candidate source was accidentally erased by compile attempts; the current source is empty and cannot be measured. Historical best 235. Prior C exists in claim record but must be re-entered as a full definition. Next step: reuse the complete candidate from the claim with the shared header automatically prepended; compile it and inspect the resulting score and target jump-table handling.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795251674.8950331,
+  "score_before": 235,
+  "score_after": 235
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Verified saved best at 235. Twin-style s8 index and local stride with a separate restore index scored 864. Restored saved best. Missing move v1,a1 in table flag branch delay slot; s3/s4 are swapped.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795293438.53988,
+  "score_before": 235,
+  "score_after": 235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "235 verified. Missing move v1,a1 in the table flag check delay slot, plus s3/s4 and a0/a2 allocation differences.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795296635.744054,
+  "score_before": 235,
+  "score_after": 235,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Use savedIndex in the byte addition immediately after the enemy table flag check.\nScore rose from 220 to 500. The verified 220 baseline was retained. It lacks the delay-slot move v1,a1 and differs in s3/s4 and the scaled-index register.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795304916.882637,
+  "score_before": 235,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Best 220 stays. Local repairs (branch orientation, signedness, decl order, const arg, unsigned switch) equal or worse. Remaining diff: target keeps lw 0x6c(s1) in s4 where candidate uses s3, plus missing move v1,a1 delay slot. Next step: force s3/s4 numbering with a dummy live local or reorder the first two loads.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795309430.353546,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "The judge reached its 4/4 move-on threshold after three donor-style staged index variants and one independent sum-byte variant all scored worse than the verified 220 baseline.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795311397.196338,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Judge reached move-on limit. The 220 candidate reads uninitialized temp_a2; the direct sound call removes that read and scores 235.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795337429.186384,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Use measured revision d8344b3c4eb010313ee4 (235, 132/133 instructions) as the sound-path baseline; it removes the saved best's uninitialized read. The principal missing instruction is move v1,a1 in the enemy-table rejection branch delay slot.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795344619.127038,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Measured revision a626c0ac755bdbe83500 scores 235 (132/133 instructions) and uses the direct sound call. Historical saved best 220 reads uninitialized temp_a2 in the sound path. Work from the measured revision.\nRetargeted the matched donor index block, staged the byte before the guard, and tested operand order, integer address arithmetic and a signed byte load.\nDonor retarget scored 759; staging before the guard scored 440; narrowly scoped changes tied at 235. Missing move v1,a1 in the rejection delay slot, plus s3/s4 and argument-register allocation differences.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795352029.665786,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Use the defined direct-call candidate 4173ca8cdf16b90901a5 (235). Saved 220 reads an uninitialized local. Reusing savedIndex in the adjusted byte sum scored 505, disturbed saved-register allocation, and still omitted the delay-slot move.\nUse savedIndex in the byte addition\n235 to 505; delay-slot move still missing",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795355230.131975,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Use direct-call revision a626c0ac755bdbe83500, reverified at 235 with 132/133 instructions. Saved best 220 reads uninitialized temp_a2 in the sound branch. Target has move $v1,$a1 after the table check and uses $v1 in the byte addition. Candidate coalesces the copy into $a1.\nSeparate signed-byte local for sum; reuse calculated slot pointer for sum; use byte memory compound assignment.\nScores 235 (one changed diff row), 460, and 298 respectively. Baseline retained in batch.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795360060.380975,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Defined direct-call revision a626c0ac755bdbe83500 rechecked at 375, 132/133 instructions; missing delay-slot move plus register allocation. Saved 220 uses uninitialized temp_a2.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795362596.189624,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Rechecked 360 (rev 965e7e0a); saved 220 is stale. Local repairs (branch orientation, narrow store, signedness, decl order, hoists) all equal or worse. Target saved regs shifted by one (s4 vs our s3) with an extra saved reg. Candidate still reads uninitialized temp_a2 in the sound branch. Next step: remove the temp_a2 branch, and add a dummy extra live local (e.g. keep arg1 in a register var) to force one more saved register.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795385552.214411,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not worked this session. Prior handoff stands: remove uninitialised temp_a2 branch and add a dummy live local to shift saved regs by one.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795387678.633378,
+  "score_before": 220,
+  "score_after": 220
  }
 ]
