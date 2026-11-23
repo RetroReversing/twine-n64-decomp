@@ -35,13 +35,11 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
   ClipBounds box;
   s8 spA7;
   s32 spAC;
-  volatile s32 spD4;
-  volatile s32 spDC;
-  volatile s64 frameSpace[2];
-  void *var_t0;
+      void *var_t0;
   f32 *scratch;
   void *var_s6;
   void *var_a1;
+  void *var_c1;
   void *temp_s4;
   void *temp_a0;
   void *temp_a3;
@@ -101,7 +99,6 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
   }
   if (arg0 != NULL)
   {
-    do
     {
       var_s6 = *((void **) (((u8 *) (*((void **) (((u8 *) arg0) + 0x20)))) + 0x58));
       if (D_80109E1C != 0x40)
@@ -115,12 +112,12 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
             scratch = D_80102E68; var_t0 = &D_800E09F8;
             do
             {
-              var_a1 = *((void **) (*((void **) (((u8 *) var_s6) + 8))));
-              if (var_a1 != NULL)
+              var_c1 = *((void **) (*((void **) (((u8 *) var_s6) + 8))));
+              if (var_c1 != NULL)
               {
                 do
                 {
-                  s32 flags = *((s32 *) (((u8 *) var_a1) + 0x58));
+                  s32 flags = *((s32 *) (((u8 *) var_c1) + 0x58));
                   if (!(flags & 0x20000))
                   {
                     goto nextChild;
@@ -128,20 +125,22 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                   if (!(flags & 0x800))
                   {
                     temp_v1_3 = gObjectList;
-                    *((s32 *) (((u8 *) var_a1) + 0x58)) = flags | 0x800; gObjectList = var_a1;
-                    *((void **) (((u8 *) var_a1) + 0x1C)) = temp_v1_3;
+                    *((s32 *) (((u8 *) var_c1) + 0x58)) = flags | 0x800; gObjectList = var_c1;
+                    *((void **) (((u8 *) var_c1) + 0x1C)) = temp_v1_3;
                   }
                   nextChild:
-                  var_a1 = *((void **) var_a1);
+                  var_c1 = *((void **) var_c1);
 
                 }
-                while (var_a1 != NULL);
+                while (var_c1 != NULL);
               }
+              do {
               temp_ft0 = ((((*((f32 *) (((u8 *) D_8010D53C) + 0x10))) * (*((f32 *) (((u8 *) var_s6) + 0xC)))) + ((*((f32 *) (((u8 *) D_8010D53C) + 0x14))) * (*((f32 *) (((u8 *) var_s6) + 0x10))))) + ((*((f32 *) (((u8 *) D_8010D53C) + 0x18))) * (*((f32 *) (((u8 *) var_s6) + 0x14))))) + (*((f32 *) (((u8 *) var_s6) + 0x18))); D_800E0C3C = temp_ft0;
               if (!(temp_ft0 > (-0.2f)))
               {
                 goto nextRegion;
               }
+              } while (0);
               temp_a0 = *((void **) (((u8 *) var_s6) + 0x1C));
               if (temp_a0 != NULL)
               {
@@ -157,7 +156,7 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                 }
               }
               {
-                box.values[0] = *((f32 *) (((u8 *) D_8010D53C) + 0x54)); box.values[1] = *((f32 *) (((u8 *) D_8010D53C) + ((unsigned short) 0x50))); box.values[2] = *((f32 *) (((u8 *) D_8010D53C) + 0x5C)); box.values[3] = *((f32 *) (((u8 *) D_8010D53C) + 0x58)); temp_s4 = *((void **) ((*((void **) (((u8 *) var_s6) + 4))) + 0x3C)); var_s7 = 0;
+                box.values[0] = *((f32 *) (((u8 *) D_8010D53C) + 0x54)); box.values[1] = *((f32 *) (((u8 *) D_8010D53C) + ((unsigned short) 0x50))); box.values[2] = *((f32 *) (((u8 *) D_8010D53C) + 0x5C)); box.values[3] = *((f32 *) (((u8 *) D_8010D53C) + 0x58)); temp_s4 = *((void **) ((*((void **) (((u8 *) var_s6) + 4))) + 0x3C));
                 if (D_800E0C3C < 0.4f)
                 {
                   box.values[0] = arg1->values[0]; box.values[1] = arg1->values[1]; box.values[2] = arg1->values[2]; box.values[3] = arg1->values[3];
@@ -166,13 +165,11 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                 else
                 {
                   spA7 = 0;
-                  if (inline_fn(temp_s4) > 0)
                   {
-                    spD4 = 0; spDC = 0;
-                    do
+                    for (var_s7 = 0; var_s7 < ((s32) (*((u16 *) (((u8 *) temp_s4) + 0x40)))); var_s7++)
                     {
-                      void *var_a0_2 = NULL;
                       void *var_v1 = NULL;
+                      void *var_a0_2 = NULL;
                       int var_a1_2;
                       u16 var_s0;
                       u16 var_s1;
@@ -180,18 +177,11 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                       f32 *temp_v1_4;
                       if ((*((u8 *) (((u8 *) temp_s4) + 0x48))) & 4)
                       {
-                        if (D_8010D53C)
-                        {
-                          var_v1 = ((u8 *) (*((void **) ((0, ((u8 *) temp_s4) + 0x3C))))) + spDC;
-                        }
-                        else
-                        {
-                          var_v1 = ((u8 *) (*((void **) ((0, ((u8 *) temp_s4) + 0x3C))))) + spDC;
-                        }
+                        var_v1 = *((void **) (((u8 *) temp_s4) + 0x3C)); var_v1 = ((u8 *) var_v1) + var_s7 * 6;
                       }
                       else
                       {
-                        var_a0_2 = ((u8 *) (*((void **) (((u8 *) temp_s4) + 0x3C)))) + spD4;
+                        var_a0_2 = *((void **) (((u8 *) temp_s4) + 0x3C)); var_a0_2 = ((u8 *) var_a0_2) + var_s7 * 3;
                       }
                       if (var_v1 != NULL)
                       {
@@ -222,10 +212,9 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                       ((f32 *) var_t0)[20] = scratch[5]; temp_s3 = func_8003F778(&D_800E0B18, var_t0, 3);
                       if (temp_s3 > 0)
                       {
-                        s32 offset;
-                        for (i = 0, offset = 0; i < temp_s3; offset += 0x24, i++)
+                        for (i = 0; i < temp_s3; i++)
                         {
-                          f32 tmp = *((f32 *) (((u8 *) (&D_800E0B20)) + offset));
+                          s32 off = i * 0x24; f32 tmp = *((f32 *) (((u8 *) (&D_800E0B20)) + off));
                           f32 a = (*((f32 *) (((u8 *) D_8010D53C) + 0x68))) / tmp;
                           f32 b = (*((f32 *) (((u8 *) D_8010D53C) + 0x6C))) / tmp;
                           func_80045514((&D_800E0B18) + ((i * 3) * 3), a, b);
@@ -235,9 +224,14 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                         temp_s3 = func_8003F83C(&D_800E0B18, &D_800E0B18, temp_s3);
                         if (temp_s3 > 0)
                         {
-                          f32 *y = (f32 *)((u8 *)&D_800E0B18 + 4);
-                          f32 *x = &D_800E0B18;
-                          for (i = 0; i < temp_s3; y += 9, i++, x += 9)
+                          f32 *y;
+                          f32 *x;
+                          i = 0;
+                          if (i < temp_s3)
+                          {
+                          y = (f32 *)((u8 *)&D_800E0B18 + 4);
+                          x = &D_800E0B18;
+                          do
                           {
                             if (*x < box.values[0])
                             {
@@ -262,25 +256,14 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                             {
                               box.values[3] = *y;
                             }
+                            y += 9; i++; x += 9;
+                          } while (i < temp_s3);
                           }
 
                           spA7 = 1;
                         }
                       }
-                      if (D_80109E1C)
-                      {
-                        spD4 += 3;
-                        var_s7 += 1;
-                        spDC += 6;
-                      }
-                      else
-                      {
-                        spD4 += 3;
-                        var_s7 += 1;
-                        spDC += 6;
-                      }
                     }
-                    while (var_s7 < ((s32) (*((u16 *) (((u8 *) temp_s4) + 0x40)))));
                   }
                   if (spA7 == 1)
                   {
@@ -370,7 +353,7 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
         while (0);
       }
     }
-    while (0);
   }
 }
+
 
