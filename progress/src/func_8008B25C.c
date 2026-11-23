@@ -55,6 +55,7 @@ extern u8 sVoiceAllocCursor;
 extern u16 sWorkerAckCounter;
 extern u8 sWorkerBusy;
 extern u8 sWorkerPendingCallback;
+typedef struct { s16 first; } MixHead;
 inline static int inline_fn(u8 arg0, int arg1)
 {
   return (arg0 != 0) && ((--D_800E41E8) == arg1);
@@ -99,15 +100,12 @@ void func_8008B25C(void)
   u32 var_s0_2;
   u16 var_v0;
   u32 temp_s2;
+  u32 cbk;
   u32 var_v0_3;
   void *var_v1;
   if (D_8010D428 != NULL)
   {
-    do
-    {
-      D_8010D428();
-    }
-    while (0);
+    D_8010D428();
   }
   func_8008C160();
   temp_a0 = __osDisableInt();
@@ -125,7 +123,6 @@ void func_8008B25C(void)
       sWorkerBusy = 0;
       osYieldThread();
     }
-    do
     {
       sSlotLogCount = 0; D_80109BA0 = sSlotLog & (~0xF); D_80109BF8 = sSlotLog;
       if (dmaHandlerInit != NULL)
@@ -151,71 +148,66 @@ void func_8008B25C(void)
         temp_a0_2 = &((u16 *) (&D_800E4228))[cursor]; temp_v1 = ((s16 **) (&sMixBufferA))[cursor];
       }
       D_800E421C = temp_a0_2; D_800E4218 = temp_v1; temp_v1_2 = temp_v1 + 8; D_8010D378 = ((s32) temp_v1_2) & (~0xF); D_8010D42C = (s32) temp_v1_2;
-      *temp_a0_2 = 0; var_s1 = temp_s4 & 0xFFFF;
-    temp_s2 = var_s1;
-      *D_800E4218 = 0;
+      *temp_a0_2 = 0; temp_s2 = temp_s4 & 0xFFFF;
+      ((MixHead *) D_800E4218)->first = 0;
       if (D_800E4268 != temp_s2)
       {
-        if (var_s0)
+        if (gWorkerActive)
         {
-          var_s1 = 0;
           func_8008B1C0(temp_a0_2);
+          var_s1 = 0;
           var_s3 = 0;
           var_v0_3 = D_800E4268;
         }
         else
         {
-          var_s1 = 0;
           func_8008B1C0(temp_a0_2);
+          var_s1 = 0;
           var_s3 = 0;
           var_v0_3 = D_800E4268;
         }
         if (var_v0_3 < temp_s2)
         {
           unsigned short limit = temp_s2;
-          do
+          var_s0 = var_v0_3;
           {
-            var_s0 = var_v0_3;
             do
             {
               s32 *buffers = &gAudioBufferPtrs;
-              u32 index;
+              u32 index; u32 tmpi;
               if (inline_fn23(var_s3) >= sMixBufferUnits)
               {
                 break;
               }
-              index = var_s0++;
+              tmpi = var_s0++; index = tmpi;
               if ((gWorkerActive != 0) && ((--D_800E41E8) == 0))
               {
                 D_800E41E8 = D_800E41EC;
                 func_800923D0();
                 func_8008E374();
               }
-              temp_a1 = inline_fn23(var_s1);
+              func_8008AECC(buffers[inline_fn23(index)], inline_fn23(var_s1));
               var_s1 += 0xC0;
               ++var_s3;
-              func_8008AECC(buffers[inline_fn23(index)], temp_a1);
             }
             while (inline_fn23(var_s0) < limit);
           }
-          while (0);
         }
         else
         {
           var_s0 = D_800E4268;
-          do
           {
             if (var_s0 < gAudioBufferCount)
             {
               s32 *buffers = &gAudioBufferPtrs;
               do
               {
-                u32 index;
+                u32 index; u32 tmpi;
                 if (inline_fn23(var_s3) >= sMixBufferUnits)
                 {
                   break;
                 }
-                index = var_s0++;
+                tmpi = var_s0++; index = tmpi;
                 if ((gWorkerActive != 0) && (--D_800E41E8 == 0))
                 {
                   D_800E41E8 = D_800E41EC;
@@ -228,41 +220,32 @@ void func_8008B25C(void)
               }
               while (inline_fn23(var_s0) < gAudioBufferCount);
             }
-            if (temp_s4 || D_8010D428)
-            {
-              var_s0 = 0;
-            }
-            else
-            {
-              var_s0 = 0;
-            }
+            var_s0 = 0;
             if (((u16) temp_s4) != 0)
             {
               s32 *buffers = &gAudioBufferPtrs;
               u32 limit = (u16) temp_s4;
               do
               {
-                u32 index;
+                u32 index; u32 tmpi;
                 if (((u16) var_s3) >= sMixBufferUnits)
                 {
                   break;
                 }
-                index = var_s0++;
-                if (inline_fn(gWorkerActive, 0))
+                tmpi = var_s0++; index = tmpi;
+                if ((gWorkerActive != 0) && (--D_800E41E8 == 0))
                 {
                   D_800E41E8 = D_800E41EC;
                   func_800923D0();
                   func_8008E374();
                 }
-                temp_a1 = inline_fn23(var_s1);
+                func_8008AECC(buffers[(u16) index], inline_fn23(var_s1));
                 var_s1 += 0xC0;
                 ++var_s3;
-                func_8008AECC(buffers[(u16) index], temp_a1);
               }
               while (inline_fn23(var_s0) < limit);
             }
           }
-          while (0);
         }
         if (sSlotLogCount != 0)
         {
@@ -272,18 +255,17 @@ void func_8008B25C(void)
         D_800E4268 = var_s0; sWorkerAckCounter -= var_s3;
       }
       func_80093410();
-      temp_v0_8 = sVoiceAllocCursor ^ 1;
+      do { temp_v0_8 = sVoiceAllocCursor ^ 1; cbk = sWorkerPendingCallback; } while (0);
     }
-    while (0);
     {
       u16 *count = &((u16 *) (&D_800E4228))[temp_v0_8];
       temp_a0_3 = ((s16 **) (&sMixBufferA))[temp_v0_8];
       D_800E421C = count;
     }
     D_800E4218 = temp_a0_3;
-    if (sWorkerPendingCallback != 0)
+    if (cbk != 0)
     {
-      D_80100168(temp_a0_3, sWorkerPendingCallback);
+      D_80100168(temp_a0_3, cbk);
       osYieldThread();
       sWorkerPendingCallback = 0;
     }
@@ -319,4 +301,5 @@ void func_8008B25C(void)
   func_8008C188();
   return;
 }
+
 
