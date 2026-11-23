@@ -36,7 +36,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
   char sp30[0x200];
   s8 sp230[0x208];
   f32 var_fv1;
-  s16 count;
+  f32 scale;
   union 
   {
     s32 *pointer;
@@ -45,10 +45,11 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
   s32 temp_s0;
   s32 temp_v0_3;
   s32 var_a2;
+  s32 var_a2_late;
   s32 var_a0_2;
   s32 var_a3;
   s32 var_t1;
-  s8 *temp_a1;
+  s32 temp_a1;
   s8 *var_s1;
   s8 *var_t0;
   s8 temp_v0;
@@ -144,16 +145,16 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
     {
       var_a0_2 = 0;
       var_v0 = *var_s1;
-      temp_a1 = var_s1;
+      temp_a1 = (s32) var_s1;
       if (inline_fn2(var_v0 == 0, var_v0) == 0)
       {
         goto scan;
       }
       goto advance;
       emit:
-      temp_s0 = var_s1 - temp_a1;
+      temp_s0 = var_s1 - ((s8 *) temp_a1);
 
-      memcpy(buffer, temp_a1, temp_s0);
+      memcpy(buffer, ((s8 *) temp_a1), temp_s0);
       buffer[temp_s0] = 0;
       gTrackMarkerSerial++;
       temp_v0_3 = func_80073AF8(0, arg0, buffer, -1, -1, 1, 0, 0, arg5 & 0xFF, 0, 0x1E);
@@ -166,10 +167,10 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
         *__repair_phase_storage.pointer = temp_v0_3;
       }
       goto advance;
-      while (var_s1 != temp_a1)
+      while (var_s1 != ((s8 *) temp_a1))
       {
         ++var_a0_2;
-        if (var_a2 | inline_fn234(var_a0_2, arg3))
+        if (var_a2_late | inline_fn234(var_a0_2, arg3))
         {
           goto emit;
         }
@@ -179,8 +180,8 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
         scan_byte:
         temp_v0_2 = *var_s1;
 
-        var_a2 = temp_v0_2 == 0;
-        if (inline_fn2(var_a2, temp_v0_2) == 0)
+        var_a2_late = temp_v0_2 == 0;
+        if (inline_fn2(var_a2_late, temp_v0_2) == 0)
         {
           ++var_s1;
           goto scan_byte;
@@ -192,10 +193,10 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
 
     }
   }
-  count = D_80112EBC;
-  if (count != 0)
+  var_a0_2 = (s16) D_80112EBC;
+  if (var_a0_2 != 0)
   {
-    var_fv1 = arg4 / ((f32) count);
+    var_fv1 = arg4 / ((f32) var_a0_2);
     var_fv1 = var_fv1 * 30.0f;
     var_fv1 = var_fv1 - 15.0f;
     if (var_fv1 < 1.0f)
@@ -203,20 +204,23 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       var_fv1 = 1.0f;
     }
     __repair_phase_storage.value = 0;
-    if (count > 0)
+    if (var_a0_2 > 0)
     {
+      var_a2 = (s32) var_fv1;
+      scale = 4096.0f;
+      temp_a1 = var_a0_2;
       do
       {
         temp_v0_4 = ((void **) &D_80100B20)[__repair_phase_storage.value];
         if (temp_v0_4 != NULL)
         {
           temp_v0_5 = *((void **) (((char *) temp_v0_4) + 0x6C));
-          *((s16 *) (((char *) temp_v0_5) + 0x30)) = (s16) ((s32) var_fv1);
-          *((f32 *) (((char *) temp_v0_5) + 0x14)) = (f32) (4096.0f / var_fv1);
+          *((s16 *) (((char *) temp_v0_5) + 0x30)) = (s16) var_a2;
+          *((f32 *) (((char *) temp_v0_5) + 0x14)) = (f32) (scale / var_fv1);
         }
         __repair_phase_storage.value += 1;
       }
-      while (__repair_phase_storage.value < count);
+      while (__repair_phase_storage.value < temp_a1);
     }
   }
 }
