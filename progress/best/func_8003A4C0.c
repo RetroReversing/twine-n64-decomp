@@ -1,393 +1,166 @@
-s32 func_80039A10(void **, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, f32, f32);
-s32 func_80039EFC(void **, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, f32, f32);
+typedef union { struct { u32 w0; u32 w1; } words; long long force_structure_alignment; } Gfx;
+typedef struct {
+  u8 pad0[8];
+  u32 tex;
+  u32 pal;
+  u8 pad10[8];
+  s32 f18;
+  u8 pad1C[2];
+  u16 flags;
+  u16 x;
+  u16 y;
+  u16 w;
+  u16 cw;
+  u8 h;
+  u8 ch;
+  u8 rc;
+  u8 pad2B;
+} Spr;
+#define ROWS(p) ((s32)((*(u32 *)&(p)->h >> 12) & 0xF))
+#define COLS(p) ((s32)((*(u32 *)&(p)->h >> 8) & 0xF))
 extern s8 D_800E176D;
 extern s32 gHiResScreen;
-extern void *D_80115328;
-typedef struct 
-{
-  unsigned char pad[8];
-  int value;
-} __repair_field_8;
-typedef struct 
-{
-  unsigned char pad_0[12];
-  int field_C;
-  unsigned char pad_10[8];
-  int field_18;
-  unsigned char pad_1C[2];
-  unsigned short field_1E;
-  unsigned short field_20;
-  unsigned short field_22;
-  unsigned short field_24;
-  unsigned short field_26;
-  unsigned char field_28;
-  unsigned char field_29;
-} __repair_record_arg2;
-inline static s16 inline_fn(int arg0)
-{
-  return (s16) arg0;
-}
+extern Gfx *sDisplayListCursor;
+void func_80039A10(Gfx **, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, f32, f32);
+void func_80039EFC(Gfx **, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, f32, f32);
 
-typedef struct 
-{
-  unsigned char pad[20];
-  int value;
-} __repair_field_14;
-inline static int inline_fn2(s32 arg0, s32 arg1)
-{
-  return arg0 | arg1;
-}
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define TXL2WORDS_4b(txls) MAX(1, ((txls)/16))
+#define CALC_DXT_4b(width) (((1 << 11) + TXL2WORDS_4b(width) - 1) / TXL2WORDS_4b(width))
+#define PKT (sDisplayListCursor++)
+#define gRaw(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->words.w0 = (a); _g->words.w1 = (b); }
+#define gSetImage(pkt, cmd, fmt, siz, width, i) \
+{ Gfx *_g = (Gfx *)(pkt); \
+  _g->words.w0 = _SHIFTL(cmd, 24, 8) | _SHIFTL(fmt, 21, 3) | _SHIFTL(siz, 19, 2) | _SHIFTL((width)-1, 0, 12); \
+  _g->words.w1 = (u32)(i); }
+#define gDPSetTile(pkt, fmt, siz, line, tmem, tile, palette, cmt, maskt, shiftt, cms, masks, shifts) \
+{ Gfx *_g = (Gfx *)(pkt); \
+  _g->words.w0 = _SHIFTL(0xF5, 24, 8) | _SHIFTL(fmt, 21, 3) | _SHIFTL(siz, 19, 2) | _SHIFTL(line, 9, 9) | _SHIFTL(tmem, 0, 9); \
+  _g->words.w1 = _SHIFTL(tile, 24, 3) | _SHIFTL(palette, 20, 4) | _SHIFTL(cmt, 18, 2) | _SHIFTL(maskt, 14, 4) | \
+                 _SHIFTL(shiftt, 10, 4) | _SHIFTL(cms, 8, 2) | _SHIFTL(masks, 4, 4) | _SHIFTL(shifts, 0, 4); }
+#define gDPNoParam(pkt, cmd) { Gfx *_g = (Gfx *)(pkt); _g->words.w0 = _SHIFTL(cmd, 24, 8); _g->words.w1 = 0; }
+#define gDPLoadBlock(pkt, tile, uls, ult, lrs, dxt) \
+{ Gfx *_g = (Gfx *)(pkt); \
+  _g->words.w0 = (_SHIFTL(0xF3, 24, 8) | _SHIFTL(uls, 12, 12) | _SHIFTL(ult, 0, 12)); \
+  _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL((MIN(lrs, 2047)), 12, 12) | _SHIFTL(dxt, 0, 12)); }
+#define gDPSetTileSize(pkt, t, uls, ult, lrs, lrt) \
+{ Gfx *_g = (Gfx *)(pkt); \
+  _g->words.w0 = _SHIFTL(0xF2, 24, 8) | _SHIFTL(uls, 12, 12) | _SHIFTL(ult, 0, 12); \
+  _g->words.w1 = _SHIFTL(t, 24, 3) | _SHIFTL(lrs, 12, 12) | _SHIFTL(lrt, 0, 12); }
+#define gImmp1(pkt, c, p0) { Gfx *_g = (Gfx *)(pkt); _g->words.w0 = _SHIFTL((c), 24, 8); _g->words.w1 = (u32)(p0); }
+#define gDPLoadTextureBlock_4b(pkt, timg, fmt, width, height, pal, cms, cmt, masks, maskt, shifts, shiftt) \
+{ gSetImage(pkt, 0xFD, fmt, 2, 1, timg); \
+  gDPSetTile(pkt, fmt, 2, 0, 0, 7, 0, cmt, maskt, shiftt, cms, masks, shifts); \
+  gDPNoParam(pkt, 0xE6); \
+  gDPLoadBlock(pkt, 7, 0, 0, (((width)*(height)+3)>>2)-1, CALC_DXT_4b(width)); \
+  gDPNoParam(pkt, 0xE7); \
+  gDPSetTile(pkt, fmt, 0, ((((width)>>1)+7)>>3), 0, 0, pal, cmt, maskt, shiftt, cms, masks, shifts); \
+  gDPSetTileSize(pkt, 0, 0, 0, ((width)-1) << 2, ((height)-1) << 2) }
+#define SCIS_ADJ(l, d) (((s16)(l) < 0) ? (((s16)(d) < 0) ? MAX(((s16)(l) * (s16)(d)) >> 7, 0) : MIN(((s16)(l) * (s16)(d)) >> 7, 0)) : 0)
+#define SCIS_ADJY(c, l, d) (((c) < 0) ? (((s16)(d) < 0) ? MAX(((s16)(l) * (s16)(d)) >> 7, 0) : MIN(((s16)(l) * (s16)(d)) >> 7, 0)) : 0)
+#define gSPScisTexRect(pkt, xl, yl, xh, yh, tile, s, t, dsdx, dtdy, ycond) \
+{ Gfx *_g = (Gfx *)(pkt); \
+  _g->words.w0 = (_SHIFTL(0xE4, 24, 8) | _SHIFTL(MAX((s16)(xh), 0), 12, 12) | _SHIFTL(MAX((s16)(yh), 0), 0, 12)); \
+  _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(MAX((s16)(xl), 0), 12, 12) | _SHIFTL(MAX((s16)(yl), 0), 0, 12)); \
+  gImmp1(pkt, 0xE1, _SHIFTL((s) - SCIS_ADJ(xl, dsdx), 16, 16) | _SHIFTL((t) - SCIS_ADJY(ycond, yl, dtdy), 0, 16)); \
+  gImmp1(pkt, 0xF1, (_SHIFTL(dsdx, 16, 16) | _SHIFTL(dtdy, 0, 16))); }
+#define gSPScisTexRectHi(pkt, xl, yl, xh, yh, tile, s, t, dsdx, dtdy, ycond) gSPScisTexRect(pkt, xl, yl, xh, yh, tile, s, t, dsdx, dtdy, ycond)
 
-void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
+void func_8003A4C0(s32 arg0, s32 arg1, Spr *spr)
 {
-  s32 sp44;
-  s32 sp4C;
-  s32 sp54;
-  s16 temp_t2_2;
-  s16 temp_t3;
-  s32 temp_a0_2;
-  s32 temp_a1_5;
-  s32 temp_a1_6;
-  s32 temp_a2;
-  s32 temp_a2_2;
-  s32 temp_s4;
-  s32 temp_t0;
-  s32 temp_t0_3;
-  s32 temp_t2;
-  s32 temp_t6;
-  s32 __repair_phase_temp_t6;
-  s32 temp_v0_3;
-  s32 temp_v0_4;
-  s32 temp_v0_5;
-  s32 var_a0_3;
-  s32 var_a2;
-  s32 var_s1;
-  s32 var_s2;
-  s32 var_s5;
-  s32 var_s5_2;
-  s32 var_s6;
-  s32 var_t1;
-  s32 var_t3;
-  s32 var_t8;
-  s32 var_t9;
-  s32 var_v0;
-  s32 var_v0_3;
-  s32 var_v0_4;
-  s32 var_v0_5;
-  s32 var_v1;
-  s32 var_v1_2;
-  s32 var_v1_3;
-  u16 temp_a0;
-  u16 temp_a1_2;
-  u16 temp_v1;
-  u16 temp_v1_3;
-  u32 temp_a0_3;
-  u32 temp_a0_4;
-  volatile short pad;
-  u32 temp_a0_5;
-  u32 var_t2;
-  u32 var_v0_2;
-  u8 temp_a1;
-  void *temp_a1_4;
-  void *temp_a3;
-  void *temp_a3_2;
-  void *temp_t0_2;
-  void *temp_t1;
-  void *temp_v0;
-  void *temp_v0_2;
-  void *temp_v0_6;
-  void *temp_v1_2;
-  void *temp_v1_4;
-  void *temp_v1_5;
-  sp44 = arg0;
-  if ((((__repair_record_arg2 *) arg2)->field_18 != 0) || ((((__repair_record_arg2 *) arg2)->field_26 != 0) && (((__repair_record_arg2 *) arg2)->field_29 != 0)))
+  s32 __repair_tx_arm;
+  u16 __repair_ty_u16;
+  s32 fmt;
+  u32 limit;
+  s32 dsdx, dtdy, s, t;
+  u16 i, j;
+  s32 tx, ty, ly, ny;
+  if (spr->f18 != 0 || (spr->cw != 0 && spr->ch != 0))
   {
-    temp_v1 = ((__repair_record_arg2 *) arg2)->field_1E;
-    if (temp_v1 & 2)
+    if (spr->flags & 2)
     {
-      var_t3 = 4;
-      if (temp_v1 & 0x4000)
+      fmt = 4;
+      if (spr->flags & 0x4000)
       {
         if (D_800E176D == 1)
         {
-          s32 __repair_branch_sp4C_0;
           D_800E176D = 0;
-          D_80115328 += 8;
-          *((s32 *) (((char *) D_80115328) + 0)) = 0xE200001C;
-          __repair_branch_sp4C_0 = 0x504340;
-          *((s32 *) (((char *) D_80115328) + 4)) = __repair_branch_sp4C_0;
+          gRaw(PKT, 0xE200001C, 0x504340);
         }
+      }
+      else if (D_800E176D == 0)
+      {
+        D_800E176D = 1;
+        gRaw(PKT, 0xE200001C, 0x5040C0);
+      }
+      gRaw(PKT, 0xE3001001, 0);
+      gRaw(PKT, 0xFC30B261, 0x5566FF7F);
+      limit = 0x2000;
+    }
+    else
+    {
+      fmt = 2;
+      gRaw(PKT, 0xFD100000, spr->pal);
+      gRaw(PKT, 0xE8000000, 0);
+      gRaw(PKT, 0xF5000100, 0x07000000);
+      gRaw(PKT, 0xE6000000, 0);
+      gRaw(PKT, 0xF0000000, 0x0703C000);
+      gRaw(PKT, 0xE7000000, 0);
+      gRaw(PKT, 0xE3001001, 0x8000);
+      gRaw(PKT, 0xFC119623, 0xFF2FFFFF);
+      limit = 0x1000;
+    }
+    if (limit < spr->w * spr->h)
+    {
+      if (spr->cw == spr->w && spr->ch == spr->h)
+      {
+        func_80039A10(&sDisplayListCursor, spr->tex, fmt, 0, spr->cw, spr->h, 0x20, 0x40, 0, 0, spr->w, spr->h, (f32) (spr->x + arg0), (f32) (spr->y + arg1));
       }
       else
-        if (D_800E176D == 0)
       {
-        s32 __repair_branch_sp4C_1;
-        D_800E176D = 1;
-        D_80115328 += 8;
-        *((s32 *) (((char *) D_80115328) + 0)) = 0xE200001C;
-        __repair_branch_sp4C_1 = 0x5040C0;
-        *((s32 *) (((char *) D_80115328) + 4)) = __repair_branch_sp4C_1;
+        func_80039EFC(&sDisplayListCursor, spr->tex, fmt, 0, spr->w, spr->h, spr->cw, spr->ch, 0x20, 0x40, 0, 0, spr->w, spr->h, (f32) (spr->x + arg0), (f32) (spr->y + arg1));
       }
-      temp_v1_2 = D_80115328;
-      var_t2 = 0x2000;
-      D_80115328 = temp_v1_2 + 8;
-      *((s32 *) (((char *) temp_v1_2) + 0)) = 0xE3001001;
-      *((s32 *) (((char *) temp_v1_2) + 4)) = 0;
-      D_80115328 = temp_v1_2 + 0x10;
-      ((__repair_field_8 *) temp_v1_2)->value = 0xFC30B261;
-      *((s32 *) (((char *) temp_v1_2) + 0xC)) = 0x5566FF7F;
-    }
-    else
-    {
-      var_t3 = 2;
-      temp_v0 = D_80115328;
-      *((s32 *) (((char *) temp_v0) + 0)) = 0xFD100000;
-      var_t2 = 0x1000;
-      D_80115328 = temp_v0 + 8;
-      D_80115328 = temp_v0 + 0x10;
-      ((__repair_field_8 *) temp_v0)->value = 0xE8000000;
-      D_80115328 = temp_v0 + 0x18;
-      ((__repair_field_14 *) temp_v0)->value = 0x07000000;
-      D_80115328 = temp_v0 + 0x20;
-      *((s32 *) (((char *) temp_v0) + 0x18)) = 0xE6000000;
-      D_80115328 = temp_v0 + 0x28;
-      *((s32 *) (((char *) temp_v0) + 0x20)) = 0xF0000000;
-      D_80115328 = temp_v0 + 0x30;
-      *((s32 *) (((char *) temp_v0) + 0x28)) = 0xE7000000;
-      D_80115328 = temp_v0 + 0x38;
-      *((s32 *) (((char *) temp_v0) + 0x34)) = 0x8000;
-      *((s32 *) (((char *) temp_v0) + 0xC)) = 0;
-      *((s32 *) (((char *) temp_v0) + 0x10)) = 0xF5000100;
-      *((s32 *) (((char *) temp_v0) + 0x1C)) = 0;
-      *((s32 *) (((char *) temp_v0) + 0x24)) = 0x0703C000;
-      *((s32 *) (((char *) temp_v0) + 0x2C)) = 0;
-      *((s32 *) (((char *) temp_v0) + 0x30)) = 0xE3001001;
-      D_80115328 = temp_v0 + 0x40;
-      *((s32 *) (((char *) temp_v0) + 0x38)) = 0xFC119623;
-      *((s32 *) (((char *) temp_v0) + 0x3C)) = 0xFF2FFFFF;
-      *((s32 *) (((char *) temp_v0) + 4)) = (s32) ((__repair_record_arg2 *) arg2)->field_C;
-    }
-    temp_v1 = ((__repair_record_arg2 *) arg2)->field_24;
-    temp_a1 = ((__repair_record_arg2 *) arg2)->field_28;
-    if (var_t2 < ((u32) (temp_v1 * temp_a1)))
-    {
-      temp_v1_3 = ((__repair_record_arg2 *) arg2)->field_26;
-      if ((temp_v1_3 == temp_v1) && (((__repair_record_arg2 *) arg2)->field_29 == temp_a1))
-      {
-        __repair_rows:
-        {
-          func_80039A10(&D_80115328, ((__repair_field_8 *) arg2)->value, var_t3, 0, (s32) temp_v1_3, (s32) ((__repair_record_arg2 *) arg2)->field_28, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2 *) arg2)->field_24, (s32) ((__repair_record_arg2 *) arg2)->field_28, (f32) (((__repair_record_arg2 *) arg2)->field_20 + arg0), (f32) (((__repair_record_arg2 *) arg2)->field_22 + arg1));
-        }
-
-        if (0)
-        {
-          goto __repair_rows;
-        }
-        return;
-      }
-      func_80039EFC(&D_80115328, ((__repair_field_8 *) arg2)->value, var_t3, 0, (s32) ((__repair_record_arg2 *) arg2)->field_24, (s32) ((__repair_record_arg2 *) arg2)->field_28, (s32) ((__repair_record_arg2 *) arg2)->field_26, (s32) ((__repair_record_arg2 *) arg2)->field_29, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2 *) arg2)->field_24, (s32) ((__repair_record_arg2 *) arg2)->field_28, (f32) (((__repair_record_arg2 *) arg2)->field_20 + arg0), (f32) (((__repair_record_arg2 *) arg2)->field_22 + arg1));
       return;
     }
-    if (gHiResScreen != 0)
-    {
-      var_s5 = 0x200;
-    }
+    if (gHiResScreen != 0) { dsdx = 0x400; dtdy = 0x200; } else { dsdx = 0x400; dtdy = 0x400; }
+    dsdx = (dsdx * spr->w) / spr->cw;
+    dtdy = (dtdy * spr->h) / spr->ch;
+    s = spr->w << 5;
+    if (spr->flags & 0x80)
+      dsdx = ~dsdx;
     else
+      s = 0;
+    t = 0;
+    if (spr->flags & 0x100)
     {
-      var_s5 = 0x400;
+      dtdy = ~dtdy;
+      t = spr->h << 5;
     }
-    temp_a1_2 = ((__repair_record_arg2 *) arg2)->field_24;
-    __repair_phase_temp_t6 = (s32) ((__repair_record_arg2 *) arg2)->field_26; var_s6 = ((s32) (0x400 * temp_a1_2)) / __repair_phase_temp_t6; var_s1 = (s32) ((__repair_record_arg2 *) arg2)->field_29; var_s5_2 = ((s32) (var_s5 * ((__repair_record_arg2 *) arg2)->field_28)) / var_s1;
-    var_s1 = temp_a1_2 << 5;
-    if (((__repair_record_arg2 *) arg2)->field_1E & 0x80)
+    gDPLoadTextureBlock_4b(PKT, spr->tex, fmt, spr->w, spr->h, 0, 3, 3, 0, 0, 0, 0);
+    for (i = 0; i < ROWS(spr); i++)
     {
-      var_s6 = ~var_s6;
-    }
-    else
-    {
-      var_s1 = 0;
-    }
-    var_t8 = 0;
-    if (((__repair_record_arg2 *) arg2)->field_1E & 0x100)
-    {
-      var_s5_2 = ~var_s5_2;
-      var_t8 = ((__repair_record_arg2 *) arg2)->field_28 << 5;
-    }
-    temp_v1_4 = D_80115328;
-    temp_a0_2 = var_t3 << 0x15;
-    *((s32 *) (((char *) temp_v1_4) + 0)) = (s32) (temp_a0_2 | 0xFD100000);
-    *((s32 *) (((char *) temp_v1_4) + 0x10)) = 0xE6000000;
-    *((s32 *) (((char *) temp_v1_4) + 0xC)) = 0x070C0300;
-    var_a2 = 0x800;
-    *((s32 *) (((char *) temp_v1_4) + 0x18)) = 0xF3000000;
-    D_80115328 = temp_v1_4 + 8;
-    ((__repair_field_8 *) temp_v1_4)->value = (s32) inline_fn2(temp_a0_2, 0xF5100000);
-    ((__repair_field_14 *) temp_v1_4)->value = 0;
-    D_80115328 = temp_v1_4 + 0x10;
-    *((s32 *) (((char *) temp_v1_4) + 4)) = (s32) ((__repair_field_8 *) arg2)->value;
-    temp_v0_2 = temp_v1_4 + 0x18;
-    D_80115328 = temp_v0_2;
-    temp_a1_2 = ((__repair_record_arg2 *) arg2)->field_24;
-    temp_a0_3 = temp_a1_2 >> 4;
-    D_80115328 = temp_v1_4 + 0x20;
-    if (temp_a0_3 != 0)
-    {
-      var_a2 = temp_a0_3 + 0x7FF;
-    }
-    __repair_phase_temp_t6 = (((s32) ((temp_a1_2 * ((__repair_record_arg2 *) arg2)->field_28) + 3)) >> 2); var_v1 = __repair_phase_temp_t6 - 1;
-    if (var_v1 >= 0x800)
-    {
-      var_v1 = 0x7FF;
-    }
-    if (temp_a0_3 != 0)
-    {
-      var_v0 = (var_a2 / ((s32) temp_a0_3)) & 0xFFF;
-    }
-    else
-    {
-      var_v0 = var_a2 & 0xFFF;
-    }
-    temp_a1_4 = D_80115328;
-    *((s32 *) (((char *) temp_v0_2) + 4)) = (s32) inline_fn2(((var_v1 & 0xFFF) << 0xC) | 0x07000000, var_v0);
-    *((s32 *) (((char *) temp_a1_4) + 0)) = 0xE7000000;
-    *((s32 *) (((char *) temp_a1_4) + 4)) = 0;
-    *((s32 *) (((char *) temp_a1_4) + 0xC)) = 0xC0300;
-    *((s32 *) (((char *) temp_a1_4) + 0x10)) = 0xF2000000;
-    ((__repair_field_8 *) temp_a1_4)->value = (s32) inline_fn2(var_t3 << 0x15, (((((s32) ((((u16) ((__repair_record_arg2 *) arg2)->field_24) >> 1) + 7)) >> 3) & 0x1FF) << 9) | 0xF5000000);
-    D_80115328 = temp_a1_4 + 8;
-    D_80115328 = temp_a1_4 + 0x10;
-    D_80115328 = temp_a1_4 + 0x18;
-    ((__repair_field_14 *) temp_a1_4)->value = (s32) inline_fn2((((((__repair_record_arg2 *) arg2)->field_24 - 1) * 4) & 0xFFF) << 0xC, ((((__repair_record_arg2 *) arg2)->field_28 - 1) * 4) & 0xFFF);
-    temp_a0_4 = *((u32 *) (((char *) arg2) + 0x28));
-    if ((temp_a0_4 >> 0xC) & 0xF)
-    {
-      var_s2 = 0;
-      sp54 = var_s1 & 0xFFFF;
-      sp4C = var_s5_2 << 0x10;
-      var_v0_2 = temp_a0_4 >> 8;
-      do
+      for (j = 0; j < COLS(spr); j++)
       {
-        var_t9 = 0;
-        if ((var_v0_2 & 0xF) > 0)
+        tx = spr->x + arg0 + spr->cw * i;
+        ty = spr->y + spr->ch * j; __repair_ty_u16 = ty;
+        if (gHiResScreen != 0)
         {
-          temp_t6 = var_t8 & 0xFFFF;
-          temp_s4 = temp_t6;
-          __repair_phase_temp_t6 = sp4C >> 0x10;
-          {
-            s32 packed_delta = (s32) ((var_s6 << 0x10) | (var_s5_2 & 0xFFFF));
-            do
-            {
-              sp4C = ((__repair_record_arg2 *) arg2)->field_20 + arg0; temp_t2 = sp4C + (((__repair_record_arg2 *) arg2)->field_26 * var_s2);
-              temp_t0 = ((__repair_record_arg2 *) arg2)->field_22 + (((__repair_record_arg2 *) arg2)->field_29 * var_t9);
-              if (gHiResScreen != 0)
-              {
-                if (((__repair_record_arg2 *) arg2)->field_1E & 4)
-                {
-                  var_t1 = temp_t0 + arg1;
-                }
-                else
-                {
-                  var_t1 = arg1 + ((temp_t0 & 0xFFFF) * 2);
-                }
-                temp_a3 = D_80115328;
-                temp_t2_2 = temp_t2 * 4;
-                temp_t0_2 = temp_a3 + 8;
-                D_80115328 = temp_t0_2;
-                temp_a1_5 = temp_t2 + ((__repair_record_arg2 *) arg2)->field_26;
-                ((__repair_field_8 *) temp_a3)->value = 0xE1000000;
-                *((s32 *) (((char *) temp_a3) + 4)) = (s32) inline_fn2((((temp_t2 * 4) & (((s32) (~temp_t2_2)) >> 0x1F)) & 0xFFC) << 0xC, ((var_t1 * 4) & (((s32) (~((s16) (var_t1 * 4)))) >> 0x1F)) & 0xFFC);
-                var_t2 = (((__repair_record_arg2 *) arg2)->field_29 * 2); temp_a2 = var_t1 + var_t2;
-                D_80115328 = temp_a3 + 0x10;
-                *((s32 *) (((char *) temp_a3) + 0)) = (s32) inline_fn2((((temp_a1_5 * 4) & (((s32) (~((s16) (temp_a1_5 * 4)))) >> 0x1F)) & 0xFFC) << 0xC, (((temp_a2 * 4) & (((s32) (~((s16) (temp_a2 * 4)))) >> 0x1F)) & 0xFFC) | 0xE4000000);
-                if (temp_t2_2 < 0)
-                {
-                  if (((s16) var_s6) < 0)
-                  {
-                    var_v0_3 = ((s32) (temp_t2_2 * ((s16) var_s6))) >> 7;
-                    var_v1_2 = ((s32) (~var_v0_3)) >> 0x1F;
-                  }
-                  else
-                  {
-                    var_v0_3 = ((s32) (temp_t2_2 * ((s16) var_s6))) >> 7;
-                    var_v1_2 = -(var_v0_3 < 1);
-                  }
-                  *((s32 *) (((char *) temp_t0_2) + 4)) = (s32) (((var_s1 - (var_v0_3 & var_v1_2)) << 0x10) | temp_s4);
-                }
-                else
-                {
-                  *((s32 *) (((char *) temp_t0_2) + 4)) = (s32) ((sp54 << 0x10) | temp_s4);
-                }
-              }
-              else
-              {
-                temp_a3_2 = D_80115328;
-                temp_t0_3 = temp_t0 + arg1;
-                temp_t3 = temp_t2 * 4;
-                temp_t1 = temp_a3_2 + 8;
-                D_80115328 = temp_t1;
-                temp_a1_6 = temp_t2 + ((__repair_record_arg2 *) arg2)->field_26;
-                ((__repair_field_8 *) temp_a3_2)->value = 0xE1000000;
-                *((s32 *) (((char *) temp_a3_2) + 4)) = (s32) (((((temp_t2 * 4) & (((s32) (~temp_t3)) >> 0x1F)) & 0xFFC) << 0xC) | (((temp_t0_3 * 4) & (((s32) (~((s16) (temp_t0_3 * 4)))) >> 0x1F)) & 0xFFC));
-                D_80115328 = temp_a3_2 + 0x10;
-                temp_t0_3 = ((__repair_record_arg2 *) arg2)->field_29 + temp_t0_3;
-                *((s32 *) (((char *) temp_a3_2) + 0)) = (s32) inline_fn2((((temp_a1_6 * 4) & (((s32) (~((s16) (temp_a1_6 * 4)))) >> 0x1F)) & 0xFFC) << 0xC, inline_fn2(((temp_t0_3 * 4) & (((s32) (~((s16) (temp_t0_3 * 4)))) >> 0x1F)) & 0xFFC, 0xE4000000));
-                if (temp_t3 < 0)
-                {
-                  if (((s16) var_s6) < 0)
-                  {
-                    var_v0_4 = ((s32) (temp_t3 * ((s16) var_s6))) >> 7;
-                    var_v1_3 = ((s32) (~var_v0_4)) >> 0x1F;
-                  }
-                  else
-                  {
-                    var_v0_4 = ((s32) (temp_t3 * ((s16) var_s6))) >> 7;
-                    var_v1_3 = -(var_v0_4 < 1);
-                  }
-                  var_t3 = (var_s1 - (var_v0_4 & var_v1_3)); var_a0_3 = var_t3 << 0x10;
-                }
-                else
-                {
-                  var_a0_3 = sp54 << 0x10;
-                }
-                if (((u32) ((s16) ((temp_t0 + arg1) * 4))) >> 31)
-                {
-                  temp_v0_3 = temp_t0 + arg1;
-                  if (__repair_phase_temp_t6 < 0)
-                  {
-                    temp_t2 = ((s32) (((s16) (temp_v0_3 * 4)) * __repair_phase_temp_t6)) >> 7;
-                    sp4C = ((var_t8 - (temp_t2 & (((s32) (~temp_t2)) >> 0x1F))) & 0xFFFF); var_v0_5 = var_a0_3 | sp4C;
-                  }
-                  else
-                  {
-                    temp_v0_5 = ((s32) (inline_fn(temp_v0_3 * 4) * __repair_phase_temp_t6)) >> 7;
-                    var_v0_5 = var_a0_3 | ((var_t8 - (temp_v0_5 & (-(temp_v0_5 < 1)))) & 0xFFFF);
-                  }
-                }
-                else
-                {
-                  var_v0_5 = inline_fn2(var_a0_3, temp_s4);
-                }
-                *((s32 *) (((char *) temp_t1) + 4)) = var_v0_5;
-              }
-              temp_v1_5 = D_80115328;
-              D_80115328 = temp_v1_5 + 8;
-              *((s32 *) (((char *) temp_v1_5) + 0)) = 0xF1000000;
-              *((s32 *) (((char *) temp_v1_5) + 4)) = packed_delta;
-              var_t9 += 1;
-            }
-            while (((s32) ((u16) var_t9)) < ((s32) (((*((u32 *) (((char *) arg2) + 0x28))) >> 8) & 0xF)));
-          }
+__repair_tx_arm = tx;
+          if (spr->flags & 4)
+            ly = ty + arg1;
+          else
+            ly = arg1 + (__repair_ty_u16) * 2;
+          gSPScisTexRectHi(PKT, (s16) (__repair_tx_arm * 4), ly * 4, (__repair_tx_arm + spr->cw) * 4, (ly + spr->ch * 2) * 4, 0, s, t, dsdx, dtdy, (__repair_ty_u16) * 8);
         }
-        temp_a0_4 = *((u32 *) (((char *) arg2) + 0x28));
-        var_s2 += 1;
-        var_v0_2 = temp_a0_4 >> 8;
+        else
+        {
+          ny = ty + arg1;
+          gSPScisTexRect(PKT, (s16) (tx * 4), ny * 4, (tx + spr->cw) * 4, (ny + spr->ch) * 4, 0, s, t, dsdx, dtdy, ((__repair_ty_u16 + arg1) * 4));
+        }
       }
-      while (((s32) ((u16) var_s2)) < ((s32) ((temp_a0_4 >> 0xC) & 0xF)));
     }
-    temp_v0_6 = D_80115328;
-    D_80115328 = temp_v0_6 + 8;
-    *((s32 *) (((char *) temp_v0_6) + 0)) = 0xE8000000;
-    *((s32 *) (((char *) temp_v0_6) + 4)) = 0;
+    gRaw(PKT, 0xE8000000, 0);
   }
 }
-
