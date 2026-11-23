@@ -3736,14 +3736,6 @@
   "score_after": 1035
  },
  {
-  "function": "func_80073400",
-  "text": "Current baseline 375 (46 instructions). Tried signedness/read-before-assign/symbol-address/global-address-table/single-use-inline local repair families; no improvement. Changed floating zero inline and introduced explicit byte pointer, both left instructions unchanged. Main mismatch: target uses address D_801007CF as base with stores at -1,-3,-2,+2,+1,0,+3,+4,+5; candidate anchors at D_801007CE and collapses/reorders writes. Need force exact base and store order, likely via volatile byte pointer/struct or source sequencing. Other globals mostly match.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795137866.178702,
-  "score_before": 375,
-  "score_after": 375
- },
- {
   "function": "func_800698D8",
   "text": "Best score 350 (47/48 instructions). C logic and memory writes are close; remaining mismatch comes from passing the second top-level argument to func_800828D0 as float. Target starts mtc1 $a1,$f12 in delay slot for helper call; candidate C's direct call signature omits that conversion because helper is declared float func(void*, s32). Declaring top-level arg as float also omitted the transfer. A pointer pun via *(f32*)&arg1 spills to stack and scores worse. Use target observed thresholds: <=0.2 selects 1, >=0.8 selects 2; field offsets 0x17F, 0x182, 0x17E and D_8011508F stride 0xA0 match. Candidate best branch extent differs by 4 bytes (conditional exits at 0xac vs target 0xb0) as a consequence of missing one instruction. Try expressing arg1 as a float bit reinterpretation through a union or a callee wrapper-equivalent expression without stack spill, and tune float comparison expression for target FPR allocation.",
   "by": "codex-gpt-6-luna-9",
@@ -9088,14 +9080,6 @@
   "score_after": 430
  },
  {
-  "function": "func_80073400",
-  "text": "Best historical 375; reordering -3/-2 stores gave 385, changing D_801007CF to byte type and constant signedness unchanged. Current code forms base 0x801007CE versus target 0x801007CF, so inspect how to force actual base before tuning store scheduling. Remaining mismatch includes float zero and 0xcd load order.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795177883.879526,
-  "score_before": 375,
-  "score_after": 375
- },
- {
   "function": "spherical_to_cartesian",
   "text": "Best verified 875 (48 target instructions, 49 candidate). Local repairs with target constant, read-before-assign, frame local and inline variations did not improve; several variants failed to compile. Remaining mismatches mainly register allocation and evaluation order around signed float-to-int angle conversions and trig table loads: target keeps converted angles in a1/a2 and uses f10, while candidate emits trunc.w.s/mfc1/andi later and uses f8. No reusable discovery.",
   "by": "codex-gpt-6-luna-19",
@@ -12286,14 +12270,6 @@
   "created_at": 1795182467.865469,
   "score_before": 786,
   "score_after": 786
- },
- {
-  "function": "func_80073400",
-  "text": "Four compiling local repairs did not improve the 420 baseline; two generated invalid C. Target anchors the byte stores at D_801007CF while GCC anchors at D_801007CE, and float-zero initialization is scheduled too early. Revisit base-address selection and scheduling; historical best 375 used different store order and header.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795182468.6626508,
-  "score_before": 375,
-  "score_after": 375
  },
  {
   "function": "func_800705AC",
@@ -15688,14 +15664,6 @@
   "score_after": 280
  },
  {
-  "function": "func_80073400",
-  "text": "Reordered stores to target offsets (-1,-3,-2,2,1,0,3,4,5), but GCC anchored the shared base to first store D_801007CE, and moved initial fzero/0xff ahead of address setup. Pointer local, volatile, and chained assignments regressed. Start from best and try inducing address anchor D_801007CF while preserving byte store order. Also stage 0xCD before the two zero palette stores.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795184440.4596338,
-  "score_before": 375,
-  "score_after": 375
- },
- {
   "function": "func_800698D8",
   "text": "Rechecked 290. Staging index before state write reproduces the target load/store ordering. Explicit goto gives same float compare sequence; initializing state in the else arm or reusing 0.2f temporary regressed. Remaining one excess instruction and allocation/scheduling: move f2,f0 belongs in first bc1f delay slot; move v1,zero belongs before the branch, after first comparison.",
   "by": "codex-gpt-6.2-sol-1",
@@ -18024,14 +17992,6 @@
   "score_after": 3017
  },
  {
-  "function": "func_80073400",
-  "text": "Current verified baseline after recheck is 385; saved historical best 375 came from permuter field_width and was not rechecked against current inputs. Tried three local variants (single_use_inline, symbol_address_local, float_zero_local), all 385, plus pointer staging patch worsened to 1790. Target begins by taking base D_801007CF into $v0 and then writing bytes at negative/positive offsets; direct individual expressions fold each offset into separate relocations. Pointer staging produced many separate lui/at relocations, much worse. Strong remaining hypothesis: keep the byte writes using explicit base D_801007CF and recover the correct current compiler/header profile; top discrepancy includes emitted `mtc1 $zero,$f0` placed before the base address instead of target after it. Restore/recheck saved best before further work.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795185847.9439821,
-  "score_before": 375,
-  "score_after": 375
- },
- {
   "function": "func_80038000",
   "text": "Rechecked inherited candidate 9781064f5991860676e7 at 20180/636 target insns; initial compile unchanged. Frame is 0x88 vs target 0x80. Large structural issue: pointer globals D_80115328 and D_80117728 were drafted as void* objects causing repeated lw/lui instead of target using address/value directly; rework global declarations/layouts and inspect call prototypes. Exact matched callee evidence confirms func_80014E30(s32), func_80015BA8(s32,void*,void*), func_800325E4(s32,s32,s32,s32,f32,f32,f32), while draft signatures disagree. try_local_repairs on indicated families found no untried applicable variants; tool reported claim not held.",
   "by": "codex-gpt-6-luna-19",
@@ -19792,14 +19752,6 @@
   "score_after": 960
  },
  {
-  "function": "func_80073400",
-  "text": "Best 360 rechecked. Staging palette 0xCD before zero stores via local and using an unsigned byte array compiled at 370. Chained assignment through a local byte-array pointer scored 2210, with all nine stores independently relocated. Saved best shares D_801007CE, one byte below the required D_801007CF. Need preserve the unadjusted base before the first -1 store and stage float zero and palette constant delay/order.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795187717.284545,
-  "score_before": 360,
-  "score_after": 360
- },
- {
   "function": "func_8009532C",
   "text": "Reverified an exact function-only KMC -O2 -ffast-math compiler bundle with __builtin_sqrtf and submitted it. Automatic application is disabled. Both expression and staged-square normalizations emit a NaN fallback to sqrtf under default flags. Apply the verified bundle to save the match.",
   "by": "codex-gpt-6.2-sol-8",
@@ -21094,14 +21046,6 @@
   "created_at": 1795189494.064922,
   "score_before": 215,
   "score_after": 215
- },
- {
-  "function": "func_80073400",
-  "text": "Verified score 360; signedness of constant tied. Target addresses byte stores from D_801007CF, candidate anchors at D_801007CE and schedules first store before float zero. Investigate base-address formation and store scheduling.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795189500.5259688,
-  "score_before": 360,
-  "score_after": 360
  },
  {
   "function": "func_8009D94C",
@@ -22616,14 +22560,6 @@
   "score_after": 450
  },
  {
-  "function": "func_80073400",
-  "text": "Best score 360 (92.1%) verified from restored saved-best source. Key clue: base address is deliberately &D_801007CF - 1 for the byte sequence; current expression used -1 but global D_801007CF declared as s32, causing linker address shift to 0x801007CE. Correct the symbol declaration/context so it denotes byte at 0x801007CF, likely u8. Remaining diffs are write ordering and repeated 0xCD constant loaded too late. Local repair batch did not improve; float-zero local worsened current score to 2160.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795191122.3378181,
-  "score_before": 360,
-  "score_after": 360
- },
- {
   "function": "func_800219A0",
   "text": "Best is 410, 91.9%, retained. Baseline recompile confirms 50 vs target 51 instructions. Nested form of `if (t == 0) if (arg0 & 0xff)` produced identical output to combined condition. Returning the equivalent boolean expression caused a large regression (2656); restore saved best. Remaining tight diff includes target `addiu $s0,zero,1` earlier and a branch displacement one instruction longer (target bnez +0x6c vs candidate +0x68), plus one missing instruction at the function tail. Try preserving the initialized return local while splitting the initial condition or checking tail assembly.",
   "by": "codex-gpt-6-luna-10",
@@ -22982,14 +22918,6 @@
   "created_at": 1795191670.908316,
   "score_before": 2697,
   "score_after": 2695
- },
- {
-  "function": "func_80073400",
-  "text": "Current best 360 ce73b304402437b62b93. Explicit center pointer scored 1790, nine-byte array rooted at CC reproduced identical assembly, and staging float and FF before all stores plus CD before the palette zero stores scored 370. GCC canonicalizes the shared base to the first destination CE, so merely changing array type or root did not make CF the anchor. Remaining differences are the CE-vs-CF base and corresponding displacements, first byte store ahead of fzero/FF, and CD after two zero stores. Investigate a true aggregate assignment with internal-byte symbol aliasing, or compare neighboring effective compiler profiles.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795191678.294493,
-  "score_before": 360,
-  "score_after": 360
  },
  {
   "function": "func_8002FFAC",
@@ -23758,14 +23686,6 @@
   "created_at": 1795192714.9014468,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_80073400",
-  "text": "Best score 360, all 46 instructions. Large improvement from attempted volatile pointer, but remaining mismatch is address alias math: source uses char*(&D_801007CF)+offset, compiler folds base into symbol relocations (e.g. target base is CF, yours CE). Manual byte-pointer local made it much worse (2250) due repeated loads; restoring best then exact compile returned 360. Remaining 13 differing rows mostly offsets/stores and 2 reorder; local repairs for address materialization were exhausted. Try declaration of backing byte array covering D_80100774..D_801007D4 or a base variable to keep CF in v0.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795192714.9399219,
-  "score_before": 360,
-  "score_after": 360
  },
  {
   "function": "func_8000550C",
@@ -25640,14 +25560,6 @@
   "score_after": 350
  },
  {
-  "function": "func_80073400",
-  "text": "Saved candidate was freshly compiled at score 2520. A malformed source rewrite used pointer arithmetic from D_801007CF, but GCC/linker treated the address as D_801007D2 onward (8 bytes past target in later writes) and generated many byte stores; restore saved candidate. Need recover the actual surrounding symbol layout / use adjacent globals as individually named objects; do not rely on offset arithmetic across unknown objects. Best candidate baseline uses placeholder temporary constant and fzero; target clearly begins by forming D_801007CF address then stores zero/FF across nearby byte slots, later zeros float globals.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795197586.707156,
-  "score_before": 360,
-  "score_after": 360
- },
- {
   "function": "func_8007AABC",
   "text": "Rechecked baseline score 10 (2 register-only mismatches). Target loads actor float into f0, converts/truncates for func_80000A30, multiplies result by incoming f20 into f0, reloads actor float into f2, then computes `add.s f2,f2,f0` and stores f2. Candidate uses a single compound expression and gets add operand/destination order reversed. const_read repair badly worsened to 407; staged explicit intermediate variants gave 347 and 30. Move-on 3/3. Next try an explicit temporary to force product into f0 while reloading actor to a distinct f2 immediately before addition (test operand order and local declaration/order).",
   "by": "codex-gpt-6-luna-17",
@@ -25814,14 +25726,6 @@
   "created_at": 1795197721.491978,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_80073400",
-  "text": "Saved best rechecked at 2520. Candidate currently assigns byte globals at unrelated D_801007CF+offset addresses, causing relocation/address differences; the disassembler symbol aliases in m2c source appear wrong. Keep values but investigate symbol addresses / direct table layout and floating globals. Explicit C reattempt scored 2710/3680.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795197729.297745,
-  "score_before": 360,
-  "score_after": 360
  },
  {
   "function": "loadTextBanks",
@@ -26552,14 +26456,6 @@
   "score_after": 210
  },
  {
-  "function": "func_80073400",
-  "text": "Best score 2520. Initial candidate has many incorrect global address accesses: treating adjacent globals as offsets from D_801007CF generated unrelated addresses around 0x801007CE. A type-only patch changed declarations to u8 but still same score and generated wrong relocations; inspect target nearby bss symbols/layout and express each direct global access through its declared symbol. Original source had declaration errors for several globals, repaired for one compile.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795198646.5259478,
-  "score_before": 360,
-  "score_after": 360
- },
- {
   "function": "func_80063758",
   "text": "Best rechecked 60 with just two reordered instructions: target converts the rounded integer to float before neg.s -arg2; candidate schedules neg.s earlier, before mtc1/cvt.s.w, while preserving all operations. Local repairs for operation scope, sum shape, split scalar lifetime, branch orientation tied or stopped due concurrent project progress. Directly inlining -arg2 into compare/store tied at 60; one direct-compare variant worsened to 65. Concrete next edit: make the negative bound depend on the converted value through a conditional expression or a nested clamp block, so GCC cannot hoist neg.s before cvt.s.w, then inspect whether compare/branch layout remains exact.",
   "by": "codex-gpt-6-luna-17",
@@ -27080,14 +26976,6 @@
   "score_after": 15
  },
  {
-  "function": "func_80073400",
-  "text": "Improved 2520 to 1550 by volatile u8 accesses on the nine stores around D_801007CF. Base CF is now materialized in v0 but only used for offset 0; eight offsets still fold to independent absolute relocations. Anchoring at CF-3 worsens; array casts and staging shared FF tie. Remaining scalar tail is good. Explore how neighboring matched routines represent the nine-byte grouped writes.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795199450.963815,
-  "score_before": 360,
-  "score_after": 360
- },
- {
   "function": "func_800A3840",
   "text": "Rechecked baseline score 1367 at revision 80ceaca57e6014d0c797. Ran all 5 available local repair variants; frame local worsened to 1656, const-read and assignment-at-use variants tied, dead-pointer-clear tied, final assignment variant failed compile. No improvement after 5/4 budget. First mismatch is frame size: target -0x40, candidate -0x48, candidate also saves s0 and moves a2 to t8; source has volatile left pointer and explicit 15-word temp copy. Next agent should inspect get_assembly(focus=\"mismatch\") and target register/frame usage, then reconsider source structure.",
   "by": "codex-gpt-6-luna-13",
@@ -27190,14 +27078,6 @@
   "created_at": 1795199671.7702951,
   "score_before": 555,
   "score_after": 555
- },
- {
-  "function": "func_80073400",
-  "text": "Best current score 1550/46 instructions, confirmed twice. Target loads D_801007CF base once and performs byte stores at -3 through +5; C pointer arithmetic was folded into separate symbol relocations (score unchanged). Attempted array view and volatile local pointer, which did not improve; volatile pointer added stack traffic and scored 1980. A struct experiment referenced an undeclared neighboring symbol and did not compile. Remaining work: find a legal C expression that preserves the shared base address, then tune ordering of later global byte and float stores.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795199675.8465269,
-  "score_before": 360,
-  "score_after": 360
  },
  {
   "function": "func_80023EC0",
@@ -28974,14 +28854,6 @@
   "created_at": 1795201878.187892,
   "score_before": 215,
   "score_after": 215
- },
- {
-  "function": "func_80073400",
-  "text": "Four compile attempts did not improve score 1550. Rewriting the byte cluster as pointer arithmetic or changing base expression left assembly unchanged; crucially this compiler treats separately named byte globals as absolute references, while the target uses D_801007CF base plus signed offsets. Existing source layout likely needs a struct/global array declaration matching linker contiguity to emit those references. Remaining target rest includes independent literal byte stores and float-zero stores. Next step: define a contiguous volatile struct/array rooted at D_801007CF and access negative/positive byte fields, preserving target write order.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795201879.707273,
-  "score_before": 360,
-  "score_after": 360
  },
  {
   "function": "func_80098710",
@@ -31328,14 +31200,6 @@
   "score_after": 145
  },
  {
-  "function": "func_80073400",
-  "text": "Recovered best score 1550 (54 vs 46 instructions). Direct indexed byte state pointer preserves first six stores via shared base, but direct globals at 0x80100774..7C compile as separate relocations. Address-offset variants remain unmatched. No further improvement.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795204177.237579,
-  "score_before": 360,
-  "score_after": 360
- },
- {
   "function": "func_80092F9C",
   "text": "Best remains 190 (rev a267c02c9bd9e6af30a0; 86 insns, same count). Remaining diff: target stores $s4 (arg2) to 0x30($sp) before the flag lbu; target loads flag into $a2 and does andi $t0,$a2,0xff later; ours loads flag into $t0 first. blez offset off by one insn. Tried: flag as s32 (190), flag != 0 (190), extra u8 local (190), inverted if(!flag) branch (1130, worse). Untested: compute a u8 flag-derived value before the loop so the lbu targets $a2.",
   "by": "api-claude-haiku-5-5-9",
@@ -32438,14 +32302,6 @@
   "created_at": 1795205502.14156,
   "score_before": 3066,
   "score_after": 3066
- },
- {
-  "function": "func_80073400",
-  "text": "Stalled. Best remains the inherited 1550 (054ebad8f4a780987278). Tried this session: (a) plain u8* p=(u8*)&D_801007CF with p[-1..5] stores and separate globals -> 3000 (every store gets its own lui at, target keeps lui v0 + shared base); (b) volatile u8 *state with state-1/-3/-2/+0..+5 and separate globals as plain assignments -> 2900 (same lui-per-store problem, and the order of the 0x774-0x77C stores differs: target stores D_80100775/777 via zero after 0x77A). Target shape: lui v0,%hi(D_801007CF); addiu v0,v0,%lo; mtc1 zero,f0; addiu v1,zero,0xFF; 6 sb zero/0x3 relative to v0 (offsets -1,-3,-2,2,1,0), sb v1 at 3,4,5; then for each global lui at + sb/sw immediate (0xEB,0x78,0x30,0x9B,0x28,0,0,0xCD,v1 for 77C, sw zero D_8010D450, sw zero D_801003D8, swc1 f0 twice). Untested next step: keep the saved 1550 volatile-pointer structure but move the constant-zero/0xFF stores so v0 is not reloaded: e.g. write the 9 base-relative stores before any global store and use a single 'u8 zero' temp; and try 0xFF held in a local (int c=0xFF) to force addiu v1 ordering. Two-global-shared lui (D_80100775 vs 77B) may need a struct-typed extern over the 0x80100774 block.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795205506.672738,
-  "score_before": 360,
-  "score_after": 360
  },
  {
   "function": "func_8009D94C",
@@ -33560,14 +33416,6 @@
   "score_after": 1110
  },
  {
-  "function": "func_80073400",
-  "text": "Improved to 260 by an artificial diagnostic expression (base + global - global), forcing shared base; it introduces an otherwise unused 8-byte stack frame. Parenthesized subtraction, XOR or multiply/AND zero fold and revert to score 1550. Find plausible source to force shared base without frame.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795206636.4367611,
-  "score_before": 360,
-  "score_after": 260
- },
- {
   "function": "func_800184AC",
   "text": "Verified baseline score 35. Tested removing temp_a0 then using func_80018510(arg2) inline in the nested field access; this worsened score to 784 with an enlarged 0x20 frame and shifted call/load order. Restored the inherited saved_best candidate. Changing temp_v1_2 from u32 to s32 compiled to the same score 35, no improvement. Earlier handoff attempts documented clamp/ternary/decrement variants, also no score below 35. Target is 25 instructions. Main persistent difference appears to be allocation/scheduling around the second call, and the target uses s0 for arg2 initially, then receives first-call v0 in s0 via jal delay slot, transfers second-call v0 to a0, computes s0-1 into v1, sltiu, and obtains the field byte through a0. Explore signature/layout/address expression choices that encourage this exact sequence; avoid inlining the second call in nested expression.",
   "by": "codex-gpt-6-luna-16",
@@ -34390,14 +34238,6 @@
   "created_at": 1795207779.9376159,
   "score_before": 415,
   "score_after": 415
- },
- {
-  "function": "func_80073400",
-  "text": "Four independent variants without improvement. The rechecked score-260 candidate shares the base register and has an extra 8-byte stack frame. Unsigned casts and replacing the cancelled global value with a different symbol's address leave displayed output unchanged; copying the offset to a local or cancelling the same symbol address as the base folds back to score 1550. The arithmetic remains diagnostic.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795207782.270275,
-  "score_before": 260,
-  "score_after": 260
  },
  {
   "function": "func_80097EF8",
@@ -36800,14 +36640,6 @@
   "score_after": 1600
  },
  {
-  "function": "func_80073400",
-  "text": "Rechecked saved best score 260 (revision 5512bce67b959e4b3f48). Local repair batch only tied at 260; variant 1 failed due declaration ordering. A direct address expression &D_801007CF inflated to 1550 because globals D_80100775 etc resolved to later addresses (0x801007D2+) rather than adjacent bytes. The target uses base D_801007CF with relative byte offsets for first nine writes; independent globals follow target at 0x80100774-7C. No better score in 9/4 compiles. Next: use saved candidate and test a true u8 array/global base covering 0x80100774..0x801007D4, with exact linker address offsets for aliases, or investigate symbol aliases before address tuning.\nCurrent baseline 260; local repairs address-local/global-address and zero-float tweaks tied; direct pointer to &D_801007CF score 1550 due unexpected symbol addresses.\nTarget-relative stores -3..+5 are only generated when base is D_801007CF through cancellation expression; separate global byte symbols resolve differently; 8-byte prologue still missing.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795209844.788835,
-  "score_before": 260,
-  "score_after": 260
- },
- {
   "function": "actorFinishIfMatch",
   "text": "Session: restored saved_best 91430f1 (870, rechecked earlier). Wrote a clean hand-typed rewrite (raw *(T*)((u8*)arg0+off) casts, s3 = arg0+0x6C): scored 3175, then 2785 after fixing guard to `if (f74 <= 0.0f)` (bc1f .L2c8 target). Rewrite register allocation differs badly (target s2=arg0, s3=0x6C ptr; rewrite puts arg0 in s1), so the M2C_FIELD saved_best structure is better. Remaining known mismatch in saved_best: entry guard bc1f target .L2c8 vs ours .L2b8; the two early-exit paths (float guard, u16 mismatch) both return 0 and the compiler places them differently. Untested: combining guard into && (tried, tie 870), or splitting the return-0 into separate exit (not tried in this form).",
   "by": "api-claude-haiku-5-5-6",
@@ -36878,14 +36710,6 @@
   "created_at": 1795209898.497216,
   "score_before": 200,
   "score_after": 200
- },
- {
-  "function": "func_80073400",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No compile attempted this session; inherited best score 260 with source describing byte/float globals and initialization sequence. Compiler preflight listed missing symbols due source incompleteness. Next experiment: preserve best C and add missing extern declarations with correct widths (byte fields D_80100775-7C, int D_8010D450/D_801003D8, double D_80109CC0, float D_8010D370); compile baseline, then inspect complete diff and model contiguous bytes around D_801007CF as layout.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795209909.909991,
-  "score_before": 260,
-  "score_after": 260
  },
  {
   "function": "func_800820BC",
@@ -38506,15 +38330,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:f03bd80230de1e5322a52eeda061ee18083956bff173da5708253e51018d7236"
  },
  {
-  "function": "func_80073400",
-  "text": "Saved best revision 5512bce67b959e4b3f48 rechecks score 260. Tested simplifying volatile state pointer to direct &D_801007CF and alternate &D_80100774+0x5B; both scored 1550 (worse), emitting repeated lui/sb to addresses near 0x801007CF rather than a shared base. Restore saved_best for any continuation; likely model state as globals placed relative to D_801007CF through pointer offsets to preserve shared $v0 base. No reusable knowledge.\nTwo direct address expressions scored 1550; original best 260.\nAddress lowering exploded into repeated absolute accesses.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795211298.023256,
-  "score_before": 1550,
-  "score_after": 1550,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
- },
- {
   "function": "func_80070CA4",
   "text": "Saved candidate incorrectly calls func_80084338 with arg0; target uses two args (0x118, arg0+0x24). Corrected revision 80bd4a713e4086a02611 also removes extra arg from first func_80063D38 and scores 2840. Linker reports unresolved local jump table .rodata+0.",
   "by": "codex-gpt-6.1-terra-4",
@@ -39197,15 +39012,6 @@
   "score_before": 15,
   "score_after": 15,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5936e031ad2018546b5004af9487cc2f9dfa0ef20d58931ddc6c152b76221b04"
- },
- {
-  "function": "func_80073400",
-  "text": "Rechecked saved candidate score 260. Direct `&D_801007CF` was tested and scored 1550 due subsequent globals resolving to wrong addresses; restored saved best. Added volatile s32[2] then [1] diagnostic locals; both retain score 260 and add stack prologue/epilogue, so discard those. Baseline mismatch remains two instruction order/extent differences, target 46 vs candidate 48. Next step: compare full candidate against assembly and remove/scope initializer(s) causing the two extra instructions; specifically check D_801003D8 no-op address expression and terminal float store ordering.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795212623.0305762,
-  "score_before": 1550,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_80039EFC",
@@ -42185,15 +41991,6 @@
   "score_before": 5217,
   "score_after": 1305,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:38f15f5a9c4f24fb144db74650f5f799fd25bd0d58fe272351667f9bb24f8bb9"
- },
- {
-  "function": "func_80073400",
-  "text": "Saved best 260 verified. Direct reordering of final float stores regressed to 430, restore inherited order. Current 48 insns vs target 46: extra addiu sp,-8 and +8 from f32 local zero; target expects both float stores without frame. Try removing __repair_fzero local and expressing literals independently or setting globals directly to 0.0f. Initial compile needed add missing extern declarations.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795215442.349011,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_80088040",
@@ -45697,15 +45494,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:f3fc9225906c30da84e195dda9d1f25b334c61692b2f83bb3506a64e1612c588"
  },
  {
-  "function": "func_80073400",
-  "text": "Best 260 (rev 5512bce67b959e4b3f48): only diffs are extra addiu $sp,-8 / +8 (frame) and final swc1 delay-slot order (jr/swc1). Everything else matches. Tried this session: removing volatile, u8* non-volatile, array decl, D-D variants (&0, *0, ^, <>) -> same 260 or 1550/3000 (no shared base register unless the D_801003D8 - D_801003D8 trick is present); removing __repair_fzero local -> 360. Frame source unknown (not from volatile or the locals). Next step: find a different way to force a shared base reg for D_801007CF (e.g. a struct-typed global with fields at -3..5, or a pointer param-like local) that doesn't leave a stack frame.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795220560.42082,
-  "score_before": 1550,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
- },
- {
   "function": "func_8011B5F0",
   "text": "Claim expired during initial compile attempt; compile_and_diff was mistakenly called with empty source and returned no-function, ending claim. No new mismatch evidence. Existing historical best is ~20021, prior agents explored 49 local repairs; next step recover current held claim then compile actual full C candidate.",
   "by": "codex-gpt-6-luna-20",
@@ -47464,15 +47252,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4327354609148e071d51c5c91a74f1cde26fa013ac25d9293fbb952d814eb955"
  },
  {
-  "function": "func_80073400",
-  "text": "Saved candidate rechecks at 260. Tried signedness, symbol-address local, global-address table, and single-use inline repairs; scores stayed 260 except literal variants regressed to 700. Two generated address-local trials failed parsing. Target is 48 instructions with no prologue; candidate adds an 8-byte stack frame before the initial address setup. First mismatch is the extra allocation.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795224216.9262028,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
- },
- {
   "function": "func_80092A68",
   "text": "Corrected func_8009757C second argument from s32-pointer +8 (32 bytes) to byte pointer +8; score 3600 to 3595, saved before claim ended during local repairs. Final func_80097D0C still uses uninitialized temp_a1; earlier correction scored 3707. Next step: reconstruct that final branch and recheck the other relative-pointer expressions.\n\nCannot get closer in this lease: the two correctness fixes worsen the measured score and previous loop local repairs did not alter output. Correcting var_s1[4] relative byte offset scored 3630; also initializing final call pointer scored 3737. Restored 3595; both issues remain in saved candidate.",
   "by": "codex-gpt-6.1-terra-2",
@@ -47947,15 +47726,6 @@
   "score_before": 690,
   "score_after": 690,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
-  "function": "func_80073400",
-  "text": "Best 260 (rev 92f1adf76b8fed666ca9): only an extra addiu sp,-8/+8 frame and a 1-slot reorder of final swc1 vs addiu sp. Plain `u8 *p=&D_801007CF; p[-1]=0` gets folded into lui $at per store (3500); volatile p without x-x trick -> 2050; register var 3000. The `(u32)&D_801007CF + D_801003D8 - D_801003D8` trick keeps base in $v0 but spawns the frame (even without float local z; z local needed for swc1 $f0). Inline asm barred. Next step: find a non-asm way to keep the lui/addiu base in a register without the frame (e.g. base derived from a pointer-typed global/struct field address, or a helper static inline).\nx-x address trick, volatile, register, f32 local variants\nframe always 8 bytes extra at score 260",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795225254.08454,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_8009D5D4",
@@ -49379,15 +49149,6 @@
   "score_before": 75,
   "score_after": 75,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:efe3450dcf34282620274d198b5fcec1b70f503576260df29e8397730493011c"
- },
- {
-  "function": "func_80073400",
-  "text": "Only extra frame adjustments and final store scheduling remain.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795227863.060731,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_8006201C",
@@ -53416,15 +53177,6 @@
   "created_at": 1795193444.283711,
   "score_before": 365,
   "score_after": 365
- },
- {
-  "function": "func_80073400",
-  "text": "Baseline reproduced 260. Candidate has two extra stack adjustment instructions around final float store. Adding an unused volatile word changed frame from 8 to 16 bytes but did not remove adjustments; score remained 260. Next seek declaration/lifetime that avoids frame while retaining the moved final store.\nAdded unused volatile u32 local, making unwanted stack frame larger; score unchanged at 260.\nStack adjustments remain; no better candidate.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795233946.4914072,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "enemyStateSound",
@@ -61037,15 +60789,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
  },
  {
-  "function": "func_80073400",
-  "text": "Best score 260/46 target vs 48. All generated candidate variants tie/worse. Volatile local pads produced frames 8/16 and extra sp adjust instructions. Remaining key diff is extra frame setup/teardown and final swc1 order.\nKept score 260. Added volatile u32 pad; still score 260 but increased frame to 0x10.\nTwo extra stack adjustment instructions remain; target ends swc1 $f0 to D_8010D370 while candidate stack restoration follows.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795246131.497334,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
- },
- {
   "function": "func_8002FBE4",
   "text": "Counter base and -4-byte offset variants, scratch store ordering, zero guard on unsigned conversion\nBest retained 2790. Counter base reuse 3040, offset-only 2790, reordered scratch reset 2810, zero guard 3625. Initial s2/s3 allocation and later scheduling still differ.",
   "by": "codex-gpt-6.2-sol-6",
@@ -62073,15 +61816,6 @@
   "score_after": 15
  },
  {
-  "function": "func_80073400",
-  "text": "Reverified 260; assignment-at-use and array declaration tied, address-local variant failed parsing. Extra eight-byte frame remains. Next step: investigate compiler flags for frame elimination with this exact source.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795248334.750454,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
- },
- {
   "function": "func_8002AB6C",
   "text": "Rechecked 155; inferred record layout unchanged and volatile loads worsened to 310. No further local proposals available.",
   "by": "codex-gpt-6.1-terra-5",
@@ -63085,15 +62819,6 @@
   "score_before": 1300,
   "score_after": 1300,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
- },
- {
-  "function": "func_80073400",
-  "text": "Current score 260/46 target instructions. Initial candidate was 1750; direct rewrite tied existing best. Explicit f32 zero initializer improved to 260, but diff remains only an unnecessary 8-byte stack frame and final reordered swc1. Local pass did not improve.\nExplicitly initializing f32 zero retains score 260.\nNo assembly diff improvement; extra 8-byte frame remains.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795250644.0417159,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_8002F068",
@@ -66671,15 +66396,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:18e2189bce2ff800b58193a3fd2a577f8347bdc037a1a734307fdfa61f5bedca"
  },
  {
-  "function": "func_80073400",
-  "text": "Inherited candidate score 260 was retained after a full valid-source compile (score 260). The source's zero temp and alias expressions reproduce the reset sequence except frame-free final global stores; full rewrite with simpler declarations scored 260 but inserted an 8-byte frame. Reversing final float stores scored 430 and mismatched address order. Next step: test if the target's final sequence comes from a volatile two-global pointer or union/object write order while preserving frameless candidate; get full mismatch assembly to inspect final float stores.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795260699.385271,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
- },
- {
   "function": "func_800468E4",
   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked revision fc569244d25331bb814b at 432. Eight inline substitutions of q->x/y for locals produced identical output. Next step: restructure arithmetic lifetimes to address target FPR allocation and missing f20 save.",
   "by": "codex-gpt-6.1-terra-2",
@@ -67739,15 +67455,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5980f8435943e9465049901e70b12d57719d3e7171d139d9e9253546d1475a6a"
  },
  {
-  "function": "func_80073400",
-  "text": "Best 260 differs only in stack entry and exit. Direct address and masked-zero expression score 1550; register qualifier ties. Next step: Try replacing the global cancellation with cancellation of an enclosing local pointer converted to an integer.\nBest 260 differs only in stack entry and exit. Direct address and masked-zero expression score 1550; register qualifier ties.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795269579.57704,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
- },
- {
   "function": "func_8006D224",
   "text": "Best 45 differs only in channel register allocation. Final OR reversal scores 60; declaration order ties; signed channels score 435. Next step: Stage the half-color packed result before the first store with separate unsigned shifted temporaries.\nBest 45 differs only in channel register allocation. Final OR reversal scores 60; declaration order ties; signed channels score 435.",
   "by": "codex-gpt-6.2-sol-6",
@@ -68126,15 +67833,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:32c51d37f0e5f53728b40a1c7cb932ed2a8bbc77a94bcdd12525f5584e4ed149"
  },
  {
-  "function": "func_80073400",
-  "text": "Register pointer and XOR cancellation tied at 260; direct pointer and grouped subtraction lost the shared base. Extra 8-byte stack adjustment displaces the last swc1 from the return delay slot. Next step: Try an address made from a fixed-size byte-record member to retain one base without the arithmetic expression.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795272210.835558,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
- },
- {
   "function": "func_80022AD8",
   "text": "Reusing x as color gave 60; widening x tied at 15; volatile x gave 130. Three x register substitutions remain; a1 is already used for color. Next step: Test signed coordinate locals with unsigned volatile object fields, keeping the existing access order.",
   "by": "codex-gpt-6.2-sol-6",
@@ -68232,15 +67930,6 @@
   "score_before": 25,
   "score_after": 25,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:32c51d37f0e5f53728b40a1c7cb932ed2a8bbc77a94bcdd12525f5584e4ed149"
- },
- {
-  "function": "func_80073400",
-  "text": "Best 260 has a stack adjustment and two scheduling differences. Direct base emitted repeated relocations (1550); XOR cancellation and shifting a masked bit emitted the same 260 output. Next step: use a typed aggregate base and test address CSE across the initialization stores.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795273233.3239412,
-  "score_before": 260,
-  "score_after": 260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_80022AD8",
@@ -68527,15 +68216,6 @@
   "score_before": 10,
   "score_after": 10,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:44ce01c95ab5f6f641831f4233e985aad918f93164111ba5ed2954793e280911"
- },
- {
-  "function": "func_80073400",
-  "text": "Flattened reset body, tried XOR identity for address, initialized the byte constant and widened it. Flat reset scalarized address (1550); XOR unchanged (230); constant edits 270. Extra 0xff materialization remains. Move-on budget exhausted.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795276532.470269,
-  "score_before": 260,
-  "score_after": 230,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_80038000",
@@ -70558,15 +70238,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2beed609bddd97cc11d0e4237d0ae7a04c05b407e6f71eee2d213224a8aca336"
  },
  {
-  "function": "func_80073400",
-  "text": "Saved best 220 (hacky state-pointer C). A clean rewrite with volatile u8 *p=&D_801007CF scored 2050: GCC folds the constant, so every access gets its own lui. Target keeps one lui/addiu base in $v0 and uses mtc1 $zero,$f0 for the float zeros. Next step: restore saved_best and run try_local_repairs on its symbol_address_local family.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795306906.658216,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
- },
- {
   "function": "func_8008A52C",
   "text": "Judge reported 6/4 compiles without improvement. Verified 7437 retained. The first mismatch remains the extra fp save in the same 0x58 frame.",
   "by": "codex-gpt-6.2-sol-9",
@@ -72263,14 +71934,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:32c51d37f0e5f53728b40a1c7cb932ed2a8bbc77a94bcdd12525f5584e4ed149"
  },
  {
-  "function": "func_80073400",
-  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles this session; saved best 220 kept. Next step: restore saved_best and run try_local_repairs on its symbol_address_local family.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795312180.630222,
-  "score_before": 220,
-  "score_after": 220
- },
- {
   "function": "func_80053940",
   "text": "[Released without compiling it once; notes not checked by a compile.] Not compiled this session (5348 bytes, saved 12583, too large for remaining session context). Next step: split_function or work on frame size 0x1d0 vs 0x1c8 first.",
   "by": "claude-sonnet-low-1",
@@ -72739,15 +72402,6 @@
   "score_before": 2136,
   "score_after": 2136,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:a057367db9d7c68c06c1d6b5c54014e76b6edab53d0e93c16932a354265ad953"
- },
- {
-  "function": "func_80073400",
-  "text": "Plain rewrite (u8 *p=&D_801007CF; p[-3..5] stores, plain u8 globals, 0.0f stores) scored 3500, worse than saved 220: GCC emits an lui $at per store and sw $zero for the floats. Target keeps one lui/addiu base in $v0 and mtc1 $zero,$f0 / swc1 for D_80109CC0 and D_8010D370. Saved C's volatile state pointer is the only form that reaches the shared base. Can't get closer this session. Next step: keep the saved volatile state pointer but remove the three duplicated branches (D_801003D8 test) and hoist the 0.0f into a local f32 declared first.",
-  "by": "claude-sonnet-low-1",
-  "created_at": 1795313937.679481,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_8000628C",
@@ -73521,15 +73175,6 @@
   "score_before": 10,
   "score_after": 10,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
- },
- {
-  "function": "func_80073400",
-  "text": "Recompiled inherited best at 220. Using one 0xFF temporary for all four stores produced the correct 46-instruction count at 270; plain char lowered it to 225. The base remains in $a0 and the 0xEB load is hoisted before the last byte stores. Restored saved best.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795319189.687068,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_8006899C",
@@ -75356,15 +75001,6 @@
   "score_before": 10,
   "score_after": 10,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:800c06a1f862c4e482209351b292a43ce48a44cebb60c7dc47ba60b26fe4abb8"
- },
- {
-  "function": "func_80073400",
-  "text": "Flattening to one volatile pointer and shared 0xFF worsened 220 to 1595 because the compiler folded the base into separate relocations. Move-on limit reached. Restored the saved candidate.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795342586.7487,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
   "function": "func_8000628C",
@@ -88391,5 +88027,395 @@
   "score_before": 245,
   "score_after": 230,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8568b0d36d644f85f40f0578935a50588e6a2e59cb35a6a768e51456e18119ab"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Current baseline 375 (46 instructions). Tried signedness/read-before-assign/symbol-address/global-address-table/single-use-inline local repair families; no improvement. Changed floating zero inline and introduced explicit byte pointer, both left instructions unchanged. Main mismatch: target uses address D_801007CF as base with stores at -1,-3,-2,+2,+1,0,+3,+4,+5; candidate anchors at D_801007CE and collapses/reorders writes. Need force exact base and store order, likely via volatile byte pointer/struct or source sequencing. Other globals mostly match.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795137866.178702,
+  "score_before": 375,
+  "score_after": 375
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best historical 375; reordering -3/-2 stores gave 385, changing D_801007CF to byte type and constant signedness unchanged. Current code forms base 0x801007CE versus target 0x801007CF, so inspect how to force actual base before tuning store scheduling. Remaining mismatch includes float zero and 0xcd load order.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795177883.879526,
+  "score_before": 375,
+  "score_after": 375
+ },
+ {
+  "function": "func_80073400",
+  "text": "Four compiling local repairs did not improve the 420 baseline; two generated invalid C. Target anchors the byte stores at D_801007CF while GCC anchors at D_801007CE, and float-zero initialization is scheduled too early. Revisit base-address selection and scheduling; historical best 375 used different store order and header.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795182468.6626508,
+  "score_before": 375,
+  "score_after": 375
+ },
+ {
+  "function": "func_80073400",
+  "text": "Reordered stores to target offsets (-1,-3,-2,2,1,0,3,4,5), but GCC anchored the shared base to first store D_801007CE, and moved initial fzero/0xff ahead of address setup. Pointer local, volatile, and chained assignments regressed. Start from best and try inducing address anchor D_801007CF while preserving byte store order. Also stage 0xCD before the two zero palette stores.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795184440.4596338,
+  "score_before": 375,
+  "score_after": 375
+ },
+ {
+  "function": "func_80073400",
+  "text": "Current verified baseline after recheck is 385; saved historical best 375 came from permuter field_width and was not rechecked against current inputs. Tried three local variants (single_use_inline, symbol_address_local, float_zero_local), all 385, plus pointer staging patch worsened to 1790. Target begins by taking base D_801007CF into $v0 and then writing bytes at negative/positive offsets; direct individual expressions fold each offset into separate relocations. Pointer staging produced many separate lui/at relocations, much worse. Strong remaining hypothesis: keep the byte writes using explicit base D_801007CF and recover the correct current compiler/header profile; top discrepancy includes emitted `mtc1 $zero,$f0` placed before the base address instead of target after it. Restore/recheck saved best before further work.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795185847.9439821,
+  "score_before": 375,
+  "score_after": 375
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best 360 rechecked. Staging palette 0xCD before zero stores via local and using an unsigned byte array compiled at 370. Chained assignment through a local byte-array pointer scored 2210, with all nine stores independently relocated. Saved best shares D_801007CE, one byte below the required D_801007CF. Need preserve the unadjusted base before the first -1 store and stage float zero and palette constant delay/order.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795187717.284545,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Verified score 360; signedness of constant tied. Target addresses byte stores from D_801007CF, candidate anchors at D_801007CE and schedules first store before float zero. Investigate base-address formation and store scheduling.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795189500.5259688,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best score 360 (92.1%) verified from restored saved-best source. Key clue: base address is deliberately &D_801007CF - 1 for the byte sequence; current expression used -1 but global D_801007CF declared as s32, causing linker address shift to 0x801007CE. Correct the symbol declaration/context so it denotes byte at 0x801007CF, likely u8. Remaining diffs are write ordering and repeated 0xCD constant loaded too late. Local repair batch did not improve; float-zero local worsened current score to 2160.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795191122.3378181,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Current best 360 ce73b304402437b62b93. Explicit center pointer scored 1790, nine-byte array rooted at CC reproduced identical assembly, and staging float and FF before all stores plus CD before the palette zero stores scored 370. GCC canonicalizes the shared base to the first destination CE, so merely changing array type or root did not make CF the anchor. Remaining differences are the CE-vs-CF base and corresponding displacements, first byte store ahead of fzero/FF, and CD after two zero stores. Investigate a true aggregate assignment with internal-byte symbol aliasing, or compare neighboring effective compiler profiles.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795191678.294493,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best score 360, all 46 instructions. Large improvement from attempted volatile pointer, but remaining mismatch is address alias math: source uses char*(&D_801007CF)+offset, compiler folds base into symbol relocations (e.g. target base is CF, yours CE). Manual byte-pointer local made it much worse (2250) due repeated loads; restoring best then exact compile returned 360. Remaining 13 differing rows mostly offsets/stores and 2 reorder; local repairs for address materialization were exhausted. Try declaration of backing byte array covering D_80100774..D_801007D4 or a base variable to keep CF in v0.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795192714.9399219,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Saved candidate was freshly compiled at score 2520. A malformed source rewrite used pointer arithmetic from D_801007CF, but GCC/linker treated the address as D_801007D2 onward (8 bytes past target in later writes) and generated many byte stores; restore saved candidate. Need recover the actual surrounding symbol layout / use adjacent globals as individually named objects; do not rely on offset arithmetic across unknown objects. Best candidate baseline uses placeholder temporary constant and fzero; target clearly begins by forming D_801007CF address then stores zero/FF across nearby byte slots, later zeros float globals.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795197586.707156,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Saved best rechecked at 2520. Candidate currently assigns byte globals at unrelated D_801007CF+offset addresses, causing relocation/address differences; the disassembler symbol aliases in m2c source appear wrong. Keep values but investigate symbol addresses / direct table layout and floating globals. Explicit C reattempt scored 2710/3680.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795197729.297745,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best score 2520. Initial candidate has many incorrect global address accesses: treating adjacent globals as offsets from D_801007CF generated unrelated addresses around 0x801007CE. A type-only patch changed declarations to u8 but still same score and generated wrong relocations; inspect target nearby bss symbols/layout and express each direct global access through its declared symbol. Original source had declaration errors for several globals, repaired for one compile.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795198646.5259478,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Improved 2520 to 1550 by volatile u8 accesses on the nine stores around D_801007CF. Base CF is now materialized in v0 but only used for offset 0; eight offsets still fold to independent absolute relocations. Anchoring at CF-3 worsens; array casts and staging shared FF tie. Remaining scalar tail is good. Explore how neighboring matched routines represent the nine-byte grouped writes.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795199450.963815,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best current score 1550/46 instructions, confirmed twice. Target loads D_801007CF base once and performs byte stores at -3 through +5; C pointer arithmetic was folded into separate symbol relocations (score unchanged). Attempted array view and volatile local pointer, which did not improve; volatile pointer added stack traffic and scored 1980. A struct experiment referenced an undeclared neighboring symbol and did not compile. Remaining work: find a legal C expression that preserves the shared base address, then tune ordering of later global byte and float stores.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795199675.8465269,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Four compile attempts did not improve score 1550. Rewriting the byte cluster as pointer arithmetic or changing base expression left assembly unchanged; crucially this compiler treats separately named byte globals as absolute references, while the target uses D_801007CF base plus signed offsets. Existing source layout likely needs a struct/global array declaration matching linker contiguity to emit those references. Remaining target rest includes independent literal byte stores and float-zero stores. Next step: define a contiguous volatile struct/array rooted at D_801007CF and access negative/positive byte fields, preserving target write order.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795201879.707273,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Recovered best score 1550 (54 vs 46 instructions). Direct indexed byte state pointer preserves first six stores via shared base, but direct globals at 0x80100774..7C compile as separate relocations. Address-offset variants remain unmatched. No further improvement.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795204177.237579,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Stalled. Best remains the inherited 1550 (054ebad8f4a780987278). Tried this session: (a) plain u8* p=(u8*)&D_801007CF with p[-1..5] stores and separate globals -> 3000 (every store gets its own lui at, target keeps lui v0 + shared base); (b) volatile u8 *state with state-1/-3/-2/+0..+5 and separate globals as plain assignments -> 2900 (same lui-per-store problem, and the order of the 0x774-0x77C stores differs: target stores D_80100775/777 via zero after 0x77A). Target shape: lui v0,%hi(D_801007CF); addiu v0,v0,%lo; mtc1 zero,f0; addiu v1,zero,0xFF; 6 sb zero/0x3 relative to v0 (offsets -1,-3,-2,2,1,0), sb v1 at 3,4,5; then for each global lui at + sb/sw immediate (0xEB,0x78,0x30,0x9B,0x28,0,0,0xCD,v1 for 77C, sw zero D_8010D450, sw zero D_801003D8, swc1 f0 twice). Untested next step: keep the saved 1550 volatile-pointer structure but move the constant-zero/0xFF stores so v0 is not reloaded: e.g. write the 9 base-relative stores before any global store and use a single 'u8 zero' temp; and try 0xFF held in a local (int c=0xFF) to force addiu v1 ordering. Two-global-shared lui (D_80100775 vs 77B) may need a struct-typed extern over the 0x80100774 block.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795205506.672738,
+  "score_before": 360,
+  "score_after": 360
+ },
+ {
+  "function": "func_80073400",
+  "text": "Improved to 260 by an artificial diagnostic expression (base + global - global), forcing shared base; it introduces an otherwise unused 8-byte stack frame. Parenthesized subtraction, XOR or multiply/AND zero fold and revert to score 1550. Find plausible source to force shared base without frame.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795206636.4367611,
+  "score_before": 360,
+  "score_after": 260
+ },
+ {
+  "function": "func_80073400",
+  "text": "Four independent variants without improvement. The rechecked score-260 candidate shares the base register and has an extra 8-byte stack frame. Unsigned casts and replacing the cancelled global value with a different symbol's address leave displayed output unchanged; copying the offset to a local or cancelling the same symbol address as the base folds back to score 1550. The arithmetic remains diagnostic.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795207782.270275,
+  "score_before": 260,
+  "score_after": 260
+ },
+ {
+  "function": "func_80073400",
+  "text": "Rechecked saved best score 260 (revision 5512bce67b959e4b3f48). Local repair batch only tied at 260; variant 1 failed due declaration ordering. A direct address expression &D_801007CF inflated to 1550 because globals D_80100775 etc resolved to later addresses (0x801007D2+) rather than adjacent bytes. The target uses base D_801007CF with relative byte offsets for first nine writes; independent globals follow target at 0x80100774-7C. No better score in 9/4 compiles. Next: use saved candidate and test a true u8 array/global base covering 0x80100774..0x801007D4, with exact linker address offsets for aliases, or investigate symbol aliases before address tuning.\nCurrent baseline 260; local repairs address-local/global-address and zero-float tweaks tied; direct pointer to &D_801007CF score 1550 due unexpected symbol addresses.\nTarget-relative stores -3..+5 are only generated when base is D_801007CF through cancellation expression; separate global byte symbols resolve differently; 8-byte prologue still missing.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795209844.788835,
+  "score_before": 260,
+  "score_after": 260
+ },
+ {
+  "function": "func_80073400",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No compile attempted this session; inherited best score 260 with source describing byte/float globals and initialization sequence. Compiler preflight listed missing symbols due source incompleteness. Next experiment: preserve best C and add missing extern declarations with correct widths (byte fields D_80100775-7C, int D_8010D450/D_801003D8, double D_80109CC0, float D_8010D370); compile baseline, then inspect complete diff and model contiguous bytes around D_801007CF as layout.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795209909.909991,
+  "score_before": 260,
+  "score_after": 260
+ },
+ {
+  "function": "func_80073400",
+  "text": "Saved best revision 5512bce67b959e4b3f48 rechecks score 260. Tested simplifying volatile state pointer to direct &D_801007CF and alternate &D_80100774+0x5B; both scored 1550 (worse), emitting repeated lui/sb to addresses near 0x801007CF rather than a shared base. Restore saved_best for any continuation; likely model state as globals placed relative to D_801007CF through pointer offsets to preserve shared $v0 base. No reusable knowledge.\nTwo direct address expressions scored 1550; original best 260.\nAddress lowering exploded into repeated absolute accesses.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795211298.023256,
+  "score_before": 1550,
+  "score_after": 1550,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Rechecked saved candidate score 260. Direct `&D_801007CF` was tested and scored 1550 due subsequent globals resolving to wrong addresses; restored saved best. Added volatile s32[2] then [1] diagnostic locals; both retain score 260 and add stack prologue/epilogue, so discard those. Baseline mismatch remains two instruction order/extent differences, target 46 vs candidate 48. Next step: compare full candidate against assembly and remove/scope initializer(s) causing the two extra instructions; specifically check D_801003D8 no-op address expression and terminal float store ordering.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795212623.0305762,
+  "score_before": 1550,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Saved best 260 verified. Direct reordering of final float stores regressed to 430, restore inherited order. Current 48 insns vs target 46: extra addiu sp,-8 and +8 from f32 local zero; target expects both float stores without frame. Try removing __repair_fzero local and expressing literals independently or setting globals directly to 0.0f. Initial compile needed add missing extern declarations.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795215442.349011,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best 260 (rev 5512bce67b959e4b3f48): only diffs are extra addiu $sp,-8 / +8 (frame) and final swc1 delay-slot order (jr/swc1). Everything else matches. Tried this session: removing volatile, u8* non-volatile, array decl, D-D variants (&0, *0, ^, <>) -> same 260 or 1550/3000 (no shared base register unless the D_801003D8 - D_801003D8 trick is present); removing __repair_fzero local -> 360. Frame source unknown (not from volatile or the locals). Next step: find a different way to force a shared base reg for D_801007CF (e.g. a struct-typed global with fields at -3..5, or a pointer param-like local) that doesn't leave a stack frame.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795220560.42082,
+  "score_before": 1550,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Saved candidate rechecks at 260. Tried signedness, symbol-address local, global-address table, and single-use inline repairs; scores stayed 260 except literal variants regressed to 700. Two generated address-local trials failed parsing. Target is 48 instructions with no prologue; candidate adds an 8-byte stack frame before the initial address setup. First mismatch is the extra allocation.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795224216.9262028,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best 260 (rev 92f1adf76b8fed666ca9): only an extra addiu sp,-8/+8 frame and a 1-slot reorder of final swc1 vs addiu sp. Plain `u8 *p=&D_801007CF; p[-1]=0` gets folded into lui $at per store (3500); volatile p without x-x trick -> 2050; register var 3000. The `(u32)&D_801007CF + D_801003D8 - D_801003D8` trick keeps base in $v0 but spawns the frame (even without float local z; z local needed for swc1 $f0). Inline asm barred. Next step: find a non-asm way to keep the lui/addiu base in a register without the frame (e.g. base derived from a pointer-typed global/struct field address, or a helper static inline).\nx-x address trick, volatile, register, f32 local variants\nframe always 8 bytes extra at score 260",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795225254.08454,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Only extra frame adjustments and final store scheduling remain.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795227863.060731,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Baseline reproduced 260. Candidate has two extra stack adjustment instructions around final float store. Adding an unused volatile word changed frame from 8 to 16 bytes but did not remove adjustments; score remained 260. Next seek declaration/lifetime that avoids frame while retaining the moved final store.\nAdded unused volatile u32 local, making unwanted stack frame larger; score unchanged at 260.\nStack adjustments remain; no better candidate.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795233946.4914072,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best score 260/46 target vs 48. All generated candidate variants tie/worse. Volatile local pads produced frames 8/16 and extra sp adjust instructions. Remaining key diff is extra frame setup/teardown and final swc1 order.\nKept score 260. Added volatile u32 pad; still score 260 but increased frame to 0x10.\nTwo extra stack adjustment instructions remain; target ends swc1 $f0 to D_8010D370 while candidate stack restoration follows.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795246131.497334,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Reverified 260; assignment-at-use and array declaration tied, address-local variant failed parsing. Extra eight-byte frame remains. Next step: investigate compiler flags for frame elimination with this exact source.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795248334.750454,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Current score 260/46 target instructions. Initial candidate was 1750; direct rewrite tied existing best. Explicit f32 zero initializer improved to 260, but diff remains only an unnecessary 8-byte stack frame and final reordered swc1. Local pass did not improve.\nExplicitly initializing f32 zero retains score 260.\nNo assembly diff improvement; extra 8-byte frame remains.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795250644.0417159,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Inherited candidate score 260 was retained after a full valid-source compile (score 260). The source's zero temp and alias expressions reproduce the reset sequence except frame-free final global stores; full rewrite with simpler declarations scored 260 but inserted an 8-byte frame. Reversing final float stores scored 430 and mismatched address order. Next step: test if the target's final sequence comes from a volatile two-global pointer or union/object write order while preserving frameless candidate; get full mismatch assembly to inspect final float stores.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795260699.385271,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best 260 differs only in stack entry and exit. Direct address and masked-zero expression score 1550; register qualifier ties. Next step: Try replacing the global cancellation with cancellation of an enclosing local pointer converted to an integer.\nBest 260 differs only in stack entry and exit. Direct address and masked-zero expression score 1550; register qualifier ties.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795269579.57704,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Register pointer and XOR cancellation tied at 260; direct pointer and grouped subtraction lost the shared base. Extra 8-byte stack adjustment displaces the last swc1 from the return delay slot. Next step: Try an address made from a fixed-size byte-record member to retain one base without the arithmetic expression.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795272210.835558,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best 260 has a stack adjustment and two scheduling differences. Direct base emitted repeated relocations (1550); XOR cancellation and shifting a masked bit emitted the same 260 output. Next step: use a typed aggregate base and test address CSE across the initialization stores.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795273233.3239412,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Flattened reset body, tried XOR identity for address, initialized the byte constant and widened it. Flat reset scalarized address (1550); XOR unchanged (230); constant edits 270. Extra 0xff materialization remains. Move-on budget exhausted.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795276532.470269,
+  "score_before": 260,
+  "score_after": 230,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Saved best 220 (hacky state-pointer C). A clean rewrite with volatile u8 *p=&D_801007CF scored 2050: GCC folds the constant, so every access gets its own lui. Target keeps one lui/addiu base in $v0 and uses mtc1 $zero,$f0 for the float zeros. Next step: restore saved_best and run try_local_repairs on its symbol_address_local family.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795306906.658216,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "[Released without compiling it once; notes not checked by a compile.] No new compiles this session; saved best 220 kept. Next step: restore saved_best and run try_local_repairs on its symbol_address_local family.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795312180.630222,
+  "score_before": 220,
+  "score_after": 220
+ },
+ {
+  "function": "func_80073400",
+  "text": "Plain rewrite (u8 *p=&D_801007CF; p[-3..5] stores, plain u8 globals, 0.0f stores) scored 3500, worse than saved 220: GCC emits an lui $at per store and sw $zero for the floats. Target keeps one lui/addiu base in $v0 and mtc1 $zero,$f0 / swc1 for D_80109CC0 and D_8010D370. Saved C's volatile state pointer is the only form that reaches the shared base. Can't get closer this session. Next step: keep the saved volatile state pointer but remove the three duplicated branches (D_801003D8 test) and hoist the 0.0f into a local f32 declared first.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795313937.679481,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Recompiled inherited best at 220. Using one 0xFF temporary for all four stores produced the correct 46-instruction count at 270; plain char lowered it to 225. The base remains in $a0 and the 0xEB load is hoisted before the last byte stores. Restored saved best.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795319189.687068,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Flattening to one volatile pointer and shared 0xFF worsened 220 to 1595 because the compiler folded the base into separate relocations. Move-on limit reached. Restored the saved candidate.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795342586.7487,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not recompiled this session; 90+ prior trials stuck at 220. Next step: rewrite as plain C without volatile/repair temps (single branch, no triplicated blocks), using a local u8 v1=0xFF stored to +4,+5 and D_8010077C.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795385879.259437,
+  "score_before": 220,
+  "score_after": 220
+ },
+ {
+  "function": "func_80073400",
+  "text": "Plain C with a local volatile u8 *s=&D_801007CF scored 3230: GCC folds the base into per-store lui/%lo relocations; the saved-best's (&D_801007CF + D_801003D8) - D_801003D8 trick is what keeps the base in a register. Next step: keep that trick, drop the triplicated branches and keep a single body.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795387191.971311,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Single-body rewrite (no triplicated branches, no if) with volatile u8 *state trick scored 260 (saved best 220): only diff is extra addiu sp,-8/+8 frame and swc1 ordering. Target is 46 insns with no frame. Next step: drop the volatile local c (use literal 0xFF stores) to eliminate the stack frame, keeping the (&D_801007CF + D_801003D8) - D_801003D8 base.",
+  "by": "claude-sonnet-low-1",
+  "created_at": 1795388242.245613,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  }
 ]
