@@ -20,7 +20,7 @@ extern u32 D_80112EE0[];
     dst = word & (mask); word >>= (c); \
   }
 
-void func_800134D0(void *arg0)
+/* Decodes a Huffman/LZ-compressed stream from the state's input buffer into its output buffer. */ void decompressHuffmanLz(void *arg0)
 {
   u32 *gp;
   u32 *H;

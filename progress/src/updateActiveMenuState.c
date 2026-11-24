@@ -24,23 +24,23 @@ M2C_UNK adjustMenuSpinnerValue(M2C_UNK);                     /* extern */
 M2C_UNK adjustMenuSliderValue(M2C_UNK);                     /* extern */
 M2C_UNK menuResolveCursorItem(void *, void *, void *);      /* extern */
 extern s32 gMenuSoundParams;
-extern u8 D_80102EC8;
-extern s32 D_80102ECC;
-extern f32 D_80102ED0;
+extern u8 gMenuValueByte;
+extern s32 gMenuValueWord;
+extern f32 gMenuValueFloat;
 extern void *sActiveMenu;
 extern void *gSaveMenuState;
 
-/* Per-frame update of the active menu/text state: applies pending value changes and fires cursor and sound events. */ /* Per-frame update of the active text/menu state: applies pending value changes and fires cursor/sound events. */ void updateActiveMenuState(void) {
-    s16 kind_a;
-    s16 kind;
-    u16 flags_a;
-    u16 flags_b;
-    u16 flags_c;
-    u8 *entry_ptr;
-    void *cur_entry_b;
-    void *cur_entry;
+/* Per-frame update of the save menu: applies pending value changes, plays cursor sounds and steps options left/right. */ /* Per-frame update of the active menu/text state: applies pending value changes and fires cursor and sound events. */ /* Per-frame update of the active text/menu state: applies pending value changes and fires cursor/sound events. */ void updateActiveMenuState(void) {
+    s16 pendingKind;
+    s16 menuKind;
+    u16 entryFlags;
+    u16 entryFlagsB;
+    u16 entryFlagsC;
+    u8 *valuePtr;
+    void *selectedRowB;
+    void *selectedRow;
 
-    if ((sActiveMenu != NULL) && (kind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (kind != 0xE)) && (kind != 0xF) && ((layoutTextBox(M2C_FIELD(gSaveMenuState, s32 *, 0x1C), M2C_FIELD(gSaveMenuState, void **, 0x18), 0), M2C_FIELD(gSaveMenuState, s8 *, 0x2D) = 0, M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U, pulseObjectValue(M2C_FIELD(gSaveMenuState, s32 *, 0x1C)), menuResolveCursorItem(gSaveMenuState + 0x2A, gSaveMenuState + 0x28, gSaveMenuState + 0x29), (sActiveMenu == NULL)) || (kind_a = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (((kind_a != 0x11) & (kind_a != 0xA)) == 0)) || (kind_a == 0x13))) {
+    if ((sActiveMenu != NULL) && (menuKind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (menuKind != 0xE)) && (menuKind != 0xF) && ((layoutTextBox(M2C_FIELD(gSaveMenuState, s32 *, 0x1C), M2C_FIELD(gSaveMenuState, void **, 0x18), 0), M2C_FIELD(gSaveMenuState, s8 *, 0x2D) = 0, M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U, pulseObjectValue(M2C_FIELD(gSaveMenuState, s32 *, 0x1C)), menuResolveCursorItem(gSaveMenuState + 0x2A, gSaveMenuState + 0x28, gSaveMenuState + 0x29), (sActiveMenu == NULL)) || (pendingKind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (((pendingKind != 0x11) & (pendingKind != 0xA)) == 0)) || (pendingKind == 0x13))) {
         if (isMenuButtonPressed(0x24) & 0xFF) {
             if (M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), u16 *, 6) != 0) {
                 M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U;
@@ -58,16 +58,16 @@ extern void *gSaveMenuState;
                 }
             } else {
 block_14:
-                cur_entry = M2C_FIELD(gSaveMenuState, void **, 0x18);
-                entry_ptr = M2C_FIELD(cur_entry, u8 **, 0x10);
-                if (entry_ptr != NULL) {
-                    flags_a = M2C_FIELD(cur_entry, u16 *, 0xC);
-                    if (flags_a & 0x800) {
-                        D_80102EC8 = *entry_ptr;
-                    } else if (flags_a & 0x1000) {
-                        D_80102ED0 = *(f32 *)entry_ptr;
+                selectedRow = M2C_FIELD(gSaveMenuState, void **, 0x18);
+                valuePtr = M2C_FIELD(selectedRow, u8 **, 0x10);
+                if (valuePtr != NULL) {
+                    entryFlags = M2C_FIELD(selectedRow, u16 *, 0xC);
+                    if (entryFlags & 0x800) {
+                        gMenuValueByte = *valuePtr;
+                    } else if (entryFlags & 0x1000) {
+                        gMenuValueFloat = *(f32 *)valuePtr;
                     } else {
-                        D_80102ECC = *(s32 *)entry_ptr;
+                        gMenuValueWord = *(s32 *)valuePtr;
                     }
                 }
                 if ((menuItemIsActive(0x1E) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
@@ -76,32 +76,32 @@ block_14:
                 if ((menuItemIsActive(0x1F) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
                     moveMenuSelection(0x100, 3);
                 }
-                cur_entry_b = M2C_FIELD(gSaveMenuState, void **, 0x18);
-                if (M2C_FIELD(cur_entry_b, u8 *, 0x1C) & 0x10) {
+                selectedRowB = M2C_FIELD(gSaveMenuState, void **, 0x18);
+                if (M2C_FIELD(selectedRowB, u8 *, 0x1C) & 0x10) {
                     if ((menuItemIsActive(0x20) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
                         moveMenuSelection(0x100, 0);
                     }
                     if ((menuItemIsActive(0x21) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
                         moveMenuSelection(0x100, 1);
                     }
-                } else if ((M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0) && (M2C_FIELD(cur_entry_b, s32 *, 0x10) != 0)) {
+                } else if ((M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0) && (M2C_FIELD(selectedRowB, s32 *, 0x10) != 0)) {
                     if ((menuItemIsActive(0x21) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
-                        flags_b = M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u16 *, 0xC);
-                        if (flags_b & 0x800) {
+                        entryFlagsB = M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u16 *, 0xC);
+                        if (entryFlagsB & 0x800) {
                             stepMenuOptionValue(1);
-                        } else if (flags_b & 0x1000) {
+                        } else if (entryFlagsB & 0x1000) {
                             adjustMenuSliderValue(1);
                         } else {
                             adjustMenuSpinnerValue(1);
                         }
                     }
                     if ((menuItemIsActive(0x20) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
-                        flags_c = M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u16 *, 0xC);
-                        if (flags_c & 0x800) {
+                        entryFlagsC = M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u16 *, 0xC);
+                        if (entryFlagsC & 0x800) {
                             stepMenuOptionValue(-1);
                             return;
                         }
-                        if (flags_c & 0x1000) {
+                        if (entryFlagsC & 0x1000) {
                             adjustMenuSliderValue(-1);
                             return;
                         }

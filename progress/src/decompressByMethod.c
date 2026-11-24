@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK copyBlockOverlapSafe(void *);                      /* extern */
-M2C_UNK func_800134D0(void *);                      /* extern */
+M2C_UNK decompressHuffmanLz(void *);                      /* extern */
 M2C_UNK decompressBitstreamLz(void *);                      /* extern */
 M2C_UNK parse_edl_header();                            /* extern */
 
@@ -28,7 +28,7 @@ M2C_UNK parse_edl_header();                            /* extern */
             copyBlockOverlapSafe(state);
             return;
         case 1:
-            func_800134D0(state);
+            decompressHuffmanLz(state);
             return;
         case 2:
             decompressBitstreamLz(state);

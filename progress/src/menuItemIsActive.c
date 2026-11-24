@@ -14,19 +14,19 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800818AC(u16, s32);                         /* extern */
-extern u8 gMenuNeedsRedraw;
-extern u8 gMenuParamB;
+extern u8 gMenuAnyController;
+extern u8 gMenuActiveController;
 
-s32 menuItemIsActive(s32 arg0) {
-    u16 var_s0;
+/* Returns 1 if the menu button is held on any controller (or the active one when only one is in use). */ s32 menuItemIsActive(s32 buttonId) {
+    u16 controller;
 
-    if (gMenuNeedsRedraw != 0) {
-        for (var_s0 = 0; var_s0 < 4; var_s0++) {
-            if (func_800818AC(var_s0, arg0) != 0) {
+    if (gMenuAnyController != 0) {
+        for (controller = 0; controller < 4; controller++) {
+            if (func_800818AC(controller, buttonId) != 0) {
                 return 1;
             }
         }
         return 0;
     }
-    return func_800818AC(gMenuParamB, arg0) != 0;
+    return func_800818AC(gMenuActiveController, buttonId) != 0;
 }

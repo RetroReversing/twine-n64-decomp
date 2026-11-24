@@ -29,89 +29,89 @@ typedef struct Obj {
     u8 pad4[2];
     union { u32 flags; u16 type; } u;
 } Obj;
-Contact *Contact_PushFront(Contact *);
+Contact *allocContactNode(Contact *);
 s8 meshVertsInOther(Obj *, Obj *);
 s8 Obj_BoundsContainPoint(f32 *, Obj *, f32);
-f32 Vec3_DistanceSq(f32 *, f32 *);
+f32 vec3DistanceBetween(f32 *, f32 *);
 s8 func_8003D53C(f32, f32, f32);
 void func_8003DA68(Obj *, Obj *, Obj *, f32 *, f32 *);
 
 /* For each overlapping pair of type-0x46 objects, adds contact records for nearby
  * objects of type 0x1E, 0x84 or 0x88 and flattens ridge vertices of the third object. */
 void Obj_UpdateContactPairs(Obj *list) {
-    Obj *a;
-    Obj *b;
-    Obj *c;
-    Contact *k;
-    Mesh *m;
-    Vert *v;
+    Obj *objA;
+    Obj *objB;
+    Obj *cand;
+    Contact *contact;
+    Mesh *mesh;
+    Vert *vert;
     u32 i;
-    u16 t;
-    f32 *p;
-    f32 hi;
-    f32 lo;
-    f32 f;
-    f32 base;
-    f32 level;
+    u16 type;
+    f32 *pos;
+    f32 maxY;
+    f32 minY;
+    f32 vertY;
+    f32 baseY;
+    f32 flatY;
 
-    for (a = list; a != NULL; a = a->next) {
-        if (a->u.type != 0x46) {
+    for (objA = list; objA != NULL; objA = objA->next) {
+        if (objA->u.type != 0x46) {
             continue;
         }
-        for (b = a->next; b != NULL; b = b->next) {
-            if (b->u.type != 0x46 || !(Vec3_DistanceSq(a->pos, b->pos) < a->radius + b->radius)) {
+        for (objB = objA->next; objB != NULL; objB = objB->next) {
+            if (objB->u.type != 0x46 || !(vec3DistanceBetween(objA->pos, objB->pos) < objA->radius + objB->radius)) {
                 continue;
             }
-            for (c = list; c != NULL; c = c->next) {
-                t = c->u.type;
-                p = c->pos;
-                if (((t == 0x1E) | (t == 0x84)) || t == 0x88) {
-                    if (!Obj_BoundsContainPoint(p, a, 1.0f) || !Obj_BoundsContainPoint(p, b, 1.0f)
-                            || !meshVertsInOther(c, a) || !meshVertsInOther(c, b)) {
+            for (cand = list; cand != NULL; cand = cand->next) {
+                type = cand->u.type;
+                pos = cand->pos;
+                if (((type == 0x1E) | (type == 0x84)) || type == 0x88) {
+                    if (!Obj_BoundsContainPoint(pos, objA, 1.0f) || !Obj_BoundsContainPoint(pos, objB, 1.0f)
+                            || !meshVertsInOther(cand, objA) || !meshVertsInOther(cand, objB)) {
                         continue;
                     }
-                    a->sub->contact = Contact_PushFront(a->sub->contact);
-                    a->sub->contact->b28 = c->flags54;
-                    a->sub->contact->b29 = c->flags55;
-                    a->sub->contact->obj = c;
-                    a->sub->contact->other = b;
-                    a->sub->contact->bits = (c->u.flags >> 2) & 0x3FFF;
-                    k = a->sub->contact;
-                    func_8003DA68(c, a, b, k->normal, &k->depth);
-                    b->sub->contact = Contact_PushFront(b->sub->contact);
-                    b->sub->contact->b28 = c->flags54;
-                    b->sub->contact->b29 = c->flags55;
-                    b->sub->contact->obj = c;
-                    b->sub->contact->other = a;
-                    b->sub->contact->bits = (c->u.flags >> 2) & 0x3FFF;
-                    b->sub->contact->bits &= 0xF7FF;
-                    b->sub->contact->normal[0] = -a->sub->contact->normal[0];
-                    b->sub->contact->normal[1] = -a->sub->contact->normal[1];
-                    b->sub->contact->normal[2] = -a->sub->contact->normal[2];
-                    b->sub->contact->depth = -a->sub->contact->depth;
-                    a->sub->contact->link = b->sub->contact;
-                    b->sub->contact->link = a->sub->contact;
-                    if (((a->u.flags >> 2) & 0x200) || ((b->u.flags >> 2) & 0x200)) {
-                        m = c->mesh;
-                        v = m->verts;
-                        lo = v->y;
-                        hi = lo;
-                        for (i = 0; i < m->count; i++, v++) {
-                            f = v->y;
-                            if (hi < f) {
-                                hi = f;
+                    objA->sub->contact = allocContactNode(objA->sub->contact);
+                    objA->sub->contact->b28 = cand->flags54;
+                    objA->sub->contact->b29 = cand->flags55;
+                    objA->sub->contact->obj = cand;
+                    objA->sub->contact->other = objB;
+                    objA->sub->contact->bits = (cand->u.flags >> 2) & 0x3FFF;
+                    contact = objA->sub->contact;
+                    func_8003DA68(cand, objA, objB, contact->normal, &contact->depth);
+                    objB->sub->contact = allocContactNode(objB->sub->contact);
+                    objB->sub->contact->b28 = cand->flags54;
+                    objB->sub->contact->b29 = cand->flags55;
+                    objB->sub->contact->obj = cand;
+                    objB->sub->contact->other = objA;
+                    objB->sub->contact->bits = (cand->u.flags >> 2) & 0x3FFF;
+                    objB->sub->contact->bits &= 0xF7FF;
+                    objB->sub->contact->normal[0] = -objA->sub->contact->normal[0];
+                    objB->sub->contact->normal[1] = -objA->sub->contact->normal[1];
+                    objB->sub->contact->normal[2] = -objA->sub->contact->normal[2];
+                    objB->sub->contact->depth = -objA->sub->contact->depth;
+                    objA->sub->contact->link = objB->sub->contact;
+                    objB->sub->contact->link = objA->sub->contact;
+                    if (((objA->u.flags >> 2) & 0x200) || ((objB->u.flags >> 2) & 0x200)) {
+                        mesh = cand->mesh;
+                        vert = mesh->verts;
+                        minY = vert->y;
+                        maxY = minY;
+                        for (i = 0; i < mesh->count; i++, vert++) {
+                            vertY = vert->y;
+                            if (maxY < vertY) {
+                                maxY = vertY;
                             }
-                            if (f < lo) {
-                                lo = f;
+                            if (vertY < minY) {
+                                minY = vertY;
                             }
                         }
-                        if (hi != lo) {
-                            base = a->mesh->base;
-                            level = hi - base;
-                            level = base - level;
-                            for (i = 0; i < c->mesh->count; i++) {
-                                if (func_8003D53C(c->mesh->verts[i].y, lo, 0.1f)) {
-                                    c->mesh->verts[i].y = level;
+                        if (maxY != minY) {
+                            baseY = objA->mesh->base;
+                            flatY = maxY - baseY;
+                            flatY = baseY - flatY;
+                            for (i = 0; i < cand->mesh->count; i++) {
+                                if (func_8003D53C(cand->mesh->verts[i].y, minY, 0.1f)) {
+                                    cand->mesh->verts[i].y = flatY;
                                 }
                             }
                         }

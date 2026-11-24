@@ -10,33 +10,33 @@ typedef struct TwineMover76B30 {
 } TwineMover76B30;
 
 s32 func_80002BD0(void *, s32);
-f32 Vec3_DistanceSq(void *, void *);
+f32 vec3DistanceBetween(void *, void *);
 s32 randomIntBelow(s32);
 s32 func_80077960(void *, s32);
 s32 triggerObjectMarkerEffect(void *);
 
-/* Plays a mover sound chosen from its state and its squared distance to the target, then sets sound mode 0xE. */ void playMoverStateSound(TwineMover76B30 *mover) {
+/* Plays a mover sound chosen from its state and squared distance to the target, then sets sound mode 0xE. */ /* Plays a mover sound chosen from its state and its squared distance to the target, then sets sound mode 0xE. */ void playMoverStateSound(TwineMover76B30 *mover) {
     f32 distSq;
     s32 soundId;
-    u8 *target;
-    s16 state;
+    u8 *targetActor;
+    s16 moverState;
 
-    target = mover->ptr6C;
-    state = mover->state7A;
-    if (state == 4) {
+    targetActor = mover->ptr6C;
+    moverState = mover->state7A;
+    if (moverState == 4) {
         goto block5;
     }
-    if (state < 5) {
-        if (state == 1) {
+    if (moverState < 5) {
+        if (moverState == 1) {
             goto block5;
         }
         return;
     }
-    if (state != 0x81) {
+    if (moverState != 0x81) {
         return;
     }
 block5:
-    if (!(*(s32 *)(target + 0x88) & 0x40000000)) {
+    if (!(*(s32 *)(targetActor + 0x88) & 0x40000000)) {
         soundId = -1;
         triggerObjectMarkerEffect(mover);
         switch (mover->state7C) {
@@ -52,7 +52,7 @@ block5:
         case 12:
             break;
         case 1:
-            distSq = Vec3_DistanceSq(target + 0x50, mover->pos);
+            distSq = vec3DistanceBetween(targetActor + 0x50, mover->pos);
             if (distSq < 5.0f) {
                 soundId = 0x14D;
             } else {
