@@ -11,8 +11,8 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-void func_80022B60(s32);
-u16 func_80023EC0(u16, s32, void *, void *);
+void setMenuMarkersPalette(s32);
+u16 checkSaveSlotMode(u16, s32, void *, void *);
 M2C_UNK updateSaveMenuSprites(s32, u16, u8, s32);
 extern u16 sSaveMenuAction; extern u8 sSaveMenuRefresh; extern s32 D_800BD644; extern s32 D_800BD648; extern void *gSaveMenuState;
 /* Updates the two save-menu sprite entries (flags, position, size) from the menu object and refreshes the sprites when a sound/action is pending. */ void updateSaveMenuEntries(void *menu, s32 input, s32 cursorArg) {
@@ -40,11 +40,11 @@ extern u16 sSaveMenuAction; extern u8 sSaveMenuRefresh; extern s32 D_800BD644; e
   }
   inputLow=input&0xFF;
   if(inputLow!=0 && sSaveMenuRefresh!=0) {
-   action=func_80023EC0(sSaveMenuAction,actionArg,(void *)spriteB,entryA);
+   action=checkSaveSlotMode(sSaveMenuAction,actionArg,(void *)spriteB,entryA);
    posX=M2C_FIELD(menu,u16 *,4);
    sSaveMenuAction=action;
    updateSaveMenuSprites(action&0xFFFF,posX,M2C_FIELD(menu,u8 *,7),inputByte&0xFF);
   }
-  func_80022B60(3);
+  setMenuMarkersPalette(3);
  }
 }

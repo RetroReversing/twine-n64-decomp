@@ -15,9 +15,9 @@ typedef s32 M2C_UNK32;
 M2C_UNK actorUnlinkFromSurface(void *);                      /* extern */
 M2C_UNK vec3Add(f32 *, void *, void *);       /* extern */
 u32 randomIntBelow(M2C_UNK);                         /* extern */
-M2C_UNK func_80084048(s32, M2C_UNK);                /* extern */
+M2C_UNK freeHeapBlock(s32, M2C_UNK);                /* extern */
 M2C_UNK func_80085160(void *);                      /* extern */
-M2C_UNK func_800851E0(void *);                      /* extern */
+M2C_UNK playRandomNearestMarkerSoundOfThree(void *);                      /* extern */
 
 /* Steps a track path follower: when its timer runs out, advances the state machine and moves its position. */ void stepTrackPathFollower(void *follower) {
     struct {
@@ -60,7 +60,7 @@ M2C_UNK func_800851E0(void *);                      /* extern */
                     func_80085160(pos);
                     break;
                 case 4:
-                    func_800851E0(pos);
+                    playRandomNearestMarkerSoundOfThree(pos);
                     break;
                 }
                 M2C_FIELD(follower, s16 *, 0x7A) = 1;
@@ -73,9 +73,9 @@ M2C_UNK func_800851E0(void *);                      /* extern */
             return;
         case 4:
             slotPtr = M2C_FIELD(follower, s32 *, 0x70);
-            func_80084048(M2C_FIELD(path, s32 *, 0x1C), 0x2D);
-            func_80084048(M2C_FIELD(path, s32 *, 0x18), 0x2D);
-            func_80084048(slotPtr, 0x16);
+            freeHeapBlock(M2C_FIELD(path, s32 *, 0x1C), 0x2D);
+            freeHeapBlock(M2C_FIELD(path, s32 *, 0x18), 0x2D);
+            freeHeapBlock(slotPtr, 0x16);
             M2C_FIELD(follower, s32 *, 0x60) = (s32) (M2C_FIELD(follower, s32 *, 0x60) | 1);
             break;
         }

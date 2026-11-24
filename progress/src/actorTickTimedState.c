@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_8004478C(s32, u32);                      /* extern */
+void *getActiveAssetSlotEntry(s32, u32);                      /* extern */
 M2C_UNK freeNodeChain(s32);                         /* extern */
-M2C_UNK func_80054FEC(M2C_UNK, f32, f32, s32, s32, s32, s32); /* extern */
-M2C_UNK func_800624A8(s32, s32, f32, M2C_UNK);  /* extern */
+M2C_UNK applyBlastToNearbyObjects(M2C_UNK, f32, f32, s32, s32, s32, s32); /* extern */
+M2C_UNK spawnImpactBurstEffect(s32, s32, f32, M2C_UNK);  /* extern */
 
 /* Counts down the actor's timer (0x54) while its timer flags are set. On expiry it unlinks the actor from its chain or resets its node, marks state 0x200 and runs the follow-up effects. */
 void actorTickTimedState(s32 arg0, void *actor, s32 arg2, f32 arg3, s32 arg4) {
@@ -47,11 +47,11 @@ loop_4:
                 }
             } else {
                 nodeInfo = M2C_FIELD(M2C_FIELD(actor, void **, 0x3C), u32 *, 0x30);
-                M2C_FIELD(actor, void **, 0x3C) = func_8004478C(((nodeInfo >> 4) & 0xFFFF) + 1, nodeInfo >> 0x14);
+                M2C_FIELD(actor, void **, 0x3C) = getActiveAssetSlotEntry(((nodeInfo >> 4) & 0xFFFF) + 1, nodeInfo >> 0x14);
             }
             M2C_FIELD(actor, s32 *, 0x50) = (s32) ((M2C_FIELD(actor, s32 *, 0x50) & 0xFFCFFFFF) | 0x200);
-            func_800624A8(arg0, arg2, 0.5f, 1);
-            func_80054FEC(0, 250.0f, (2.0f * M2C_FIELD(M2C_FIELD(actor, void **, 0x3C), f32 *, 0x14)) + 4.0f, arg0, arg2, 0x20, arg4);
+            spawnImpactBurstEffect(arg0, arg2, 0.5f, 1);
+            applyBlastToNearbyObjects(0, 250.0f, (2.0f * M2C_FIELD(M2C_FIELD(actor, void **, 0x3C), f32 *, 0x14)) + 4.0f, arg0, arg2, 0x20, arg4);
         }
     }
 }

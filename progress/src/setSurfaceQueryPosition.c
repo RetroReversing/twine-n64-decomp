@@ -1,0 +1,1 @@
+/* Copies the object's position (x,y,z at +0x24) into the global surface query position. */ extern f32 gSurfaceQueryPosX,gSurfaceQueryPosY,gSurfaceQueryPosZ; typedef struct { unsigned char pad[36]; float x,y,z; } A; void setSurfaceQueryPosition(void *source) { A *obj=source; gSurfaceQueryPosX=obj->x; gSurfaceQueryPosY=obj->y; gSurfaceQueryPosZ=obj->z; }

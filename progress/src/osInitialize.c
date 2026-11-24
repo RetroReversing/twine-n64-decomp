@@ -2,15 +2,15 @@ typedef struct { u32 words[4]; } ExceptionPreamble;
 #define MMIO32(address) (*(volatile u32 *)(address))
 
 extern void bzero(void *, s32);
-extern void func_800A0220(void *, s32);
+extern void osWritebackDCache(void *, s32);
 extern void func_800A8050(void *, s32);
 extern u32 func_800A91E0(void);
 extern u32 func_800A9200(void);
-extern void func_800A9220(u32);
+extern void osSetFpcCsr(u32);
 extern void func_800A9230(u32);
 extern void func_800A9240(u32);
-extern s32 func_800A9350(u32, u32 *);
-extern s32 func_800A93A0(u32, u32);
+extern s32 osPiRawReadIo(u32, u32 *);
+extern s32 osPiRawWriteIo(u32, u32);
 extern void func_800A95C0(void);
 extern void func_800A9620(void);
 extern u64 func_800ABE20(u64, u64);
@@ -32,16 +32,16 @@ extern u8 D_80109B24, D_80109B25, D_80109B26, D_80109B27, D_80109B28;
 
     D_80112F8C = 1;
     func_800A9230(func_800A9200() | 0x20000000);
-    func_800A9220(0x01000800);
+    osSetFpcCsr(0x01000800);
     func_800A9240(0x04900000);
-    while (func_800A9350(0x1FC007FC, &pif) != 0) {}
-    while (func_800A93A0(0x1FC007FC, pif | 8) != 0) {}
+    while (osPiRawReadIo(0x1FC007FC, &pif) != 0) {}
+    while (osPiRawWriteIo(0x1FC007FC, pif | 8) != 0) {}
 
     *(ExceptionPreamble *)0x80000000 = *(const ExceptionPreamble *)func_800A71C0;
     *(ExceptionPreamble *)0x80000080 = *(const ExceptionPreamble *)func_800A71C0;
     *(ExceptionPreamble *)0x80000100 = *(const ExceptionPreamble *)func_800A71C0;
     *(ExceptionPreamble *)0x80000180 = *(const ExceptionPreamble *)func_800A71C0;
-    func_800A0220((void *)0x80000000, 0x190);
+    osWritebackDCache((void *)0x80000000, 0x190);
     func_800A8050((void *)0x80000000, 0x190);
 
     dom1Latency = MMIO32(0xA4600014);

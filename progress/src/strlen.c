@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 strlen(s8 *arg0) {
-    s8 *var_v1;
+/* Returns the length of a NUL-terminated string. */ s32 strlen(s8 *str) {
+    s8 *end;
 
-    var_v1 = arg0;
-    if (*arg0 != 0) {
+    end = str;
+    if (*str != 0) {
         do {
-            var_v1 += 1;
-        } while (*var_v1 != 0);
+            end += 1;
+        } while (*end != 0);
     }
-    return var_v1 - arg0;
+    return end - str;
 }

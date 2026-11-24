@@ -1,0 +1,2 @@
+extern s32 playDistanceSound(u16,f32,s32); extern u32 randomIntBelow(s32); extern f32 findNearestTrackMarker(s32,s16 *); extern u16 gMarkerSoundIdsAtCE700[];
+/* Plays one of two random sounds at the distance to the nearest track marker. */ void playNearestMarkerRandomSound(s32 actor) { s16 markerIndex; f32 distance=findNearestTrackMarker(actor,&markerIndex); playDistanceSound(gMarkerSoundIdsAtCE700[randomIntBelow(2)],distance,255); }

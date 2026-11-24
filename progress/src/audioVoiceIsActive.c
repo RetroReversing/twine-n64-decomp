@@ -1,2 +1,2 @@
 extern unsigned char *gAudioVoiceTable;
-int audioVoiceIsActive(int arg0) { return gAudioVoiceTable[arg0 * 0x68] != 0; }
+/* Returns nonzero if the voice slot (0x68-byte entries) has a nonzero first byte. */ int audioVoiceIsActive(int voiceIndex) { return gAudioVoiceTable[voiceIndex * 0x68] != 0; }

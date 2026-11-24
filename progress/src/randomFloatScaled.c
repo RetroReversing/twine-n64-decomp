@@ -15,14 +15,14 @@ typedef s32 M2C_UNK32;
 s32 randomU32Next();                                /* extern */
 extern f64 D_800D3E00;
 
-f32 randomFloatScaled(f32 arg0) {
-    f64 var_ft0;
-    s32 temp_v0;
+/* Returns a random float in [0, scale): a 16-bit random value normalized by 1/65535 and multiplied by scale. */ f32 randomFloatScaled(f32 scale) {
+    f64 randomValue;
+    s32 randomBits;
 
-    temp_v0 = randomU32Next() & 0xFFFF;
-    var_ft0 = (f64) temp_v0;
-    if (temp_v0 < 0) {
-        var_ft0 += D_800D3E00;
+    randomBits = randomU32Next() & 0xFFFF;
+    randomValue = (f64) randomBits;
+    if (randomBits < 0) {
+        randomValue += D_800D3E00;
     }
-    return arg0 * ((f32) var_ft0 * 0.000015259022f);
+    return scale * ((f32) randomValue * 0.000015259022f);
 }

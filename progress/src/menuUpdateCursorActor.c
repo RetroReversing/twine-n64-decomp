@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000237C(void *, s32, M2C_UNK, M2C_UNK); /* extern */
+M2C_UNK allocActorAnimData(void *, s32, M2C_UNK, M2C_UNK); /* extern */
 M2C_UNK func_80002D30(void *, u16);                 /* extern */
-M2C_UNK func_80002EF0(void *);                      /* extern */
-s32 func_80006560(void);                                 /* extern */
+M2C_UNK updateActorAnimation(void *);                      /* extern */
+s32 findHighestPriorityEntry(void);                                 /* extern */
 M2C_UNK func_80016718(void *);                      /* extern */
-void *func_8002A920(void *, s8);                    /* extern */
+void *getMenuEntry(void *, s8);                    /* extern */
 M2C_UNK objectListInsert(void *, s32);              /* extern */
 M2C_UNK effectSetAnimFrame(void *, s32, u32);        /* extern */
 void *spawnEffectObject(M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
@@ -57,49 +57,49 @@ extern u16 gMenuMode;
 extern u8 gMenuSlot;
 extern void *gSaveMenuState;
 
-void menuUpdateCursorActor(void) {
-    s32 var_s1;
+/* Spawns/updates the menu cursor effect actor for the selected menu entry, setting its animation, transform and flags, then registers it in the object list. */ void menuUpdateCursorActor(void) {
+    s32 animFrame;
     f32 one = 1.0f;
-    s32 temp_v0_2;
-    s32 var_s0;
-    void *temp_v0;
-    void *temp_v0_3;
+    s32 tableOffset;
+    s32 animId;
+    void *menuEntry;
+    void *newActor;
 
-    if ((D_800B7CEC != 0) && (var_s0 = -1U, (D_80109698 != NULL))) {
-        var_s1 = -1;
-        temp_v0 = func_8002A920(gMenuList, M2C_FIELD(gMenuList, s8 *, 0x18));
-        if (temp_v0 != NULL) {
+    if ((D_800B7CEC != 0) && (animId = -1U, (D_80109698 != NULL))) {
+        animFrame = -1;
+        menuEntry = getMenuEntry(gMenuList, M2C_FIELD(gMenuList, s8 *, 0x18));
+        if (menuEntry != NULL) {
             if (gMenuMode == 0) {
-                var_s0 = *(u8 *)((u8 *)&D_800C473A + M2C_FIELD(temp_v0, u8 *, 8) * 0xE8);
-                if ((s32) var_s0 < 0) {
-                    var_s0 = -1U;
+                animId = *(u8 *)((u8 *)&D_800C473A + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8);
+                if ((s32) animId < 0) {
+                    animId = -1U;
                 }
-                var_s1 = 1;
+                animFrame = 1;
                 goto block_9;
             }
             if (*(&D_8010A500 + gMenuSlot) != 0) {
-                temp_v0_2 = M2C_FIELD(temp_v0, u8 *, 8) * 0x10;
-                var_s0 = *(s16 *)((u8 *)&D_800C4478 + temp_v0_2);
-                var_s1 = *(s16 *)((u8 *)&D_800C447A + temp_v0_2);
+                tableOffset = M2C_FIELD(menuEntry, u8 *, 8) * 0x10;
+                animId = *(s16 *)((u8 *)&D_800C4478 + tableOffset);
+                animFrame = *(s16 *)((u8 *)&D_800C447A + tableOffset);
                 goto block_9;
             }
         } else {
 block_9:
             if (D_800B7CE8 == NULL) {
                 gBootState = 1;
-                temp_v0_3 = spawnEffectObject(0, 0, 0);
-                D_800B7CE8 = temp_v0_3;
-                if (temp_v0_3 == NULL) return;
-                func_8000237C(D_800B7CE8, func_80006560(), 2, 0);
+                newActor = spawnEffectObject(0, 0, 0);
+                D_800B7CE8 = newActor;
+                if (newActor == NULL) return;
+                allocActorAnimData(D_800B7CE8, findHighestPriorityEntry(), 2, 0);
                 if (D_800B7CE8 == NULL) return;
             }
             {
-                if ((((u32)var_s0 >> 31) | ((u32)var_s1 >> 31)) != 0) {
+                if ((((u32)animId >> 31) | ((u32)animFrame >> 31)) != 0) {
                     func_80016718(D_800B7CE8);
                     return;
                 }
                 if (gMenuMode == 1) {
-                    effectSetAnimFrame(D_800B7CE8, var_s0, (u32) var_s1);
+                    effectSetAnimFrame(D_800B7CE8, animId, (u32) animFrame);
                     D_800B7CE8->x = 0.14f;
                     D_800B7CE8->y = -0.0315f;
                     D_800B7CE8->pitch = 170.66667f;
@@ -111,15 +111,15 @@ block_9:
                 } else {
                     D_800B7CE8->flags = (s32) (D_800B7CE8->flags | 0x400);
                     gBootState = 1;
-                    func_8000237C(D_800B7CE8, var_s0, 2, 0);
-                    func_80002D30(D_800B7CE8, *(u16 *)((u8 *)&D_800C472E + M2C_FIELD(temp_v0, u8 *, 8) * 0xE8));
-                    func_80002EF0(D_800B7CE8);
-                    D_800B7CE8->x = (f32) *(f32 *)((u8 *)&D_800C4774 + M2C_FIELD(temp_v0, u8 *, 8) * 0xE8);
-                    M2C_FIELD(D_800B7CE8, f32 *, 0x28) = (f32) *(f32 *)((u8 *)&D_800C4778 + M2C_FIELD(temp_v0, u8 *, 8) * 0xE8);
-                    D_800B7CE8->scale = (f32) *(f32 *)((u8 *)&D_800C477C + M2C_FIELD(temp_v0, u8 *, 8) * 0xE8);
+                    allocActorAnimData(D_800B7CE8, animId, 2, 0);
+                    func_80002D30(D_800B7CE8, *(u16 *)((u8 *)&D_800C472E + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8));
+                    updateActorAnimation(D_800B7CE8);
+                    D_800B7CE8->x = (f32) *(f32 *)((u8 *)&D_800C4774 + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8);
+                    M2C_FIELD(D_800B7CE8, f32 *, 0x28) = (f32) *(f32 *)((u8 *)&D_800C4778 + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8);
+                    D_800B7CE8->scale = (f32) *(f32 *)((u8 *)&D_800C477C + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8);
                     D_800B7CE8->z = 0.022f;
                     D_800B7CE8->pitch = 2048.0f;
-                    D_800B7CE8->yaw = (f32) ((*(f32 *)((u8 *)&D_800C4780 + M2C_FIELD(temp_v0, u8 *, 8) * 0xE8) * 11.377778f) + -1024.0f);
+                    D_800B7CE8->yaw = (f32) ((*(f32 *)((u8 *)&D_800C4780 + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8) * 11.377778f) + -1024.0f);
                     D_800B7CE8->roll = 0;
                 }
                 D_800B7CE8->field82 = 0xFF;

@@ -87,7 +87,7 @@ f32 randomFloatScaled(f32 scale);
 f32 randomFloatMinusOffset(f32 scale, f32 offset);
 
 s32 func_800819EC(s32 bank, s32 index);
-s32 func_80096E7C(void *arg0, s32 arg1);
+s32 seqReadIndirectVar(void *arg0, s32 arg1);
 
 extern char D_800D2D44[];
 
@@ -101,15 +101,15 @@ s32 testRayCapsulePart(void *, void *, void *, void *, void *, void *, f32, f32)
 
 extern f64 D_800D66C0;
 extern f32 D_800CEE98[6];
-extern s32 D_800CEE50[18];
+extern s32 gBurstParticleOffsets[18];
 
 /* Bounds face rejection for a segment, with a separate Y margin. */
 s32 segmentPassesBoundsRejection(void *bounds, void *start, void *end, f32 yMargin);
 
 void cameraUpdateProjection(void *arg0, f32 arg1);
 
-/* Sprite rectangle setup; verified from exact-matched func_8004844C. */
-void func_8004844C(void *sprite, f32 x, f32 y, f32 width, f32 height, f32 scaleX, f32 scaleY);
+/* Sprite rectangle setup; verified from exact-matched setViewportRect. */
+void setViewportRect(void *sprite, f32 x, f32 y, f32 width, f32 height, f32 scaleX, f32 scaleY);
 
 extern void *jtbl_8011EF48[11];
 

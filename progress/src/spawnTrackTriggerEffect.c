@@ -15,8 +15,8 @@ typedef s32 M2C_UNK32;
 s32 getTrackTriggerMask(u16);                             /* extern */
 void *spawnEffectObject(M2C_UNK, s32, M2C_UNK);         /* extern */
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
-extern s32 *gProbeObjectList;
-extern s8 D_80109B1E;
+extern s32 *gDefaultOrderObj;
+extern s8 gTrackSpecialMarkerFlag;
 
 typedef struct { unsigned char pad[92]; int value; } __repair_field_5C;
 typedef struct { unsigned char pad_0[100]; float field_64; unsigned char pad_68[4]; void * field_6C; void * field_70; unsigned char pad_74[4]; short field_78; short field_7A; short field_7C; unsigned char field_7E; } __repair_record_temp_v0;
@@ -38,7 +38,7 @@ s32 __repair_phase_var_v0;
             ((__repair_record_temp_v0*)temp_v0)->field_78 = var_v0;
             break;
         case 0x8F:
-            D_80109B1E = 1;
+            gTrackSpecialMarkerFlag = 1;
             __repair_phase_var_v0 = 0x5E;
             ((__repair_record_temp_v0*)temp_v0)->field_78 = __repair_phase_var_v0;
             break;
@@ -54,7 +54,7 @@ s32 __repair_phase_var_v0;
         ((__repair_record_temp_v0*)temp_v0)->field_7A = 0;
         ((__repair_record_temp_v0*)temp_v0)->field_7C = 0;
         ((__repair_field_5C *)temp_v0)->value = (s32) (((__repair_field_5C *)temp_v0)->value | 0x600);
-        actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
+        actorLinkToSurface(*gDefaultOrderObj, temp_v0, 1);
     }
     return temp_v0;
 }

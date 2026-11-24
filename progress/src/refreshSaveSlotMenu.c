@@ -18,7 +18,7 @@ M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
 M2C_UNK func_80022AD8(u8);                          /* extern */
 M2C_UNK func_80022E18(u8);                          /* extern */
 void *findEntryById(s32, M2C_UNK);                  /* extern */
-M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, M2C_UNK); /* extern */
+M2C_UNK appendWeightedListEntry(M2C_UNK *, s32, s32, M2C_UNK); /* extern */
 u8 countValidSaveSlots(M2C_UNK);                          /* extern */
 s8 *lookupDataEntry(u16);                             /* extern */
 M2C_UNK sprintf(s8 *, M2C_UNK *, s8 *, s32);        /* extern */
@@ -127,7 +127,7 @@ extern M2C_UNK gPickupSearchBox;
                         sprintf(slotText, "%s %d", slotPrefix, slotNumber);}
                         func_800160FC(D_80102F48[slotIndex & 0xFFFF], slotText, 0x40);
                     }
-                    func_8002A7CC(&gPickupSearchBox, D_80102F48[slotIndex & 0xFFFF], slotIndex & 0xFF, 1);
+                    appendWeightedListEntry(&gPickupSearchBox, D_80102F48[slotIndex & 0xFFFF], slotIndex & 0xFF, 1);
                     slotIndex += 1;
                 } while ((u32) (slotIndex & 0xFFFF) < (u8) D_80102EB8);
             }

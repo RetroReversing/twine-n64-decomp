@@ -12,17 +12,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800066A0(M2C_UNK);                     /* extern */
+M2C_UNK setTransitionStateIfAllowed(M2C_UNK);                     /* extern */
 extern void *D_801005AC;
-extern s8 D_80102CC8;
+extern s8 gTimeAccumulator;
 extern s32 D_80102CCC;
 extern s8 *gDemoInputData;
 extern void *volatile gMenuRootObject;
 extern s32 gDemoFrame;
 extern s32 gDemoFadeTimer;
-extern u16 D_8010D430;
-extern u16 D_8010D432;
-extern u16 D_8010D434;
+extern u16 gDemoButtons;
+extern u16 gDemoStickX;
+extern u16 gDemoSticks;
 extern u16 D_8010D436;
 
 /* Steps demo playback one frame: loads recorded pad input, runs the end fade, and updates the demo colour cycle */ void updateDemoPlayback(void) {
@@ -31,20 +31,20 @@ extern u16 D_8010D436;
     s32 stickSign;
     void *inputEntry;
 
-    if ((D_8010D430 & 0x1000)) {
+    if ((gDemoButtons & 0x1000)) {
         if ((gDemoFadeTimer == -1)) {
             gDemoFadeTimer = 0xF;
         }
     }
     frame = gDemoFrame;
     inputEntry = (s8 *)((u32)(frame * 0x10) + (u32)gDemoInputData);
-    D_8010D430 = M2C_FIELD(inputEntry, u16 *, 0);
-    D_8010D432 = M2C_FIELD(inputEntry, u16 *, 2);
-    D_8010D434 = M2C_FIELD(inputEntry, u16 *, 4);
+    gDemoButtons = M2C_FIELD(inputEntry, u16 *, 0);
+    gDemoStickX = M2C_FIELD(inputEntry, u16 *, 2);
+    gDemoSticks = M2C_FIELD(inputEntry, u16 *, 4);
     D_8010D436 = M2C_FIELD(inputEntry, u16 *, 6);
     frame = gDemoFrame + 1;
     { s32 b = M2C_FIELD(inputEntry, s32 *, 0xC); s32 a = M2C_FIELD(inputEntry, s32 *, 8);
-    (*(s32 *)&D_80102CC8) = a;
+    (*(s32 *)&gTimeAccumulator) = a;
     D_80102CCC = b; }
     gDemoFrame = frame;
     if (frame >= 0x375) {
@@ -64,7 +64,7 @@ block_7:
         if (fade < 0.0f) *value = 0.0f; }
     }
     if (gDemoFadeTimer == 0) {
-        func_800066A0(0x11);
+        setTransitionStateIfAllowed(0x11);
     }
     frameCounter = gDemoFrame & 0x3F;
     stickSign = (s16)frameCounter;

@@ -12,8 +12,8 @@ typedef struct {
 
 s32 effectSetAnimFrame(void *, s32, u32);
 s32 freeNodeChain(s32);
-s32 func_80054FEC(s32, f32, f32, void *, s32, s32, s32);
-s32 func_800624A8(void *, s32, f32, s32);
+s32 applyBlastToNearbyObjects(s32, f32, f32, void *, s32, s32, s32);
+s32 spawnImpactBurstEffect(void *, s32, f32, s32);
 
 /* Counts down a timed object's timer by dt; when it expires, frees its node chain, resets its animation and sets the expired flag. */
 void tickTimedObject(TimedObject *obj, s32 arg1, f32 dt, s32 arg3) {
@@ -32,8 +32,8 @@ void tickTimedObject(TimedObject *obj, s32 arg1, f32 dt, s32 arg3) {
                 effectSetAnimFrame(obj, ((temp_a2 >> 4) & 0xFFFF) + 1, temp_a2 >> 0x14);
             }
             obj->flags = (s32) ((obj->flags & 0xFFCFFFFF) | 0x200);
-            func_800624A8(obj, arg1, 0.5f, 1);
-            func_80054FEC(0, 250.0f, (2.0f * obj->radius) + 4.0f, obj, arg1, 0x20, arg3);
+            spawnImpactBurstEffect(obj, arg1, 0.5f, 1);
+            applyBlastToNearbyObjects(0, 250.0f, (2.0f * obj->radius) + 4.0f, obj, arg1, 0x20, arg3);
         }
     }
 }

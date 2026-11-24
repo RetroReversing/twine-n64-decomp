@@ -23,7 +23,7 @@ s32 saveRefreshStatus();
 s32 saveSubmitCommand();
 s32 memset();
 extern u16 gSaveStatus;
-extern char gSaveSlotTable[];
+extern char gRumblePaks[];
 extern s16 gSaveSlot;
 extern char D_800E096C[];
 extern char D_800E0970[];
@@ -44,7 +44,7 @@ extern s16 gSaveSlotValid[];
     return gSaveStatus;
 start:
     {
-        saveSubmitCommand(3, (gSaveSlot * 0x68) + gSaveSlotTable, D_800E096C, D_800E0970, 0, 0, 0, 0);
+        saveSubmitCommand(3, (gSaveSlot * 0x68) + gRumblePaks, D_800E096C, D_800E0970, 0, 0, 0, 0);
         if (saveWaitCommand() == 0) {
             if (gSaveSlot == 0) {
                 gSaveBackup = gSaveHeaderCopy;
@@ -54,12 +54,12 @@ start:
         if (gSaveSlot == 0) {
             memset(&gSaveBackup, 0, 0x20);
         }
-        saveSubmitCommand(0xC, (gSaveSlot * 0x68) + gSaveSlotTable, (s32 *) gSaveSlot, NULL, 0, 0, 0, 0);
+        saveSubmitCommand(0xC, (gSaveSlot * 0x68) + gRumblePaks, (s32 *) gSaveSlot, NULL, 0, 0, 0, 0);
         if (saveWaitCommand() == 0) {
             gSaveSlotValid[gSaveSlot] = 1;
             return 0xA5U;
         }
-        saveSubmitCommand(0xE, (gSaveSlot * 0x68) + gSaveSlotTable, (s32 *) gSaveSlot, NULL, 0, 0, 0, 0);
+        saveSubmitCommand(0xE, (gSaveSlot * 0x68) + gRumblePaks, (s32 *) gSaveSlot, NULL, 0, 0, 0, 0);
         if (saveWaitCommand() == 0) {
             return 0x63U;
         }

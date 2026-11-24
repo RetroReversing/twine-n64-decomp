@@ -1,6 +1,6 @@
 s32 effectSetAnimFrame();
 s32 randomIntBelow();
-s32 func_80045DB4(f32 *, f32, f32);
+s32 addRandomJitterVec3(f32 *, f32, f32);
 s32 updateNearestTargets();
 s32 spawnConfiguredEffect(s32, void *, s32, f32 *, f32, f32, s32, s32, s32, s32, s32);
 s32 func_80062450();
@@ -27,7 +27,7 @@ void actorUpdateSparkEmitter(Obj62F34 *arg0) {
             v[2] = zero;
             v[1] = zero;
             v[0] = zero;
-            func_80045DB4(v, 0.4f, 0.2f);
+            addRandomJitterVec3(v, 0.4f, 0.2f);
             if (v[1] < zero) {
                 v[1] = -v[1];
             }

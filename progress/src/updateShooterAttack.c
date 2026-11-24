@@ -12,16 +12,16 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800179E8(void *, s32, M2C_UNK, u8);    /* extern */
-s32 func_8002BB1C(u8);                              /* extern */
-s32 func_8004478C(s16, s16);                        /* extern */
+M2C_UNK propagateFlagsToLinkedObjects(void *, s32, M2C_UNK, u8);    /* extern */
+s32 getAttackRecordPercent(u8);                              /* extern */
+s32 getActiveAssetSlotEntry(s16, s16);                        /* extern */
 s32 randomIntBelow(u16);                             /* extern */
 f32 randomFloatMinusOffset(f32, f32);                        /* extern */
-f32 approximate_hypot2(f32, f32);                        /* extern */
+f32 approxHypot2D(f32, f32);                        /* extern */
 M2C_UNK spawnActorEffect(M2C_UNK, void *, void *, void *, f32 *, s32, s32); /* extern */
-M2C_UNK func_8007947C();                 /* extern */
+M2C_UNK freeActorAnimListNode();                 /* extern */
 f32 approximateAtan2(f32, f32);                        /* extern */
-s32 func_80084338();                /* extern */
+s32 playSoundAtPos();                /* extern */
 extern s8 D_800C469C;
 extern u8 D_800C46FA;
 extern u8 sDifficultyLevel;
@@ -56,7 +56,7 @@ s32 updateShooterAttack(void *shooter, void *startPos) {
     if ((M2C_FIELD(attack, s16 *, 0x78) == -1) && (M2C_FIELD(attack, s16 *, 0x7C) == 0)) {
         soundId = M2C_FIELD(enemyDef, u16 *, 0x58);
         if (soundId != 0) {
-            M2C_FIELD(attack, s32 *, 0x4C) = func_80084338(soundId, shooter + 0x24);
+            M2C_FIELD(attack, s32 *, 0x4C) = playSoundAtPos(soundId, shooter + 0x24);
         }
         M2C_FIELD(attack, s16 *, 0x7C) = (s16) (randomIntBelow(M2C_FIELD(enemyDef, u16 *, 0x28)) + 1);
         M2C_FIELD(attack, s16 *, 0x7A) = (s16) M2C_FIELD(enemyDef, s32 *, 0x30);
@@ -75,7 +75,7 @@ s32 updateShooterAttack(void *shooter, void *startPos) {
         if (shotsLeft <= 0) {
             M2C_FIELD(attack, s16 *, 0x7A) = 0;
             M2C_FIELD(attack, s16 *, 0x78) = 0xF;
-            func_8007947C(shooter);
+            freeActorAnimListNode(shooter);
             return 0;
         }
     }
@@ -84,7 +84,7 @@ s32 updateShooterAttack(void *shooter, void *startPos) {
     dx = pos.x - M2C_FIELD(target, f32 *, 0x78);
     dz = pos.z - M2C_FIELD(target, f32 *, 0x80);
     dy = pos.y - M2C_FIELD(target, f32 *, 0x7C);
-    aim.x = -(approximateAtan2(dy, approximate_hypot2(dx, dz)) * 651.8986f);
+    aim.x = -(approximateAtan2(dy, approxHypot2D(dx, dz)) * 651.8986f);
     yawDeg = approximateAtan2(dx, dz) * 651.8986f;
     aim.z = 0;
     aim.y = (f32) (s32) yawDeg;
@@ -128,7 +128,7 @@ s32 updateShooterAttack(void *shooter, void *startPos) {
             break;
         }
     }
-    spread = spread * (1.0f - ((f32) (func_8002BB1C(M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), u8 *, 0xB1)) & 0xFF) * 0.01f));
+    spread = spread * (1.0f - ((f32) (getAttackRecordPercent(M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), u8 *, 0xB1)) & 0xFF) * 0.01f));
     spreadRange2 = 2.0f * spread;
     aim.x += randomFloatMinusOffset(spreadRange2, spread);
     aim.y += randomFloatMinusOffset(spreadRange2, spread);
@@ -144,7 +144,7 @@ s32 updateShooterAttack(void *shooter, void *startPos) {
             i += 1;
         } while (i < (u8) M2C_FIELD(enemyDef, u8 *, 0x14));
     }
-    func_800179E8(shooter + 0x24, M2C_FIELD(shooter, s32 *, 0x20), 0x10000, *(&D_800C46FA + (M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), s8 *, 0xE) * 0xE8)));
-    M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), s32 *, 0x74) = func_8004478C(M2C_FIELD(enemyDef, s16 *, 0x4A), M2C_FIELD(enemyDef, s16 *, 0x40));
+    propagateFlagsToLinkedObjects(shooter + 0x24, M2C_FIELD(shooter, s32 *, 0x20), 0x10000, *(&D_800C46FA + (M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), s8 *, 0xE) * 0xE8)));
+    M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), s32 *, 0x74) = getActiveAssetSlotEntry(M2C_FIELD(enemyDef, s16 *, 0x4A), M2C_FIELD(enemyDef, s16 *, 0x40));
     return 1;
 }

@@ -1,17 +1,17 @@
-s32 func_800A9250(void);
+s32 __osSpDeviceBusy(void);
 s32 osVirtualToPhysical(s32);
 
-s32 __osSpRawStartDma(s32 direction, u32 spAddress, s32 dramAddress, u32 size) {
-    volatile u32 *length;
-    if (func_800A9250())
+/* Starts an RSP DMA transfer between SP memory and DRAM (direction 0 = write length reg 0x0C, otherwise read); returns -1 if the SP DMA is busy. */ s32 __osSpRawStartDma(s32 direction, u32 spAddr, s32 dramAddr, u32 size) {
+    volatile u32 *lengthReg;
+    if (__osSpDeviceBusy())
         return -1;
-    *(volatile u32 *)0xA4040000 = spAddress;
-    *(volatile u32 *)0xA4040004 = osVirtualToPhysical(dramAddress);
+    *(volatile u32 *)0xA4040000 = spAddr;
+    *(volatile u32 *)0xA4040004 = osVirtualToPhysical(dramAddr);
     switch (direction) {
-        case 1: length = (volatile u32 *)0xA4040008; break;
-        case 0: length = (volatile u32 *)0xA404000C; break;
-    default: length = (volatile u32 *)0xA4040008; break;
+        case 1: lengthReg = (volatile u32 *)0xA4040008; break;
+        case 0: lengthReg = (volatile u32 *)0xA404000C; break;
+    default: lengthReg = (volatile u32 *)0xA4040008; break;
         }
-    *length = size - 1;
+    *lengthReg = size - 1;
     return 0;
 }

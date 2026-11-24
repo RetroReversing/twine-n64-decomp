@@ -13,20 +13,20 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-/* Sums the 14 halfwords of data into *sum and their one's complements into *inv_sum. */ s32 __osIdCheckSum(u16 *data, u16 *sum, u16 *inv_sum) {
-    char *p;
-    u16 word;
-    u32 end;
+/* Sums the 14 halfwords of data into *sum and their one's complements into *inv_sum. */ /* Sums the 14 halfwords of data into *sum and their one's complements into *inv_sum. */ s32 __osIdCheckSum(u16 *data, u16 *sum, u16 *inv_sum) {
+    char *cursor;
+    u16 value;
+    u32 endAddr;
 
-    p = data;
-    end = p + 0x1C;
+    cursor = data;
+    endAddr = cursor + 0x1C;
     *inv_sum = 0;
     *sum = 0;
     do {
-        word = *(u16 *)p;
-        *sum += word;
-        p += 2;
-        *inv_sum += ~word;
-    } while ((u32) p < end);
+        value = *(u16 *)cursor;
+        *sum += value;
+        cursor += 2;
+        *inv_sum += ~value;
+    } while ((u32) cursor < endAddr);
     return 0;
 }

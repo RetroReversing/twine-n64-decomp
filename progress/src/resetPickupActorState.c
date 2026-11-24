@@ -12,45 +12,45 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80002EF0(void *);                      /* extern */
-M2C_UNK func_8000628C(void *, s32, M2C_UNK, M2C_UNK); /* extern */
-s32 func_80029C08(M2C_UNK *, M2C_UNK, M2C_UNK);     /* extern */
-void *func_8002A980(M2C_UNK *);                     /* extern */
-M2C_UNK func_8002ACB4(M2C_UNK *);                   /* extern */
+M2C_UNK updateActorAnimation(void *);                      /* extern */
+M2C_UNK updateActorHeadLook(void *, s32, M2C_UNK, M2C_UNK); /* extern */
+s32 updateSaveMenuRowHighlight(M2C_UNK *, M2C_UNK, M2C_UNK);     /* extern */
+void *getSelectedMenuEntry(M2C_UNK *);                     /* extern */
+M2C_UNK drawMenuList(M2C_UNK *);                   /* extern */
 extern void *volatile gPickupActor;
 extern u8 gPickupSavedByte;
 extern M2C_UNK gPickupSearchBox;
 extern void *gSaveMenuState;
-extern s32 sTrackMarkerTable;
+extern s32 gTrackMarkerParents;
 
-void resetPickupActorState(void) {
-    u8 var_s0;
-    void *temp_v0;
+/* Resets the pickup actor's physics/look parameters and, if the save-menu row is highlighted, invokes the menu callbacks while preserving the saved byte. */ void resetPickupActorState(void) {
+    u8 savedByte;
+    void *foundEntry;
     void *volatile *actor = &gPickupActor;
-    void *initial;
-    s32 *track;
-    u8 *saved;
+    void *actorNow;
+    s32 *trackMarkers;
+    u8 *savedBytePtr;
 
-    func_8002ACB4(&gPickupSearchBox);
-    initial = *actor;
-    if (initial != NULL) {
-        func_80002EF0(initial);
+    drawMenuList(&gPickupSearchBox);
+    actorNow = *actor;
+    if (actorNow != NULL) {
+        updateActorAnimation(actorNow);
         M2C_FIELD(gPickupActor, f32 *, 0x24) = 1.25f;
         M2C_FIELD(gPickupActor, f32 *, 0x28) = 0.15f;
         M2C_FIELD(gPickupActor, f32 *, 0x2C) = -3.0f;
         M2C_FIELD(gPickupActor, f32 *, 0x54) = 1.05f;
-        track = &sTrackMarkerTable;
-        func_8000628C(*actor, *track + 0x10, 1, 0x80);
-        func_8000628C(*actor, *track + 0x10, 0, 0x800);
-        if (func_80029C08(&gPickupSearchBox, 0, 0) & 0xFFFF) {
-            saved = &gPickupSavedByte;
-            var_s0 = *saved;
-            temp_v0 = func_8002A980(&gPickupSearchBox);
-            if (temp_v0 != NULL) {
-                var_s0 = M2C_FIELD(temp_v0, u8 *, 8);
+        trackMarkers = &gTrackMarkerParents;
+        updateActorHeadLook(*actor, *trackMarkers + 0x10, 1, 0x80);
+        updateActorHeadLook(*actor, *trackMarkers + 0x10, 0, 0x800);
+        if (updateSaveMenuRowHighlight(&gPickupSearchBox, 0, 0) & 0xFFFF) {
+            savedBytePtr = &gPickupSavedByte;
+            savedByte = *savedBytePtr;
+            foundEntry = getSelectedMenuEntry(&gPickupSearchBox);
+            if (foundEntry != NULL) {
+                savedByte = M2C_FIELD(foundEntry, u8 *, 8);
             }
             M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), M2C_UNK (**)(), 0xC)();
-            *saved = var_s0;
+            *savedBytePtr = savedByte;
             M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), M2C_UNK (**)(), 8)();
         }
     }

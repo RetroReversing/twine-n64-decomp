@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 s32 findEntryById();
 
-s32 findEntryPayload(s32 arg0, s32 arg1) {
-    s32 temp_v0;
-    s32 var_v1;
+/* Looks up an entry by 16-bit id and returns a pointer to its payload (entry + 0x28), or 0 if not found. */ s32 findEntryPayload(s32 table, s32 id) {
+    s32 entry;
+    s32 payload;
 
-    temp_v0 = findEntryById(arg0, arg1 & 0xFFFF);
-    var_v1 = 0;
-    if (temp_v0 != 0) {
-        var_v1 = temp_v0 + 0x28;
+    entry = findEntryById(table, id & 0xFFFF);
+    payload = 0;
+    if (entry != 0) {
+        payload = entry + 0x28;
     }
-    return var_v1;
+    return payload;
 }

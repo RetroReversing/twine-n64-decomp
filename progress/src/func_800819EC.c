@@ -1,15 +1,15 @@
-extern u8 D_80115094[];
+extern u8 gInputBindingTables[];
 
 s32 func_800819EC(s32 arg0, s32 arg1) {
     s32 off = arg0 * 0xA0;
-    u8 *base = off + D_80115094;
+    u8 *base = off + gInputBindingTables;
     s32 v;
     u8 f;
     s32 hi;
     u8 *entry;
 
     if ((base + arg1 * 2)[1] != 0) {
-        u8 *tbl = D_80115094 + 0x70;
+        u8 *tbl = gInputBindingTables + 0x70;
         u8 *value = (base + arg1 * 2)[1] * 4 + tbl;
         u32 flags = (base + arg1 * 2)[0];
         v = *(s32 *)(value + off);

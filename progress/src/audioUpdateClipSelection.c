@@ -1,7 +1,7 @@
 s32 audioVoiceIsActive(u8);
 s32 randomU16Next(void);
-s32 func_800957A8(u32 *);
-s32 func_800957B8(u32 *, void *);
+s32 shiftLeft8InPlace(u32 *);
+s32 scaleValueByOutputRate(u32 *, void *);
 
 /* Updates a voice's clip selection from its descriptor flags: picks a random or sequential clip index, then advances the voice's clip cursor. Returns 1 while a clip is active. */
 s32 audioUpdateClipSelection(void *voice, void *desc) {
@@ -25,8 +25,8 @@ s32 audioUpdateClipSelection(void *voice, void *desc) {
         }
         if (*(u16 *)desc & 1) clipIndex = (randomU16Next() & 0xFFFF) % clipIndex;
         if (clipIndex != 0xFFFF) {
-            if ((useRandom = (*(volatile u32 *)((s8 *)desc + 4) >> 8) & 1) & 0xFF) func_800957A8(&clipIndex);
-            else func_800957B8(&clipIndex, voice);
+            if ((useRandom = (*(volatile u32 *)((s8 *)desc + 4) >> 8) & 1) & 0xFF) shiftLeft8InPlace(&clipIndex);
+            else scaleValueByOutputRate(&clipIndex, voice);
             if (useRandom & 0xFF) {
                 *(u32 *)((s8 *)voice + 0x9C) = *(u32 *)((s8 *)voice + 0xA4) + clipIndex;
             } else {

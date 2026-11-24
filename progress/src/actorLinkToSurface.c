@@ -11,14 +11,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 Probe_BoundsContainPoint(f32 *, void *);
-s32 Sphere_OverlapsPoint(void *, void *, f32);
-s32 Ray_CastObjects(M2C_UNK *, void *, f32 *, s32 *, M2C_UNK *, f32, s32, s32, s32);
+s32 boundsContainPoint(f32 *, void *);
+s32 sphereContainsPoint(void *, void *, f32);
+s32 castRayAgainstObjectsAndRooms(M2C_UNK *, void *, f32 *, s32 *, M2C_UNK *, f32, s32, s32, s32);
 M2C_UNK buildRotationMatrixS16(s16 *, M2C_UNK *);
 M2C_UNK rotateVec3ByMat3(M2C_UNK *, f32 *);
 extern M2C_UNK gVecUp;
 extern M2C_UNK gVecDown;
-extern M2C_UNK Ray_TriangleIntersect;
+extern M2C_UNK rayTriangleIntersect;
 
 /* Searches surfaceList for the nearest surface above or below actor, then links actor into that surface's chain. Returns 1 if linked. */
 s32 actorLinkToSurface(void *surfaceList, void *actor, u8 flagIfUnlinked) {
@@ -73,7 +73,7 @@ s32 actorLinkToSurface(void *surfaceList, void *actor, u8 flagIfUnlinked) {
         f32 *point = pos;
         normOut = upA;
         do {
-            if ((M2C_FIELD(cur, u16 *, 0x58) == 0x46) && ((Sphere_OverlapsPoint(cur + 0x40, point, M2C_FIELD(actor, f32 *, 0x64)) << 0x18) != 0) && ((Probe_BoundsContainPoint(point, cur) << 0x18) != 0)) {
+            if ((M2C_FIELD(cur, u16 *, 0x58) == 0x46) && ((sphereContainsPoint(cur + 0x40, point, M2C_FIELD(actor, f32 *, 0x64)) << 0x18) != 0) && ((boundsContainPoint(point, cur) << 0x18) != 0)) {
                 __builtin_memcpy(upA, &gVecUp, 12);
                 __builtin_memcpy(upB, &gVecDown, 12);
                 curDist = M2C_FIELD(cur, f32 *, 0x4C);
@@ -81,14 +81,14 @@ s32 actorLinkToSurface(void *surfaceList, void *actor, u8 flagIfUnlinked) {
                     bestBelow = cur;
                     bestBelowDist = curDist;
                 }
-                if ((Ray_CastObjects(&Ray_TriangleIntersect, cur, point, normOut, &hit, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                if ((castRayAgainstObjectsAndRooms(&rayTriangleIntersect, cur, point, normOut, &hit, 256.0f, 0, 1, 0) << 0x18) != 0) {
                     dist = hit[1] - pos[1];
                     if (dist < bestAboveDist) {
                         bestAbove = cur;
                         bestAboveDist = dist;
                     }
                 } else {
-                    if ((Ray_CastObjects(&Ray_TriangleIntersect, cur, point, upB, &hit, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                    if ((castRayAgainstObjectsAndRooms(&rayTriangleIntersect, cur, point, upB, &hit, 256.0f, 0, 1, 0) << 0x18) != 0) {
                         dist = pos[1] - hit[1];
                         if (dist < bestAboveDist) {
                             bestAbove = cur;

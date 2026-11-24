@@ -13,20 +13,20 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK memset(s32, M2C_UNK, s32);                  /* extern */
-extern s32 D_800E1A94;
-extern s32 D_800E1A98;
-extern s32 D_80100918;
-extern s32 D_8010D368;
+extern s32 gHeapAllocCount;
+extern s32 gHeapBytesAllocated;
+extern s32 gHeapStart;
+extern s32 gHeapEnd;
 
-void heapInit(s32 arg0, s32 arg1) {
-    s32 temp_a0;
-    s32 temp_a2;
+/* Sets up the heap over [start, end), aligned to 64 bytes, zeroes it and resets the allocation counters. */ void heapInit(s32 start, s32 end) {
+    s32 alignedStart;
+    s32 alignedEnd;
 
-    temp_a2 = (arg1 + 0x3F) & ~0x3F;
-    temp_a0 = (arg0 + 0x3F) & ~0x3F;
-    D_8010D368 = temp_a2;
-    D_80100918 = temp_a0;
-    D_800E1A94 = 0;
-    D_800E1A98 = 0;
-    memset(temp_a0, 0, temp_a2 - temp_a0);
+    alignedEnd = (end + 0x3F) & ~0x3F;
+    alignedStart = (start + 0x3F) & ~0x3F;
+    gHeapEnd = alignedEnd;
+    gHeapStart = alignedStart;
+    gHeapAllocCount = 0;
+    gHeapBytesAllocated = 0;
+    memset(alignedStart, 0, alignedEnd - alignedStart);
 }

@@ -1,7 +1,7 @@
 #define ENTB(t, i) ((i) * 104 + (t))
 #define CP32(d, s) __builtin_memcpy((d), (s), 32)
 extern s16 gSaveSlot;
-extern u8 gSaveSlotTable[];
+extern u8 gRumblePaks[];
 extern u8 gSaveHeaderCopy[];
 extern u32 gSaveBackup[];
 extern s16 gSaveStatus;
@@ -10,12 +10,12 @@ extern u8 D_80102D60;
 extern s16 gSaveSlotValid[];
 extern s32 saveSubmitCommand(s32, void *, s32, s32, s32, s32, s32, s32);
 extern s32 saveWaitCommand(void);
-extern s32 func_80010B60(s32);
+extern s32 getSaveErrorStatus(s32);
 typedef struct 
 {
   u32 v;
 } __attribute__((packed)) UW;
-s32 saveRefreshStatus(void)
+/* Re-queries the current controller pak slot and updates gSaveStatus from the result (retrying read, repair and header backup steps); returns the new status. */ s32 saveRefreshStatus(void)
 {
   s32 idx;
   u8 *b0;
@@ -29,7 +29,7 @@ s32 saveRefreshStatus(void)
   s32 r2;
   s32 r3;
   u8 flag;
-  b0 = gSaveSlotTable;
+  b0 = gRumblePaks;
   saveSubmitCommand(7, ENTB(b0, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   saveWaitCommand();
   if (gSaveSlot != 0)
@@ -101,7 +101,7 @@ s32 saveRefreshStatus(void)
       goto l11374;
     }
     d64:
-    b1 = gSaveSlotTable;
+    b1 = gRumblePaks;
     saveSubmitCommand(0xC, ENTB(b1, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
     if (saveWaitCommand() == 0) { goto l11434; }
     saveSubmitCommand(0xE, ENTB(b1, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
@@ -135,7 +135,7 @@ s32 saveRefreshStatus(void)
   {
     goto d110e4;
   }
-  b2 = gSaveSlotTable;
+  b2 = gRumblePaks;
   saveSubmitCommand(0xE, ENTB(b2, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   if (saveWaitCommand() == 0)
   {
@@ -210,7 +210,7 @@ s32 saveRefreshStatus(void)
   {
     goto l11594;
   }
-  b3 = gSaveSlotTable;
+  b3 = gRumblePaks;
   saveSubmitCommand(0xE, ENTB(b3, gSaveSlot), gSaveSlot, 0, 0, 0, 0, 0);
   if (saveWaitCommand() != 0)
   {
@@ -257,7 +257,7 @@ s32 saveRefreshStatus(void)
   r4 = gSaveCmdResult;
 
   l1159c:
-  return (u16) func_80010B60(r4);
+  return (u16) getSaveErrorStatus(r4);
 
 }
 

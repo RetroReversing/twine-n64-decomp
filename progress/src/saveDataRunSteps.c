@@ -13,18 +13,18 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 saveDataEncodeName();
-s16 func_80010958();
+s16 computeSaveChecksum();
 s32 saveWaitCommand();
-s32 func_80010B60();
+s32 getSaveErrorStatus();
 s32 saveSubmitCommand();
-s32 func_8001233C();
+s32 readSaveBlockVerified();
 extern s16 gSaveStatus;
-extern char gSaveSlotTable[];
+extern char gRumblePaks[];
 extern s16 gSaveSlot;
-extern s32 *D_800E0960;
-extern s16 *D_800E0964;
+extern s32 *gSaveBufferSize;
+extern s16 *gSaveBuffer;
 extern s32 gSaveRequestSlot;
-extern char D_80103030[];
+extern char gSaveFileName[];
 extern s32 gSaveSlotCodeByte;
 extern s32 gSaveCmdResult;
 extern char gSaveSlotHeaders[];
@@ -38,20 +38,20 @@ extern s32 D_80115308;
     s32 block_offset;
 
     gSaveStatus = 0;
-    saveDataEncodeName(&D_80115308, D_80103030, 0x10);
+    saveDataEncodeName(&D_80115308, gSaveFileName, 0x10);
     saveDataEncodeName(&gSaveSlotCodeByte, gSaveSlotCodeBuf, 4);
-    if ((*(u16 *)(gSaveSlotHeaders + (gSaveRequestSlot * 0x18)) == 0) || (block_offset = gSaveRequestSlot << 5, saveSubmitCommand(6, (gSaveSlot * 0x68) + gSaveSlotTable, *(u16 *)(D_80108410 + block_offset), *(s32 *)(D_8010840C + block_offset), block_offset + D_80108416, block_offset + (D_80108416 - 4), NULL, NULL), (saveWaitCommand() == 0))) {
-        saveSubmitCommand(0xA, (gSaveSlot * 0x68) + gSaveSlotTable, 0x3639U, 0x4E4F3745, &D_80115308, &gSaveSlotCodeByte, D_800E0960, &gSaveRequestSlot);
+    if ((*(u16 *)(gSaveSlotHeaders + (gSaveRequestSlot * 0x18)) == 0) || (block_offset = gSaveRequestSlot << 5, saveSubmitCommand(6, (gSaveSlot * 0x68) + gRumblePaks, *(u16 *)(D_80108410 + block_offset), *(s32 *)(D_8010840C + block_offset), block_offset + D_80108416, block_offset + (D_80108416 - 4), NULL, NULL), (saveWaitCommand() == 0))) {
+        saveSubmitCommand(0xA, (gSaveSlot * 0x68) + gRumblePaks, 0x3639U, 0x4E4F3745, &D_80115308, &gSaveSlotCodeByte, gSaveBufferSize, &gSaveRequestSlot);
         if (saveWaitCommand() == 0) {
-            *D_800E0964 = func_80010958((s8 *) D_800E0964 + 2, (s8 *)D_800E0960 - 2);
-            saveSubmitCommand(9, (gSaveSlot * 0x68) + gSaveSlotTable, gSaveRequestSlot, 1, NULL, D_800E0960, D_800E0964, NULL);
+            *gSaveBuffer = computeSaveChecksum((s8 *) gSaveBuffer + 2, (s8 *)gSaveBufferSize - 2);
+            saveSubmitCommand(9, (gSaveSlot * 0x68) + gRumblePaks, gSaveRequestSlot, 1, NULL, gSaveBufferSize, gSaveBuffer, NULL);
             if (saveWaitCommand() == 0) {
-                saveSubmitCommand(0xB, (gSaveSlot * 0x68) + gSaveSlotTable, 0x3639U, 0x4E4F3745, &D_80115308, &gSaveSlotCodeByte, &gSaveRequestSlot, NULL);
+                saveSubmitCommand(0xB, (gSaveSlot * 0x68) + gRumblePaks, 0x3639U, 0x4E4F3745, &D_80115308, &gSaveSlotCodeByte, &gSaveRequestSlot, NULL);
                 if (saveWaitCommand() == 0) {
-                    return func_8001233C() & 0xFFFF;
+                    return readSaveBlockVerified() & 0xFFFF;
                 }
             }
         }
     }
-    return func_80010B60(gSaveCmdResult) & 0xFFFF;
+    return getSaveErrorStatus(gSaveCmdResult) & 0xFFFF;
 }

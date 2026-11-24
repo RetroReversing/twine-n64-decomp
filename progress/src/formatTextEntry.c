@@ -15,22 +15,22 @@ typedef s32 M2C_UNK32;
 s32 _Printf();
 s32 lookupDataEntry();
 s16 strlen();
-extern s32 func_80025D50;
+extern s32 printfWriteChars;
 
-void formatTextEntry(void *arg0, s32 arg1, ...) {
-    char *__repair_ap;
-    s32 temp_v0;
-    void *temp_s0;
+/* printf-formats into the entry's text buffer, NUL-terminates it, and updates the linked text box's cached length. */ void formatTextEntry(void *textEntry, s32 format, ...) {
+    char *args;
+    s32 length;
+    void *textBox;
 
-    if (arg0 != NULL) {
-        __repair_ap = (char *) __builtin_next_arg(arg1);
-        temp_v0 = _Printf(&func_80025D50, lookupDataEntry(M2C_FIELD(arg0, u16 *, 0), arg1), arg1, __repair_ap);
-        if (temp_v0 >= 0) {
-            *(s8 *)(lookupDataEntry(M2C_FIELD(arg0, u16 *, 0)) + temp_v0) = 0;
+    if (textEntry != NULL) {
+        args = (char *) __builtin_next_arg(format);
+        length = _Printf(&printfWriteChars, lookupDataEntry(M2C_FIELD(textEntry, u16 *, 0), format), format, args);
+        if (length >= 0) {
+            *(s8 *)(lookupDataEntry(M2C_FIELD(textEntry, u16 *, 0)) + length) = 0;
         }
-        temp_s0 = M2C_FIELD(arg0, void **, 8);
-        if (temp_s0 != NULL) {
-            M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0, s32 *, 0x18));
+        textBox = M2C_FIELD(textEntry, void **, 8);
+        if (textBox != NULL) {
+            M2C_FIELD(textBox, s16 *, 0x1C) = strlen(M2C_FIELD(textBox, s32 *, 0x18));
         }
     }
 }

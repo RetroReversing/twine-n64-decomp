@@ -8,8 +8,8 @@ extern s32 D_800D10F4;
 extern s16 D_800D1122;
 extern s32 D_800D1124;
 extern V *vi_active_ctx_table;
-extern u8 *vi_pending_ctx;
-extern V *vi_active_ctx;
+extern u8 *gViPendingContext;
+extern V *gViCurrentContext;
 extern u8 D_800D11B0[];
 extern u8 D_800D1200[];
 extern u8 D_800D1160[];
@@ -18,8 +18,8 @@ extern void bzero(void *, s32);
 
 /* Zeroes the VI context buffer, picks the per-TV-type context table, and resets the VI controller. */ void initViManagerContexts(void) {
     bzero(viContextBuffer, 0x60);
-    vi_pending_ctx = viContextBuffer;
-    vi_active_ctx = (V *)(viContextBuffer + 0x30);
+    gViPendingContext = viContextBuffer;
+    gViCurrentContext = (V *)(viContextBuffer + 0x30);
     D_800D1122 = 1;
     D_800D10F2 = 1;
     D_800D1124 = 0x80000000;
@@ -31,8 +31,8 @@ extern void bzero(void *, s32);
     } else {
         vi_active_ctx_table = (V *)D_800D1160;
     }
-    vi_active_ctx->unk0 = 0x20;
-    vi_active_ctx->unkC = vi_active_ctx->unk8->unk4;
+    gViCurrentContext->unk0 = 0x20;
+    gViCurrentContext->unkC = gViCurrentContext->unk8->unk4;
     while (*(volatile u32 *)0xA4400010 >= 0xB) {}
     *(volatile u32 *)0xA4400000 = 0;
     vi_apply_context();

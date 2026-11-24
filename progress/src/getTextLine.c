@@ -8,8 +8,8 @@ typedef struct {
     u16 *pages[3];
 } TextPageSet;
 
-void text_get_line_span(TextLine30818 *out, s8 *start, u16 line);
-u16 func_8003137C(s16, s32);
+void getTextLineSpan(TextLine30818 *out, s8 *start, u16 line);
+u16 getEntryIdByIndex(s16, s32);
 s8 *lookupDataEntry(u16);
 s32 strlen(s8 *);
 extern TextPageSet *gTextRefTable;
@@ -28,25 +28,25 @@ TextLine30818 *getTextLine(u16 kind, s32 line)
         lineIndex = line - 1;
         switch ((u16)kind) {
         case 0:
-            sTextLineResult.text = lookupDataEntry(func_8003137C((s16)line, 1));
+            sTextLineResult.text = lookupDataEntry(getEntryIdByIndex((s16)line, 1));
             sTextLineResult.length = strlen(sTextLineResult.text);
             break;
         case 1:
             page = gTextRefTable->pages[0];
             if (page != NULL) {
-                text_get_line_span(out, lookupDataEntry(*page), lineIndex);
+                getTextLineSpan(out, lookupDataEntry(*page), lineIndex);
             }
             break;
         case 2:
             page = gTextRefTable->pages[1];
             if (page != NULL) {
-                text_get_line_span(out, lookupDataEntry(*page), lineIndex);
+                getTextLineSpan(out, lookupDataEntry(*page), lineIndex);
             }
             break;
         case 3:
             page = gTextRefTable->pages[2];
             if (page != NULL) {
-                text_get_line_span(out, lookupDataEntry(*page), lineIndex);
+                getTextLineSpan(out, lookupDataEntry(*page), lineIndex);
             }
             break;
         }

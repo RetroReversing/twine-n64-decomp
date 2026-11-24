@@ -1,9 +1,9 @@
-extern s32 func_80015F0C();
-extern s32 func_800165E0(s32, s32);
-extern s32 sTrackMarkerTable[];
-s32 spawnTrackMarker(s32 arg0) {
- s32 v = func_80015F0C();
- if (v == 0) return 0;
- func_800165E0(v, sTrackMarkerTable[arg0]);
- return v;
+extern s32 allocTextNodeObject();
+extern s32 linkNodeAfter(s32, s32);
+extern s32 gTrackMarkerParents[];
+/* Allocates a text node object and links it after the parent node for the given marker index; returns 0 on failure. */ s32 spawnTrackMarker(s32 markerIndex) {
+ s32 marker = allocTextNodeObject();
+ if (marker == 0) return 0;
+ linkNodeAfter(marker, gTrackMarkerParents[markerIndex]);
+ return marker;
 }

@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800158A4();
-s32 func_800312F4();
+s32 raycastThroughRooms();
+s32 getEntryKind();
 s32 randomIntBelow();
-void *func_80079CB4();
+void *spawnKindActor();
 extern u8 gTrackMarkerDone[];
 extern void *gBonusObjects;
 
@@ -48,11 +48,11 @@ extern void *gBonusObjects;
     flagIndex = M2C_FIELD(subRec, u8 *, 0x16);
     if (((flagIndex == 0) || (*(gTrackMarkerDone + flagIndex) == 1)) && (actorFlags = M2C_FIELD(actor, s32 *, 0x60), ((actorFlags & 0x1000) == 0)) && (posVec = actor + 0x24, ((actorFlags & 0x6000) != 0))) {
         M2C_FIELD(actor, s32 *, 0x60) = 0;
-        if ((func_800158A4(posVec, *M2C_FIELD(gBonusObjects, s32 **, 0x68) + 0xA8, M2C_FIELD(actor, s32 *, 0x20), hitPos, 0, 0, 0, 1, 0) << 0x18) != 0) {
+        if ((raycastThroughRooms(posVec, *M2C_FIELD(gBonusObjects, s32 **, 0x68) + 0xA8, M2C_FIELD(actor, s32 *, 0x20), hitPos, 0, 0, 0, 1, 0) << 0x18) != 0) {
             M2C_FIELD(subRec, s16 *, 0x10) = (s16) (randomIntBelow(0x96) + 0x96);
             return;
         }
-        spawnedActor = func_80079CB4(posVec, actor + 0x3C, M2C_FIELD(subRec, s32 *, 4), M2C_FIELD(subRec, u8 *, 0x15), (s32) M2C_FIELD(subRec, u16 *, 0xE), (s32) M2C_FIELD(subRec, u8 *, 0x17), (s32) M2C_FIELD(subRec, u8 *, 0x18), (s32) M2C_FIELD(subRec, u8 *, 0x19), (s32) M2C_FIELD(subRec, u16 *, 8), (s32) M2C_FIELD(subRec, u16 *, 0xA), (s32) M2C_FIELD(subRec, u8 *, 0x14), (s32) M2C_FIELD(subRec, u16 *, 0xC), (s32) M2C_FIELD(subRec, u16 *, 0x12), (s32) M2C_FIELD(subRec, u8 *, 0x16), (s32) M2C_FIELD(subRec, u8 *, 0x1A), 1);
+        spawnedActor = spawnKindActor(posVec, actor + 0x3C, M2C_FIELD(subRec, s32 *, 4), M2C_FIELD(subRec, u8 *, 0x15), (s32) M2C_FIELD(subRec, u16 *, 0xE), (s32) M2C_FIELD(subRec, u8 *, 0x17), (s32) M2C_FIELD(subRec, u8 *, 0x18), (s32) M2C_FIELD(subRec, u8 *, 0x19), (s32) M2C_FIELD(subRec, u16 *, 8), (s32) M2C_FIELD(subRec, u16 *, 0xA), (s32) M2C_FIELD(subRec, u8 *, 0x14), (s32) M2C_FIELD(subRec, u16 *, 0xC), (s32) M2C_FIELD(subRec, u16 *, 0x12), (s32) M2C_FIELD(subRec, u8 *, 0x16), (s32) M2C_FIELD(subRec, u8 *, 0x1A), 1);
         if (spawnedActor != NULL) {
             spawnedSubRec = M2C_FIELD(spawnedActor, void **, 0x6C);
             M2C_FIELD(spawnedSubRec, s32 *, 0x88) |= 0x10000000;
@@ -95,7 +95,7 @@ extern void *gBonusObjects;
         case 30:
             spawnArg = 2;
 block_17:
-            if (func_800312F4(spawnArg, 0) == 1) {
+            if (getEntryKind(spawnArg, 0) == 1) {
                 M2C_FIELD(actor, s32 *, 0x60) |= 1;
             }
             break;

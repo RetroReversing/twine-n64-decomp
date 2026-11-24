@@ -1,77 +1,77 @@
 f32 sinTableLookup(f32);
 f32 cosTableLookup(f32);
 s32 guRandom(void);
-extern s32 D_800B1D74;
-extern f32 D_800B1D78;
-extern u32 D_801007B8;
-extern u8 D_80102F38;
-extern u8 D_801032A4;
-extern u8 D_80108F74;
+extern s32 gColorUpdateStamp;
+extern f32 gAnimTime;
+extern u32 gTickCount;
+extern u8 gBaseColorR;
+extern u8 gBaseColorB;
+extern u8 gBaseColorG;
 typedef struct { char pad[0x60]; u16 w60; u8 pad2[2]; u8 r; u8 g; u8 b; } Col;
 typedef struct { char pad[0x20]; Col *col; char pad2[0x34]; u32 flags; } Obj;
-void updateObjectColor(Obj *o)
+/* Updates an object's vertex color once per stamp: pulses, flickers or static noise depending on its effect flags, else the base color. */ void updateObjectColor(Obj *obj)
 {
-  u32 f;
-  u32 v;
-  u32 w;
-  u32 x;
-  u32 y;
-  u32 z;
-  if (o->col->w60 != D_800B1D74)
+  u32 effectBits;
+  u32 pulseRed;
+  u32 flicker;
+  u32 yellowPulse;
+  u32 staticLow;
+  u32 staticHigh;
+  if (obj->col->w60 != gColorUpdateStamp)
   {
-    o->col->w60 = D_800B1D74;
-    f = o->flags >> 2;
-    if (f & 0x10)
+    obj->col->w60 = gColorUpdateStamp;
+    effectBits = obj->flags >> 2;
+    if (effectBits & 0x10)
     {
-      v = (u32)(sinTableLookup((f32)D_801007B8 * 0.1f) * 64.0f + 192.0f);
-      o->col->r = v;
-      o->col->g = 0x40;
-      o->col->b = 0x40;
+      pulseRed = (u32)(sinTableLookup((f32)gTickCount * 0.1f) * 64.0f + 192.0f);
+      obj->col->r = pulseRed;
+      obj->col->g = 0x40;
+      obj->col->b = 0x40;
       return;
     }
-    else if (f & 0x80)
+    else if (effectBits & 0x80)
     {
-      w = (u32)(sinTableLookup(D_800B1D78 * 0.02f) * (cosTableLookup(0.07f * D_800B1D78) * 64.0f) * sinTableLookup(D_800B1D78 * 0.04f)) + 64;
-      o->col->r = w;
-      o->col->g = w;
-      o->col->b = w;
+      flicker = (u32)(sinTableLookup(gAnimTime * 0.02f) * (cosTableLookup(0.07f * gAnimTime) * 64.0f) * sinTableLookup(gAnimTime * 0.04f)) + 64;
+      obj->col->r = flicker;
+      obj->col->g = flicker;
+      obj->col->b = flicker;
       return;
     }
-    if (f & 0x40)
+    if (effectBits & 0x40)
     {
-      x = (u32)(sinTableLookup(D_800B1D78 * 0.2f) * 128.0f + 128.0f) | 8;
-      o->col->r = x;
-      o->col->g = x;
-      o->col->b = 8;
+      yellowPulse = (u32)(sinTableLookup(gAnimTime * 0.2f) * 128.0f + 128.0f) | 8;
+      obj->col->r = yellowPulse;
+      obj->col->g = yellowPulse;
+      obj->col->b = 8;
     }
-    else if (f & 0x20)
+    else if (effectBits & 0x20)
     {
-      if (o->col->r < 0x20U)
+      if (obj->col->r < 0x20U)
       {
         if (guRandom() % 30 == 0)
         {
-          y = guRandom() % 128 - 128;
-          o->col->r = y;
-          o->col->g = y;
-          o->col->b = y;
+          staticLow = guRandom() % 128 - 128;
+          obj->col->r = staticLow;
+          obj->col->g = staticLow;
+          obj->col->b = staticLow;
         }
       }
       else
       {
         if (guRandom() % 3 == 0)
         {
-          z = guRandom() % 128 - 128;
-          o->col->r = z;
-          o->col->g = z;
-          o->col->b = z;
+          staticHigh = guRandom() % 128 - 128;
+          obj->col->r = staticHigh;
+          obj->col->g = staticHigh;
+          obj->col->b = staticHigh;
         }
       }
     }
     else
     {
-      o->col->r = D_80102F38;
-      o->col->g = D_80108F74;
-      o->col->b = D_801032A4;
+      obj->col->r = gBaseColorR;
+      obj->col->g = gBaseColorG;
+      obj->col->b = gBaseColorB;
     }
   }
 }

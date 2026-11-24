@@ -1,0 +1,65 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+s32 emitScissorFromWindow();
+s32 applyFogColorMode();
+s32 appendFrameCameraCommands();
+extern char D_800B1CD0[];
+extern s32 gCurCombineSetup;
+extern void *D_80109CB8;
+extern s32 D_8010A4D8;
+extern s32 gCurGeometryModeSetup;
+extern s32 gRenderMode;
+extern void *sDisplayListCursor;
+extern void *sRenderState;
+
+typedef struct { int value; } __repair_field_0;
+void beginRenderModeTwoPass(s32 arg0) {
+    void *temp_a2;
+    s32 temp_a1;
+    void *temp_v1;
+    void *temp_v1_2;
+
+    emitScissorFromWindow(arg0);
+    if (gRenderMode != 2) {
+        gRenderMode = 2;
+        appendFrameCameraCommands(arg0);
+    }
+    if (gCurGeometryModeSetup != 6) {
+        temp_v1 = sDisplayListCursor;
+        gCurGeometryModeSetup = 6;
+        sDisplayListCursor = temp_v1 + 8;
+        ((__repair_field_0 *)temp_v1)->value = 0xDE000000;
+        M2C_FIELD(temp_v1, s32 **, 4) = D_800B1CD0;
+    }
+    if (gCurCombineSetup != 2) {
+        temp_v1_2 = sDisplayListCursor;
+        gCurCombineSetup = 2;
+        sDisplayListCursor = temp_v1_2 + 8;
+        ((__repair_field_0 *)temp_v1_2)->value = 0xFC419883;
+        M2C_FIELD(temp_v1_2, s32 *, 4) = 0xFF32FF7F;
+    }
+    applyFogColorMode(arg0, 2);
+    ((__repair_field_0 *)D_80109CB8)->value = 0xDF000000;
+    ((__repair_field_0 *)D_80109CB8 + 1)->value = 0;
+    ((__repair_field_0 *)sDisplayListCursor)->value = 0xDE000000;
+    M2C_FIELD(sDisplayListCursor, s32 *, 4) = (s32) M2C_FIELD(sRenderState, s32 *, 0x1A60);
+    temp_a1 = D_8010A4D8;
+    D_80109CB8 += 8;
+    do {
+        temp_a2 = sDisplayListCursor + 8;
+        sDisplayListCursor = temp_a2;
+        applyFogColorMode(arg0, temp_a1, temp_a2);
+    } while (0);
+}

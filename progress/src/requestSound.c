@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000A830(int, M2C_UNK, M2C_UNK);            /* extern */
+M2C_UNK startAndQueueDistanceSound(int, M2C_UNK, M2C_UNK);            /* extern */
 
-void requestSound(int __reuse_arg0) {
-    func_8000A830(__reuse_arg0, 0xFF, 0xFF);
+/* Plays a sound at full volume and neutral pan (0xFF, 0xFF) with no distance attenuation. */ void requestSound(int soundId) {
+    startAndQueueDistanceSound(soundId, 0xFF, 0xFF);
 }

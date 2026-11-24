@@ -13,11 +13,11 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 randomIntBelow(s32);                             /* extern */
-M2C_UNK func_80054FEC(M2C_UNK, M2C_UNK, f32, void *, void *, s32, s32); /* extern */
-M2C_UNK func_800624A8(void *, void *, f32, u8);     /* extern */
+M2C_UNK applyBlastToNearbyObjects(M2C_UNK, M2C_UNK, f32, void *, void *, s32, s32); /* extern */
+M2C_UNK spawnImpactBurstEffect(void *, void *, f32, u8);     /* extern */
 M2C_UNK updateTrackMarkerProximity(void *, f32);                 /* extern */
-M2C_UNK func_80084338(u16, void *);                 /* extern */
-M2C_UNK func_800853D4(void *);                      /* extern */
+M2C_UNK playSoundAtPos(u16, void *);                 /* extern */
+M2C_UNK playFarMarkerSound(void *);                      /* extern */
 extern s8 gTransitionPhase;
 extern u8 gTrackMarkerDone[];
 
@@ -40,20 +40,20 @@ void updateTrackMarkerTrigger(register void *arg0) {
                 return;
             }
             if (M2C_FIELD(temp_s0, u8 *, 0xC) != 0) {
-                func_80054FEC(0, 0x437A0000, M2C_FIELD(temp_s0, f32 *, 0) * 10.0f, arg0, arg0 + 0x24, 0x20, 0);
+                applyBlastToNearbyObjects(0, 0x437A0000, M2C_FIELD(temp_s0, f32 *, 0) * 10.0f, arg0, arg0 + 0x24, 0x20, 0);
             }
             if (M2C_FIELD(temp_s0, u8 *, 0xD) == 0) {
-                func_800624A8(arg0, arg0 + 0x24, M2C_FIELD(temp_s0, f32 *, 0), M2C_FIELD(temp_s0, u8 *, 0xA));
+                spawnImpactBurstEffect(arg0, arg0 + 0x24, M2C_FIELD(temp_s0, f32 *, 0), M2C_FIELD(temp_s0, u8 *, 0xA));
             } else {
                 temp_s2 = arg0 + 0x24;
                 updateTrackMarkerProximity(temp_s2, M2C_FIELD(temp_s0, f32 *, 0) * 0.001f);
                 if ((M2C_FIELD(temp_s0, u8 *, 0xA) != 0) && (gTransitionPhase == 0)) {
-                    func_800853D4(temp_s2);
+                    playFarMarkerSound(temp_s2);
                 }
             }
             temp_a0 = M2C_FIELD(temp_s0, u16 *, 6);
             if ((temp_a0 != 0) && (gTransitionPhase == 0)) {
-                func_80084338(temp_a0, arg0 + 0x24);
+                playSoundAtPos(temp_a0, arg0 + 0x24);
             }
             temp_a2 = M2C_FIELD(temp_s0, u8 *, 0xB);
             if (temp_a2 != 0) {
@@ -65,7 +65,7 @@ void updateTrackMarkerTrigger(register void *arg0) {
         return;
     case 0x51:
         if (randomIntBelow(M2C_FIELD(temp_s0, u8 *, 8) * 0x1E) == 0) {
-            func_800624A8(arg0, arg0 + 0x24, 0.5f, M2C_FIELD(temp_s0, u8 *, 0xA));
+            spawnImpactBurstEffect(arg0, arg0 + 0x24, 0.5f, M2C_FIELD(temp_s0, u8 *, 0xA));
         }
         break;
     }

@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 s32 releaseCountedEntry();
 s32 releaseSceneGroupRef();
 s32 releaseSortedEntry();
-s32 func_80097B1C();
-s32 func_80097E14();
-s32 func_8009811C();
+s32 releaseResourceById();
+s32 removeWorkerEntry();
+s32 releaseEntryRef();
 extern u8 gWorkerThreadActive;
 extern s16 sSceneGroupStackCount;
 extern char sSceneGroupStack[];
 
-/* A scene group record: offsets to five ID lists (each 0xFFFF-terminated) plus a flag and an argument for func_80097E14. */
+/* A scene group record: offsets to five ID lists (each 0xFFFF-terminated) plus a flag and an argument for removeWorkerEntry. */
 typedef struct { unsigned char pad_0[4]; unsigned short argument; unsigned short flag; int listOffsetA; int listOffsetB; int listOffsetC; int listOffsetD; int listOffsetE; } SceneGroupRecord;
 
 /* Pops the newest scene group and unloads its ID lists; returns 1 if the group also needs its final unload call, else 0. */
@@ -55,7 +55,7 @@ s32 popAndUnloadSceneGroup(void) {
         cursor = groupEnd;
         while ((idA = *(u16 *)cursor) != 0xFFFF) {
             cursor += 2;
-            func_8009811C(idA);
+            releaseEntryRef(idA);
         }
         groupB = (void *) ((((SceneGroupRecord*)group)->listOffsetB) + (s32) group);
         listB = groupB;
@@ -69,7 +69,7 @@ s32 popAndUnloadSceneGroup(void) {
             do {
                 idB = *(u16 *)cursorB;
                 cursorB -= 2;
-                func_80097B1C(idB);
+                releaseResourceById(idB);
             } while ((u32) cursorB >= (u32) listB);
         }
         groupC = (void *)(((SceneGroupRecord*)group)->listOffsetC); groupC = (void *)((char *)groupC + (s32)(group));
@@ -95,7 +95,7 @@ s32 popAndUnloadSceneGroup(void) {
         }
         result = 1;
         if (((SceneGroupRecord*)group)->flag == 1) {
-            func_80097E14(((SceneGroupRecord*)group)->argument);
+            removeWorkerEntry(((SceneGroupRecord*)group)->argument);
             return 1;
         }
         /* Duplicate return node #21. Try simplifying control flow for better match */

@@ -21,3 +21,10 @@ typedef int s32_bool;
 #define TRUE 1
 #define FALSE 0
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
+
+typedef struct LinkedObject {
+    /* 0x00 */ s32 unk0;
+    /* 0x04 */ s32 unk4;
+    /* 0x08 */ struct LinkedObject *next;
+    /* 0x0C */ struct LinkedObject *prev;
+} LinkedObject;

@@ -1,1 +1,0 @@
-extern void guPerspectiveF(void *, s32, s32, s32, f32, f32, f32); extern void guMtxF2L(void *, s32); void func_800325E4(s32 a, s32 b, s32 c, s32 d, f32 e, f32 f, f32 g) { char m[64]; guPerspectiveF(m,b,c,d,e,f,g); guMtxF2L(m,a); }

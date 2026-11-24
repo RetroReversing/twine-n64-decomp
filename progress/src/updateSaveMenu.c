@@ -12,26 +12,26 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80023EC0();
-u16 func_800248B4();
+s32 checkSaveSlotMode();
+u16 saveMenuStateCallback();
 u16 saveMenuHandleCommand();
 u16 handleSaveMenuEvent();
 s32 findEntryById();
 s32 findTableIndexById();
-s32 func_80026424();
+s32 setSaveMenuState();
 s32 updateActiveMenuState();
-s32 func_80029C08();
-s32 func_8002CC14();
+s32 updateSaveMenuRowHighlight();
+s32 getSaveSlotHeadersLow16();
 extern u16 sSaveMenuAction;
 extern u8 sSaveMenuSlot;
 extern s8 sSaveMenuRefresh;
 extern s32 sActiveMenu;
-extern char D_80107EA8[];
+extern char gSaveMenuObjectPool[];
 extern u8 D_80107EC0;
 extern void *gSaveMenuState;
 
 typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
-/* Per-frame save menu update: refreshes the slot label and dispatches the pending save action. */ void updateSaveMenu(void) {
+/* Per-frame save menu update: refreshes the slot label and dispatches the pending save action. */ /* Updates the active menu; if a reload is pending, reloads the data entry table, resets default player names and reselects the current item. */ /* Per-frame save menu update: refreshes the slot label and dispatches the pending save action. */ void updateSaveMenu(void) {
     s32 actionFlags;
     s32 actionCmd;
 
@@ -42,18 +42,18 @@ typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
         }
     }
     if ((M2C_FIELD(gSaveMenuState, u8 *, 0x2C) != 0) && (M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0)) {
-        func_80023EC0(sSaveMenuAction);
+        checkSaveSlotMode(sSaveMenuAction);
         actionFlags = sSaveMenuAction & 0xE000;
         if (sSaveMenuAction & 0x1000) {
             updateActiveMenuState(actionFlags);
-            if (func_8002CC14() & 0xFFFF) {
-                func_80026424(sActiveMenu, 0x18);
+            if (getSaveSlotHeadersLow16() & 0xFFFF) {
+                setSaveMenuState(sActiveMenu, 0x18);
             }
         } else {
             actionCmd = sSaveMenuAction & 0xFFF;
             switch (actionCmd) {                      /* irregular */
             case 1:
-                sSaveMenuAction = func_800248B4(actionFlags, D_80107EC0);
+                sSaveMenuAction = saveMenuStateCallback(actionFlags, D_80107EC0);
                 return;
             case 2:
                 sSaveMenuAction = saveMenuHandleCommand(actionFlags, D_80107EC0);
@@ -65,7 +65,7 @@ typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
         }
     } else {
         updateActiveMenuState();
-        func_80029C08(D_80107EA8, 2, 0);
-        func_80023EC0(sSaveMenuAction);
+        updateSaveMenuRowHighlight(gSaveMenuObjectPool, 2, 0);
+        checkSaveSlotMode(sSaveMenuAction);
     }
 }

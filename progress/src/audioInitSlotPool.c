@@ -4,13 +4,13 @@ extern u8 *sSlotBufferBase;
 extern s32 D_800E4248;
 extern s32 sSlotActiveList;
 extern AudioSlot *sSlotFreeList;
-extern void *(*gDataBankAlloc)(s32, s32);
+extern void *(*gDataBankHandler)(s32, s32);
 void flushDCacheRange(void *, s32);
 
 /* Allocates the slot array and a 256-byte buffer per slot, then links the slots into the free list. */
 void audioInitSlotPool(s32 slotCount) {
     s32 i;
-    void *(**alloc)(s32, s32) = &gDataBankAlloc;
+    void *(**alloc)(s32, s32) = &gDataBankHandler;
     s32 bufferBytes;
 
     sSlotPool = (*alloc)(slotCount * sizeof(AudioSlot), 0);

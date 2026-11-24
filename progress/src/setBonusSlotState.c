@@ -2,7 +2,7 @@ s32 func_80082164();
 extern char sBonusSlots[];
 extern char D_80115091[];
 extern char D_80115092[];
-extern char D_80115094[];
+extern char gInputBindingTables[];
 extern char D_80115095[];
 
 /* Stores a new state for bonus slot `slot` (records are 0xA0 bytes). On a change, sets the slot's
@@ -34,7 +34,7 @@ void setBonusSlotState(s32 slot, s32 state, s32 arg2) {
         do {
             counter += 1;
             *(D_80115095 + offset) = 0;
-            *(D_80115094 + offset) = *(D_80115094 + offset) & 0x1D;
+            *(gInputBindingTables + offset) = *(gInputBindingTables + offset) & 0x1D;
             offset += 2;
         } while (0x3A > counter);
     }

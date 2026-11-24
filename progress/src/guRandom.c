@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u32 D_800CFDF0;
+extern u32 gGuRandomState;
 
-u32 guRandom(void) {
-    s32 temp_v1;
+/* Advances the libultra-style pseudo-random generator state and returns the new value. */ u32 guRandom(void) {
+    s32 scaledState;
 
-    temp_v1 = D_800CFDF0 * 4;
-    D_800CFDF0 = (u32) ((temp_v1 + 2) * (temp_v1 + 3)) >> 2;
-    return D_800CFDF0;
+    scaledState = gGuRandomState * 4;
+    gGuRandomState = (u32) ((scaledState + 2) * (scaledState + 3)) >> 2;
+    return gGuRandomState;
 }

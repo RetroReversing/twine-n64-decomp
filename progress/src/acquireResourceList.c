@@ -1,0 +1,2 @@
+s32 resolveResourceKey(); s32 keyTableRegister(); s32 acquireResourceEntry();
+/* Registers a key for owner, then acquires each resource id in the 0xFFFF-terminated list. */ void acquireResourceList(u16 *idList, s32 keySource, s32 owner) { u16 id; if (keyTableRegister(owner, resolveResourceKey(keySource)) & 0xFF) { id = *idList; if ((id & 0xFFFF) != 0xFFFF) { do { idList++; acquireResourceEntry(id, owner); id = *idList; } while (id != 0xFFFF); } } }

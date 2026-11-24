@@ -1,7 +1,7 @@
 typedef struct { u16 key; s16 state; u8 pad[0x18]; } N97814;
 typedef struct { N97814 *list; s32 arg; u16 count; } Slot97814;
-extern s32 sKeyTableCount;
-extern Slot97814 sKeyTableSlots[];
+extern s32 sResourceTableCount;
+extern Slot97814 sResourceTableSlots[];
 void workerLockAcquire(void);
 void workerLockRelease(void);
 extern u8 D_800F38F4[];
@@ -14,12 +14,12 @@ s32 keyTableRegister(N97814 *keyList, s32 value) {
     u16 k;
     N97814 *entry;
 
-    for (slot = 0; slot < sKeyTableCount; slot++) {
-        if (sKeyTableSlots[slot].list == keyList) {
+    for (slot = 0; slot < sResourceTableCount; slot++) {
+        if (sResourceTableSlots[slot].list == keyList) {
             break;
         }
     }
-    if (slot != sKeyTableCount) {
+    if (slot != sResourceTableCount) {
         return 1;
     }
     if (slot < 8) {
@@ -29,15 +29,15 @@ s32 keyTableRegister(N97814 *keyList, s32 value) {
     }
     workerLockAcquire();
     entry = keyList;
-    slot = sKeyTableCount;
-    *(N97814 **)((u8 *)sKeyTableSlots + slot * 12) = entry;
+    slot = sResourceTableCount;
+    *(N97814 **)((u8 *)sResourceTableSlots + slot * 12) = entry;
     *(u16 *)(D_800F38F8 + slot * 12) = count;
     *(s32 *)(D_800F38F4 + slot * 12) = value;
     slot = count;
     for (k = 0; k < (u32)slot; k++, entry++) {
         entry->state = 0;
     }
-    sKeyTableCount++;
+    sResourceTableCount++;
     workerLockRelease();
     return 1;
     }

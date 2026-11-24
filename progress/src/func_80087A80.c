@@ -1,31 +1,31 @@
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((u8 *)(expr) + (offset)))
-extern s16 D_800F38D4;
-extern s32 *D_800F38DC;
+extern s16 sSceneGroupSearchKey;
+extern s32 *sSceneGroupLookupResult;
 extern s32 sLoadedSceneGroupCount;
 extern s32 D_800F815C;
-extern s32 func_800986EC(void *, void *);
+extern s32 compareSceneGroupKey(void *, void *);
 extern s32 *func_800956E0(s16 *, s32 *, s32, s32, s32 (*)(void *, void *));
-s32 func_8009852C(s16 arg0, u16 *arg1) {
+s32 findSceneGroupByKey(s16 arg0, u16 *arg1) {
     s32 ret;
     s16 *base;
     s32 *temp;
     s32 length = sLoadedSceneGroupCount;
-    base = &D_800F38D4;
+    base = &sSceneGroupSearchKey;
     *base = arg0;
-    temp = func_800956E0(base - 2, &D_800F815C, length, 0xC, func_800986EC);
-    D_800F38DC = temp;
+    temp = func_800956E0(base - 2, &D_800F815C, length, 0xC, compareSceneGroupKey);
+    sSceneGroupLookupResult = temp;
     if (temp == NULL) {
         ret = 0;
     } else {
         *arg1 = M2C_FIELD(temp, u16 *, 6);
-        ret = *D_800F38DC;
+        ret = *sSceneGroupLookupResult;
     }
     return ret;
 }
 
-extern s8 D_800CEEB0;
-extern s32 D_80102CC8, D_80102CCC, gDemoFrame;
-extern u16 D_8010D430, D_8010D432, D_8010D434;
+extern s8 gDemoRecordingActive;
+extern s32 gTimeAccumulator, D_80102CCC, gDemoFrame;
+extern u16 gDemoButtons, gDemoStickX, gDemoSticks;
 extern vu16 D_8010D436;
 
 typedef struct {
@@ -37,29 +37,29 @@ extern CaptureRecord *gDemoInputData;
 void func_80087A80(void) {
     s32 index = gDemoFrame;
     CaptureRecord *base = gDemoInputData;
-    u16 field_0 = D_8010D430;
-    s32 field_8 = D_80102CC8;
+    u16 field_0 = gDemoButtons;
+    s32 field_8 = gTimeAccumulator;
     s32 field_C = D_80102CCC;
     u16 field_6;
     CaptureRecord *record = (CaptureRecord *)((index * 16) + (u32)base);
 
     *(volatile u16 *)&record->field_0 = field_0;
-    *(volatile u16 *)&record->field_2 = D_8010D432;
-    *(volatile u16 *)&record->field_4 = D_8010D434;
+    *(volatile u16 *)&record->field_2 = gDemoStickX;
+    *(volatile u16 *)&record->field_4 = gDemoSticks;
     field_6 = D_8010D436;
     gDemoFrame = ++index;
     *(volatile s32 *)&record->field_8 = field_8;
     *(volatile s32 *)&record->field_C = field_C;
     record->field_6 = field_6;
     if (index >= 0x384) {
-        D_800CEEB0 = 0;
+        gDemoRecordingActive = 0;
     }
 }
 
 typedef struct { u8 pad[9]; u8 w; u8 pad2[2]; } E2A;
 typedef struct { E2A *e; u8 pad[0x14]; u8 x18; u8 x19; u8 x1A; u8 x1B; u8 x1C; u8 x1D; u8 x1E; } T2A;
 
-s32 func_8002AB6C(T2A *t) {
+s32 menuRangeFitsLimit(T2A *t) {
     u8 start, end;
     s16 i;
     s16 sum;

@@ -12,35 +12,35 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u16 D_800E09B4;
-extern s32 D_800E09B8;
-extern s32 D_800E09BC;
-extern s32 D_800E09C0;
-extern s32 D_800E09C4;
-extern s32 D_800E09C8;
-extern s32 D_800E09CC;
-extern s32 D_800E09D0;
+extern u16 gSaveCmdCode;
+extern s32 gSaveCmdArg1;
+extern s32 gSaveCmdArg2;
+extern s32 gSaveCmdArg3;
+extern s32 gSaveCmdArg4;
+extern s32 gSaveCmdArg5;
+extern s32 gSaveCmdArg6;
+extern s32 gSaveCmdArg7;
 extern u16 gSaveCmdPending;
 extern s32 gSaveCmdResult;
 
-s32 saveSubmitCommand(u16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
-    s32 var_v0;
+/* Queues a save command if none is pending; returns 1 if accepted, 0 if busy. */ s32 saveSubmitCommand(u16 command, s32 param1, s32 param2, s32 param3, s32 param4, s32 param5, s32 param6, s32 param7) {
+    s32 submitted;
 
-    var_v0 = 0;
+    submitted = 0;
     if (!(gSaveCmdPending)) {
-            var_v0 = 1;
-            D_800E09B8 = arg1;
-            D_800E09BC = arg2;
-            D_800E09C0 = arg3;
-            D_800E09C4 = arg4;
-            D_800E09C8 = arg5;
-            D_800E09CC = arg6;
-            D_800E09D0 = arg7;
+            submitted = 1;
+            gSaveCmdArg1 = param1;
+            gSaveCmdArg2 = param2;
+            gSaveCmdArg3 = param3;
+            gSaveCmdArg4 = param4;
+            gSaveCmdArg5 = param5;
+            gSaveCmdArg6 = param6;
+            gSaveCmdArg7 = param7;
             gSaveCmdResult = 0;
-            gSaveCmdPending = arg0;
-            D_800E09B4 = arg0;
+            gSaveCmdPending = command;
+            gSaveCmdCode = command;
     
-        return var_v0;
+        return submitted;
     }
-    return var_v0;
+    return submitted;
 }

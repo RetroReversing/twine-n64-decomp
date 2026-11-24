@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u32 D_800E1550;
-extern s8 D_800E1554;
-extern s8 D_800E1555;
+extern u32 gBitIoIndex;
+extern s8 gBitIoSrcMask;
+extern s8 gBitWriteSrcMask;
 
-void func_8002E7A0(void *arg0, s32 arg1, s32 arg2, u32 arg3) {
+void writeBitsToStream(void *arg0, s32 arg1, s32 arg2, u32 arg3) {
     s32 temp_v1_2;
     s32 bitIndex;
     u8 temp_v0_2;
@@ -25,13 +25,13 @@ void func_8002E7A0(void *arg0, s32 arg1, s32 arg2, u32 arg3) {
     void *temp_v1;
     void *temp_v1_3;
 
-    D_800E1550 = 0;
+    gBitIoIndex = 0;
     if (arg3 != 0) {
         do {
             temp_v1_2 = 1 << M2C_FIELD(arg0, volatile s32 *, 4);
-            temp_v0_2 = 1 << D_800E1550;
-            D_800E1555 = temp_v0_2;
-            D_800E1554 = temp_v1_2;
+            temp_v0_2 = 1 << gBitIoIndex;
+            gBitWriteSrcMask = temp_v0_2;
+            gBitIoSrcMask = temp_v1_2;
             if (arg1 & temp_v0_2) {
                 temp_v1 = M2C_FIELD(arg0, void **, 0);
                 M2C_FIELD(temp_v1, u8 *, 0) |= temp_v1_2;
@@ -45,8 +45,8 @@ void func_8002E7A0(void *arg0, s32 arg1, s32 arg2, u32 arg3) {
             } else {
                 M2C_FIELD(arg0, s32 *, 4) = (s32) (bitIndex + 1);
             }
-            temp_v0 = D_800E1550 + 1;
-            D_800E1550 = temp_v0;
+            temp_v0 = gBitIoIndex + 1;
+            gBitIoIndex = temp_v0;
         } while (temp_v0 < arg3);
     }
 }

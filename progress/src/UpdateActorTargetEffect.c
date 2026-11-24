@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8004478C();
-f32 Vec3_DistanceSq();
+s32 getActiveAssetSlotEntry();
+f32 vec3DistanceBetween();
 s32 randomIntBelow();
-s32 func_800462C4(void *, f32, f32, f32);
+s32 vec3ToSpherical(void *, f32, f32, f32);
 void *spawnConfiguredEffect(s32, void *, s32, s32, f32, f32, s32, s32, s32, s32, s32);
 f32 sinAngle(f32);
 f32 cosAngle(f32);
@@ -23,7 +23,7 @@ s32 rotateVec3ByMat3();
 extern char sEnemyDefTable[];
 extern u8 gPauseFlag;
 extern s32 gBorderSkipActive;
-extern char sTrackMarkerTable[];
+extern char gTrackMarkerParents[];
 
 typedef struct { f32 x, y, z; } Vec3;
 /* Per-frame update of an actor's aim/target state: computes its aim direction from the axis table, places the aim point, and spawns or updates the aim effect. */ void UpdateActorTargetEffect(void *actor, void *target_pos) {
@@ -56,11 +56,11 @@ s32 __repair_operand;
     actor_def = (M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s8 *, 0xE) * 0xE8) + sEnemyDefTable;
     if ((gBorderSkipActive == 0) || (gPauseFlag != 0)) {
         if (M2C_FIELD(actor_def, u8 *, 0x9E) != 0xFF) {
-            M2C_FIELD(M2C_FIELD(M2C_FIELD(actor_data, void **, 0xA8), void **, 0x68), s32 *, 0x78) = func_8004478C(M2C_FIELD(actor_def, s16 *, 0x48), M2C_FIELD(actor_def, s16 *, 0x40));
+            M2C_FIELD(M2C_FIELD(M2C_FIELD(actor_data, void **, 0xA8), void **, 0x68), s32 *, 0x78) = getActiveAssetSlotEntry(M2C_FIELD(actor_def, s16 *, 0x48), M2C_FIELD(actor_def, s16 *, 0x40));
         }
-        M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s32 *, 0x74) = func_8004478C(M2C_FIELD(actor_def, s16 *, 0x4A), M2C_FIELD(actor_def, s16 *, 0x40));
+        M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s32 *, 0x74) = getActiveAssetSlotEntry(M2C_FIELD(actor_def, s16 *, 0x4A), M2C_FIELD(actor_def, s16 *, 0x40));
         if (((M2C_FIELD(actor_def, s32 *, 0x60) & 0xC00) != 0) & (target_pos != NULL)) {
-            axis_entry = (axis_idx * 4) + sTrackMarkerTable;
+            axis_entry = (axis_idx * 4) + gTrackMarkerParents;
             actor_data_b = M2C_FIELD(actor_data, void **, 0xA8);
             angles[0] = -(M2C_FIELD(*axis_entry, f32 *, 0x34) * 651.8986f);
             angles[1] = M2C_FIELD(*axis_entry, f32 *, 0x38) * 651.8986f;
@@ -88,7 +88,7 @@ s32 __repair_operand;
             aim_pos[1] += M2C_FIELD(*axis_entry, f32 *, 0x14);
             aim_pos[2] += M2C_FIELD(*axis_entry, f32 *, 0x18);
             effect = NULL;
-            dist = Vec3_DistanceSq(aim_pos, target_pos);
+            dist = vec3DistanceBetween(aim_pos, target_pos);
             if (M2C_FIELD(actor_def, s32 *, 0x60) & 0x800) {
                 effect = spawnConfiguredEffect(M2C_FIELD(actor, s32 *, 0x20), aim_pos, 0, 0, 1.0f, 1.0f, 0x16, 0x1B, 0x22, 0x8020, 0x80808021);
                 M2C_FIELD(effect, s32 *, 0x58) |= 0x100000;
@@ -106,7 +106,7 @@ s32 __repair_operand;
                 aim_delta[1] = dy;
                 dz = aim_pos[2] - M2C_FIELD(target_pos, f32 *, 8);
                 aim_delta[2] = dz;
-                func_800462C4(effect + 0x3C, dx, dy, dz);
+                vec3ToSpherical(effect + 0x3C, dx, dy, dz);
                 M2C_FIELD(effect, s32 *, 0x44) = 0;
                 M2C_FIELD(effect, f32 *, 0x3C) = (f32) -M2C_FIELD(effect, f32 *, 0x3C);
             }

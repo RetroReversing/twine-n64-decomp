@@ -12,29 +12,29 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800160FC(s32, s32, M2C_UNK);           /* extern */
-s32 func_80018318(s32);                             /* extern */
-s16 func_8001E760(M2C_UNK, u8);                     /* extern */
-M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
-M2C_UNK func_80022AD8(u8);                          /* extern */
-M2C_UNK func_80022E18(u8);                          /* extern */
-void *func_80026314(s32, M2C_UNK, M2C_UNK);         /* extern */
-M2C_UNK func_8002A644(M2C_UNK *, M2C_UNK *, M2C_UNK, M2C_UNK, s32, s32, s32, s32, s32, M2C_UNK *, M2C_UNK *); /* extern */
-M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, s32);    /* extern */
-M2C_UNK func_8002AC04(M2C_UNK *, M2C_UNK);          /* extern */
-s32 func_80070844(void *, s32);                     /* extern */
+M2C_UNK initTextWidget(s32, s32, M2C_UNK);           /* extern */
+s32 getTextLength(s32);                             /* extern */
+s16 makeMenuEntryId(M2C_UNK, u8);                     /* extern */
+M2C_UNK setCursorMarker(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
+M2C_UNK updateTrackMarker(u8);                          /* extern */
+M2C_UNK showTextPopup(u8);                          /* extern */
+void *findNthRecordById(s32, M2C_UNK, M2C_UNK);         /* extern */
+M2C_UNK initMenuWindow(M2C_UNK *, M2C_UNK *, M2C_UNK, M2C_UNK, s32, s32, s32, s32, s32, M2C_UNK *, M2C_UNK *); /* extern */
+M2C_UNK appendWeightedListEntry(M2C_UNK *, s32, s32, s32);    /* extern */
+M2C_UNK setMenuActiveState(M2C_UNK *, M2C_UNK);          /* extern */
+s32 getSlotByteOrZero(void *, s32);                     /* extern */
 s32 lookupDataEntry(s32);                           /* extern */
 M2C_UNK menuUpdateCursorActor(s16, s16);            /* extern */
 void *selectItemAndUpdateAmount(M2C_UNK *, s16);    /* extern */
 s32 spawnTrackMarker(u8);                           /* extern */
-extern s8 D_800B60EA;
+extern s8 gMenuListActive;
 extern s16 D_800C4478;
 extern s16 D_800C447A;
 extern M2C_UNK D_801003E0;
 extern M2C_UNK D_801093A8;
 extern M2C_UNK D_80109D28;
-extern M2C_UNK func_8001E898;
-extern M2C_UNK func_8001EAF0;
+extern M2C_UNK styleMenuItemText;
+extern M2C_UNK releaseMenuItemRecord;
 extern M2C_UNK sBonusObjectTable;
 extern M2C_UNK *gMenuList;
 extern s16 gMenuMode;
@@ -57,27 +57,27 @@ extern u8 sMenuListKind;
     void *selectedEntry;
 
     gMenuMode = 1;
-    D_800B60EA = 1;
+    gMenuListActive = 1;
     gMenuList = &D_801003E0;
-    func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
+    initMenuWindow(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &styleMenuItemText, &releaseMenuItemRecord);
     ownerObj = *(&sBonusObjectTable + gMenuSlot);
     selectedEntry = NULL;
     if (ownerObj != NULL) {
         ownerEntries = M2C_FIELD(ownerObj, void **, 0x6C);
         if (ownerEntries != NULL) {
-            func_80022A30(sMenuListKind, 0x20, 0x42, 0x72, 0x50);
+            setCursorMarker(sMenuListKind, 0x20, 0x42, 0x72, 0x50);
             entryIndex = 0;
             channelIndex = 0;
             do {
-                entryFlags = func_80070844(ownerEntries, entryIndex & 0xFF) & 0xFF;
+                entryFlags = getSlotByteOrZero(ownerEntries, entryIndex & 0xFF) & 0xFF;
                 if ((entryFlags != 0) || !(entryIndex & 0xFFFF)) {
                     slotIndex = entryIndex & 0xFFFF;
                     markerObj = spawnTrackMarker(sMenuListKind);
                     markerSlot = &D_80109D28 + slotIndex;
                     *markerSlot = markerObj;
                     if (markerObj != 0) {
-                        func_800160FC(*markerSlot, lookupDataEntry(entryFlags | 0x7000), 0x40);
-                        func_8002A7CC(gMenuList, *markerSlot, entryFlags, func_80018318(*markerSlot) & 0xFF);
+                        initTextWidget(*markerSlot, lookupDataEntry(entryFlags | 0x7000), 0x40);
+                        appendWeightedListEntry(gMenuList, *markerSlot, entryFlags, getTextLength(*markerSlot) & 0xFF);
                     }
                     if (M2C_FIELD(ownerEntries, u16 *, 0x174) == slotIndex) {
                         selectedEntry = selectItemAndUpdateAmount(gMenuList, channelIndex);
@@ -87,17 +87,17 @@ extern u8 sMenuListKind;
                 entryIndex += 1;
             } while ((u32) (entryIndex & 0xFFFF) < 0x1EU);
             if (selectedEntry != NULL) {
-                cursorWidget = func_80026314(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0xA6, 2);
+                cursorWidget = findNthRecordById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0xA6, 2);
                 selectedKind = M2C_FIELD(selectedEntry, u8 *, 8);
                 kindOffset = selectedKind * 8;
                 menuUpdateCursorActor(*(&D_800C4478 + kindOffset), *(&D_800C447A + kindOffset));
                 if (cursorWidget != NULL) {
-                    M2C_FIELD(cursorWidget, s16 *, 0x28) = func_8001E760(2, selectedKind);
+                    M2C_FIELD(cursorWidget, s16 *, 0x28) = makeMenuEntryId(2, selectedKind);
                 }
             }
-            func_80022E18(sMenuListKind);
-            func_80022AD8(sMenuListKind);
-            func_8002AC04(gMenuList, 1);
+            showTextPopup(sMenuListKind);
+            updateTrackMarker(sMenuListKind);
+            setMenuActiveState(gMenuList, 1);
         }
     }
 }

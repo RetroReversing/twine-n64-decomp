@@ -9,9 +9,9 @@ typedef struct {
     s16 state, parameter;
     u8 pad84[0x50];
 } StreamRecord;
-extern StreamRecord *gObjectRecords;
+extern StreamRecord *gCutscene;
 #define READ_STREAM_VECTOR(field) do { \
-    StreamRecord *records = gObjectRecords; \
+    StreamRecord *records = gCutscene; \
     v.x = *records->stream++; \
     v.y = *records->stream++; \
     v.z = -*records->stream++; \
@@ -20,7 +20,7 @@ extern StreamRecord *gObjectRecords;
 } while (0)
 /* Resets object record[index], copies its parameter byte, then reads four vectors from the stream. */
 void initObjectFromStream(s32 index, u32 parameter) {
-    StreamRecord *base = gObjectRecords;
+    StreamRecord *base = gCutscene;
     StreamRecord *obj = (StreamRecord *)((s32)base + index * 0xD4);
     void *linked = obj->linked;
     TwineV3 v;

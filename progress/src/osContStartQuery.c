@@ -4,7 +4,7 @@ extern s32 osRecvMesg(s32, s32, s32);
 extern s32 func_800A23E4();
 extern s32 func_800A2450();
 extern s32 __osSiRawStartDma(s32, void *);
-extern u8 D_80100920[];
+extern u8 __osContPifRam[];
 extern u8 D_80109E90;
 
 /* Starts a controller status query on the message queue mq. If D_80109E90 is set, it first
@@ -17,10 +17,10 @@ s32 osContStartQuery(s32 mq)
     func_800A23E4();
     if (D_80109E90 != 0) {
         __osPackRequestData(0);
-        __osSiRawStartDma(1, D_80100920);
+        __osSiRawStartDma(1, __osContPifRam);
         osRecvMesg(mq, 0, 1);
     }
-    result = __osSiRawStartDma(0, D_80100920);
+    result = __osSiRawStartDma(0, __osContPifRam);
     D_80109E90 = 0;
     func_800A2450();
     return result;

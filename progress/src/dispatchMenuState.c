@@ -1,25 +1,25 @@
-extern void func_80027E00(void);
-extern void func_80027E88(void);
-extern void func_80027EB4(void);
-extern void func_80027EF4(void);
-extern void func_80027F44(void);
+extern void resetSaveMenuSlots(void);
+extern void loadTableAndSelectCurrentMenuItem(void);
+extern void callSaveMenuHandler(void);
+extern void updateSaveStatusMenuState(void);
+extern void updateMenuTimedTransition(void);
 extern void updateMenuState(void);
-extern void func_80028158(void);
+extern void updateSaveMenuInput(void);
 extern void runSaveMenuCallbacks(void);
-extern void func_800282D0(void);
-extern void func_800283B0(void);
-extern void func_80028458(void);
-extern void func_80028530(void);
+extern void runSaveMenuIdleState(void);
+extern void closeSaveMenu(void);
+extern void enterMenuState(void);
+extern void enterSaveMenu(void);
 extern void menuStateTimedUpdate(void);
-extern void func_80028770(void);
-extern void func_800287DC(void);
-extern void func_80028A7C(void);
-extern void func_80028E6C(void);
-extern void func_80028EC8(void);
-extern void func_80028F90(void);
+extern void updateSaveMenuPage(void);
+extern void updateSaveMenuFadeIn(void);
+extern void updateSaveMenuFade(void);
+extern void handleMenuInputResult(void);
+extern void updateSaveMenuState(void);
+extern void updateSaveRecoveryMenu(void);
 extern u8 sMenuListKind;
 extern u8 gMenuSlot;
-extern u8 gMenuParamB;
+extern u8 gMenuActiveController;
 extern void *sActiveMenu;
 extern void *gSaveMenuState;
 
@@ -31,22 +31,22 @@ extern void *gSaveMenuState;
         stateData = *(void **)((u8 *)menu + 0x6C);
         stateId = *(s16 *)((u8 *)menu + 0x7A);
         gMenuSlot = *(u8 *)((u8 *)stateData + 4);
-        gMenuParamB = *(u8 *)((u8 *)stateData + 5);
+        gMenuActiveController = *(u8 *)((u8 *)stateData + 5);
         sMenuListKind = *(u8 *)((u8 *)stateData + 6);
         sActiveMenu = menu;
         gSaveMenuState = stateData;
         switch (stateId) {
         case 0:
-            func_80027E00();
+            resetSaveMenuSlots();
             break;
         case 17:
-            func_80027E88();
+            loadTableAndSelectCurrentMenuItem();
             break;
         case 12:
-            func_80028530();
+            enterSaveMenu();
             break;
         case 16:
-            func_80027EB4();
+            callSaveMenuHandler();
             break;
         case 2:
         case 3:
@@ -55,25 +55,25 @@ extern void *gSaveMenuState;
         case 6:
         case 7:
         case 8:
-            func_80027F44();
+            updateMenuTimedTransition();
             break;
         case 1:
-            func_80027EF4();
+            updateSaveStatusMenuState();
             break;
         case 9:
             updateMenuState();
             break;
         case 11:
-            func_80028458();
+            enterMenuState();
             break;
         case 13:
-            func_80028158();
+            updateSaveMenuInput();
             break;
         case 14:
-            func_800282D0();
+            runSaveMenuIdleState();
             break;
         case 15:
-            func_800283B0();
+            closeSaveMenu();
             break;
         case 10:
             runSaveMenuCallbacks();
@@ -82,22 +82,22 @@ extern void *gSaveMenuState;
             menuStateTimedUpdate();
             break;
         case 21:
-            func_80028770();
+            updateSaveMenuPage();
             break;
         case 22:
-            func_800287DC();
+            updateSaveMenuFadeIn();
             break;
         case 23:
-            func_80028A7C();
+            updateSaveMenuFade();
             break;
         case 24:
-            func_80028E6C();
+            handleMenuInputResult();
             break;
         case 19:
-            func_80028EC8();
+            updateSaveMenuState();
             break;
         case 18:
-            func_80028F90();
+            updateSaveRecoveryMenu();
             break;
         }
     }

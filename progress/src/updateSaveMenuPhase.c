@@ -14,7 +14,7 @@ extern s32 sActiveMenu;
 extern void *gSaveMenuState;
 s32 func_80026424();
 s32 updateActiveMenuState();
-s32 func_800294E4();
+s32 updateSaveMenuSelection();
 s32 func_8002CBF4();
 
 /* Steps the save menu phase machine each frame: phase 3 waits for input, phase 4 finishes closing. */
@@ -42,7 +42,7 @@ void updateSaveMenuPhase(void) {
     case 4:
         ((SaveMenuState *)gSaveMenuState)->pendingClose = 1;
         sSaveMenuPhase = 3U;
-        func_800294E4();
+        updateSaveMenuSelection();
         ((SaveMenuState *)gSaveMenuState)->isOpen = 1U;
         return;
     }

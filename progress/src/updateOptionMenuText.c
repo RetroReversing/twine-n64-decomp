@@ -6,7 +6,7 @@ extern u8 sOptionScaleY;
 extern u8 gOptionChoice;
 extern u8 gOptionFlag;
 extern void *gSaveMenuState;
-extern s8 gMenuNeedsRedraw;
+extern s8 gMenuAnyController;
 extern void *gMenuEntryTable;
 extern char sFmtEntryName[];
 
@@ -19,7 +19,7 @@ void updateOptionMenuText(void) {
     void *scaleYEntry;
     void *flagEntry;
 
-    gMenuNeedsRedraw = 1;
+    gMenuAnyController = 1;
     optionLabel = findEntryPayload(&gMenuEntryTable, 0x24);
     scaleXEntry = findEntryPayload(&gMenuEntryTable, 0x22);
     scaleYEntry = findEntryPayload(&gMenuEntryTable, 0x23);

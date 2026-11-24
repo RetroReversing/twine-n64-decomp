@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 Probe_BoundsContainPoint(void *, void *);                  /* extern */
+s32 boundsContainPoint(void *, void *);                  /* extern */
 void *probeFindNearestObject(void *);                        /* extern */
-void *func_80047B44(void *, void *, void *, M2C_UNK); /* extern */
+void *raycastObjectMesh(void *, void *, void *, M2C_UNK); /* extern */
 
 extern void cameraUpdateProjection(void *, f32);
 typedef struct { s32 x,y,z; } Pos483;
@@ -29,13 +29,13 @@ typedef struct { s32 x,y,z; } Pos483;
     if (prevTarget == NULL) {
         M2C_FIELD(camera, void **, 0xF4) = probeFindNearestObject(camera + 0x10);
     } else {
-        foundTarget = func_80047B44(prevTarget, camera + 0x28, camera + 0x10, 0);
+        foundTarget = raycastObjectMesh(prevTarget, camera + 0x28, camera + 0x10, 0);
         if (foundTarget != NULL) {
             M2C_FIELD(camera, void **, 0xF4) = (void *) M2C_FIELD(foundTarget, void **, 8);
         }
     }
     target = M2C_FIELD(camera, void **, 0xF4);
-    if ((target != NULL) && ((Probe_BoundsContainPoint(camera + 0x10, target) << 0x18) == 0)) {
+    if ((target != NULL) && ((boundsContainPoint(camera + 0x10, target) << 0x18) == 0)) {
         M2C_FIELD(camera, Pos483 *, 0x10) = M2C_FIELD(camera, Pos483 *, 0x28);
     } else {
         M2C_FIELD(camera, Pos483 *, 0x28) = M2C_FIELD(camera, Pos483 *, 0x10);

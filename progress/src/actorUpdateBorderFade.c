@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80002BD0(void *, M2C_UNK);             /* extern */
+M2C_UNK setActorCommandState(void *, M2C_UNK);             /* extern */
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
-M2C_UNK func_800635BC(void *, M2C_UNK);             /* extern */
-M2C_UNK func_80065684(void *);                      /* extern */
+M2C_UNK setActorStateAndReset(void *, M2C_UNK);             /* extern */
+M2C_UNK clearActorSubstateFields(void *);                      /* extern */
 extern s32 gBorderSkipActive;
 
 s32 actorUpdateBorderFade(void *arg0) {
@@ -32,16 +32,16 @@ s32 actorUpdateBorderFade(void *arg0) {
         var_fs0 = 0.5f;
         if ((gBorderSkipActive == 0) && (M2C_FIELD(arg0, s16 *, 0x7A) != 2)) {
             requestSound(0x1A8);
-            func_800635BC(arg0, 4);
+            setActorStateAndReset(arg0, 4);
             M2C_FIELD(temp_s1, s8 *, 0x186) = 0xA;
             M2C_FIELD(temp_s1, s8 *, 0x180) = 0;
             M2C_FIELD(temp_s1, s8 *, 0x17E) = 2;
             M2C_FIELD(temp_s1, s32 *, 0xCC) = 0;
             M2C_FIELD(arg0, s32 *, 0x3C) = 0;
             M2C_FIELD(arg0, s32 *, 0x44) = 0;
-            func_80065684(arg0);
+            clearActorSubstateFields(arg0);
             M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x30) = 0;
-            func_80002BD0(arg0, 0x159);
+            setActorCommandState(arg0, 0x159);
         }
     } else {
         temp_v1 = M2C_FIELD(arg0, void **, 0x68);

@@ -3,21 +3,21 @@
 void *spawnEffectObject(s32, s32, s32);         /* extern */
 s32 actorUnlinkFromSurface(void *);                      /* extern */
 s32 objectListInsert(void *, s32);                 /* extern */
-s32 func_80017E14(void *, s32, s32, s32); /* extern */
-void *func_80031EF4(void *, s32, s32);      /* extern */
-s32 func_80045290(s32, void *);             /* extern */
-s32 func_80045764(void *, void *);              /* extern */
+s32 addObjectColorClamped(void *, s32, s32, s32); /* extern */
+void *spawnWobbleEffect(void *, s32, s32);      /* extern */
+s32 copyVec3f(s32, void *);             /* extern */
+s32 vec3NormalizeLength(void *, void *);              /* extern */
 u32 randomIntBelow(s32);                         /* extern */
 f32 randomFloatMinusOffset(f32, f32);                        /* extern */
-void *func_80047B44(s32, void *, void *, s32);  /* extern */
-s32 func_80047F50(void *, void *);              /* extern */
+void *raycastObjectMesh(s32, void *, void *, s32);  /* extern */
+s32 copyActorTransformToEffect(void *, void *);              /* extern */
 s32 prepareLinkedObjectPair(void *, void *, s32);         /* extern */
 f32 sinAngle(f32);                             /* extern */
 f32 cosAngle(f32);                             /* extern */
 extern u8 sDistanceNearRange[];
 extern s32 sDistanceFarRange;
 extern s32 gBorderSkipActive;
-extern void *volatile gWobbleParams;
+extern void *volatile gWobbleParamsBlock;
 
 typedef struct { f32 w[3]; } __repair_words3;
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
@@ -81,7 +81,7 @@ typedef struct { f32 __repair_v[3]; } __repair_vec3;
         case 27:
         case 28:
         case 29:
-            func_80017E14(srcObj, 0xC0, 0xA0, 0x40);
+            addObjectColorClamped(srcObj, 0xC0, 0xA0, 0x40);
             break;
         }
         {
@@ -96,7 +96,7 @@ typedef struct { f32 __repair_v[3]; } __repair_vec3;
         if (randomIntBelow(0x32) >= 0x1AU) {
             (*(s32 *)((char *)(effectData) + 0x24)) = (s32) ((*(s32 *)((char *)(effectData) + 0x24)) & 0xFFF7FFFF);
         }
-        do { func_80045290(sceneArg3, effectData + 0xC); } while (0);
+        do { copyVec3f(sceneArg3, effectData + 0xC); } while (0);
         { register f32 zero = 0.0f;
         (*(f32 *)((char *)(effect) + 0x44)) = zero;
         (*(f32 *)((char *)(effect) + 0x50)) = zero; }
@@ -124,7 +124,7 @@ typedef struct { f32 __repair_v[3]; } __repair_vec3;
             (*(f32 *)((char *)(effectData) + 0)) = (f32) ((*(f32 *)((char *)(effectData) + 0)) + sp10[0]);
             (*(f32 *)((char *)(effectData) + 8)) = (f32) ((*(f32 *)((char *)(effectData) + 8)) + sp10[1]);
             (*(f32 *)((char *)(effectData) + 4)) = (f32) ((*(f32 *)((char *)(effectData) + 4)) + sp10[2]);
-            func_80045764(effectData, effectData);
+            vec3NormalizeLength(effectData, effectData);
         }
         (*(s32 *)((char *)(effectData) + 0x18)) = 0;
         (*(s32 *)((char *)(effectData) + 0x1C)) = 0;
@@ -136,7 +136,7 @@ typedef struct { f32 __repair_v[3]; } __repair_vec3;
         objectListInsert(effect, (*(s32 *)((char *)(srcObj) + 0x20)));
         (*(__repair_words3 *)((char *)(effect) + 0x30)) = *(__repair_words3 *) ((s8 *) srcObj + 0x24);
         effectPos = effect + 0x24;
-        linkedObj = func_80047B44((*(s32 *)((char *)(effect) + 0x20)), effect + 0x30, effectPos, 0);
+        linkedObj = raycastObjectMesh((*(s32 *)((char *)(effect) + 0x20)), effect + 0x30, effectPos, 0);
         if (linkedObj != NULL) {
             linkedList = (*(s32 *)((char *)(linkedObj) + 8));
             actorUnlinkFromSurface(effect);
@@ -155,17 +155,17 @@ typedef struct { f32 __repair_v[3]; } __repair_vec3;
         (*(void **)((char *)(effectData) + 0x30)) = NULL;
         if ((*(s32 *)((char *)(srcTemplate) + 0x60)) & 8) {
             if (!(spawnFlags & 0x80000) && (gBorderSkipActive == 0)) {
-                borderObj = func_80031EF4(effect + 0x24, 0, 0x1E);
+                borderObj = spawnWobbleEffect(effect + 0x24, 0, 0x1E);
                 (*(void **)((char *)(effectData) + 0x30)) = borderObj;
                 (*(void **)((char *)(borderObj) + 0x18)) = effect;
                 if ((*(void **)((char *)(effectData) + 0x30)) != NULL) {
                     void *link;
-                    func_80047F50(effect, gWobbleParams);
-                    link = gWobbleParams;
+                    copyActorTransformToEffect(effect, gWobbleParamsBlock);
+                    link = gWobbleParamsBlock;
                     (*(s32 *)((char *)(link) + 0x28)) = (s32) (*(s32 *)((char *)(link) + 0x10));
                     (*(s32 *)((char *)(link) + 0x2C)) = (s32) (*(s32 *)((char *)(link) + 0x14));
                     (*(s32 *)((char *)(link) + 0x30)) = (s32) (*(s32 *)((char *)(link) + 0x18));
-                    (*(s32 *)((char *)(gWobbleParams) + 0xF4)) = (s32) (*(s32 *)((char *)(srcObj) + 0x20));
+                    (*(s32 *)((char *)(gWobbleParamsBlock) + 0xF4)) = (s32) (*(s32 *)((char *)(srcObj) + 0x20));
                 }
             }
             (*(s16 *)((char *)(effect) + 0x78)) = 7;

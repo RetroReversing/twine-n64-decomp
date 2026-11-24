@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80089850();                            /* extern */
+M2C_UNK flushWorkerCallback();                            /* extern */
 M2C_UNK osYieldThread();                            /* extern */
 extern u8 gWorkerThreadActive;
 extern u16 gAudioBufferCount;
@@ -22,18 +22,18 @@ extern u8 D_800E4215;
 extern s32 sMixBufferA;
 extern s32 sMixBufferB;
 extern s32 D_800E422C;
-extern s32 D_800E4230;
-extern s32 D_800E4238;
+extern s32 gAudioStreamInfo;
+extern s32 gAudioStreamBuffer;
 extern s32 sSlotPool;
 extern s32 D_800E4244;
 extern s32 sPoolBufferBase;
 extern s32 sPoolNodes;
 extern volatile u16 sWorkerAckCounter;
-extern M2C_UNK (*D_80100168)();
+extern M2C_UNK (*gWorkerFlushCallback)();
 extern M2C_UNK (*D_80100170)(M2C_UNK *);
 extern M2C_UNK (*gDataBankFree)(s32);
 extern s32 sSlotLog;
-extern M2C_UNK func_8008B25C;
+extern M2C_UNK updateAudioFrame;
 
 void workerShutdownDrain(void) {
     if (gWorkerThreadActive != 0) {
@@ -41,19 +41,19 @@ void workerShutdownDrain(void) {
         do {
 
         } while ((sWorkerAckCounter << 0x10) > 0);
-        D_80100170(&func_8008B25C);
+        D_80100170(&updateAudioFrame);
         if (D_800E4215 != 0) {
-            D_80100168();
+            gWorkerFlushCallback();
             osYieldThread();
             D_800E4215 = 0;
         }
-        if (D_800E4230 != 0) {
-            func_80089850();
-            gDataBankFree(D_800E4230);
-            D_800E4230 = 0;
+        if (gAudioStreamInfo != 0) {
+            flushWorkerCallback();
+            gDataBankFree(gAudioStreamInfo);
+            gAudioStreamInfo = 0;
         }
-        if (D_800E4238 != 0) {
-            gDataBankFree(D_800E4238);
+        if (gAudioStreamBuffer != 0) {
+            gDataBankFree(gAudioStreamBuffer);
         }
         do {
 

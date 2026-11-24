@@ -14,7 +14,7 @@ typedef struct MarkerEventActor {
 } MarkerEventActor;
 void requestSound(s32);
 void unlinkNode(MarkerNode *, MarkerNode *, void *);
-extern MarkerNode *sTrackMarkerTable[];
+extern MarkerNode *gTrackMarkerParents[];
 extern s16 gMarkerLastIndex1, gMarkerLastIndex2, gMarkerLastIndex3;
 extern MarkerNode *sBonusMarkerNodes, *sMarkerTextNode2, *sMarkerTextNode3;
 
@@ -31,7 +31,7 @@ void relinkTrackMarkerSlot(MarkerEventActor *actor, s32 slot) {
         MarkerEventState *eventState = actor->state;
         lastIndex = &gMarkerLastIndex1;
         eventState->flags |= 1;
-        unlinkNode(sBonusMarkerNodes, sTrackMarkerTable[*lastIndex], sTrackMarkerTable[actor->marker]);
+        unlinkNode(sBonusMarkerNodes, gTrackMarkerParents[*lastIndex], gTrackMarkerParents[actor->marker]);
         listHead = sBonusMarkerNodes;
         markerIndex = (u32)(u8)actor->marker << 24;
         break;
@@ -40,7 +40,7 @@ void relinkTrackMarkerSlot(MarkerEventActor *actor, s32 slot) {
         MarkerEventState *eventState = actor->state;
         lastIndex = &gMarkerLastIndex2;
         eventState->flags |= 2;
-        unlinkNode(sMarkerTextNode2, sTrackMarkerTable[*lastIndex], sTrackMarkerTable[actor->marker]);
+        unlinkNode(sMarkerTextNode2, gTrackMarkerParents[*lastIndex], gTrackMarkerParents[actor->marker]);
         listHead = sMarkerTextNode2;
         markerIndex = (u32)(u8)actor->marker << 24;
         break;
@@ -49,7 +49,7 @@ void relinkTrackMarkerSlot(MarkerEventActor *actor, s32 slot) {
         MarkerEventState *eventState = actor->state;
         lastIndex = &gMarkerLastIndex3;
         eventState->flags |= 4;
-        unlinkNode(sMarkerTextNode3, sTrackMarkerTable[*lastIndex], sTrackMarkerTable[actor->marker]);
+        unlinkNode(sMarkerTextNode3, gTrackMarkerParents[*lastIndex], gTrackMarkerParents[actor->marker]);
         listHead = sMarkerTextNode3;
         markerIndex = (u32)(u8)actor->marker << 24;
         break;

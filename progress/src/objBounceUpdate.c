@@ -35,12 +35,12 @@ typedef struct {
 } ObjEBF4;
 
 s32 angleDelta12(s32, s32);
-s32 func_80045DB4(void *, f32, f32);
+s32 addRandomJitterVec3(void *, f32, f32);
 s8 checkBonusObjectPickup(void *);
 s32 objUpdateGroundContact(void *);
-s32 func_800850E0(void *);
+s32 playRandomBounceSoundAtNearestMarker(void *);
 extern u8 gSceneType;
-extern u8 D_801002A3;
+extern u8 gBonusMarkerActive;
 extern s32 gBorderSkipActive;
 
 /* Per-frame update for a bouncing object: decays squash and recoil, runs the bounce/fall state logic, and counts down the timers that flag the object for removal. */
@@ -52,10 +52,10 @@ void objBounceUpdate(ObjEBF4 *obj) {
         obj->squashZ -= angleDelta12(0, (s32)obj->squashZ) * 0.1f;
         if (obj->flags & 2) {
             obj->flags &= ~2;
-            func_80045DB4(&obj->squashX, 512.0f, 256.0f);
-            func_80045DB4(&sub->velX, 0.4f, 0.2f);
+            addRandomJitterVec3(&obj->squashX, 512.0f, 256.0f);
+            addRandomJitterVec3(&sub->velX, 0.4f, 0.2f);
             sub->velY = 2.0f;
-            func_800850E0(&obj->posX);
+            playRandomBounceSoundAtNearestMarker(&obj->posX);
             obj->state = 0;
         }
     }
@@ -98,13 +98,13 @@ void objBounceUpdate(ObjEBF4 *obj) {
             if (gSceneType == 8) {
                 switch (sub->soundId) {
                 case 25:
-                    D_801002A3 &= 0xFB;
+                    gBonusMarkerActive &= 0xFB;
                     break;
                 case 24:
-                    D_801002A3 &= 0xFD;
+                    gBonusMarkerActive &= 0xFD;
                     break;
                 case 23:
-                    D_801002A3 &= 0xFE;
+                    gBonusMarkerActive &= 0xFE;
                     break;
                 }
             }

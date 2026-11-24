@@ -7,7 +7,7 @@ extern s32 sDataBankAux;
 extern s32 *sDataBankTable;
 extern s32 sDataBankCount;
 extern s32 (*gDataBankTranslate)(s32);
-extern s32 *(*gDataBankAlloc)(s32, s32);
+extern s32 *(*gDataBankHandler)(s32, s32);
 extern s32 (*gDataBankFree)(s32 *);
 
 /* Loads the data bank table from arg0 (ROM or RAM address) and copies its data into a new buffer; returns 1 on success. */
@@ -24,12 +24,12 @@ s32 loadDataBank(s32 romAddr, s32 auxAddr) {
             base = gDataBankTranslate(romAddr);
             sDataBankBase = base;
             sDataBankAux = base;
-            countBuf = gDataBankAlloc(4, 0);
+            countBuf = gDataBankHandler(4, 0);
             if (countBuf != NULL) {
                 dmaRomToRam(countBuf, sDataBankBase, 4);
                 sDataBankCount = *countBuf;
                 gDataBankFree(countBuf);
-                tableBuf = gDataBankAlloc(sDataBankCount * 4, 0);
+                tableBuf = gDataBankHandler(sDataBankCount * 4, 0);
                 sDataBankTable = tableBuf;
                 if (tableBuf != NULL) {
                     dmaRomToRam(tableBuf, sDataBankBase + 4, sDataBankCount * 4);

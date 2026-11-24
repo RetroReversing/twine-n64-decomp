@@ -1,12 +1,12 @@
-s32 func_80000A40();
-s32 func_80008434(void *, f32);
+s32 buildActorSkeletonMatrices();
+s32 buildObjectMatrix(void *, f32);
 s32 func_800084C0();
 s32 func_80008598();
 s32 cacheObjectTransform();
-s32 func_80008750();
+s32 setupRenderModeCombiner();
 s32 trackFindNearestLight();
-s32 func_8000C34C();
-s32 emit_projection_viewport_commands();
+s32 drawActorBeamChain();
+s32 appendProjectionViewportCommands();
 s32 func_80038FA4();
 s32 func_80039068();
 s32 resolveBorderCollision();
@@ -27,8 +27,8 @@ extern u8 D_80108F94;
 extern u8 D_8010957C;
 extern u8 sPrimTintB;
 extern u8 sPrimTintG;
-extern s32 D_8010A924;
-extern s32 D_8010A92C;
+extern s32 gCurGeometryModeSetup;
+extern s32 gCurFogModeSetup;
 extern u8 D_8010D36C;
 extern u8 D_8010D374;
 extern s32 D_8010D538;
@@ -68,7 +68,7 @@ inline static s32 inline_fn23(s32 arg0)
 }
 
 typedef struct { u32 w0; u32 w1; } Gfx;
-void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
+/* Draws an actor with lighting: picks colour from the nearest light, sets up render mode and matrices, and emits its display list. */ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
 {
   u8 sp2A;
   u8 sp27;
@@ -166,7 +166,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
   {
     resolveBorderCollision(arg1, arg0);
     temp_s1 = *((s32 *) (((char *) arg0) + 0x70));
-    func_80008750(arg1, *((u8 *) (((char *) arg0) + 0x7E)), arg3);
+    setupRenderModeCombiner(arg1, *((u8 *) (((char *) arg0) + 0x7E)), arg3);
     temp_v1_3 = ((__repair_field_58 *) arg0)->value;
     if (temp_v1_3 & 0x400)
     {
@@ -182,7 +182,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
         if (gRenderMode)
       {
         gRenderMode = 0;
-        emit_projection_viewport_commands();
+        appendProjectionViewportCommands();
       }
       temp_v1_4 = *((s32 *) (((char *) arg1) + 0x100));
       if (temp_v1_4 & 2)
@@ -199,14 +199,14 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
             *((u8 *) (((char *) arg0) + 0x81)) = (u8) (temp_a2_2 + ((sp25 >> 1) - (temp_a2_2 >> 1)));
             { Gfx *g1 = (Gfx *) D_80115328; D_80115328 = (s32 *) (g1 + 1); g1->w0 = 0xFA000000; g1->w1 = (s32) ((((D_80103041 << 0x18) | (D_801032AC << 0x10)) | (D_8010302A << 8)) | (*((u8 *) (((char *) arg0) + 0x82)))); }
             { Gfx *g2 = (Gfx *) D_80115328; D_80115328 = (s32 *) (g2 + 1); g2->w0 = 0xFB000000; g2->w1 = (s32) ((((D_8010957C << 0x18) | (D_8010D374 << 0x10)) | (D_80103EB1 << 8)) | 0xFF); }
-            func_80000A40(arg0, arg1, 0, 0, 0, arg3);
+            buildActorSkeletonMatrices(arg0, arg1, 0, 0, 0, arg3);
             temp_a1_2 = D_80115328;
             D_80115328 = temp_a1_2 + 2;
             ((__repair_field_0 *) temp_a1_2)->value = 0xFB000000;
             *((s32 *) (((char *) temp_a1_2) + 4)) = (s32) (((((*((u8 *) (((char *) arg1) + 0x143))) << 0x18) | ((*((u8 *) (((char *) arg1) + 0x144))) << 0x10)) | ((*((u8 *) (((char *) arg1) + 0x145))) << 8)) | 0xFF);
             if ((arg3 == 0) && ((*((u8 *) (((char *) arg0) + 0x82))) == 0xFF))
             {
-              if (D_80113022 < 0xAU) { D_80113022++; func_8000C34C(arg0, temp_v0_2, arg1, sp23, sp24, sp25); }
+              if (D_80113022 < 0xAU) { D_80113022++; drawActorBeamChain(arg0, temp_v0_2, arg1, sp23, sp24, sp25); }
             }
           }
         }
@@ -228,14 +228,14 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               *((u8 *) (((char *) arg0) + 0x81)) = (u8) (temp_a2_3 + ((sp28 >> 1) - (temp_a2_3 >> 1)));
               { Gfx *g1 = (Gfx *) D_80115328; D_80115328 = (s32 *) (g1 + 1); g1->w0 = 0xFA000000; g1->w1 = (s32) ((((D_80107ECE << 0x18) | (D_80108F94 << 0x10)) | (D_80103020 << 8)) | (*((u8 *) (((char *) arg0) + 0x82)))); }
               { Gfx *g2 = (Gfx *) D_80115328; D_80115328 = (s32 *) (g2 + 1); g2->w0 = 0xFB000000; g2->w1 = (s32) ((((D_8010D36C << 0x18) | (D_801002E4 << 0x10)) | (D_80107ECD << 8)) | 0xFF); }
-              func_80000A40(arg0, arg1, 0, 0, 0, (s32) arg3);
+              buildActorSkeletonMatrices(arg0, arg1, 0, 0, 0, (s32) arg3);
               temp_a1_3 = D_80115328;
               D_80115328 = temp_a1_3 + 2;
               ((__repair_field_0 *) temp_a1_3)->value = 0xFB000000;
               *((s32 *) (((char *) temp_a1_3) + 4)) = (s32) (((((*((u8 *) inline_fn(arg1))) << 0x18) | ((*((u8 *) (((char *) arg1) + 0x144))) << 0x10)) | ((*((u8 *) (((char *) arg1) + 0x145))) << 8)) | 0xFF);
               if ((arg3 == 0) && ((*((u8 *) (((char *) arg0) + 0x82))) == 0xFF))
               {
-                if (D_80113022 < 0xAU) { D_80113022++; func_8000C34C(arg0, temp_v0_3, arg1, sp26, sp27, sp28); }
+                if (D_80113022 < 0xAU) { D_80113022++; drawActorBeamChain(arg0, temp_v0_3, arg1, sp26, sp27, sp28); }
               }
             }
           }
@@ -262,12 +262,12 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               temp_t2 = *((void **) (((char *) temp_s4) + 0x20));
               { u32 col = (s32) (((((inline_fn2((*((u8 *) (((char *) arg0) + 0x7F))) * (*((u8 *) (((char *) temp_t2) + 0x64)))) >> 8) << 0x18) | ((inline_fn2((*((u8 *) (((char *) arg0) + 0x80))) * (*((u8 *) (((char *) temp_t2) + 0x65)))) >> 8) << 0x10)) | (((temp_t1_2 & 0xFF) * (*((u8 *) (((char *) temp_t2) + 0x66)))) & 0xFF00)));
                 Gfx *gg = (Gfx *) D_80115328; D_80115328 = (s32 *) (gg + 1); gg->w0 = 0xFA000000; gg->w1 = col | (*((u8 *) (((char *) arg0) + 0x82))); }
-              func_80000A40(arg0, arg1, 0, 0, 0, (s32) arg3);
+              buildActorSkeletonMatrices(arg0, arg1, 0, 0, 0, (s32) arg3);
               if ((arg3 == 0) && (((u8) D_80113022) < 0xAU))
               {
                 D_80113022 += 1;
                 temp_v0_4 = *((u8 *) (((char *) arg0) + 0x82));
-                func_8000C34C(arg0, temp_s1_2, arg1, inline_fn2(sp29 * temp_v0_4) >> 8, inline_fn2(sp2A * temp_v0_4) >> 8, inline_fn2(sp2B * temp_v0_4) >> 8);
+                drawActorBeamChain(arg0, temp_s1_2, arg1, inline_fn2(sp29 * temp_v0_4) >> 8, inline_fn2(sp2A * temp_v0_4) >> 8, inline_fn2(sp2B * temp_v0_4) >> 8);
               }
             }
             else
@@ -275,7 +275,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               temp_t2_2 = *((void **) (((char *) temp_s4) + 0x20));
               { u32 col = (s32) (((((((u32) ((*((u8 *) (((char *) arg0) + 0x7F))) * (*((u8 *) (((char *) temp_t2_2) + 0x64))))) >> 8) << 0x18) | ((((u32) ((*((u8 *) (((char *) arg0) + 0x80))) * (*((u8 *) (((char *) temp_t2_2) + 0x65))))) >> 8) << 0x10)) | (((*((u8 *) (((char *) arg0) + 0x81))) * (*((u8 *) (((char *) temp_t2_2) + 0x66)))) & 0xFF00)) | (((u8) (*((u8 *) (((char *) arg0) + 0x82)))) >> 1));
                 Gfx *gg = (Gfx *) D_80115328; D_80115328 = (s32 *) (gg + 1); gg->w0 = 0xFA000000; gg->w1 = col; }
-              func_80000A40(arg0, arg1, 0, 0, 0, arg3);
+              buildActorSkeletonMatrices(arg0, arg1, 0, 0, 0, arg3);
             }
           }
         }
@@ -350,7 +350,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
             D_8010D538 = (*((s32 *) (((char *) sRenderState) + 0x74C))) + (temp_v0_7 << 6);
             if (((__repair_field_58 *) arg0)->value & 0x8000)
             {
-              func_80008434(arg0, 0.015625f);
+              buildObjectMatrix(arg0, 0.015625f);
               {
                 f32 *scaleX = &D_80112FB0;
                 *scaleX *= *((f32 *) (((char *) arg0) + 0x54));
@@ -360,7 +360,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
             }
             else
             {
-              func_80008434(arg0, *((f32 *) (((char *) arg0) + 0x54)));
+              buildObjectMatrix(arg0, *((f32 *) (((char *) arg0) + 0x54)));
             }
             if (((__repair_field_58 *) arg0)->value & 0x4000)
             {
@@ -370,10 +370,10 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               }
               D_80112F94 = -D_80112F94;
               D_80112F98 = -D_80112F98;
-              if (D_8010A924 != 0xB)
+              if (gCurGeometryModeSetup != 0xB)
               {
                 temp_v1_9 = D_80115328;
-                D_8010A924 = 0xB;
+                gCurGeometryModeSetup = 0xB;
                 D_80115328 = temp_v1_9 + 2;
                 ((__repair_field_0 *) temp_v1_9)->value = 0xDE000000;
                 *((s32 **) (((char *) temp_v1_9) + 4)) = D_800B1A50;
@@ -427,7 +427,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
                 if (gRenderMode)
               {
                 gRenderMode = 0;
-                emit_projection_viewport_commands();
+                appendProjectionViewportCommands();
               }
                 temp_v1_11 = ((__repair_field_58 *) arg0)->value;
                 if (temp_v1_11 & 0x40000)
@@ -442,7 +442,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               else
                 if (temp_v1_11 & 0x8000)
               {
-                func_80008434(arg0, 0.015625f);
+                buildObjectMatrix(arg0, 0.015625f);
                 {
                   f32 *scaleX = &D_80112FB0;
                   *scaleX *= *((f32 *) (((char *) arg0) + 0x54));
@@ -452,7 +452,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               }
               else
               {
-                func_80008434(arg0, *((f32 *) (((char *) arg0) + 0x54)));
+                buildObjectMatrix(arg0, *((f32 *) (((char *) arg0) + 0x54)));
               }
                 break;
 
@@ -488,10 +488,10 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
     else
     {
       block_72:
-      if (((*((u8 *) (((char *) arg0) + 0x7E))) == 8) && (((int) D_8010A92C) != 1))
+      if (((*((u8 *) (((char *) arg0) + 0x7E))) == 8) && (((int) gCurFogModeSetup) != 1))
       {
         temp_v0_10 = D_80115328;
-        D_8010A92C = 1;
+        gCurFogModeSetup = 1;
         D_80115328 = temp_v0_10 + 2;
         (*((__repair_field_0 *) temp_v0_10)).value = 0xE2001E01;
         *((s32 *) (((char *) temp_v0_10) + 4)) = 0;
@@ -500,4 +500,5 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
     }
   }
 }
+
 

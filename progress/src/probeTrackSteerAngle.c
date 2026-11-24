@@ -1,4 +1,4 @@
-void *func_80047B44(s32, void *, f32 *, s32);
+void *raycastObjectMesh(s32, void *, f32 *, s32);
 s32 func_8004AD30(s32, f32 *, s32 *, f32, s32, s32, s32, s32);
 f32 sinTableLookup(f32);
 f32 sinAngle(f32);
@@ -27,7 +27,7 @@ f32 probeTrackSteerAngle(s32 scene, void *actor) {
         probePos.x = probePos.x + sinAngle(*(f32 *)((char *)actor + 0x40)) * 1.5f;
         probePos.y += 0.5f;
         probePos.z += cosAngle(*(f32 *)((char *)actor + 0x40)) * 1.5f;
-        hitActor = func_80047B44(scene, (char *)actor + 0x24, &probePos.x, 0);
+        hitActor = raycastObjectMesh(scene, (char *)actor + 0x24, &probePos.x, 0);
         if (hitActor != NULL) {
             scene = *(s32 *)((char *)hitActor + 8);
         }

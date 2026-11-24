@@ -20,8 +20,8 @@ typedef struct {
     s8 level;
 } TwineAudioControlState;
 
-void func_800957A8(u32 *);
-void func_800957B8(u32 *, s32);
+void shiftLeft8InPlace(u32 *);
+void scaleValueByOutputRate(u32 *, s32);
 
 /* Applies a packed audio control config (repeat, level, loop midpoint) and sample length to the voice state. */
 s32 audioApplyVoiceConfig(TwineAudioControlState *state, TwineAudioControl *config) {
@@ -36,9 +36,9 @@ s32 audioApplyVoiceConfig(TwineAudioControlState *state, TwineAudioControl *conf
     }
     sampleLength = config->resource.halfword;
     if ((config->resource.word >> 8) & 1) {
-        func_800957A8(&sampleLength);
+        shiftLeft8InPlace(&sampleLength);
     } else {
-        func_800957B8(&sampleLength, (s32)state);
+        scaleValueByOutputRate(&sampleLength, (s32)state);
     }
     if (sampleLength != 0) {
         state->length = sampleLength;

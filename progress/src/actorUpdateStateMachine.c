@@ -21,8 +21,8 @@ u16 randomIntBelow();
 s32 updateSplinePosition();
 s32 releaseTrackRecord();
 s32 updateActorTrackingState();
-extern s16 D_800C2942;
-extern s32 *gProbeObjectList;
+extern s16 gEffectAnimFrameParam;
+extern s32 *gDefaultOrderObj;
 extern u8 gTrackMarkerDone[];
 
 /* Two-state actor update. State 0 waits until its spawn group's done flag is set, then starts
@@ -45,13 +45,13 @@ void actorUpdateStateMachine(void *actor) {
             M2C_FIELD(actor, s16 *, 0x7A) = 1;
         }
         if (M2C_FIELD(actor, s16 *, 0x7A) == 1) {
-            actorLinkToSurface(*gProbeObjectList, actor, 1);
+            actorLinkToSurface(*gDefaultOrderObj, actor, 1);
             return;
         }
         return;
     case 1:
         if (M2C_FIELD(actor, s32 *, 0x60) & 0x7000) {
-            effectSetAnimFrame(actor, M2C_FIELD(record, u16 *, 0x2C), D_800C2942);
+            effectSetAnimFrame(actor, M2C_FIELD(record, u16 *, 0x2C), gEffectAnimFrameParam);
             frameCounter = M2C_FIELD(record, u16 *, 0x2C) + 1;
             M2C_FIELD(record, u16 *, 0x2C) = frameCounter;
             if ((u32) (frameCounter & 0xFFFF) >= 0x1DU) {
@@ -68,7 +68,7 @@ void actorUpdateStateMachine(void *actor) {
                     M2C_FIELD(child, s8 *, 0x81) = 0;
                     M2C_FIELD(child, u8 *, 0x82) = 0xFF;
                     M2C_FIELD(child, f32 *, 0x54) = 0.5f;
-                    effectSetAnimFrame(child, *childDataPtr, D_800C2942);
+                    effectSetAnimFrame(child, *childDataPtr, gEffectAnimFrameParam);
                     objectListInsert(child, M2C_FIELD(actor, s32 *, 0x20));
                 }
             }

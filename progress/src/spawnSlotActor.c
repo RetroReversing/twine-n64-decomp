@@ -16,7 +16,7 @@ void *spawnEffectObject(M2C_UNK, s32, M2C_UNK, M2C_UNK);
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);
 M2C_UNK effectSetAnimFrame(void *, M2C_UNK, M2C_UNK);
 M2C_UNK setActorStatusBits(void *);
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 extern u8 gSceneType;
 extern u8 D_8011ECF0[];
 extern M2C_UNK D_8011ED08;
@@ -75,7 +75,7 @@ void *spawnSlotActor(s32 modelId, M2C_UNK unusedArg, u16 slot) {
                 M2C_FIELD(actor, f32 *, 0x28) = (f32) (M2C_FIELD(actor, volatile f32 *, 0x28) + 0.76f);
                 M2C_FIELD(actor, f32 *, 0x34) = (f32) (M2C_FIELD(actor, volatile f32 *, 0x34) + 0.76f);
             }
-            actorLinkToSurface(*gProbeObjectList, actor, 1);
+            actorLinkToSurface(*gDefaultOrderObj, actor, 1);
             setActorStatusBits(actor);
             slotCopy2 = slot;
             slotCopy3 = slotCopy2;

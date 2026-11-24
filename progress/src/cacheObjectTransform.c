@@ -1,4 +1,4 @@
-void *func_8000DA08();
+void *getObjectRecordSubPtr();
 extern f32 sObjectMatrixF;
 extern f32 D_80112F94;
 extern f32 D_80112F98;
@@ -20,7 +20,7 @@ extern f32 D_80112FCC;
 void cacheObjectTransform(void *object) {
     void *matrix;
 
-    matrix = func_8000DA08();
+    matrix = getObjectRecordSubPtr();
     sObjectMatrixF = *(f32 *)((char *)matrix + 0);
     D_80112F94 = *(f32 *)((char *)matrix + 0xC);
     D_80112F98 = *(f32 *)((char *)matrix + 0x18);

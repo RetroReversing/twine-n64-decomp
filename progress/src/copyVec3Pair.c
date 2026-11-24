@@ -12,18 +12,18 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void copyVec3Pair(void *arg0, void *arg1, void *arg2) {
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv0_3;
+/* Copies the 3-float vector at src into both dstA and dstB. */ void copyVec3Pair(void *src, void *dstA, void *dstB) {
+    f32 x;
+    f32 y;
+    f32 z;
 
-    temp_fv0 = M2C_FIELD(arg0, f32 *, 0);
-    M2C_FIELD(arg2, f32 *, 0) = temp_fv0;
-    M2C_FIELD(arg1, f32 *, 0) = temp_fv0;
-    temp_fv0_2 = M2C_FIELD(arg0, f32 *, 4);
-    M2C_FIELD(arg2, f32 *, 4) = temp_fv0_2;
-    M2C_FIELD(arg1, f32 *, 4) = temp_fv0_2;
-    temp_fv0_3 = M2C_FIELD(arg0, f32 *, 8);
-    M2C_FIELD(arg2, f32 *, 8) = temp_fv0_3;
-    M2C_FIELD(arg1, f32 *, 8) = temp_fv0_3;
+    x = M2C_FIELD(src, f32 *, 0);
+    M2C_FIELD(dstB, f32 *, 0) = x;
+    M2C_FIELD(dstA, f32 *, 0) = x;
+    y = M2C_FIELD(src, f32 *, 4);
+    M2C_FIELD(dstB, f32 *, 4) = y;
+    M2C_FIELD(dstA, f32 *, 4) = y;
+    z = M2C_FIELD(src, f32 *, 8);
+    M2C_FIELD(dstB, f32 *, 8) = z;
+    M2C_FIELD(dstA, f32 *, 8) = z;
 }

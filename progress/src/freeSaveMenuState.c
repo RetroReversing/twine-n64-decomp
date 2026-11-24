@@ -8,8 +8,8 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 #define M2C_OVERFLOW(a) (0)
 #endif
 void freeMenuItemRecord(void *);
-void func_80022BB8(void);
-void func_8002EB34(void *);
+void freeMenuMarkers(void);
+void releaseMenuObject(void *);
 extern void *gSaveMenuState;
 typedef struct { u8 pad[8]; void *value; } Record;
 void freeSaveMenuState(void) {
@@ -20,7 +20,7 @@ void freeSaveMenuState(void) {
     void *record;
     void (*callback)(void);
     if (gSaveMenuState != NULL) {
-        func_8002EB34(M2C_FIELD(gSaveMenuState, void **, 0x20));
+        releaseMenuObject(M2C_FIELD(gSaveMenuState, void **, 0x20));
         M2C_FIELD(gSaveMenuState, void **, 0x20) = NULL;
         freeMenuItemRecord(M2C_FIELD(gSaveMenuState, void **, 0x24));
         M2C_FIELD(gSaveMenuState, void **, 0x24) = NULL;
@@ -46,6 +46,6 @@ void freeSaveMenuState(void) {
                 } while ((u32)(i & 0xFF) < count);
             }
         }
-        func_80022BB8();
+        freeMenuMarkers();
     }
 }

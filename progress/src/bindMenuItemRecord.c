@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80018318(void *);                          /* extern */
-M2C_UNK func_80022B60(M2C_UNK);                     /* extern */
-void func_80022E5C(s32);                          /* extern */
-M2C_UNK func_80022E88(M2C_UNK);                     /* extern */
-M2C_UNK func_80022EB8(s32, s32, s32);               /* extern */
+s32 getTextLength(void *);                          /* extern */
+M2C_UNK setMenuMarkersPalette(M2C_UNK);                     /* extern */
+void setTextPopupLowByte(s32);                          /* extern */
+M2C_UNK setTextPopupStyle(M2C_UNK);                     /* extern */
+M2C_UNK setTextPopupFields(s32, s32, s32);               /* extern */
 extern s32 D_800BD64C;
-extern s32 D_800BD664;
+extern s32 sSaveMenuColorHighlight;
 extern u8 gMenuUseTextList;
 extern void *gSaveMenuState;
 
@@ -35,20 +35,20 @@ void bindMenuItemRecord(void *itemRef, s32 arg1, s32 arg2) {
     if (itemRecord != NULL) {
         ((__repair_record_temp_s1*)itemRecord)->field_20 = (u16) M2C_FIELD(itemRef, u16 *, 4);
         ((__repair_record_temp_s1*)itemRecord)->field_22 = (u16) M2C_FIELD(itemRef, u16 *, 6);
-        func_80022E5C(M2C_FIELD(gSaveMenuState, u8 *, 0x30));
+        setTextPopupLowByte(M2C_FIELD(gSaveMenuState, u8 *, 0x30));
         if (arg2 & 0xFF) {
-            func_80022EB8((M2C_FIELD(itemRef, u16 *, 4) - 2) & 0xFFFF, (M2C_FIELD(itemRef, u8 *, 7) - 4) & 0xFF, (func_80018318(itemRecord) * 0xC) & 0xFC);
-            ((__repair_record_temp_s1*)itemRecord)->field_10 = (s32) ((D_800BD664 & ~0xFF) | M2C_FIELD(gSaveMenuState, u8 *, 0x30));
+            setTextPopupFields((M2C_FIELD(itemRef, u16 *, 4) - 2) & 0xFFFF, (M2C_FIELD(itemRef, u8 *, 7) - 4) & 0xFF, (getTextLength(itemRecord) * 0xC) & 0xFC);
+            ((__repair_record_temp_s1*)itemRecord)->field_10 = (s32) ((sSaveMenuColorHighlight & ~0xFF) | M2C_FIELD(gSaveMenuState, u8 *, 0x30));
         } else {
             ((__repair_record_temp_s1*)itemRecord)->field_10 = (s32) ((D_800BD64C & ~0xFF) | M2C_FIELD(gSaveMenuState, u8 *, 0x30));
         }
         if (gMenuUseTextList != 0) {
-            func_80022E88(0);
-            func_80022B60(0);
+            setTextPopupStyle(0);
+            setMenuMarkersPalette(0);
             ((__bf*)itemRecord)->bits = -((arg1 & 0xFF) == 0) & 7;
         } else {
-            func_80022E88(3);
-            func_80022B60(3);
+            setTextPopupStyle(3);
+            setMenuMarkersPalette(3);
             ((__bf*)itemRecord)->bits = (-((arg1 & 0xFF) == 0) & 7) | 3;
         }
     }

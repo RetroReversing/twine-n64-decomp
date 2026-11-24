@@ -4,7 +4,7 @@ typedef struct { f32 x, y, z, radius; } BoundSphere;
 typedef struct { f32 minX, maxX, minY, maxY, minZ, maxZ; } BoundBox;
 
 f32 absFloat(f32);
-f32 func_80082908(f32);
+f32 sqrtf32(f32);
 
 /* Computes the axis-aligned bounding box of a mesh's vertices, then a bounding sphere centred at the origin. */ void computeMeshBounds(BoundMesh *mesh, BoundSphere *sphere, BoundBox *box) {
     BoundVertex *first, *vertex, *end;
@@ -66,7 +66,7 @@ f32 func_80082908(f32);
         extentZ = absFloat(minZ);
         if (extentZ < absFloat(maxZ))
             extentZ = maxZ;
-        sphere->radius = func_80082908(extentX * extentX + extentY * extentY + extentZ * extentZ);
+        sphere->radius = sqrtf32(extentX * extentX + extentY * extentY + extentZ * extentZ);
         sphere->x = 0.0f;
         sphere->y = 0.0f;
         sphere->z = 0.0f;

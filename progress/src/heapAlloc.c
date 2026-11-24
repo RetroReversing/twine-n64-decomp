@@ -12,20 +12,20 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_800E1A98;
-extern s32 D_80100918;
-extern s32 D_8010D368;
+extern s32 gHeapBytesAllocated;
+extern s32 gHeapStart;
+extern s32 gHeapEnd;
 
-s32 heapAlloc(s32 arg0, s32 arg1) {
+/* Bump-allocates size bytes: from the heap start if fromStart is nonzero, otherwise from the heap end downward. */ s32 heapAlloc(s32 size, s32 fromStart) {
     s32 temp_v0;
-    s32 var_v1;
+    s32 ptr;
 
-    if ((arg1 << 0x18) != 0) {
-        var_v1 = D_80100918;
-        D_80100918 = var_v1 + arg0;
+    if ((fromStart << 0x18) != 0) {
+        ptr = gHeapStart;
+        gHeapStart = ptr + size;
     } else {
-        var_v1 = D_8010D368 -= arg0;
+        ptr = gHeapEnd -= size;
     }
-    D_800E1A98 += arg0;
-    return var_v1;
+    gHeapBytesAllocated += size;
+    return ptr;
 }

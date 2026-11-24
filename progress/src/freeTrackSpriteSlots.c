@@ -14,34 +14,34 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK freeMenuItemRecord(s32);                         /* extern */
 
-void freeTrackSpriteSlots(void *arg0) {
-    s32 temp_a0;
-    s32 temp_a0_2;
-    u32 var_s1;
-    u32 var_s1_2;
-    void *var_s0;
-    void *var_s0_2;
+/* Frees and clears the track's 4 records at +0x3D4 and 6 records at +0x3E4. */ void freeTrackSpriteSlots(void *track) {
+    s32 record;
+    s32 record2;
+    u32 i;
+    u32 j;
+    void *slotA;
+    void *slotB;
 
-    var_s1 = 0;
-    var_s0 = arg0;
+    i = 0;
+    slotA = track;
     do {
-        temp_a0 = M2C_FIELD(var_s0, s32 *, 0x3D4);
-        var_s1 += 1;
-        if (temp_a0 != 0) {
-            freeMenuItemRecord(temp_a0);
-            M2C_FIELD(var_s0, s32 *, 0x3D4) = 0;
+        record = M2C_FIELD(slotA, s32 *, 0x3D4);
+        i += 1;
+        if (record != 0) {
+            freeMenuItemRecord(record);
+            M2C_FIELD(slotA, s32 *, 0x3D4) = 0;
         }
-        var_s0 += 4;
-    } while (var_s1 < 4U);
-    var_s1_2 = 0;
-    var_s0_2 = arg0;
+        slotA += 4;
+    } while (i < 4U);
+    j = 0;
+    slotB = track;
     do {
-        temp_a0_2 = M2C_FIELD(var_s0_2, s32 *, 0x3E4);
-        var_s1_2 += 1;
-        if (temp_a0_2 != 0) {
-            freeMenuItemRecord(temp_a0_2);
-            M2C_FIELD(var_s0_2, s32 *, 0x3E4) = 0;
+        record2 = M2C_FIELD(slotB, s32 *, 0x3E4);
+        j += 1;
+        if (record2 != 0) {
+            freeMenuItemRecord(record2);
+            M2C_FIELD(slotB, s32 *, 0x3E4) = 0;
         }
-        var_s0_2 += 4;
-    } while (var_s1_2 < 6U);
+        slotB += 4;
+    } while (j < 6U);
 }

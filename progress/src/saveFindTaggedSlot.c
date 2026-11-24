@@ -3,7 +3,7 @@ typedef struct { s32 code; u16 ext; u8 pad6[0x1A]; } Note10A2C;
 
 s32 stringCompare(char *, char *);
 extern s16 gSaveFoundSlot;
-extern s32 D_800E0960;
+extern s32 gSaveBufferSize;
 extern s32 D_800E096C;
 extern s32 D_800E0970;
 extern s32 D_800E0974;
@@ -23,7 +23,7 @@ s32 saveFindTaggedSlot(void) {
             break;
         }
     }
-    if (gSaveFoundSlot == -1 && (D_800E0970 >= D_800E096C || D_800E0974 < D_800E0960)) {
+    if (gSaveFoundSlot == -1 && (D_800E0970 >= D_800E096C || D_800E0974 < gSaveBufferSize)) {
         return 1;
     }
     return 0;

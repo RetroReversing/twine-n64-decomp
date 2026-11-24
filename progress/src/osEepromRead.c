@@ -1,11 +1,11 @@
 /* identical to pakReadBlock in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
-extern void func_800A23E4(void);
-extern void func_800A2450(void);
+extern void osPiAccessWait(void);
+extern void postWakeupMessage(void);
 extern void __osPackEepReadData(s32);
 extern u32 __osEepStatus(s32, u16 *);
 extern void __osSiRawStartDma(s32, void *);
 extern s32 osRecvMesg(s32, void *, s32);
-extern u8 D_80101390[];
+extern u8 gSiPifState[];
 extern u8 D_80106C1E[];
 extern u8 D_801099F0[];
 
@@ -20,7 +20,7 @@ u32 osEepromRead(s32 msgQueue, u8 pageNum, u8 *dst) {
     u8 *outPtr = dst;
     u8 *srcPtr;
     u8 *eepData;
-    func_800A23E4();
+    osPiAccessWait();
     statusRet = __osEepStatus(msgQueue, (u16 *)cmdBuf);
     statusType = (*(u16 *)cmdBuf & 0xC000) & 0xFFFF;
     eepData = D_801099F0;
@@ -55,6 +55,6 @@ u32 osEepromRead(s32 msgQueue, u8 pageNum, u8 *dst) {
             }
         }
     }
-    func_800A2450();
+    postWakeupMessage();
     return ret;
 }

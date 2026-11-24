@@ -1,7 +1,7 @@
 typedef struct { u32 start; u8 pad4[8]; u8 *ptr; u8 pad10[4]; u16 pitch; u8 pad16[2]; u32 time; u8 pad1C[4]; u8 chan; u8 pad21[7]; } Ent010C;
 typedef struct { u8 pad0[0x120]; u32 now; u8 pad124[0x448]; Ent010C ents[64]; } Seq010C;
 s32 voiceStoreParam(s32, u8, u8, s32);
-extern u8 D_800EDA87;
+extern u8 gSeqVoiceBank;
 extern Seq010C *gSeqPlayer;
 
 /* Sibling of updateSeqChannels: advances each sequence channel's event stream and sends 0x80/0x81 pitch-bend messages when due. */ void updateSeqChannelsAlt(void) {
@@ -49,8 +49,8 @@ extern Seq010C *gSeqPlayer;
                         gSeqPlayer->ents[ch].ptr = next + 1;
                     }
                     gSeqPlayer->ents[ch].pitch += value;
-                    voiceStoreParam(0x80, gSeqPlayer->ents[ch].chan, D_800EDA87, (gSeqPlayer->ents[ch].pitch >> 7) & 0xFF);
-                    voiceStoreParam(0x81, gSeqPlayer->ents[ch].chan, D_800EDA87, ((u8 *)&gSeqPlayer->ents[ch].pitch)[1] & 0x7F);
+                    voiceStoreParam(0x80, gSeqPlayer->ents[ch].chan, gSeqVoiceBank, (gSeqPlayer->ents[ch].pitch >> 7) & 0xFF);
+                    voiceStoreParam(0x81, gSeqPlayer->ents[ch].chan, gSeqVoiceBank, ((u8 *)&gSeqPlayer->ents[ch].pitch)[1] & 0x7F);
                 } else {
                     finished = 1;
                 }

@@ -6,20 +6,20 @@
 s32 __osEnqueueAndYield();
 s32 __osDisableInt();
 s32 __osRestoreInt();
-extern char D_800CFE78[];
+extern char __osRunQueue[];
 extern void *__osRunningThread;
 static inline char *inline_fn()
 {
   return ((char *) __osRunningThread) + 0x10;
 }
 
-void osYieldThread(void)
+/* Marks the running thread as runnable (state 2) and yields to the scheduler with interrupts disabled. */ void osYieldThread(void)
 {
-  int new_var;
-  s32 temp_s0;
-  temp_s0 = __osDisableInt();
-  new_var = 2;
-  *((s16 *) inline_fn()) = new_var;
-  __osEnqueueAndYield(&D_800CFE78, 2);
-  __osRestoreInt(temp_s0);
+  int stateRunnable;
+  s32 savedMask;
+  savedMask = __osDisableInt();
+  stateRunnable = 2;
+  *((s16 *) inline_fn()) = stateRunnable;
+  __osEnqueueAndYield(&__osRunQueue, 2);
+  __osRestoreInt(savedMask);
 }

@@ -14,10 +14,10 @@ typedef s32 M2C_UNK32;
 
 f32 __cosf(f32);                                    /* extern */
 f32 sinApprox(f32);                                    /* extern */
-M2C_UNK func_8000A830(s16, s16, M2C_UNK);           /* extern */
+M2C_UNK startAndQueueDistanceSound(s16, s16, M2C_UNK);           /* extern */
 u32 randomIntBelow(s32);              /* extern */
 void *spawnConfiguredEffect(s32, M2C_UNK, M2C_UNK, f32 *, f32, f32, s32, s32, s32, s32, s32); /* extern */
-M2C_UNK func_80062450(void *, f32 *);               /* extern */
+M2C_UNK addScaledVelocityToPosition(void *, f32 *);               /* extern */
 typedef struct { u32 a,b,c; } __attribute__((packed)) Words;
 extern Words D_800D42C8;
 extern s16 D_80109A58;
@@ -51,7 +51,7 @@ extern s16 D_80109A58;
     if (clamped_idx >= 6) {
         word_idx = 5;
     }
-    func_8000A830(M2C_FIELD(((s8 *)&sp40 + (word_idx * 2)), s16 *, 0), D_80109A58, 0xFF);
+    startAndQueueDistanceSound(M2C_FIELD(((s8 *)&sp40 + (word_idx * 2)), s16 *, 0), D_80109A58, 0xFF);
     burst_i = 0;
     if (burst_count != 0) {
         f32 zero = 0.0f;
@@ -67,7 +67,7 @@ extern s16 D_80109A58;
             sp38 = temp_fs0_2 * __cosf(temp_fs1);
             sp34 = sinApprox(temp_fs1) * arg2;
             spawned = spawnConfiguredEffect(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, zero, randomIntBelow(2) + 0x17, 0xFB, 0x68, tint_rgba, 4);
-            func_80062450(spawned, &sp30);
+            addScaledVelocityToPosition(spawned, &sp30);
             burst_i += 1;
             M2C_FIELD(spawned, f32 *, 0x54) = (f32) (M2C_FIELD(spawned, f32 *, 0x54) * 16.0f);
         } while (burst_i < burst_count);

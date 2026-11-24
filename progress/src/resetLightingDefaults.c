@@ -1,0 +1,41 @@
+extern s32 D_801003D8;
+extern u8 D_80100774;
+extern u8 D_80100775;
+extern u8 D_80100776;
+extern u8 D_80100777;
+extern u8 D_80100778;
+extern u8 D_80100779;
+extern u8 D_8010077A;
+extern u8 D_8010077B;
+extern u8 D_8010077C;
+extern u8 D_801007CF;
+extern f32 D_80109CC0;
+extern f32 D_8010D370;
+extern s32 D_8010D450;
+
+/* Resets the light color/direction globals to their level defaults. */ void resetLightingDefaults(void) {
+    u8 *lightColors = &D_801007CF + (D_80100774 >> 8);
+    f32 zero = 0.0f;
+    lightColors[-1] = 0;
+    lightColors[-3] = 0;
+    lightColors[-2] = 0;
+    lightColors[2] = 0;
+    lightColors[1] = 0;
+    lightColors[0] = 0;
+    lightColors[3] = 0xFF;
+    lightColors[4] = 0xFF;
+    lightColors[5] = 0xFF;
+    D_80100774 = 0xEB;
+    D_80100776 = 0x78;
+    D_80100778 = 0x30;
+    D_80100779 = 0x9B;
+    D_8010077A = 0x28;
+    D_80100775 = 0;
+    D_80100777 = 0;
+    D_8010077B = 0xCD;
+    D_8010077C = 0xFF;
+    D_8010D450 = 0;
+    D_801003D8 = 0;
+    D_80109CC0 = zero;
+    D_8010D370 = zero;
+}

@@ -1,6 +1,6 @@
 void *findEntryById(s32, s32);
-s32 func_80027C60(s32);
-extern u8 D_801002AC;
+s32 isMenuButtonPressed(s32);
+extern u8 gBonusGoalReached;
 extern u8 gMenuUseTextList;
 extern void *gSaveMenuState;
 
@@ -11,9 +11,9 @@ void runSaveMenuCallbacks(void) {
 
     if (gSaveMenuState != NULL) {
         *(s8 *)((char *)gSaveMenuState + 0x2E) = 0;
-        if ((gMenuUseTextList != 0) && (D_801002AC == 0)) {
+        if ((gMenuUseTextList != 0) && (gBonusGoalReached == 0)) {
             if (gSaveMenuState != NULL) {
-                if (func_80027C60(0x23) & 0xFF) {
+                if (isMenuButtonPressed(0x23) & 0xFF) {
                     *(s8 *)((char *)gSaveMenuState + 0x2C) = 1;
                     if (*(void **)((char *)gSaveMenuState + 0x18) != NULL) {
                         *(void **)((char *)gSaveMenuState + 0x18) = findEntryById(*(s32 *)((char *)gSaveMenuState + 0xC), 0xE);

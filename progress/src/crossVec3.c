@@ -12,21 +12,21 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void crossVec3(void *arg0, void *arg1, void *arg2) {
-    f32 temp_fa0;
-    f32 temp_ft0;
-    f32 temp_ft1;
-    f32 temp_ft3;
-    f32 temp_fv0;
-    f32 temp_fv1;
+/* Writes the cross product vecA x vecB into result. */ void crossVec3(void *vecA, void *vecB, void *result) {
+    f32 bX;
+    f32 bZ;
+    f32 aY;
+    f32 bY;
+    f32 aX;
+    f32 aZ;
 
-    temp_ft1 = M2C_FIELD(arg0, f32 *, 4);
-    temp_ft0 = M2C_FIELD(arg1, f32 *, 8);
-    temp_fv1 = M2C_FIELD(arg0, f32 *, 8);
-    temp_ft3 = M2C_FIELD(arg1, f32 *, 4);
-    temp_fa0 = M2C_FIELD(arg1, f32 *, 0);
-    temp_fv0 = M2C_FIELD(arg0, f32 *, 0);
-    M2C_FIELD(arg2, f32 *, 0) = (f32) ((temp_ft1 * temp_ft0) - (temp_fv1 * temp_ft3));
-    M2C_FIELD(arg2, f32 *, 4) = (f32) ((temp_fv1 * temp_fa0) - (temp_fv0 * temp_ft0));
-    M2C_FIELD(arg2, f32 *, 8) = (f32) ((temp_fv0 * temp_ft3) - (temp_ft1 * temp_fa0));
+    aY = M2C_FIELD(vecA, f32 *, 4);
+    bZ = M2C_FIELD(vecB, f32 *, 8);
+    aZ = M2C_FIELD(vecA, f32 *, 8);
+    bY = M2C_FIELD(vecB, f32 *, 4);
+    bX = M2C_FIELD(vecB, f32 *, 0);
+    aX = M2C_FIELD(vecA, f32 *, 0);
+    M2C_FIELD(result, f32 *, 0) = (f32) ((aY * bZ) - (aZ * bY));
+    M2C_FIELD(result, f32 *, 4) = (f32) ((aZ * bX) - (aX * bZ));
+    M2C_FIELD(result, f32 *, 8) = (f32) ((aX * bY) - (aY * bX));
 }

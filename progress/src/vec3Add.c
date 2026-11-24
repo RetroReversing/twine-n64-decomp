@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void vec3Add(void *arg0, void *arg1, void *arg2) {
-    M2C_FIELD(arg2, f32 *, 0) = (f32) (M2C_FIELD(arg0, f32 *, 0) + M2C_FIELD(arg1, f32 *, 0));
-    M2C_FIELD(arg2, f32 *, 4) = (f32) (M2C_FIELD(arg0, f32 *, 4) + M2C_FIELD(arg1, f32 *, 4));
-    M2C_FIELD(arg2, f32 *, 8) = (f32) (M2C_FIELD(arg0, f32 *, 8) + M2C_FIELD(arg1, f32 *, 8));
+/* Adds two 3D float vectors vecA and vecB, storing the sum in result. */ void vec3Add(void *vecA, void *vecB, void *result) {
+    M2C_FIELD(result, f32 *, 0) = (f32) (M2C_FIELD(vecA, f32 *, 0) + M2C_FIELD(vecB, f32 *, 0));
+    M2C_FIELD(result, f32 *, 4) = (f32) (M2C_FIELD(vecA, f32 *, 4) + M2C_FIELD(vecB, f32 *, 4));
+    M2C_FIELD(result, f32 *, 8) = (f32) (M2C_FIELD(vecA, f32 *, 8) + M2C_FIELD(vecB, f32 *, 8));
 }

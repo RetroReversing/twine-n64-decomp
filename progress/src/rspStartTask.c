@@ -22,11 +22,11 @@ extern RspTask D_800FEDF0;
 
 void func_800A81E0(void *, void *, s32);
 u32 osVirtualToPhysical(void *);
-void func_800A0220(void *, s32);
-void func_800A9280(s32);
-s32 rsp_set_pc_if_halted(u32);
+void osWritebackDCache(void *, s32);
+void __osSpSetStatus(s32);
+s32 rspSetPcIfHalted(u32);
 s32 __osSpRawStartDma(s32, u32, void *, u32);
-s32 func_800A9250(void);
+s32 __osSpDeviceBusy(void);
 
 /* Copies the RSP task into the global work block, converts its pointers to physical addresses and boots the RSP. */ void rspStartTask(RspTask *arg0) {
     RspTask *task;
@@ -62,14 +62,14 @@ s32 func_800A9250(void);
             task->ucode = *(u32 *)((arg0->yield + 0xBFC) | 0xA0000000);
         }
     }
-    func_800A0220(task, 0x40);
-    func_800A9280(0x2B00);
+    osWritebackDCache(task, 0x40);
+    __osSpSetStatus(0x2B00);
     do {
-    } while (rsp_set_pc_if_halted(0x04001000) == -1);
+    } while (rspSetPcIfHalted(0x04001000) == -1);
     do {
     } while (__osSpRawStartDma(1, 0x04000FC0, task, 0x40) == -1);
     do {
-    } while (func_800A9250() != 0);
+    } while (__osSpDeviceBusy() != 0);
     do {
     } while (__osSpRawStartDma(1, 0x04001000, (void *)task->boot, task->bootSize) == -1);
 }

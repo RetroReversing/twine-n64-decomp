@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80016E3C(void *, void *);              /* extern */
-M2C_UNK func_8001792C(s32, M2C_UNK, M2C_UNK, void *); /* extern */
-M2C_UNK func_80073108(M2C_UNK, M2C_UNK, f32);            /* extern */
-M2C_UNK func_80073190(s32, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
-M2C_UNK func_800851E0(M2C_UNK);                     /* extern */
+M2C_UNK releaseObjectsByOwner(void *, void *);              /* extern */
+M2C_UNK applyFlagsToPartList(s32, M2C_UNK, M2C_UNK, void *); /* extern */
+M2C_UNK setProximityQuery(M2C_UNK, M2C_UNK, f32);            /* extern */
+M2C_UNK beginSubdivisionWithMinSize(s32, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
+M2C_UNK playRandomNearestMarkerSoundOfThree(M2C_UNK);                     /* extern */
 
 /* Clears two flag bits on an object and its partner, sets subdivision state from the parent, and copies a position vector into linked nodes. */ void prepareLinkedObjectPair(void *obj, M2C_UNK index, M2C_UNK subdivParam) {
     s32 partnerLink;
@@ -28,16 +28,16 @@ M2C_UNK func_800851E0(M2C_UNK);                     /* extern */
     parent = M2C_FIELD(obj, void **, 4);
     partner = M2C_FIELD(obj, void **, 0x20);
     subdivObj = M2C_FIELD(parent, s32 *, 0x3C);
-    func_80073108(0, index, 0.5f);
-    func_80016E3C(obj, partner);
+    setProximityQuery(0, index, 0.5f);
+    releaseObjectsByOwner(obj, partner);
     M2C_FIELD(obj, u16 *, 0x26) = (u16) (M2C_FIELD(obj, u16 *, 0x26) & 0xF7FF);
     M2C_FIELD(partner, u16 *, 0x26) = (u16) (M2C_FIELD(partner, u16 *, 0x26) & 0xF7FF);
     M2C_FIELD(obj, u16 *, 0x26) = (u16) (M2C_FIELD(obj, u16 *, 0x26) & 0xEFFF);
     M2C_FIELD(partner, u16 *, 0x26) = (u16) (M2C_FIELD(partner, u16 *, 0x26) & 0xEFFF);
-    func_80073190(subdivObj, subdivParam, 2, 0x10);
+    beginSubdivisionWithMinSize(subdivObj, subdivParam, 2, 0x10);
     partnerLink = M2C_FIELD(partner, s32 *, 8);
     posVec = parent + 0x40;
-    func_8001792C(M2C_FIELD(obj, s32 *, 8), 2, 0x20000, posVec);
-    func_8001792C(partnerLink, 2, 0x20000, posVec);
-    func_800851E0(index);
+    applyFlagsToPartList(M2C_FIELD(obj, s32 *, 8), 2, 0x20000, posVec);
+    applyFlagsToPartList(partnerLink, 2, 0x20000, posVec);
+    playRandomNearestMarkerSoundOfThree(index);
 }

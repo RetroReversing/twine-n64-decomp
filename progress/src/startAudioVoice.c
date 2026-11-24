@@ -18,7 +18,7 @@ M2C_UNK audioVoiceSetup(s32, s32 *, M2C_UNK);         /* extern */
 M2C_UNK func_8008C43C(s32);                         /* extern */
 M2C_UNK func_8008C4C0(s32, s32);                    /* extern */
 M2C_UNK func_8008C524(s32, s32, s32, s32, s32);     /* extern */
-s32 func_800994B4(s32);                             /* extern */
+s32 startVoiceInGroup(s32);                             /* extern */
 extern u8 gWorkerThreadActive;
 extern f64 D_800D6840;
 extern M2C_UNK gVoiceTable;
@@ -41,7 +41,7 @@ extern s32 gAudioOutputRate;
     sp3F = gain1;
     if (gWorkerThreadActive != 0) {
         workerLockAcquire();
-        voice = func_800994B4(voiceId & 0xFF);
+        voice = startVoiceInGroup(voiceId & 0xFF);
         if (voice != -1) {
             voiceOffset = voice * 0x6;
             *(&D_801096F0 + voiceOffset) = dataStart;

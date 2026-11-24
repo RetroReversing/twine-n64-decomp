@@ -1,0 +1,1 @@
+/* Returns nonzero while the SI is busy: reads SI_STATUS_REG (0xA4800018) and tests the DMA-busy and IO-busy bits. */ /* Returns nonzero while the PI is busy: reads PI_STATUS_REG (0xA4800010+8) and tests the DMA-busy and IO-busy bits. */ s32 osSiDeviceBusy(void) { return (*(volatile s32 *)0xA4800018 & 3) != 0; }

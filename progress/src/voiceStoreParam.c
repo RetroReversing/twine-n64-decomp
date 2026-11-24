@@ -1,10 +1,10 @@
-extern u8 D_800EE420[][16][0x86];
-extern u8 D_800F2720[][0x86];
+extern u8 gMidiBankControllers[][16][0x86];
+extern u8 gMidiGlobalControllers[][0x86];
 
-void voiceStoreParam(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
-    if (arg2 != 0xFF) {
-        D_800EE420[arg2][arg1][arg0] = arg3 & 0x7F;
+/* Stores a 7-bit controller value for a channel in the given bank's table, or in the global table when bank is 0xFF. */ void voiceStoreParam(u8 param, u8 channel, u8 bank, u8 value) {
+    if (bank != 0xFF) {
+        gMidiBankControllers[bank][channel][param] = value & 0x7F;
     } else {
-        D_800F2720[arg1][arg0] = arg3 & 0x7F;
+        gMidiGlobalControllers[channel][param] = value & 0x7F;
     }
 }

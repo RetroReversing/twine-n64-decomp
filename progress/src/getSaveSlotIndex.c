@@ -14,12 +14,12 @@ typedef s32 M2C_UNK32;
 
 extern s32 gSaveSlotCount;
 
-s32 getSaveSlotIndex(s32 arg0) {
-    s32 temp_v1;
+/* Returns the low 16 bits of index if below gSaveSlotCount; otherwise wraps it as (index - gSaveSlotCount + 4) & 0xFFFF. */ s32 getSaveSlotIndex(s32 index) {
+    s32 lowIndex;
 
-    temp_v1 = arg0 & 0xFFFF;
-    if (temp_v1 < gSaveSlotCount) {
-        return temp_v1;
+    lowIndex = index & 0xFFFF;
+    if (lowIndex < gSaveSlotCount) {
+        return lowIndex;
     }
-    return ((arg0 - gSaveSlotCount) + 4) & 0xFFFF;
+    return ((index - gSaveSlotCount) + 4) & 0xFFFF;
 }

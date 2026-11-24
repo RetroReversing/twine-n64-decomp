@@ -1,7 +1,7 @@
 typedef struct { u8 pad[4]; u16 id; u16 busy; u8 pad8[0x14]; s32 o1C; s32 o20; s32 o24; } Bank;
 s32 workerLockAcquire();
 s32 workerLockRelease();
-s32 func_8008F520();
+s32 startSoundEntity();
 extern u8 gWorkerThreadActive;
 extern s16 sSceneGroupStackCount;
 extern u8 sSceneGroupStack[];
@@ -34,7 +34,7 @@ s32 runSceneGroupEntry(s32 groupId, s32 entryId, s32 arg2, s32 arg3) {
                 while ((curEntryId = *(u16 *)entry) != 0xFFFF) {
                     if (curEntryId == (entryId & 0xFFFF)) {
                         workerLockAcquire(curEntryId);
-                        result = func_8008F520(dataBase2, dataBase1, entry, arg2, arg3);
+                        result = startSoundEntity(dataBase2, dataBase1, entry, arg2, arg3);
                         workerLockRelease();
                         return result;
                     }

@@ -1,5 +1,5 @@
 /* identical to osContStartReadData in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
-extern char D_80100920[];
+extern char __osContPifRam[];
 extern u8 D_80109E90;
 s32 osRecvMesg(s32, s32, s32);
 void func_800A23E4(void);
@@ -17,10 +17,10 @@ s32 osContStartReadData(s32 mq)
     func_800A23E4();
     if (D_80109E90 != 1) {
         __osPackReadData();
-        __osSiRawStartDma(1, D_80100920);
+        __osSiRawStartDma(1, __osContPifRam);
         osRecvMesg(mq, 0, 1);
     }
-    ret = __osSiRawStartDma(0, D_80100920);
+    ret = __osSiRawStartDma(0, __osContPifRam);
     D_80109E90 = 1;
     func_800A2450();
     return ret;

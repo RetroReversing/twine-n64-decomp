@@ -1,2 +1,0 @@
-extern s32 playDistanceSound(u16,f32,s32); extern u32 randomIntBelow(s32); extern f32 findNearestTrackMarker(s32,s16 *); extern u16 D_800CE700[];
-void func_80084E10(s32 arg0) { s16 sp10; f32 f=findNearestTrackMarker(arg0,&sp10); playDistanceSound(D_800CE700[randomIntBelow(2)],f,255); }

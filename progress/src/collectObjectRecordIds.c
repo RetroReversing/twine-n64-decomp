@@ -1,9 +1,9 @@
-s32 func_8000C860();
-extern s32 **gObjectRecords;
+s32 remapIndex();
+extern s32 **gCutscene;
 extern struct CommandRef {
     s16 *id;
     char padding[8];
-} D_800C3CF8[];
+} gAssetSlotTable[];
 extern struct CommandDef {
     s16 id;
     char padding[230];
@@ -20,7 +20,7 @@ void collectObjectRecordIds(void) {
 
     out = sObjectIdList;
     D_800E0740 = -1;
-    cmdCursor = *gObjectRecords;
+    cmdCursor = *gCutscene;
 
     do {
         s32 objId = -1;
@@ -44,7 +44,7 @@ void collectObjectRecordIds(void) {
         case 17: skipWords = 6; break;
         case 33:
             if ((cmdArgs & 255) == 0x69) {
-                objId = D_800C4708[func_8000C860((cmdArgs >> 8) & 255)].id;
+                objId = D_800C4708[remapIndex((cmdArgs >> 8) & 255)].id;
             }
             break;
         case 18: case 19:
@@ -53,7 +53,7 @@ void collectObjectRecordIds(void) {
             break;
         case 11: case 12: case 13:
             objId = ((u8 *)cmdCursor)[3];
-            objId = *D_800C3CF8[objId].id;
+            objId = *gAssetSlotTable[objId].id;
             skipWords = 7;
             break;
         case 3: case 7: case 24: skipWords = 12; break;

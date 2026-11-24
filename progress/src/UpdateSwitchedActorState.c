@@ -1,9 +1,9 @@
 static __inline__ s32 __repair_inline(s32 a) { return a; }
 extern u8 gTrackMarkerDone[];
 void updateActorProximityTrigger(void *arg0);
-s32 func_800179E8(void *a, s32 b, s32 c, s32 d);
-s32 func_800624A8(void *a, void *b, s32 c, s32 d);
-s32 func_80084338(s32 a, void *b);
+s32 propagateFlagsToLinkedObjects(void *a, s32 b, s32 c, s32 d);
+s32 spawnImpactBurstEffect(void *a, void *b, s32 c, s32 d);
+s32 playSoundAtPos(s32 a, void *b);
 
 /* Per-frame update of a switched actor: runs its one-shot setup when flagged, then advances its
  * animation/state phase and timer while its trigger flag matches, and clears its output flag otherwise. */
@@ -18,8 +18,8 @@ void UpdateSwitchedActorState(void *actor) {
     script = *(u8 **)((u8 *)actor + 0x6C);
     if (flags & 2) {
         *(s32 *)((u8 *)actor + 0x60) = flags & ~2;
-        func_800624A8(actor, (u8 *)actor + 0x24, 0x3DCCCCCD, 1);
-        func_800179E8((u8 *)actor + 0x24, *(s32 *)((u8 *)actor + 0x20), 0x10000, 2);
+        spawnImpactBurstEffect(actor, (u8 *)actor + 0x24, 0x3DCCCCCD, 1);
+        propagateFlagsToLinkedObjects((u8 *)actor + 0x24, *(s32 *)((u8 *)actor + 0x20), 0x10000, 2);
         *(s32 *)((u8 *)actor + 0x60) |= 1;
         if (script[4] != 0 && script[5] == gTrackMarkerDone[script[4]] && script[6] != 0) {
             gTrackMarkerDone[script[6]] = 1;
@@ -41,7 +41,7 @@ void UpdateSwitchedActorState(void *actor) {
                 *(s16 *)((u8 *)actor + 0x7A) = next_phase;
                 if (next_phase == 1) {
                     script[2] = 0xA;
-                    func_80084338(0x10F, (u8 *)actor + 0x24);
+                    playSoundAtPos(0x10F, (u8 *)actor + 0x24);
                 } else {
                     script[2] = 0x50;
                 }
@@ -62,7 +62,7 @@ void UpdateSwitchedActorState(void *actor) {
                 *(s16 *)((u8 *)actor + 0x7A) = next_phase;
                 if (next_phase == 3) {
                     script[2] = 0xA;
-                    func_80084338(0x10F, (u8 *)actor + 0x24);
+                    playSoundAtPos(0x10F, (u8 *)actor + 0x24);
                 } else {
                     script[2] = 0x50;
                 }

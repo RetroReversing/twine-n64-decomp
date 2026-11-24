@@ -12,18 +12,18 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK D_800C0784;
-extern M2C_UNK D_800C0788;
-extern M2C_UNK D_800C078C;
+extern M2C_UNK gAssetSlotHeader;
+extern M2C_UNK gAssetSlotEntries;
+extern M2C_UNK gAssetSlotEntryCount;
 
 void effectSetAnimFrame(void *arg0, s32 arg1, s32 arg2) {
     s32 temp_a2;
     void *temp_v1;
 
     if (((u32) ~arg1 >> 0x1F) & ((u32) ~arg2 >> 0x1F)) {
-        if ((*((M2C_UNK *)((s8 *)&D_800C0784 + (arg2 * 0x10))) != 0) && (arg1 < *((M2C_UNK *)((s8 *)&D_800C078C + (arg2 * 0x10))))) {
+        if ((*((M2C_UNK *)((s8 *)&gAssetSlotHeader + (arg2 * 0x10))) != 0) && (arg1 < *((M2C_UNK *)((s8 *)&gAssetSlotEntryCount + (arg2 * 0x10))))) {
             if (arg1 != -1) {
-                temp_v1 = *((M2C_UNK *)((s8 *)&D_800C0788 + (arg2 * 0x10))) + (arg1 * 0x4C);
+                temp_v1 = *((M2C_UNK *)((s8 *)&gAssetSlotEntries + (arg2 * 0x10))) + (arg1 * 0x4C);
                 if (M2C_FIELD(temp_v1, u8 *, 0x45) != 0) {
                     M2C_FIELD(arg0, void **, 0x70) = temp_v1;
                     M2C_FIELD(arg0, f32 *, 0x64) = (f32) M2C_FIELD(temp_v1, f32 *, 0x14);

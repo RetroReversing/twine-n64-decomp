@@ -11,37 +11,37 @@ typedef struct
   f32 z;
   f32 d;
 } Pl;
-f32 func_80082908(f32);
-s32 buildPlaneFromPoints(Pl *out, const V3 *p1, const V3 *p2, const V3 *p3)
+f32 sqrtf32(f32);
+/* Builds a normalized plane (normal + d) through three points; returns 0 if the points are degenerate. */ s32 buildPlaneFromPoints(Pl *plane, const V3 *a, const V3 *b, const V3 *c)
 {
-  V3 n;
-  f32 len;
-  s32 ret;
-  f32 dz1 = p2->z - p1->z;
-  n.x = ((p2->y - p1->y) * (p3->z - p2->z)) - (dz1 * (p3->y - p2->y));
-  n.y = (dz1 * (p3->x - p2->x)) - ((p2->x - p1->x) * (p3->z - p2->z));
-  n.z = ((p2->x - p1->x) * (p3->y - p2->y)) - ((p2->y - p1->y) * (p3->x - p2->x));
-  len = func_80082908(((n.x * n.x) + (n.y * n.y)) + (n.z * n.z));
-  ret = 1;
-  if (len == 0.0f)
+  V3 normal;
+  f32 invLen;
+  s32 valid;
+  f32 abDz = b->z - a->z;
+  normal.x = ((b->y - a->y) * (c->z - b->z)) - (abDz * (c->y - b->y));
+  normal.y = (abDz * (c->x - b->x)) - ((b->x - a->x) * (c->z - b->z));
+  normal.z = ((b->x - a->x) * (c->y - b->y)) - ((b->y - a->y) * (c->x - b->x));
+  invLen = sqrtf32(((normal.x * normal.x) + (normal.y * normal.y)) + (normal.z * normal.z));
+  valid = 1;
+  if (invLen == 0.0f)
   {
-    out->x = 0.0f;
-    out->y = 0.0f;
-    out->z = 0.0f;
-    out->d = ((-out->x) * p1->x) - (out->y * p1->y);
-    ret = 0;
+    plane->x = 0.0f;
+    plane->y = 0.0f;
+    plane->z = 0.0f;
+    plane->d = ((-plane->x) * a->x) - (plane->y * a->y);
+    valid = 0;
   }
   else
   {
-    len = 1.0f / len;
-    n.x *= len;
-    n.y *= len;
-    n.z *= len;
-    out->x = n.x;
-    out->y = n.y;
-    out->z = n.z;
-    out->d = (((-out->x) * p1->x) - (out->y * p1->y)) - (out->z * p1->z);
+    invLen = 1.0f / invLen;
+    normal.x *= invLen;
+    normal.y *= invLen;
+    normal.z *= invLen;
+    plane->x = normal.x;
+    plane->y = normal.y;
+    plane->z = normal.z;
+    plane->d = (((-plane->x) * a->x) - (plane->y * a->y)) - (plane->z * a->z);
   }
-  return ret;
+  return valid;
 }
 

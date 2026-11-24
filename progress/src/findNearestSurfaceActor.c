@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8003D6FC(void *, void *);                  /* extern */
-s32 Sphere_OverlapsPoint(void *, void *, f32);         /* extern */
-s32 Ray_CastObjects(M2C_UNK *, void *, void *, s32 *, M2C_UNK *, f32, s32, s32, s32); /* extern */
+s32 isPointInsideBoundsXZ(void *, void *);                  /* extern */
+s32 sphereContainsPoint(void *, void *, f32);         /* extern */
+s32 castRayAgainstObjectsAndRooms(M2C_UNK *, void *, void *, s32 *, M2C_UNK *, f32, s32, s32, s32); /* extern */
 typedef struct { s32 x,y,z; } Vec;
 extern Vec gVecUp;
 extern Vec gVecDown;
-extern M2C_UNK Ray_TriangleIntersect;
+extern M2C_UNK rayTriangleIntersect;
 
 /* Scans the actor list for type 0x46 actors near a point that a vertical ray hits; returns the nearest hit, else the nearest candidate. */ s32 findNearestSurfaceActor(void **actorListHead, void *point) {
     union {
@@ -49,7 +49,7 @@ extern M2C_UNK Ray_TriangleIntersect;
     bestActorDist = 65536.0f;
     if (actor != NULL) {
         do {
-            if ((M2C_FIELD(actor, u16 *, 0x58) == 0x46) && ((Sphere_OverlapsPoint(actor + 0x40, point, 0) << 0x18) != 0) && ((func_8003D6FC(point, actor) << 0x18) != 0)) {
+            if ((M2C_FIELD(actor, u16 *, 0x58) == 0x46) && ((sphereContainsPoint(actor + 0x40, point, 0) << 0x18) != 0) && ((isPointInsideBoundsXZ(point, actor) << 0x18) != 0)) {
                 *(Vec *)&m2c_initial_frame.view_sp28.value = gVecUp;
                 *(Vec *)&m2c_initial_frame.view_sp38.value = gVecDown;
                 actorDist = M2C_FIELD(actor, f32 *, 0x4C);
@@ -57,14 +57,14 @@ extern M2C_UNK Ray_TriangleIntersect;
                     fallbackActor = actor;
                     bestActorDist = actorDist;
                 }
-                if ((Ray_CastObjects(&Ray_TriangleIntersect, actor, point, &m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp48.value, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                if ((castRayAgainstObjectsAndRooms(&rayTriangleIntersect, actor, point, &m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp48.value, 256.0f, 0, 1, 0) << 0x18) != 0) {
                     hitDist = m2c_initial_frame.view_sp4C.value - M2C_FIELD(point, f32 *, 4);
                     if (hitDist < bestHitDist) {
                         hitActor = actor;
                         bestHitDist = hitDist;
                     }
                 } else {
-                    if ((Ray_CastObjects(&Ray_TriangleIntersect, actor, point, &m2c_initial_frame.view_sp38.value, &m2c_initial_frame.view_sp48.value, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                    if ((castRayAgainstObjectsAndRooms(&rayTriangleIntersect, actor, point, &m2c_initial_frame.view_sp38.value, &m2c_initial_frame.view_sp48.value, 256.0f, 0, 1, 0) << 0x18) != 0) {
                         hitDist = M2C_FIELD(point, f32 *, 4) - m2c_initial_frame.view_sp4C.value;
                         if (hitDist < bestHitDist) {
                             hitActor = actor;

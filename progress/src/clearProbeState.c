@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80002BD0();                            /* extern */
+M2C_UNK setActorCommandState();                            /* extern */
 
-void clearProbeState(void *arg0) {
-    M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s16 *, 0xA2) = 0;
-    func_80002BD0();
+/* Zeroes the probe state halfword (0xA2) in the actor's linked record at +0x68, then updates the actor command state. */ void clearProbeState(void *actor) {
+    M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s16 *, 0xA2) = 0;
+    setActorCommandState();
 }

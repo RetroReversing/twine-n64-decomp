@@ -37,7 +37,7 @@ static inline s32 findSoundEntity(s32 id) {
 
 void workerLockAcquire(void);
 void workerLockRelease(void);
-extern u8 gWorkerActive;
+extern u8 gSoundWorkerActive;
 
 /* Stores two values into the matching sound entity; a negative index selects the second slot set and sets flag 0x10. */
 void setSoundEntityValues(s32 id, s32 value1, s32 value2) {

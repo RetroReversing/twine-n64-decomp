@@ -1,13 +1,13 @@
 /* Per-frame ground contact step: probes the floor under the object, lands or bounces it, and damps the bounce. */
 
 f32 randomFloatScaled(f32);
-s32 func_8004C750(void *, f32 *, s32 *, s32 *, f32, f32 *, s32 *, s32);
-s32 func_8004FF30(void *, f32 *, s32 *, f32, s32, s32, s32, void *);
+s32 findGroundBelowPoint(void *, f32 *, s32 *, s32 *, f32, f32 *, s32 *, s32);
+s32 pushSphereOutOfSurfaces(void *, f32 *, s32 *, f32, s32, s32, s32, void *);
 s32 playGroundContactSound(void *, u8);
 extern f64 D_800D4198;
 extern f64 D_800D41A0;
-extern void *gPlayerActor;
-extern void *D_80108F84;
+extern void *gSweepHitActor;
+extern void *gSweepHitObject;
 
 void objUpdateGroundContact(void *obj) {
     union {
@@ -43,7 +43,7 @@ void objUpdateGroundContact(void *obj) {
     if ((groundObj != NULL) && ((*(s32 *)((char *)(groundObj) + 0x38)) != 0)) {
         { f32 a = *(f32 *)((char *)obj + 0x64); f32 b = *(f32 *)((char *)obj + 0x54); offset = a * b; }
         { struct V { s32 x,y,z; }; *(struct V *)&m2c_initial_frame.view_sp20.value = *(struct V *)((char *)obj + 0x24); }
-        if ((func_8004FF30((*(void **)((char *)(obj) + 0x20)), &m2c_initial_frame.view_sp20.value, &m2c_initial_frame.view_sp30.value, offset, 0, 0, 0, obj) << 0x18) != 0) {
+        if ((pushSphereOutOfSurfaces((*(void **)((char *)(obj) + 0x20)), &m2c_initial_frame.view_sp20.value, &m2c_initial_frame.view_sp30.value, offset, 0, 0, 0, obj) << 0x18) != 0) {
             (*(f32 *)((char *)(obj) + 0x24)) = m2c_initial_frame.view_sp20.value;
             (*(f32 *)((char *)(obj) + 0x2C)) = m2c_initial_frame.view_sp28.value;
             if (m2c_initial_frame.view_sp24.value < (*(f32 *)((char *)(obj) + 0x28))) {
@@ -56,7 +56,7 @@ void objUpdateGroundContact(void *obj) {
             m2c_initial_frame.view_sp24.value = ownerFloor;
         }
         m2c_initial_frame.view_sp24.value += 0.2f;
-        if ((func_8004C750((*(void **)((char *)(obj) + 0x20)), &m2c_initial_frame.view_sp20.value, &m2c_initial_frame.view_sp30.value, &m2c_initial_frame.view_sp40.value, 250.0f, &m2c_initial_frame.view_sp50.value, &m2c_initial_frame.view_sp60.value, 0) << 0x18) != 0) {
+        if ((findGroundBelowPoint((*(void **)((char *)(obj) + 0x20)), &m2c_initial_frame.view_sp20.value, &m2c_initial_frame.view_sp30.value, &m2c_initial_frame.view_sp40.value, 250.0f, &m2c_initial_frame.view_sp50.value, &m2c_initial_frame.view_sp60.value, 0) << 0x18) != 0) {
             (*(f32 *)((char *)(physics) + 0x1C)) = m2c_initial_frame.view_sp34.value;
         } else {
             m2c_initial_frame.view_sp50.value = 0.0f;
@@ -67,11 +67,11 @@ void objUpdateGroundContact(void *obj) {
             m2c_initial_frame.view_sp68.value = 0;
         }
         surfaceFlags = 1;
-        if (D_80108F84 != NULL) {
-            surfaceFlags = (*(u8 *)((char *)((*(void **)((char *)(D_80108F84) + 0x3C))) + 0x47));
+        if (gSweepHitObject != NULL) {
+            surfaceFlags = (*(u8 *)((char *)((*(void **)((char *)(gSweepHitObject) + 0x3C))) + 0x47));
         }
-        if (gPlayerActor != NULL) {
-            surfaceFlags = (*(u8 *)((char *)((*(void **)((char *)(gPlayerActor) + 0x70))) + 0x47));
+        if (gSweepHitActor != NULL) {
+            surfaceFlags = (*(u8 *)((char *)((*(void **)((char *)(gSweepHitActor) + 0x70))) + 0x47));
         }
         offset = -(*(f32 *)((char *)((*(void **)((char *)(obj) + 0x70))) + 0x20)) * (*(f32 *)((char *)(obj) + 0x54));
         if ((*(f32 *)((char *)(obj) + 0x28)) <= ((*(f32 *)((char *)(physics) + 0x1C)) + offset)) {

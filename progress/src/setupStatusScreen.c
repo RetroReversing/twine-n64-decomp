@@ -15,13 +15,13 @@ typedef s32 M2C_UNK32;
 void *findEntryById(void *, M2C_UNK);               /* extern */
 s8 findTableIndexById(void *, M2C_UNK);             /* extern */
 M2C_UNK formatTextEntry(void *, const char *, ...); /* extern */
-M2C_UNK func_80025E9C(void *, M2C_UNK, void *, void *, s32, s32); /* extern */
-M2C_UNK func_8002A644(); /* extern */
-M2C_UNK func_8003099C(u8, u8);                      /* extern */
-M2C_UNK func_80030C1C();                            /* extern */
-s32 func_80030C7C();                                /* extern */
-s32 func_80030D40();                                /* extern */
-s32 func_800316B8();                                 /* extern */
+M2C_UNK setupMenuItemPair(void *, M2C_UNK, void *, void *, s32, s32); /* extern */
+M2C_UNK initMenuWindow(); /* extern */
+M2C_UNK loadMapEntries(u8, u8);                      /* extern */
+M2C_UNK resetEntryTable();                            /* extern */
+s32 getEntryStatusId();                                /* extern */
+s32 getEntryStatus();                                /* extern */
+s32 getEntryLevelLimitTopNibble();                                 /* extern */
 s32 getCurrentMapIdx();                             /* extern */
 s32 lookupDataEntry(s32);                           /* extern */
 M2C_UNK menuSetItemLabelIndices(void *, M2C_UNK, void *, void *, s32, s32); /* extern */
@@ -31,67 +31,67 @@ extern s16 D_800BD9BA;
 extern M2C_UNK D_800E0C60;
 extern u8 D_80100768;
 extern M2C_UNK D_80100870;
-extern s8 D_80102F04;
-extern M2C_UNK D_80115060;
-extern M2C_UNK func_8002255C;
-extern M2C_UNK func_800227EC;
-extern M2C_UNK func_8011A7C8;
-extern s8 gMenuNeedsRedraw;
+extern s8 gSaveMenuFlag;
+extern M2C_UNK gMenuWindow;
+extern M2C_UNK layoutSaveMenuEntrySprites;
+extern M2C_UNK destroyMenuItemPair;
+extern M2C_UNK selectBonusSurvivorSlot;
+extern s8 gMenuAnyController;
 extern void *gSaveMenuState;
 extern char sFmtEntryName[];
 
-void setupStatusScreen(void) {
-    s32 temp_s0_2;
-    s32 var_a0;
-    void *temp_s0;
-    void *temp_s1;
-    void *temp_s2;
-    void *temp_s3;
-    void *temp_s4;
-    void *var_a0_2;
-    void *state;
+/* Sets up the status screen menu window: looks up its text/menu entries, formats the map name and info line, and configures the list entry's labels and table index. */ void setupStatusScreen(void) {
+    s32 labelStr;
+    s32 strIdx;
+    void *mapNameEntry;
+    void *listEntry;
+    void *entry0B;
+    void *entry0E;
+    void *infoLineEntry;
+    void *entryTable;
+    void *menuState;
 
-    if (M2C_FIELD(&func_8011A7C8, u8 *, 0x3C) != 0) {
-        func_8003099C(M2C_FIELD(&D_800E0C60, u8 *, 0), M2C_FIELD(&D_800E0C60, u8 *, 1));
-        func_80030C1C();
+    if (M2C_FIELD(&selectBonusSurvivorSlot, u8 *, 0x3C) != 0) {
+        loadMapEntries(M2C_FIELD(&D_800E0C60, u8 *, 0), M2C_FIELD(&D_800E0C60, u8 *, 1));
+        resetEntryTable();
     } else {
         M2C_FIELD(&D_800E0C60, u8 *, 0) = (u8) D_80100768;
-        M2C_FIELD(&D_800E0C60, u8 *, 1) = func_800316B8();
+        M2C_FIELD(&D_800E0C60, u8 *, 1) = getEntryLevelLimitTopNibble();
     }
-    var_a0_2 = M2C_FIELD(gSaveMenuState, void **, 0x10);
-    gMenuNeedsRedraw = 0;
-    temp_s3 = findEntryById(var_a0_2, 0xE);
-    temp_s0 = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0x4000);
-    temp_s4 = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0x4001);
-    temp_s1 = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0x55);
-    temp_s2 = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0xB);
-    func_8002A644(&D_80115060, &D_80100870, 0x90, 0xA, 0x45, 0xB4, 0x4B, 0xB, 0, &func_8002255C, &func_800227EC);
+    entryTable = M2C_FIELD(gSaveMenuState, void **, 0x10);
+    gMenuAnyController = 0;
+    entry0E = findEntryById(entryTable, 0xE);
+    mapNameEntry = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0x4000);
+    infoLineEntry = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0x4001);
+    listEntry = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0x55);
+    entry0B = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0xB);
+    initMenuWindow(&gMenuWindow, &D_80100870, 0x90, 0xA, 0x45, 0xB4, 0x4B, 0xB, 0, &layoutSaveMenuEntrySprites, &destroyMenuItemPair);
     D_800BD9BA = 0x10;
-    if (((temp_s0 != NULL) & (temp_s3 != NULL)) && ((temp_s1 != NULL) & (temp_s2 != NULL)) && (temp_s4 != NULL)) {
+    if (((mapNameEntry != NULL) & (entry0E != NULL)) && ((listEntry != NULL) & (entry0B != NULL)) && (infoLineEntry != NULL)) {
         D_800B5B24 = 0;
         D_800B5B26 = 1;
-        formatTextEntry(temp_s0, sFmtEntryName, lookupDataEntry(getCurrentMapIdx() & 0xFFFF));
-        var_a0 = func_80030C7C() & 0xFFFF;
-        if (M2C_FIELD(&func_8011A7C8, u8 *, 0x3C) != 0) {
-            var_a0 = 0x9E;
+        formatTextEntry(mapNameEntry, sFmtEntryName, lookupDataEntry(getCurrentMapIdx() & 0xFFFF));
+        strIdx = getEntryStatusId() & 0xFFFF;
+        if (M2C_FIELD(&selectBonusSurvivorSlot, u8 *, 0x3C) != 0) {
+            strIdx = 0x9E;
         }
-        temp_s0_2 = lookupDataEntry(var_a0);
-        formatTextEntry(temp_s4, "%s : %s", temp_s0_2, lookupDataEntry((func_800316B8() + 0x72) & 0xFFFF));
-        if (temp_s1 != NULL) {
-            M2C_FIELD(temp_s1, u16 *, 0xC) = (u16) (M2C_FIELD(temp_s1, u16 *, 0xC) & 0xFFF0);
-            if (func_80030D40() != 5) {
-                func_80025E9C(temp_s1, 0, temp_s2, temp_s3, 0, 9);
-                state = gSaveMenuState;
-                M2C_FIELD(temp_s1, s16 *, 0x18) = 0x190;
-                var_a0_2 = M2C_FIELD(state, void **, 0x10);
-                M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), s8 *, 4) = findTableIndexById(var_a0_2, 0xE);
+        labelStr = lookupDataEntry(strIdx);
+        formatTextEntry(infoLineEntry, "%s : %s", labelStr, lookupDataEntry((getEntryLevelLimitTopNibble() + 0x72) & 0xFFFF));
+        if (listEntry != NULL) {
+            M2C_FIELD(listEntry, u16 *, 0xC) = (u16) (M2C_FIELD(listEntry, u16 *, 0xC) & 0xFFF0);
+            if (getEntryStatus() != 5) {
+                setupMenuItemPair(listEntry, 0, entry0B, entry0E, 0, 9);
+                menuState = gSaveMenuState;
+                M2C_FIELD(listEntry, s16 *, 0x18) = 0x190;
+                entryTable = M2C_FIELD(menuState, void **, 0x10);
+                M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), s8 *, 4) = findTableIndexById(entryTable, 0xE);
             } else {
-                D_80102F04 = 1;
-                menuSetItemLabelIndices(temp_s1, 0, temp_s2, temp_s3, 0x55, 0);
-                state = gSaveMenuState;
-                M2C_FIELD(temp_s1, s16 *, 0x18) = 0xA0;
-                var_a0_2 = M2C_FIELD(state, void **, 0x10);
-                M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), s8 *, 4) = findTableIndexById(var_a0_2, 0x55);
+                gSaveMenuFlag = 1;
+                menuSetItemLabelIndices(listEntry, 0, entry0B, entry0E, 0x55, 0);
+                menuState = gSaveMenuState;
+                M2C_FIELD(listEntry, s16 *, 0x18) = 0xA0;
+                entryTable = M2C_FIELD(menuState, void **, 0x10);
+                M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), s8 *, 4) = findTableIndexById(entryTable, 0x55);
             }
         }
     }

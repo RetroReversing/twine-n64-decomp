@@ -17,7 +17,7 @@ extern u8 D_801002EA;
 extern u8 D_8010A930;
 extern u8 D_8010D720;
 extern u8 D_80110DB0;
-extern char D_80117388[];
+extern char sVoiceFreeList[];
 extern char D_80117389[];
 
 typedef struct { unsigned char field_0; unsigned char field_1; unsigned short field_2; } __repair_record_temp_a0;
@@ -29,7 +29,7 @@ typedef struct { unsigned char field_0; unsigned char field_1; unsigned short fi
     slotIndex = M2C_FIELD(voice, u8 *, 0x63);
     M2C_FIELD(voice, s32 *, 0) = 0;
     M2C_FIELD(voice, s8 *, 0x2E) = 0;
-    slotEntry = (slotIndex * 4) + D_80117388;
+    slotEntry = (slotIndex * 4) + sVoiceFreeList;
     if (((__repair_record_temp_a0*)slotEntry)->field_2 == 0) {
         ((__repair_record_temp_a0*)slotEntry)->field_2 = 1U;
         if (D_801002EA != 0xFF) {

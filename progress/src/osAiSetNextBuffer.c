@@ -12,26 +12,26 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 ai_fifo_full();                                /* extern */
+s32 isAiFifoFull();                                /* extern */
 s32 osVirtualToPhysical(s32);                       /* extern */
-extern u8 D_800CFDC0;
+extern u8 sAiBufferHalfToggle;
 extern s32 D_A4500000;
 
-s32 osAiSetNextBuffer(s32 arg0, s32 arg1) {
-    s32 var_a0;
+/* Queues the next AI DMA buffer (address, length) if the AI FIFO isn't full; returns 0 on success, -1 if full. */ s32 osAiSetNextBuffer(s32 buffer, s32 size) {
+    s32 startAddr;
 
-    if (ai_fifo_full() == 0) {
-        var_a0 = arg0;
-        if (D_800CFDC0 != 0) {
-            var_a0 -= 0x2000;
+    if (isAiFifoFull() == 0) {
+        startAddr = buffer;
+        if (sAiBufferHalfToggle != 0) {
+            startAddr -= 0x2000;
         }
-        if (!((arg0 + arg1) & 0x1FFF)) {
-            D_800CFDC0 = 1;
+        if (!((buffer + size) & 0x1FFF)) {
+            sAiBufferHalfToggle = 1;
         } else {
-            D_800CFDC0 = 0;
+            sAiBufferHalfToggle = 0;
         }
-        *(volatile s32 *)0xA4500000 = osVirtualToPhysical(var_a0);
-        *(volatile s32 *)0xA4500004 = arg1;
+        *(volatile s32 *)0xA4500000 = osVirtualToPhysical(startAddr);
+        *(volatile s32 *)0xA4500004 = size;
         return 0;
     }
     return -1;

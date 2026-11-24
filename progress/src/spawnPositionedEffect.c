@@ -2,7 +2,7 @@ extern int sLastEffectPos;
 void *spawnEffectObject();
 s32 actorLinkToSurface();
 s32 effectSetAnimFrame();
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 extern u8 gSceneType;
 
 typedef struct { s32 v[3]; } EffectPos;
@@ -28,7 +28,7 @@ void *spawnPositionedEffect(void *pos, s32 effectType, s32 scale) {
         ((EffectObj*)effect)->field_81 = 0;
         ((EffectObj*)effect)->field_7A = 0;
         ((EffectObj*)effect)->flags &= ~0x200;
-        actorLinkToSurface(*gProbeObjectList, effect, 1);
+        actorLinkToSurface(*gDefaultOrderObj, effect, 1);
     }
     return effect;
 }

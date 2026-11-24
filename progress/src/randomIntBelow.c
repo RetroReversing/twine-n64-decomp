@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 s32 randomU32Next();                                /* extern */
 
-u32 randomIntBelow(s32 arg0) {
-    return (u32) ((randomU32Next() & 0xFFFF) * arg0) >> 0x10;
+/* Returns a random integer in [0, limit) by scaling the low 16 bits of the next random value. */ u32 randomIntBelow(s32 limit) {
+    return (u32) ((randomU32Next() & 0xFFFF) * limit) >> 0x10;
 }

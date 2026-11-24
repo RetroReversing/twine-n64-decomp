@@ -7,7 +7,7 @@ extern s32 sMatrixPoolLimit;
 extern s32 gBorderSkipActive;
 extern s32 gGameMode;
 extern Ctx828C *sMatrixPoolSlots[];
-extern u16 sMatrixPoolSlotCount;
+extern u16 gFramebufferCount;
 
 void initMatrixPools(void) {
     u32 i;
@@ -23,7 +23,7 @@ void initMatrixPools(void) {
         }
     }
     sMatrixPoolLimit = sMatrixPoolCount - 1;
-    for (i = 0; i < sMatrixPoolSlotCount; i++) {
+    for (i = 0; i < gFramebufferCount; i++) {
         sMatrixPoolSlots[i]->w790 = heapAllocTagged(sAuxPoolCount * 8, 0x31);
         sMatrixPoolSlots[i]->w78C = heapAllocTagged(sMatrixPoolCount << 6, 0x31);
     }

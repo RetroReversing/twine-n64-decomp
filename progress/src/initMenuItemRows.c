@@ -16,7 +16,7 @@ s32 findEntryById(void *, M2C_UNK);                 /* extern */
 M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);       /* extern */
 s32 lookupDataEntry(u16);                           /* extern */
 extern M2C_UNK func_8001E5BC;
-extern s8 gMenuNeedsRedraw;
+extern s8 gMenuAnyController;
 extern u8 sMenuRowEnabled;
 extern void *gSaveMenuState;
 extern M2C_UNK sFmtEntryName;
@@ -35,7 +35,7 @@ void initMenuItemRows(void) {
 
     temp_s0 = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0x4000);
     temp_v0 = findEntryById(M2C_FIELD(gSaveMenuState, void **, 0x10), 0x39);
-    gMenuNeedsRedraw = 1;
+    gMenuAnyController = 1;
     if (temp_s0 != 0) {
         temp_v0_2 = M2C_FIELD(gSaveMenuState, void **, 0x10);
         formatTextEntry(temp_s0, &sFmtEntryName, lookupDataEntry(*(u16 *)((M2C_FIELD(temp_v0_2, u8 *, 4) * 0x28) + M2C_FIELD(temp_v0_2, s32 *, 0))));

@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 fillRandomCodeString();
-s32 func_8002FBE4();
+s32 generateFireTexture();
 extern u16 sMenuAnimFlags;
 extern u16 sMenuAnimPhase;
 extern char sMenuAnimSlots[];
@@ -18,7 +18,7 @@ extern u8 gPendingMenuCommand;
 
     owner = (*(void **)((char *)(anim) + 0x34));
     if (((*(u8 *)((char *)(owner) + 0x13)) != 0) && (!gPendingMenuCommand) && (sMenuAnimFlags & 1)) {
-        func_8002FBE4(owner, anim + 0x40, anim + 0x42);
+        generateFireTexture(owner, anim + 0x40, anim + 0x42);
     }
     frame = (*(u16 *)((char *)(anim) + 0x40)) + 1;
     (*(u16 *)((char *)(anim) + 0x40)) = frame;

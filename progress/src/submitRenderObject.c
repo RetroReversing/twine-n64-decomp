@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80008434();
-s32 func_800084C0();
-s32 func_80008598();
+s32 buildObjectModelMatrix();
+s32 emitModelDisplayList();
 s32 cacheObjectTransform();
 s32 func_80008750();
 extern u32 sMatrixPoolLimit;
@@ -39,11 +39,11 @@ void submitRenderObject(s32 arg0, void *arg1, s32 arg2, s32 arg3, s8 arg4) {
             if (((__repair_record_arg1*)arg1)->field_58 & 0x40000) {
                 cacheObjectTransform(arg1);
             } else if (arg4 != 0) {
-                func_800084C0(arg1, arg0);
+                buildObjectModelMatrix(arg1, arg0);
             } else {
                 func_80008434(arg1, ((__repair_record_arg1*)arg1)->field_54);
             }
-            func_80008598(temp_s2);
+            emitModelDisplayList(temp_s2);
         }
     }
 }

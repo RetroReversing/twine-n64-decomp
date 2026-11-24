@@ -18,8 +18,8 @@ void *spawnEffectObject();
 s32 objectListInsert();
 s32 actorLinkToSurface();
 s32 effectSetAnimFrame();
-s32 func_80045278();
-extern s32 *gProbeObjectList;
+s32 clearVec3();
+extern s32 *gDefaultOrderObj;
 
 /* Spawns an effect object, copies its position and colour/alpha parameters, and links it into the object list (arg0 != 0) or the probe list. */
 void *spawnConfiguredEffect(s32 listIndex, s32 arg1, s32 arg2, Point3 *pos, f32 scale, f32 arg5, s32 animArg6, s32 animArg7, s32 arg8, u32 colorRgba, u32 colorTint) {
@@ -33,7 +33,7 @@ void *spawnConfiguredEffect(s32 listIndex, s32 arg1, s32 arg2, Point3 *pos, f32 
     if (effect != NULL) {
         effectState = M2C_FIELD(effect, Point3 **, 0x6C);
         if (pos == NULL) {
-            func_80045278(effectState);
+            clearVec3(effectState);
         } else {
             *effectState = *pos;
         }
@@ -53,7 +53,7 @@ void *spawnConfiguredEffect(s32 listIndex, s32 arg1, s32 arg2, Point3 *pos, f32 
             objectListInsert(effect, listIndex);
             return effect;
         }
-        actorLinkToSurface(*gProbeObjectList, effect, 1);
+        actorLinkToSurface(*gDefaultOrderObj, effect, 1);
         goto block_9;
     }
 block_9:

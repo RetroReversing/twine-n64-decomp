@@ -15,12 +15,12 @@ typedef s32 M2C_UNK32;
 M2C_UNK setupMenuListFlags();                            /* extern */
 M2C_UNK func_800269B4(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_8002778C();                            /* extern */
-M2C_UNK func_800278AC(u8, s32, u16);                /* extern */
+M2C_UNK setSaveMenuPage(u8, s32, u16);                /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 s32 spawnTrackHudObject(u8);                              /* extern */
-M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
+M2C_UNK setStateMachineState(s32, M2C_UNK);                /* extern */
 s32 createTextMenu(u8);                              /* extern */
-M2C_UNK func_80081D20(M2C_UNK, M2C_UNK);            /* extern */
+M2C_UNK setGridCellFlag(M2C_UNK, M2C_UNK);            /* extern */
 extern u8 sMenuListKind;
 extern M2C_UNK D_800BF458;
 extern s32 gMenuSoundParams;
@@ -45,18 +45,18 @@ extern void *gSaveMenuState;
         command = gPendingMenuCommand;
         if (command == 31) {
             M2C_FIELD(gSaveMenuState, M2C_UNK **, 0xC) = &D_800BF458;
-            func_80081D20(0, 0x2A);
-            func_80081D20(0, 0x24);
-            func_80081D20(0, 0x23);
+            setGridCellFlag(0, 0x2A);
+            setGridCellFlag(0, 0x24);
+            setGridCellFlag(0, 0x23);
             func_800269B4(gSaveMenuState + 0x1C, 0x26, 0x24);
-            func_8002FBD4(M2C_FIELD(gSaveMenuState, s32 *, 0x20), 9);
+            setStateMachineState(M2C_FIELD(gSaveMenuState, s32 *, 0x20), 9);
             M2C_FIELD(gSaveMenuState, s16 *, 0x32) = 0;
-            func_800278AC(1U, gMenuSoundParams & ~0xFF, 0x16U);
+            setSaveMenuPage(1U, gMenuSoundParams & ~0xFF, 0x16U);
             func_8002778C();
         } else if (command != 0) {
-            func_800278AC(command, gMenuSoundParams & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
+            setSaveMenuPage(command, gMenuSoundParams & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         } else {
-            func_800278AC(1, gMenuSoundParams & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
+            setSaveMenuPage(1, gMenuSoundParams & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         }
     }
 }

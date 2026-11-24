@@ -16,7 +16,7 @@ M2C_UNK osRecvMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
 extern s32 workerLockDepth;
 extern M2C_UNK workerLockQueue;
 
-void workerLockAcquire(void) {
+/* Takes the worker lock (blocking on its queue) on first entry and increments the recursion depth. */ void workerLockAcquire(void) {
     if (workerLockDepth == 0) {
         osRecvMesg(&workerLockQueue, 0, 1);
     }

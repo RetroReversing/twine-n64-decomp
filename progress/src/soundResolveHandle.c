@@ -1,14 +1,15 @@
-typedef struct Entry989 Entry989;
-struct Entry989 {
-    Entry989 *next;
+typedef struct VoiceEntry VoiceEntry;
+struct VoiceEntry {
+    VoiceEntry *next;
     u32 unknown;
     u32 key;
     s32 value;
 };
-extern Entry989 *gVoiceListHead;
+extern VoiceEntry *gVoiceListHead;
 
+/* Looks up a handle key in the sorted voice list and returns its value, or -1 if absent. */
 s32 soundResolveHandle(u32 key) {
-    Entry989 *entry;
+    VoiceEntry *entry;
     u32 result;
 
     if (key != -1U) {
@@ -33,7 +34,7 @@ absent:
             }
         }
         if (result != 0) {
-            result = ((Entry989 *)result)->value;
+            result = ((VoiceEntry *)result)->value;
         } else {
             result = -1;
         }

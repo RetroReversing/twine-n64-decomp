@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 findActionSlot(s32 arg0, s32 arg1, s32 arg2) {
-    u8 var_a3;
-    u16 temp_v1;
+/* Returns 1 if any of the actor's 16-bit slots 1..29 (at offset 0x138) has the given low and high bytes, else 0. */ s32 findActionSlot(s32 actor, s32 lowByte, s32 highByte) {
+    u8 i;
+    u16 entry;
 
-    for (var_a3 = 1; var_a3 < 0x1E; var_a3++) {
-        temp_v1 = M2C_FIELD(((var_a3 * 2) + arg0), u16 *, 0x138);
-        if (((temp_v1 & 0xFF) == (arg1 & 0xFF)) && ((temp_v1 >> 8) == (arg2 & 0xFF))) {
+    for (i = 1; i < 0x1E; i++) {
+        entry = M2C_FIELD(((i * 2) + actor), u16 *, 0x138);
+        if (((entry & 0xFF) == (lowByte & 0xFF)) && ((entry >> 8) == (highByte & 0xFF))) {
             return 1;
         }
     }

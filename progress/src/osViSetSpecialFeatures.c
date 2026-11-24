@@ -46,7 +46,7 @@ typedef struct {
     __OSViScale y;
 } __OSViContext;
 
-extern __OSViContext *vi_active_ctx;
+extern __OSViContext *gViCurrentContext;
 u32 __osDisableInt(void);
 void __osRestoreInt(u32);
 
@@ -59,40 +59,40 @@ void osViSetSpecialFeatures(u32 features) {
     saveMask = __osDisableInt();
 
     if ((features & 0x0001) != 0) {
-        vi_active_ctx->control |= 0x00008;
+        gViCurrentContext->control |= 0x00008;
     }
 
     if ((features & 0x0002) != 0) {
-        vi_active_ctx->control &= ~0x00008;
+        gViCurrentContext->control &= ~0x00008;
     }
 
     if ((features & 0x0004) != 0) {
-        vi_active_ctx->control |= 0x00004;
+        gViCurrentContext->control |= 0x00004;
     }
 
     if ((features & 0x0008) != 0) {
-        vi_active_ctx->control &= ~0x00004;
+        gViCurrentContext->control &= ~0x00004;
     }
 
     if ((features & 0x0010) != 0) {
-        vi_active_ctx->control |= 0x00010;
+        gViCurrentContext->control |= 0x00010;
     }
 
     if ((features & 0x0020) != 0) {
-        vi_active_ctx->control &= ~0x00010;
+        gViCurrentContext->control &= ~0x00010;
     }
 
     if ((features & 0x0040) != 0) {
-        vi_active_ctx->control |= 0x10000;
-        vi_active_ctx->control &= ~0x00300;
+        gViCurrentContext->control |= 0x10000;
+        gViCurrentContext->control &= ~0x00300;
     }
 
     if ((features & 0x0080) != 0) {
-        vi_active_ctx->control &= ~0x10000;
-        vi_active_ctx->control |= vi_active_ctx->modep->comRegs.ctrl & 0x00300;
+        gViCurrentContext->control &= ~0x10000;
+        gViCurrentContext->control |= gViCurrentContext->modep->comRegs.ctrl & 0x00300;
     }
 
-    vi_active_ctx->state |= 0x08;
+    gViCurrentContext->state |= 0x08;
 
     __osRestoreInt(saveMask);
 }

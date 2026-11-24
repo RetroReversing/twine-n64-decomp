@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void buildPlaneFromDirs(void *arg0, void *arg1, void *arg2, void *arg3) {
+/* Builds a plane (normal xyz = dirA x dirB, offset w = -normal . point) from two direction vectors and a point on the plane. */ void buildPlaneFromDirs(void *plane, void *dirA, void *dirB, void *point) {
     f32 temp_ft1;
 
-    M2C_FIELD(arg0, f32 *, 0) = (f32) ((M2C_FIELD(arg1, f32 *, 4) * M2C_FIELD(arg2, f32 *, 8)) - (M2C_FIELD(arg1, f32 *, 8) * M2C_FIELD(arg2, f32 *, 4)));
-    M2C_FIELD(arg0, f32 *, 4) = (f32) ((M2C_FIELD(arg1, f32 *, 8) * M2C_FIELD(arg2, f32 *, 0)) - (M2C_FIELD(arg1, f32 *, 0) * M2C_FIELD(arg2, f32 *, 8)));
-    temp_ft1 = (M2C_FIELD(arg1, f32 *, 0) * M2C_FIELD(arg2, f32 *, 4)) - (M2C_FIELD(arg1, f32 *, 4) * M2C_FIELD(arg2, f32 *, 0));
-    M2C_FIELD(arg0, f32 *, 8) = temp_ft1;
-    M2C_FIELD(arg0, f32 *, 0xC) = (f32) (((-M2C_FIELD(arg0, f32 *, 0) * M2C_FIELD(arg3, f32 *, 0)) - (M2C_FIELD(arg0, f32 *, 4) * M2C_FIELD(arg3, f32 *, 4))) - (temp_ft1 * M2C_FIELD(arg3, f32 *, 8)));
+    M2C_FIELD(plane, f32 *, 0) = (f32) ((M2C_FIELD(dirA, f32 *, 4) * M2C_FIELD(dirB, f32 *, 8)) - (M2C_FIELD(dirA, f32 *, 8) * M2C_FIELD(dirB, f32 *, 4)));
+    M2C_FIELD(plane, f32 *, 4) = (f32) ((M2C_FIELD(dirA, f32 *, 8) * M2C_FIELD(dirB, f32 *, 0)) - (M2C_FIELD(dirA, f32 *, 0) * M2C_FIELD(dirB, f32 *, 8)));
+    temp_ft1 = (M2C_FIELD(dirA, f32 *, 0) * M2C_FIELD(dirB, f32 *, 4)) - (M2C_FIELD(dirA, f32 *, 4) * M2C_FIELD(dirB, f32 *, 0));
+    M2C_FIELD(plane, f32 *, 8) = temp_ft1;
+    M2C_FIELD(plane, f32 *, 0xC) = (f32) (((-M2C_FIELD(plane, f32 *, 0) * M2C_FIELD(point, f32 *, 0)) - (M2C_FIELD(plane, f32 *, 4) * M2C_FIELD(point, f32 *, 4))) - (temp_ft1 * M2C_FIELD(point, f32 *, 8)));
 }

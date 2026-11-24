@@ -1,5 +1,5 @@
 typedef struct { u8 a; u8 pad[0x5F]; u8 b60; u8 b61; u8 pad2[6]; } Voice;
-extern u32 (*gDataBankAlloc)(s32, s32);
+extern u32 (*gDataBankHandler)(s32, s32);
 extern Voice *gAudioVoiceTable, *D_800E41E0;
 extern u32 sMixBufferA, sMixBufferB, sAudioStateBlock;
 extern u16 sAudioVoiceCount, sMixBufferUnits;
@@ -7,7 +7,7 @@ extern s16 D_800E4228, D_800E422A;
 extern u8 sVoiceAllocCursor;
 extern u8 D_8010086C;
 extern int bzero();
-extern int func_800A0220();
+extern int osWritebackDCache();
 
 /* Allocates the voice table and mix buffers for voiceCount voices at the sample rate given by rateArg, then clears the audio state block. */
 void audioInitVoices(u16 voiceCount, u32 rateArg) {
@@ -16,7 +16,7 @@ void audioInitVoices(u16 voiceCount, u32 rateArg) {
     f32 f;
 
     sAudioVoiceCount = voiceCount;
-    p = (Voice *)gDataBankAlloc(voiceCount * 0x68, 0);
+    p = (Voice *)gDataBankHandler(voiceCount * 0x68, 0);
     D_800E41E0 = p;
     gAudioVoiceTable = p;
     sVoiceAllocCursor = 0;
@@ -33,7 +33,7 @@ void audioInitVoices(u16 voiceCount, u32 rateArg) {
         sMixBufferUnits = (u32) f + 1;
     }
     {
-        u32 (**al)(s32, s32) = &gDataBankAlloc;
+        u32 (**al)(s32, s32) = &gDataBankHandler;
         sMixBufferA = (*al)(sMixBufferUnits * 0xA10, 0);
         sMixBufferB = (*al)(sMixBufferUnits * 0xA10, 0);
         D_800E422A = 0;
@@ -42,5 +42,5 @@ void audioInitVoices(u16 voiceCount, u32 rateArg) {
     }
     sAudioStateBlock = (u32) p;
     bzero(p, 0x298);
-    func_800A0220(sAudioStateBlock, 0x298);
+    osWritebackDCache(sAudioStateBlock, 0x298);
 }

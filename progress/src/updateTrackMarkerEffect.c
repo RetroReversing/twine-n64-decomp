@@ -5,11 +5,11 @@ extern f32 gTrackMarkerEffectTimer;
 extern u16 gTrackMarkerEffectMode;
 extern u16 gTrackMarkerEffectKind;
 extern char D_800BF5CC[];
-extern Def2B6BC *sTrackMarkerTable[];
-s32 *func_8002B400(f32, s32, char *);
+extern Def2B6BC *gTrackMarkerParents[];
+s32 *sampleCatmullRomPath(f32, s32, char *);
 void actorUnlinkFromSurface(void *);
 void objectListInsert(void *, void *);
-void func_8002B7F8(void);
+void releaseTrackMarkerEffects(void);
 
 void updateTrackMarkerEffect(s32 arg0) {
     Obj2B6BC * volatile *pp;
@@ -22,9 +22,9 @@ void updateTrackMarkerEffect(s32 arg0) {
         if (*pp == NULL) {
             return;
         }
-        v = (f32 *)func_8002B400(gTrackMarkerEffectTimer, 0xE, D_800BF5CC);
+        v = (f32 *)sampleCatmullRomPath(gTrackMarkerEffectTimer, 0xE, D_800BF5CC);
         actorUnlinkFromSurface(*pp);
-        objectListInsert(*pp, sTrackMarkerTable[gTrackMarkerEffectKind]->fF4);
+        objectListInsert(*pp, gTrackMarkerParents[gTrackMarkerEffectKind]->fF4);
         gTrackMarkerEffectObject->flags |= 0x1000;
         do { gTrackMarkerEffectObject->f54 = *v; } while (0);
         switch (gTrackMarkerEffectMode) {
@@ -42,5 +42,5 @@ void updateTrackMarkerEffect(s32 arg0) {
             return;
         }
     }
-    func_8002B7F8();
+    releaseTrackMarkerEffects();
 }

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK vec3Add(void *, void *, void *); /* extern */
 f32 randomFloatMinusOffset(f32, f32);                /* extern */
-M2C_UNK func_8008550C(void *);                      /* extern */
+M2C_UNK playRandomAltSoundNearTrackMarker(void *);                      /* extern */
 
 /* Per-frame bobbing motion: integrates velocity, bounces the Y position off a floor, and counts down a timer. */
 void updateBobbingObject(void *obj) {
@@ -47,7 +47,7 @@ void updateBobbingObject(void *obj) {
             M2C_FIELD(state, f32 *, 4) = newVelX;
             M2C_FIELD(state, f32 *, 0xC) = newVelZ;
             M2C_FIELD(state, f32 *, 8) = (f32) (M2C_FIELD(state, f32 *, 8) * -0.5f);
-            func_8008550C(obj + 0x24);
+            playRandomAltSoundNearTrackMarker(obj + 0x24);
         }
         M2C_FIELD(obj, s16 *, 0x7A) = (s16) ((u16) M2C_FIELD(obj, s16 *, 0x7A) + 1);
     }

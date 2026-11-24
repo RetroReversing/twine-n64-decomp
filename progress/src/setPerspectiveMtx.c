@@ -1,0 +1,1 @@
+/* Builds a float perspective matrix and converts it to a fixed-point Mtx. */ extern void guPerspectiveF(void *, s32, s32, s32, f32, f32, f32); extern void guMtxF2L(void *, s32); void setPerspectiveMtx(s32 mtx, s32 perspNorm, s32 fovy, s32 aspect, f32 near, f32 far, f32 scale) { char mtxF[64]; guPerspectiveF(mtxF,perspNorm,fovy,aspect,near,far,scale); guMtxF2L(mtxF,mtx); }

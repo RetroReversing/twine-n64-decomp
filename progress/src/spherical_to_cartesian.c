@@ -2,20 +2,21 @@ extern f32 gSinCosTable[];
 #define SINS(x) gSinCosTable[(x) & 0xFFF]
 #define COSS(x) gSinCosTable[((x) - 0x400) & 0xFFF]
 
-void spherical_to_cartesian(f32 *arg0, f32 r, f32 y, f32 p) {
-    s32 a = y * 651.8986206054688f;
-    f32 pitch = p * 651.8986206054688f;
-    f32 x0 = r * COSS(a);
-    s32 b = pitch;
-    f32 sb = SINS(b);
-    f32 x2, x1;
-    x0 *= sb;
-    x2 = r * SINS(a);
-    x1 = r * COSS(b);
-    x2 *= sb;
-    arg0[1] = x1;
-    arg0[0] = x0;
-    arg0[2] = x2;
+/* Converts spherical coordinates (radians, 4096-step sine table) to an XYZ vector in out[0..2]. */
+void spherical_to_cartesian(f32 *out, f32 radius, f32 yaw, f32 pitch) {
+    s32 yawIdx = yaw * 651.8986206054688f;
+    f32 pitchScaled = pitch * 651.8986206054688f;
+    f32 x = radius * COSS(yawIdx);
+    s32 pitchIdx = pitchScaled;
+    f32 sinPitch = SINS(pitchIdx);
+    f32 z, y;
+    x *= sinPitch;
+    z = radius * SINS(yawIdx);
+    y = radius * COSS(pitchIdx);
+    z *= sinPitch;
+    out[1] = y;
+    out[0] = x;
+    out[2] = z;
 }
 
 u64 func_800ABAE8(u64, u64);
@@ -32,17 +33,17 @@ typedef struct {
     s8 state;
 } StateRecord;
 
-void func_8009D9B8(StateRecord *arg0) {
+void advanceStreamStateToThree(StateRecord *arg0) {
     if (arg0->state == 2)
         arg0->state = 3;
 }
 
-extern u8 D_80115094[];
+extern u8 gInputBindingTables[];
 
-void func_80081D20(s32 row, s32 col) {
+void setGridCellFlag(s32 row, s32 col) {
     u8 *entry;
     row *= 0xA0;
-    entry = D_80115094 + row;
+    entry = gInputBindingTables + row;
     col *= 2;
     entry += col;
     *entry |= 0x80;

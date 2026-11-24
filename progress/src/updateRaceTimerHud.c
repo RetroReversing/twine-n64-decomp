@@ -14,18 +14,18 @@ typedef s32 M2C_UNK32;
 
 s32 requestSound();
 s32 advanceTimerRecord();
-s32 func_8002B180();
+s32 formatTimeString();
 s16 timerGetTotalSeconds();
 s16 strlen();
 extern s32 D_800BD65C;
-extern s32 D_800BD66C;
-extern u8 D_801002AC;
+extern s32 gMenuTimerColor;
+extern u8 gBonusGoalReached;
 extern char sRaceTimer[];
 extern s16 D_801002D0;
 extern u8 gMenuUseTextList;
-extern char D_8011F0D4[];
-extern s32 D_8011F3A8;
-extern void *D_8011F3B8;
+extern char gMenuTimerText[];
+extern s32 gBonusEndDelayFrames;
+extern void *gMenuItemList;
 
 /* Advances the race timer by frameDelta, then updates the HUD text, colour and warning sound. */ void updateRaceTimerHud(s16 frameDelta) {
     s32 textColor;
@@ -35,26 +35,26 @@ extern void *D_8011F3B8;
     if (gMenuUseTextList != 0) {
         advanceTimerRecord(sRaceTimer, frameDelta);
         if ((timerGetTotalSeconds(sRaceTimer - 8) << 0x10) != 0) {
-            if (D_801002AC == 0) {
+            if (gBonusGoalReached == 0) {
                 warnFlag = (timerGetTotalSeconds(sRaceTimer) << 0x10) < 1;
-                D_801002AC = warnFlag;
+                gBonusGoalReached = warnFlag;
                 if (warnFlag & 0xFF) {
-                    D_8011F3A8 = 0x1E;
+                    gBonusEndDelayFrames = 0x1E;
                 }
             }
             if ((timerGetTotalSeconds(sRaceTimer) < 0xB) && (D_801002D0 == 0)) {
                 requestSound(0x123);
             }
-            hudElement = D_8011F3B8;
+            hudElement = gMenuItemList;
             if (hudElement != NULL) {
                 if (timerGetTotalSeconds(sRaceTimer) < 0x3C) {
                     textColor = D_800BD65C;
                 } else {
-                    textColor = D_800BD66C;
+                    textColor = gMenuTimerColor;
                 }
                 M2C_FIELD(hudElement, s32 *, 0x10) = textColor;
-                func_8002B180(sRaceTimer, D_8011F0D4);
-                M2C_FIELD(hudElement, s16 *, 0x1C) = strlen(D_8011F0D4);
+                formatTimeString(sRaceTimer, gMenuTimerText);
+                M2C_FIELD(hudElement, s16 *, 0x1C) = strlen(gMenuTimerText);
             }
         }
     }

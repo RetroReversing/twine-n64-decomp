@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8000299C();
-s32 func_80005A7C();
+s32 remapAnimIdForVariant();
+s32 getMeshRootMotionDelta();
 extern char sCommandSlotTable[];
-extern char sCommandLabelTable[];
+extern char sCommandScriptTable[];
 extern char sCommandSecondaryTable[];
 
 /* Walks a 16-bit command stream, dispatching each opcode until a terminating command clears keepRunning. */ void runCommandStream(s32 arg0, s32 arg1, s32 arg2) {
@@ -24,7 +24,7 @@ extern char sCommandSecondaryTable[];
     s32 keepRunning;
     u32 cmdOpcode;
 
-    cmdPtr = *(s32 *)(sCommandLabelTable + (func_8000299C(arg0, arg1) * 4));
+    cmdPtr = *(s32 *)(sCommandScriptTable + (remapAnimIdForVariant(arg0, arg1) * 4));
     keepRunning = 1;
     do {
         cmdWord = *(s16 *)cmdPtr;
@@ -39,7 +39,7 @@ extern char sCommandSecondaryTable[];
             *(s16 *)cmdPtr = (*(s16 *)cmdPtr & 0x1F) + ((u16)cmdWord & 0xFFE0);
             break;
         case 27:
-            cmdPtr = *(char **)((func_8000299C(arg0, *(s16 *)cmdPtr) * 4) + sCommandLabelTable);
+            cmdPtr = *(char **)((remapAnimIdForVariant(arg0, *(s16 *)cmdPtr) * 4) + sCommandScriptTable);
             break;
         case 28:
             cmdPtr = *(char **)((*(s16 *)cmdPtr * 4) + sCommandSecondaryTable);
@@ -47,7 +47,7 @@ extern char sCommandSecondaryTable[];
         case 21:
         case 22:
         case 23:
-            func_80005A7C((u32) (cmdWord & 0xFFFF) >> 5, arg2);
+            getMeshRootMotionDelta((u32) (cmdWord & 0xFFFF) >> 5, arg2);
             keepRunning = 0;
             break;
         case 11:

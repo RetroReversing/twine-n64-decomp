@@ -1,6 +1,6 @@
 /* Plays sound soundId at distance from the listener, attenuating volume between its near and far ranges; returns the voice or -1. */
 s32 func_8000A724(s32 voice);
-s32 func_8009C930(s32 voice, s32 volume);
+s32 setSoundVolume(s32 voice, s32 volume);
 s32 func_8009CC3C(s32 soundId, s32 channel, s32 flags);
 extern u8 sDistanceNearRange[];
 extern u8 sDistanceFarRange[];
@@ -30,7 +30,7 @@ s32 playDistanceSound(s32 soundId, f32 distance, u8 channel) {
             attenuation *= attenuation;
             volume = (s32) (gSoundMaxVolume - (f64) (attenuation * 127.0f));
             voice = func_8009CC3C(soundId & 0xFFFF, channel & 0xFF, 0xFF);
-            func_8009C930(voice, volume & 0xFF);
+            setSoundVolume(voice, volume & 0xFF);
             if (sDistanceSoundEnabled[soundId] == 0) {
 failed:
                 result = -1;

@@ -8,97 +8,97 @@ extern u8 D_8010A930;
 extern u8 D_8010D720;
 extern char D_8010D724[];
 extern char D_8010D734[];
-extern char D_8010D784[];
+extern char sSoundVoiceHandle[];
 extern u8 D_80110DB0;
-extern char D_80117388[];
+extern char sVoiceFreeList[];
 extern char D_80117389[];
 
 typedef struct Node { struct Node *next; s32 pad; u32 key; s32 head; } Node;
 typedef struct { u8 a; u8 b; u16 c; } Rec;
 
-s32 sndStopNode(u32 arg0) {
-    s32 ret = -1;
-    s32 temp_s1;
-    s32 off;
-    s32 nxt;
-    s32 m;
-    char *s0;
-    Rec *r;
-    Node *n;
-    u32 k;
-    Node *found;
+/* Stops every voice in the chain for a sound handle: looks up the handle's head voice in the sorted list, then releases each voice whose handle matches, returning its channel to the free list. Returns 0 on success, -1 if the sound system is inactive. */ s32 sndStopNode(u32 handle) {
+    s32 result = -1;
+    s32 slotIndex;
+    s32 slotOffset;
+    s32 nextHandle;
+    s32 channel;
+    char *voice;
+    Rec *channelRec;
+    Node *node;
+    u32 nodeKey;
+    Node *foundNode;
     if (D_800CF540 != 0) {
-        if (arg0 == -1U) {
+        if (handle == -1U) {
             goto no_head;
         }
         {
-            found = NULL;
-            n = D_800FDB74;
-            if (n != NULL) {
+            foundNode = NULL;
+            node = D_800FDB74;
+            if (node != NULL) {
                 for (;;) {
-                    k = n->key;
-                    if (k == arg0) {
-                        found = n;
+                    nodeKey = node->key;
+                    if (nodeKey == handle) {
+                        foundNode = node;
                     } else {
-                        if (arg0 >= k) {
-                            n = n->next;
-                            if (n != NULL) {
+                        if (handle >= nodeKey) {
+                            node = node->next;
+                            if (node != NULL) {
                                 continue;
                             }
                         }
-                        found = NULL;
+                        foundNode = NULL;
                     }
                     break;
                 }
             }
         }
-        if (found != NULL) {
-            off = found->head;
+        if (foundNode != NULL) {
+            slotOffset = foundNode->head;
         } else {
 no_head:
-            off = -1;
+            slotOffset = -1;
         }
-        arg0 = off;
-        while (arg0 != -1) {
-            temp_s1 = arg0 & 0xFF;
-            off = temp_s1 * 0x1A0;
-            nxt = *(s32 *)(D_8010D734 + off);
-            if (*(s32 *)(D_8010D784 + off) == arg0) {
-                if (*(s32 *)(D_8010D724 + off) != 0) {
-                    s0 = D_8010D724 + off;
-                    func_8009876C(s0);
-                    *(s32 *)(s0 + 0x28) = 0;
-                    *(s32 *)(s0 + 0x24) &= ~3;
-                    func_80098A18(s0);
-                    m = *(u8 *)(s0 + 0x63);
-                    *(s32 *)s0 = 0;
-                    *(s8 *)(s0 + 0x2E) = 0;
-                    r = (Rec *)(D_80117388 + m * 4);
-                    if (r->c == 0) {
-                        r->c = 1;
+        handle = slotOffset;
+        while (handle != -1) {
+            slotIndex = handle & 0xFF;
+            slotOffset = slotIndex * 0x1A0;
+            nextHandle = *(s32 *)(D_8010D734 + slotOffset);
+            if (*(s32 *)(sSoundVoiceHandle + slotOffset) == handle) {
+                if (*(s32 *)(D_8010D724 + slotOffset) != 0) {
+                    voice = D_8010D724 + slotOffset;
+                    func_8009876C(voice);
+                    *(s32 *)(voice + 0x28) = 0;
+                    *(s32 *)(voice + 0x24) &= ~3;
+                    func_80098A18(voice);
+                    channel = *(u8 *)(voice + 0x63);
+                    *(s32 *)voice = 0;
+                    *(s8 *)(voice + 0x2E) = 0;
+                    channelRec = (Rec *)(sVoiceFreeList + channel * 4);
+                    if (channelRec->c == 0) {
+                        channelRec->c = 1;
                         if (D_801002EA != 0xFF) {
-                            r->b = 0xFF;
-                            r->a = D_80110DB0;
-                            D_80117389[D_80110DB0 << 2] = m;
+                            channelRec->b = 0xFF;
+                            channelRec->a = D_80110DB0;
+                            D_80117389[D_80110DB0 << 2] = channel;
                         } else {
-                            r->b = 0xFF;
-                            r->a = 0xFF;
-                            D_801002EA = m;
+                            channelRec->b = 0xFF;
+                            channelRec->a = 0xFF;
+                            D_801002EA = channel;
                         }
-                        D_80110DB0 = m;
-                        if (*(u8 *)(s0 + 0x4C) != 0) {
+                        D_80110DB0 = channel;
+                        if (*(u8 *)(voice + 0x4C) != 0) {
                             D_8010A930 -= 1;
                         } else {
                             D_8010D720 -= 1;
                         }
                     }
-                    *(s32 *)(s0 + 0x60) = -1;
+                    *(s32 *)(voice + 0x60) = -1;
                 }
-                func_8008C5DC(temp_s1);
-                ret = 0;
+                func_8008C5DC(slotIndex);
+                result = 0;
             }
-            arg0 = nxt;
+            handle = nextHandle;
         }
     }
-    return ret;
+    return result;
 }

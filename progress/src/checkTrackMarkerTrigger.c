@@ -3,14 +3,14 @@ typedef struct { u8 pad0[0x70]; TrackMarkerDef *def; u8 pad74[4]; s32 state78; s
 typedef struct { u8 pad0[0x70]; TrackMarkerDef *def; u8 pad74[4]; s32 state78; } PlayerActor;
 
 void requestSound(s32);
-void func_8005B5A8(void);
-void func_80073AF8(s32, s32, char *, s32, s32, s32, s32, s32, s32, s32, s32);
+void spawnTrackMarkerCaption(void);
+void spawnCaptionMessage(s32, s32, char *, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 lookupDataEntry(s32);
 s32 sprintf(char *, const char *, ...);
 extern u8 sMarkerMessageCount;
 extern u8 D_801007D8;
-extern PlayerActor *gPlayerActor;
-extern s32 sTrackMarkerTable;
+extern PlayerActor *gSweepHitActor;
+extern s32 gTrackMarkerParents;
 extern char D_800D4110[];
 
 /* Shows the track-marker message once the player actor is in the trigger state; returns 1 when shown. */
@@ -23,15 +23,15 @@ static inline s32 showTrackMarkerMessage(void) {
     TrackMarkerDef *def;
     s32 none;
 
-    if (gPlayerActor == NULL) {
+    if (gSweepHitActor == NULL) {
         goto out;
     }
-    def = gPlayerActor->def;
+    def = gSweepHitActor->def;
     if (def == NULL) {
         goto out;
     }
     none = -1;
-    if (gPlayerActor->state78 != 0x5A0000) {
+    if (gSweepHitActor->state78 != 0x5A0000) {
         goto out;
     }
     flags = def->flags;
@@ -45,19 +45,19 @@ static inline s32 showTrackMarkerMessage(void) {
     idA = lookupDataEntry(0xF3);
     idB = lookupDataEntry(0xFF);
     sprintf(buf, D_800D4110, idA, sMarkerMessageCount, idB, D_801007D8, lookupDataEntry(0xFD));
-    func_80073AF8(0, sTrackMarkerTable, buf, none, none, 1, 0, 0, 3, 0, 0);
-    *(s16 *)((u8 *)gPlayerActor + 0x7A) = 1;
+    spawnCaptionMessage(0, gTrackMarkerParents, buf, none, none, 1, 0, 0, 3, 0, 0);
+    *(s16 *)((u8 *)gSweepHitActor + 0x7A) = 1;
     requestSound(0x111);
     shown = 1;
 out:
     return (s16)shown;
 }
 
-/* Checks for a track-marker trigger and falls back to func_8005B5A8 when no message was shown. */
+/* Checks for a track-marker trigger and falls back to spawnTrackMarkerCaption when no message was shown. */
 void checkTrackMarkerTrigger(void) {
     s32 v = showTrackMarkerMessage();
 
     if (v == 0) {
-        func_8005B5A8();
+        spawnTrackMarkerCaption();
     }
 }

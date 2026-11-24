@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_8010A410;
+extern s32 gActorList;
 
-s32 getObjectListHead(void) {
-    return D_8010A410;
+/* Returns the head of the global actor/object list. */ s32 getObjectListHead(void) {
+    return gActorList;
 }

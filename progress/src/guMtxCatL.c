@@ -13,16 +13,16 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK guMtxF2L(M2C_UNK *, M2C_UNK);          /* extern */
-M2C_UNK func_800A3840(M2C_UNK *, M2C_UNK *, M2C_UNK *); /* extern */
-M2C_UNK func_800A97A0(M2C_UNK *, s32);              /* extern */
+M2C_UNK guMtxCatF(M2C_UNK *, M2C_UNK *, M2C_UNK *); /* extern */
+M2C_UNK guMtxL2F(M2C_UNK *, s32);              /* extern */
 
-void guMtxCatL(s32 arg0, s32 arg1, M2C_UNK arg2) {
-    char sp10[0x40];
-    char sp50[0x40];
-    char sp90[0x40];
+/* Concatenates two fixed-point matrices: converts both to float, multiplies, converts back into result. */ void guMtxCatL(s32 left, s32 right, M2C_UNK result) {
+    char leftF[0x40];
+    char rightF[0x40];
+    char resultF[0x40];
 
-    func_800A97A0(sp10, arg0);
-    func_800A97A0(sp50, arg1);
-    func_800A3840(sp10, sp50, sp90);
-    guMtxF2L(sp90, arg2);
+    guMtxL2F(leftF, left);
+    guMtxL2F(rightF, right);
+    guMtxCatF(leftF, rightF, resultF);
+    guMtxF2L(resultF, result);
 }

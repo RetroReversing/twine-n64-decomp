@@ -2,39 +2,39 @@
 
 void *spawnEffectObject(s32, s32, s32);         /* extern */
 s32 actorLinkToSurface(s32, void *, s32);        /* extern */
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 
-void *spawnTrackMarkerObject(s32 arg0, void *arg1, s16 arg2) {
-    void *temp_v0;
+/* Spawns a marker effect object and fills its settings from the marker definition record; returns the object or NULL. */ /* Allocates an object of the given type, records it in gTrackMarkerParents[markerIndex], and stores the index back in the object (offset 0x140). */ void *spawnTrackMarkerObject(s32 effectParam, void *markerDef, s16 field78Value) {
+    void *marker;
     void *temp_a0;
 
-    temp_v0 = spawnEffectObject(0x10, arg0, 0);
-    if (temp_v0 != NULL) {
-        temp_a0 = (*(void **)((char *)(temp_v0) + 0x6C));
-        (*(s16 *)((char *)(temp_v0) + 0x78)) = arg2;
-        (*(s8 *)((char *)(temp_a0) + 8)) = (s8) (*(u16 *)((char *)(arg1) + 0x2C));
-        (*(s8 *)((char *)(temp_a0) + 9)) = (s8) (*(u16 *)((char *)(arg1) + 0x2E));
-        if ((*(u16 *)((char *)(arg1) + 0x30)) == 0) {
+    marker = spawnEffectObject(0x10, effectParam, 0);
+    if (marker != NULL) {
+        temp_a0 = (*(void **)((char *)(marker) + 0x6C));
+        (*(s16 *)((char *)(marker) + 0x78)) = field78Value;
+        (*(s8 *)((char *)(temp_a0) + 8)) = (s8) (*(u16 *)((char *)(markerDef) + 0x2C));
+        (*(s8 *)((char *)(temp_a0) + 9)) = (s8) (*(u16 *)((char *)(markerDef) + 0x2E));
+        if ((*(u16 *)((char *)(markerDef) + 0x30)) == 0) {
             (*(s8 *)((char *)(temp_a0) + 0xA)) = 1;
         } else {
             (*(s8 *)((char *)(temp_a0) + 0xA)) = 0;
         }
-        (*(s16 *)((char *)(temp_a0) + 4)) = (s16) ((*(u16 *)((char *)(arg1) + 0x32)) * 0xF);
-        if ((*(u16 *)((char *)(arg1) + 0x34)) == 1) {
+        (*(s16 *)((char *)(temp_a0) + 4)) = (s16) ((*(u16 *)((char *)(markerDef) + 0x32)) * 0xF);
+        if ((*(u16 *)((char *)(markerDef) + 0x34)) == 1) {
             (*(s8 *)((char *)(temp_a0) + 0xC)) = 1;
         } else {
             (*(s8 *)((char *)(temp_a0) + 0xC)) = 0;
         }
-        (*(u16 *)((char *)(temp_a0) + 6)) = (u16) (*(u16 *)((char *)(arg1) + 0x36));
-        (*(f32 *)((char *)(temp_a0) + 0)) = (f32) (((f32) (*(u16 *)((char *)(arg1) + 0x38)) * 0.1f) + 0.5f);
-        (*(s8 *)((char *)(temp_a0) + 0xB)) = (s8) (*(u16 *)((char *)(arg1) + 0x3A));
+        (*(u16 *)((char *)(temp_a0) + 6)) = (u16) (*(u16 *)((char *)(markerDef) + 0x36));
+        (*(f32 *)((char *)(temp_a0) + 0)) = (f32) (((f32) (*(u16 *)((char *)(markerDef) + 0x38)) * 0.1f) + 0.5f);
+        (*(s8 *)((char *)(temp_a0) + 0xB)) = (s8) (*(u16 *)((char *)(markerDef) + 0x3A));
         (*(s8 *)((char *)(temp_a0) + 0xD)) = 0;
-        if ((*(u16 *)((char *)(arg1) + 0x40)) == 1) {
+        if ((*(u16 *)((char *)(markerDef) + 0x40)) == 1) {
             (*(s8 *)((char *)(temp_a0) + 0xD)) = 1;
         } else {
             (*(s8 *)((char *)(temp_a0) + 0xD)) = 0;
         }
-        actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
+        actorLinkToSurface(*gDefaultOrderObj, marker, 1);
     }
-    return temp_v0;
+    return marker;
 }

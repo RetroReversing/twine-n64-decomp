@@ -18,8 +18,8 @@ s32 actorLinkToSurface();
 void updateSplinePosition(void *, void *);
 s32 releaseTrackRecord();
 s32 updateActorTrackingState();
-s32 func_80087380();
-extern s32 *gProbeObjectList;
+s32 initBurstParticles();
+extern s32 *gDefaultOrderObj;
 extern u8 gTrackMarkerDone[];
 
 typedef struct { unsigned char pad_0[32]; int field_20; unsigned char pad_24[52]; int field_58; unsigned char pad_5C[4]; int field_60; unsigned char pad_64[8]; void * field_6C; unsigned char pad_70[10]; short field_7A; unsigned short field_7C; } __repair_record_arg0;
@@ -43,15 +43,15 @@ typedef struct { unsigned char pad_0[32]; int field_20; unsigned char pad_24[52]
                 gateFlag = M2C_FIELD(cfg, u8 *, 0x46);
                 if ((gateFlag != 0) && (*(gTrackMarkerDone + gateFlag) == M2C_FIELD(cfg, u8 *, 0x47))) {
                     ((__repair_record_arg0*)arg0)->field_7A = 1;
-                    actorLinkToSurface(*gProbeObjectList, arg0, 1);
+                    actorLinkToSurface(*gDefaultOrderObj, arg0, 1);
                     return;
                 }
             }
             return;
         }
-        actorLinkToSurface(*gProbeObjectList, arg0, 1);
+        actorLinkToSurface(*gDefaultOrderObj, arg0, 1);
         if (M2C_FIELD(cfg, s32 *, 0x1C) == 0) {
-            func_80087380(arg0);
+            initBurstParticles(arg0);
             ((__repair_record_arg0*)arg0)->field_7A = 3;
             return;
         }
@@ -93,7 +93,7 @@ block_22:
         }
         markObjectsNearPos(((__repair_record_arg0*)arg0)->field_20, 0, 0x01200000, arg0 + 0x24, 0, 0);
         ((__repair_record_arg0*)arg0)->field_58 |= 1;
-        func_80087380(arg0);
+        initBurstParticles(arg0);
         break;
     }
 }

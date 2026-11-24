@@ -4,9 +4,9 @@ typedef struct {
 
 s32 func_8007C094(void *, void *, f32);
 void func_80077960(void *, s32);
-void func_800779C4(void *);
-void func_80077A94(void *);
-void func_8008461C(s32);
+void triggerActorMarkerPulse(void *);
+void triggerObjectMarkerEffect(void *);
+void playRandomMarkerSound(s32);
 extern u8 *gBonusObjects;
 
 /* Checks whether an actor touches the bonus object and, if its state allows, collects it or resets its state. */
@@ -44,7 +44,7 @@ s32 tryCollectBonusObject(u8 *actor) {
     }
     switch (((s8 *)*(u8 **)(gBonusObjects + 0x68))[0xE]) {
     default:
-        func_8008461C((s32)actor);
+        playRandomMarkerSound((s32)actor);
         func_80077960(actor, 0x38);
         return 1;
     case 0:
@@ -62,12 +62,12 @@ s32 tryCollectBonusObject(u8 *actor) {
     case 0x30:
     case 0x37:
     case 0x38:
-        func_80077A94(actor);
+        triggerObjectMarkerEffect(actor);
         *(BonusPos *)(actorState + 0x18) = *(BonusPos *)(gBonusObjects + 0x24);
         func_80077960(actor, 0xD);
         return 0;
     }
 reset:
-    func_800779C4(actor);
+    triggerActorMarkerPulse(actor);
     return 0;
 }

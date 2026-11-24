@@ -11,29 +11,32 @@ typedef struct {
     const char *name;
 } HeapTag;
 
-extern HeapTag D_800CE354[];
-extern volatile u32 D_800CE570;
-extern s8 D_800E1A90;
-extern volatile u32 D_800E1A9C;
-extern volatile u32 D_800E1AA0;
-extern HeapBlock *D_800E1AAC;
-extern HeapBlock *volatile D_800E1AB0;
-extern volatile u32 D_80102CB8;
-extern u32 D_80109A90;
+extern HeapTag gHeapTags[];
+extern volatile u32 gBumpAllocRemaining;
+extern s8 gHeapActive;
+extern volatile u32 gHeapFreeBytes;
+extern volatile u32 gHeapUsedBytes;
+extern HeapBlock *gHeapFreeList;
+extern HeapBlock *volatile gHeapAllocList;
+extern volatile u32 gTopBumpAllocPtr;
+extern u32 gBumpAllocPtr;
 
+/* Allocates size bytes under a heap tag. Before the heap is active it bump-allocates
+ * (tag 45 from the top); afterwards it carves from the end of the first free block that fits,
+ * honoring the tag's alignment. Returns 0 on failure. */
 s32 heapAllocTagged(s32 size, s32 tag) {
-    u32 temp;
-    if (D_800E1A90 == 0) {
-        s32 mask = D_800CE354[tag].alignment - 1;
+    u32 misalign;
+    if (gHeapActive == 0) {
+        s32 mask = gHeapTags[tag].alignment - 1;
         if (tag == 45) {
-            u32 old = D_80102CB8;
+            u32 old = gTopBumpAllocPtr;
             u32 end = old - size;
             u32 used;
             end -= end & mask;
-            used = D_800CE570;
+            used = gBumpAllocRemaining;
             old -= end;
-            D_80102CB8 = end;
-            D_800CE570 = used + old;
+            gTopBumpAllocPtr = end;
+            gBumpAllocRemaining = used + old;
             return end;
         } else {
             u32 old;
@@ -41,18 +44,18 @@ s32 heapAllocTagged(s32 size, s32 tag) {
             u32 start;
             u32 end;
             u32 inverse;
-            old = D_80109A90;
-            used = *(u32 *)&D_800CE354[tag].used;
-            temp = old + mask;
+            old = gBumpAllocPtr;
+            used = *(u32 *)&gHeapTags[tag].used;
+            misalign = old + mask;
             inverse = ~mask;
-            start = temp & inverse;
+            start = misalign & inverse;
             end = start + size;
-            D_80109A90 = end;
-            D_800CE354[tag].used = used + (end - old);
+            gBumpAllocPtr = end;
+            gHeapTags[tag].used = used + (end - old);
             return start;
         }
     } else if (size != 0) {
-        HeapBlock *block = D_800E1AAC;
+        HeapBlock *block = gHeapFreeList;
         u32 minimum = size + 24;
         if (block != NULL) {
             do {
@@ -63,29 +66,29 @@ s32 heapAllocTagged(s32 size, s32 tag) {
                 if (available >= minimum) {
                     u32 mask;
                     HeapBlock *newBlock;
-                    mask = D_800CE354[tag].alignment - 1;
+                    mask = gHeapTags[tag].alignment - 1;
                     newBlock = (HeapBlock *)((u32)end - size);
-                    temp = (u32)newBlock & mask;
-                    if (available >= minimum + temp) {
+                    misalign = (u32)newBlock & mask;
+                    if (available >= minimum + misalign) {
                         u32 tagUsed;
                         u32 heapUsed;
                         u32 heapFree;
                         u32 blockFree;
                         HeapBlock *head;
-                        size += temp;
+                        size += misalign;
                         do { do { do { available = size + 12; } while (0); } while (0); } while (0);
-                        tagUsed = D_800CE354[tag].used;
+                        tagUsed = gHeapTags[tag].used;
                         newBlock = (HeapBlock *)((u32)end - available);
-                        do { heapFree = D_800E1A9C; } while (0);
+                        do { heapFree = gHeapFreeBytes; } while (0);
                         tagUsed += 12;
-                        D_800CE354[tag].used = tagUsed + size;
-                        heapUsed = D_800E1AA0;
+                        gHeapTags[tag].used = tagUsed + size;
+                        heapUsed = gHeapUsedBytes;
                         heapFree -= 12;
-                        D_800E1A9C = heapFree - size;
+                        gHeapFreeBytes = heapFree - size;
                         blockFree = block->size;
                         heapUsed += 12;
-                        D_800E1AA0 = heapUsed + size;
-                        head = D_800E1AB0;
+                        gHeapUsedBytes = heapUsed + size;
+                        head = gHeapAllocList;
                         blockFree -= 12;
                         block->size = blockFree - size;
                         newBlock->prev = NULL;
@@ -93,7 +96,7 @@ s32 heapAllocTagged(s32 size, s32 tag) {
                         newBlock->next = head;
                         if (head)
                             head->prev = newBlock;
-                        D_800E1AB0 = newBlock;
+                        gHeapAllocList = newBlock;
                         return (s32)(newBlock + 1);
                     }
                 }
@@ -103,4 +106,3 @@ s32 heapAllocTagged(s32 size, s32 tag) {
     }
     return 0;
 }
-

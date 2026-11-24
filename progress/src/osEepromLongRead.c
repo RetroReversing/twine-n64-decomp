@@ -15,27 +15,27 @@ typedef s32 M2C_UNK32;
 
 s32 osEepromRead(s32, s32, s32);                   /* extern */
 
-s32 osEepromLongRead(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 var_s0;
-    s32 var_s1;
-    s32 var_s2;
-    s32 var_v0;
+/* Reads consecutive 8-byte EEPROM blocks into a buffer until done or an error occurs. */ s32 osEepromLongRead(s32 mq, s32 blockStart, s32 buffer, s32 remaining) {
+    s32 bytesLeft;
+    s32 block;
+    s32 dest;
+    s32 result;
 
-    var_s2 = arg2;
-    var_s0 = arg3;
-    var_s1 = arg1;
-    var_v0 = 0;
-    if (var_s0 > 0) {
+    dest = buffer;
+    bytesLeft = remaining;
+    block = blockStart;
+    result = 0;
+    if (bytesLeft > 0) {
 loop_1:
-        var_v0 = osEepromRead(arg0, var_s1 & 0xFF, var_s2);
-        var_s0 -= 8;
-        if (var_v0 == 0) {
-            var_s1 += 1;
-            var_s2 += 8;
-            if (var_s0 > 0) {
+        result = osEepromRead(mq, block & 0xFF, dest);
+        bytesLeft -= 8;
+        if (result == 0) {
+            block += 1;
+            dest += 8;
+            if (bytesLeft > 0) {
                 goto loop_1;
             }
         }
     }
-    return var_v0;
+    return result;
 }

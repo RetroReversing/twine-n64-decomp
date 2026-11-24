@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 cache_release_block();
-s32 func_80022BB8();
-s32 func_8002A700();
+s32 releaseTextPopupNode();
+s32 freeMenuMarkers();
+s32 resetObjectPool();
 extern u8 gCurrentSaveSlot;
 extern s8 gPickupSavedByte;
 extern u8 D_801007C1;
@@ -26,26 +26,26 @@ extern u8 D_8010A394;
 extern char gPickupSearchBox[];
 extern u8 D_8010D2B1;
 extern u8 D_8010D454;
-extern char D_80115088[];
-extern char D_80115089[];
+extern char gSlotTable[];
+extern char gSlotMarkerActive[];
 extern char D_8011508A[];
 extern char D_8011508C[];
 extern char D_8011508D[];
 extern char D_8011508E[];
-extern char D_8011508F[];
+extern char gZoneModeEntries[];
 extern char D_80115090[];
 
 /* Copies the current session fields into the save-slot record for gCurrentSaveSlot, resets the slot pool, then flushes the cache. */ void commitSaveSlotRecord(void) {
-    func_8002A700(gPickupSearchBox);
-    *(D_80115088 + (gCurrentSaveSlot * 0xA0)) = D_80109E20;
-    *(D_80115089 + (gCurrentSaveSlot * 0xA0)) = D_8010D454;
+    resetObjectPool(gPickupSearchBox);
+    *(gSlotTable + (gCurrentSaveSlot * 0xA0)) = D_80109E20;
+    *(gSlotMarkerActive + (gCurrentSaveSlot * 0xA0)) = D_8010D454;
     *(D_8011508A + (gCurrentSaveSlot * 0xA0)) = D_8010D2B1;
     *(D_80115090 + (gCurrentSaveSlot * 0xA0)) = D_80102EB0;
     *(D_8011508D + (gCurrentSaveSlot * 0xA0)) = D_801007C1;
     *(D_8011508C + (gCurrentSaveSlot * 0xA0)) = D_8010A394;
-    *(D_8011508F + (gCurrentSaveSlot * 0xA0)) = D_80108960;
+    *(gZoneModeEntries + (gCurrentSaveSlot * 0xA0)) = D_80108960;
     *(D_8011508E + (gCurrentSaveSlot * 0xA0)) = D_80104310;
     gPickupSavedByte = 0;
-    func_80022BB8();
-    cache_release_block();
+    freeMenuMarkers();
+    releaseTextPopupNode();
 }

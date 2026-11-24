@@ -1,24 +1,24 @@
 /* identical to osViSetMode in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
 s32 __osDisableInt();
 s32 __osRestoreInt();
-extern void *vi_active_ctx;
+extern void *gViCurrentContext;
 
 /* Makes `mode` the current VI mode: stores it in the VI context (+8), flags the context for update
  * (+0), and copies the mode's control word (mode+4) into the context at +0xC. Restores the interrupt state. */
-void osViSetMode(void *mode)
+/* Makes `mode` the current VI mode: stores it in the VI context, flags the context for update, and copies the mode's control word into the context. Restores the interrupt state. */ void osViSetMode(void *mode)
 {
-  void *modePtr;
-  void **modeSlot;
-  char *ctx;
-  s32 savedInt;
+  void *currentMode;
+  void **modeField;
+  char *viContext;
+  s32 savedMask;
   void *temp_a1;
-  savedInt = __osDisableInt();
-  ctx = (char *) vi_active_ctx;
-  *((void **) (((char *) vi_active_ctx) + 8)) = mode;
+  savedMask = __osDisableInt();
+  viContext = (char *) gViCurrentContext;
+  *((void **) (((char *) gViCurrentContext) + 8)) = mode;
   ;
-  modeSlot = (void **) (((char *) vi_active_ctx) + 8);
-  *((s16 *) (ctx + 0)) = 1;
-  modePtr = *modeSlot;
-  *((s32 *) (ctx + 0xC)) = (s32) (*((s32 *) (((char *) (*modeSlot)) + 4)));
-  __osRestoreInt(savedInt, modePtr);
+  modeField = (void **) (((char *) gViCurrentContext) + 8);
+  *((s16 *) (viContext + 0)) = 1;
+  currentMode = *modeField;
+  *((s32 *) (viContext + 0xC)) = (s32) (*((s32 *) (((char *) (*modeField)) + 4)));
+  __osRestoreInt(savedMask, currentMode);
 }

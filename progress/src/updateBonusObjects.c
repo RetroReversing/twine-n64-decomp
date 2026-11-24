@@ -5,7 +5,7 @@ typedef struct { u8 flag; u8 pad[0x9F]; } BonusSlotEntry;
 
 s32 func_800643D8(s32);
 extern s32 gSaveSlotCount;
-extern u8 D_8010A4C0[];
+extern u8 gExpansionModeEnabled[];
 extern BonusObject *sBonusObjectTable[];
 extern BonusSlotEntry sBonusSlots[];
 
@@ -26,7 +26,7 @@ void updateBonusObjects(void) {
                 func_800643D8(s->wA8);
                 s->h134 = p->ctl->bE;
                 p->ctl->bF = 0;
-                D_8010A4C0[2] &= 0xDE;
+                gExpansionModeEnabled[2] &= 0xDE;
             }
         }
     }

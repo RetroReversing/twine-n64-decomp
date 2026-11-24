@@ -12,27 +12,27 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80015EF4(M2C_UNK *, void *);           /* extern */
-extern s32 D_800B3930;
+M2C_UNK listInsertAfter(M2C_UNK *, void *);           /* extern */
+extern s32 gNodeObjectCount;
 extern M2C_UNK D_8010D268;
 
 typedef struct { void * field_0; void * field_4; } __repair_record_arg0;
-void freeMenuItemRecord(void *arg0) {
-    void **temp_v1;
-    void *temp_a0;
+/* Unlinks a menu item record from its list, decrements the node count and returns it to the pool. */ void freeMenuItemRecord(void *record) {
+    void **next;
+    void *prev;
 
-    if (arg0 != NULL) {
-        temp_a0 = ((__repair_record_arg0*)arg0)->field_0;
-        temp_v1 = ((__repair_record_arg0*)arg0)->field_4;
-        ((__repair_record_arg0*)arg0)->field_0 = NULL;
-        ((__repair_record_arg0*)arg0)->field_4 = NULL;
-        D_800B3930 -= 1;
-        if (temp_a0 != NULL) {
-            M2C_FIELD(temp_a0, void ***, 4) = temp_v1;
+    if (record != NULL) {
+        prev = ((__repair_record_arg0*)record)->field_0;
+        next = ((__repair_record_arg0*)record)->field_4;
+        ((__repair_record_arg0*)record)->field_0 = NULL;
+        ((__repair_record_arg0*)record)->field_4 = NULL;
+        gNodeObjectCount -= 1;
+        if (prev != NULL) {
+            M2C_FIELD(prev, void ***, 4) = next;
         }
-        if (temp_v1 != NULL) {
-            *temp_v1 = temp_a0;
+        if (next != NULL) {
+            *next = prev;
         }
-        func_80015EF4(&D_8010D268, arg0);
+        listInsertAfter(&D_8010D268, record);
     }
 }

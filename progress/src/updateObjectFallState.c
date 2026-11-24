@@ -1,15 +1,15 @@
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
 s32 randomU32Next();
-s32 func_80054FEC(s32, f32, f32, void *, void *, s32, s32);
-s32 func_8005FBB8(void *);
+s32 applyBlastToNearbyObjects(s32, f32, f32, void *, void *, s32, s32);
+s32 objectUpdateHookStub(void *);
 s32 triggerNearbyBonusObject(void *);
 s32 actorRespawnAtRandomPoint(void *);
 s32 objectUpdateAnimByState(void *);
-s32 func_800624A8(void *, void *, f32, s32);
+s32 spawnImpactBurstEffect(void *, void *, f32, s32);
 s32 setActorStatusBits(void *);
-s32 func_800643D8(void *);
+s32 clearObjectStateBits(void *);
 s32 updateTrackMarkerProximity(void *, f32);
-s32 func_800853D4(void *);
+s32 playFarMarkerSound(void *);
 /* Per-frame state machine for one falling object: counts down a timer, falls, bounces or launches, and resets when finished. */
 void updateObjectFallState(void *obj) {
     f32 newPosY, fallVelY, floorY, posY;
@@ -23,11 +23,11 @@ void updateObjectFallState(void *obj) {
     case 0:
         M2C_FIELD(obj, s32 *, 0x60) = M2C_FIELD(obj, s32 *, 0x60) & ~2;
         M2C_FIELD(fallState, s32 *, 0) = M2C_FIELD(fallState, s32 *, 0) + 1;
-        func_800643D8(obj);
+        clearObjectStateBits(obj);
         if (M2C_FIELD(fallState, s32 *, 0) >= 0x384) {
             objectUpdateAnimByState(obj);
             setActorStatusBits(obj);
-            func_8005FBB8(fallState);
+            objectUpdateHookStub(fallState);
             M2C_FIELD(fallState, f32 *, 0x2C) = -4.0f;
             M2C_FIELD(fallState, s32 *, 0) = (u32)randomU32Next() % 450;
             M2C_FIELD(obj, s16 *, 0x7A) = 1;
@@ -64,10 +64,10 @@ void updateObjectFallState(void *obj) {
             M2C_FIELD(obj, f32 *, 0x28) = M2C_FIELD(fallState, f32 *, 0x34);
             if (M2C_FIELD(fallState, f32 *, 0x2C) < -10.0f) {
                 launchRec = (u8 *)obj + 0x24;
-                func_80054FEC(0, 250.0f, 5.0f, obj, launchRec, 0x20, 0);
-                func_800624A8(obj, launchRec, 1.0f, 1);
+                applyBlastToNearbyObjects(0, 250.0f, 5.0f, obj, launchRec, 0x20, 0);
+                spawnImpactBurstEffect(obj, launchRec, 1.0f, 1);
                 updateTrackMarkerProximity(launchRec, 0.001f);
-                func_800853D4(launchRec);
+                playFarMarkerSound(launchRec);
                 M2C_FIELD(obj, s16 *, 0x7A) = 4;
                 return;
             }
@@ -81,10 +81,10 @@ void updateObjectFallState(void *obj) {
         if (flags & 2) {
             bounceRec = (u8 *)obj + 0x24;
             M2C_FIELD(obj, s32 *, 0x60) = flags & ~2;
-            func_80054FEC(0, 250.0f, 5.0f, obj, bounceRec, 0x20, 0);
-            func_800624A8(obj, bounceRec, 1.0f, 1);
+            applyBlastToNearbyObjects(0, 250.0f, 5.0f, obj, bounceRec, 0x20, 0);
+            spawnImpactBurstEffect(obj, bounceRec, 1.0f, 1);
             updateTrackMarkerProximity(bounceRec, 0.001f);
-            func_800853D4(bounceRec);
+            playFarMarkerSound(bounceRec);
             actorRespawnAtRandomPoint(obj);
             break;
         }

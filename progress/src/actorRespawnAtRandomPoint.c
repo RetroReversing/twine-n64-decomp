@@ -6,9 +6,9 @@ s32 actorLinkToSurface(s32, Obj60968 *, s32);
 s32 randomU32Next(void);
 s32 func_80048F10(s32, Vec3_60968 *, Vec3_60968 *, Vec3_60968 *, f32, s32, s32, s32);
 s32 objectUpdateAnimByState(Obj60968 *);
-s32 func_800643D8(Obj60968 *);
+s32 clearObjectStateBits(Obj60968 *);
 f32 absFloat(f32);
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 
 /* Moves an actor to one of two random spawn points, re-seats it on the surface and resets its state. */
 void actorRespawnAtRandomPoint(Obj60968 *actor) {
@@ -21,7 +21,7 @@ void actorRespawnAtRandomPoint(Obj60968 *actor) {
     actor->pos = spawnPoint->v[0];
     surfacePos = spawnPoint->v[0];
     actorUnlinkFromSurface(actor);
-    actorLinkToSurface(*gProbeObjectList, actor, 1);
+    actorLinkToSurface(*gDefaultOrderObj, actor, 1);
     func_80048F10(actor->f20, &actor->pos, &surfacePos, &probeOut, 250.0f, 0, 0, 0);
     spawnTable->f34 = surfacePos.y;
     if (absFloat(surfacePos.y - actor->pos.y) > 1.0f) {
@@ -34,7 +34,7 @@ void actorRespawnAtRandomPoint(Obj60968 *actor) {
         actor->f78 = 0x55;
         objectUpdateAnimByState(actor);
     }
-    func_800643D8(actor);
+    clearObjectStateBits(actor);
     spawnTable->f28 = 0;
     spawnTable->f2C = 0;
     spawnTable->f30 = 0;

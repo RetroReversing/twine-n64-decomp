@@ -1,35 +1,35 @@
 extern u16 gSaveSlotFlags[];
-extern u16 D_801083D4[];
+extern u16 gSaveSlotAltFlags[];
 extern u16 gSaveSlotValid[];
 
-u16 countValidSaveSlots(u16 kind) {
-    u16 n = 0;
-    u16 i;
+/* Counts save slots (of 4) set in the table selected by listType; for 0xA3 it stops at the first unset slot. */ u16 countValidSaveSlots(u16 listType) {
+    u16 count = 0;
+    u16 slot;
 
-    i = n;
-    while (i < 4) {
+    slot = count;
+    while (slot < 4) {
         break;
     }
-    for (i = n; i < 4; i++) {
-        switch (kind) {
+    for (slot = count; slot < 4; slot++) {
+        switch (listType) {
         case 0xA5:
-            if (gSaveSlotValid[i] != 0) {
-                n++;
+            if (gSaveSlotValid[slot] != 0) {
+                count++;
             }
             break;
         case 0xA6:
-            if (D_801083D4[i] != 0) {
-                n++;
+            if (gSaveSlotAltFlags[slot] != 0) {
+                count++;
             }
             break;
         case 0xA3:
-            if (gSaveSlotFlags[i] != 0) {
-                n++;
+            if (gSaveSlotFlags[slot] != 0) {
+                count++;
             } else {
-                i = 5;
+                slot = 5;
             }
             break;
         }
     }
-    return n;
+    return count;
 }

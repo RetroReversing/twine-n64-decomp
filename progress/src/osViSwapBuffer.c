@@ -15,13 +15,13 @@ typedef s32 M2C_UNK32;
 
 s32 __osDisableInt();                                /* extern */
 M2C_UNK __osRestoreInt(s32);                         /* extern */
-extern void *vi_active_ctx;
+extern void *gViCurrentContext;
 
-/* Points the current VI context at a new framebuffer and sets flag 0x10 in its control word, with interrupts masked meanwhile. */ void osViSwapBuffer(s32 framebuffer) {
+/* Points the current VI context at a new framebuffer and sets flag 0x10 in its control word, with interrupts masked meanwhile. */ /* Points the current VI context at a new framebuffer and sets flag 0x10 in its control word, with interrupts masked meanwhile. */ void osViSwapBuffer(s32 framebuffer) {
     s32 int_state;
 
     int_state = __osDisableInt();
-    M2C_FIELD(vi_active_ctx, s32 *, 4) = framebuffer;
-    M2C_FIELD(vi_active_ctx, u16 *, 0) = (u16) (M2C_FIELD(vi_active_ctx, u16 *, 0) | 0x10);
+    M2C_FIELD(gViCurrentContext, s32 *, 4) = framebuffer;
+    M2C_FIELD(gViCurrentContext, u16 *, 0) = (u16) (M2C_FIELD(gViCurrentContext, u16 *, 0) | 0x10);
     __osRestoreInt(int_state);
 }

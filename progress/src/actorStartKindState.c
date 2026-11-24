@@ -1,10 +1,10 @@
 typedef struct { u8 pad0[0x7F]; u8 unk7F; u8 unk80; u8 kind; u8 unk82; u8 pad83[5]; u32 flags; } ActorData7C93C;
 typedef struct { u8 pad0[0x6C]; ActorData7C93C *data; u8 pad70[0xC]; s16 unk7C; } Actor7C93C;
 
-s32 func_80002BD0(void *, s32);
-void func_80006604(void *, s32);
+s32 setActorCommandState(void *, s32);
+void setSubStructModeFlag(void *, s32);
 u32 randomIntBelow(s32);
-void func_80077960(void *, s32);
+void setActorAnimation(void *, s32);
 extern u16 D_800C9D34[2];
 
 /* Resets an actor and starts the action and animation matching its kind; sets flag 0x40000000 for kinds that need it. */ void actorStartKindState(Actor7C93C *actor) {
@@ -14,7 +14,7 @@ extern u16 D_800C9D34[2];
     ActorData7C93C *data = actor->data;
 
     data->unk82 = 0;
-    func_80006604(actor, 0);
+    setSubStructModeFlag(actor, 0);
     setFlagOn = 0;
     switch (data->kind) {
     case 1:
@@ -53,9 +53,9 @@ extern u16 D_800C9D34[2];
         animId = (-((data->flags & 0x01E00000) == 0x600000) & 0x217) | 0x214;
         break;
     }
-    func_80002BD0(actor, animId);
+    setActorCommandState(actor, animId);
     if (setFlagOn) {
         data->flags |= 0x40000000;
     }
-    do { func_80077960(actor, actionState); } while (0);
+    do { setActorAnimation(actor, actionState); } while (0);
 }

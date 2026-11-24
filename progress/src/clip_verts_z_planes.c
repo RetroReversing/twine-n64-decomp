@@ -3,13 +3,13 @@ typedef struct {
     s32 rest[6];
 } ClipVertex;
 
-extern f32 D_800C0740;
+extern f32 kRayNoHitDistance;
 extern ClipVertex *clip_result_verts;
 extern ClipVertex clip_buffer_a[], clip_buffer_b[];
 extern ClipVertex *clip_src_verts, *clip_dst_verts, *clip_cursor, *clip_swap_tmp;
-extern s16 D_800E19C8, D_800E19CA, D_800E19CC, D_800E19CE, clip_near_out_count, clip_far_out_count;
+extern s16 gClipBelowMinYCount, gClipAboveMaxXCount, gClipAboveMaxYCount, gClipBelowMinXCount, clip_near_out_count, clip_far_out_count;
 
-/* Clips the vertex list in clip_buffer_a against the near plane (z = 0.2) and the far plane (D_800C0740), ping-ponging between the two buffers; returns the number of surviving vertices. */
+/* Clips the vertex list in clip_buffer_a against the near plane (z = 0.2) and the far plane (kRayNoHitDistance), ping-ponging between the two buffers; returns the number of surviving vertices. */
 s32 clip_verts_z_planes(s32 vert_count)
 {
     s32 i;
@@ -20,15 +20,15 @@ s32 clip_verts_z_planes(s32 vert_count)
 
     clip_far_out_count = 0;
     clip_near_out_count = 0;
-    D_800E19CE = 0;
-    D_800E19CC = 0;
-    D_800E19CA = 0;
-    D_800E19C8 = 0;
+    gClipBelowMinXCount = 0;
+    gClipAboveMaxYCount = 0;
+    gClipAboveMaxXCount = 0;
+    gClipBelowMinYCount = 0;
     for (i = 0; i < vert_count; i++) {
         f32 z = clip_buffer_a[i].z;
         if (z < 0.2f)
             clip_near_out_count++;
-        else if (D_800C0740 < z)
+        else if (kRayNoHitDistance < z)
             clip_far_out_count++;
     }
     if (clip_near_out_count + clip_far_out_count == 0) {
@@ -58,7 +58,7 @@ s32 clip_verts_z_planes(s32 vert_count)
             break;
         case 1:
             if (!clip_far_out_count) continue;
-            plane_z = D_800C0740;
+            plane_z = kRayNoHitDistance;
             clip_cursor = clip_src_verts;
             flag_ptr = outside;
             for (remaining = vert_count; remaining > 0;) {

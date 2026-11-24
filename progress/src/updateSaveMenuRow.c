@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
 M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
 s32 findEntryById(s32, M2C_UNK);                    /* extern */
-s32 func_80027C60(M2C_UNK);                         /* extern */
+s32 isMenuButtonPressed(M2C_UNK);                         /* extern */
 s32 menuItemIsActive(M2C_UNK);                         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 s32 lookupDataEntry(u16);                             /* extern */
@@ -33,7 +33,7 @@ void updateSaveMenuRow(void) {
         formatTextEntry(entryText, "%s", lookupDataEntry(*M2C_FIELD(gSaveMenuState, u16 **, 0x18)));
     }
     updateActiveMenuState();
-    if (func_80027C60(0x2A) & 0xFF) {
+    if (isMenuButtonPressed(0x2A) & 0xFF) {
         requestSound(0xEA);
         M2C_FIELD(gSaveMenuState, s8 *, 0x2C) = 1;
     }

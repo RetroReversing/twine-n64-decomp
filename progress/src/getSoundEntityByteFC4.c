@@ -1,0 +1,51 @@
+typedef struct {
+    s32 id;            /* 0x000 */
+    u8 pad4[0x10C];
+    s32 w110;          /* 0x110 */
+    s32 w114;          /* 0x114 */
+    u8 pad118[0x410];
+    u8 tbl528[0x80];   /* 0x528 */
+    u8 pad5A8[0xA18];
+    u8 active;         /* 0xFC0 */
+    u8 busy;           /* 0xFC1 */
+    s16 hFC2;          /* 0xFC2 */
+    u8 bFC4;           /* 0xFC4 */
+    u8 bFC5;           /* 0xFC5 */
+    u8 padFC6[0x1E];
+    s32 wFE4;          /* 0xFE4 */
+    s32 wFE8;          /* 0xFE8 */
+    s16 hFEC;          /* 0xFEC */
+    u8 flags;          /* 0xFEE */
+    u8 padFEF[9];
+} EntSnd;
+
+extern EntSnd gSoundEntities[];
+
+static inline s32 find_snd(s32 id) {
+    u32 i = 0;
+    s32 key = id & 0x7FFFFFFF;
+    s32 off = 0;
+
+    for (; i < 8; i++, off += sizeof(EntSnd)) {
+        if (*((u8 *)&gSoundEntities[0].busy + off) == 0 && *(s32 *)((u8 *)&gSoundEntities[0].id + off) == key) {
+            return i | (id & 0x80000000);
+        }
+    }
+    return -1;
+}
+
+void workerLockAcquire(void);
+void workerLockRelease(void);
+extern u8 gSoundWorkerActive;
+
+/* Returns byte 0xFC4 of the idle sound entity matching soundId, or 0 if the worker is inactive or none matches. */ s32 getSoundEntityByteFC4(s32 soundId) {
+    s32 entityIdx;
+
+    if (gSoundWorkerActive != 0) {
+        entityIdx = find_snd(soundId);
+        if (entityIdx != -1) {
+            return gSoundEntities[entityIdx].bFC4;
+        }
+    }
+    return 0;
+}

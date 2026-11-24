@@ -1,4 +1,4 @@
-extern unsigned char sOptionCursor, sOptionReady7, sOptionReady8, sOptionReady9;
+extern unsigned char sOptionCursorIndex, sOptionReady7, sOptionReady8, sOptionReady9;
 extern unsigned char *gSaveMenuState;
 extern int sOptionEntryTable;
 extern const char D_800D2864[];
@@ -23,7 +23,7 @@ extern void formatTextEntry(void *, int, ...);
     entry = (char *)findEntryPayload((int)&sOptionEntryTable, 0x92);
     if (entry == 0)
         return;
-    cursor = &sOptionCursor;
+    cursor = &sOptionCursorIndex;
     subEntry = entry + 0x28;
     switch (*cursor) {
     case 7:
@@ -57,7 +57,7 @@ extern void formatTextEntry(void *, int, ...);
         }
         break;
     }
-    cursorIdx = &sOptionCursor;
+    cursorIdx = &sOptionCursorIndex;
     nameId = lookupDataEntry(*cursorIdx + 0x16D);
     fmt = D_800D2864;
     formatTextEntry(entry, (int)fmt, nameId);

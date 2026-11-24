@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800066A0(M2C_UNK, u32);                /* extern */
-M2C_UNK func_8000A2B8();                            /* extern */
-M2C_UNK func_8000A2F4();                            /* extern */
-M2C_UNK func_8000CBE0(s16);                         /* extern */
-M2C_UNK func_8000CC38(M2C_UNK);                     /* extern */
-M2C_UNK func_8000DB28();                            /* extern */
-s32 func_8000DBF0(M2C_UNK);                         /* extern */
-M2C_UNK func_8002B7F8();                            /* extern */
+M2C_UNK setTransitionStateIfAllowed(M2C_UNK, u32);                /* extern */
+M2C_UNK releaseMusicStream();                            /* extern */
+M2C_UNK releaseSoundRequestQueue();                            /* extern */
+M2C_UNK beginTransition(s16);                         /* extern */
+M2C_UNK updateObjectBlendFactor(M2C_UNK);                     /* extern */
+M2C_UNK checkBonusObjectTrigger();                            /* extern */
+s32 runCutsceneScriptStep(M2C_UNK);                         /* extern */
+M2C_UNK releaseTrackMarkerEffects();                            /* extern */
 M2C_UNK actorFinishIfMatch(s32, M2C_UNK);                /* extern */
 s32 func_800819EC(M2C_UNK, M2C_UNK);                /* extern */
 extern void *D_800B2710;
@@ -45,7 +45,7 @@ extern s32 sBonusObjectTable;
     var_s0 = 0;
     if ((gTransitionEnabled != 0) && (M2C_FIELD(D_800B2710, s16 *, 0x12) != 0)) {
         if (D_800B2715 != 0) {
-            func_8000CC38(0x34);
+            updateObjectBlendFactor(0x34);
             temp_v0 = M2C_FIELD(D_800B2710, s16 *, 0x2B90);
             if (temp_v0 < M2C_FIELD(D_800B2710, s16 *, 0x2B92)) {
                 M2C_FIELD(D_800B2710, s16 *, 0x2B90) = (s16) (temp_v0 + 1);
@@ -63,7 +63,7 @@ extern s32 sBonusObjectTable;
                 D_801002B1 = 0;
                 if (D_800B2715 != 2) {
 loop_8:
-                    if (func_8000DBF0(1) != 0) {
+                    if (runCutsceneScriptStep(1) != 0) {
                         goto loop_8;
                     }
                 } else {
@@ -72,14 +72,14 @@ loop_8:
             }
         } else if ((func_800819EC(0, 0x23) != 0) && (temp_a0 = M2C_FIELD(D_800B2710, s16 *, 0x10), (((temp_a0 != 7) & (temp_a0 != 0x19)) != 0)) && ((temp_a0 != 0x32) & (temp_a0 != 0x23))) {
             var_s0 = 1;
-            func_8000CBE0(temp_a0);
-            func_8000A2B8();
-            func_8000A2F4();
-            func_8002B7F8();
+            beginTransition(temp_a0);
+            releaseMusicStream();
+            releaseSoundRequestQueue();
+            releaseTrackMarkerEffects();
             D_800B2715 = 1;
         } else {
-            var_s0 = func_8000DBF0(0);
-            func_8000DB28();
+            var_s0 = runCutsceneScriptStep(0);
+            checkBonusObjectTrigger();
         }
     }
     var_a1 = 0;
@@ -93,6 +93,6 @@ loop_8:
             }
             var_a0 += 0xD4;
         } while (var_a1 < 0x38U);
-        func_800066A0(0x10, var_a1);
+        setTransitionStateIfAllowed(0x10, var_a1);
     }
 }

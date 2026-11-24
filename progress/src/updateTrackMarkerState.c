@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80018700();
-s32 func_80018744();
+s32 releaseMarkerListEntry();
+s32 spawnRotatedOffsetEffect();
 s32 aimTrackMarkerAngles();
-s32 func_80084338();
+s32 playSoundAtPos();
 extern u16 D_800C79AA;
 extern f64 D_800D27E0;
 extern char gTrackMarkerDone[];
@@ -51,16 +51,16 @@ void updateTrackMarkerState(void *arg0) {
         return;
     case 3:
         aimTrackMarkerAngles(arg0);
-        M2C_FIELD(temp_s1, s32 *, 0x18) = func_80084338(D_800C79AA, arg0 + 0x24);
+        M2C_FIELD(temp_s1, s32 *, 0x18) = playSoundAtPos(D_800C79AA, arg0 + 0x24);
         M2C_FIELD(arg0, s16 *, 0x7A) = 4;
         return;
     case 4:
         aimTrackMarkerAngles(arg0);
-        func_80018744(arg0);
+        spawnRotatedOffsetEffect(arg0);
         temp_v0_2 = M2C_FIELD(arg0, u16 *, 0x7C) - 1;
         M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0_2;
         if ((temp_v0_2 << 0x10) <= 0) {
-            func_80018700(temp_s1);
+            releaseMarkerListEntry(temp_s1);
             M2C_FIELD(arg0, s16 *, 0x7A) = 1;
             M2C_FIELD(arg0, u16 *, 0x7C) = 0x1EU;
             return;
@@ -69,12 +69,12 @@ void updateTrackMarkerState(void *arg0) {
         return;
     case 6:
         aimTrackMarkerAngles(arg0);
-        M2C_FIELD(temp_s1, s32 *, 0x18) = func_80084338(D_800C79AA, arg0 + 0x24);
+        M2C_FIELD(temp_s1, s32 *, 0x18) = playSoundAtPos(D_800C79AA, arg0 + 0x24);
         M2C_FIELD(arg0, s16 *, 0x7A) = 7;
         return;
     case 7:
         aimTrackMarkerAngles(arg0);
-        func_80018744(arg0);
+        spawnRotatedOffsetEffect(arg0);
         temp_a0 = M2C_FIELD(temp_s1, u8 *, 0x1C);
         if (temp_a0 != 0) {
             *(gTrackMarkerDone + temp_a0) = 1;
@@ -82,11 +82,11 @@ void updateTrackMarkerState(void *arg0) {
         }
         break;
     case 8:
-        func_80018700(temp_s1);
+        releaseMarkerListEntry(temp_s1);
         M2C_FIELD(arg0, s16 *, 0x7A) = 2;
         return;
     case 5:
-        func_80018700(temp_s1);
+        releaseMarkerListEntry(temp_s1);
         M2C_FIELD(arg0, u16 *, 0x7C) = 0x1EU;
         M2C_FIELD(arg0, s16 *, 0x7A) = 0;
         break;

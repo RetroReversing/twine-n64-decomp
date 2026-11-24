@@ -6,7 +6,7 @@ s32 bcmp(void *, s32 *, s32);
 /* Checks the memory pak ID block: selects bank 0 if needed, reads the ID page
  * (retrying once on a bank error), then compares it with the stored ID.
  * Returns 0 if it matches, 2 if it does not, or the read error code. */
-s32 __osCheckId(void *pfs)
+/* Checks the memory pak ID block: selects bank 0 if needed, reads the ID page (retrying once on a bank error), then compares it with the stored ID. Returns 0 on match, 2 on mismatch, or the read error code. */ s32 __osCheckId(void *pfs)
 {
     s32 idBuf[8];
     s32 err;

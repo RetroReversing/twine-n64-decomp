@@ -16,13 +16,13 @@ M2C_UNK osSendMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
 extern s32 workerLockDepth;
 extern M2C_UNK workerLockQueue;
 
-void workerLockRelease(void) {
-    s32 temp_v0;
+/* Decrements the worker lock recursion depth and releases the lock (posts to its queue) when it reaches zero. */ void workerLockRelease(void) {
+    s32 newDepth;
 
     if (workerLockDepth > 0) {
-        temp_v0 = workerLockDepth - 1;
-        workerLockDepth = temp_v0;
-        if (temp_v0 == 0) {
+        newDepth = workerLockDepth - 1;
+        workerLockDepth = newDepth;
+        if (newDepth == 0) {
             osSendMesg(&workerLockQueue, 0, 0);
         }
     }

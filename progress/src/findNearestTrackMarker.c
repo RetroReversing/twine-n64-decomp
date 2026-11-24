@@ -1,21 +1,21 @@
 typedef struct { u8 pad[0x10]; u8 pos[0xF0]; s32 flags; } O84270;
 f32 approxDistance(void *, s32);
-extern O84270 *sTrackMarkerTable[];
+extern O84270 *gTrackMarkerParents[];
 
-f32 findNearestTrackMarker(s32 arg0, s16 *arg1) {
-    f32 best = 65536.0f;
-    s16 i;
-    f32 d;
+/* Returns the distance to the nearest active track marker (of 6) and stores its index in outIndex. */ f32 findNearestTrackMarker(s32 position, s16 *outIndex) {
+    f32 bestDistance = 65536.0f;
+    s16 index;
+    f32 distance;
 
-    *arg1 = 0;
-    for (i = 0; i < 6; i++) {
-        if (sTrackMarkerTable[i] != NULL && !(sTrackMarkerTable[i]->flags & 0x100)) {
-            d = approxDistance(sTrackMarkerTable[i]->pos, arg0);
-            if (d < best) {
-                best = d;
-                *arg1 = i;
+    *outIndex = 0;
+    for (index = 0; index < 6; index++) {
+        if (gTrackMarkerParents[index] != NULL && !(gTrackMarkerParents[index]->flags & 0x100)) {
+            distance = approxDistance(gTrackMarkerParents[index]->pos, position);
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                *outIndex = index;
             }
         }
     }
-    return best;
+    return bestDistance;
 }

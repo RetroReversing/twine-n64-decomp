@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s16 timerGetTotalSeconds(void *arg0) {
-    if (arg0 == NULL) {
+/* Returns total seconds: minutes (word at 0) * 60 plus the seconds byte at offset 6; 0 if timer is NULL. */ s16 timerGetTotalSeconds(void *timer) {
+    if (timer == NULL) {
         return 0;
     }
-    return (s16) ((s8) M2C_FIELD(arg0, u8 *, 6) + (M2C_FIELD(arg0, s32 *, 0) * 0x3C));
+    return (s16) ((s8) M2C_FIELD(timer, u8 *, 6) + (M2C_FIELD(timer, s32 *, 0) * 0x3C));
 }

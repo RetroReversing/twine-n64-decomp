@@ -1,0 +1,1 @@
+/* Returns nonzero if the RSP is busy (SP_STATUS halt/broke/dma-busy/dma-full bits 0x1C... checked at SP_STATUS_REG). */ s32 __osSpDeviceBusy(void) { return (*(volatile s32 *)0xA4040010 & 0x1C) != 0; }

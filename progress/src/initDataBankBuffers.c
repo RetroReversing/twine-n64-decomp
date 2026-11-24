@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #endif
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_800936A8();
-s32 func_8009D510();
+s32 offsetToDoubledIndex();
+s32 initAudioStreamState();
 s32 flushDCacheRange();
 s32 osCreateMesgQueue();
 s32 osSendMesg();
@@ -26,10 +26,10 @@ extern s32 D_800E3F24;
 extern s32 D_800E3F2C;
 extern char D_800E3F30[];
 extern char D_800E3F48[];
-extern s32 (*gDataBankAlloc)(s32, s32);
+extern s32 (*gDataBankHandler)(s32, s32);
 extern u8 D_8010086C;
 extern s32 *D_8010D428;
-extern s32 func_8008863C;
+extern s32 updateDataBankVoices;
 
 /* Resets both data bank buffers, creates their message queue and enables data banks. */ void initDataBankBuffers(s32 mode) {
     char *bank;
@@ -46,7 +46,7 @@ extern s32 func_8008863C;
     D_800E3F2C = mode;
     sDataBankTable = 0;
     do {
-        func_8009D510(bank, 0, 0, 0, 0);
+        initAudioStreamState(bank, 0, 0, 0, 0);
         if (D_8010086C != 0) {
             M2C_FIELD(bank, u8 *, 0x11DE) = (u8) (M2C_FIELD(bank, u8 *, 0x11DE) * 2);
         }
@@ -59,18 +59,18 @@ extern s32 func_8008863C;
     osCreateMesgQueue(D_800E3F30, D_800E3F48, 1);}
     osSendMesg(D_800E3F30, 0, 0);
     if (D_800E3F2C & 1) {
-        bufSize = func_800936A8(0x10E0);
+        bufSize = offsetToDoubledIndex(0x10E0);
         j = 0;
         slot = &D_800E3F24;
         do {
-            buf = gDataBankAlloc(bufSize, 0);
+            buf = gDataBankHandler(bufSize, 0);
             j += 1;
             *(s32 *)slot = buf;
             flushDCacheRange(buf, bufSize);
             slot += 4;
         } while (j < 2);
     }
-    D_8010D428 = &func_8008863C;
+    D_8010D428 = &updateDataBankVoices;
     sDataBankInitialised = 1;
     D_800E3F10 = 0;
 }

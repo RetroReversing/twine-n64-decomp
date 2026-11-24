@@ -16,13 +16,13 @@ void *spawnTextNode();
 s32 freeMenuItemRecord();
 s32 updateHudSprites();
 s32 freeTrackSpriteSlots();
-s32 func_8006FDF8();
+s32 setupBorderObjects();
 extern s16 D_800C7CE4;
 extern u8 D_800C7CF6;
 extern s16 D_800C7D08;
 extern s16 D_800C7D2C;
 extern s16 D_800C7D50;
-extern char sTrackMarkerTable[];
+extern char gTrackMarkerParents[];
 
 typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
 /* Shows or hides the track's marker sprites: hiding frees the sprite handles and sets axis flags; showing allocates and positions the sprites. */ void setTrackMarkerActive(s32 active, void *obj) {
@@ -44,7 +44,7 @@ typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
         if (!(active & 0xFFFF)) {
 char *__branch___base_D_80109688;
 
-            __branch___base_D_80109688 = sTrackMarkerTable;
+            __branch___base_D_80109688 = gTrackMarkerParents;
             markerPtr = (trackId * 4) + __branch___base_D_80109688;
             M2C_FIELD(obj, s8 *, 0x185) = 0;
             marker = *markerPtr;
@@ -59,8 +59,8 @@ char *__branch___base_D_80109688;
             return;
         }
         M2C_FIELD(obj, s8 *, 0x185) = 1;
-        markerA = *((void **)(sTrackMarkerTable + (trackId * 4)));
-        markerSlot = (trackId * 4) + sTrackMarkerTable;
+        markerA = *((void **)(gTrackMarkerParents + (trackId * 4)));
+        markerSlot = (trackId * 4) + gTrackMarkerParents;
         ((__repair_field_100 *)markerA)->value = (s32) (((__repair_field_100 *)markerA)->value & ~7);
         markerC = *markerSlot;
         ((__repair_field_100 *)markerC)->value = (s32) (((__repair_field_100 *)markerC)->value | 2);
@@ -83,7 +83,7 @@ char *__branch___base_D_80109688;
         }
         D_800C7D2C = (s16) trackId;
         D_800C7D50 = (s16) trackId;
-        func_8006FDF8(obj, 5);
+        setupBorderObjects(obj, 5);
         updateHudSprites(obj);
     }
 }

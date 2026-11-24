@@ -1,4 +1,4 @@
-s32 func_8000A18C(); s32 func_8000A22C(); s32 func_8000A6F4(); s32 heapAllocBlock(); s32 func_8000B534(); s32 romDmaRead(); s32 loadDataBank(); s32 initDataBankBuffers(); s32 func_80092A68(); s32 func_80095820(); s32 func_8009CE34(); s32 func_8009CF18(); s32 func_8009D030();
+s32 setSoundChannelVolumeFromLevel(); s32 setSoundVolumeTenths(); s32 clearSoundRequestQueue(); s32 heapAllocBlock(); s32 sumUsedHeapBlockSizes(); s32 romDmaRead(); s32 loadDataBank(); s32 initDataBankBuffers(); s32 pushSceneGroup(); s32 func_80095820(); s32 setSoundRecordLevel(); s32 rampSoundChannelLocked(); s32 setupAudioStreamIfWorkerActive();
 extern char D_14CD630[],D_14D0ED0[],D_14DDC00[],D_14E2500[],D_1D69630[],D_800B2488[],D_800B256C[],D_800DD7D0[];
 extern char D_014D0ED0[], D_014DDC00[], D_014E2500[];
 extern s32 D_800B2480,sCurrentDistanceSoundId,D_800E06FC,D_800E0700,D_800E0704,sDistanceSoundResult; extern s32 *sDistanceSoundArg; extern s16 gExpansionPakPresent;
@@ -24,7 +24,7 @@ extern s32 D_800B2480,sCurrentDistanceSoundId,D_800E06FC,D_800E0700,D_800E0704,s
     bankId = heapAllocBlock(bankSize, 0);
     D_800E0704 = bankId;
     romDmaRead(bankId, (s32)D_14DDC00 & 0x0FFFFFFF, bankSize);
-    func_80092A68(D_800E06FC, 0, D_14E2500, D_800E0704, D_800E0700);
+    pushSceneGroup(D_800E06FC, 0, D_14E2500, D_800E0704, D_800E0700);
     entryOffset = 0;
     if (D_800B2480 != 0) {
         do {
@@ -33,30 +33,30 @@ extern s32 D_800B2480,sCurrentDistanceSoundId,D_800E06FC,D_800E0700,D_800E0704,s
             s32 tableC = D_800E0704;
             s32 tableB = D_800E0700;
             char *romTable = D_14E2500;
-            func_80092A68(tableA, entryId, romTable, tableC, tableB);
+            pushSceneGroup(tableA, entryId, romTable, tableC, tableB);
             entryOffset += 0xC;
         } while (*(s32 *)((char *)&D_800B2480 + entryOffset) != 0);
     }
-    func_8009CE34(0xE7, 0);
-    func_8009CE34(0xE8, 0);
-    func_8009CE34(0xE9, 0);
-    func_8009CE34(0xEA, 0);
-    func_8009CE34(0xEB, 0);
-    func_8009CE34(0xEC, 0);
-    func_8009CE34(0xED, 0);
-    func_8009CE34(0xEE, 0);
-    func_8009CF18(0x7F, 0, 0);
-    func_8009CE34(0x1B8, 1);
+    setSoundRecordLevel(0xE7, 0);
+    setSoundRecordLevel(0xE8, 0);
+    setSoundRecordLevel(0xE9, 0);
+    setSoundRecordLevel(0xEA, 0);
+    setSoundRecordLevel(0xEB, 0);
+    setSoundRecordLevel(0xEC, 0);
+    setSoundRecordLevel(0xED, 0);
+    setSoundRecordLevel(0xEE, 0);
+    rampSoundChannelLocked(0x7F, 0, 0);
+    setSoundRecordLevel(0x1B8, 1);
     initDataBankBuffers(1);
     loadDataBank(D_1D69630, 0);
-    func_8009D030(D_800B256C);
+    setupAudioStreamIfWorkerActive(D_800B256C);
     sDistanceSoundResult = -1;
     sDistanceSoundArg = (s32 *)D_800DD7D0;
-    func_8000A6F4();
+    clearSoundRequestQueue();
     sCurrentDistanceSoundId = -1;
-    result = func_8000B534();
-    func_8000A18C(0xA);
-    func_8000A22C(0xA);
+    result = sumUsedHeapBlockSizes();
+    setSoundChannelVolumeFromLevel(0xA);
+    setSoundVolumeTenths(0xA);
     return result;
 }
 

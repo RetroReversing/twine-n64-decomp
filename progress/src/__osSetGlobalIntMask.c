@@ -15,12 +15,12 @@ typedef s32 M2C_UNK32;
 
 s32 __osDisableInt();                                /* extern */
 M2C_UNK __osRestoreInt(s32);                         /* extern */
-extern s32 D_800D1080;
+extern s32 __OSGlobalIntMask;
 
-/* Adds mask to the global interrupt mask with interrupts disabled, then restores the previous interrupt state. */ void __osSetGlobalIntMask(s32 mask) {
+/* Adds mask to the global interrupt mask with interrupts disabled, then restores the previous interrupt state. */ /* Adds mask to the global interrupt mask with interrupts disabled, then restores the previous interrupt state. */ void __osSetGlobalIntMask(s32 mask) {
     s32 saved;
 
     saved = __osDisableInt();
-    D_800D1080 |= mask;
+    __OSGlobalIntMask |= mask;
     __osRestoreInt(saved);
 }

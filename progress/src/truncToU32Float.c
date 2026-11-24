@@ -15,9 +15,9 @@ typedef s32 M2C_UNK32;
 extern f64 D_800D6800;
 extern f64 D_800D6808;
 
-f64 truncToU32Float(f64 arg0) {
+/* Truncates a double to an unsigned 32-bit integer and returns it as a double. */ f64 truncToU32Float(f64 value) {
     f64 var_fv1;
     s32 var_v1;
 
-    return (f64) (u32) arg0;
+    return (f64) (u32) value;
 }

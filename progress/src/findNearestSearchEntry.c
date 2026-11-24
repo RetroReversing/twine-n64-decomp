@@ -1,5 +1,5 @@
 f32 approxDistance(void *posA, void *posB);
-extern s32 sSearchEntries;
+extern s32 gSearchNodes;
 extern u32 sSearchEntryCount;
 
 /* Returns the index of the search entry nearest to the object's position (object pos at +0x24, lowered by a height offset in states 2 and 3). */
@@ -26,7 +26,7 @@ u32 findNearestSearchEntry(void *obj) {
             if ((u32)(*(u16 *)((u8 *)obj + 0x78) - 2) < 2) {
                 objPos.y -= *(f32 *)(*(u8 **)((u8 *)obj + 0x68) + 0x38);
             }
-            dist = approxDistance(objPosPtr, *(s32 *)(off + sSearchEntries + 0x10));
+            dist = approxDistance(objPosPtr, *(s32 *)(off + gSearchNodes + 0x10));
             if (dist < bestDist) {
                 bestDist = dist;
                 nearest = i;

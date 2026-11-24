@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8003C7E8(void *, M2C_UNK);             /* extern */
+M2C_UNK initObjectMotionRecord(void *, M2C_UNK);             /* extern */
 void *heapAllocTagged(M2C_UNK, M2C_UNK);              /* extern */
 extern void *sBonusObject;
 extern s8 gMenuCursorActive;
@@ -32,7 +32,7 @@ void initBonusObjectIfActive(void) {
     if ((*(&sBonusObjectTable + gMenuSlot) != 0) && (sBonusObject == NULL)) {
         bonusObj = heapAllocTagged(0x60, 0);
         sBonusObject = bonusObj;
-        if ((bonusObj != NULL) && ((func_8003C7E8(bonusObj, 0), (M2C_FIELD(sBonusObject, void **, 0x20) != NULL)) || (bonusState = heapAllocTagged(0x68, 1), M2C_FIELD(sBonusObject, void **, 0x20) = bonusState, (bonusState != NULL)))) {
+        if ((bonusObj != NULL) && ((initObjectMotionRecord(bonusObj, 0), (M2C_FIELD(sBonusObject, void **, 0x20) != NULL)) || (bonusState = heapAllocTagged(0x68, 1), M2C_FIELD(sBonusObject, void **, 0x20) = bonusState, (bonusState != NULL)))) {
             M2C_FIELD(M2C_FIELD(sBonusObject, void **, 0x20), s32 *, 0x50) = 0;
             M2C_FIELD(M2C_FIELD(sBonusObject, void **, 0x20), s32 *, 0x58) = 0;
             rootObj = gMenuRootObject;

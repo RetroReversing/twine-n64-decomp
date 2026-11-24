@@ -13,10 +13,10 @@ typedef struct {
     u8 pad3[0xFC2 - 0xF78];
     u16 scale;   /* 0xFC2 */
 } Seq;
-void func_8008CDC0(s32, u8, Seq *);
-extern u8 D_800EDA87;
+void setAudioChannelScaledValue(s32, u8, Seq *);
+extern u8 gSeqVoiceBank;
 extern Seq *gSeqPlayer;
-extern s32 D_801002D8;
+extern s32 gAudioUpdateRate;
 extern s32 gAudioOutputRate;
 
 /* Rewinds the sequence player to the event list, fires events already due at this base time, then recomputes the output position and half-step values from the current tempo. */ void reset_timed_sequence(s32 base) {
@@ -37,14 +37,14 @@ extern s32 gAudioOutputRate;
             if ((u32)(gSeqPlayer->base + gSeqPlayer->half) >= gSeqPlayer->next->time) {
                 { s32 val = gSeqPlayer->next->value;
                 gSeqPlayer->cur = val;
-                func_8008CDC0(val, D_800EDA87, gSeqPlayer); }
+                setAudioChannelScaledValue(val, gSeqVoiceBank, gSeqPlayer); }
                 gSeqPlayer->next = gSeqPlayer->next + 1;
                 if (gSeqPlayer->next->time != end) {
                     goto loop;
                 }
             }
         }
-        tempoScale = (D_801002D8 << 16) / gAudioOutputRate;
+        tempoScale = (gAudioUpdateRate << 16) / gAudioOutputRate;
         {
         u32 lowBits = (((gSeqPlayer->cur * 0xC00) / 60 * tempoScale) >> 3);
         u16 scale = gSeqPlayer->scale;

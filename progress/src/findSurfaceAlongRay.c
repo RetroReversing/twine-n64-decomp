@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_80045764(f32 *, f32 *);
+f32 vec3NormalizeLength(f32 *, f32 *);
 s32 randomIntBelow(M2C_UNK);
 s8 func_8004DBD8(void *, f32 *, s32, s32, s32, f32 *);
-M2C_UNK func_800556DC(void *, void *, f32 *, void *);
+M2C_UNK spawnDirectedEffect(void *, void *, f32 *, void *);
 M2C_UNK prepareLinkedObjectPair(void *, void *, void *);
 extern u16 gSurfaceQueryStamp;
 
@@ -57,7 +57,7 @@ void *findSurfaceAlongRay(s32 arg0, s8 arg1, void *object, void *rayOrigin, void
         m2c_initial_frame.view_sp28.value = M2C_FIELD(rayTarget, f32 *, 0) - M2C_FIELD(rayOrigin, f32 *, 0);
         m2c_initial_frame.view_sp2C.value = M2C_FIELD(rayTarget, f32 *, 4) - M2C_FIELD(rayOrigin, f32 *, 4);
         m2c_initial_frame.view_sp30.value = M2C_FIELD(rayTarget, f32 *, 8) - M2C_FIELD(rayOrigin, f32 *, 8);
-        temp_fs0 = func_80045764(&m2c_initial_frame.view_sp18.value, &m2c_initial_frame.view_sp28.value);
+        temp_fs0 = vec3NormalizeLength(&m2c_initial_frame.view_sp18.value, &m2c_initial_frame.view_sp28.value);
         if (var_s0 != NULL) {
             s32 flag0 = (s8)arg0;
             s32 flag1 = (s8)arg1;
@@ -97,7 +97,7 @@ block_18:
                             M2C_FIELD(out, f32 *, 0) = (f32) (M2C_FIELD(rayOrigin, f32 *, 0) + (distance * m2c_initial_frame.view_sp18.value));
                             M2C_FIELD(out, f32 *, 4) = (f32) (M2C_FIELD(rayOrigin, f32 *, 4) + (distance * m2c_initial_frame.view_sp1C.value));
                             M2C_FIELD(out, f32 *, 8) = (f32) (M2C_FIELD(rayOrigin, f32 *, 8) + (distance * m2c_initial_frame.view_sp20.value));
-                            if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) { if ((flag0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(object, out, &m2c_initial_frame.view_sp40.value, var_s0), (flag1 != 0)) || (randomIntBelow(4) == 0))) {
+                            if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) { if ((flag0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), spawnDirectedEffect(object, out, &m2c_initial_frame.view_sp40.value, var_s0), (flag1 != 0)) || (randomIntBelow(4) == 0))) {
                                 prepareLinkedObjectPair(var_s0, out, object);
                             }}
                         }

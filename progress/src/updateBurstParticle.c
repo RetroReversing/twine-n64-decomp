@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK vec3Add(void *, void *, void *);      /* extern */
 f32 randomFloatScaled(f32);                         /* extern */
-M2C_UNK func_80047B14(void *, f32, void *);     /* extern */
+M2C_UNK vec3Scale(void *, f32, void *);     /* extern */
 M2C_UNK spawnSpriteBurstOnSphere(void *, void *, f32, M2C_UNK); /* extern */
 extern f64 D_800D42D8;
 
@@ -30,7 +30,7 @@ extern f64 D_800D42D8;
     M2C_FIELD(particle, f32 *, 0x44) = (f32) (M2C_FIELD(particle, f32 *, 0x44) + (spread - randomFloatScaled(16.0f)));
     vec3Add(body, pos, pos);
     M2C_FIELD(body, f32 *, 4) = (f32) (M2C_FIELD(body, f32 *, 4) - 0.0025520835f);
-    func_80047B14(body, 0.95f, body);
+    vec3Scale(body, 0.95f, body);
     if (M2C_FIELD(body, f32 *, 4) <= 0.0f) {
         spawnSpriteBurstOnSphere(particle, pos, (f32) ((f64) randomFloatScaled(0.4f) + D_800D42D8), 1);
         M2C_FIELD(particle, s32 *, 0x60) = (s32) (M2C_FIELD(particle, s32 *, 0x60) | 1);

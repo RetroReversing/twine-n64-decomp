@@ -1,6 +1,6 @@
 s32 angleDelta12(s32, s32);
-s32 func_800452E0(void *, void *, f32 *);
-f32 approximate_hypot2(f32, f32);
+s32 vec3Subtract(void *, void *, f32 *);
+f32 approxHypot2D(f32, f32);
 f32 approximateAtan2(f32, f32);
 extern f64 gTrackMarkerEaseRate;
 
@@ -25,8 +25,8 @@ void aimTrackMarkerAngles(void *actor) {
     void *trackData;
 
     trackData = (*(void **)((char *)(actor) + 0x6C));
-    func_800452E0(trackData, actor + 0x24, &scratch.offsetX.value);
-    var_fv0 = approximate_hypot2(scratch.offsetX.value, scratch.offsetZ.value);
+    vec3Subtract(trackData, actor + 0x24, &scratch.offsetX.value);
+    var_fv0 = approxHypot2D(scratch.offsetX.value, scratch.offsetZ.value);
     if (var_fv0 < 4.0f) {
         var_fv0 = 4.0f;
     }

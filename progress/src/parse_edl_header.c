@@ -57,7 +57,7 @@ typedef struct {
 
 void freeMenuItemRecord(void *handle);
 
-void func_8002AF44(Record2AF *rec) {
+void freeMenuRecord(Record2AF *rec) {
     if (rec && rec->entries) {
         u16 i = 0;
         if (rec->count) {
@@ -96,9 +96,9 @@ typedef struct {
     s32 error;
 } Reader148;
 
-u32 func_8001495C(void *, u32);
+u32 readEdlU32(void *, u32);
 
-void parse_edl_header(Reader148 *reader) {
+/* Validates the "EDL" signature, reads the format/flag byte and the two header words (byte-swapped if needed); sets reader->error on failure. */ void parse_edl_header(Reader148 *reader) {
     Header148 *header = reader->header;
     s32 format;
     s32 error;
@@ -121,8 +121,8 @@ valid:
         error = -4;
         if (format < 0) goto fail;
         reader->error = 0;
-        reader->first = func_8001495C(reader, reader->header->first);
-        reader->second = func_8001495C(reader, reader->header->second);
+        reader->first = readEdlU32(reader, reader->header->first);
+        reader->second = readEdlU32(reader, reader->header->second);
         return;
     }
     error = -4;

@@ -14,9 +14,9 @@ typedef s32 M2C_UNK32;
 
 f32 approxDistance(M2C_UNK, void *);                 /* extern */
 M2C_UNK freeNodeChain(s32);                         /* extern */
-M2C_UNK func_80073108(void *, M2C_UNK, f32);    /* extern */
+M2C_UNK setProximityQuery(void *, M2C_UNK, f32);    /* extern */
 M2C_UNK startSubdivision(s32, void *, void *, f32, f32, f32, s32, s32); /* extern */
-M2C_UNK func_800851E0(M2C_UNK);                     /* extern */
+M2C_UNK playRandomNearestMarkerSoundOfThree(M2C_UNK);                     /* extern */
 
 /* Walks the object lists under owner and, for each flagged entry within maxDistance of the player, releases its chain and triggers its effect. */ void updateNearbyEntries(f32 maxDistance, void *owner, M2C_UNK playerIndex) {
     void *entryPos;
@@ -49,9 +49,9 @@ loop_7:
                             }
                         }
                         entryPos = entry + 0x24;
-                        func_80073108(entryPos, playerIndex, 5.0f);
+                        setProximityQuery(entryPos, playerIndex, 5.0f);
                         startSubdivision(M2C_FIELD(entry, s32 *, 0x3C), node, entryPos, M2C_FIELD(entry, f32 *, 0x30) * 651.8986f, M2C_FIELD(entry, f32 *, 0x34) * 651.8986f, M2C_FIELD(entry, f32 *, 0x38) * 651.8986f, 1, 1);
-                        func_800851E0(playerIndex);
+                        playRandomNearestMarkerSoundOfThree(playerIndex);
                         M2C_FIELD(entry, s32 *, 0x50) = 0;
                     }
                     entry = M2C_FIELD(entry, void **, 0x14);

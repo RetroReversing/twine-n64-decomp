@@ -1,9 +1,9 @@
 /* identical to osPfsIsPlug in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
 typedef struct { u16 type; u8 status; u8 errno; } CS;
-extern u8 D_801083DC;
+extern u8 __osMaxControllers;
 extern char D_8010B15E[];
 s32 __osPfsRequestData(s32);
-void func_800AA1C0();
+void osContGetInitData();
 void func_800A23E4();
 void func_800A2450();
 s32 __osSiRawStartDma();
@@ -28,14 +28,14 @@ s32 osRecvMesg(s32, s32 *, s32);
         osRecvMesg(mq, &msgDummy, 1);
         pifRet = __osSiRawStartDma(0, pifRam);
         osRecvMesg(mq, &msgDummy, 1);
-        func_800AA1C0(&statusBits, chanStatus);
-        for (chan = 0; chan < D_801083DC; chan++) {
+        osContGetInitData(&statusBits, chanStatus);
+        for (chan = 0; chan < __osMaxControllers; chan++) {
             if (!(chanStatus[chan].status & 4)) { retriesLeft--; break; }
         }
-        if (chan != D_801083DC) continue;
+        if (chan != __osMaxControllers) continue;
         retriesLeft = 0;
     } while (retriesLeft > 0);
-    for (chan = 0; chan < D_801083DC; chan++) {
+    for (chan = 0; chan < __osMaxControllers; chan++) {
         if (chanStatus[chan].errno == 0 && (chanStatus[chan].status & 1)) pakMask |= 1 << chan;
     }
     func_800A2450();

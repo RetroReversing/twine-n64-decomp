@@ -12,20 +12,20 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008E3EC(u16, M2C_UNK, M2C_UNK);           /* extern */
-M2C_UNK func_8008EA58(s32);                         /* extern */
+s32 startSoundFromRecord(u16, M2C_UNK, M2C_UNK);           /* extern */
+M2C_UNK flagVoiceChainForStop(s32);                         /* extern */
 M2C_UNK computeSourceAttenuation(void *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
 M2C_UNK soundVoiceStart(void *, f32, s32, s32, f32, f32); /* extern */
 M2C_UNK soundGroupAddEntry(void *, f32);                 /* extern */
 s32 soundQueueInsert(void *, f32, s32, s32, f32, f32); /* extern */
 M2C_UNK soundGroupsUpdateVoices();                            /* extern */
-s32 func_8009CCB0(s32);                             /* extern */
+s32 validateSoundHandle(s32);                             /* extern */
 extern s8 sSoundGroupCount;
 extern s8 sSoundQueueCount;
 extern s8 D_800EE37C;
-extern void *gActiveSoundList;
+extern void *gActiveEmitterList;
 
-/* Walks the slot list at gActiveSoundList, updating each slot's state flags and fades; unlinks and releases slots that finished. */ void UpdateSlotList(void) {
+/* Walks the slot list at gActiveEmitterList, updating each slot's state flags and fades; unlinks and releases slots that finished. */ void UpdateSlotList(void) {
     f32 sp18;
     f32 sp1C;
     s32 sp20;
@@ -45,7 +45,7 @@ extern void *gActiveSoundList;
     void *next_slot;
     void *slot;
 
-    slot = gActiveSoundList;
+    slot = gActiveEmitterList;
     sSoundGroupCount = 0;
     sSoundQueueCount = 0;
     D_800EE37C = 0;
@@ -61,12 +61,12 @@ extern void *gActiveSoundList;
                 if (temp_v1_6 != NULL) {
                     *temp_v1_6 = M2C_FIELD(slot, void **, 0);
                 } else {
-                    gActiveSoundList = M2C_FIELD(slot, void **, 0);
+                    gActiveEmitterList = M2C_FIELD(slot, void **, 0);
                 }
                 temp_a0 = M2C_FIELD(slot, s32 *, 0x34);
                 M2C_FIELD(slot, s32 *, 8) = (s32) M2C_FIELD(slot, u16 *, 0xA);
                 if (temp_a0 != -1) {
-                    func_8008EA58(temp_a0);
+                    flagVoiceChainForStop(temp_a0);
                 }
             } else {
                 if (temp_v1 & 0x20001) {
@@ -85,7 +85,7 @@ extern void *gActiveSoundList;
                             }
                             goto block_29;
                         } else {
-                            temp_v0 = func_8008E3EC(M2C_FIELD(slot, u16 *, 0x3C), 0x7F, 0x40);
+                            temp_v0 = startSoundFromRecord(M2C_FIELD(slot, u16 *, 0x3C), 0x7F, 0x40);
                             M2C_FIELD(slot, s32 *, 0x34) = temp_v0;
                             if (temp_v0 == -1) {
                                 temp_v1_3 = M2C_FIELD(slot, s32 *, 8);
@@ -98,7 +98,7 @@ extern void *gActiveSoundList;
                             }
                         }
                     } else {
-                        temp_v0_2 = func_8009CCB0(M2C_FIELD(slot, s32 *, 0x34));
+                        temp_v0_2 = validateSoundHandle(M2C_FIELD(slot, s32 *, 0x34));
                         M2C_FIELD(slot, s32 *, 0x34) = temp_v0_2;
                         if (temp_v0_2 == -1) {
                             temp_v1_4 = M2C_FIELD(slot, s32 *, 8);
@@ -116,7 +116,7 @@ block_29:
                                 soundGroupAddEntry(slot, sp18);
                             }
                             if ((sp18 == 0.0f) && (M2C_FIELD(slot, s32 *, 8) & 4)) {
-                                func_8008EA58(M2C_FIELD(slot, s32 *, 0x34));
+                                flagVoiceChainForStop(M2C_FIELD(slot, s32 *, 0x34));
                                 temp_v1_5 = M2C_FIELD(slot, s32 *, 8);
                                 M2C_FIELD(slot, s32 *, 0x34) = -1;
                                 if (temp_v1_5 & 2) {

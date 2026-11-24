@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800158A4(void *, s32, s32, M2C_UNK *, s32, s32, s32, s32, s32); /* extern */
-M2C_UNK func_80045514(f32 *, f32, f32);             /* extern */
-s32 func_8008194C(s8, M2C_UNK);                     /* extern */
+s32 raycastThroughRooms(void *, s32, s32, M2C_UNK *, s32, s32, s32, s32, s32); /* extern */
+M2C_UNK scaleVec2(f32 *, f32, f32);             /* extern */
+s32 getBindingAxisValueAlt(s8, M2C_UNK);                     /* extern */
 f32 absFloat(f32);                             /* extern */
-M2C_UNK func_800839F0(void *, M2C_UNK32 *, f32 *);  /* extern */
+M2C_UNK multiplyMat3ByVec3(void *, M2C_UNK32 *, f32 *);  /* extern */
 extern f32 D_800C7C98;
 extern s32 gBorderSkipActive;
 extern s32 gGameMode;
@@ -70,7 +70,7 @@ block_7:
             state = M2C_FIELD(other, u16 *, 0x78);
             if ((state == 1) || (state == 0x4C)) {
                 borderObj = M2C_FIELD(other, void **, 0x6C);
-                if ((func_8008194C(M2C_FIELD(trackData, s8 *, 0x182), 0xE) == 0) && (M2C_FIELD(other, u16 *, 0x78) == 0x4C)) {
+                if ((getBindingAxisValueAlt(M2C_FIELD(trackData, s8 *, 0x182), 0xE) == 0) && (M2C_FIELD(other, u16 *, 0x78) == 0x4C)) {
                     M2C_FIELD(other, f32 *, 0x74) = -30.0f;
                 }
                 if (!(M2C_FIELD(other, f32 *, 0x74) <= -30.0f) && (M2C_FIELD(other, s16 *, 0x7A) != 0x75)) {
@@ -104,12 +104,12 @@ block_29:
                                 temp_v0 = M2C_FIELD(M2C_FIELD(other, void **, 0x68), void **, 0);
                                 sp2C = (M2C_FIELD(temp_v0, f32 *, 0x58) + M2C_FIELD(temp_v0, f32 *, 0xAC)) * 0.5f;
                                 in.f[2] = M2C_FIELD(other, f32 *, 0x2C);
-                                func_800839F0(actor + 0x88, &sp28, &sp38);
+                                multiplyMat3ByVec3(actor + 0x88, &sp28, &sp38);
                                 sp38 += M2C_FIELD(actor, f32 *, 0xAC);
                                 sp3C += M2C_FIELD(actor, f32 *, 0xB0);
                                 newDist = sp40 + M2C_FIELD(actor, f32 *, 0xB4);
                                 sp40 = newDist;
-                                if ((newDist > 0.0f) && (newDist < M2C_FIELD(actor, f32 *, 0x11C)) && (func_80045514(&sp38, M2C_FIELD(actor, f32 *, 0x68) / newDist, M2C_FIELD(actor, f32 *, 0x6C) / newDist), (lateral = sp3C - lateral, absFloat(sp38 - lateralRef) < (M2C_FIELD(actor, f32 *, 0x54) / forwardLimit))) && (absFloat(lateral) < (M2C_FIELD(actor, f32 *, 0x5C) / lateralLimit)) && ((func_800158A4(actor + 0x10, M2C_FIELD(M2C_FIELD(other, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(actor, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+                                if ((newDist > 0.0f) && (newDist < M2C_FIELD(actor, f32 *, 0x11C)) && (scaleVec2(&sp38, M2C_FIELD(actor, f32 *, 0x68) / newDist, M2C_FIELD(actor, f32 *, 0x6C) / newDist), (lateral = sp3C - lateral, absFloat(sp38 - lateralRef) < (M2C_FIELD(actor, f32 *, 0x54) / forwardLimit))) && (absFloat(lateral) < (M2C_FIELD(actor, f32 *, 0x5C) / lateralLimit)) && ((raycastThroughRooms(actor + 0x10, M2C_FIELD(M2C_FIELD(other, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(actor, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                                     M2C_FIELD(actor, f32 *, 0x11C) = sp40;
                                     { struct vec { u32 x, y, z; }; *(struct vec *)((s8 *)actor + 0x104) = *(struct vec *)&in; }
                                     height = sp3C;

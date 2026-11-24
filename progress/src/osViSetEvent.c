@@ -15,14 +15,14 @@ typedef s32 M2C_UNK32;
 /* Stores the retrace message and count into the VI state block, with interrupts off. */
 s32 __osDisableInt();                                /* extern */
 M2C_UNK __osRestoreInt(s32);                         /* extern */
-extern void *vi_active_ctx;
+extern void *gViCurrentContext;
 
-void osViSetEvent(s32 mq, s32 msg, s16 retraceCount) {
-    s32 saved;
+/* Stores the retrace message queue, message and count into the VI state block, with interrupts off. */ void osViSetEvent(s32 mq, s32 msg, s16 retraceCount) {
+    s32 savedInt;
 
-    saved = __osDisableInt();
-    M2C_FIELD(vi_active_ctx, s32 *, 0x10) = mq;
-    M2C_FIELD(vi_active_ctx, s32 *, 0x14) = msg;
-    M2C_FIELD(vi_active_ctx, s16 *, 2) = retraceCount;
-    __osRestoreInt(saved);
+    savedInt = __osDisableInt();
+    M2C_FIELD(gViCurrentContext, s32 *, 0x10) = mq;
+    M2C_FIELD(gViCurrentContext, s32 *, 0x14) = msg;
+    M2C_FIELD(gViCurrentContext, s16 *, 2) = retraceCount;
+    __osRestoreInt(savedInt);
 }

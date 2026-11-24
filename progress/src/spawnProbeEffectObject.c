@@ -16,7 +16,7 @@ void *spawnEffectObject();
 s32 actorLinkToSurface();
 s32 effectSetAnimFrame();
 s8 randomIntBelow();
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 
 /* Spawns a probe effect object (kind 0xC) from the descriptor in desc: fills its parameter block, resets its animation state, sets the anim frame and links it to the probe surface. */
 void *spawnProbeEffectObject(s32 spawnArg, s32 position, void *desc) {
@@ -46,7 +46,7 @@ void *spawnProbeEffectObject(s32 spawnArg, s32 position, void *desc) {
         M2C_FIELD(effect, s8 *, 0x81) = 0;
         M2C_FIELD(effect, u8 *, 0x82) = 0xFF;
         effectSetAnimFrame(effect, M2C_FIELD(desc, u16 *, 0), *M2C_FIELD(desc, s16 **, 0x28));
-        actorLinkToSurface(*gProbeObjectList, effect, 1);
+        actorLinkToSurface(*gDefaultOrderObj, effect, 1);
     }
     return effect;
 }

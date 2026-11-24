@@ -1,4 +1,4 @@
-s32 func_8000A830(s32,s16,s32);
+s32 startAndQueueDistanceSound(s32,s16,s32);
 unsigned int randomIntBelow(s32);
 f32 randomFloatScaled(f32);
 f32 randomFloatMinusOffset(f32,f32);
@@ -13,7 +13,7 @@ extern s16 D_80109A58;
  sfxId=0x234;yScale=(f64)sp30[1];
  if(yScale>D_800D42A0)sfxId=0x235;
  if(yScale<D_800D42A8)sfxId=0x233;
- func_8000A830(sfxId,D_80109A58,0xFF);
+ startAndQueueDistanceSound(sfxId,D_80109A58,0xFF);
  colorIndex=randomIntBelow(0x17D);
  switch(colorIndex%=6){
  case 0:colorBase=0xFF0000;color=colorBase|0xFFFF;break;

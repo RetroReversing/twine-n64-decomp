@@ -1,13 +1,13 @@
 typedef struct { u8 pad[0x20]; u16 x,y,unused,width; u8 gap,height; } TextBox27;
 typedef struct { u8 pad[8]; TextBox27 *box; u16 align; u8 gap[14]; u8 flags; } TextStyle27;
-s32 func_80018080(void *); s32 func_800182CC(void *);
+s32 measureTextBoxWidth(void *); s32 getTextBoxHeight(void *);
 /* Lays out a text box's position and size from its style, relative to the previous box (currently always none). */
 void layoutTextBox(TextBox27 *out, TextStyle27 *style) {
  s32 prevWidth=0, offsetX=0; TextStyle27 *previous=0; u16 totalWidth,x,align,top; s32 styleWidth; u8 styleHeight;
  if(out!=0) { if(style!=0) {
  if(style->flags&0x80) { styleWidth=style->box->width; styleHeight=style->box->height; }
- else { styleWidth=func_80018080(style->box); styleHeight=func_800182CC(style->box); }
- if(previous!=0) { if(previous->flags&0x80) prevWidth=previous->box->width; else prevWidth=func_80018080(previous->box);
+ else { styleWidth=measureTextBoxWidth(style->box); styleHeight=getTextBoxHeight(style->box); }
+ if(previous!=0) { if(previous->flags&0x80) prevWidth=previous->box->width; else prevWidth=measureTextBoxWidth(previous->box);
  prevWidth &= -((previous->align&0x40)==0);
  if(style->align&0x40) offsetX=previous->box->x-style->box->x;
  else offsetX=previous->box->x-(style->box->x+styleWidth); }

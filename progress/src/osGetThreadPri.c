@@ -1,1 +1,1 @@
-extern void *__osRunningThread; s32 osGetThreadPri(void *arg0) { void *var_a0=arg0; if (var_a0==0) var_a0=__osRunningThread; return *(s32*)((char*)var_a0+4); }
+/* Returns the priority of the given thread, or of the running thread if thread is NULL. */ extern void *__osRunningThread; s32 osGetThreadPri(void *thread) { void *target=thread; if (target==0) target=__osRunningThread; return *(s32*)((char*)target+4); }

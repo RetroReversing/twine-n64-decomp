@@ -1,7 +1,5 @@
-/* identical to osSetThreadPri in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
-/* adapted from similar verified C in osSetThreadPri in V-RALLY-PAL (matched), with its names changed by decompdecomp */
 s32 __osEnqueueAndYield();
-s32 func_800A7944();
+s32 __osEnqueueThread();
 s32 __osDisableInt();
 s32 __osRestoreInt();
 s32 __osDequeueThread();
@@ -12,24 +10,25 @@ static inline s32 *inline_fn(int arg0)
   return (s32 *) (((char *) D_800CFE78) + arg0);
 }
 
-void osSetThreadPri(void *arg0, s32 arg1)
+/* Sets a thread's priority (NULL = current thread), requeues it, and yields if a higher-priority thread is now ready. */
+void osSetThreadPri(void *thread, s32 priority)
 {
-  int new_var;
-  s32 temp_s2;
-  arg0 = arg0;
-  temp_s2 = __osDisableInt();
-  if (arg0 == NULL)
+  int isNotRunning;
+  s32 savedMask;
+  thread = thread;
+  savedMask = __osDisableInt();
+  if (thread == NULL)
   {
-    arg0 = __osRunningThread;
+    thread = __osRunningThread;
   }
-  if ((*((s32 *) (((char *) arg0) + 4))) != arg1)
+  if ((*((s32 *) (((char *) thread) + 4))) != priority)
   {
-    new_var = arg0 != __osRunningThread;
-    *((s32 *) (((char *) arg0) + 4)) = arg1;
-    if (new_var && ((*((u16 *) (((char *) arg0) + 0x10))) != 1))
+    isNotRunning = thread != __osRunningThread;
+    *((s32 *) (((char *) thread) + 4)) = priority;
+    if (isNotRunning && ((*((u16 *) (((char *) thread) + 0x10))) != 1))
     {
-      __osDequeueThread(*((s32 *) (((char *) arg0) + 8)), arg0);
-      func_800A7944(*((s32 *) (((char *) arg0) + 8)), arg0);
+      __osDequeueThread(*((s32 *) (((char *) thread) + 8)), thread);
+      __osEnqueueThread(*((s32 *) (((char *) thread) + 8)), thread);
     }
     if ((*((s32 *) (((char *) __osRunningThread) + 4))) < (*inline_fn(4)))
     {
@@ -37,5 +36,5 @@ void osSetThreadPri(void *arg0, s32 arg1)
       __osEnqueueAndYield(&D_800CFE78);
     }
   }
-  __osRestoreInt(temp_s2);
+  __osRestoreInt(savedMask);
 }

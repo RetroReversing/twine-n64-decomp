@@ -1,5 +1,5 @@
-s32 func_8000B334();
-s32 func_8000B35C(u16 *, u16 *);
+s32 waitInitMessage();
+s32 signalInitMesgQueue(u16 *, u16 *);
 extern u16 *sHeapFirstBlock;
 
 /* Allocates a 16-byte aligned payload of size bytes from the heap block list, tagging the block
@@ -17,7 +17,7 @@ u16 *heapAllocBlock(s32 size, s32 type) {
     result = NULL;
     blockType = type;
     if (size) {
-        func_8000B334();
+        waitInitMessage();
         block = sHeapFirstBlock;
         blockFlags = *block;
         padded = size + 0xF;
@@ -45,7 +45,7 @@ u16 *heapAllocBlock(s32 size, s32 type) {
                 }
             }
         }
-        func_8000B35C(bestBlock, block);
+        signalInitMesgQueue(bestBlock, block);
     }
     return result;
 }

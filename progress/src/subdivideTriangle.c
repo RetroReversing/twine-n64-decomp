@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80045348(f32 *, f32 *, M2C_UNK *);     /* extern */
+M2C_UNK midpointVec3x3(f32 *, f32 *, M2C_UNK *);     /* extern */
 f32 randomFloatScaled(f32);                         /* extern */
 s32 func_800723C0(f32 *, f32 *, f32 *, s32, s32);   /* extern */
 extern f32 gSubdivideMinSize;
@@ -43,9 +43,9 @@ extern f32 gSubdivideMinSize;
     center[7] = (M2C_FIELD(v0, f32 *, 0x1C) * weights[0]) + (M2C_FIELD(v1, f32 *, 0x1C) * weight1) + (M2C_FIELD(v2, f32 *, 0x1C) * weight2);
     center[8] = (M2C_FIELD(v0, f32 *, 0x20) * weights[0]) + (M2C_FIELD(v1, f32 *, 0x20) * weight1) + (M2C_FIELD(v2, f32 *, 0x20) * weight2);
     if (childSize < gSubdivideMinSize) {
-        func_80045348(v0, v1, edge01);
-        func_80045348(v1, v2, edge12);
-        func_80045348(v2, v0, edge20);
+        midpointVec3x3(v0, v1, edge01);
+        midpointVec3x3(v1, v2, edge12);
+        midpointVec3x3(v2, v0, edge20);
         subdivideTriangle(childSize, v0, v1, center, param4, param5);
         subdivideTriangle(childSize, v1, v2, center, param4, param5);
         subdivideTriangle(childSize, v2, v0, center, param4, param5);

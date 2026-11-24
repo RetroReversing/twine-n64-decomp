@@ -22,7 +22,7 @@ extern char sVoiceTable[];
 extern s32 D_8010D748;
 extern u8 sVoiceKeepFlags[];
 extern u8 D_80110DB0;
-extern char D_80117388[];
+extern char sVoiceFreeList[];
 extern struct { char value; char pad[3]; } D_80117389[];
 extern u8 sVoiceCount;
 
@@ -58,7 +58,7 @@ slotId = 0;
                     slotId = (u8)(M2C_FIELD(voice, u8 *, 0x63));
                     M2C_FIELD(voice, s32 *, 0) = 0;
                     M2C_FIELD(voice, s8 *, 0x2E) = 0;
-                    slotRecord = (slotId * 4) + D_80117388;
+                    slotRecord = (slotId * 4) + sVoiceFreeList;
                     if (((__repair_record_temp_a0*)slotRecord)->field_2 == 0) {
                         ((__repair_record_temp_a0*)slotRecord)->field_2 = 1U;
                         if (D_801002EA != noSlot) {

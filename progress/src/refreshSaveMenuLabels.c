@@ -1,5 +1,5 @@
 s32 menuSetItemLabelIndices();
-s32 func_80025E9C();
+s32 setupMenuItemPair();
 s32 formatTextEntry();
 void *findEntryPayload();
 s8 findTableIndexById();
@@ -12,7 +12,7 @@ extern char sFmtEntryName[];
 extern char D_800D2864[];
 extern s16 gExpansionPakPresent;
 extern void *gSaveMenuState;
-extern u8 D_8010A4C0;
+extern u8 gExpansionModeEnabled;
 extern u8 gColorFadeLevel;
 extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
@@ -44,7 +44,7 @@ void refreshSaveMenuLabels(void) {
             temp_s2 = var_s3 - 0x28;
             temp_s0 = temp_s4 - 0x28;
             (*(s16 *)((char *)(var_s3) + -0x28)) = 3;
-            func_80025E9C(temp_s2, var_s3, temp_s1 - 0x28, temp_s0, 1, 9);
+            setupMenuItemPair(temp_s2, var_s3, temp_s1 - 0x28, temp_s0, 1, 9);
             formatTextEntry(var_s3, D_800D2A74);
             menuSetItemLabelIndices(temp_s0, temp_s4, temp_s2, temp_s5 - 0x28, 0x1F, 1);
             temp_s2 = (*(void **)((char *)(gSaveMenuState) + 0x10));
@@ -57,13 +57,13 @@ void refreshSaveMenuLabels(void) {
             var_a0 = 0x1B3;
             if (D_8010A4FF != 0) var_a0 = 0x1D;
             { formatTextEntry(var_s3, D_800D2864, lookupDataEntry(var_a0)); }
-            func_80025E9C(temp_s4 - 0x28, temp_s4, var_s3 - 0x28, temp_s5 - 0x28, 1, 0xD);
+            setupMenuItemPair(temp_s4 - 0x28, temp_s4, var_s3 - 0x28, temp_s5 - 0x28, 1, 0xD);
             temp_s2 = (*(void **)((char *)(gSaveMenuState) + 0x10));
             (*(s8 *)((char *)((*(void **)((char *)(gSaveMenuState) + 0x10))) + 4)) = findTableIndexById(temp_s2, 0x20);
         }
 updateLabel:
-        if (D_8010A4C0 == 0) var_a0_4 = lookupDataEntry(0x16);
-        else if (D_8010A4C0 == 1) var_a0_4 = lookupDataEntry(0x17);
+        if (gExpansionModeEnabled == 0) var_a0_4 = lookupDataEntry(0x16);
+        else if (gExpansionModeEnabled == 1) var_a0_4 = lookupDataEntry(0x17);
         else var_a0_4 = lookupDataEntry(0x16);
         do { formatTextEntry(temp_s4, sFmtEntryName, var_a0_4); } while (0);
     }

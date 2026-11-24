@@ -29,7 +29,7 @@ static inline s32 find_snd(s32 id) {
 
 void workerLockAcquire(void);
 void workerLockRelease(void);
-extern u8 gWorkerActive;
+extern u8 gSoundWorkerActive;
 
 static inline void set_snd_9113C(s32 arg0, s16 arg1) {
     arg0 = find_snd(arg0);
@@ -45,7 +45,7 @@ static inline void set_snd_9113C(s32 arg0, s16 arg1) {
 }
 
 void soundEntitySetParam(s32 arg0, s16 arg1) {
-    if (gWorkerActive != 0) {
+    if (gSoundWorkerActive != 0) {
         workerLockAcquire();
         set_snd_9113C(arg0, arg1);
         workerLockRelease();

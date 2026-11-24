@@ -1,6 +1,6 @@
 extern s32 gVisibleSaveSlotCount, gHiResScreen;
 extern u8 gBorderFlipFlag;
-s32 DrawBorderRect(s32, s32, s32, s32);
+s32 spawnBorderRect(s32, s32, s32, s32);
 
 /* Draws the border strips for the current border mode, using the 320x240 or 640x480 screen size. */
 void DrawScreenBorderLines(void) {
@@ -21,15 +21,15 @@ void DrawScreenBorderLines(void) {
     switch (gVisibleSaveSlotCount) {
     case 2:
         if (gBorderFlipFlag == 1) {
-            DrawBorderRect((u32) (half_width - 1.0f), 0, 3, (u32) full_height);
+            spawnBorderRect((u32) (half_width - 1.0f), 0, 3, (u32) full_height);
         } else {
-            DrawBorderRect(0, (u32) (height - 1.0f), (u32) width, 3);
+            spawnBorderRect(0, (u32) (height - 1.0f), (u32) width, 3);
         }
         break;
     case 3:
     case 4:
-        DrawBorderRect((u32) (half_width - 1.0f), 0, 3, (u32) full_height);
-        DrawBorderRect(0, (u32) (height - 1.0f), (u32) width, 3);
+        spawnBorderRect((u32) (half_width - 1.0f), 0, 3, (u32) full_height);
+        spawnBorderRect(0, (u32) (height - 1.0f), (u32) width, 3);
         break;
     }
 }

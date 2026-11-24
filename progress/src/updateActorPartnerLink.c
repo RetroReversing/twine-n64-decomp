@@ -1,7 +1,7 @@
-s32 func_8011AE4C();
-s32 func_8011B3D8();
+s32 releaseActorMarkers();
+s32 findLinkedObjectByFlagMask();
 s32 releaseProbeForOwner();
-s32 func_8011D0B4();
+s32 showPlayerCaptionMessage();
 extern u8 gSceneType;
 extern u8 gSaveKeyRelaxed;
 extern u8 D_801002D5;
@@ -38,21 +38,21 @@ void updateActorPartnerLink(Arg *arg0) {
     Ent *b;
 
     a = arg0->actor;
-    b = (Ent *)func_8011B3D8(a->partner);
+    b = (Ent *)findLinkedObjectByFlagMask(a->partner);
     switch (gSceneType) {
     case 8:
         if (a->kind == 0x26 && b->stats->f10 == 7) {
             a->stats->linkTimer = 1;
             b->stats->hitCount += 1;
         }
-        func_8011AE4C(arg0, a, b);
+        releaseActorMarkers(arg0, a, b);
         break;
     case 7:
         if (a->stats->linkTimer != 0) {
             a->stats->hitCount -= 1;
             a->stats->linkTimer -= 1;
             if (a->stats->hitCount == 0) {
-                func_8011D0B4(a->slot);
+                showPlayerCaptionMessage(a->slot);
             }
         }
         break;

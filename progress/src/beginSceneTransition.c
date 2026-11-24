@@ -12,74 +12,74 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80001D80(M2C_UNK);             /* extern */
-M2C_UNK func_8000C8BC(s32);                         /* extern */
-M2C_UNK func_8000C97C();                            /* extern */
-M2C_UNK func_8000CF14(M2C_UNK);                     /* extern */
-M2C_UNK func_8000DBBC(M2C_UNK);                     /* extern */
-M2C_UNK func_80064780(s32);                         /* extern */
-M2C_UNK func_80084048(void *, M2C_UNK);             /* extern */
-extern void *D_80109690;
-extern void *gObjectRecords;
+M2C_UNK setRotationInterpolationMode(M2C_UNK);             /* extern */
+M2C_UNK startSceneIfReset(s32);                         /* extern */
+M2C_UNK onSceneTransitionBegin();                            /* extern */
+M2C_UNK applyStatusToSceneObjects(M2C_UNK);                     /* extern */
+M2C_UNK confirmSaveEntryAndSelectItem(M2C_UNK);                     /* extern */
+M2C_UNK resetActorMotionState(s32);                         /* extern */
+M2C_UNK freeHeapBlock(void *, M2C_UNK);             /* extern */
+extern void *gSceneState;
+extern void *gCutscene;
 extern u8 gSceneFlagsB;
 extern s8 gSceneObjectsLoaded;
 extern u8 gSceneSkipLoad;
 extern u8 gTrackMarkerActiveMask;
 extern s8 gTransitionPhase;
 extern s32 sBonusObjectTable;
-extern void *sTrackMarkerTable;
+extern void *gTrackMarkerParents;
 
-void beginSceneTransition(void) {
+/* Frees the current scene's objects, clears track marker flags, then picks the next scene id from the current one and starts loading it (or runs the no-load path). */ void beginSceneTransition(void) {
     void **__base_D_80109690;
-    s32 temp_s1;
-    s32 var_a0;
+    s32 currentSceneId;
+    s32 nextSceneId;
     s32 var_v0;
     s32 var_v0_2;
 
-    temp_s1 = M2C_FIELD(gObjectRecords, s16 *, 0x10);
+    currentSceneId = M2C_FIELD(gCutscene, s16 *, 0x10);
     if (gSceneObjectsLoaded != 0) {
-        __base_D_80109690 = &D_80109690;
-        func_80084048((*__base_D_80109690), 0xE);
+        __base_D_80109690 = &gSceneState;
+        freeHeapBlock((*__base_D_80109690), 0xE);
         (*__base_D_80109690) = NULL;
-        func_80084048(M2C_FIELD(gObjectRecords, void **, 4), 0x33);
-        func_80084048(gObjectRecords, 0x33);
-        func_8000CF14(1);
+        freeHeapBlock(M2C_FIELD(gCutscene, void **, 4), 0x33);
+        freeHeapBlock(gCutscene, 0x33);
+        applyStatusToSceneObjects(1);
     }
     { u8 *mask = &gTrackMarkerActiveMask; *mask |= 1; }
     gSceneFlagsB |= 1;
-    M2C_FIELD(sTrackMarkerTable, s32 *, 0x100) = (s32) (M2C_FIELD(sTrackMarkerTable, s32 *, 0x100) & ~0x100);
-    func_80001D80(0);
-    gObjectRecords = NULL;
-    if (temp_s1 == 0x26 && sBonusObjectTable != 0) {
-        func_80064780(sBonusObjectTable);
+    M2C_FIELD(gTrackMarkerParents, s32 *, 0x100) = (s32) (M2C_FIELD(gTrackMarkerParents, s32 *, 0x100) & ~0x100);
+    setRotationInterpolationMode(0);
+    gCutscene = NULL;
+    if (currentSceneId == 0x26 && sBonusObjectTable != 0) {
+        resetActorMotionState(sBonusObjectTable);
     }
-    var_a0 = -(temp_s1 != 0x20) | 0x1C;
-    if (temp_s1 == 0x1C) {
-        var_a0 = 0x1D;
+    nextSceneId = -(currentSceneId != 0x20) | 0x1C;
+    if (currentSceneId == 0x1C) {
+        nextSceneId = 0x1D;
     }
-    if (temp_s1 == 0xA) {
-        var_a0 = 0xB;
+    if (currentSceneId == 0xA) {
+        nextSceneId = 0xB;
     }
-    if (temp_s1 == 0x11) {
-        var_a0 = 0x13;
+    if (currentSceneId == 0x11) {
+        nextSceneId = 0x13;
     }
-    if (temp_s1 == 5) {
-        var_a0 = 0x33;
+    if (currentSceneId == 5) {
+        nextSceneId = 0x33;
     }
     if ((gSceneSkipLoad != 0) && (gTransitionPhase == 0)) {
-        func_8000C8BC(temp_s1);
+        startSceneIfReset(currentSceneId);
         return;
     }
-    if (var_a0 >= 0) {
+    if (nextSceneId >= 0) {
         if (gTransitionPhase == 0) {
-            func_8000C8BC(var_a0);
+            startSceneIfReset(nextSceneId);
             return;
         }
-        if (var_a0 != 0x13) {
-            func_8000DBBC(8);
+        if (nextSceneId != 0x13) {
+            confirmSaveEntryAndSelectItem(8);
         }
         goto block_22;
     }
 block_22:
-    func_8000C97C();
+    onSceneTransitionBegin();
 }

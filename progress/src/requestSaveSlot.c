@@ -1,8 +1,8 @@
 extern void decodeTextField(u8 *dst, s8 *src, u8 len);
 extern s32 saveFindTaggedSlot(void);
-extern s32 func_8001226C(s32);
+extern s32 isSaveSlotValid(s32);
 extern s32 saveDataRunSteps(void);
-extern u16 func_80012F50(void);
+extern u16 loadSaveSlotHeaders(void);
 extern u16 gSaveStatus;
 extern s32 gSaveRequestSlot;
 extern u8 D_80103042;
@@ -16,9 +16,9 @@ extern u8 D_8010A3C5[];
 
     gSaveStatus = 3;
     gSaveRequestSlot = arg0;
-    if (func_80012F50() == 0) {
+    if (loadSaveSlotHeaders() == 0) {
         if (*(u16 *)(D_80107B68 + gSaveRequestSlot * 0x18) != 0) {
-            if (func_8001226C(gSaveRequestSlot) == 0) {
+            if (isSaveSlotValid(gSaveRequestSlot) == 0) {
                 gSaveStatus = 0x81;
                 return 0x81;
             }
@@ -30,7 +30,7 @@ extern u8 D_8010A3C5[];
             gSaveStatus = 0x30;
             return 0x30;
         }
-        if ((u16)saveDataRunSteps() == 0 && func_80012F50() == 0) {
+        if ((u16)saveDataRunSteps() == 0 && loadSaveSlotHeaders() == 0) {
             gSaveStatus = 3;
             return 3;
         }

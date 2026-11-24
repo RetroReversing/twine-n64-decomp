@@ -14,11 +14,11 @@ typedef struct {
       u8 datacrc;
 } __OSContRamReadFormat;
 
-extern u8 D_80109E90;
+extern u8 gContLastPifCmd;
 extern s32 osRecvMesg(OSMesgQueue *, OSMesg *, s32);
 extern s32 __osSiRawStartDma(s32, void *);
-void func_800A23E4(void);
-void func_800A2450(void);
+void osPiAccessWait(void);
+void postWakeupMessage(void);
 static OSPifRam __MotorDataBuf[4] __attribute__((aligned(8)));
 
 /* Runs one rumble-pak command on the channel's 32-byte block. flag is the fill byte:
@@ -33,7 +33,7 @@ static OSPifRam __MotorDataBuf[4] __attribute__((aligned(8)));
         return 5;
     }
 
-    func_800A23E4();
+    osPiAccessWait();
     __MotorDataBuf[controller->channel].pifstatus = 1;
     block += controller->channel;
 
@@ -41,7 +41,7 @@ static OSPifRam __MotorDataBuf[4] __attribute__((aligned(8)));
         ((__OSContRamReadFormat *)block)->data[i] = fillByte;
     }
 
-    D_80109E90 = 0xfe;
+    gContLastPifCmd = 0xfe;
     __osSiRawStartDma(1, &__MotorDataBuf[controller->channel]);
     osRecvMesg(controller->queue, 0, 1);
     ret = __osSiRawStartDma(0, &__MotorDataBuf[controller->channel]);
@@ -60,7 +60,7 @@ static OSPifRam __MotorDataBuf[4] __attribute__((aligned(8)));
         }
     }
 
-    func_800A2450();
+    postWakeupMessage();
 
     return ret;
 }

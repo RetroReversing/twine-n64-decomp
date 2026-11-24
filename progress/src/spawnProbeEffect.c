@@ -1,10 +1,10 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 void *spawnEffectObject();
-s32 func_80017490();
+s32 rollDifficultyChance();
 s32 actorLinkToSurface();
 s32 randomIntBelow();
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 
 void *spawnProbeEffect(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, u8 arg13, s32 arg14) {
     void *var_s0;
@@ -13,7 +13,7 @@ void *spawnProbeEffect(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg
     register u8 color;
 
     var_s0 = NULL;
-    if ((func_80017490(arg5, (s32)arg6, arg7) << 0x18) != 0) {
+    if ((rollDifficultyChance(arg5, (s32)arg6, arg7) << 0x18) != 0) {
         var_s0 = spawnEffectObject(0x1C, arg0, (u32)arg1);
         if ((color = 0x64, var_s0) != NULL) {
             temp_v0 = (*(void **)((char *)(var_s0) + 0x6C));
@@ -25,7 +25,7 @@ void *spawnProbeEffect(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg
             (*(s8 *)((char *)(temp_v0) + 0x14)) = (s8) arg10;
             (*(u8 *)((char *)(temp_v0) + 0x16)) = (unsigned)arg13;
             (*(s8 *)((char *)(temp_v0) + 0x1A)) = (s8) arg14;
-            list = gProbeObjectList;
+            list = gDefaultOrderObj;
             (*(s32 *)((char *)(temp_v0) + 0)) = 0;
             (*(s32 *)((char *)(temp_v0) + 4)) = 0;
             (*(s16 *)((char *)(temp_v0) + 0xE)) = (s16) arg4;

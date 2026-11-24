@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8008EA58(s32, void *);                 /* extern */
+M2C_UNK flagVoiceChainForStop(s32, void *);                 /* extern */
 extern void *gSeqPlayer;
 
 typedef struct { void * value; } __repair_field_0;
@@ -34,7 +34,7 @@ start:
     do {
         temp_s1 = ((__repair_field_0 *)var_s0)->value;
         if ((M2C_FIELD(var_s0, s32 *, 0x14) + M2C_FIELD(gSeqPlayer, s32 *, 0x120)) >= M2C_FIELD(var_s0, s32 *, 0xC)) {
-            func_8008EA58(M2C_FIELD(var_s0, s32 *, 8), gSeqPlayer);
+            flagVoiceChainForStop(M2C_FIELD(var_s0, s32 *, 8), gSeqPlayer);
             temp_v1 = ((__repair_field_0 *)var_s0)->value;
             if (temp_v1 != NULL) {
                 ((__repair_field_4 *)temp_v1)->value = (void **) ((__repair_field_4 *)var_s0)->value;

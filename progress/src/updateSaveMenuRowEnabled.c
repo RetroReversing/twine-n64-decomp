@@ -23,8 +23,8 @@ s32 findEntryById(s32 key, s32 kind);
 s32 formatTextEntry(s32 entry, const char *fmt, s32 arg);
 s32 lookupDataEntry(u16 entryId);
 s32 updateActiveMenuState(void);
-s32 func_80027C60(s32 arg);
-s32 func_800192E8(s8 *dest);
+s32 isMenuButtonPressed(s32 arg);
+s32 handleSaveMenuConfirm(s8 *dest);
 extern SaveMenuState *gSaveMenuState;
 
 /* Marks the selected save-menu row enabled, refreshes its label, and writes its setting
@@ -41,7 +41,7 @@ void updateSaveMenuRowEnabled(void) {
         formatTextEntry(entry, "%s", lookupDataEntry(gSaveMenuState->row->entryId));
     }
     updateActiveMenuState();
-    if ((gSaveMenuState->refreshPending != 0) || (func_80027C60(0x23) & 0xFF)) {
+    if ((gSaveMenuState->refreshPending != 0) || (isMenuButtonPressed(0x23) & 0xFF)) {
         row = gSaveMenuState->row;
         dest = row->dest;
         if (dest != NULL) {
@@ -51,6 +51,6 @@ void updateSaveMenuRowEnabled(void) {
                 *(s32 *)dest = row->value;
             }
         }
-        func_800192E8(dest);
+        handleSaveMenuConfirm(dest);
     }
 }

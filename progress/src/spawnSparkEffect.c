@@ -6,7 +6,7 @@ extern u16 D_800C7BE2[];
 extern char D_800C7C31[];
 extern char D_800C7C35[];
 extern char D_800C7C39[];
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 
 typedef struct { unsigned hi:12; unsigned tbl:16; unsigned lo:4; } BF1C;
 void spawnSparkEffect(u16 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5, u8 arg6, s32 arg7, u16 arg8) {
@@ -31,6 +31,6 @@ void spawnSparkEffect(u16 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
         (*(s16 *)((char *)(temp_v0) + 0x78)) = arg0;
         (*(u8 *)((char *)(temp_a0) + 0x22)) = arg6;
-        actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
+        actorLinkToSurface(*gDefaultOrderObj, temp_v0, 1);
     }
 }

@@ -14,16 +14,16 @@ typedef s32 M2C_UNK32;
 
 f32 sinTableLookup(f32);                             /* extern */
 
-void motionUpdateObject(void *arg0) {
-    f32 temp_fv0;
-    void *temp_s1;
+/* Adds a sine-eased share (elapsed/duration * pi) of the motion's per-axis deltas to the object's position and second vector. */ void motionUpdateObject(void *object) {
+    f32 sineFactor;
+    void *motion;
 
-    temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
-    temp_fv0 = sinTableLookup((M2C_FIELD(temp_s1, f32 *, 8) / M2C_FIELD(temp_s1, f32 *, 0xC)) * 3.1415927f);
-    M2C_FIELD(arg0, f32 *, 0x24) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + (temp_fv0 * M2C_FIELD(temp_s1, f32 *, 0x10)));
-    M2C_FIELD(arg0, f32 *, 0x28) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + (temp_fv0 * M2C_FIELD(temp_s1, f32 *, 0x14)));
-    M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (temp_fv0 * M2C_FIELD(temp_s1, f32 *, 0x18)));
-    M2C_FIELD(arg0, f32 *, 0x3C) = (f32) (M2C_FIELD(arg0, f32 *, 0x3C) + (temp_fv0 * M2C_FIELD(temp_s1, f32 *, 0x1C)));
-    M2C_FIELD(arg0, f32 *, 0x40) = (f32) (M2C_FIELD(arg0, f32 *, 0x40) + (temp_fv0 * M2C_FIELD(temp_s1, f32 *, 0x20)));
-    M2C_FIELD(arg0, f32 *, 0x44) = (f32) (M2C_FIELD(arg0, f32 *, 0x44) + (temp_fv0 * M2C_FIELD(temp_s1, f32 *, 0x24)));
+    motion = M2C_FIELD(object, void **, 0x6C);
+    sineFactor = sinTableLookup((M2C_FIELD(motion, f32 *, 8) / M2C_FIELD(motion, f32 *, 0xC)) * 3.1415927f);
+    M2C_FIELD(object, f32 *, 0x24) = (f32) (M2C_FIELD(object, f32 *, 0x24) + (sineFactor * M2C_FIELD(motion, f32 *, 0x10)));
+    M2C_FIELD(object, f32 *, 0x28) = (f32) (M2C_FIELD(object, f32 *, 0x28) + (sineFactor * M2C_FIELD(motion, f32 *, 0x14)));
+    M2C_FIELD(object, f32 *, 0x2C) = (f32) (M2C_FIELD(object, f32 *, 0x2C) + (sineFactor * M2C_FIELD(motion, f32 *, 0x18)));
+    M2C_FIELD(object, f32 *, 0x3C) = (f32) (M2C_FIELD(object, f32 *, 0x3C) + (sineFactor * M2C_FIELD(motion, f32 *, 0x1C)));
+    M2C_FIELD(object, f32 *, 0x40) = (f32) (M2C_FIELD(object, f32 *, 0x40) + (sineFactor * M2C_FIELD(motion, f32 *, 0x20)));
+    M2C_FIELD(object, f32 *, 0x44) = (f32) (M2C_FIELD(object, f32 *, 0x44) + (sineFactor * M2C_FIELD(motion, f32 *, 0x24)));
 }

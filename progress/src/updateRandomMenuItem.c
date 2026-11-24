@@ -21,40 +21,40 @@ extern u8 D_80112F7C;
 extern u8 D_80112F7D;
 extern u8 D_80112F7E;
 
-void updateRandomMenuItem(void) {
-    u32 temp_ret;
-    u16 var_a0;
-    u32 var_v1;
-    u8 var_v0;
+/* Picks a random menu item id in 14..27 (stepping back one if the chosen special item is disabled), stores its lookup into the save menu state, then refreshes row enabled flags. */ void updateRandomMenuItem(void) {
+    u32 randomValue;
+    u16 itemId;
+    u32 clampedId;
+    u8 itemEnabled;
 
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2E) == 0) {
-        temp_ret = func_80045CC4();
-        var_a0 = (temp_ret % 13) + 0xE;
-        var_v1 = var_a0 & 0xFFFF;
-        var_a0 = var_v1 < 14 ? 14 : var_v1 >= 28 ? 27 : var_a0;
-        var_v1 = var_a0 & 0xFFFF;
+        randomValue = func_80045CC4();
+        itemId = (randomValue % 13) + 0xE;
+        clampedId = itemId & 0xFFFF;
+        itemId = clampedId < 14 ? 14 : clampedId >= 28 ? 27 : itemId;
+        clampedId = itemId & 0xFFFF;
 choose:
-        switch ((s32)var_v1) {
+        switch ((s32)clampedId) {
         case 27:
-            var_v0 = D_80112F7E;
+            itemEnabled = D_80112F7E;
             break;
         case 22:
-            var_v0 = D_80112F7D;
+            itemEnabled = D_80112F7D;
             break;
         case 20:
-            var_v0 = D_80112F7C;
+            itemEnabled = D_80112F7C;
             break;
         case 17:
-            var_v0 = D_80112F7B;
+            itemEnabled = D_80112F7B;
             break;
         default:
             goto use;
         }
-        if (var_v0 == 0) {
-            var_a0--;
+        if (itemEnabled == 0) {
+            itemId--;
         }
 use:
-        M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s32 *, 0x14) = (s32) (((func_800260A0(var_a0 & 0xFFFF) & 0xFFFF) << 8) | 0xC);
+        M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s32 *, 0x14) = (s32) (((func_800260A0(itemId & 0xFFFF) & 0xFFFF) << 8) | 0xC);
     }
     func_8001E5BC();
 }

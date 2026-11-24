@@ -30,7 +30,7 @@ typedef struct Obj {
     union { u32 flags; u16 type; } u;
 } Obj;
 Contact *Contact_PushFront(Contact *);
-s8 Obj_MeshVertsInOther(Obj *, Obj *);
+s8 meshVertsInOther(Obj *, Obj *);
 s8 Obj_BoundsContainPoint(f32 *, Obj *, f32);
 f32 Vec3_DistanceSq(f32 *, f32 *);
 s8 func_8003D53C(f32, f32, f32);
@@ -67,7 +67,7 @@ void Obj_UpdateContactPairs(Obj *list) {
                 p = c->pos;
                 if (((t == 0x1E) | (t == 0x84)) || t == 0x88) {
                     if (!Obj_BoundsContainPoint(p, a, 1.0f) || !Obj_BoundsContainPoint(p, b, 1.0f)
-                            || !Obj_MeshVertsInOther(c, a) || !Obj_MeshVertsInOther(c, b)) {
+                            || !meshVertsInOther(c, a) || !meshVertsInOther(c, b)) {
                         continue;
                     }
                     a->sub->contact = Contact_PushFront(a->sub->contact);

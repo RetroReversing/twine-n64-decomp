@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80048734(f32);
-s8 clamp_level_step(s32, s32, s8 *);
-extern f32 D_800C0740;
+s32 updateAllCameraProjections(f32);
+s8 clampLevelStep(s32, s32, s8 *);
+extern f32 kRayNoHitDistance;
 extern u8 D_801007CC;
 extern u8 D_801007CD;
 extern u8 D_801007CE;
@@ -57,16 +57,16 @@ extern u8 gTrackMarkerDone[];
     case 2:
         any_changed = 0;
         level_ptr = &D_801007CC;
-        (*level_ptr) += clamp_level_step((*level_ptr), M2C_FIELD(rec, u8 *, 4), &any_changed);
-        D_801007CD += clamp_level_step(D_801007CD, M2C_FIELD(rec, u8 *, 5), &any_changed);
-        D_801007CE += clamp_level_step(D_801007CE, M2C_FIELD(rec, u8 *, 6), &any_changed);
-        D_801007CF += clamp_level_step(D_801007CF, M2C_FIELD(rec, u8 *, 7), &any_changed);
-        D_801007D0 += clamp_level_step(D_801007D0, M2C_FIELD(rec, u8 *, 8), &any_changed);
-        D_801007D1 += clamp_level_step(D_801007D1, M2C_FIELD(rec, u8 *, 9), &any_changed);
+        (*level_ptr) += clampLevelStep((*level_ptr), M2C_FIELD(rec, u8 *, 4), &any_changed);
+        D_801007CD += clampLevelStep(D_801007CD, M2C_FIELD(rec, u8 *, 5), &any_changed);
+        D_801007CE += clampLevelStep(D_801007CE, M2C_FIELD(rec, u8 *, 6), &any_changed);
+        D_801007CF += clampLevelStep(D_801007CF, M2C_FIELD(rec, u8 *, 7), &any_changed);
+        D_801007D0 += clampLevelStep(D_801007D0, M2C_FIELD(rec, u8 *, 8), &any_changed);
+        D_801007D1 += clampLevelStep(D_801007D1, M2C_FIELD(rec, u8 *, 9), &any_changed);
         if (M2C_FIELD(ctrl, u16 *, 0x78) == 0x4E) {
-            D_801007D2 += clamp_level_step(D_801007D2, M2C_FIELD(rec, u8 *, 0xA), &any_changed);
-            D_801007D3 += clamp_level_step(D_801007D3, M2C_FIELD(rec, u8 *, 0xB), &any_changed);
-            D_801007D4 += clamp_level_step(D_801007D4, M2C_FIELD(rec, u8 *, 0xC), &any_changed);
+            D_801007D2 += clampLevelStep(D_801007D2, M2C_FIELD(rec, u8 *, 0xA), &any_changed);
+            D_801007D3 += clampLevelStep(D_801007D3, M2C_FIELD(rec, u8 *, 0xB), &any_changed);
+            D_801007D4 += clampLevelStep(D_801007D4, M2C_FIELD(rec, u8 *, 0xC), &any_changed);
         } else {
             level = M2C_FIELD(rec, u8 *, 0xC);
             if (level != 0) {
@@ -74,8 +74,8 @@ extern u8 gTrackMarkerDone[];
             }
             cue = M2C_FIELD(rec, u8 *, 0xB);
             if (cue != 0) {
-                D_800C0740 = (f32) cue;
-                func_80048734(60.0f);
+                kRayNoHitDistance = (f32) cue;
+                updateAllCameraProjections(60.0f);
             }
         }
         if (any_changed == 0) {

@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u16 D_800BFF0C;
+extern u16 gCurrentMapIdx;
 
-u16 getCurrentMapIdx(void) {
-    return D_800BFF0C;
+/* Returns the index of the currently loaded map. */ u16 getCurrentMapIdx(void) {
+    return gCurrentMapIdx;
 }

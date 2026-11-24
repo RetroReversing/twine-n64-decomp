@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 effectSetAnimFrame();
-s32 func_80084338();
+s32 playSoundAtPos();
 extern char gTrackMarkerDone[];
 
 /* Advances the object's track state machine (0 idle, 1 start, 2 playing) and syncs its track done flags. */ void updateObjectTrackState(void *obj) {
@@ -53,7 +53,7 @@ extern char gTrackMarkerDone[];
         }
         callArg = M2C_FIELD(def, u16 *, 0x36);
         if (callArg != 0) {
-            func_80084338(callArg, obj + 0x24);
+            playSoundAtPos(callArg, obj + 0x24);
         }
         M2C_FIELD(obj, s16 *, 0x7A) = 2;
         break;

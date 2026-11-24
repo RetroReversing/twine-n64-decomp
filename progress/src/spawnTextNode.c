@@ -26,11 +26,11 @@ extern char *lookupDataEntry(s32);
 extern void initObjectFromBankEntry(Text *, s32, s32);
 extern unsigned int strlen(const char *);
 /* Fills a Text object from a Template: position, style, string (by id, or by index/bank, or empty), size, mode, width and colour state. */
-extern Text *func_80015F0C(void);
-extern void func_800165E0(Text *, s32);
-extern s32 sTrackMarkerTable[];
+extern Text *allocTextNodeObject(void);
+extern void linkNodeAfter(Text *, s32);
+extern s32 gTrackMarkerParents[];
 /* Allocates a text node and fills it from a template: position, style, string, size, mode, width and colour state. */ Text *spawnTextNode(Template *src) {
-    Text *dst = func_80015F0C();
+    Text *dst = allocTextNodeObject();
     if (dst == NULL)
         return NULL;
     if (src != NULL) {
@@ -59,7 +59,7 @@ extern s32 sTrackMarkerTable[];
         dst->state.bits.x = src->settings.bits.x ? src->settings.bits.x : 1;
         dst->state.bits.y = src->settings.bits.y ? src->settings.bits.y : 1;
         if (src->marker >= 0)
-            func_800165E0(dst, sTrackMarkerTable[src->marker]);
+            linkNodeAfter(dst, gTrackMarkerParents[src->marker]);
     }
     return dst;
 }

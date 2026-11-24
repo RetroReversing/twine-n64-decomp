@@ -14,10 +14,10 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK listUnlinkFree(s32);                         /* extern */
 
-void releaseTrackRecord(void *arg0) {
-    if (M2C_FIELD(arg0, s32 *, 0) != -1) {
-        M2C_FIELD(arg0, s8 *, 0x18) = 0;
-        listUnlinkFree(M2C_FIELD(arg0, s32 *, 0));
-        M2C_FIELD(arg0, s32 *, 0) = -1;
+/* Frees the record's linked list node, clears its active flag and marks it unlinked (-1). */ void releaseTrackRecord(void *record) {
+    if (M2C_FIELD(record, s32 *, 0) != -1) {
+        M2C_FIELD(record, s8 *, 0x18) = 0;
+        listUnlinkFree(M2C_FIELD(record, s32 *, 0));
+        M2C_FIELD(record, s32 *, 0) = -1;
     }
 }

@@ -1,0 +1,79 @@
+typedef struct { f32 period; s32 count; s32 unk8; f32 times[1]; } FrameTimes;
+typedef struct { s32 flags; u8 pad4[0x18]; f32 time; u8 pad20[0x24]; s32 a44; u8 pad48[4]; FrameTimes *frames; u8 pad50[0x2E]; s16 h7E; } AnimSub;
+typedef struct { u8 pad[0x14]; AnimSub anim; } AnimState;
+typedef struct { u8 pad[0x68]; AnimState *state; } AnimObject;
+
+extern f32 gAnimBlendFactor;
+void blendTwoMeshFrames(s32, s32, s32, s32, f32, s32);
+void setMeshBlendFrames(void *, s32, s32, s32);
+
+/* Wraps the animation time into its period, finds the keyframe segment, and applies the blend between keyframes. */ void updateAnimationBlend(AnimObject *object) {
+    AnimState *state = object->state;
+    FrameTimes *frames = state->anim.frames;
+    AnimSub *anim = &state->anim;
+    f32 *timePtr = &state->anim.time;
+    f32 time = *timePtr;
+    f32 period = frames->period;
+    s32 count, index, next, t;
+    f32 *times, *p;
+    f32 numerator, denominator, previous, blend;
+
+    while (period <= time) {
+        time -= period;
+    }
+    if (time < 0.0f) {
+        period = *(volatile f32 *)&frames->period;
+        do {
+            time += period;
+        } while (time < 0.0f);
+    }
+
+    count = frames->count;
+    index = (s32)((time * (f32)count) / *(volatile f32 *)&frames->period);
+    times = frames->times;
+    p = (f32 *)(index * 4 + (s32)times);
+    if (time < *p) {
+    scanBack:
+        next = index + 1;
+        if (index != 0) {
+            previous = p[-1];
+            p--;
+            if (time < previous) {
+                index--;
+                goto scanBack;
+            }
+        }
+    } else {
+        index++;
+        p = (f32 *)(index * 4 + (s32)times);
+        next = index + 1;
+        if (*p <= time) {
+            do {
+                p++;
+                index++;
+            } while (*p <= time);
+            next = index + 1;
+        }
+    }
+    t = next;
+    if (next >= count) t = 0;
+
+    p = (f32 *)(index * 4 + (s32)times);
+    denominator = *p;
+    numerator = time;
+    if (index > 0) {
+        previous = p[-1];
+        numerator = time - previous;
+        denominator -= previous;
+    }
+    blend = numerator / denominator;
+    if (!(anim->flags & 0x40000)) {
+        gAnimBlendFactor = blend;
+        setMeshBlendFrames(object, anim->h7E, index, t);
+        *timePtr = time;
+        return;
+    }
+    blendTwoMeshFrames(anim->a44, anim->h7E, index, t, blend, anim->flags & 1);
+    *timePtr = time;
+}
+

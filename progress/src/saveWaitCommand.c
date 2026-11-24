@@ -12,21 +12,21 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80011950();                            /* extern */
-extern u16 D_800B2792;
+M2C_UNK pollControllersAndRunSaveCommand();                            /* extern */
+extern u16 gSaveWaitCounter;
 extern u16 gSaveCmdPending;
 extern s32 gSaveCmdResult;
 
-s32 saveWaitCommand(void) {
-    u16 temp_v0;
+/* Polls the save subsystem until the pending command finishes or 10000 polls elapse, then returns its result. */ s32 saveWaitCommand(void) {
+    u16 count;
 
-    D_800B2792 = 0;
+    gSaveWaitCounter = 0;
 loop_1:
     if (gSaveCmdPending != 0) {
-        func_80011950();
-        temp_v0 = D_800B2792 + 1;
-        D_800B2792 = temp_v0;
-        if ((u32) (temp_v0 & 0xFFFF) < 0x2710U) {
+        pollControllersAndRunSaveCommand();
+        count = gSaveWaitCounter + 1;
+        gSaveWaitCounter = count;
+        if ((u32) (count & 0xFFFF) < 0x2710U) {
             goto loop_1;
         }
     }

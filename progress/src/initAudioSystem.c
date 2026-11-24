@@ -1,0 +1,44 @@
+s32 initAudioMixer(s32 *, s32, s32, s32);
+unsigned int initWorkerLock();
+s32 osAiSetFrequency(s32);
+s32 osCreateMesgQueue(s32 *, s32 *, s32);
+s32 osCreateThread(s32 *, s32, s32 *, s32, s32, s32);
+s32 osSetEventMesg(s32, s32 *, s8 *);
+s32 osStartThread(s32 *);
+extern s32 gAudioSilenceThread;
+extern s32 D_800E4140;
+extern s32 gWorkerMsgQueue;
+extern s32 D_800E415C;
+extern s8 D_800E416C;
+extern s32 gAudioSampleRate;
+extern s8 gStartupFlag;
+extern s32 (*gDataBankHandler)(s32, s32);
+extern s8 D_8010086C;
+extern s32 audioSilenceThread;
+/* Sets up audio: registers the AI event message, sets the sample rate, starts the silence thread, then initializes the mixer with a mode chosen from flag bits 16-19. */ s32 initAudioSystem(s32 *sampleRate, u16 param1, u16 param2, u32 flags)
+{
+  s32 actualRate;
+  s32 stack;
+  u8 mode;
+  s8 *eventMsg = &D_800E416C;
+  gStartupFlag = 0;
+  initWorkerLock();
+  D_8010086C = (flags >> 0x14) & 1;
+  *eventMsg = 1;
+  osCreateMesgQueue((s32 *) (((u32) (&gAudioSampleRate)) - 0x90), &D_800E415C, 4);
+  osSetEventMesg(6, &gWorkerMsgQueue, eventMsg);
+  actualRate = osAiSetFrequency(*sampleRate);
+  gAudioSampleRate = actualRate;
+  *sampleRate = actualRate;
+  stack = gDataBankHandler(0x400, 0x80);
+  D_800E4140 = stack;
+  osCreateThread(&gAudioSilenceThread, 0, &audioSilenceThread, 0, stack + 0x400, 0x7A);
+  osStartThread((s32 *) (((u32) (&gStartupFlag)) - 0x248));
+  if (flags & 0x10000) mode = 2;
+  else if (flags & 0x20000) mode = 3;
+  else if (flags & 0x40000) mode = 4;
+  else if (flags & 0x80000) mode = 0;
+  else mode = 1;
+  initAudioMixer(sampleRate, param1 & 0xFFFF, param2 & 0xFFFF, mode);
+  return 0;
+}

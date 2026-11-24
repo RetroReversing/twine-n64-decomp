@@ -19,8 +19,8 @@ M2C_UNK updateObjectColor(void *);                 /* extern */
 M2C_UNK emitPrimColor(void *, void *);              /* extern */
 M2C_UNK emitScissorFromWindow(void *);                      /* extern */
 M2C_UNK emitObjectMatrix(void *, void *, void *);      /* extern */
-M2C_UNK emit_projection_viewport_commands();                            /* extern */
-M2C_UNK emit_matrices_viewport_and_persp_norm();                            /* extern */
+M2C_UNK appendProjectionViewportCommands();                            /* extern */
+M2C_UNK emitMatricesViewportAndPerspNorm();                            /* extern */
 extern s32 gObjectDrawMask;
 extern void *gObjectList;
 extern s32 gRenderMode;
@@ -37,7 +37,7 @@ typedef struct { unsigned char pad_0[8]; void * field_8; unsigned char pad_C[16]
 
     if (gRenderMode != 0) {
         gRenderMode = 0;
-        emit_projection_viewport_commands();
+        appendProjectionViewportCommands();
     }
     emitScissorFromWindow(view);
     node = gObjectList;
@@ -83,11 +83,11 @@ typedef struct { unsigned char pad_0[8]; void * field_8; unsigned char pad_C[16]
                         if (M2C_FIELD(object, s8 *, 0x38) == 0) {
                             if (gRenderMode != 0) {
                                 gRenderMode = 0;
-                                emit_projection_viewport_commands();
+                                appendProjectionViewportCommands();
                             }
                         } else if (gRenderMode != 4) {
                             gRenderMode = 4;
-                            emit_matrices_viewport_and_persp_norm();
+                            emitMatricesViewportAndPerspNorm();
                         }
                         func_80008750(view, M2C_FIELD(M2C_FIELD(object, void **, 0x18), u8 *, 0x45), 0);
                         emitObjectMatrix(object, node, view);
@@ -95,7 +95,7 @@ typedef struct { unsigned char pad_0[8]; void * field_8; unsigned char pad_C[16]
                     } while (object != NULL);
                     if (gRenderMode != 0) {
                         gRenderMode = 0;
-                        emit_projection_viewport_commands();
+                        appendProjectionViewportCommands();
                     }
                 }
             }

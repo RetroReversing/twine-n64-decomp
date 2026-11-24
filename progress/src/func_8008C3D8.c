@@ -34,7 +34,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u8 D_80115094;
+extern u8 gInputBindingTables;
 
 s32 func_800819EC(s32 arg0, s32 arg1) {
     
@@ -52,11 +52,11 @@ s32 __repair_phase_var_v0;
     void *temp_t0;
 
     temp_a2 = arg0 * 0xA0;
-    temp_t0 = temp_a2 + &D_80115094;
+    temp_t0 = temp_a2 + &gInputBindingTables;
     temp_a0 = (arg1 * 2) + temp_t0;
     temp_v1_2 = M2C_FIELD(temp_a0, u8 *, 1);
     if (temp_v1_2 != 0) {
-        temp_v1 = *(s32 *)((temp_v1_2 * 4) + (&D_80115094 + 0x70) + temp_a2);
+        temp_v1 = *(s32 *)((temp_v1_2 * 4) + (&gInputBindingTables + 0x70) + temp_a2);
         if (!(M2C_FIELD(temp_a0, u8 *, 0) & 0x40)) {
 __repair_literal = 2;
 

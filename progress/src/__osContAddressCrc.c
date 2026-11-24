@@ -1,7 +1,7 @@
 /* identical to __osContAddressCrc in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
 /* 5-bit CRC of the 16-bit controller pak address (polynomial 0x15), as used by the
  * controller pak address header. Returns the CRC in the low 5 bits. */
-s32 __osContAddressCrc(s32 addr)
+/* 5-bit CRC of the controller pak address (polynomial 0x15); returns it in the low 5 bits. */ s32 __osContAddressCrc(s32 addr)
 {
   s32 crc;
   u32 bit;

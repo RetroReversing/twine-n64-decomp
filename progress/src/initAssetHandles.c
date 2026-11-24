@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 initResourceCaches();
-s32 func_80001D80();
-s32 func_80005158();
+s32 setRotationInterpolationMode();
+s32 buildFrameDistanceTable();
 typedef struct { s32 a; s16 b; s16 c; } Rec;
 extern Rec D_800C3924[];
 extern s16 D_800C39B0;
@@ -47,7 +47,7 @@ extern s32 gBootState;
 
     gBootState = 0;
     initResourceCaches();
-    func_80001D80(0);
+    setRotationInterpolationMode(0);
     for (rec_index = 0; D_800C3924[rec_index].a != 0; rec_index++) {
         threshold_ptr = &D_800C39B0;
         D_800C3924[rec_index].c = 0;
@@ -55,25 +55,25 @@ extern s32 gBootState;
             D_800C3924[rec_index].c = 1;
         }
     }
-    D_800D93C0 = func_80005158(0x1D0, 4, 0);
-    D_800D93C4 = func_80005158(0x331, 4, 0);
-    D_800D93C8 = func_80005158(0x245, 4, 0);
-    D_800D93CC = func_80005158(0x1D1, 4, 0);
-    D_800D93D0 = func_80005158(0x248, 4, 0);
-    D_800D93D4 = func_80005158(0x247, 4, 0);
-    D_800D93D8 = func_80005158(0x1DC, 4, 0);
-    D_800D93E8 = func_80005158(0x4D, 4, 0);
-    D_800D93EC = func_80005158(0x65, 1, 0);
-    D_800D93F0 = func_80005158(0x6B, 1, 0);
-    D_800D93DC = func_80005158(0x1CE, 2, 0);
-    D_800D93E0 = func_80005158(0x1D9, 4, 1);
-    D_800D93E4 = func_80005158(0x1DB, 4, 1);
-    D_800D93F4 = func_80005158(0x26E, 4, 0);
-    D_800D93F8 = func_80005158(0xB3, 4, 0);
-    D_800D93FC = func_80005158(0x91, 1, 0);
-    D_800D9400 = func_80005158(0x90, 1, 0);
-    D_800D9404 = func_80005158(0x94, 4, 0);
-    D_800D9408 = func_80005158(0xC0, 4, 0);
-    D_800D940C = func_80005158(0x1CA, 7, 0);
-    D_800D9410 = func_80005158(0x1CB, 7, 0);
+    D_800D93C0 = buildFrameDistanceTable(0x1D0, 4, 0);
+    D_800D93C4 = buildFrameDistanceTable(0x331, 4, 0);
+    D_800D93C8 = buildFrameDistanceTable(0x245, 4, 0);
+    D_800D93CC = buildFrameDistanceTable(0x1D1, 4, 0);
+    D_800D93D0 = buildFrameDistanceTable(0x248, 4, 0);
+    D_800D93D4 = buildFrameDistanceTable(0x247, 4, 0);
+    D_800D93D8 = buildFrameDistanceTable(0x1DC, 4, 0);
+    D_800D93E8 = buildFrameDistanceTable(0x4D, 4, 0);
+    D_800D93EC = buildFrameDistanceTable(0x65, 1, 0);
+    D_800D93F0 = buildFrameDistanceTable(0x6B, 1, 0);
+    D_800D93DC = buildFrameDistanceTable(0x1CE, 2, 0);
+    D_800D93E0 = buildFrameDistanceTable(0x1D9, 4, 1);
+    D_800D93E4 = buildFrameDistanceTable(0x1DB, 4, 1);
+    D_800D93F4 = buildFrameDistanceTable(0x26E, 4, 0);
+    D_800D93F8 = buildFrameDistanceTable(0xB3, 4, 0);
+    D_800D93FC = buildFrameDistanceTable(0x91, 1, 0);
+    D_800D9400 = buildFrameDistanceTable(0x90, 1, 0);
+    D_800D9404 = buildFrameDistanceTable(0x94, 4, 0);
+    D_800D9408 = buildFrameDistanceTable(0xC0, 4, 0);
+    D_800D940C = buildFrameDistanceTable(0x1CA, 7, 0);
+    D_800D9410 = buildFrameDistanceTable(0x1CB, 7, 0);
 }

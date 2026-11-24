@@ -14,13 +14,13 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
 M2C_UNK func_80070664(s32, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
-M2C_UNK func_80070730(s32, M2C_UNK, M2C_UNK);       /* extern */
+M2C_UNK clearPendingMessageEntry(s32, M2C_UNK, M2C_UNK);       /* extern */
 s32 findActionSlot(s32, M2C_UNK, M2C_UNK);           /* extern */
-M2C_UNK func_80073AF8(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32, s32, s32); /* extern */
+M2C_UNK spawnCaptionMessage(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32, s32, s32); /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern s32 gTrackMarkerSerial;
-extern void *gPlayerActor;
-extern s8 sTrackMarkerTable;
+extern void *gSweepHitActor;
+extern s8 gTrackMarkerParents;
 extern void *gBonusObjects;
 
 /* Plays cue sounds and sets message flags based on the player's state and action slots */ void updatePlayerMessages(void) {
@@ -29,7 +29,7 @@ extern void *gBonusObjects;
     s32 playerState;
     void *player;
 
-    player = gPlayerActor;
+    player = gSweepHitActor;
     actionTable = M2C_FIELD(gBonusObjects, s32 *, 0x6C);
     if ((player != NULL) && (playerState = M2C_FIELD(player, u16 *, 0x78), (((s32) playerState < 0x13) != 0))) {
         if ((s32) playerState >= 0x11) {
@@ -38,19 +38,19 @@ extern void *gBonusObjects;
                     requestSound(0x12C);
                     M2C_FIELD(player, s32 *, 0x60) = (s32) (M2C_FIELD(player, s32 *, 0x60) | 0x08000000);
                 } else {
-                    func_80073AF8(0, (*(s32 *)&sTrackMarkerTable), lookupDataEntry(0x100), -1, -1, 1, 0, 0, 3, 0, 0);
+                    spawnCaptionMessage(0, (*(s32 *)&gTrackMarkerParents), lookupDataEntry(0x100), -1, -1, 1, 0, 0, 3, 0, 0);
                 }
             }
         }
     }
-    if (((findActionSlot(actionTable, 0xC, 1) << 0x18) != 0) && (gPlayerActor != NULL)) {
-        playerStateNow = M2C_FIELD(gPlayerActor, u16 *, 0x78);
-        if ((((playerStateNow == 1) | (playerStateNow == 0x4C)) != 0) && (M2C_FIELD(M2C_FIELD(gPlayerActor, void **, 0x6C), u8 *, 0x82) == 0x23) && (M2C_FIELD(gPlayerActor, s16 *, 0x7A) == 0x1D)) {
-            func_80070730(actionTable, 0xC, 1);
+    if (((findActionSlot(actionTable, 0xC, 1) << 0x18) != 0) && (gSweepHitActor != NULL)) {
+        playerStateNow = M2C_FIELD(gSweepHitActor, u16 *, 0x78);
+        if ((((playerStateNow == 1) | (playerStateNow == 0x4C)) != 0) && (M2C_FIELD(M2C_FIELD(gSweepHitActor, void **, 0x6C), u8 *, 0x82) == 0x23) && (M2C_FIELD(gSweepHitActor, s16 *, 0x7A) == 0x1D)) {
+            clearPendingMessageEntry(actionTable, 0xC, 1);
             func_80070664(actionTable, 0xD, 1, 0);
             gTrackMarkerSerial += 1;
             requestSound(0x12B);
-            func_80073AF8(0, (*(s32 *)&sTrackMarkerTable), lookupDataEntry(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);
+            spawnCaptionMessage(0, (*(s32 *)&gTrackMarkerParents), lookupDataEntry(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);
         }
     }
 }

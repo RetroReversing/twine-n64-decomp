@@ -4,7 +4,7 @@ typedef struct {
 } NearbyObject;
 
 f32 approxDistance(void *, void *);
-s8 func_8005FE20(NearbyObject *, void *);
+s8 applyBonusObjectEffect(NearbyObject *, void *);
 extern f64 D_800D41D8;
 extern s32 gSaveTotalSlots;
 extern s32 sBonusObjectTable;
@@ -25,7 +25,7 @@ s8 triggerNearbyBonusObject(void *object) {
                 if (type == excludedA) goto next;
                 if (type == excludedB) goto next;
                 if ((f64)approxDistance((u8 *)other + 0x24, (u8 *)object + 0x24) < distance) {
-                    return func_8005FE20(*slot, object);
+                    return applyBonusObjectEffect(*slot, object);
                 }
             }
 next:

@@ -15,7 +15,7 @@ typedef struct AudioEnvelope {
 } AudioEnvelope;
 
 extern f64 D_800D6718;
-extern u32 D_800E41D4;
+extern u32 gAudioSampleRate;
 
 /* Advances an audio envelope's fade one tick: it starts a new ramp from its peak when
  * the step counter elapses, and writes the current level back to arg0. */
@@ -28,7 +28,7 @@ void update_audio_envelope(void *arg0, s32 arg1, s8 *arg2) {
     s32 temp_v0;
     u8 temp_v1;
 
-    arg1 = (((u32)((u16)arg1 * 0x7D00) / D_800E41D4) << 11);
+    arg1 = (((u32)((u16)arg1 * 0x7D00) / gAudioSampleRate) << 11);
     if ((env->disabled == 0) && (env->state5C != 3)) {
         env->state5C = 3U;
         env->startLevel54 = 0.0f;

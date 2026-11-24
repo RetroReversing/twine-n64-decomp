@@ -1,29 +1,29 @@
 s32 memset();
 extern u8 sCharMap[];
 
-void saveDataEncodeName(s8 *arg0, s8 *arg1, s32 arg2) {
-    s32 len = arg2;
-    s32 n;
+/* Encodes a space-padded name string into character-map indices, trimming trailing spaces; unknown characters become 0. */ void saveDataEncodeName(s8 *encoded, s8 *text, s32 maxLen) {
+    s32 length = maxLen;
+    s32 count;
     s8 *dst;
     s8 *src;
     s32 end;
-    u32 i;
+    u32 charIndex;
 
-    memset(arg0, 0, (u8)len);
-    while ((u8)len != 0 && arg1[(u8)len - 1] == ' ') {
-        len--;
+    memset(encoded, 0, (u8)length);
+    while ((u8)length != 0 && text[(u8)length - 1] == ' ') {
+        length--;
     }
-    n = (u8)len;
-    dst = arg0;
-    if (n != 0) {
-        src = arg1;
-        end = n + (s32)dst;
+    count = (u8)length;
+    dst = encoded;
+    if (count != 0) {
+        src = text;
+        end = count + (s32)dst;
         do {
-            for (i = 0; i < 0x42; i++) {
-                if (sCharMap[i] == *src) break;
+            for (charIndex = 0; charIndex < 0x42; charIndex++) {
+                if (sCharMap[charIndex] == *src) break;
             }
-            i &= -(i < 0x42);
-            *dst = i;
+            charIndex &= -(charIndex < 0x42);
+            *dst = charIndex;
             dst++;
             src++;
         } while ((s32)dst < end);

@@ -15,9 +15,9 @@ typedef s32 M2C_UNK32;
 s32 refreshSaveSlotMenu();
 s32 formatTextEntry();
 void *findEntryPayload();
-s32 func_8002A644();
+s32 initMenuWindow();
 s32 selectItemAndUpdateAmount();
-s32 func_8002AC04();
+s32 setMenuActiveState();
 s32 lookupDataEntry();
 extern s8 D_800BD690;
 extern char D_800BD928[];
@@ -25,7 +25,7 @@ extern char sPickupSlotTable[];
 extern u8 gPickupSavedByte;
 extern char D_80100408[];
 extern char gPickupSearchBox[];
-extern s32 func_8001AC88;
+extern s32 releaseMenuItemAndMarkers;
 extern s32 bindMenuItemRecord;
 
 extern char sFmtEntryName[];
@@ -48,9 +48,9 @@ void openPickupSearchMenu(void) {
         slotTableBase = savedByte - 0x115;
         M2C_FIELD(menuEntry, void **, -0x18) = (void *) (slotOffset + slotTableBase);
         formatTextEntry(menuEntry, sFmtEntryName, lookupDataEntry((unsigned short)(slotLevel + 0x96)));
-        func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x1E, 0xB4, 0x34, 0xB, 1, &bindMenuItemRecord, &func_8001AC88);
+        initMenuWindow(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x1E, 0xB4, 0x34, 0xB, 1, &bindMenuItemRecord, &releaseMenuItemAndMarkers);
         refreshSaveSlotMenu(slotLevel);
         selectItemAndUpdateAmount(gPickupSearchBox, (*savedByte));
-        func_8002AC04(gPickupSearchBox, 1);
+        setMenuActiveState(gPickupSearchBox, 1);
     }
 }

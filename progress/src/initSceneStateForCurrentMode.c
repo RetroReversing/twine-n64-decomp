@@ -12,45 +12,45 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800070A4();                            /* extern */
-M2C_UNK func_80008154();                            /* extern */
-s32 func_80009ED0(M2C_UNK);                         /* extern */
+M2C_UNK resetFrameTimer();                            /* extern */
+M2C_UNK waitForPendingFrames();                            /* extern */
+s32 getRandomTableEntryValue(M2C_UNK);                         /* extern */
 M2C_UNK startDistanceSound(s32);                         /* extern */
-void func_80045080(s32);                          /* extern */
+void setupTrackScene(s32);                          /* extern */
 M2C_UNK DrawScreenBorderLines();                            /* extern */
-M2C_UNK func_80087CDC(void);                          /* extern */
+M2C_UNK startDemoRecording(void);                          /* extern */
 M2C_UNK initDemoPlayback(u8);                          /* extern */
-M2C_UNK func_80117BF4(u8);                          /* extern */
+M2C_UNK loadSearchGraphForMap(u8);                          /* extern */
 extern u8 gMenuOutcome;
 extern s8 D_801002AE;
 extern s8 D_801002AF;
 extern s8 D_801002B0;
 extern s8 D_801002B1;
 extern s32 gBorderSkipActive;
-extern u8 D_80102EDF;
-extern s32 D_80102EEC;
-extern s32 D_8010A4E4;
+extern u8 gNextSceneId;
+extern s32 gSceneChangePending;
+extern s32 gSceneLoaded;
 
 /* Resets scene flags and runs the per-mode setup selected by the current mode byte */ void initSceneStateForCurrentMode(void) {
     u8 *modePtr;
     s32 setupParam;
     u8 prevMode;
 
-    modePtr = &D_80102EDF;
+    modePtr = &gNextSceneId;
     prevMode = (*modePtr);
-    func_80008154();
-    func_80045080((*modePtr));
+    waitForPendingFrames();
+    setupTrackScene((*modePtr));
     if (gBorderSkipActive != 0) {
         DrawScreenBorderLines();
-        func_80117BF4(prevMode);
+        loadSearchGraphForMap(prevMode);
     }
     D_801002AE = 0;
     D_801002AF = 0;
     D_801002B0 = 0;
     D_801002B1 = 0;
-    D_80102EEC = 0;
-    D_8010A4E4 = 1;
-    func_800070A4();
+    gSceneChangePending = 0;
+    gSceneLoaded = 1;
+    resetFrameTimer();
     switch ((*modePtr)) {
     case 36:
         D_801002AE = 1;
@@ -58,7 +58,7 @@ extern s32 D_8010A4E4;
     default:
         setupParam = -1;
         if (gBorderSkipActive != 0) {
-            setupParam = func_80009ED0(-1);
+            setupParam = getRandomTableEntryValue(-1);
         }
         break;
     case 20:
@@ -99,7 +99,7 @@ extern s32 D_8010A4E4;
     }
     if ((gMenuOutcome != 0) & (prevMode != 0x24)) {
         if (gMenuOutcome == 1) {
-            func_80087CDC();
+            startDemoRecording();
             return;
         }
         initDemoPlayback(gMenuOutcome);

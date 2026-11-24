@@ -1,4 +1,4 @@
-extern s32 func_80030D40(void);
+extern s32 getEntryStatus(void);
 extern s32 gEntryTable, gEntryMode;
 extern u16 gEntryCount;
 
@@ -22,7 +22,7 @@ void setEntryMode(s32 mode) {
                 *flagsPtr = (flags & 0xFFF0) | 1;
         } while (index < count);
         }
-        gEntryMode = func_80030D40();
+        gEntryMode = getEntryStatus();
         if (gEntryMode == 6) setEntryMode(4);
         break;
     }
@@ -65,7 +65,7 @@ skip:;
             index++;
         } while (index < count);
         }
-        gEntryMode = func_80030D40();
+        gEntryMode = getEntryStatus();
     }
     case 7:
         gEntryMode = mode;

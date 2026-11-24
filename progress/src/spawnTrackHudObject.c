@@ -11,7 +11,7 @@ extern s16 D_800BFDDC;
 extern char D_800E1584[];
 extern char sMenuAnimSlots[];
 extern u8 gPendingMenuCommand;
-extern char sTrackMarkerTable[];
+extern char gTrackMarkerParents[];
 
 /* Spawns the per-track HUD object: a 0x48-byte effect with nine timed text slots, a marker child and a sound cue. */
 typedef struct {
@@ -54,9 +54,9 @@ void *spawnTrackHudObject(s32 trackIndex) {
     }
     (*(s16 *)((char *)(obj) + 0x78)) = 0x39;
     (*(s16 *)((char *)(obj) + 0x7A)) = (s16) ((gPendingMenuCommand != 0) * 4);
-    func_8000A310();
-    func_8000A5D0(0xC);
-    do { func_80064318(obj, trackIndex & 0xFFFF); } while (0);
+    stopAllAudio();
+    restartDistanceSound(0xC);
+    do { setObjectLayerFlag(obj, trackIndex & 0xFFFF); } while (0);
     objState = (*(void **)((char *)(obj) + 0x6C));
     (((TrackHudState *)objState)->titleNode) = NULL;
     (((TrackHudState *)objState)->markerObj) = NULL;
@@ -152,14 +152,14 @@ void *spawnTrackHudObject(s32 trackIndex) {
         (*(f32 *)((char *)((((TrackHudState *)objState)->markerObj)) + 0x54)) = 0.95f;
         effectSetAnimFrame((((TrackHudState *)objState)->markerObj), 2, 0x24);
         trackIdx = trackIndex & 0xFFFF;
-        func_80064318((((TrackHudState *)objState)->markerObj), trackIdx);
-        objectListInsert((((TrackHudState *)objState)->markerObj), (*(s32 *)((char *)(*(s32 *)(sTrackMarkerTable + (trackIdx * 4))) + 0xF4)));
+        setObjectLayerFlag((((TrackHudState *)objState)->markerObj), trackIdx);
+        objectListInsert((((TrackHudState *)objState)->markerObj), (*(s32 *)((char *)(*(s32 *)(gTrackMarkerParents + (trackIdx * 4))) + 0xF4)));
         {
             s16 *argsIndex = &D_800BFCE0;
             *argsIndex = trackIndex;
             (((TrackHudState *)objState)->subtitleNode) = spawnTextNode((char *)argsIndex - 0x20);
         }
-        func_8002B000(D_800E1584, 0x1E);
+        initSlotRecord(D_800E1584, 0x1E);
     }
     return obj;
 }

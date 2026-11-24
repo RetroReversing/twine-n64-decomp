@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8002778C();                            /* extern */
-M2C_UNK func_800278AC(M2C_UNK, s32, u16);           /* extern */
-s32 func_80027C60(M2C_UNK);                         /* extern */
+M2C_UNK setSaveMenuPage(M2C_UNK, s32, u16);           /* extern */
+s32 isMenuButtonPressed(M2C_UNK);                         /* extern */
 s32 menuItemIsActive(M2C_UNK);                      /* extern */
 M2C_UNK requestSound(M2C_UNK);                      /* extern */
 M2C_UNK setMenuTextRequest(M2C_UNK *);              /* extern */
@@ -34,10 +34,10 @@ extern u8 sMenuCodeStep;
     s32 item1EActive;
     s32 expectedCode;
 
-    item20Active = func_80027C60(0x20);
-    item21Active = func_80027C60(0x21);
-    item1EActive = func_80027C60(0x1E);
-    item1FActive = func_80027C60(0x1F);
+    item20Active = isMenuButtonPressed(0x20);
+    item21Active = isMenuButtonPressed(0x21);
+    item1EActive = isMenuButtonPressed(0x1E);
+    item1FActive = isMenuButtonPressed(0x1F);
     if (!(menuItemIsActive(0x2A) & 0xFF)) {
         sMenuCodeStep = 0;
     }
@@ -70,7 +70,7 @@ failure:
     requestSound(0xED);
     goto finish;
 success:
-    if (func_80027C60(matchedCode) & 0xFF) {
+    if (isMenuButtonPressed(matchedCode) & 0xFF) {
         requestSound(0xED);
         sMenuCodeStep += 1;
     }
@@ -80,7 +80,7 @@ finish:
         setMenuTextRequest(&D_800BD854);
         M2C_FIELD(sActiveMenu, u16 *, 0x7A) = (u16) D_800BD855;
         M2C_FIELD(sActiveMenu, s16 *, 0x7C) = 0x78;
-        func_800278AC(1, D_80102EC0 & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
+        setSaveMenuPage(1, D_80102EC0 & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         func_8002778C();
         M2C_FIELD(gSaveMenuState, s8 *, 0x2C) = 0;
     }

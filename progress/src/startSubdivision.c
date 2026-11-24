@@ -1,4 +1,4 @@
-s32 func_8003941C();
+s32 subdivideDisplayListTriangles();
 void buildRotationMatrixS16(const s16 *angles, void *mtx);
 extern u8 sSubdivideFlags;
 extern f64 D_800D4838;
@@ -31,5 +31,5 @@ void startSubdivision(void *object, s32 auxA, s32 auxB, f32 dirX, f32 dirY, f32 
     angles[2] = dirZ;
     buildRotationMatrixS16(angles, rotMtx);
     sSubdivideCount = 0;
-    func_8003941C(object, auxA, auxB, dir, 0);
+    subdivideDisplayListTriangles(object, auxA, auxB, dir, 0);
 }

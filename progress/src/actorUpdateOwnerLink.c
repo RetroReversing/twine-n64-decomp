@@ -60,7 +60,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_800FD970;
+extern s32 gVoiceSerialCounter;
 extern s32 D_800FD974;
 extern char D_800FD978[];
 extern s32 gVoiceListHead;
@@ -76,7 +76,7 @@ void func_80098710(void) {
     base = &D_800FD974;
     var_a1 = base;
     var_a0 = 0;
-    D_800FD970 = 0;
+    gVoiceSerialCounter = 0;
     gVoiceListHead = 0;
     gVoiceListTail = base;
     var_a1 = gVoiceListTail;

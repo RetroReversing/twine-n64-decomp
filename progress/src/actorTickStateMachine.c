@@ -4,7 +4,7 @@ void func_800015AC(void *, s32);
 s32 func_80002BD0(void *, s32);
 void func_80076C80(void *);
 void func_80077960(void *, s32);
-void func_800779C4(void *);
+void triggerActorMarkerPulse(void *);
 s32 func_80077E00(void *arg0);
 
 void actorTickStateMachine(void *arg0) {
@@ -34,7 +34,7 @@ case 0: r = 0; break;
         F(arg0, s16, 0x7C) = F(st, u8, 0x7F);
         return;
     case 4:
-        func_800779C4(arg0);
+        triggerActorMarkerPulse(arg0);
         if (F(F(arg0, u8 *, 0x68), s8, 0xE) == 0 && (F(st, s32, 0x88) & 0x01E00000) == 0x200000) {
             s32 result = r;
             F(st, u8, 0x7F) = result;
@@ -45,7 +45,7 @@ case 0: r = 0; break;
         }
     case 5:
     case 6:
-        func_800779C4(arg0);
+        triggerActorMarkerPulse(arg0);
         switch (F(st, u8, 0x82)) {
         default:
         case 0:

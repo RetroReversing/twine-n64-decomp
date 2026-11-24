@@ -1,7 +1,7 @@
 extern unsigned char taskDonePending;
 extern unsigned char yieldState;
 s32 rspStartTask();
-s32 func_800A2270();
+s32 setRspSignal0();
 s32 osCreateMesgQueue();
 s32 osRecvMesg();
 s32 osSendMesg();
@@ -15,9 +15,9 @@ extern s32 curRspTask;
 extern u8 gfxTaskPending;
 extern char D_8010090C[];
 extern char spEventQueue[];
-extern char D_8010A3A8[];
+extern char gGfxMesgQueue[];
 extern char D_8010A4AC[];
-extern char D_8010A938[];
+extern char gSyncMesgQueue[];
 extern char D_80112E60[];
 extern u8 rspBusy;
 
@@ -34,8 +34,8 @@ void rspTaskThread(void) {
     (*spEventMsg) = 0x81;
     osCreateMesgQueue(spEventQueue, D_80112E60, 8);
     osSetEventMesg(4, spEventQueue, spEventBase);
-    osCreateMesgQueue(D_8010A3A8, D_8010A4AC, 1);
-    osCreateMesgQueue(D_8010A938, D_8010090C, 1);
+    osCreateMesgQueue(gGfxMesgQueue, D_8010A4AC, 1);
+    osCreateMesgQueue(gSyncMesgQueue, D_8010090C, 1);
     queuedTask = 0;
     taskDonePending = 0U;
     queuedYieldTask = 0;
@@ -61,7 +61,7 @@ void rspTaskThread(void) {
             if (gfxTaskPending == 0) {
                 gfxTaskPending = 1;
                 if (rspBusy != 0) {
-                    func_800A2270(msg);
+                    setRspSignal0(msg);
                     queuedYieldTask = ((RspMsg *)msg)->task;
                 } else {
                     yieldState = 1U;
@@ -92,7 +92,7 @@ void rspTaskThread(void) {
         }
         if (yieldState == 2) {
             gfxTaskPending = 0;
-            osSendMesg(D_8010A938, 0, 1);
+            osSendMesg(gSyncMesgQueue, 0, 1);
             rspStartTask(curRspTask);
             osSpTaskStartGo(curRspTask);
             yieldState = 0U;
@@ -101,15 +101,15 @@ void rspTaskThread(void) {
         if (yieldState == 0) {
             if (taskDonePending != 0) {
                 taskDonePending = 0U;
-                osSendMesg(D_8010A3A8, 0, 0);
+                osSendMesg(gGfxMesgQueue, 0, 0);
             }
             if (gfxTaskPending != 0) {
                 gfxTaskPending = 0;
-                osSendMesg(D_8010A938, 0, 0);
+                osSendMesg(gSyncMesgQueue, 0, 0);
             }
         } else {
             gfxTaskPending = 0;
-            osSendMesg(D_8010A938, 0, 0);
+            osSendMesg(gSyncMesgQueue, 0, 0);
             yieldState = 0U;
         }
         queued = queuedTask;

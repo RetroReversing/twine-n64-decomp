@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8002A700(M2C_UNK *);                   /* extern */
+M2C_UNK resetObjectPool(M2C_UNK *);                   /* extern */
 extern M2C_UNK D_800E0EF0;
 
 void itemUpdateAll(void) {
-    func_8002A700(&D_800E0EF0);
+    resetObjectPool(&D_800E0EF0);
 }

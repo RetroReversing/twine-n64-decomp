@@ -13,16 +13,16 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 saveWaitCommand();
-s32 func_80010B60();
+s32 getSaveErrorStatus();
 s32 saveSubmitCommand();
-s32 func_80012F50();
+s32 loadSaveSlotHeaders();
 extern u16 gSaveStatus;
-extern char gSaveSlotTable[];
+extern char gRumblePaks[];
 extern s16 gSaveSlot;
 extern s32 gSaveRequestSlot;
 extern s32 gSaveCmdResult;
 extern char gSaveSlotHeaders[];
-extern char D_80108408[];
+extern char gSaveRawSlots[];
 extern char D_8010840C[];
 extern char D_80108410[];
 extern char D_80108416[];
@@ -34,18 +34,18 @@ extern char D_80108416[];
     slotIndex = slot & 0xFFFF;
     gSaveRequestSlot = slotIndex;
     gSaveStatus = 4;
-    if (!(func_80012F50(slotIndex) & 0xFFFF)) {
+    if (!(loadSaveSlotHeaders(slotIndex) & 0xFFFF)) {
         if (*(u16 *)(gSaveSlotHeaders + (gSaveRequestSlot * 0x18)) == 0) {
             gSaveStatus = 0x80;
             return 0x80U;
         }
         slotOffset = gSaveRequestSlot << 5;
-        saveSubmitCommand(6, (gSaveSlot * 0x68) + gSaveSlotTable, *(u16 *)(D_80108410 + slotOffset), *(s32 *)(D_8010840C + slotOffset), slotOffset + D_80108416, slotOffset + (D_80108416 - 4), 0, 0);
+        saveSubmitCommand(6, (gSaveSlot * 0x68) + gRumblePaks, *(u16 *)(D_80108410 + slotOffset), *(s32 *)(D_8010840C + slotOffset), slotOffset + D_80108416, slotOffset + (D_80108416 - 4), 0, 0);
         if (saveWaitCommand() != 0) {
-            return func_80010B60(gSaveCmdResult) & 0xFFFF;
+            return getSaveErrorStatus(gSaveCmdResult) & 0xFFFF;
         }
-        *(s32 *)(D_80108408 + (gSaveRequestSlot << 5)) = 0;
-        if (!(func_80012F50() & 0xFFFF)) {
+        *(s32 *)(gSaveRawSlots + (gSaveRequestSlot << 5)) = 0;
+        if (!(loadSaveSlotHeaders() & 0xFFFF)) {
             gSaveStatus = 4;
             return 4U;
         }

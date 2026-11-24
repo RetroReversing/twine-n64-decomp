@@ -24,8 +24,8 @@ typedef struct Source {
 } Source;
 
 extern Worker *gWorkerListHead;
-extern void func_80095280(void *, void *, f32 *);
-extern f32 func_8009532C(f32 *);
+extern void transformPointByMatrix(void *, void *, f32 *);
+extern f32 normalizeVec3(f32 *);
 extern f32 sqrtf(f32);
 
 /* Walks the worker list and sums the attenuation, speed ratio and direction of each worker in range of a sound source; outputs the volume, ratio and averaged direction. */
@@ -79,14 +79,14 @@ void computeSourceAttenuation(Source *source, f32 *outVolume, f32 *outRatio, f32
                         }
                     }
                     if (dist != 0.0f) {
-                        func_80095280(worker->data48, source->pos, dirToSource);
+                        transformPointByMatrix(worker->data48, source->pos, dirToSource);
                         if (dirToSource[2] >= 0.0f) {
                             dirSum[2] += (dirToSource[2] < worker->limitHi) ? dirToSource[2] / worker->limitHi : 1.0;
                         } else {
                             dirSum[2] += (-worker->limitLo < dirToSource[2]) ? dirToSource[2] / worker->limitLo : -1.0;
                         }
                         if (dirToSource[0] != 0.0 || dirToSource[1] != 0.0 || dirToSource[2] != 0.0f) {
-                            func_8009532C(dirToSource);
+                            normalizeVec3(dirToSource);
                         }
                         dirSum[0] += dirToSource[0];
                         dirSum[1] += dirToSource[1];

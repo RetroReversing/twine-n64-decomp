@@ -4,16 +4,16 @@ typedef struct {
     u8 frame, frameCount, tick, delay;
     u16 stride;
 } AnimationEntry;
-extern u32 D_80107ED0;
-extern AnimationEntry *D_80109EA0[];
+extern u32 gTextureEntryCount;
+extern AnimationEntry *gTextureEntryTable[];
 
 void func_8003278C(void)
 {
     u8 framePad[8];
-    u32 count = D_80107ED0;
+    u32 count = gTextureEntryCount;
     register u32 i = 0;
     if (count != 0) {
-        AnimationEntry **entries = D_80109EA0;
+        AnimationEntry **entries = gTextureEntryTable;
         do {
             AnimationEntry *entry = *entries;
             u8 tick = entry->tick;
@@ -28,7 +28,7 @@ void func_8003278C(void)
                     entry->frame = 0;
                 *entry->display = entry->base + entry->frame * entry->stride;
             }
-            count = D_80107ED0;
+            count = gTextureEntryCount;
             i++;
             entries++;
         } while (i < count);
@@ -46,13 +46,13 @@ extern void osSetEventMesg(s32, void *, void *);
 extern void osViBlack(u8);
 extern void osViSetYScale(f32);
 extern volatile s8 D_800AE4B0;
-extern s32 D_800D93B0, D_80112E80;
+extern s32 gStartupMesgBuf, gStartupMesgQueue;
 
-void mainThreadEntry(void)
+/* Main game thread: waits for the first retrace event, sets up video (black screen, y-scale 1.0), runs init routines, then loops forever calling the per-frame update. */ void mainThreadEntry(void)
 {
-    osCreateMesgQueue(&D_80112E80, &D_800D93B0, 1);
-    osSetEventMesg(14, &D_80112E80, 0);
-    osRecvMesg(&D_80112E80, 0, 1);
+    osCreateMesgQueue(&gStartupMesgQueue, &gStartupMesgBuf, 1);
+    osSetEventMesg(14, &gStartupMesgQueue, 0);
+    osRecvMesg(&gStartupMesgQueue, 0, 1);
     D_800AE4B0 = 1;
     func_800081C4(0);
     osViSetYScale(1.0f);

@@ -16,11 +16,11 @@ M2C_UNK osCreateMesgQueue(M2C_UNK *, M2C_UNK *, M2C_UNK); /* extern */
 M2C_UNK osRecvMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK osSendMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK osViSetEvent(M2C_UNK *, M2C_UNK, M2C_UNK);  /* extern */
-extern M2C_UNK (*D_800B2594)();
+extern M2C_UNK (*gSystemCallback)();
 extern u8 gfxTaskPending;
 extern s16 gExpansionPakPresent;
 extern M2C_UNK sViRetraceQueue;
-extern M2C_UNK sGfxSyncQueue;
+extern M2C_UNK gGfxSyncQueue;
 extern M2C_UNK sViRetraceMsgBuf;
 extern M2C_UNK sGfxSyncMsgBuf;
 extern volatile s32 gRetraceFrameCount;
@@ -33,17 +33,17 @@ void gfxSyncThreadEntry(void) {
     temp_s2 = gExpansionPakPresent != 0;
     osCreateMesgQueue(&sViRetraceQueue, &sViRetraceMsgBuf, 1);
     osViSetEvent(&sViRetraceQueue, 0, 1);
-    osCreateMesgQueue(&sGfxSyncQueue, &sGfxSyncMsgBuf, 1);
+    osCreateMesgQueue(&gGfxSyncQueue, &sGfxSyncMsgBuf, 1);
 loop_1:
     osRecvMesg(&sViRetraceQueue, 0, 1);
-    osSendMesg(&sGfxSyncQueue, 0, 0);
+    osSendMesg(&gGfxSyncQueue, 0, 0);
     ++gRetraceFrameCount;
     if (var_s1 > 0) goto decrement;
     if (gfxTaskPending != 0) {
         goto loop_1;
     }
-    if (D_800B2594 != NULL) {
-        D_800B2594();
+    if (gSystemCallback != NULL) {
+        gSystemCallback();
     }
     var_s1 = temp_s2;
     goto loop_1;

@@ -15,10 +15,10 @@ typedef s32 M2C_UNK32;
 s32 lookupItemSlotIndex();
 void *findEntryById();
 s8 findTableIndexById();
-s32 func_8003099C();
-s32 func_80030C58();
+s32 loadMapEntries();
+s32 getTextRefType();
 extern u8 D_800BD9CC;
-extern u8 D_80102EE0;
+extern u8 gCurrentItemId;
 extern u8 sDifficultyLevel;
 extern void *gSaveMenuState;
 extern u8 D_80112F6E;
@@ -31,7 +31,7 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
     void *rec_second;
     void *rec_third;
 
-    func_8003099C(D_80102EE0, sDifficultyLevel);
+    loadMapEntries(gCurrentItemId, sDifficultyLevel);
     rec = findEntryById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x72);
     D_800BD9CC = sDifficultyLevel;
     if (rec != NULL) {
@@ -46,8 +46,8 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
         ((__repair_record_temp_s0*)rec)->field_76 = findTableIndexById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x73);
         rec_second = rec + 0x28;
         rec_third = rec + 0x50;
-        if ((func_80030C58() != 2) && (D_80112F6E == 0)) {
-            table_code = *(D_801176C7 + (lookupItemSlotIndex(func_80030C58()) & 0xFFFF));
+        if ((getTextRefType() != 2) && (D_80112F6E == 0)) {
+            table_code = *(D_801176C7 + (lookupItemSlotIndex(getTextRefType()) & 0xFFFF));
             switch (table_code) {                      /* irregular */
             case 0:
                 ((__repair_record_temp_s0*)rec)->field_27 = findTableIndexById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x72);
@@ -71,7 +71,7 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
                 M2C_FIELD(rec_third, s8 *, 0x26) = findTableIndexById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x73);
                 break;
             }
-            D_800BD9CC = *(D_801176C7 + (lookupItemSlotIndex(func_80030C58()) & 0xFFFF));
+            D_800BD9CC = *(D_801176C7 + (lookupItemSlotIndex(getTextRefType()) & 0xFFFF));
         }
     }
 }

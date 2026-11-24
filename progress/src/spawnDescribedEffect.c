@@ -1,7 +1,7 @@
 void *spawnEffectObject();
 s32 actorLinkToSurface();
 s32 effectSetAnimFrame();
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 
 typedef struct EffectAnim {
     s32 bits;           /* bit-packed frame data: low 20 bits kept, bits 20+ from the descriptor */
@@ -54,7 +54,7 @@ void *spawnDescribedEffect(s32 arg0, s32 arg1, EffectDesc *arg2) {
         temp_v0->animFrame = 0;
         temp_v0->colorD = 0x80;
         effectSetAnimFrame(temp_v0, arg2->param0, *arg2->frames);
-        actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
+        actorLinkToSurface(*gDefaultOrderObj, temp_v0, 1);
     }
     return temp_v0;
 }

@@ -26,7 +26,7 @@ typedef struct {
 
 extern SpawnObject *spawnEffectObject(s32 kind, s32 arg, SpawnParams *position);
 extern void actorLinkToSurface(s32 arg, SpawnObject *object, s32 mode);
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 
 /* Spawns an effect object at position, copying the position axes selected by axisMask, takes scale and type from ownerObj when given, and links it to the probe surface. */
 SpawnObject *spawnSurfaceLinkedEffect(s32 spawnArg, SpawnParams *position, SpawnOwner *ownerObj,
@@ -58,7 +58,7 @@ SpawnObject *spawnSurfaceLinkedEffect(s32 spawnArg, SpawnParams *position, Spawn
             object->scale = ownerObj->scale;
         }
         object->flags |= 0x600;
-        actorLinkToSurface(*gProbeObjectList, object, 0);
+        actorLinkToSurface(*gDefaultOrderObj, object, 0);
     }
     return object;
 }

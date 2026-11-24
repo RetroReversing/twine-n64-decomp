@@ -17,12 +17,12 @@ extern s8 sCapsulePartId[14][8], sCapsulePointA[14][8], sCapsulePointB[14][8];
 extern f32 sCapsuleRadius[14][2];
 extern Vec sZeroVec;
 extern f64 gCapsuleEndInsetScale;
-extern Actor *gPlayerActor;
-extern s32 gGameMode, D_80108F84;
+extern Actor *gSweepHitActor;
+extern s32 gGameMode, gSweepHitObject;
 
-f32 Vec3_DistanceSq(Vec *, Vec *);
+f32 vec3DistanceBetween(Vec *, Vec *);
 void segmentClosestPoint(Vec *, Vec *, Vec *, Vec *);
-f32 func_80045764(Vec *, Vec *);
+f32 vec3NormalizeLength(Vec *, Vec *);
 f32 approxDistance(Vec *, Vec *);
 s32 testRayCapsulePart(void *, void *, void *, void *, void *, void *, f32, f32);
 
@@ -41,9 +41,9 @@ Actor *findActorCapsuleHit(Actor **list, Vec *start, Vec *end, s32 mask, Vec *re
     bestDistance = 65536.0f;
     bestPart = 0;
     rayDir.z = end->z - start->z;
-    rayLength = func_80045764(&rayDir, &rayDir);
-    D_80108F84 = 0;
-    gPlayerActor = NULL;
+    rayLength = vec3NormalizeLength(&rayDir, &rayDir);
+    gSweepHitObject = 0;
+    gSweepHitActor = NULL;
     if (list != NULL) {
         f32 maxSquared = 4.0f;
         actor = *list;
@@ -71,7 +71,7 @@ Actor *findActorCapsuleHit(Actor **list, Vec *start, Vec *end, s32 mask, Vec *re
                             partAxis.x = partEnd.x - partStart.x;
                             partAxis.y = partEnd.y - partStart.y;
                             partAxis.z = partEnd.z - partStart.z;
-                            partLength = func_80045764(&partAxis, &partAxis);
+                            partLength = vec3NormalizeLength(&partAxis, &partAxis);
                             partRadius = sCapsuleRadius[part][0] * sizeScale;
                             endInset = (f32)((f64)partRadius * gCapsuleEndInsetScale);
                             insetX = partAxis.x * endInset;
@@ -85,7 +85,7 @@ Actor *findActorCapsuleHit(Actor **list, Vec *start, Vec *end, s32 mask, Vec *re
                             partEnd.y -= insetY;
                             partEnd.z -= insetZ;
                             if ((testRayCapsulePart(&hitPoint, &otherPoint, start, &rayDir, &partStart, &partAxis, rayLength, partLength) << 24) &&
-                                Vec3_DistanceSq(&hitPoint, &otherPoint) < partRadius) {
+                                vec3DistanceBetween(&hitPoint, &otherPoint) < partRadius) {
                                 *result = hitPoint;
                                 hitPart = part;
                                 break;
@@ -112,7 +112,7 @@ Actor *findActorCapsuleHit(Actor **list, Vec *start, Vec *end, s32 mask, Vec *re
     if (best != NULL) {
         {
             u16 type;
-            gPlayerActor = best;
+            gSweepHitActor = best;
             *result = bestPoint;
             if (update != 0) {
                 type = best->type;

@@ -16,7 +16,7 @@ s32 func_80026424();
 s32 func_8002778C();
 s32 func_8002B150();
 s16 timerGetTotalSeconds();
-s32 func_8002FBD4();
+s32 setStateMachineState();
 extern char sMenuTimer[];
 extern s32 sActiveMenu;
 
@@ -24,11 +24,11 @@ void menuTimeoutTransition(s32 arg0, void *arg1) {
 
     if (timerGetTotalSeconds(sMenuTimer) >= 0x14) {
         if (M2C_FIELD(arg1, s16 *, 0x7A) == 5) {
-            func_8002FBD4(arg1, 0xB);
+            setStateMachineState(arg1, 0xB);
         } else {
             func_80026424(sActiveMenu, 0xD);
             func_8002778C();
-            func_8002FBD4(arg1, 7);
+            setStateMachineState(arg1, 7);
         }
         func_8002B150(sMenuTimer, 0, 0);
     }

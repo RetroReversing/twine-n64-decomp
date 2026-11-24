@@ -13,7 +13,7 @@ s32 func_80002BD0(void *, s32);
 f32 Vec3_DistanceSq(void *, void *);
 s32 randomIntBelow(s32);
 s32 func_80077960(void *, s32);
-s32 func_80077A94(void *);
+s32 triggerObjectMarkerEffect(void *);
 
 /* Plays a mover sound chosen from its state and its squared distance to the target, then sets sound mode 0xE. */ void playMoverStateSound(TwineMover76B30 *mover) {
     f32 distSq;
@@ -38,7 +38,7 @@ s32 func_80077A94(void *);
 block5:
     if (!(*(s32 *)(target + 0x88) & 0x40000000)) {
         soundId = -1;
-        func_80077A94(mover);
+        triggerObjectMarkerEffect(mover);
         switch (mover->state7C) {
         case 2:
         case 4:

@@ -3,20 +3,20 @@
 s32 clearProbeState();
 s32 actorUnlinkFromSurface();
 s32 actorLinkToSurface();
-s32 func_800480A0();
+s32 syncChaseCameraToActor();
 s32 actorSetField7A();
-s32 func_800635BC();
-s32 func_80065684();
-s32 func_800656B0();
+s32 setActorStateAndReset();
+s32 clearActorSubstateFields();
+s32 clearActorLinkedPairFields();
 s32 setTrackMarkerActive();
-s32 func_800705AC();
-extern s32 *gProbeObjectList;
+s32 setTrackMarkerMode();
+extern s32 *gDefaultOrderObj;
 extern s8 D_800E1A0C;
 extern s32 D_800E1A10;
 extern s16 gAirTimeGauge;
 extern s8 gWheelsGrounded;
 extern s8 D_80100B18;
-extern char sTrackMarkerTable[];
+extern char gTrackMarkerParents[];
 
 typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char pad_E[2]; int field_10; int field_14; int field_18; unsigned char pad_1C[12]; int field_28; int field_2C; int field_30; } __repair_record_temp_a2_2;
 
@@ -37,9 +37,9 @@ void actorInitFromSpawn(void *actor, void *spawnPos, void *spawnVel) {
       *(struct vec *)((char *)actor + 0x48) = *(struct vec *)((char *)actor + 0x3C);
     }
     actorSetField7A(actor,  1);
-    func_800635BC(actor, 0);
-    func_80065684(actor);
-    func_800656B0(actor);
+    setActorStateAndReset(actor, 0);
+    clearActorSubstateFields(actor);
+    clearActorLinkedPairFields(actor);
     clearProbeState(actor, 0x153);
     (*(s8 *)((char *)(state) + 0x186)) = 0;
     (*(s8 *)((char *)(state) + 0x187)) = 0;
@@ -62,13 +62,13 @@ void actorInitFromSpawn(void *actor, void *spawnPos, void *spawnVel) {
     D_800E1A10 = 0;
     (*(s8 *)((char *)(state) + 0x180)) = 0;
     setTrackMarkerActive(0, state);
-    func_800705AC(0, state);
+    setTrackMarkerMode(0, state);
     (*(f32 *)((char *)(state) + 0x98)) = 0.55f;
     actorUnlinkFromSurface(actor);
-    actorLinkToSurface(*gProbeObjectList, actor, 0);
-    (*(s32 *)((char *)(*((s32 *)((s8 *)sTrackMarkerTable + ((*(s8 *)((char *)(state) + 0x182)) * 4)))) + 0xF4)) = (s32) (*(s32 *)((char *)(actor) + 0x20));
-    func_800480A0(actor, *((s32 *)((s8 *)sTrackMarkerTable + ((*(s8 *)((char *)(state) + 0x182)) * 4))));
-    { __repair_record_temp_a2_2 *entry = *(__repair_record_temp_a2_2 **)((s8 *)sTrackMarkerTable + (*(s8 *)((char *)state + 0x182) * 4));
+    actorLinkToSurface(*gDefaultOrderObj, actor, 0);
+    (*(s32 *)((char *)(*((s32 *)((s8 *)gTrackMarkerParents + ((*(s8 *)((char *)(state) + 0x182)) * 4)))) + 0xF4)) = (s32) (*(s32 *)((char *)(actor) + 0x20));
+    syncChaseCameraToActor(actor, *((s32 *)((s8 *)gTrackMarkerParents + ((*(s8 *)((char *)(state) + 0x182)) * 4))));
+    { __repair_record_temp_a2_2 *entry = *(__repair_record_temp_a2_2 **)((s8 *)gTrackMarkerParents + (*(s8 *)((char *)state + 0x182) * 4));
     (entry->field_28) = (s32) (entry->field_10);
     (entry->field_2C) = (s32) (entry->field_14);
     (entry->field_30) = (s32) (entry->field_18);

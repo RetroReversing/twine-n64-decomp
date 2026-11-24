@@ -4,7 +4,7 @@ s32 clearProbeState(void *, u16);
 extern s32 sProbeRecords;
 extern s32 sProbeRecordIds;
 extern s32 sProbeRecordFlags;
-extern void *gProbeObjectList;
+extern void *gDefaultOrderObj;
 
 typedef struct { s32 x, y, z; } PositionWords;
 
@@ -20,7 +20,7 @@ s32 attachProbeRecord(void *object, s32 probeKind, void *originPos) {
     for (;;) {
         recordOffset = recordNextOffset;
         recordWord = *((u16 *)((s8 *)&sProbeRecords + recordOffset));
-        if (((recordWord >> 9) != (*(s32 *)((char *)(gProbeObjectList) + 4))) || (((recordWord >> 1) & 0xFF) != probeKind)) {
+        if (((recordWord >> 9) != (*(s32 *)((char *)(gDefaultOrderObj) + 4))) || (((recordWord >> 1) & 0xFF) != probeKind)) {
             recordIndex += 1;
             recordNextOffset = recordOffset + 6;
             if (recordIndex >= 0x1BU) {

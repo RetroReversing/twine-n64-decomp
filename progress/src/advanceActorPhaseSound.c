@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 requestSound();
-s32 func_80065BC4();
-s32 func_80084338();
+s32 updateActorSpeedScale();
+s32 playSoundAtPos();
 extern char gPhaseSlotIds[];
 
 /* Advances the actor's phase counter through 0x28..0x37, plays the phase sound, then maps the phase to its slot index. */ void advanceActorPhaseSound(void *actor) {
@@ -78,7 +78,7 @@ block_10:
             if (M2C_FIELD(phaseSlot, u8 *, 0x1FC) != 0) {
                 soundId = 0x118;
                 if (M2C_FIELD(actor, u16 *, 0x78) == 3) {
-                    func_80084338(0x118, actor + 0x24);
+                    playSoundAtPos(0x118, actor + 0x24);
                 } else {
 block_12:
                     requestSound(soundId);
@@ -89,7 +89,7 @@ block_12:
             break;
             }
         }
-        func_80065BC4(actor);
+        updateActorSpeedScale(actor);
         M2C_FIELD(actorState, u16 *, 0x174) = 0U;
         tableIndex = 0;
         tableOffset = 0;

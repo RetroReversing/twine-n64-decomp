@@ -1,7 +1,7 @@
 s32 func_80002BD0();
 s32 randomIntBelow();
 s32 func_80077960();
-s32 func_80077ED8();
+s32 enemyPlayStateSound();
 extern char sEnemyDefTable[];
 extern u16 D_800C9BD0[];
 extern u16 D_800C9BE0[];
@@ -42,7 +42,7 @@ s32 enemyStateSound(void *actor) {
                 return 1;
             }
         }
-        func_80077ED8(actor);
+        enemyPlayStateSound(actor);
         return 1;
     case 1:
         if (*(s32 *)((u8 *)actor + 0x58) & 4) {

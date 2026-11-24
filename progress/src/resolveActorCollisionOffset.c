@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 typedef struct { s32 x,y,z; } Words3;
-s32 func_8004FF30(s32, void *, void *, f32, s32, s32, s32, s32);
+s32 pushSphereOutOfSurfaces(s32, void *, void *, f32, s32, s32, s32, s32);
 
 /* Probes around the actor's position and pushes the actor by the resulting correction offset. */ void resolveActorCollisionOffset(s32 arg0, void *actor, s32 arg2, s32 arg3) {
     f32 sp20[3];
@@ -39,7 +39,7 @@ s32 func_8004FF30(s32, void *, void *, f32, s32, s32, s32, s32);
     temp_fv0_3 = M2C_FIELD(actor, f32 *, 0x2C);
     sp60[2] = temp_fv0_3;
     sp50[2] = temp_fv0_3;
-    if ((func_8004FF30(arg0, sp50, sp30, 0.75f, 0x10, arg2, arg3, 0) << 0x18) != 0) {
+    if ((pushSphereOutOfSurfaces(arg0, sp50, sp30, 0.75f, 0x10, arg2, arg3, 0) << 0x18) != 0) {
         sp20[0] += sp50[0] - sp60[0];
         sp20[1] += sp50[1] - sp60[1];
         sp20[2] += sp50[2] - sp60[2];

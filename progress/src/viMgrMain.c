@@ -3,7 +3,7 @@
 extern u16 D_800FEE40;
 extern u32 D_80102F34, D_801002F8;
 extern u64 D_80108790;
-void *func_800A9780(void);
+void *getViPendingContext(void);
 void vi_apply_context(void);
 u32 __osGetCount(void);
 void __osTimerInterrupt(void);
@@ -20,7 +20,7 @@ void viMgrMain(void *arg0) {
     void *q;
 
     ctx = arg0;
-    D_800FEE40 = F(func_800A9780(), u16, 2);
+    D_800FEE40 = F(getViPendingContext(), u16, 2);
     if (!D_800FEE40) {
         D_800FEE40 = 1;
     }
@@ -32,7 +32,7 @@ void viMgrMain(void *arg0) {
         case 13:
             vi_apply_context();
             if (--D_800FEE40 == 0) {
-                ctx = func_800A9780();
+                ctx = getViPendingContext();
                 if (F(ctx, s32, 16)) {
                     osSendMesg(F(ctx, s32, 16), F(ctx, s32, 20), 0);
                 }

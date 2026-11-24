@@ -1,5 +1,5 @@
-s32 func_80032630(s32);
-s32 func_800347B0(s32 *, f32, f32, f32, f32, f32, f32);
+s32 drawObjectPart(s32);
+s32 buildRotationTranslationMatrix(s32 *, f32, f32, f32, f32, f32, f32);
 s32 guMtxF2L(s32 *, s32);
 extern u32 sMatrixPoolLimit, sMatrixPoolUsed;
 extern s32 sCurrentMatrixSlot, sObjectMatrixF;
@@ -29,7 +29,7 @@ void submitObjectMatrix(ObjectMatrix *obj) {
         newUsed = used + 1;
         sMatrixPoolUsed = newUsed;
         sCurrentMatrixSlot = base + (newUsed << 6);
-        func_800347B0(&sObjectMatrixF, obj->angleX * 0.0015339808f, obj->angleY * 0.0015339808f, obj->angleZ * 0.0015339808f, obj->posX * 64.0f, obj->posY * 64.0f, obj->posZ * 64.0f);
+        buildRotationTranslationMatrix(&sObjectMatrixF, obj->angleX * 0.0015339808f, obj->angleY * 0.0015339808f, obj->angleZ * 0.0015339808f, obj->posX * 64.0f, obj->posY * 64.0f, obj->posZ * 64.0f);
         guMtxF2L(&sObjectMatrixF, sCurrentMatrixSlot);
         {
             u32 opcode = 0xDA380003, address;
@@ -38,7 +38,7 @@ void submitObjectMatrix(ObjectMatrix *obj) {
             sDisplayListCursor = (char *)cmd + 8;
             ((u32 *)cmd)[0] = opcode;
             ((u32 *)cmd)[1] = address - 0x80000000u;
-            func_80032630(dlId);
+            drawObjectPart(dlId);
         }
     }
 }

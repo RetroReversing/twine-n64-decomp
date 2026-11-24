@@ -15,7 +15,7 @@ typedef struct {
     u8 progress;
 } Obj2A9A8;
 
-void func_8002A1F0(Obj2A9A8 *);
+void updateScrollWindow(Obj2A9A8 *);
 
 /* Clamps the requested selection to the item count, refreshes the list, and updates the progress amount before returning the selected item. */
 Item2A9A8 *selectItemAndUpdateAmount(Obj2A9A8 *obj, s16 index) {
@@ -40,7 +40,7 @@ store_selection:
         obj->selected = 0;
     }
 
-    func_8002A1F0(obj);
+    updateScrollWindow(obj);
     count = obj->count;
     sum = 0;
     if (count != 0) {

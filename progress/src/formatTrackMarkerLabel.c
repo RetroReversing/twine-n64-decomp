@@ -11,7 +11,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s16 func_8003090C();
+s16 findEntryIndexById();
 s32 *lookupDataEntry();
 s32 sprintf();
 extern s32 gEntryTable;
@@ -30,7 +30,7 @@ s32 *formatTrackMarkerLabel(s16 markerIndex, s32 mode) {
 
     temp_a1 = mode & 0xFFFF;
     if (temp_a1 == 1) {
-        entryIndex = func_8003090C(markerIndex);
+        entryIndex = findEntryIndexById(markerIndex);
     } else {
         entryIndex = markerIndex - 1;
     }

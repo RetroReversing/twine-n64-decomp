@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800070A4();                            /* extern */
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
-M2C_UNK func_80011938(s32, M2C_UNK);                /* extern */
+M2C_UNK initMenuSlot(s32, M2C_UNK);                /* extern */
 M2C_UNK func_800218EC();                            /* extern */
 M2C_UNK func_80021938();                            /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
@@ -67,7 +67,7 @@ extern void *gSaveMenuState;
         func_800070A4();
         do {
             slotIndexU32 = slotCursor & 0xFFFF;
-            func_80011938(slotIndexU32, 0);
+            initMenuSlot(slotIndexU32, 0);
             func_80081CC0(slotIndexU32);
             if (gGameMode == 0x19) {
                 func_80081D00(slotIndexU32);

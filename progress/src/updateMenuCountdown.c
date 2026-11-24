@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
 M2C_UNK advanceTimerRecord(M2C_UNK *, M2C_UNK);          /* extern */
-M2C_UNK func_8002B180(M2C_UNK *, M2C_UNK *);        /* extern */
+M2C_UNK formatTimeString(M2C_UNK *, M2C_UNK *);        /* extern */
 s16 timerGetTotalSeconds(M2C_UNK *);                       /* extern */
 M2C_UNK func_8011AA04();                            /* extern */
 s16 strlen(M2C_UNK *);                              /* extern */
@@ -40,7 +40,7 @@ void updateMenuCountdown(void) {
                 func_8011AA04();
                 M2C_FIELD(temp_s1, s32 *, 0x28) = (M2C_FIELD(temp_s1, s32 *, 0x28) & ~0xFC) | 0x1C;
             }
-            do { func_8002B180(&sMenuCountdown, &sMenuCountdownText); } while (0);
+            do { formatTimeString(&sMenuCountdown, &sMenuCountdownText); } while (0);
             M2C_FIELD(temp_s1, s16 *, 0x1C) = strlen(&sMenuCountdownText);
         }
     }

@@ -12,17 +12,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80008750(void *, u8, M2C_UNK);         /* extern */
-M2C_UNK func_80032630(void *);                      /* extern */
+M2C_UNK setupRenderModeCombiner(void *, u8, M2C_UNK);         /* extern */
+M2C_UNK drawObjectPart(void *);                      /* extern */
 M2C_UNK emitPrimColor(s32, void *);                 /* extern */
 M2C_UNK emitScissorFromWindow(void *);                      /* extern */
 M2C_UNK emitObjectMatrixCmd(void *, s32);                 /* extern */
 extern M2C_UNK D_800B1AA0;
 extern void *D_801003D8;
-extern s32 D_801032A0;
-extern s32 D_80109CC0;
-extern s32 D_8010A924;
-extern s32 D_8010D370;
+extern s32 gCurCombineSetup;
+extern s32 gElapsedTimeB;
+extern s32 gCurGeometryModeSetup;
+extern s32 gElapsedTimeA;
 extern void *D_8010D450;
 extern s32 gRenderMode;
 extern void *sDisplayListCursor;
@@ -43,15 +43,15 @@ typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
             displayList = D_8010D450;
             emitPrimColor(M2C_FIELD(object, s32 *, 0xF4), object);
             emitScissorFromWindow(object);
-            if (D_8010A924 != 2) {
+            if (gCurGeometryModeSetup != 2) {
                 cmd = sDisplayListCursor;
-                D_8010A924 = 2;
+                gCurGeometryModeSetup = 2;
                 sDisplayListCursor = cmd + 8;
                 M2C_FIELD(cmd, s32 *, 0) = 0xDE000000;
                 M2C_FIELD(cmd, M2C_UNK **, 4) = &D_800B1AA0;
             }
-            if (D_801032A0 != 1) {
-                D_801032A0 = 1;
+            if (gCurCombineSetup != 1) {
+                gCurCombineSetup = 1;
                 if (((__repair_field_100 *)object)->value & 3) {
                     cmdLo = sDisplayListCursor;
                     sDisplayListCursor = cmdLo + 8;
@@ -66,18 +66,18 @@ typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
             }
             if (gRenderMode != 3) {
                 gRenderMode = 3;
-                emitObjectMatrixCmd(object, D_8010D370);
+                emitObjectMatrixCmd(object, gElapsedTimeA);
             }
-            func_80032630(displayList);
+            drawObjectPart(displayList);
             if (D_801003D8 != NULL) {
                 displayList = D_801003D8;
                 alpha = M2C_FIELD(displayList, u8 *, 0x45);
                 if (alpha != 1) {
-                    func_80008750(object, alpha, 0);
+                    setupRenderModeCombiner(object, alpha, 0);
                 }
                 gRenderMode = 3;
-                emitObjectMatrixCmd(object, D_80109CC0);
-                func_80032630(displayList);
+                emitObjectMatrixCmd(object, gElapsedTimeB);
+                drawObjectPart(displayList);
             }
         }
     }

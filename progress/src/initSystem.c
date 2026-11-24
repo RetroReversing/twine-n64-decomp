@@ -12,18 +12,18 @@ typedef s32 M2C_UNK32;
 #endif
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_800068B4();
-s32 func_80006E30();
+s32 updateSceneTransitionState();
+s32 initFrameDoneMsgQueue();
 void func_80006E78(void);
 s32 measureFrameTime();
-s32 func_80008258();
+s32 clearMatrixPoolCounters();
 s32 initGameDataBanks();
 s32 func_8000B828();
 s32 initControllerAndSaveState();
 s32 heapInit();
 s32 heapAlloc(u32, u8);
-s32 func_80083C8C();
-s32 func_80086DA0();
+s32 getHeapStart();
+s32 loadDataEntryTable();
 u32 osGetMemSize();
 void osCreateThread(void *, s32, void (*)(void *), void *, void *, s32);
 s32 osStartThread();
@@ -40,12 +40,12 @@ extern char D_800CFF60[];
 extern s32 gViFrameRateConst;
 extern char D_800D8200[];
 extern char D_800D93B0[];
-extern s32 D_80100304;
+extern s32 gFramebuffers;
 extern s32 D_80100308;
 extern s32 D_8010030C;
 extern s8 D_80100964;
 extern s16 gExpansionPakPresent;
-extern u32 D_80108F7C;
+extern u32 gDataEntryTableSize;
 extern s8 D_80108F95;
 extern s32 D_80109A54;
 extern s16 D_80109B9C;
@@ -60,7 +60,7 @@ extern s32 D_80109D0C;
 extern s32 sMatrixPoolSlots;
 extern s32 D_8010A2C0;
 extern s32 D_8010A2C4;
-extern s16 sMatrixPoolSlotCount;
+extern s16 gFramebufferCount;
 extern s16 gSaveDataPresent;
 extern char D_8011FF40[];
 extern void mainThreadEntry(void *);
@@ -88,44 +88,44 @@ typedef struct { s32 w[4]; } __repair_words4;
     if (hasExpansionPak != 0) {
         heapInit(D_8011FF40, 0x80800000);
         D_80109A54 = heapAlloc(0x4B000U, 1);
-        D_80100304 = heapAlloc(0x4B000U, 0);
+        gFramebuffers = heapAlloc(0x4B000U, 0);
         D_80100308 = heapAlloc(0x4B000U, 0);
         D_8010030C = heapAlloc(0x4B000U, 0);
         sMatrixPoolSlots = heapAlloc(0x1CB8U, 1);
         D_8010A2C0 = heapAlloc(0x1CB8U, 1);
         D_8010A2C4 = heapAlloc(0x1CB8U, 1);
-        sMatrixPoolSlotCount = 3;
+        gFramebufferCount = 3;
         D_80109B9C = 2;
     } else {
         heapInit(D_8011FF40, 0x80400000);
         D_80109A54 = heapAlloc(0x25800U, 1);
-        D_80100304 = heapAlloc(0x25800U, 0);
+        gFramebuffers = heapAlloc(0x25800U, 0);
         D_80100308 = heapAlloc(0x25800U, 0);
         sMatrixPoolSlots = heapAlloc(0x1CB8U, 1);
         D_8010A2C0 = heapAlloc(0x1CB8U, 1);
         D_8010A2C4 = heapAlloc(0x1CB8U, 1);
-        sMatrixPoolSlotCount = 2;
+        gFramebufferCount = 2;
         D_80109B9C = 0;
     }
-    func_80008258();
-    D_80108F7C = 1;
+    clearMatrixPoolCounters();
+    gDataEntryTableSize = 1;
     sizeA = D_14A8380 - D_14977A0;
     sizeB = D_14BA940 - D_014A8380;
     sizeC = D_14CD630 - D_014BA940;
     if ((sizeB < sizeA) & (sizeC < sizeA)) {
-        D_80108F7C = sizeA;
+        gDataEntryTableSize = sizeA;
     }
     if ((sizeA < sizeB) & (sizeC < sizeB)) {
-        D_80108F7C = sizeB;
+        gDataEntryTableSize = sizeB;
     }
     if ((sizeA < sizeC) & (sizeB < sizeC)) {
-        D_80108F7C = sizeC;
+        gDataEntryTableSize = sizeC;
     }
-    heapEnd = D_80108F7C + 0x80;
-    D_80108F7C = heapEnd;
+    heapEnd = gDataEntryTableSize + 0x80;
+    gDataEntryTableSize = heapEnd;
     sDataEntryBase = heapAlloc(heapEnd, 1);
-    func_80006E30();
-    func_8000B828(func_80083C8C());
+    initFrameDoneMsgQueue();
+    func_8000B828(getHeapStart());
     heapAlloc(initGameDataBanks() + 0x400, 1);
     tvType = osTvType;
     gViFrameRateConst = 0x3BB;
@@ -162,12 +162,12 @@ scale:
     D_80109CF8 = 0x2301FD;
     D_80109D0C = 0x2501FF;
     func_80006E78();
-    osViSwapBuffer(D_80100304);
-    func_80086DA0(1);
+    osViSwapBuffer(gFramebuffers);
+    loadDataEntryTable(1);
     initControllerAndSaveState();
     measureFrameTime();
 loop_18:
-    func_800068B4();
+    updateSceneTransitionState();
     goto loop_18;
 }
 

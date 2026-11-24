@@ -4,10 +4,10 @@ s32 workerLockAcquire();                            /* extern */
 s32 workerLockRelease();                            /* extern */
 s32 computeSourceAttenuation(s32 *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
 s32 soundVoiceStart(s32 *, f32, s32, s32, f32, f32); /* extern */
-s32 func_8009CC3C(u16, s32, s32);           /* extern */
+s32 startSound(u16, s32, s32);           /* extern */
 extern u8 gWorkerThreadActive;
-extern s32 gStaticSoundSlot;
-extern s32 *gActiveSoundList;
+extern s32 gOneShotEmitter;
+extern s32 *gActiveEmitterList;
 
 typedef struct { s32 x, y, z; } V3_93FE8;
 /* Starts a sound effect: fills a voice slot with its position, pitch and gains, then starts it or queues it on the active list. */ s32 playSoundEffect(s32 *voice, void *pos, void *vel, f32 pitch, f32 reverb, s32 flags, u16 soundId, u8 leftGain, u8 rightGain) {
@@ -27,7 +27,7 @@ typedef struct { s32 x, y, z; } V3_93FE8;
         workerLockAcquire();
         slot = voice;
         if (slot == NULL) {
-            slot = &gStaticSoundSlot;
+            slot = &gOneShotEmitter;
         }
         (*(s32 *)((char *)(slot) + 8)) = flags;
         *(V3_93FE8 *)((char *)slot + 0xC) = *(V3_93FE8 *)pos;
@@ -41,7 +41,7 @@ typedef struct { s32 x, y, z; } V3_93FE8;
         if (voice == NULL) {
             computeSourceAttenuation(slot, &outA, &outB, &outC, &outD, &outE);
             if (outA != 0.0f) {
-                channel = func_8009CC3C((*(u16 *)((char *)(slot) + 0x3C)), 0x7F, 0x40);
+                channel = startSound((*(u16 *)((char *)(slot) + 0x3C)), 0x7F, 0x40);
                 (*(s32 *)((char *)(slot) + 0x34)) = channel;
                 if (channel != -1) {
                     soundVoiceStart(slot, outA, outC, outD, outE, outB);
@@ -50,7 +50,7 @@ typedef struct { s32 x, y, z; } V3_93FE8;
                 }
             }
         } else {
-            oldHead = gActiveSoundList;
+            oldHead = gActiveEmitterList;
             (*(s32 *)((char *)(slot) + 0)) = (s32) oldHead;
             if (oldHead != NULL) {
                 *(s32 **)((char *)oldHead + 4) = slot;
@@ -58,7 +58,7 @@ typedef struct { s32 x, y, z; } V3_93FE8;
             slotFlags = (*(s32 *)((char *)(slot) + 8));
             (*(s32 *)((char *)(slot) + 0x34)) = -1;
             (*(s32 *)((char *)(slot) + 4)) = 0;
-            gActiveSoundList = slot;
+            gActiveEmitterList = slot;
             (*(s16 *)((char *)(slot) + 0x3E)) = 0;
             (*(s32 *)((char *)(slot) + 8)) = slotFlags | 0x30000;
         }

@@ -12,19 +12,19 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void actorUnlinkFromSurface(void *arg0) {
-    void **temp_v1;
-    void *temp_v0;
+/* Removes the actor from its surface's doubly linked list (next at +0, prev-link pointer at +4) and clears its link fields. */ void actorUnlinkFromSurface(void *actor) {
+    void **prevNext;
+    void *next;
 
-    temp_v1 = M2C_FIELD(arg0, void ***, 4);
-    temp_v0 = M2C_FIELD(arg0, void **, 0);
-    if (temp_v1 != NULL) {
-        *temp_v1 = temp_v0;
+    prevNext = M2C_FIELD(actor, void ***, 4);
+    next = M2C_FIELD(actor, void **, 0);
+    if (prevNext != NULL) {
+        *prevNext = next;
     }
-    if (temp_v0 != NULL) {
-        M2C_FIELD(temp_v0, void ***, 4) = temp_v1;
+    if (next != NULL) {
+        M2C_FIELD(next, void ***, 4) = prevNext;
     }
-    M2C_FIELD(arg0, void ***, 4) = NULL;
-    M2C_FIELD(arg0, void **, 0) = NULL;
-    M2C_FIELD(arg0, s32 *, 0x20) = 0;
+    M2C_FIELD(actor, void ***, 4) = NULL;
+    M2C_FIELD(actor, void **, 0) = NULL;
+    M2C_FIELD(actor, s32 *, 0x20) = 0;
 }

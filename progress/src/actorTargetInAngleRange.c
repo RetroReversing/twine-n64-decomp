@@ -1,6 +1,6 @@
 s32 angleDelta12(s32, s16);
 f32 approxDistance(void *);
-f32 approximate_hypot2(f32, f32);
+f32 approxHypot2D(f32, f32);
 f32 absFloat(f32);
 f32 approximateAtan2(f32, f32);
 extern s32 gBorderSkipActive;
@@ -22,7 +22,7 @@ s32 actorTargetInAngleRange(void *actor, void *targetPos, s32 *yawOut, f32 maxDi
     {
         deltaY = *(f32 *)((s8 *)targetPos + 4) - *(f32 *)((s8 *)actor + 0x28);
     }
-    horizDist = approximate_hypot2(deltaX, deltaZ);
+    horizDist = approxHypot2D(deltaX, deltaZ);
     if (gBorderSkipActive == 0) {
         angle = (s32)(approximateAtan2(deltaY, horizDist) * 651.8986f);
         if (absFloat((f32)angle) > 512.0f) {

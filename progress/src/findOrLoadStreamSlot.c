@@ -4,7 +4,7 @@ s32 romDmaRead();
 typedef struct { u32 f0; u8 pad[4]; } Slot_800C3924;
 extern Slot_800C3924 D_800C3924[];
 typedef struct { s16 f0; u8 pad[6]; } Slot_800C3928;
-extern Slot_800C3928 D_800C3928[];
+extern Slot_800C3928 gShapeTable[];
 extern s16 D_800D94F8;
 extern s16 D_800D94FA;
 extern char sStreamSlotIds[];
@@ -50,7 +50,7 @@ loop_1:
         if (var_s4 == temp_a3) {
             s32 indexBytes;
             var_s4 = D_800D94F8;
-            temp_s1 = D_800C3928[arg0].f0;
+            temp_s1 = gShapeTable[arg0].f0;
             if (--var_s4 < 0) {
                 var_s4 = 7;
             }

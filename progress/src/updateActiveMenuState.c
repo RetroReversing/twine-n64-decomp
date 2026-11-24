@@ -13,14 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK requestSound(s32);                         /* extern */
-M2C_UNK func_800274BC(M2C_UNK, M2C_UNK);            /* extern */
-M2C_UNK func_800278AC(u16, s32, u16);               /* extern */
+M2C_UNK moveMenuSelection(M2C_UNK, M2C_UNK);            /* extern */
+M2C_UNK setSaveMenuPage(u16, s32, u16);               /* extern */
 M2C_UNK layoutTextBox(s32, void *, M2C_UNK);        /* extern */
-s32 func_80027C60(M2C_UNK);                         /* extern */
+s32 isMenuButtonPressed(M2C_UNK);                         /* extern */
 s32 menuItemIsActive(M2C_UNK);                         /* extern */
-M2C_UNK func_80029000(s32);                         /* extern */
-M2C_UNK func_800295F0(M2C_UNK);                     /* extern */
-M2C_UNK func_80029768(M2C_UNK);                     /* extern */
+M2C_UNK pulseObjectValue(s32);                         /* extern */
+M2C_UNK stepMenuOptionValue(M2C_UNK);                     /* extern */
+M2C_UNK adjustMenuSpinnerValue(M2C_UNK);                     /* extern */
 M2C_UNK adjustMenuSliderValue(M2C_UNK);                     /* extern */
 M2C_UNK menuResolveCursorItem(void *, void *, void *);      /* extern */
 extern s32 gMenuSoundParams;
@@ -40,15 +40,15 @@ extern void *gSaveMenuState;
     void *cur_entry_b;
     void *cur_entry;
 
-    if ((sActiveMenu != NULL) && (kind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (kind != 0xE)) && (kind != 0xF) && ((layoutTextBox(M2C_FIELD(gSaveMenuState, s32 *, 0x1C), M2C_FIELD(gSaveMenuState, void **, 0x18), 0), M2C_FIELD(gSaveMenuState, s8 *, 0x2D) = 0, M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U, func_80029000(M2C_FIELD(gSaveMenuState, s32 *, 0x1C)), menuResolveCursorItem(gSaveMenuState + 0x2A, gSaveMenuState + 0x28, gSaveMenuState + 0x29), (sActiveMenu == NULL)) || (kind_a = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (((kind_a != 0x11) & (kind_a != 0xA)) == 0)) || (kind_a == 0x13))) {
-        if (func_80027C60(0x24) & 0xFF) {
+    if ((sActiveMenu != NULL) && (kind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (kind != 0xE)) && (kind != 0xF) && ((layoutTextBox(M2C_FIELD(gSaveMenuState, s32 *, 0x1C), M2C_FIELD(gSaveMenuState, void **, 0x18), 0), M2C_FIELD(gSaveMenuState, s8 *, 0x2D) = 0, M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U, pulseObjectValue(M2C_FIELD(gSaveMenuState, s32 *, 0x1C)), menuResolveCursorItem(gSaveMenuState + 0x2A, gSaveMenuState + 0x28, gSaveMenuState + 0x29), (sActiveMenu == NULL)) || (kind_a = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (((kind_a != 0x11) & (kind_a != 0xA)) == 0)) || (kind_a == 0x13))) {
+        if (isMenuButtonPressed(0x24) & 0xFF) {
             if (M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), u16 *, 6) != 0) {
                 M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U;
                 requestSound(0xED);
-                func_800278AC(M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), u16 *, 6), gMenuSoundParams, (u16) M2C_FIELD(sActiveMenu, s16 *, 0x7A));
+                setSaveMenuPage(M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), u16 *, 6), gMenuSoundParams, (u16) M2C_FIELD(sActiveMenu, s16 *, 0x7A));
             }
         } else if (M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0) {
-            if (func_80027C60(0x2A) & 0xFF) {
+            if (isMenuButtonPressed(0x2A) & 0xFF) {
                 M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = (u8) (M2C_FIELD(gSaveMenuState, u8 *, 0x2C) ^ 1);
                 if (M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u8 *, 0x1C) & 0x10) {
                     requestSound((-(M2C_FIELD(gSaveMenuState, u8 *, 0x2C) == 0) & 0xE9) | 0xE8);
@@ -71,41 +71,41 @@ block_14:
                     }
                 }
                 if ((menuItemIsActive(0x1E) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
-                    func_800274BC(0x100, 2);
+                    moveMenuSelection(0x100, 2);
                 }
                 if ((menuItemIsActive(0x1F) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
-                    func_800274BC(0x100, 3);
+                    moveMenuSelection(0x100, 3);
                 }
                 cur_entry_b = M2C_FIELD(gSaveMenuState, void **, 0x18);
                 if (M2C_FIELD(cur_entry_b, u8 *, 0x1C) & 0x10) {
                     if ((menuItemIsActive(0x20) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
-                        func_800274BC(0x100, 0);
+                        moveMenuSelection(0x100, 0);
                     }
                     if ((menuItemIsActive(0x21) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
-                        func_800274BC(0x100, 1);
+                        moveMenuSelection(0x100, 1);
                     }
                 } else if ((M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0) && (M2C_FIELD(cur_entry_b, s32 *, 0x10) != 0)) {
                     if ((menuItemIsActive(0x21) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
                         flags_b = M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u16 *, 0xC);
                         if (flags_b & 0x800) {
-                            func_800295F0(1);
+                            stepMenuOptionValue(1);
                         } else if (flags_b & 0x1000) {
                             adjustMenuSliderValue(1);
                         } else {
-                            func_80029768(1);
+                            adjustMenuSpinnerValue(1);
                         }
                     }
                     if ((menuItemIsActive(0x20) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
                         flags_c = M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u16 *, 0xC);
                         if (flags_c & 0x800) {
-                            func_800295F0(-1);
+                            stepMenuOptionValue(-1);
                             return;
                         }
                         if (flags_c & 0x1000) {
                             adjustMenuSliderValue(-1);
                             return;
                         }
-                        func_80029768(-1);
+                        adjustMenuSpinnerValue(-1);
                     }
                 }
             }

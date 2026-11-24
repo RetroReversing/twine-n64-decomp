@@ -37,7 +37,7 @@ typedef struct {
         } bits;
     } state;
 } Object448;
-extern Slot448 D_800C0784[];
+extern Slot448 gAssetSlotHeader[];
 void initObjectFromBankEntry(Object448 *object, s32 index, s32 bankIndex) {
     Bank448 *bank;
     Entry448 *entry;
@@ -47,7 +47,7 @@ void initObjectFromBankEntry(Object448 *object, s32 index, s32 bankIndex) {
     u16 extent;
 
     if (bankIndex < 0) return;
-    bank = D_800C0784[bankIndex].bank;
+    bank = gAssetSlotHeader[bankIndex].bank;
     if (bank == NULL) return;
     payload = bank->payloads;
     entry = bank->entries;

@@ -1,10 +1,10 @@
 struct triple { s32 x, y, z; };
-s32 Probe_BoundsContainPoint(void *, void *);
-s32 Sphere_OverlapsPoint(void *, void *, f32);
-s32 Ray_CastObjects(void *, void *, void *, s32 *, void *, f32, s32, s32, s32);
+s32 boundsContainPoint(void *, void *);
+s32 sphereContainsPoint(void *, void *, f32);
+s32 castRayAgainstObjectsAndRooms(void *, void *, void *, s32 *, void *, f32, s32, s32, s32);
 extern s32 gVecUp[];
 extern s32 gVecDown[];
-extern u8 Ray_TriangleIntersect[];
+extern u8 rayTriangleIntersect[];
 
 /* For each object of type 0x18, find the nearest type-0x46 object below or above it
    whose height is not lower, and link it into that object's child list. */
@@ -29,8 +29,8 @@ void Obj_AttachToFloorObjects(void *objList) {
             do {
                 if (*(u16 *)((u8 *)cand + 0x58) == 0x46) {
                     if (*(f32 *)((u8 *)cand + 0x4C) >= *(f32 *)((u8 *)obj + 0x4C)
-                        && ((Sphere_OverlapsPoint((u8 *)cand + 0x40, objPos, *(f32 *)((u8 *)obj + 0x4C)) << 0x18) != 0)
-                        && ((Probe_BoundsContainPoint(objPos, cand) << 0x18) != 0)
+                        && ((sphereContainsPoint((u8 *)cand + 0x40, objPos, *(f32 *)((u8 *)obj + 0x4C)) << 0x18) != 0)
+                        && ((boundsContainPoint(objPos, cand) << 0x18) != 0)
                         && *(f32 *)((u8 *)cand + 0x4C) >= *(f32 *)((u8 *)obj + 0x4C)) {
                         *(struct triple *)upDir = *(struct triple *)gVecUp;
                         *(struct triple *)downDir = *(struct triple *)gVecDown;
@@ -38,14 +38,14 @@ void Obj_AttachToFloorObjects(void *objList) {
                             fallbackFloor = cand;
                             fallbackDist = *(f32 *)((u8 *)cand + 0x4C);
                         }
-                        if ((Ray_CastObjects(Ray_TriangleIntersect, cand, objPos, (u32)downDir, &hit.obj, 256.0f, 0, 1, 0) << 24) != 0) {
+                        if ((castRayAgainstObjectsAndRooms(rayTriangleIntersect, cand, objPos, (u32)downDir, &hit.obj, 256.0f, 0, 1, 0) << 24) != 0) {
                             dist = *(f32 *)((u8 *)obj + 0x44) - hit.y;
                             if (dist < bestDist) {
                                 bestDist = dist;
                                 bestFloor = cand;
                             }
                         } else {
-                            if ((Ray_CastObjects((int)Ray_TriangleIntersect, cand, objPos, upDir, &hit.obj, 256.0f, 0, 1, 0) << 24) != 0) {
+                            if ((castRayAgainstObjectsAndRooms((int)rayTriangleIntersect, cand, objPos, upDir, &hit.obj, 256.0f, 0, 1, 0) << 24) != 0) {
                                 dist = hit.y - *(f32 *)((u8 *)obj + 0x44);
                                 if (dist < bestDist) {
                                     bestDist = dist;

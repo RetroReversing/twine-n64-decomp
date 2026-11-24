@@ -3,7 +3,7 @@ typedef struct { Vec3 *pts; f32 pad4; f32 y; u16 flags; u8 padE[0x2A]; f32 off; 
 typedef struct { u8 pad[0xCC]; f32 vel; } Inner2;
 typedef struct { u8 pad0[0x24]; Vec3 pos; u8 pad30[0x38]; Inner *in; Inner2 *in2; } Obj;
 s32 func_80048F10(s32, Vec3 *, f32 *, u8 *, f32, u8 *, u8 *, s32);
-s32 func_8004FF30(s32, Vec3 *, char *, f32, s32, s32, s32, s32);
+s32 pushSphereOutOfSurfaces(s32, Vec3 *, char *, f32, s32, s32, s32, s32);
 
 /* Updates a chain object: applies gravity, snaps it to the ground, then pushes its active links out of collision. */
 void updateChainObject(s32 probeCtx, Obj *obj, s32 colArg2, s32 colArg3) {
@@ -48,7 +48,7 @@ void updateChainObject(s32 probeCtx, Obj *obj, s32 colArg2, s32 colArg3) {
             linkPos.y = linkPosBase.y;
             linkPosBase.z = obj->in->pts[i].z + pushOffset[2];
             linkPos.z = linkPosBase.z;
-            if ((func_8004FF30(probeCtx, &linkPos, probeName, 0.2f, 0x10, colArg2, colArg3, 0) << 24) != 0) {
+            if ((pushSphereOutOfSurfaces(probeCtx, &linkPos, probeName, 0.2f, 0x10, colArg2, colArg3, 0) << 24) != 0) {
                 pushOffset[0] += linkPos.x - linkPosBase.x;
                 pushOffset[1] += linkPos.y - linkPosBase.y;
                 pushOffset[2] += linkPos.z - linkPosBase.z;

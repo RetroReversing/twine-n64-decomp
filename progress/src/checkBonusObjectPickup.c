@@ -1,5 +1,5 @@
 f32 approxDistance();
-s8 func_8005EF84();
+s8 applyBonusObjectPickup();
 extern const f64 D_800D4190;
 extern u8 gTrackMarkerDone[];
 extern void *gBonusObjects;
@@ -37,7 +37,7 @@ s8 checkBonusObjectPickup(void *actor) {
         }
         if (approxDistance((u8 *) object + 0x24, (u8 *) actor + 0x24) < D_800D4190) {
             if (*(u16 *)((s8 *)track + 0x30) == 0) {
-                return func_8005EF84(*slot, actor);
+                return applyBonusObjectPickup(*slot, actor);
             }
             continue;
         }

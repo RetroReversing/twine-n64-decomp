@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void setActorStatusBits(void *arg0) {
-    M2C_FIELD(arg0, s32 *, 0x58) = (s32) (M2C_FIELD(arg0, s32 *, 0x58) | 0xF0);
+/* Sets status bits 0xF0 in the actor's flags word at offset 0x58. */ void setActorStatusBits(void *actor) {
+    M2C_FIELD(actor, s32 *, 0x58) = (s32) (M2C_FIELD(actor, s32 *, 0x58) | 0xF0);
 }

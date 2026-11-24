@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 absFloat(f32);
-f32 func_80082908(f32);
+f32 sqrtf32(f32);
 
 /* Computes the min/max bounds of a vertex array and a bounding-sphere radius from its largest extent. */ void computeVertexBounds(s32 vertexCount, void *verts, void *sphere, void *bounds) {
     f32 x;
@@ -81,7 +81,7 @@ f32 func_80082908(f32);
         if (absMaxZ < absFloat(maxZ)) {
             absMaxZ = maxZ;
         }
-        M2C_FIELD(sphere, f32 *, 0xC) = func_80082908((absMaxX * absMaxX) + (absMaxY * absMaxY) + (absMaxZ * absMaxZ));
+        M2C_FIELD(sphere, f32 *, 0xC) = sqrtf32((absMaxX * absMaxX) + (absMaxY * absMaxY) + (absMaxZ * absMaxZ));
         M2C_FIELD(sphere, s32 *, 0) = 0;
         M2C_FIELD(sphere, s32 *, 4) = 0;
         M2C_FIELD(sphere, s32 *, 8) = 0;

@@ -4,12 +4,12 @@ Obj *spawnEffectObject(s32, s32, s32);
 void objectListInsert(Obj *, s32);
 void updateTrackMarkerEffect(Obj *);
 void effectSetAnimFrame(Obj *, s32, s32);
-void func_80064318(Obj *, u8);
+void setObjectLayerFlag(Obj *, u8);
 extern Obj *volatile gTrackMarkerEffectObject;
 extern s32 gTrackMarkerEffectTimer;
 extern s16 gTrackMarkerEffectMode;
 extern s16 gTrackMarkerEffectKind;
-extern Def *sTrackMarkerTable[];
+extern Def *gTrackMarkerParents[];
 
 /* Spawns the singleton track-marker effect object for kind and mode, unless one already exists; returns it or NULL. */
 Obj *spawnTrackMarkerEffect(u8 kind, u16 mode) {
@@ -51,8 +51,8 @@ Obj *spawnTrackMarkerEffect(u8 kind, u16 mode) {
         *(volatile s32 *)&gTrackMarkerEffectObject->w40 = 0;
         *(volatile f32 *)&gTrackMarkerEffectObject->f44 = 0.1f;
         gTrackMarkerEffectObject->f54 = animScale;
-        func_80064318(*effectSlot, kind);
-        objectListInsert(*effectSlot, sTrackMarkerTable[kind]->wF4);
+        setObjectLayerFlag(*effectSlot, kind);
+        objectListInsert(*effectSlot, gTrackMarkerParents[kind]->wF4);
         effect = *effectSlot;
     }
     gTrackMarkerEffectMode = mode;

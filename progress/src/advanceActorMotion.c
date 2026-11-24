@@ -1,5 +1,5 @@
 s32 motionApplyStep(s32, f32, void *, s32);
-s32 func_80059528(void *);
+s32 applyMotionDeltas(void *);
 
 typedef struct MotionState {
     u8 pad0[4];
@@ -46,7 +46,7 @@ s32 advanceActorMotion(MotionActor *arg0, u32 steps) {
             }
             motionApplyStep(temp_a3 + ((s8) temp_a2->frameIndex * 0x18), (f32) temp_a2->speed, arg0, temp_a3);
         }
-        func_80059528(arg0);
+        applyMotionDeltas(arg0);
     }
     return var_s0;
 }

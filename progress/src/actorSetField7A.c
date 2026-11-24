@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void actorSetField7A(void *arg0, s16 arg1) {
-    M2C_FIELD(arg0, s16 *, 0x7A) = arg1;
+/* Stores a 16-bit value into the actor's field at offset 0x7A. */ void actorSetField7A(void *actor, s16 value) {
+    M2C_FIELD(actor, s16 *, 0x7A) = value;
 }

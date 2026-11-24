@@ -14,10 +14,10 @@ typedef struct {
 
 extern void listUnlinkFree(s32);
 extern OverlayObject *spawnEffectObject(s32, OverlayPosition *, void *);
-extern void func_8002B000(void *, s32);
+extern void initSlotRecord(void *, s32);
 extern void actorLinkToSurface(s32, OverlayObject *, s32);
 extern void effectSetAnimFrame(OverlayObject *, s32, s32);
-extern s32 *gProbeObjectList;
+extern s32 *gDefaultOrderObj;
 extern u8 gSceneType;
 extern u32 sProbeTimers[][2];
 extern u8 sProbeActive[];
@@ -44,14 +44,14 @@ OverlayObject *spawnProbeObject(register OverlayPosition *position, void *orient
             sProbeObjects[slotIndex] = probe;
             sProbeActive[slotIndex] = 1;
             sProbeOriginTable[slotIndex] = 0;
-            func_8002B000(timerRec, 0x1E);
+            initSlotRecord(timerRec, 0x1E);
             listUnlinkFree(sProbeHandles[slotIndex]);
             sProbeHandles[slotIndex] = 0;
             probe->flags &= ~0x200;
             if (*sceneType == 3) {
                 sProbePositions[slotIndex].y += 0.76f;
             }
-            actorLinkToSurface(*gProbeObjectList, probe, 1);
+            actorLinkToSurface(*gDefaultOrderObj, probe, 1);
             {
                 register s32 colorValue = 0xB4;
                 if (slotIndex == 0) {

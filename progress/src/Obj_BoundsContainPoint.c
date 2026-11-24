@@ -12,35 +12,35 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 Obj_BoundsContainPoint(void *arg0, void *arg1, f32 arg2) {
-    f32 temp_ft0;
-    f32 temp_ft0_2;
-    f32 temp_ft0_3;
-    s32 var_v0;
-    void *temp_v0;
+/* Returns 1 if the point (x,y,z) lies inside the object's bounding box expanded by margin, else 0. */ s32 Obj_BoundsContainPoint(void *point, void *obj, f32 margin) {
+    f32 x;
+    f32 y;
+    f32 z;
+    s32 inside;
+    void *bounds;
 
-    temp_v0 = M2C_FIELD(arg1, void **, 0x3C);
-    temp_ft0 = M2C_FIELD(arg0, f32 *, 0);
-    if (temp_ft0 < (M2C_FIELD(temp_v0, f32 *, 0x18) - arg2)) {
+    bounds = M2C_FIELD(obj, void **, 0x3C);
+    x = M2C_FIELD(point, f32 *, 0);
+    if (x < (M2C_FIELD(bounds, f32 *, 0x18) - margin)) {
         return 0;
     }
-    if ((M2C_FIELD(temp_v0, f32 *, 0x1C) + arg2) < temp_ft0) {
+    if ((M2C_FIELD(bounds, f32 *, 0x1C) + margin) < x) {
         return 0;
     }
-    temp_ft0_2 = M2C_FIELD(arg0, f32 *, 4);
-    if (temp_ft0_2 < (M2C_FIELD(temp_v0, f32 *, 0x20) - arg2)) {
+    y = M2C_FIELD(point, f32 *, 4);
+    if (y < (M2C_FIELD(bounds, f32 *, 0x20) - margin)) {
         return 0;
     }
-    if ((M2C_FIELD(temp_v0, f32 *, 0x24) + arg2) < temp_ft0_2) {
+    if ((M2C_FIELD(bounds, f32 *, 0x24) + margin) < y) {
         return 0;
     }
-    temp_ft0_3 = M2C_FIELD(arg0, f32 *, 8);
-    if (temp_ft0_3 < (M2C_FIELD(temp_v0, f32 *, 0x28) - arg2)) {
+    z = M2C_FIELD(point, f32 *, 8);
+    if (z < (M2C_FIELD(bounds, f32 *, 0x28) - margin)) {
         return 0;
     }
-    var_v0 = 0;
-    if (!((M2C_FIELD(temp_v0, f32 *, 0x2C) + arg2) < temp_ft0_3)) {
-        var_v0 = 1;
+    inside = 0;
+    if (!((M2C_FIELD(bounds, f32 *, 0x2C) + margin) < z)) {
+        inside = 1;
     }
-    return var_v0;
+    return inside;
 }

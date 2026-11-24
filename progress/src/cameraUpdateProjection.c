@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_800829EC(f32);                     /* extern */
-extern f32 D_800C0740;
+f32 tanFloat(f32);                     /* extern */
+extern f32 kRayNoHitDistance;
 extern s32 gVisibleSaveSlotCount;
 extern s32 gBorderSkipActive;
 extern u8 gBorderFlipFlag;
@@ -57,8 +57,8 @@ block_18:
                     }
                 }
             }
-            invHalfFovTan = 1.0f / func_800829EC(fovDegrees * 0.008726647f);
-            projScale = -((D_800C0740 + 0.2f) / (0.2f - D_800C0740));
+            invHalfFovTan = 1.0f / tanFloat(fovDegrees * 0.008726647f);
+            projScale = -((kRayNoHitDistance + 0.2f) / (0.2f - kRayNoHitDistance));
             M2C_FIELD(cam, f32 *, 0x68) = (f32) (projScale * ((M2C_FIELD(cam, f32 *, 0x54) - M2C_FIELD(cam, f32 *, 0x50)) * 0.5f) * invHalfFovTan);
             M2C_FIELD(cam, f32 *, 0x6C) = (f32) (projScale * ((M2C_FIELD(cam, f32 *, 0x5C) - M2C_FIELD(cam, f32 *, 0x58)) * 0.5f) * invHalfFovTan);
             M2C_FIELD(cam, f32 *, 0x68) = (f32) (M2C_FIELD(cam, f32 *, 0x68) / M2C_FIELD(cam, f32 *, 0x80));

@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 planeDotPoint(void *arg0, void *arg1) {
-    return (M2C_FIELD(arg1, f32 *, 0) * M2C_FIELD(arg0, f32 *, 0)) + (M2C_FIELD(arg1, f32 *, 4) * M2C_FIELD(arg0, f32 *, 4)) + (M2C_FIELD(arg1, f32 *, 8) * M2C_FIELD(arg0, f32 *, 8)) + M2C_FIELD(arg1, f32 *, 0xC);
+/* Signed distance of a point (x,y,z) from a plane (nx,ny,nz,d): dot(normal, point) + d. */ f32 planeDotPoint(void *point, void *plane) {
+    return (M2C_FIELD(plane, f32 *, 0) * M2C_FIELD(point, f32 *, 0)) + (M2C_FIELD(plane, f32 *, 4) * M2C_FIELD(point, f32 *, 4)) + (M2C_FIELD(plane, f32 *, 8) * M2C_FIELD(point, f32 *, 8)) + M2C_FIELD(plane, f32 *, 0xC);
 }

@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 getTrackTriggerMask(s32 arg0) {
-    s32 temp_a0;
+/* Maps a trigger type (low 16 bits) to its flag mask; unknown types give 0x210. */ s32 getTrackTriggerMask(s32 triggerType) {
+    s32 typeLow16;
 
-    temp_a0 = arg0 & 0xFFFF;
-    switch (temp_a0) {
+    typeLow16 = triggerType & 0xFFFF;
+    switch (typeLow16) {
     default:
         return 0x210;
     case 2:
