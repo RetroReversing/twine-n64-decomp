@@ -12,11 +12,10 @@
 <!-- decompdecomp:visuals:start -->
 ![Decompilation completion and function map](progress/decompdecomp-progress.svg)
 
-Green: matched. Gold: attempted. Grey: open. Red: set aside.
+Green: matched. Red: set aside or SDK.
 <!-- decompdecomp:visuals:end -->
 
 A matching decompilation of TWINE for the Nintendo 64, started with [decompdecomp](https://github.com/RetroReversing/decompdecomp).
-550 of 1897 functions are C that compiles to exactly the original code; the rest are still assembly.
 `build.py` rebuilds the game from this tree and checks it against your original, byte for byte.
 
 ## Build
