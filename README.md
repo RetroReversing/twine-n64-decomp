@@ -15,7 +15,7 @@
 Green: matched. Red: set aside or SDK.
 <!-- decompdecomp:visuals:end -->
 
-A matching decompilation of TWINE for the Nintendo 64, started with [decompdecomp](https://github.com/RetroReversing/decompdecomp).
+A matching decompilation of The World is Not Enough (TWINE) for the Nintendo 64, started with [decompdecomp](https://github.com/RetroReversing/decompdecomp).
 `build.py` rebuilds the game from this tree and checks it against your original, byte for byte.
 
 ## Build
