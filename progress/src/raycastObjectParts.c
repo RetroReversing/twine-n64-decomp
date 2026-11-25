@@ -22,7 +22,7 @@ extern s32 gSweepHitActor;
 
 typedef struct { f32 x, y, z; } ProbeVec;
 
-/* Casts a ray against the bounds of each part of an object; returns 1 and stores the nearest hit in gSweepHitObject, or 0 if nothing is hit. */ s32 raycastObjectParts(void *object, void *rayStart, void *rayDir, f32 rayLength) {
+/* Casts a ray against the bounds of each part of an object; returns 1 and stores the nearest hit in gSweepHitObject, or 0 if nothing is hit. */ s8 raycastObjectParts(u8 * object, u8 * rayStart, void * rayDir, f32 rayLength) {
     struct {
         ProbeVec end;
         u32 padEnd;

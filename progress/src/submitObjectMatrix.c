@@ -14,7 +14,7 @@ typedef struct {
 } ObjectMatrix;
 
 /* Builds the object's transform in the matrix pool and appends a G_MTX display list command that loads it. */
-void submitObjectMatrix(ObjectMatrix *obj) {
+void submitObjectMatrix(ObjectMatrix *obj, s32 arg1) {
     void *cmd;
     u32 dlId, used, newUsed;
     s32 base;

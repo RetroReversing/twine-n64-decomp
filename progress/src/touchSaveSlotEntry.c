@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK getSaveSlotEntryOrDefault(s32);                         /* extern */
 
-/* Looks up the save slot entry for a 16-bit slot index, discarding the result. */ void touchSaveSlotEntry(s32 slotIndex) {
-    getSaveSlotEntryOrDefault(slotIndex & 0xFFFF);
+/* Looks up the save slot entry for a 16-bit slot index, discarding the result. */ s32 touchSaveSlotEntry(u16 slotIndex) {
+    return getSaveSlotEntryOrDefault(slotIndex & 0xFFFF);
 }

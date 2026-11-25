@@ -17,7 +17,7 @@ s32 startSound();
 extern u8 sDistanceSoundEnabled[];
 extern s32 sDistanceSoundsActive;
 
-/* Starts a sound if distance sounds are active and the sound is enabled for distance playback; queues it and returns its handle, else -1. */ s32 startAndQueueDistanceSound(s32 soundId, s32 param1, s32 param2) {
+/* Starts a sound if distance sounds are active and the sound is enabled for distance playback; queues it and returns its handle, else -1. */ s32 startAndQueueDistanceSound(s32 soundId, s16 param1, s32 param2) {
     s32 handle;
 
     if ((sDistanceSoundsActive == 0) || (handle = startSound(soundId & 0xFFFF, param1 & 0xFF, param2 & 0xFF), (*(sDistanceSoundEnabled + soundId) == 0))) {

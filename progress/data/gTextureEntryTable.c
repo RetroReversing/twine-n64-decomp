@@ -1,0 +1,1 @@
+void * gTextureEntryTable[256];

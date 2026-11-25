@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 s32 resolveEnemyDefLink(s16);                             /* extern */
 
-s8 getLinkedEnemyDefFlag(s32 arg0, s16 arg1) {
-    return M2C_FIELD((arg0 + ((s32) (resolveEnemyDefLink(arg1) << 0x10) >> 0xD)), s8 *, 0x1FF);
+/* Resolves the enemy definition linked to linkIndex and returns the flag byte at offset 0x1FF of its 8-byte table entry. */ s16 getLinkedEnemyDefFlag(s32 enemyDefTable, s16 linkIndex) {
+    return M2C_FIELD((enemyDefTable + ((s32) (resolveEnemyDefLink(linkIndex) << 0x10) >> 0xD)), s8 *, 0x1FF);
 }

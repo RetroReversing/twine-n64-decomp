@@ -1,7 +1,7 @@
 extern s32 D_80107EDC;
 extern s32 D_80107EE0;
 extern s32 D_80107EE8;
-/* Returns the top bit of a 40-byte-stride player entry's first word, or 0 if the entry's state is 4 or its pointer is null. */ u32 getSequencePlayerFlagBit(s32 playerIndex)
+/* Returns the top bit of a 40-byte-stride player entry's first word, or 0 if the entry's state is 4 or its pointer is null. */ s8 getSequencePlayerFlagBit(s32 playerIndex)
 {
   s32 state = playerIndex & 0xff;
   s32 byteOffset = (state * 5) << 3;

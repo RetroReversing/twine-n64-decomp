@@ -13,7 +13,7 @@ extern void *D_80115328;
 extern void *sRenderState;
 
 typedef struct { unsigned char pad_0[24]; int field_18; unsigned char pad_1C[4]; float field_20; float field_24; float field_28; float field_2C; float field_30; float field_34; } __repair_record_arg0;
-void emitObjectMatrix(void *arg0, void *arg1) {
+void emitObjectMatrix(void * arg0, void * arg1, void * arg2) {
     u32 temp_v0;
     unsigned long temp_s2;
     void *temp_a1;

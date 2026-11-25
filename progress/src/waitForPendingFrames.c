@@ -18,7 +18,7 @@ extern s16 gFramesQueuedCount;
 extern s16 gFramesCompletedCount;
 extern M2C_UNK gFrameDoneMsgQueue;
 
-/* Blocks until every queued frame has been completed, consuming one message per frame. */ void waitForPendingFrames(void) {
+/* Blocks until every queued frame has been completed, consuming one message per frame. */ void waitForPendingFrames(s32 arg0) {
     s16 completed;
 
     if (gFramesQueuedCount != gFramesCompletedCount) {

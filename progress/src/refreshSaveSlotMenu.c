@@ -34,7 +34,7 @@ extern M2C_UNK D_80102F48[];
 extern void *gSaveMenuState;
 extern M2C_UNK gPickupSearchBox;
 
-/* Refreshes the save-slot menu: label text, slot-name strings and per-slot entries */ void refreshSaveSlotMenu(void) {
+/* Refreshes the save-slot menu: label text, slot-name strings and per-slot entries */ void refreshSaveSlotMenu(u8 arg0) {
     M2C_UNK yPos;
     s32 slotHandle;
     s32 slotNumber;

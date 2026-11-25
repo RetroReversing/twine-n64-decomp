@@ -5,7 +5,7 @@ f32 randomFloatMinusOffset(f32,f32);
 void *spawnConfiguredEffect(s32,s32,s32,f32*,f32,s32,s32,s32,s32,s32,s32);
 extern f64 D_800D4298,D_800D42A0,D_800D42A8;
 extern s16 D_80109A58;
-/* Spawns a timed flash effect owned by arg0, with a random scale and a colour cycled from a table. */ void spawnFlashEffect(void *owner,s32 unk) {
+/* Spawns a timed flash effect owned by arg0, with a random scale and a colour cycled from a table. */ void spawnFlashEffect(s32 owner, s32 unk, f32 arg2, s32 arg3) {
  f32 sp30[3];u32 colorBase;f64 yScale;s32 color; s32 sfxId;u32 colorIndex;void *effect;
  sp30[0]=randomFloatMinusOffset(0.4f,0.2f);
  sp30[1]=(f32)((f64)randomFloatScaled(2.0f)+D_800D4298);

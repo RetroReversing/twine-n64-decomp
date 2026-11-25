@@ -16,7 +16,7 @@ extern s32 gCutscene;
 extern void *gSceneState;
 
 typedef struct { unsigned char pad_0[32]; float field_20; unsigned char pad_24[8]; float field_2C; unsigned char pad_30[80]; short field_80; short field_82; } __repair_record_temp_a1;
-/* Interpolates the record's start/end values by its timer progress, clamps to 0..1 and stores it as the blend factor. */ void updateObjectBlendFactor(s32 index) {
+/* Interpolates the record's start/end values by its timer progress, clamps to 0..1 and stores it as the blend factor. */ void updateObjectBlendFactor(s32 index, s32 arg1, s32 arg2) {
     f32 startValue;
     f32 blend;
     f32 clampValue;

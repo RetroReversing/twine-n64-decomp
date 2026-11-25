@@ -16,6 +16,6 @@ typedef s32 M2C_UNK32;
 
 s32 loadSaveSlotHeaders();                                /* extern */
 
-/* Loads the save slot headers and returns the result masked to 16 bits. */ s32 getSaveSlotHeadersLow16(void) {
+/* Loads the save slot headers and returns the result masked to 16 bits. */ u16 getSaveSlotHeadersLow16(void) {
     return loadSaveSlotHeaders() & 65535;
 }

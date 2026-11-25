@@ -16,19 +16,19 @@ s32 saveWaitCommand();
 s32 saveSubmitCommand();
 s32 loadSaveSlotHeaders();
 extern u16 gSaveStatus;
-extern char gSaveSlotTable[];
-extern s16 D_800E0938;
+extern char gRumblePaks[];
+extern s16 gSaveSlotIndex;
 extern s16 gSaveSlot;
 extern s32 gSaveCmdResult;
 
-u16 probeSaveSlotHeaders(void) {
+/* Loads the save slot headers and returns a save status: 0x25 on error 0x62; on 0x20 it submits command 8 for the current slot, then reports 0x21 or 0x22 on failure. */ s32 probeSaveSlotHeaders(void) {
     gSaveSlot = 0;
     switch (loadSaveSlotHeaders() & 0xFFFF) {
     case 0x62:
         gSaveStatus = 0x25;
         break;
     case 0x20:
-        saveSubmitCommand(8, (D_800E0938 * 0x68) + gSaveSlotTable, 0, 0, 0, 0, 0, 0);
+        saveSubmitCommand(8, (gSaveSlotIndex * 0x68) + gRumblePaks, 0, 0, 0, 0, 0, 0);
         saveWaitCommand();
         if (gSaveCmdResult == 0xA) {
             gSaveStatus = 0x21;

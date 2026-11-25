@@ -18,7 +18,7 @@ s32 actorTargetInAngleRange(void *, void *, M2C_UNK *, f32);  /* extern */
 extern M2C_UNK gSightRangeTable;
 extern s16 gSightRangeIndex;
 
-/* Returns 1 if the actor can see the target: within a sight range scaled by the target's visibility stats, and a raycast through rooms to a random target point succeeds. */ s32 canActorSeeTarget(void *actor, void *target) {
+/* Returns 1 if the actor can see the target: within a sight range scaled by the target's visibility stats, and a raycast through rooms to a random target point succeeds. */ s8 canActorSeeTarget(u8 * actor, u8 * target) {
     u8 sp28[0x8];
     u8 sp30[0x10];
     f32 temp_fv1;

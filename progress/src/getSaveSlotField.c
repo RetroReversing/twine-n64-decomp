@@ -16,17 +16,17 @@ extern M2C_UNK gSaveSlotFlags;
 extern M2C_UNK gSaveSlotAltFlags;
 extern M2C_UNK gSaveSlotValid;
 
-u16 getSaveSlotField(s32 arg0, s32 arg1) {
-    s32 temp_a0;
+/* Returns a per-slot value selected by field id (0xA3, 0xA5, 0xA6); defaults to 1 for other ids. */ s32 getSaveSlotField(s32 fieldId, s32 slot) {
+    s32 id;
 
-    temp_a0 = arg0 & 0xFFFF;
-    switch (temp_a0) {
+    id = fieldId & 0xFFFF;
+    switch (id) {
     case 0xA5:
-        return *((u16 *)((s8 *)&gSaveSlotValid + ((arg1 & 0xFFFF) * 2)));
+        return *((u16 *)((s8 *)&gSaveSlotValid + ((slot & 0xFFFF) * 2)));
     case 0xA6:
-        return *((u16 *)((s8 *)&gSaveSlotAltFlags + ((arg1 & 0xFFFF) * 2)));
+        return *((u16 *)((s8 *)&gSaveSlotAltFlags + ((slot & 0xFFFF) * 2)));
     case 0xA3:
-        return *((u16 *)((s8 *)&gSaveSlotFlags + ((arg1 & 0xFFFF) * 2)));
+        return *((u16 *)((s8 *)&gSaveSlotFlags + ((slot & 0xFFFF) * 2)));
     }
     return 1U;
 }

@@ -15,7 +15,7 @@ extern f64 D_800D2CD8;
 extern void *gSaveMenuState;
 extern s32 sSaveMenuColorActive;
 extern s32 sSaveMenuColorIdle;
-/* Updates the colors, sounds and scroll position of a save-menu row's arrow entries based on which directions are enabled; returns nonzero if the row's state byte changed. */ s32 updateSaveMenuRowHighlight(void *row, s32 inputMask, s32 useAltEntries)
+/* Updates the colors, sounds and scroll position of a save-menu row's arrow entries based on which directions are enabled; returns nonzero if the row's state byte changed. */ u16 updateSaveMenuRowHighlight(s32 * row, s32 inputMask, s32 useAltEntries)
 {
   s32 var_a0;
   s32 var_a0_2;

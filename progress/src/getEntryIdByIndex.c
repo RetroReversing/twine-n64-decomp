@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 findEntryIndexById();
 extern s32 gEntryTable;
 
-/* Resolves key to a table index (by ID search when mode is 1, else key-1) and returns the u16 at +4 of that 8-byte entry, or 3 if not found. */ u16 getEntryIdByIndex(s16 key, s32 lookupByIdMode) {
+/* Resolves key to a table index (by ID search when mode is 1, else key-1) and returns the u16 at +4 of that 8-byte entry, or 3 if not found. */ s32 getEntryIdByIndex(s16 key, s32 lookupByIdMode) {
     s32 mode;
     s32 entryIndex;
     s16 rawIndex;

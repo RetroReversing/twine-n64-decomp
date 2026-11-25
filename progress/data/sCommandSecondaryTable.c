@@ -1,0 +1,11 @@
+extern u8 D_800AF2A4[];
+extern u8 D_800AF2B0[];
+extern u8 D_800AF2BC[];
+extern u8 D_800AF2C8[];
+extern u8 D_800AF2D4[];
+extern u8 D_800AF2E0[];
+extern u8 D_800AF2EC[];
+extern u8 D_800AF2F8[];
+extern u8 D_800AFCA4[];
+extern u8 D_800AFCE0[];
+void *D_800B19C8[10] = { &D_800AF2A4, &D_800AF2B0, &D_800AF2BC, &D_800AF2C8, &D_800AF2D4, &D_800AF2E0, &D_800AF2EC, &D_800AF2F8, &D_800AFCA4, &D_800AFCE0 };

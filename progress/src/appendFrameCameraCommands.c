@@ -1,7 +1,7 @@
 extern u32 *volatile sDisplayListCursor;
 extern u8 *sRenderState;
 extern s32 gFrameBufferIndex;
-/* Appends four display-list commands (two matrix loads, a movemem, a perspective-norm word) taken from the render state for the current frame buffer. */ void appendFrameCameraCommands(void) {
+/* Appends four display-list commands (two matrix loads, a movemem, a perspective-norm word) taken from the render state for the current frame buffer. */ void appendFrameCameraCommands(s32 arg0) {
     u32 *gfx = sDisplayListCursor;
     s32 frameIndex = gFrameBufferIndex;
     u8 *renderState = sRenderState;

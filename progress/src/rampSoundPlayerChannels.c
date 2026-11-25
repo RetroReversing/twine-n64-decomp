@@ -6,7 +6,7 @@ extern unsigned char D_800E6A88[];
 extern unsigned char D_800E6AA4[];
 extern unsigned char D_800E6AB2[];
 extern unsigned char D_800E6AB4[];
-/* Finds the sound player whose key matches playerKey and ramps its channels to the target volume (or, for keys with the high bit set, applies a mode-specific flag update). */ void rampSoundPlayerChannels(s32 targetVolume, s32 duration, s32 playerKey, s32 mode)
+/* Finds the sound player whose key matches playerKey and ramps its channels to the target volume (or, for keys with the high bit set, applies a mode-specific flag update). */ void rampSoundPlayerChannels(u8 targetVolume, u16 duration, s32 playerKey, s32 mode)
 {
   s32 keyId;
   s32 __repair_phase_temp_a2_2;

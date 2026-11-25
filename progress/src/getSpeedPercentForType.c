@@ -3,7 +3,7 @@
 void *findRecordByType();                              /* extern */
 extern void *gCurrentSpawnRecordPtr;
 
-/* Looks up the record for a type and returns its percentage byte (offset 6), or 100 if none is found. */ s32 getSpeedPercentForType(void) {
+/* Looks up the record for a type and returns its percentage byte (offset 6), or 100 if none is found. */ s32 getSpeedPercentForType(u8 arg0) {
     f32 percent;
     register long ret;
     register unsigned long result;

@@ -16,7 +16,7 @@ typedef struct
   unsigned char pad_4[4];
   float field_8;
 } __repair_record_arg2;
-/* Returns a 16-bit mask of the 8x8 grid cells of a bounding box touched by the segment start->end (high byte X range, low byte Z range). */ s32 computeGridCellMask(void *bounds, void *start, void *end)
+/* Returns a 16-bit mask of the 8x8 grid cells of a bounding box touched by the segment start->end (high byte X range, low byte Z range). */ u16 computeGridCellMask(void * bounds, void * start, void * end)
 {
   f32 __repair_fzero = 0.0f;
   f32 cellD;

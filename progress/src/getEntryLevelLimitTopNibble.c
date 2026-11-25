@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 extern u16 gEntryLevelLimit;
 
-/* Returns the top 4 bits of gEntryLevelLimit. */ u32 getEntryLevelLimitTopNibble(void) {
+/* Returns the top 4 bits of gEntryLevelLimit. */ u16 getEntryLevelLimitTopNibble(void) {
     return (u16) gEntryLevelLimit >> 0xC;
 }

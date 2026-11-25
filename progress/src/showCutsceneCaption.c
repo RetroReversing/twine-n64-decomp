@@ -18,7 +18,7 @@ M2C_UNK spawnWrappedCaptions(s32, M2C_UNK *, M2C_UNK, M2C_UNK, f32, s32); /* ext
 M2C_UNK loadTextString(M2C_UNK *, s32);              /* extern */
 extern s32 gSceneState;
 
-/* Starts the music stream, then loads text textId and shows it as wrapped captions with its timing value from the ROM table. */ void showCutsceneCaption(s32 textId) {
+/* Starts the music stream, then loads text textId and shows it as wrapped captions with its timing value from the ROM table. */ void showCutsceneCaption(s32 textId, s32 arg1) {
     char text[0x200];
     f32 duration;
 

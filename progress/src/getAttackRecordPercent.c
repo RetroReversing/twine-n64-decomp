@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 void *findRecordByType();                              /* extern */
 extern void *gCurrentSpawnRecordPtr;
 
-/* Looks up the current record and returns its byte at +4 times 10 (low 8 bits), or 100 if none is found. */ s32 getAttackRecordPercent(void) {
+/* Looks up the current record and returns its byte at +4 times 10 (low 8 bits), or 100 if none is found. */ s32 getAttackRecordPercent(u8 arg0) {
     s32 result;
     s32 percent;
     f32 scaled;

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK sqrtf32(f32);                         /* extern */
 
-/* Returns the Euclidean length of a 3-float vector (x, y, z). */ void vec3Length(const void *vec) {
+/* Returns the Euclidean length of a 3-float vector (x, y, z). */ s32 vec3Length(const void *vec) {
     f32 z;
     f32 y;
     f32 x;
@@ -22,5 +22,5 @@ M2C_UNK sqrtf32(f32);                         /* extern */
     x = M2C_FIELD(vec, const f32 *, 0);
     y = M2C_FIELD(vec, const f32 *, 4);
     z = M2C_FIELD(vec, const f32 *, 8);
-    sqrtf32((x * x) + (y * y) + (z * z));
+    return sqrtf32((x * x) + (y * y) + (z * z));
 }

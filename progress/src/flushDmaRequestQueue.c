@@ -1,5 +1,5 @@
 typedef struct { s32 a, b, c; } T9D100;
-s32 func_800CEEE0(s32, s32);
+s32 func_800CEEE0_CFAE0(s32, s32);
 s32 osSendMesg(void *, s32, s32);
 extern volatile u8 dmaQueueCount;
 extern T9D100 dmaQueueRomAddr[];
@@ -20,7 +20,7 @@ extern s32 D_80109BF8;
     if (dmaQueueCount != 0) {
         for (reqIdx = 0; reqIdx < dmaQueueCount; reqIdx++) {
             D_80109BF8 += 0xC;
-            D_80109BA0 = func_800CEEE0(D_80109BA0, D_80109BF8);
+            D_80109BA0 = func_800CEEE0_CFAE0(D_80109BA0, D_80109BF8);
             logEntry = (T9D100 *)(sSlotLogCount * (s32)sizeof(*logEntry) + (u32)sSlotLog);
             logEntry->b = dmaQueueRomAddr[reqIdx].b;
             logEntry->a = dmaQueueRomAddr[reqIdx].c;

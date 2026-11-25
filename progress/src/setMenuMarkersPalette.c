@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern void *gTrackMarker;
 extern void *gCursorMarker;
 
-/* Stores a 6-bit value into bits 2-7 of the flags word (offset 0x28) of the track marker and the cursor marker, if present. */ void setMenuMarkersPalette(s32 value) {
+/* Stores a 6-bit value into bits 2-7 of the flags word (offset 0x28) of the track marker and the cursor marker, if present. */ void setMenuMarkersPalette(s32 value, s32 arg1) {
     if (gTrackMarker != NULL) {
         M2C_FIELD(gTrackMarker, s32 *, 0x28) = (s32) ((M2C_FIELD(gTrackMarker, s32 *, 0x28) & ~0xFC) | ((value & 0x3F) * 4));
     }

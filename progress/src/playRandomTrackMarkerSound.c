@@ -5,7 +5,7 @@ f32 findNearestTrackMarker(s32, s16 *);
 extern u16 gMarkerSoundIdsA[], gMarkerSoundIdsB[];
 extern s32 gTrackMarkerParents[];
 
-/* Plays a random sound (from set A if useSetA is non-zero, else set B) at the nearest track marker, then updates its pan. */ void playRandomTrackMarkerSound(s32 object, u32 useSetA) {
+/* Plays a random sound (from set A if useSetA is non-zero, else set B) at the nearest track marker, then updates its pan. */ void playRandomTrackMarkerSound(void * object, s32 useSetA, s32 arg2) {
     s16 index;
     f32 distanceFactor = findNearestTrackMarker(object, &index);
     s32 soundId;

@@ -2,7 +2,7 @@
 
 s32 listUnlinkFree(s32);                         /* extern */
 s32 requestSound(s32);                     /* extern */
-s32 func_80045CC4();                                /* extern */
+s32 randomU32Next();                                /* extern */
 extern f64 D_800D4500;
 extern f64 D_800D4508;
 extern f64 D_800D4510;
@@ -46,7 +46,7 @@ typedef struct { unsigned char pad[96]; int value; } __repair_field_60;
         (*(s8 *)((char *)(vehicle) + 0x17E)) = 2;
         requestSound(0x1A8);
         if (gAirTimeGauge < 0x3F4) {
-            if (func_80045CC4() & 1) {
+            if (randomU32Next() & 1) {
                 requestSound(0x1A9);
             } else {
                 requestSound(0x1AA);

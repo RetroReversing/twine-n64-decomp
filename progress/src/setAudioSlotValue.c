@@ -13,17 +13,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char D_800F37E0[];
-extern char D_800F3860[];
+extern char gAudioBankSlots[];
+extern char gVoiceSlotDefault[];
 
-void setAudioSlotValue(s32 arg0, s32 arg1, s8 arg2) {
-    s32 bank = (u8)arg1;
+/* Stores value in a slot of the given bank row; bank 0xFF selects the default slot table. */ void setAudioSlotValue(u8 slot, u8 bankId, s32 value) {
+    s32 bank = (u8)bankId;
     if (bank != 0xFF) {
-        char *base = D_800F37E0;
-        u8 column = arg0;
-        char *p = (char *)((bank << 4) + (s32)base);
-        *(p + column) = arg2;
+        char *bankBase = gAudioBankSlots;
+        u8 column = slot;
+        char *row = (char *)((bank << 4) + (s32)bankBase);
+        *(row + column) = value;
     } else {
-        D_800F3860[(u8)arg0] = arg2;
+        gVoiceSlotDefault[(u8)slot] = value;
     }
 }

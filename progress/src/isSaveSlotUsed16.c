@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 s32 isSaveSlotUsed(s32);                             /* extern */
 
-/* Wrapper around isSaveSlotUsed that truncates the slot and result to 16 bits. */ s32 isSaveSlotUsed16(s32 slot) {
+/* Wrapper around isSaveSlotUsed that truncates the slot and result to 16 bits. */ u16 isSaveSlotUsed16(u16 slot) {
     return isSaveSlotUsed(slot & 0xFFFF) & 0xFFFF;
 }

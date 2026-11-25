@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK setActorAssetIndex();                            /* extern */
 
-/* Calls setActorAssetIndex while preserving the byte at offset 0xE of the actor's sub-structure (offset 0x68). */ void setActorAssetIndexKeepByte(void *actor) {
+/* Calls setActorAssetIndex while preserving the byte at offset 0xE of the actor's sub-structure (offset 0x68). */ void setActorAssetIndexKeepByte(void *actor, s32 arg1) {
     s32 savedByte;
 
     savedByte = M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s8 *, 0xE);

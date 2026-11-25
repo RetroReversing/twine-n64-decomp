@@ -1,0 +1,1 @@
+struct { u8 f_000; u8 pad_001[6]; s8 f_007; u8 pad_008[2]; s8 f_00A; u8 pad_00B[21]; u8 f_020; u8 pad_021[31]; s8 f_040; s8 f_041; u8 pad_042[25]; s8 f_05B; u8 pad_05C[36]; s8 f_080; s8 f_081; u8 pad_082[1]; s8 f_083; s8 f_084; s8 f_085; u8 pad_086[7005]; } gMidiBankControllers;

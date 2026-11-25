@@ -16,7 +16,7 @@ M2C_UNK commitEntryAndCloseSaveMenu();                            /* extern */
 extern s8 D_800E0745;
 extern s8 gCurrentItemId;
 
-/* Commits the save-menu entry, sets a flag, and selects item 0x24. */ void confirmSaveEntryAndSelectItem(void) {
+/* Commits the save-menu entry, sets a flag, and selects item 0x24. */ void confirmSaveEntryAndSelectItem( arg0) {
     commitEntryAndCloseSaveMenu();
     D_800E0745 = 1;
     gCurrentItemId = 0x24;

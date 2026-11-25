@@ -36,7 +36,7 @@ extern s32 D_80107EF8;
 extern s32 gAudioTickStep;
 extern u8 sVoiceCount;
 extern s32 sVoiceTable;
-/* Per-tick update of all audio voices: advances LFOs and envelopes, computes pitch, volume and pan gains, then steps the global fade slots. */ void updateVoices(void)
+/* Per-tick update of all audio voices: advances LFOs and envelopes, computes pitch, volume and pan gains, then steps the global fade slots. */ void updateVoices(s32 arg0)
 {
   u8 *var_a0;
   u8 *var_s0;

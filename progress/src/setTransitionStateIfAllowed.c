@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 canEnterTransitionState();                                /* extern */
 extern s8 gTransitionState;
 
-/* Sets the global transition state only if a transition may currently begin. */ void setTransitionStateIfAllowed(s8 newState) {
+/* Sets the global transition state only if a transition may currently begin. */ void setTransitionStateIfAllowed(s8 newState, s32 arg1) {
     if (canEnterTransitionState() != 0) {
         gTransitionState = newState;
     }

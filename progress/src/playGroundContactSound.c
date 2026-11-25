@@ -6,7 +6,7 @@ extern u16 sGroundSoundsType357[], sGroundSoundsDefault[], sGroundSoundsType2[],
 extern s32 gTrackMarkerParents[];
 
 /* Plays a random ground-contact sound for the surface type at the actor's distance from the nearest track marker, panned toward that marker. */
-void playGroundContactSound(s32 actor, s32 surfaceType) {
+void playGroundContactSound(void * actor, u8 surfaceType) {
     u16 markerIndex;
     u16 *soundIds;
     s32 soundCount;

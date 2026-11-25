@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 randomIntBelow(s32);                             /* extern */
 
 typedef struct { s32 w[3]; } __repair_words3;
-/* Picks a random 24-byte entry from table (count entries); copies its first 3 words to outVec and, if outScaled is set, stores the next 3 floats multiplied by 1/360. */ void pickRandomTableEntry(s32 table, s32 count, void *outVec, void *outScaled) {
+/* Picks a random 24-byte entry from table (count entries); copies its first 3 words to outVec and, if outScaled is set, stores the next 3 floats multiplied by 1/360. */ void pickRandomTableEntry(s32 table, u8 count, void * outVec, s32 outScaled) {
     void *entry;
 
     if (table != 0) {

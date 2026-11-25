@@ -12,17 +12,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char D_800EE380[];
-extern char D_800EE400[];
+extern char gClipSlotBanks[];
+extern char gClipSlotDefaultBank[];
 
-void setClipSlotValue(s32 arg0, s32 arg1, s8 arg2) {
-    s32 bank = (u8)arg1;
+/* Stores value at a slot in a 16-slot bank row; bank 0xFF selects the separate default row. */ void setClipSlotValue(u8 slot, u8 bankId, u8 value) {
+    s32 bank = (u8)bankId;
     if (bank != 0xFF) {
-        char *base = D_800EE380;
-        u8 column = arg0;
-        char *p = (char *)((bank << 4) + (s32)base);
-        *(p + column) = arg2;
+        char *banks = gClipSlotBanks;
+        u8 column = slot;
+        char *bankRow = (char *)((bank << 4) + (s32)banks);
+        *(bankRow + column) = value;
     } else {
-        D_800EE400[(u8)arg0] = arg2;
+        gClipSlotDefaultBank[(u8)slot] = value;
     }
 }

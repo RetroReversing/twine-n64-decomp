@@ -1,6 +1,6 @@
 s32 angleDelta12(s32,s32); void getAngleToMarker(void*,void*,s32*); s32 setSfxRearMix(s32,s32); s32 setSfxPitch(s32,s32); s32 setSfxPan(s32,s32); extern s32 sDistanceSoundsActive; extern u8 gOptionChoice[];
 /* Pans and pitches a playing sound from the angle between listener and marker, honouring the audio-mode option. */
-void updateSfxPanFromMarker(s32 sfxHandle,void *marker,s32 listener,f32 pitchScale) {
+void updateSfxPanFromMarker(s32 sfxHandle, s32 marker, void * listener, f32 pitchScale) {
 s32 angle,panRaw,pan,pan2,rearAmount,pitchValue; f32 pitchFloat,clampedPitch;
 clampedPitch=pitchScale;
 if(sDistanceSoundsActive!=0) if(sfxHandle!=-1) {

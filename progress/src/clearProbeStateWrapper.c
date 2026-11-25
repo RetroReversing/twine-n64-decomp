@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK clearProbeState();                            /* extern */
 
-/* Thin wrapper that clears the probe state; used by the cutscene script runner. */ void clearProbeStateWrapper(void) {
+/* Thin wrapper that clears the probe state; used by the cutscene script runner. */ void clearProbeStateWrapper(void * arg0, s32 arg1) {
     clearProbeState();
 }

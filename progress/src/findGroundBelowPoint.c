@@ -40,7 +40,7 @@ typedef struct { s32 v; } Field_s32;
 typedef struct { u16 v; } Field_u16;
 typedef struct { u32 v; } Field_u32;
 typedef struct { u8 v; } Field_u8;
-/* Casts a ray straight down from a point (up to a max drop) against actors, scene objects and meshes. Writes the nearest ground position, moving-platform deltas and hit plane. Returns 1 on a hit. */ s32 findGroundBelowPoint(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, void *arg5, void *arg6, void *arg7)
+/* Casts a ray straight down from a point (up to a max drop) against actors, scene objects and meshes. Writes the nearest ground position, moving-platform deltas and hit plane. Returns 1 on a hit. */ s8 findGroundBelowPoint(s32 arg0, void * arg1, void * arg2, void * arg3, f32 arg4, s32 arg5, s32 arg6, s32 arg7)
 {
   u32 guard_value;
   u8 *tri8a;

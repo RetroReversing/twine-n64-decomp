@@ -10,7 +10,7 @@ extern ClipVertex *clip_src_verts, *clip_dst_verts, *clip_cursor, *clip_swap_tmp
 extern s16 gClipBelowMinYCount, gClipAboveMaxXCount, gClipAboveMaxYCount, gClipBelowMinXCount, clip_near_out_count, clip_far_out_count;
 
 /* Clips the vertex list in clip_buffer_a against the near plane (z = 0.2) and the far plane (kRayNoHitDistance), ping-ponging between the two buffers; returns the number of surviving vertices. */
-s32 clip_verts_z_planes(s32 vert_count)
+s32 clip_verts_z_planes(s32 vert_count, s32 arg1)
 {
     s32 i;
     s16 pass, remaining, in_idx, out_idx, prev_idx;

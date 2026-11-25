@@ -48,7 +48,7 @@ void refreshOptionEntryLabels(void) {
 }
 extern u8 gDemoRecordingActive;
 void setSaveSlotEntryParams(u8, u16, u8);
-/* Unless a demo is recording, converts percent (0-100) to 0-255 (percent*255/100 via multiply-high) and forwards it to setSaveSlotEntryParams. */ void setSaveSlotEntryPercent(s32 slot, s32 param, s32 percent) {
+/* Unless a demo is recording, converts percent (0-100) to 0-255 (percent*255/100 via multiply-high) and forwards it to setSaveSlotEntryParams. */ void setSaveSlotEntryPercent(char slot, s32 param, s32 percent) {
     if (!gDemoRecordingActive) {
         s32 reciprocal100 = 0x51EB851F;
         s32 scaled = percent * 255;

@@ -3,7 +3,7 @@
 s32 remapAnimIdForVariant(void *);                          /* extern */
 extern s32 sCommandScriptTable;
 
-/* Switches the actor's command state; if it changed, loads the new command script, resets flags/counters, and returns 1 (0 if unchanged). */ s32 setActorCommandState(void *actor, s32 newState) {
+/* Switches the actor's command state; if it changed, loads the new command script, resets flags/counters, and returns 1 (0 if unchanged). */ s32 setActorCommandState(void *actor, s32 newState, s32 arg2) {
     void *cmdData2;
     void *cmdData3;
     void *cmdData;

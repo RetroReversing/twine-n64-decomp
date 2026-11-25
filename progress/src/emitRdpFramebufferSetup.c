@@ -9,7 +9,7 @@ extern s16 gScreenWidth;
 extern void *D_80115328;
 
 typedef struct { int field_0; int field_4; int field_8; int field_C; int field_10; int field_14; int field_18; int field_1C; } __repair_record_temp_s0;
-/* Appends RDP display list commands that set the color framebuffer and scissor to the full screen. */ void emitRdpFramebufferSetup(void) {
+/* Appends RDP display list commands that set the color framebuffer and scissor to the full screen. */ void emitRdpFramebufferSetup(s32 arg0) {
     s32 maxX;
     s32 maxY;
     s32 colorImageSize;

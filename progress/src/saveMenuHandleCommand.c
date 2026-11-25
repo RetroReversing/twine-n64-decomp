@@ -16,7 +16,7 @@ extern u8 D_8010A950;
 extern char D_800D2AC8[];
 
 /* Runs one save-menu command (flags in command) and returns the next menu result code. */
-s32 saveMenuHandleCommand(u16 command, u8 arg1) {
+u16 saveMenuHandleCommand(u16 command, u8 arg1) {
     Rec ***pp;
     Rec **p;
 

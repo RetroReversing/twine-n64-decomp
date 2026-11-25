@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 f32 approxDistance(void *, void *);                  /* extern */
 f32 absFloat(f32);                             /* extern */
 
-/* Returns 1 if the target is within 2 units vertically of the actor and closer than maxDistance horizontally, else 0. */ s32 isTargetWithinReach(void *actor, void *target, f32 maxDistance) {
+/* Returns 1 if the target is within 2 units vertically of the actor and closer than maxDistance horizontally, else 0. */ s8 isTargetWithinReach(void * actor, s32 target, f32 maxDistance) {
     s32 result;
 
     if (!(absFloat(M2C_FIELD(target, f32 *, 4) - M2C_FIELD(actor, f32 *, 0x28)) < 2.0f) || (result = 1, !(approxDistance(target, actor + 0x24) < maxDistance))) {

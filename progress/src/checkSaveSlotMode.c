@@ -11,7 +11,7 @@ extern s8 *findSubstring(s8 *, s8 *);
 extern s8 *lookupDataEntry(s32);
 extern s32 isSaveSlotValid(u8);
 /* Checks the current save slot's name against the requested mode (1-3); returns mode, or mode | 0x1000 if invalid. */
-s32 checkSaveSlotMode(s32 mode)
+s32 checkSaveSlotMode(s32 mode, s32 arg1, s32 arg2, s32 arg3)
 {
   SaveHeader ***slotEntry;
   SaveHeader **slotHeader;

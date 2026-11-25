@@ -1,19 +1,21 @@
 typedef struct Blk { struct Blk *prev; struct Blk *next; s32 size; } Blk;
 extern Blk *gHeapFreeList;
 
-void coalesceFreeBlocks(void) {
-    Blk *b, *n;
-    s16 merged;
+/* Merges physically adjacent blocks in the heap free list until no more merges happen. */
+void coalesceFreeBlocks(s32 arg0) {
+    Blk *block;
+    Blk *adjacent;
+    s16 didMerge;
     do {
-        merged = 0;
-        for (b = gHeapFreeList; b != 0; b = b->next) {
-            n = (Blk *)((u8 *)b + b->size);
-            if (n == b->next) {
-                b->size += n->size;
-                b->next = n->next;
-                if (n->next != 0) n->next->prev = b;
-                merged = 1;
+        didMerge = 0;
+        for (block = gHeapFreeList; block != 0; block = block->next) {
+            adjacent = (Blk *)((u8 *)block + block->size);
+            if (adjacent == block->next) {
+                block->size += adjacent->size;
+                block->next = adjacent->next;
+                if (adjacent->next != 0) adjacent->next->prev = block;
+                didMerge = 1;
             }
         }
-    } while (merged);
+    } while (didMerge);
 }

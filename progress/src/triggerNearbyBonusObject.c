@@ -10,7 +10,7 @@ extern s32 gSaveTotalSlots;
 extern s32 sBonusObjectTable;
 
 /* Finds the first bonus object (other than types 0x4D and 0x61) within distance 2.0 of object and triggers it. */
-s8 triggerNearbyBonusObject(void *object) {
+s32 triggerNearbyBonusObject(void * object) {
     u16 i = 0;
     if (gSaveTotalSlots > 0) {
         NearbyObject **objects = (NearbyObject **)&sBonusObjectTable;

@@ -1,0 +1,1 @@
+void * gVisibleObjects[16];

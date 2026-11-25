@@ -3,7 +3,7 @@ extern s32 gSearchNodes;
 extern u32 sSearchEntryCount;
 
 /* Returns the index of the search entry nearest to the object's position (object pos at +0x24, lowered by a height offset in states 2 and 3). */
-u32 findNearestSearchEntry(void *obj) {
+s32 findNearestSearchEntry(void *obj) {
     struct {
         s32 x;
         f32 y;

@@ -1,0 +1,1 @@
+void * sBonusObjectTable[4];

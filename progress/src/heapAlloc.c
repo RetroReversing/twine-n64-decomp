@@ -16,7 +16,7 @@ extern s32 gHeapBytesAllocated;
 extern s32 gHeapStart;
 extern s32 gHeapEnd;
 
-/* Bump-allocates size bytes: from the heap start if fromStart is nonzero, otherwise from the heap end downward. */ s32 heapAlloc(s32 size, s32 fromStart) {
+/* Bump-allocates size bytes: from the heap start if fromStart is nonzero, otherwise from the heap end downward. */ s32 heapAlloc(u32 size, u8 fromStart) {
     s32 temp_v0;
     s32 ptr;
 

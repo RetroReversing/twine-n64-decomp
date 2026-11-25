@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 setActorCommandState();
 
-/* If setActorCommandState succeeds, stores value in the actor's linked data (+0x68, field +0xA0). */ void trySetActorCommandValue(void *actor, s32 arg1, s16 value) {
+/* If setActorCommandState succeeds, stores value in the actor's linked data (+0x68, field +0xA0). */ void trySetActorCommandValue(void * actor, u16 arg1, u16 value) {
     if (setActorCommandState() != 0) {
         M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s16 *, 0xA0) = value;
     }

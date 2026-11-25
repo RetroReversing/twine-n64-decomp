@@ -7,7 +7,7 @@ extern Node *gHeapFreeList;
 extern Node *gHeapAllocList;
 void coalesceFreeBlocks();
 
-/* Frees a heap allocation: unlinks it from the allocated list, inserts it into the address-sorted free list, then coalesces neighbours. */ void freeHeapBlock(void *ptr, s32 tag) {
+/* Frees a heap allocation: unlinks it from the allocated list, inserts it into the address-sorted free list, then coalesces neighbours. */ void freeHeapBlock(void *ptr, s32 tag, s32 arg2) {
     Node *block;
     Node *prevBlock;
     Node *nextBlock;

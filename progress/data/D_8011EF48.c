@@ -1,0 +1,2 @@
+extern u8 updateFollowerActorAi[];
+void *D_8011EF48[12] = { (u8 *)&updateFollowerActorAi + 0x3A8, (u8 *)&updateFollowerActorAi + 0x76C, (u8 *)&updateFollowerActorAi + 0x3CC, (u8 *)&updateFollowerActorAi + 0x4D0, (u8 *)&updateFollowerActorAi + 0x5BC, (u8 *)&updateFollowerActorAi + 0x678, (u8 *)&updateFollowerActorAi + 0x6EC, (u8 *)&updateFollowerActorAi + 0x70C, (u8 *)&updateFollowerActorAi + 0x41C, (u8 *)&updateFollowerActorAi + 0x53C, (u8 *)&updateFollowerActorAi + 0x53C, 0 };

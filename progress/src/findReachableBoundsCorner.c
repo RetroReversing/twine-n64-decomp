@@ -14,7 +14,7 @@ typedef struct
 {
   f32 coord[3];
 } RoutePoint;
-/* Builds the target object's padded bounding-box corners and picks one the actor can reach with line of sight to the goal, storing it as the route waypoint. */ s32 findReachableBoundsCorner(void *actor, f32 *goalPos, s32 successArg, s32 fallbackArg)
+/* Builds the target object's padded bounding-box corners and picks one the actor can reach with line of sight to the goal, storing it as the route waypoint. */ s8 findReachableBoundsCorner(u8 * actor, u8 * goalPos, s32 successArg, s32 fallbackArg)
 {
   struct 
   {

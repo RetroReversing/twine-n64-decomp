@@ -9,7 +9,7 @@ typedef struct { s32 v[3]; } EffectPos;
 typedef struct { u8 pad_0[84]; f32 scale; u8 pad_58[4]; s32 flags; u8 pad_60[24]; s16 field_78; s16 field_7A; u8 pad_7C[2]; s8 field_7E; s8 field_7F; s8 field_80; s8 field_81; u8 field_82; } EffectObj;
 
 /* Spawns an effect at pos, remembers pos in sLastEffectPos, and if it spawned, sets its animation, scale and flags. */
-void *spawnPositionedEffect(void *pos, s32 effectType, s32 scale) {
+void *spawnPositionedEffect(f32 * pos, f32 * effectType, u16 scale) {
     void *effect;
 
     if ((u32) (gSceneType - 4) >= 2U) {

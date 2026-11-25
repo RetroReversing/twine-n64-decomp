@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK startAndQueueDistanceSound(int, M2C_UNK, M2C_UNK);            /* extern */
 
-/* Plays a sound at full volume and neutral pan (0xFF, 0xFF) with no distance attenuation. */ void requestSound(int soundId) {
-    startAndQueueDistanceSound(soundId, 0xFF, 0xFF);
+/* Plays a sound at full volume and neutral pan (0xFF, 0xFF) with no distance attenuation. */ s32 requestSound(int soundId, s32 arg1, s32 arg2) {
+    return startAndQueueDistanceSound(soundId, 0xFF, 0xFF);
 }

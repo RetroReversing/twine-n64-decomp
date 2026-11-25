@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 setActorCommandState();
 s32 setActorAnimation();
 
-/* Resets an actor's action by its state (field 0x7C): states 2/5/6/10 set a command and animation 0x35 and return 0; states 0-4 clear state and return 1; others return 0. */ s32 resetActorActionState(void *actor) {
+/* Resets an actor's action by its state (field 0x7C): states 2/5/6/10 set a command and animation 0x35 and return 0; states 0-4 clear state and return 1; others return 0. */ s8 resetActorActionState(u8 * actor) {
     s32 command;
     void *cmdActor;
     s16 state;

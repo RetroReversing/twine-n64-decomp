@@ -16,7 +16,7 @@ s32 angleDelta12();
 s32 computeYawToPosition();
 f32 absFloat(f32);
 
-/* Returns 1 if the actor's current yaw is within tolerance of the yaw toward targetPos. */ s32 isFacingPosition(void *actor, s32 targetPos, s32 *outYaw, f32 tolerance) {
+/* Returns 1 if the actor's current yaw is within tolerance of the yaw toward targetPos. */ s8 isFacingPosition(u8 * actor, u8 * targetPos, s32 * outYaw, f32 tolerance) {
 
     computeYawToPosition(actor, targetPos, outYaw);
     if (absFloat((f32) angleDelta12(*outYaw, M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s16 *, 0x8C))) < tolerance) {

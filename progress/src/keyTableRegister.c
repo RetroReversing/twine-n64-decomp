@@ -8,7 +8,7 @@ extern u8 D_800F38F4[];
 extern u8 D_800F38F8[];
 
 /* Registers a 0xFFFF-terminated key list in a free slot (max 8) and resets its entry states; returns 0 if full. */
-s32 keyTableRegister(N97814 *keyList, s32 value) {
+u8 keyTableRegister(s32 keyList, s32 value) {
     s32 slot;
     u16 count;
     u16 k;

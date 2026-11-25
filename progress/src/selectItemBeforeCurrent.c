@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 s32 selectItemAndUpdateAmount();
 
-/* Selects the item one before the current index (byte at 0x18) of the menu. */ void selectItemBeforeCurrent(void *menu) {
+/* Selects the item one before the current index (byte at 0x18) of the menu. */ void selectItemBeforeCurrent(void * menu, void * arg1) {
     selectItemAndUpdateAmount(menu, M2C_FIELD(menu, u8 *, 0x18) - 1);
 }

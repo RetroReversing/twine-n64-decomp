@@ -40,7 +40,7 @@ extern void *volatile sBonusObjectTable;
 
 typedef struct { s32 x, y, z; } CopyPosition;
 
-/* Per-frame AI decision for an actor: picks a target, turns/chases/investigates it, plays reaction animations and sounds; returns 1 if an action was taken. */ s32 updateActorAiBehavior(void *actor) {
+/* Per-frame AI decision for an actor: picks a target, turns/chases/investigates it, plays reaction animations and sounds; returns 1 if an action was taken. */ s8 updateActorAiBehavior(u8 * actor) {
     struct {
         s32 sp28;
         s32 sp2C;

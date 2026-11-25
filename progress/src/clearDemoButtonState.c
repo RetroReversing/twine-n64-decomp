@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern s16 D_800E1A86;
 extern char gDemoButtons[];
 
-/* Zeroes the demo button entries (two halfwords per 8-byte entry) and five trailing halfwords. */ void clearDemoButtonState(void) {
+/* Zeroes the demo button entries (two halfwords per 8-byte entry) and five trailing halfwords. */ void clearDemoButtonState(s32 arg0) {
     char *buttonCursor;
     char *trailingSlot;
     s32 byteOffset;

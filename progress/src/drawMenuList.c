@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK updateScrollWindow();                            /* extern */
 
-/* Draws each entry of a menu by calling its draw callback, flagging the selected entry; scrolling menus defer to updateScrollWindow. */ void drawMenuList(void *menu) {
+/* Draws each entry of a menu by calling its draw callback, flagging the selected entry; scrolling menus defer to updateScrollWindow. */ void drawMenuList(s32 * menu, void * arg1) {
     s32 itemIndex;
     s32 items;
     u16 i;

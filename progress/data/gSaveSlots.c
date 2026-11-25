@@ -1,0 +1,1 @@
+void * gSaveSlots[4];

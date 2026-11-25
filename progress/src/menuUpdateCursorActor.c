@@ -13,10 +13,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK allocActorAnimData(void *, s32, M2C_UNK, M2C_UNK); /* extern */
-M2C_UNK func_80002D30(void *, u16);                 /* extern */
+M2C_UNK clearProbeState(void *, u16);                 /* extern */
 M2C_UNK updateActorAnimation(void *);                      /* extern */
 s32 findHighestPriorityEntry(void);                                 /* extern */
-M2C_UNK func_80016718(void *);                      /* extern */
+M2C_UNK actorUnlinkFromSurface(void *);                      /* extern */
 void *getMenuEntry(void *, s8);                    /* extern */
 M2C_UNK objectListInsert(void *, s32);              /* extern */
 M2C_UNK effectSetAnimFrame(void *, s32, u32);        /* extern */
@@ -57,7 +57,7 @@ extern u16 gMenuMode;
 extern u8 gMenuSlot;
 extern void *gSaveMenuState;
 
-/* Spawns/updates the menu cursor effect actor for the selected menu entry, setting its animation, transform and flags, then registers it in the object list. */ void menuUpdateCursorActor(void) {
+/* Spawns/updates the menu cursor effect actor for the selected menu entry, setting its animation, transform and flags, then registers it in the object list. */ void menuUpdateCursorActor(s16 arg0, s16 arg1) {
     s32 animFrame;
     f32 one = 1.0f;
     s32 tableOffset;
@@ -95,7 +95,7 @@ block_9:
             }
             {
                 if ((((u32)animId >> 31) | ((u32)animFrame >> 31)) != 0) {
-                    func_80016718(D_800B7CE8);
+                    actorUnlinkFromSurface(D_800B7CE8);
                     return;
                 }
                 if (gMenuMode == 1) {
@@ -112,7 +112,7 @@ block_9:
                     D_800B7CE8->flags = (s32) (D_800B7CE8->flags | 0x400);
                     gBootState = 1;
                     allocActorAnimData(D_800B7CE8, animId, 2, 0);
-                    func_80002D30(D_800B7CE8, *(u16 *)((u8 *)&D_800C472E + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8));
+                    clearProbeState(D_800B7CE8, *(u16 *)((u8 *)&D_800C472E + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8));
                     updateActorAnimation(D_800B7CE8);
                     D_800B7CE8->x = (f32) *(f32 *)((u8 *)&D_800C4774 + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8);
                     M2C_FIELD(D_800B7CE8, f32 *, 0x28) = (f32) *(f32 *)((u8 *)&D_800C4778 + M2C_FIELD(menuEntry, u8 *, 8) * 0xE8);
@@ -126,7 +126,7 @@ block_9:
                 D_800B7CE8->field7e = 1;
                 D_800B7CE8->field78 = 0x1F;
                 D_800B7CE8->flags = (s32) (D_800B7CE8->flags | 0x1100);
-                func_80016718(D_800B7CE8);
+                actorUnlinkFromSurface(D_800B7CE8);
                 objectListInsert(D_800B7CE8, M2C_FIELD(D_80109698, s32 *, 0xF4));
                 M2C_FIELD(gSaveMenuState, u8 *, 0x30) = 0xFF;
             }

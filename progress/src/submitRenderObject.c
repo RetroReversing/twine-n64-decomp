@@ -16,7 +16,7 @@ s32 func_80008434();
 s32 buildObjectModelMatrix();
 s32 emitModelDisplayList();
 s32 cacheObjectTransform();
-s32 func_80008750();
+s32 setupRenderModeCombiner();
 extern u32 sMatrixPoolLimit;
 extern u32 sMatrixPoolUsed;
 extern s32 D_8010D538;
@@ -32,7 +32,7 @@ void submitRenderObject(s32 arg0, void *arg1, s32 arg2, s32 arg3, s8 arg4) {
     if ((temp_s2 != 0) && ((u32) sMatrixPoolUsed < (u32) sMatrixPoolLimit)) {
         temp_a1 = ((__repair_record_arg1*)arg1)->field_7E;
         if (temp_a1 != 0xB) {
-            func_80008750(arg2, temp_a1, 0);
+            setupRenderModeCombiner(arg2, temp_a1, 0);
             temp_v0 = sMatrixPoolUsed + 1;
             D_8010D538 = M2C_FIELD(sRenderState, s32 *, 0x74C) + (temp_v0 << 6);
             sMatrixPoolUsed = temp_v0;

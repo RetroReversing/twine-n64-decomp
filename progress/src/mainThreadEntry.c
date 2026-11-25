@@ -37,7 +37,7 @@ void func_8003278C(void)
 
 extern void func_800081C4(s32);
 extern void func_8001087C(void);
-extern void func_80011950(void);
+extern void pollControllersAndRunSaveCommand(void);
 extern void func_8009D0DC(void);
 extern s32 func_800A6790(void);
 extern void osCreateMesgQueue(void *, void *, s32);
@@ -61,6 +61,6 @@ extern s32 gStartupMesgBuf, gStartupMesgQueue;
     func_8001087C();
     do {} while (func_800A6790() != 0);
 loop:
-    func_80011950();
+    pollControllersAndRunSaveCommand();
     goto loop;
 }

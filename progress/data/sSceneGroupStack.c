@@ -1,0 +1,1 @@
+void * sSceneGroupStack[131];

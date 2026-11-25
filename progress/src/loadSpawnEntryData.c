@@ -16,6 +16,6 @@ M2C_UNK lookupDataEntry(u16);                         /* extern */
 typedef struct { u16 f0; u8 pad[10]; } Slot_800BF680;
 extern Slot_800BF680 gSpawnTable[];
 
-/* Looks up the data entry referenced by the given spawn table slot. */ void loadSpawnEntryData(s32 spawnIndex) {
-    lookupDataEntry(gSpawnTable[spawnIndex].f0);
+/* Looks up the data entry referenced by the given spawn table slot. */ void *loadSpawnEntryData(s32 spawnIndex) {
+    return lookupDataEntry(gSpawnTable[spawnIndex].f0);
 }

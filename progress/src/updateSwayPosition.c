@@ -4,7 +4,7 @@ extern f64 D_800D4490;
 extern char gTrackMarkerParents[];
 
 /* Writes the sway's output position (fields 0x3C..0x44 of its output block) from the current track marker. */
-void updateSwayPosition(void *obj) {
+void updateSwayPosition(void * obj, f32 * arg1) {
     f32 offset[3];
     register void *sway;
     void **markerSlot;

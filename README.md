@@ -1,5 +1,20 @@
 # TWINE (decompilation)
 
+<!-- decompdecomp:details:start -->
+- **Game:** TWINE
+- **Platform:** n64
+- **Compiler:** gcc-2.7.2-kmc
+<!-- decompdecomp:details:end -->
+<!-- decompdecomp:progress:start -->
+- **Progress:** 1793 matching function(s), 65 best attempt(s)
+- **Completion:** 1,793 / 1,793 functions (100.0%). 105 set aside, excluded from completion.
+<!-- decompdecomp:progress:end -->
+<!-- decompdecomp:visuals:start -->
+![Decompilation completion and function map](progress/decompdecomp-progress.svg)
+
+Green: matched. Gold: attempted. Grey: open. Red: set aside.
+<!-- decompdecomp:visuals:end -->
+
 A matching decompilation of TWINE for the Nintendo 64, started with [decompdecomp](https://github.com/RetroReversing/decompdecomp).
 550 of 1897 functions are C that compiles to exactly the original code; the rest are still assembly.
 `build.py` rebuilds the game from this tree and checks it against your original, byte for byte.

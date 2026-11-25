@@ -16,6 +16,6 @@ M2C_UNK spawnCaptionMessage(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32,
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern s16 gTrackMarkerParents;
 
-/* Spawns the caption message for the current track marker using data entry 0xF2. */ void spawnTrackMarkerCaption(void) {
-    spawnCaptionMessage(0, (*(s32 *)&gTrackMarkerParents), lookupDataEntry(0xF2), -1, -1, 1, 0, 0, 5, 0, 0x3C);
+/* Spawns the caption message for the current track marker using data entry 0xF2. */ s32 spawnTrackMarkerCaption(s32 arg0, s32 arg1) {
+    return spawnCaptionMessage(0, (*(s32 *)&gTrackMarkerParents), lookupDataEntry(0xF2), -1, -1, 1, 0, 0, 5, 0, 0x3C);
 }

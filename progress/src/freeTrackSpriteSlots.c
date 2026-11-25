@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK freeMenuItemRecord(s32);                         /* extern */
 
-/* Frees and clears the track's 4 records at +0x3D4 and 6 records at +0x3E4. */ void freeTrackSpriteSlots(void *track) {
+/* Frees and clears the track's 4 records at +0x3D4 and 6 records at +0x3E4. */ void freeTrackSpriteSlots(void *track, s32 arg1) {
     s32 record;
     s32 record2;
     u32 i;

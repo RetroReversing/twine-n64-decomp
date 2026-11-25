@@ -3,7 +3,7 @@
 extern s32 gVisibleSaveSlotCount;
 extern u8 gBorderFlipFlag;
 
-/* Outputs the center point of the viewport for the current split-screen layout (full screen is 160,120). */ void getViewportCenter(s16 *outX, s8 *outY) {
+/* Outputs the center point of the viewport for the current split-screen layout (full screen is 160,120). */ void getViewportCenter(s16 *outX, s8 *outY, s32 arg2) {
     switch (gVisibleSaveSlotCount) {
     case 0:
     case 1:

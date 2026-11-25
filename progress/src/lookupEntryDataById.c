@@ -16,7 +16,7 @@ s32 findEntryIndexById();
 s32 lookupDataEntry();
 extern s32 gEntryTable;
 
-/* Resolves an entry (by id if mode is 1, else 1-based index) to its data id and looks up that data; falls back to entry 3. */ void lookupEntryDataById(s16 id, s32 isEntryId) {
+/* Resolves an entry (by id if mode is 1, else 1-based index) to its data id and looks up that data; falls back to entry 3. */ s32 lookupEntryDataById(s16 id, s32 isEntryId) {
     s32 mode;
     s32 index;
     s16 entryIndex;
@@ -34,5 +34,5 @@ extern s32 gEntryTable;
     } else {
         dataId = 3;
     }
-    lookupDataEntry(dataId);
+    return lookupDataEntry(dataId);
 }

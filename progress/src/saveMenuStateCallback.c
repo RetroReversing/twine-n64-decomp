@@ -20,7 +20,7 @@ extern s8 gSaveMenuFlag;
 extern s32 sActiveMenu;
 extern void *gSaveMenuState;
 
-/* Save menu state callback: handles init (0), select (0x2000) and exit (0x8000) events and returns the next state. */ s32 saveMenuStateCallback(s32 state, s32 param) {
+/* Save menu state callback: handles init (0), select (0x2000) and exit (0x8000) events and returns the next state. */ u16 saveMenuStateCallback(s32 state, s32 param) {
     s32 stateId;
 
     stateId = state & 0xFFFF;

@@ -16,7 +16,7 @@ s32 angleDelta12(s32, s32);                        /* extern */
 M2C_UNK computeYawToPosition();                            /* extern */
 f32 absFloat(f32);                             /* extern */
 
-/* Computes the target angle for the actor and returns 1 if it is within 113 units of the actor's current angle. */ s32 isActorFacingTarget(void *actor, s32 target, s32 *targetAngle) {
+/* Computes the target angle for the actor and returns 1 if it is within 113 units of the actor's current angle. */ s8 isActorFacingTarget(u8 * actor, u8 * target, s32 * targetAngle) {
     computeYawToPosition(actor, target, targetAngle);
     if (absFloat((f32) angleDelta12(*targetAngle, (s32) M2C_FIELD(actor, f32 *, 0x40))) < 113.0f) {
         return 1;

@@ -19,7 +19,7 @@ extern s32 gMenuSoundParams;
 extern void *sActiveMenu;
 extern void *gSaveMenuState;
 
-/* Marks the current save menu item as highlighted, advances the menu state, and plays the pending selection sound. */ void updateSaveMenuSelection(void) {
+/* Marks the current save menu item as highlighted, advances the menu state, and plays the pending selection sound. */ void updateSaveMenuSelection(void * arg0) {
     s32 soundId;
     void *selectedItem;
     void *currentItem;

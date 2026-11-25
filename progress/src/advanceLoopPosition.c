@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-f64 func_8008CD54();
+f64 truncToU32Float();
 extern f64 D_800D6720;
 extern f64 D_800D6728;
 extern f64 D_800D6730;
@@ -42,7 +42,7 @@ extern f64 D_800D6758;
         if (loopEndRaw < 0) {
             loopEnd += D_800D6728;
         }
-        if (func_8008CD54(*(f64 *)((char *)obj + 8)) <= loopEnd) {
+        if (truncToU32Float(*(f64 *)((char *)obj + 8)) <= loopEnd) {
             loopLenB = (*(s32 *)((char *)(obj) + 0x38));
             loopEndRawB = (*(s32 *)((char *)(obj) + 0x34)); loopEndRawB += loopLenB;
             loopEndF = (f64) loopEndRawB;
@@ -60,7 +60,7 @@ extern f64 D_800D6758;
                 if (loopLenB < 0) {
                     loopLenF += D_800D6738;
                 }
-                wraps = func_8008CD54(step / loopLenF);
+                wraps = truncToU32Float(step / loopLenF);
                 loopLenC = (*(s32 *)((char *)(obj) + 0x38));
                 loopLenCF = (f64) (s32)loopLenC;
                 if (0 > loopLenC) {

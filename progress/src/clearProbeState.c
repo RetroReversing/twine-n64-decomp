@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK setActorCommandState();                            /* extern */
 
-/* Zeroes the probe state halfword (0xA2) in the actor's linked record at +0x68, then updates the actor command state. */ void clearProbeState(void *actor) {
+/* Zeroes the probe state halfword (0xA2) in the actor's linked record at +0x68, then updates the actor command state. */ void clearProbeState(void * actor, u16 arg1) {
     M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s16 *, 0xA2) = 0;
     setActorCommandState();
 }

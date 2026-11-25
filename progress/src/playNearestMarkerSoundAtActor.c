@@ -19,7 +19,7 @@ f32 findNearestTrackMarker(s32, u16 *);                           /* extern */
 extern M2C_UNK gNearestMarkerSoundIds;
 extern M2C_UNK gTrackMarkerParents;
 
-/* Plays a random sound from the table at the nearest track marker and pans it using that marker. */ void playNearestMarkerSoundAtActor(s32 actor) {
+/* Plays a random sound from the table at the nearest track marker and pans it using that marker. */ void playNearestMarkerSoundAtActor(f32 * actor, u32 arg1) {
     u16 markerIndex;
     f32 distance;
 

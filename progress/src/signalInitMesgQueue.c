@@ -16,6 +16,6 @@ typedef s32 M2C_UNK32;
 M2C_UNK osSendMesg(M2C_UNK *, M2C_UNK, M2C_UNK); /* extern */
 extern M2C_UNK gInitMesgQueue;
 
-/* Posts an empty message to gInitMesgQueue to wake whoever waits on it. */ void signalInitMesgQueue(void) {
+/* Posts an empty message to gInitMesgQueue to wake whoever waits on it. */ void signalInitMesgQueue(u16 * arg0, u16 * arg1) {
     osSendMesg(&gInitMesgQueue, 0, 0);
 }

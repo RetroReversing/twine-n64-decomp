@@ -1,0 +1,1 @@
+void * gCurrentSpawnRecordPtr[2];

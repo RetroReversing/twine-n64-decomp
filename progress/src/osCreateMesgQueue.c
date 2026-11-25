@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 
 extern M2C_UNK gEmptyThreadQueue;
 
-/* Initialises an OS message queue: empty wait queues, no pending messages, given buffer and capacity. */ void osCreateMesgQueue(void *mq, s32 msgBuf, s32 msgCount) {
+/* Initialises an OS message queue: empty wait queues, no pending messages, given buffer and capacity. */ void osCreateMesgQueue(void *mq, s32 msgBuf, s32 msgCount, s32 arg3) {
     M2C_FIELD(mq, M2C_UNK **, 0) = &gEmptyThreadQueue;
     M2C_FIELD(mq, M2C_UNK **, 4) = &gEmptyThreadQueue;
     M2C_FIELD(mq, s32 *, 8) = 0;

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern void *gTextRefTable;
 
-/* Returns the type field of the current text ref table, or 2 if no table is loaded. */ u16 getTextRefType(void) {
+/* Returns the type field of the current text ref table, or 2 if no table is loaded. */ s32 getTextRefType(void) {
     u16 refType;
     if (gTextRefTable == NULL) {
         refType = 2U;

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 updateSceneTransitionState();
 s32 initFrameDoneMsgQueue();
-void func_80006E78(void);
+void initGfxTasks(void);
 s32 measureFrameTime();
 s32 clearMatrixPoolCounters();
 s32 initGameDataBanks();
@@ -145,7 +145,7 @@ scale:
     osViSetMode(viModeOffset + D_800CFF60);
     osViBlack(1);
     dst = D_80109CC8;
-    src = viModeOffset + (D_800CFF60 + 0x50);
+    src = viModeOffset + (((char *)&D_800CFF60 + 0x50));
     srcEnd = src + 0x50;
     D_80100964 = viIndex + 2;
     D_80108F95 = viIndex + 6;
@@ -161,7 +161,7 @@ scale:
     D_80109D04 = 0x500;
     D_80109CF8 = 0x2301FD;
     D_80109D0C = 0x2501FF;
-    func_80006E78();
+    initGfxTasks();
     osViSwapBuffer(gFramebuffers);
     loadDataEntryTable(1);
     initControllerAndSaveState();

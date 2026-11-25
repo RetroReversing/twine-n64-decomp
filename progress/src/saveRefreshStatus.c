@@ -15,7 +15,7 @@ typedef struct
 {
   u32 v;
 } __attribute__((packed)) UW;
-/* Re-queries the current controller pak slot and updates gSaveStatus from the result (retrying read, repair and header backup steps); returns the new status. */ s32 saveRefreshStatus(void)
+/* Re-queries the current controller pak slot and updates gSaveStatus from the result (retrying read, repair and header backup steps); returns the new status. */ u16 saveRefreshStatus(void)
 {
   s32 idx;
   u8 *b0;

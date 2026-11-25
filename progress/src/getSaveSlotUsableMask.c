@@ -16,6 +16,6 @@ typedef s32 M2C_UNK32;
 
 s32 refreshSaveSlotUsableFlags();                                /* extern */
 
-/* Refreshes the save slot usable flags and returns them truncated to 16 bits. */ s32 getSaveSlotUsableMask(void) {
+/* Refreshes the save slot usable flags and returns them truncated to 16 bits. */ s32 getSaveSlotUsableMask(s32 arg0) {
     return refreshSaveSlotUsableFlags() & 65535;
 }

@@ -17,7 +17,7 @@ extern s32 gFogColorOverrideEnabled;
 extern s32 gCurrentFogColorMode;
 extern s32 *sDisplayListCursor;
 
-/* Emits a display-list command setting the fog color for the given mode, if it changed (uses a fixed value when the override is enabled). */ void applyFogColorMode(s32 unused, s32 mode) {
+/* Emits a display-list command setting the fog color for the given mode, if it changed (uses a fixed value when the override is enabled). */ void applyFogColorMode(s32 unused, s32 mode, s32 arg2) {
     s32 *gfx;
     s32 *gfxAlt;
 

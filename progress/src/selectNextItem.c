@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 s32 selectItemAndUpdateAmount();
 
-/* Selects the item after the current one (index byte at 0x18, plus one). */ void selectNextItem(void *menu) {
+/* Selects the item after the current one (index byte at 0x18, plus one). */ void selectNextItem(void * menu, void * arg1) {
     selectItemAndUpdateAmount(menu, M2C_FIELD(menu, u8 *, 0x18) + 1);
 }

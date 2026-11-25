@@ -28,7 +28,7 @@ inline static int inline_fn(int arg0)
   return -arg0;
 }
 
-/* Scans all four save slots, verifies each present one, loads headers for slot 0 on first scan, and returns the save status. */ u16 scanSaveSlots(void)
+/* Scans all four save slots, verifies each present one, loads headers for slot 0 on first scan, and returns the save status. */ s32 scanSaveSlots(void)
 {
   s16 *slotFlagsBase;
   s16 *slotLoadedBase;

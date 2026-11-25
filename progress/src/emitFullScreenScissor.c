@@ -17,7 +17,7 @@ extern s16 gScreenWidth;
 extern void *sDisplayListCursor;
 
 typedef struct { int field_0; int field_4; } __repair_record_temp_a0;
-/* Appends a G_SETSCISSOR display list command covering the full screen (coordinates in 10.2 fixed point). */ void emitFullScreenScissor(void) {
+/* Appends a G_SETSCISSOR display list command covering the full screen (coordinates in 10.2 fixed point). */ void emitFullScreenScissor(void * arg0) {
     void *cmd;
 
     cmd = sDisplayListCursor;

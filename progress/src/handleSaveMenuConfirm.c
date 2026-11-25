@@ -18,27 +18,27 @@ M2C_UNK updateSaveMenuSelection(void *);                      /* extern */
 extern u8 gSaveKeyRelaxed;
 extern void *gSaveMenuState;
 
-void handleSaveMenuConfirm(void) {
-    s32 var_v0;
-    void *temp_v1;
-    void *var_a0;
+/* Confirms the save menu selection: starts the level if all save slots are valid (or relaxed key set), otherwise updates the selection state. */ void handleSaveMenuConfirm(s8 *arg0) {
+    s32 newState;
+    void *menuEntry;
+    void *entry;
 
-    temp_v1 = M2C_FIELD(gSaveMenuState, void **, 0x18);
-    M2C_FIELD(temp_v1, u8 *, 0x1C) = (u8) (M2C_FIELD(temp_v1, u8 *, 0x1C) | 0x10);
+    menuEntry = M2C_FIELD(gSaveMenuState, void **, 0x18);
+    M2C_FIELD(menuEntry, u8 *, 0x1C) = (u8) (M2C_FIELD(menuEntry, u8 *, 0x1C) | 0x10);
     M2C_FIELD(gSaveMenuState, s8 *, 0x2F) = 1;
     M2C_FIELD(gSaveMenuState, s8 *, 0x2C) = 1;
     if (gSaveKeyRelaxed != 0) {
-        var_a0 = M2C_FIELD(gSaveMenuState, void **, 0x18);
-        var_v0 = (M2C_FIELD(var_a0, s32 *, 0x14) & ~0xFF) | 0x17;
+        entry = M2C_FIELD(gSaveMenuState, void **, 0x18);
+        newState = (M2C_FIELD(entry, s32 *, 0x14) & ~0xFF) | 0x17;
         goto block_5;
     }
     if (areAllSaveSlotsValid() & 0xFF) {
         confirmMenuAndStartLevel();
         return;
     }
-    var_a0 = M2C_FIELD(gSaveMenuState, void **, 0x18);
-    var_v0 = (M2C_FIELD(var_a0, s32 *, 0x14) & ~0xFF) | 0x18;
+    entry = M2C_FIELD(gSaveMenuState, void **, 0x18);
+    newState = (M2C_FIELD(entry, s32 *, 0x14) & ~0xFF) | 0x18;
 block_5:
-    M2C_FIELD(var_a0, s32 *, 0x14) = var_v0;
-    updateSaveMenuSelection(var_a0);
+    M2C_FIELD(entry, s32 *, 0x14) = newState;
+    updateSaveMenuSelection(entry);
 }

@@ -17,7 +17,7 @@ extern M2C_UNK gSlotValues2;
 extern M2C_UNK gSaveSlotValid;
 extern M2C_UNK gRumbleFlags;
 
-/* If the slot (0-3) is valid, clears its two value entries and sets its rumble flags to 2. */ void resetControllerSlotState(s32 slotIndex) {
+/* If the slot (0-3) is valid, clears its two value entries and sets its rumble flags to 2. */ void resetControllerSlotState(u16 slotIndex) {
     u32 slot;
 
     slot = slotIndex & 0xFFFF;

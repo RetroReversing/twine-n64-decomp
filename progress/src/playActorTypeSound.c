@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 playSoundAtPos();
 extern char gActorTypeTable[];
 
-/* Plays the sound of the actor's type entry at the actor's position. */ void playActorTypeSound(void *obj) {
+/* Plays the sound of the actor's type entry at the actor's position. */ void playActorTypeSound(void * obj, s32 arg1) {
     void *actor;
 
     actor = M2C_FIELD(obj, void **, 0x18);

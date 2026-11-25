@@ -5,7 +5,7 @@ extern s16 gSaveFoundSlot;
 extern s32 gSaveMenuObjectPool;
 extern char D_800D2AC0[];
 /* Scans the 16 save slot entries and returns a slot index chosen by mode (1 = found slot, 2/3 = name matching). */
-s32 findSaveSlotByMode(s32 mode) {
+s32 findSaveSlotByMode(u16 mode) {
     u8 slot = 0;
     s32 searchMode = mode & 0xfff;
     void ***entry;

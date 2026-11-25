@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern s32 gEntryTable;
 extern u16 gEntryCount;
 
-/* Returns the index of the 8-byte entry in gEntryTable whose first halfword equals entryId - 1, or -1 if none. */ s32 findEntryIndexById(s32 entryId) {
+/* Returns the index of the 8-byte entry in gEntryTable whose first halfword equals entryId - 1, or -1 if none. */ s16 findEntryIndexById(s32 entryId, s32 arg1) {
     s16 targetId;
     s16 temp_v0_2;
     s16 index;

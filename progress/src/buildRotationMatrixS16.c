@@ -3,7 +3,7 @@ extern f32 gSinCosTable[];
 #define SIN(x) gSinCosTable[((x) - 0x400) & 0xFFF]
 
 /* Builds a 3x3 row-major rotation matrix from Euler angles: angles[0] = X, angles[1] = Y, angles[2] = Z, 4096 units per turn. */
-void buildRotationMatrixS16(const s16 *angles, f32 *matrix) {
+void buildRotationMatrixS16(const s16 *angles, f32 *matrix, s32 arg2) {
     s32 angleY = angles[1];
     s32 angleZ = angles[2];
     f32 cosY = COS(angleY);

@@ -6,7 +6,7 @@ f32 findNearestTrackMarker(s32, s16 *);
 extern u16 gMarkerVariantSoundIdsA[], gMarkerVariantSoundIdsB[];
 extern s32 gTrackMarkerParents[];
 
-/* Plays a random one of three sounds (table chosen by variant) scaled by distance to the object's nearest track marker, then pans it from that marker. */ void playMarkerVariantSound(s32 obj, u32 useAltTable) {
+/* Plays a random one of three sounds (table chosen by variant) scaled by distance to the object's nearest track marker, then pans it from that marker. */ void playMarkerVariantSound(void * obj, s32 useAltTable, s32 arg2) {
     s16 markerIndex;
     f32 distanceFactor = findNearestTrackMarker(obj, &markerIndex);
     s32 soundId;

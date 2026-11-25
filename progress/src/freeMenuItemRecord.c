@@ -17,7 +17,7 @@ extern s32 gNodeObjectCount;
 extern M2C_UNK D_8010D268;
 
 typedef struct { void * field_0; void * field_4; } __repair_record_arg0;
-/* Unlinks a menu item record from its list, decrements the node count and returns it to the pool. */ void freeMenuItemRecord(void *record) {
+/* Unlinks a menu item record from its list, decrements the node count and returns it to the pool. */ void freeMenuItemRecord(void * record, void * arg1) {
     void **next;
     void *prev;
 

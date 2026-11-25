@@ -3,7 +3,7 @@ extern char gMidiBankControllers[];
 extern char gMidiGlobalControllers[];
 
 /* Returns the 14-bit value (MSB<<7 | LSB) of a MIDI controller for a channel, from a bank's controller table or the global one when bankIdx is 0xFF. */
-u16 getMidiControllerValue(s32 controller, s32 channel, s32 bankIdx) {
+s32 getMidiControllerValue(s32 controller, s32 channel, s32 bankIdx) {
     s32 bankSel;
     s32 msb;
     u32 ctrl;

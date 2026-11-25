@@ -1,7 +1,7 @@
 s32 angleDelta12(s32, s32);
 
 /* Starts a motion step: stores the per-frame position and rotation deltas from the object towards the step target, spread over the step duration (240 frames when zero). */
-void motionApplyStep(void *step, f32 duration, void *object) {
+void motionApplyStep(void * step, f32 duration, void * object) {
     f32 stepRot[3];
     f32 rotDeltaZ;
     f32 frames;

@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 typedef struct { s16 f0; u8 pad[14]; } Slot_800C4486;
 extern Slot_800C4486 gPhaseSlotIds[];
 
-/* Searches entries 1..29 of the halfword table at state+0x138 for one whose low byte is idLow and high byte is idHigh. Resets it to 0x100, clears the linked byte if any, and returns 1; returns 0 if none matches. */ s32 clearPendingMessageEntry(s32 state, s32 idLow, s32 idHigh) {
+/* Searches entries 1..29 of the halfword table at state+0x138 for one whose low byte is idLow and high byte is idHigh. Resets it to 0x100, clears the linked byte if any, and returns 1; returns 0 if none matches. */ s32 clearPendingMessageEntry(void * state, s32 idLow, s32 idHigh, s32 arg3) {
 char *__repair_addr;
 
     s16 phaseSlot;

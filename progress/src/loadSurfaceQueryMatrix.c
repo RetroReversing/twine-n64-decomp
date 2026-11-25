@@ -23,7 +23,7 @@ extern f32 D_80102E9C;
 extern f32 D_80102EA0;
 
 typedef struct { float field_0; float field_4; float field_8; float field_C; float field_10; float field_14; float field_18; float field_1C; float field_20; } __repair_record_arg0;
-/* Copies a 3x3 float matrix (9 floats) into the surface query globals. */ void loadSurfaceQueryMatrix(void *matrix) {
+/* Copies a 3x3 float matrix (9 floats) into the surface query globals. */ void loadSurfaceQueryMatrix(s32 matrix, s32 arg1) {
     D_80102E80 = ((__repair_record_arg0*)matrix)->field_0;
     D_80102E84 = ((__repair_record_arg0*)matrix)->field_4;
     D_80102E88 = ((__repair_record_arg0*)matrix)->field_8;

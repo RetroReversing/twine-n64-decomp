@@ -7,7 +7,7 @@ extern s32 D_8010D734;
 extern s32 D_8010D738;
 extern s32 D_8010D73C;
 
-/* Unlinks a voice from its channel list and from the global voice node list. */ void voiceListRemove(void *voice) {
+/* Unlinks a voice from its channel list and from the global voice node list. */ void voiceListRemove(void *voice, s32 arg1) {
     s32 **prevLink;
 
     s32 * node;

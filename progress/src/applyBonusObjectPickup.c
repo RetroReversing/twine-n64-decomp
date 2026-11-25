@@ -24,7 +24,7 @@ extern s32 gTrackMarkerParents;
 typedef struct { unsigned char pad_0[38]; unsigned short field_26; unsigned short field_28; unsigned short field_2A; } __repair_record_temp_s3;
 static inline short __repair_store_halfword(int x){x=(unsigned int)x<<16;x=(int)x>>16;return x;}
 
-/* Applies a picked-up bonus object's effect (stat boost, enemy def counter or action) based on its type, shows captions/sounds and updates the track marker. */ s32 applyBonusObjectPickup(void *arg0, void *arg1) {
+/* Applies a picked-up bonus object's effect (stat boost, enemy def counter or action) based on its type, shows captions/sounds and updates the track marker. */ s8 applyBonusObjectPickup(void *arg0, void *arg1) {
 char *__repair_addr;
 
     char sp30[128];

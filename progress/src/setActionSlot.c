@@ -9,7 +9,7 @@ inline static int inline_fn(s16 arg0)
   return arg0 * 2;
 }
 
-/* Registers an action in the actor's slot table (30 entries) unless already present; returns 1 on success, 0 if rejected. */ s32 setActionSlot(u8 *actor, u8 actionId, s32 param)
+/* Registers an action in the actor's slot table (30 entries) unless already present; returns 1 on success, 0 if rejected. */ s32 setActionSlot(u8 *actor, u8 actionId, s32 param, s32 arg3)
 {
   u8 unusedFrame[16];
   s16 slotIndex; s16 slot;  u16 us;

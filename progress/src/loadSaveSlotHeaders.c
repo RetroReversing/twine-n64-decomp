@@ -22,7 +22,7 @@ extern u16 gSaveStatus;
 extern s16 gSaveSlot;
 extern s16 gSaveFoundSlot;
 extern s32 gSaveCmdResult;
-/* Reads all 16 save-slot headers from the save device, decodes names/codes, and picks a unique code byte for the current name. */ u16 loadSaveSlotHeaders(void)
+/* Reads all 16 save-slot headers from the save device, decodes names/codes, and picks a unique code byte for the current name. */ u16 loadSaveSlotHeaders(s32 arg0)
 {
   s32 slot;
   s32 idx;

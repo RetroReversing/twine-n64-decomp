@@ -16,6 +16,6 @@ typedef s32 M2C_UNK32;
 
 s32 getGlobalValueHigh16();                                /* extern */
 
-/* Returns the 16-bit value from getGlobalValueHigh16 (gPackedValue >> 8, masked to 16 bits). */ s32 getGlobalValueHigh16Masked(void) {
+/* Returns the 16-bit value from getGlobalValueHigh16 (gPackedValue >> 8, masked to 16 bits). */ u16 getGlobalValueHigh16Masked(void) {
     return getGlobalValueHigh16() & 65535;
 }

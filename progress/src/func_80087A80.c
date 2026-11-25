@@ -4,7 +4,7 @@ extern s32 *sSceneGroupLookupResult;
 extern s32 sLoadedSceneGroupCount;
 extern s32 D_800F815C;
 extern s32 compareSceneGroupKey(void *, void *);
-extern s32 *func_800956E0(s16 *, s32 *, s32, s32, s32 (*)(void *, void *));
+extern s32 *binarySearchRecords(s16 *, s32 *, s32, s32, s32 (*)(void *, void *));
 s32 findSceneGroupByKey(s16 arg0, u16 *arg1) {
     s32 ret;
     s16 *base;
@@ -12,7 +12,7 @@ s32 findSceneGroupByKey(s16 arg0, u16 *arg1) {
     s32 length = sLoadedSceneGroupCount;
     base = &sSceneGroupSearchKey;
     *base = arg0;
-    temp = func_800956E0(base - 2, &D_800F815C, length, 0xC, compareSceneGroupKey);
+    temp = binarySearchRecords(base - 2, &D_800F815C, length, 0xC, compareSceneGroupKey);
     sSceneGroupLookupResult = temp;
     if (temp == NULL) {
         ret = 0;

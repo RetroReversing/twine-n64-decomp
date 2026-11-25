@@ -1,0 +1,2 @@
+extern u8 initOptionCursorActorSlot[];
+void *D_8011EFA0[10] = { (u8 *)&initOptionCursorActorSlot + 0x90, (u8 *)&initOptionCursorActorSlot + 0x60, (u8 *)&initOptionCursorActorSlot + 0x80, (u8 *)&initOptionCursorActorSlot + 0x88, (u8 *)&initOptionCursorActorSlot + 0x90, (u8 *)&initOptionCursorActorSlot + 0x98, (u8 *)&initOptionCursorActorSlot + 0xA0, (u8 *)&initOptionCursorActorSlot + 0xA8, (u8 *)&initOptionCursorActorSlot + 0xB0, (u8 *)&initOptionCursorActorSlot + 0xB8 };

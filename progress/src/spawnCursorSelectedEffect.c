@@ -11,7 +11,7 @@ extern u8 sOptionCursorIndex;
 
 typedef struct { s32 word; u16 pad; u16 half; } EffectTail;
 
-/* Spawns an effect object whose type is picked from the argument list by sOptionCursorIndex, and initialises its position, parameters and timer. */ void *spawnCursorSelectedEffect(s32 owner, void *position, s32 middleBits, s32 topBits, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, u16 arg10, u16 arg11, u16 arg12, u16 arg13, EffectTail tail) {
+/* Spawns an effect object whose type is picked from the argument list by sOptionCursorIndex, and initialises its position, parameters and timer. */ void *spawnCursorSelectedEffect(s32 owner, void *position, s32 middleBits, s32 topBits, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, u16 arg10, u16 arg11, u16 arg12, u16 arg13, EffectTail tail, s32 arg15) {
     s16 var_v0;
     u32 rnd;
     s32 effectKind;

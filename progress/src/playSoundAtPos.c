@@ -18,7 +18,7 @@ f32 findNearestTrackMarker(s32, u16 *);                      /* extern */
 extern u32 gTrackMarkerParents[];
 extern s32 gBonusObjects;
 
-/* Plays a sound attenuated by distance from the emitter and pans it toward the nearest track marker (skipped for the bonus object); returns the voice. */ s32 playSoundAtPos(s32 soundId, s32 emitter) {
+/* Plays a sound attenuated by distance from the emitter and pans it toward the nearest track marker (skipped for the bonus object); returns the voice. */ s32 playSoundAtPos(u16 soundId, void * emitter) {
     u16 markerIndex;
     s32 voice;
     s32 id;

@@ -14,7 +14,7 @@ typedef struct {
 } ScrollWindow;
 extern f32 absFloat(f32);
 
-/* Updates a scrolling list window: clamps scroll/selection to the visible limit, draws each row, and eases the offset toward zero. */ void updateScrollWindow(ScrollWindow *window)
+/* Updates a scrolling list window: clamps scroll/selection to the visible limit, draws each row, and eases the offset toward zero. */ void updateScrollWindow(ScrollWindow *window, s32 arg1)
 {
     s16 i, before = 0, total, sum, pos = 0, old;
     s32 bound;

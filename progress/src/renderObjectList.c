@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80008750(void *, u8, M2C_UNK);         /* extern */
+M2C_UNK setupRenderModeCombiner(void *, u8, M2C_UNK);         /* extern */
 M2C_UNK submitRenderObject(void *, void *, void *, s32, s32); /* extern */
 s32 IsSphereVisible(void *, f32, void *, void *);     /* extern */
 M2C_UNK updateObjectColor(void *);                 /* extern */
@@ -89,7 +89,7 @@ typedef struct { unsigned char pad_0[8]; void * field_8; unsigned char pad_C[16]
                             gRenderMode = 4;
                             emitMatricesViewportAndPerspNorm();
                         }
-                        func_80008750(view, M2C_FIELD(M2C_FIELD(object, void **, 0x18), u8 *, 0x45), 0);
+                        setupRenderModeCombiner(view, M2C_FIELD(M2C_FIELD(object, void **, 0x18), u8 *, 0x45), 0);
                         emitObjectMatrix(object, node, view);
                         object = M2C_FIELD(object, void **, 8);
                     } while (object != NULL);

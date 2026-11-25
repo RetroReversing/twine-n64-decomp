@@ -6,7 +6,7 @@ void setActionSlot(void *a, s32 b, s32 c, s32 d);
 s32 resolveEnemyDefLink(s32 a, s32 b);
 void requestEnemyDefChange(void *a, s32 b, s32 c);
 
-/* Picks an enemy definition by the option cursor index, fills the actor's slot data from it, runs an optional hook, then notifies the owner. */ void initOptionCursorActorSlot(void *owner, u8 *actor) {
+/* Picks an enemy definition by the option cursor index, fills the actor's slot data from it, runs an optional hook, then notifies the owner. */ void initOptionCursorActorSlot(void *owner, u8 *actor, s32 arg2) {
     s32 s0 = 0;
     u16 s2 = 0;
     u8 *s1;

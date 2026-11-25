@@ -5,7 +5,7 @@ inline static char *inline_fn(void *arg0)
 }
 
 /* Moller-Trumbore ray/triangle test; returns 1 and writes hit distance to outT on hit. */
-s32 rayTriangleIntersect(void *rayOrigin, void *rayDir, void *v0, void *v1, void *v2, f32 *outT)
+s8 rayTriangleIntersect(void * rayOrigin, f32 * rayDir, s32 v0, s32 v1, s32 v2, f32 * outT)
 {
   f64 invDet;
   f32 edge1[3];

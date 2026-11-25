@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 s32 getSaveSlotValue(s32);                             /* extern */
 
-/* Looks up a save slot value using a 16-bit slot index and returns the low 16 bits. */ s32 getSaveSlotValue16(s32 slot) {
+/* Looks up a save slot value using a 16-bit slot index and returns the low 16 bits. */ u16 getSaveSlotValue16(u16 slot) {
     return getSaveSlotValue(slot & 0xFFFF) & 0xFFFF;
 }

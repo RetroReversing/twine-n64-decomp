@@ -1,0 +1,1 @@
+void * sSlotLog[19];

@@ -6,7 +6,7 @@ extern s32 gFrameBufferIndex;
 extern DisplayCommand *volatile sDisplayListCursor;
 extern u8 *sRenderState;
 
-/* Appends projection/modelview matrix and light/viewport display list commands for the current frame buffer. */ void appendMatrixAndLightCommands(void) {
+/* Appends projection/modelview matrix and light/viewport display list commands for the current frame buffer. */ void appendMatrixAndLightCommands(void * arg0) {
     u32 projectionCmd = 0xDA380007;
     u32 modelviewCmd = 0xDA380005;
     DisplayCommand *cmd = sDisplayListCursor;

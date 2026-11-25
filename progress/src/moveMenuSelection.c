@@ -24,7 +24,7 @@ extern s32 sMenuDefaultSoundParams;
 extern void *gSaveMenuState;
 extern void *sActiveMenu;
 
-/* Moves the save menu's highlighted row (by navigation link or first selectable row), plays a sound, restyles old/new rows and relays out the text box. */ void moveMenuSelection(s32 command, u32 direction) {
+/* Moves the save menu's highlighted row (by navigation link or first selectable row), plays a sound, restyles old/new rows and relays out the text box. */ void moveMenuSelection(s32 command, u32 direction, s32 arg2, s32 arg3) {
     M2C_UNK *var_a3;
     s32 temp_a0_2;
     s32 temp_a2;

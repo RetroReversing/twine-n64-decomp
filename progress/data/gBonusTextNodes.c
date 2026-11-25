@@ -1,0 +1,1 @@
+void * gBonusTextNodes[4];

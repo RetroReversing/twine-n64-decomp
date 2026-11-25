@@ -7,7 +7,7 @@ extern u8 sCacheBlockData[192];
 extern u8 D_F8D70;
 
 /* Returns the cached 32-byte block for blockId, searching from the last hit; on a miss, DMAs it into the next ring slot. */
-void *findOrLoadCacheBlock(s32 blockId) {
+s16 *findOrLoadCacheBlock(s32 blockId) {
 
     s16 *var_v1;
     s16 *table_base = sCacheBlockIds;

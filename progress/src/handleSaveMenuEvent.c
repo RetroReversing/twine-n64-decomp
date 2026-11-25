@@ -9,7 +9,7 @@ extern u8 *gSaveMenuState;
 extern u8 D_8010A950;
 
 /* Handles a save menu event code (0 = confirm, 0x2000 = apply option, 0x4000 = check slot, 0x8000 = refresh labels) and returns the next menu state code. */
-s32 handleSaveMenuEvent(u16 event, u8 arg1) {
+u16 handleSaveMenuEvent(u16 event, u8 arg1) {
     switch (event) {
     case 0:
         if (getSaveSlotHeadersLow16()) {

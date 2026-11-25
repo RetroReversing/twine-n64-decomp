@@ -7,7 +7,7 @@ extern s16 sSceneGroupStackCount;
 extern u8 sSceneGroupStack[];
 
 /* Finds the scene group with the given id and runs its entry with the given id under the worker lock; returns -1 if nothing ran. */
-s32 runSceneGroupEntry(s32 groupId, s32 entryId, s32 arg2, s32 arg3) {
+s32 runSceneGroupEntry(u16 groupId, u16 entryId, s32 arg2, s32 arg3) {
     s32 sub;
     s32 idx;
     s32 off;

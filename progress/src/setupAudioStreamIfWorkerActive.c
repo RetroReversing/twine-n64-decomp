@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK setupAudioStreamWrapper();                            /* extern */
 extern u8 gWorkerThreadActive;
 
-/* Sets up the audio stream only while the sound worker thread is active. */ void setupAudioStreamIfWorkerActive(void) {
+/* Sets up the audio stream only while the sound worker thread is active. */ void setupAudioStreamIfWorkerActive(s32 arg0) {
     if (gWorkerThreadActive != 0) {
         setupAudioStreamWrapper();
     }

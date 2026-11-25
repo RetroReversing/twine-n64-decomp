@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 s8 *getDataEntryOrDefault(s32);                             /* extern */
 
-/* Returns the first byte of the data entry for a 16-bit id (default entry if missing). */ s8 getDataEntryByte(s32 entryId) {
+/* Returns the first byte of the data entry for a 16-bit id (default entry if missing). */ s8 getDataEntryByte(u16 entryId) {
     return *getDataEntryOrDefault(entryId & 0xFFFF);
 }

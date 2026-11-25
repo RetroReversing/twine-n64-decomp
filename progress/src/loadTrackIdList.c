@@ -6,7 +6,7 @@ typedef struct {
 } IdTable;
 extern IdTable *gTrackMarkerParents;
 /* Loads dependencies and asset slots for each track id in a list terminated by a negative value. */
-void loadTrackIdList(s16 *ids) {
+void loadTrackIdList(s16 *ids, s32 arg1) {
     if (*ids >= 0) {
         s16 *idPtr = ids;
         do {

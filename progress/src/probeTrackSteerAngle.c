@@ -1,5 +1,5 @@
 void *raycastObjectMesh(s32, void *, f32 *, s32);
-s32 func_8004AD30(s32, f32 *, s32 *, f32, s32, s32, s32, s32);
+s32 sweepSphereAgainstScene(s32, f32 *, s32 *, f32, s32, s32, s32, s32);
 f32 sinTableLookup(f32);
 f32 sinAngle(f32);
 f32 cosAngle(f32);
@@ -31,7 +31,7 @@ f32 probeTrackSteerAngle(s32 scene, void *actor) {
         if (hitActor != NULL) {
             scene = *(s32 *)((char *)hitActor + 8);
         }
-        hitFound = func_8004AD30(scene, &probePos.x, &hit.i, 4.0f, 0, 0, 0, 0xE);
+        hitFound = sweepSphereAgainstScene(scene, &probePos.x, &hit.i, 4.0f, 0, 0, 0, 0xE);
         if ((hitFound << 24) != 0) {
             steerAngle = approximateAtan2(hit.f - *(f32 *)((char *)trackState + 0xE4), 1.5f);
             steerPos = probePos;

@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 typedef struct { u8 pad[8]; void *x; u8 padC[0x1C]; } E26;
 extern void **gSaveMenuState;
 
-/* Sets the low byte (alpha) of the state word on each save menu object. */ void setSaveMenuAlpha(s32 alpha) {
+/* Sets the low byte (alpha) of the state word on each save menu object. */ void setSaveMenuAlpha(u8 alpha) {
     u8 entryIndex;
     void *object0;
     void *object1C;

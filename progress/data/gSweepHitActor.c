@@ -1,0 +1,1 @@
+void * gSweepHitActor[2];

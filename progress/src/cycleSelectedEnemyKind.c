@@ -5,7 +5,7 @@ extern s32 requestSound(s32);
 typedef struct { u16 flags; u8 pad[230]; } EnemyDef70;
 extern EnemyDef70 sEnemyDefTable[];
 
-/* Plays a click sound, then steps the actor's current enemy-kind index backwards through sEnemyDefTable to the previous enabled (flag 0x8000) entry, applying per-entry adjustments. */ void cycleSelectedEnemyKind(void *actor) {
+/* Plays a click sound, then steps the actor's current enemy-kind index backwards through sEnemyDefTable to the previous enabled (flag 0x8000) entry, applying per-entry adjustments. */ void cycleSelectedEnemyKind(void *actor, s32 arg1, s32 arg2) {
 int __repair_literal;
 
     u32 scratch[2];

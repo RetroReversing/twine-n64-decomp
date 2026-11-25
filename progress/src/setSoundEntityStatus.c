@@ -1,5 +1,5 @@
 extern u8 gWorkerThreadActive; extern u8 D_80107EE8[];
-/* Stores a status byte in the first byte of a sound entity record (40-byte stride) when the sound worker is active. */ void setSoundEntityStatus(s32 entityIndex,s8 status){if(gWorkerThreadActive) D_80107EE8[(entityIndex&255)*40]=status;}
+/* Stores a status byte in the first byte of a sound entity record (40-byte stride) when the sound worker is active. */ void setSoundEntityStatus(u8 entityIndex, s32 status){if(gWorkerThreadActive) D_80107EE8[(entityIndex&255)*40]=status;}
 void stopWorkerThread(); void workerShutdownNoop();
 void shutdownWorkerIfActive(void){if(gWorkerThreadActive){stopWorkerThread();workerShutdownNoop();gWorkerThreadActive=0;}}
 extern int gBumpAllocRemaining; extern signed char gHeapActive; extern int gTopBumpAllocPtr;

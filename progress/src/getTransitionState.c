@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 extern u8 gTransitionState;
 
-/* Returns the current screen transition state. */ u8 getTransitionState(void) {
+/* Returns the current screen transition state. */ s32 getTransitionState(void) {
     return gTransitionState;
 }

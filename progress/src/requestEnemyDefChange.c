@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK clearPendingMessageEntry(void *, s32, s32, s32);       /* extern */
 M2C_UNK selectNextEnemyDef(void *, M2C_UNK);             /* extern */
 
-/* Handles a request on an owner object: mode 0 queues a change to enemy def newDefIndex (saving the current one if below 0x27); mode 1 calls clearPendingMessageEntry and selects the next enemy def. */ void requestEnemyDefChange(void *owner, s32 mode, s32 newDefIndex) {
+/* Handles a request on an owner object: mode 0 queues a change to enemy def newDefIndex (saving the current one if below 0x27); mode 1 calls clearPendingMessageEntry and selects the next enemy def. */ void requestEnemyDefChange(s32 owner, s32 mode, s32 newDefIndex, s32 * arg3) {
     s32 modeValue;
     s8 currentDef;
     void *state;

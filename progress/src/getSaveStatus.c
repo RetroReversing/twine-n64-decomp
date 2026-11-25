@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 extern s16 gSaveStatus;
 
-/* Returns the current save status code used by the save menu. */ s16 getSaveStatus(void) {
+/* Returns the current save status code used by the save menu. */ s32 getSaveStatus(void) {
     return gSaveStatus;
 }

@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK approxHypot2D(f32, f32);                    /* extern */
 
-/* Approximate horizontal (X/Z) distance between two position vectors. */ void approxDistanceXZ(void *posA, void *posB) {
-    approxHypot2D(M2C_FIELD(posA, f32 *, 0) - M2C_FIELD(posB, f32 *, 0), M2C_FIELD(posA, f32 *, 8) - M2C_FIELD(posB, f32 *, 8));
+/* Approximate horizontal (X/Z) distance between two position vectors. */ s32 approxDistanceXZ(void *posA, void *posB) {
+    return approxHypot2D(M2C_FIELD(posA, f32 *, 0) - M2C_FIELD(posB, f32 *, 0), M2C_FIELD(posA, f32 *, 8) - M2C_FIELD(posB, f32 *, 8));
 }

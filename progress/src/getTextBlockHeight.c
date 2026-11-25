@@ -1,6 +1,6 @@
 s32 countTextLines();
 void *getFont();
-/* Returns the pixel height of a text block: line count (clamped) times line pitch (font line height + 3) plus one line height. */ s32 getTextBlockHeight(s32 text, s32 textId, s32 fontId)
+/* Returns the pixel height of a text block: line count (clamped) times line pitch (font line height + 3) plus one line height. */ s32 getTextBlockHeight(s32 text, u16 textId, s32 fontId)
 {
   u32 extraLines;
   u32 clampedExtraLines;

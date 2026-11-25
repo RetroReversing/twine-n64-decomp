@@ -16,7 +16,7 @@ extern u16 gSaveStatus;
 extern s16 gSaveSlotIndex;
 extern u16 gSaveSlot;
 
-/* Maps a controller-pak error code to a save status code, records the failing slot when relevant, and returns the status. */ u16 getSaveErrorStatus(u32 pfsError) {
+/* Maps a controller-pak error code to a save status code, records the failing slot when relevant, and returns the status. */ s32 getSaveErrorStatus(u32 pfsError) {
     u16 status;
     u16 status2;
 

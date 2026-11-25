@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK findRecordByType();                            /* extern */
 
-/* Thin wrapper that calls findRecordByType. */ void lookupRecordByType(void) {
-    findRecordByType();
+/* Thin wrapper that calls findRecordByType. */ void *lookupRecordByType(s32 arg0) {
+    return findRecordByType();
 }

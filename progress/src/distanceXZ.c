@@ -14,11 +14,11 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK sqrtf32(f32);                         /* extern */
 
-/* Computes the horizontal (X/Z) distance between two positions. */ void distanceXZ(const void *posA, const void *posB) {
+/* Computes the horizontal (X/Z) distance between two positions. */ s32 distanceXZ(const void *posA, const void *posB) {
     f32 deltaZ;
     f32 deltaX;
 
     deltaX = M2C_FIELD(posA, const f32 *, 0) - M2C_FIELD(posB, const f32 *, 0);
     deltaZ = M2C_FIELD(posA, const f32 *, 8) - M2C_FIELD(posB, const f32 *, 8);
-    sqrtf32((deltaX * deltaX) + (deltaZ * deltaZ));
+    return sqrtf32((deltaX * deltaX) + (deltaZ * deltaZ));
 }

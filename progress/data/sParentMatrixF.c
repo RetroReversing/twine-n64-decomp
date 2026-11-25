@@ -1,0 +1,1 @@
+struct { f32 f_000; f32 f_004; f32 f_008; f32 f_00C; f32 f_010; f32 f_014; f32 f_018; f32 f_01C; f32 f_020; f32 f_024; f32 f_028; f32 f_02C; f32 f_030; f32 f_034; f32 f_038; f32 f_03C; } sParentMatrixF;

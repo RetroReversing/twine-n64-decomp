@@ -23,7 +23,7 @@ inline static char *inline_fn(void *arg0)
 }
 
 /* Smoothly turns a joint's yaw (field_94) and pitch (field_98) toward a target position, with per-step rate limits and angle clamps. Returns the new yaw. */
-s16 updateActorHeadLook(void *actor, void *target, s32 jointIdx, s32 turnRate)
+s32 updateActorHeadLook(void * actor, void * target, s32 jointIdx, s32 turnRate)
 {
   f32 temp_fs0;
   f32 temp_fs1;

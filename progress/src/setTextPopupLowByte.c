@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern void *gTextPopupNode;
 
-/* Sets the low byte of the word at offset 0x10 of the current text popup node, if one exists. */ void setTextPopupLowByte(s32 value) {
+/* Sets the low byte of the word at offset 0x10 of the current text popup node, if one exists. */ void setTextPopupLowByte(u8 value) {
     if (gTextPopupNode != NULL) {
         M2C_FIELD(gTextPopupNode, s32 *, 0x10) = (s32) ((M2C_FIELD(gTextPopupNode, s32 *, 0x10) & ~0xFF) | (value & 0xFF));
     }

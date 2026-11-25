@@ -8,7 +8,7 @@ typedef struct {
 Obj *spawnTrackMarker(s32);
 extern Obj *gTrackMarker;
 extern u16 gTrackMarkerX, gTrackMarkerY, gTrackMarkerZ, gTrackMarkerColor;
-/* Spawns the track marker if needed, then sets its scale, position, kind and color from the marker globals. */ void updateTrackMarker(s32 markerId) {
+/* Spawns the track marker if needed, then sets its scale, position, kind and color from the marker globals. */ void updateTrackMarker(u8 markerId) {
     Obj *marker;
     if (!gTrackMarker) {
         gTrackMarker = spawnTrackMarker(markerId & 0xff);

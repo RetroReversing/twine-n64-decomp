@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 extern u16 gCurrentMapIdx;
 
-/* Returns the index of the currently loaded map. */ u16 getCurrentMapIdx(void) {
+/* Returns the index of the currently loaded map. */ s32 getCurrentMapIdx(void) {
     return gCurrentMapIdx;
 }

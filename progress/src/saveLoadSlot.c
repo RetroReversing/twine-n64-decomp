@@ -27,7 +27,7 @@ extern char D_8010840C[];
 extern char D_80108410[];
 extern char D_80108416[];
 
-/* Loads the save in the given slot: scans saves, checks slot is in use, submits command 6, then clears the slot's entry. */ u16 saveLoadSlot(s32 slot) {
+/* Loads the save in the given slot: scans saves, checks slot is in use, submits command 6, then clears the slot's entry. */ s32 saveLoadSlot(s32 slot) {
     s32 slotIndex;
     s32 slotOffset;
 

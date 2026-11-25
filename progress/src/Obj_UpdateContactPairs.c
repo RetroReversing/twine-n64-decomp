@@ -34,7 +34,7 @@ s8 meshVertsInOther(Obj *, Obj *);
 s8 Obj_BoundsContainPoint(f32 *, Obj *, f32);
 f32 vec3DistanceBetween(f32 *, f32 *);
 s8 func_8003D53C(f32, f32, f32);
-void func_8003DA68(Obj *, Obj *, Obj *, f32 *, f32 *);
+void resolveContactPlaneNormal(Obj *, Obj *, Obj *, f32 *, f32 *);
 
 /* For each overlapping pair of type-0x46 objects, adds contact records for nearby
  * objects of type 0x1E, 0x84 or 0x88 and flattens ridge vertices of the third object. */
@@ -77,7 +77,7 @@ void Obj_UpdateContactPairs(Obj *list) {
                     objA->sub->contact->other = objB;
                     objA->sub->contact->bits = (cand->u.flags >> 2) & 0x3FFF;
                     contact = objA->sub->contact;
-                    func_8003DA68(cand, objA, objB, contact->normal, &contact->depth);
+                    resolveContactPlaneNormal(cand, objA, objB, contact->normal, &contact->depth);
                     objB->sub->contact = allocContactNode(objB->sub->contact);
                     objB->sub->contact->b28 = cand->flags54;
                     objB->sub->contact->b29 = cand->flags55;

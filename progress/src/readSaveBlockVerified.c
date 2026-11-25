@@ -5,20 +5,20 @@ s32 saveWaitCommand();
 s32 getSaveErrorStatus();
 s32 saveSubmitCommand();
 extern u16 gSaveStatus;
-extern char gSaveSlotTable[];
+extern char gRumblePaks[];
 extern s16 gSaveSlot;
-extern s32 D_800E0960;
-extern u16 *D_800E0964;
+extern s32 gSaveBufferSize;
+extern u16 *gSaveBuffer;
 extern s32 gSaveRequestSlot;
 extern s32 gSaveCmdResult;
 
-u16 readSaveBlockVerified(void) {
+/* Reads the current save slot's block into the save buffer and verifies its checksum; returns the save status (0x24 on checksum mismatch). */ s32 readSaveBlockVerified(void) {
     gSaveStatus = 0;
-    saveSubmitCommand(9, (gSaveSlot * 0x68) + gSaveSlotTable, gSaveRequestSlot, 0, 0, D_800E0960, D_800E0964, 0);
+    saveSubmitCommand(9, (gSaveSlot * 0x68) + gRumblePaks, gSaveRequestSlot, 0, 0, gSaveBufferSize, gSaveBuffer, 0);
     if (saveWaitCommand() != 0) {
         return getSaveErrorStatus(gSaveCmdResult) & 0xFFFF;
     }
-    if ((computeSaveChecksum((unsigned)D_800E0964 + 2, D_800E0960 - 2) & 0xFFFF) != *D_800E0964) {
+    if ((computeSaveChecksum((unsigned)gSaveBuffer + 2, gSaveBufferSize - 2) & 0xFFFF) != *gSaveBuffer) {
         gSaveCmdResult = -1;
         gSaveStatus = 0x24;
     }

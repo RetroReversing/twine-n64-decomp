@@ -34,7 +34,7 @@ extern char gTrackMarkerParents[];
 extern void *sBonusObjectTable;
 
 extern char D_800D41E0[];
-/* Applies a collected bonus object to an actor: kind 0 teaches/upgrades an enemy ability, 1 grants an action, 2 raises a stat. Returns 1 if applied. */ s32 applyBonusObjectEffect(void *actor, s32 *bonusObject) {
+/* Applies a collected bonus object to an actor: kind 0 teaches/upgrades an enemy ability, 1 grants an action, 2 raises a stat. Returns 1 if applied. */ s8 applyBonusObjectEffect(void * actor, void * bonusObject) {
 int __repair_literal;
 
     char sp30[124];

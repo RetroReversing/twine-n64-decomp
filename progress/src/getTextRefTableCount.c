@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern void *gTextRefTable;
 
-/* Returns the u16 at offset 4 of the text reference table, or 0 if no table is loaded. */ u16 getTextRefTableCount(void) {
+/* Returns the u16 at offset 4 of the text reference table, or 0 if no table is loaded. */ s32 getTextRefTableCount(void) {
     if (gTextRefTable == NULL) {
         return 0U;
     }

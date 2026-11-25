@@ -16,7 +16,7 @@ extern void *gCutscene;
 extern s8 gTransitionTimer;
 extern s8 D_801002AE;
 
-/* Starts a transition: sets the timer, moves the 0x2B3C value to 0x2B30 and zeroes it, and resets related object-record fields. */ void beginTransition(void) {
+/* Starts a transition: sets the timer, moves the 0x2B3C value to 0x2B30 and zeroes it, and resets related object-record fields. */ void beginTransition(void * arg0, void * arg1) {
     f32 savedValue;
 
     savedValue = M2C_FIELD(gCutscene, f32 *, 0x2B3C);

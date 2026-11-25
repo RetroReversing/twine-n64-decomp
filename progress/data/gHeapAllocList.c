@@ -1,0 +1,1 @@
+void * gHeapAllocList[4];

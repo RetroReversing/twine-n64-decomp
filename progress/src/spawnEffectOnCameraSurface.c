@@ -18,7 +18,7 @@ extern s32 *gDefaultOrderObj;
 
 typedef struct { unsigned char pad_0[108]; void * field_6C; unsigned char pad_70[8]; short field_78; unsigned char pad_7A[2]; short field_7C; } __repair_record_temp_v0;
 typedef struct { int field_0; short field_4; } __repair_record_temp_v0_2;
-/* Spawns effect type 8, fills its data, sets its timer fields and links it to the camera surface. */ void spawnEffectOnCameraSurface(s32 effectParam, s32 duration, s32 value, s16 extra) {
+/* Spawns effect type 8, fills its data, sets its timer fields and links it to the camera surface. */ void spawnEffectOnCameraSurface(f32 * effectParam, u16 duration, u16 * value, u16 extra) {
     void *effect;
     void *effectData;
 

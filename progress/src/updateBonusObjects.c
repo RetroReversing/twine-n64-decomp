@@ -10,7 +10,7 @@ extern BonusObject *sBonusObjectTable[];
 extern BonusSlotEntry sBonusSlots[];
 
 /* Updates each active bonus object: state 5 marks its slot entry, and state 7 runs the bonus handler and clears the object's control bytes. */
-void updateBonusObjects(void) {
+void updateBonusObjects(u8 arg0) {
     s32 i;
     BonusObject *p;
     BonusSub *s;

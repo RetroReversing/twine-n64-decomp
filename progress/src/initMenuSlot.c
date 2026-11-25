@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char D_800E0930[];
+extern char gMenuSlotValues[];
 
-void initMenuSlot(s32 arg0, s16 arg1) {
-    *(s16 *)(D_800E0930 + ((arg0 & 0xFFFF) * 2)) = arg1;
+/* Stores a value into the given menu slot (16-bit entries). */ void initMenuSlot(s32 slot, s16 value, s32 arg2) {
+    *(s16 *)(gMenuSlotValues + ((slot & 0xFFFF) * 2)) = value;
 }

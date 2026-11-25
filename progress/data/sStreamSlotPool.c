@@ -1,0 +1,1 @@
+struct { s16 f_000; s16 f_002; f32 f_004; f32 f_008; f32 f_00C; f32 f_010; f32 f_014; f32 f_018; u8 pad_01C[24]; f32 f_034; u8 pad_038[68]; f32 f_07C; u8 pad_080[12]; f32 f_08C; u8 pad_090[256]; s8 f_190; s8 f_191; s8 f_192; u8 f_193; u8 f_194; s8 f_195; u8 pad_196[12394]; } sStreamSlotPool;

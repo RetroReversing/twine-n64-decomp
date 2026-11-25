@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 extern s32 gCutscene;
 
-/* Returns the address at offset 0x9C inside the 0xD4-byte record indexed by the object's slot (halfword at 0x7C). */ s32 getObjectRecordSubPtr(void *object) {
+/* Returns the address at offset 0x9C inside the 0xD4-byte record indexed by the object's slot (halfword at 0x7C). */ void *getObjectRecordSubPtr(void *object) {
     return (M2C_FIELD(object, s16 *, 0x7C) * 0xD4) + gCutscene + 0x9C;
 }

@@ -20,7 +20,7 @@ void *heapAllocTagged();
 extern s32 gEffectObjectCount;
 extern char D_8010A400[];
 
-/* Allocates an effect object plus extraSize bytes of trailing data, initialises its two vec3 pairs (or zeroes them), links it into the effect list and returns it, or NULL on allocation failure. */ void *spawnEffectObject(s32 extraSize, s32 posPair, s32 rotPair) {
+/* Allocates an effect object plus extraSize bytes of trailing data, initialises its two vec3 pairs (or zeroes them), links it into the effect list and returns it, or NULL on allocation failure. */ void *spawnEffectObject(s32 extraSize, s32 posPair, s32 rotPair, s32 arg3) {
     void *obj;
     void *effect;
     void *extraData;

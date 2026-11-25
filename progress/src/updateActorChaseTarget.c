@@ -24,7 +24,7 @@ s32 updateTrackMarkerTargets(void *);               /* extern */
 extern f64 D_800D5120;
 extern u8 gTrackSpecialMarkerFlag;
 
-/* Picks a point near the actor's target to move toward (with random jitter), starting a speech line or movement state; returns 1 if it acted. */ s32 updateActorChaseTarget(void *actor, s32 force) {
+/* Picks a point near the actor's target to move toward (with random jitter), starting a speech line or movement state; returns 1 if it acted. */ s8 updateActorChaseTarget(u8 * actor, s32 force) {
     f32 delta[3];
     f32 jitter;
     f32 dx;

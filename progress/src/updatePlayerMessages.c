@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
-M2C_UNK func_80070664(s32, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
+M2C_UNK setActionSlot(s32, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
 M2C_UNK clearPendingMessageEntry(s32, M2C_UNK, M2C_UNK);       /* extern */
 s32 findActionSlot(s32, M2C_UNK, M2C_UNK);           /* extern */
 M2C_UNK spawnCaptionMessage(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32, s32, s32); /* extern */
@@ -47,7 +47,7 @@ extern void *gBonusObjects;
         playerStateNow = M2C_FIELD(gSweepHitActor, u16 *, 0x78);
         if ((((playerStateNow == 1) | (playerStateNow == 0x4C)) != 0) && (M2C_FIELD(M2C_FIELD(gSweepHitActor, void **, 0x6C), u8 *, 0x82) == 0x23) && (M2C_FIELD(gSweepHitActor, s16 *, 0x7A) == 0x1D)) {
             clearPendingMessageEntry(actionTable, 0xC, 1);
-            func_80070664(actionTable, 0xD, 1, 0);
+            setActionSlot(actionTable, 0xD, 1, 0);
             gTrackMarkerSerial += 1;
             requestSound(0x12B);
             spawnCaptionMessage(0, (*(s32 *)&gTrackMarkerParents), lookupDataEntry(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);

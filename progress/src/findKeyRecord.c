@@ -6,7 +6,7 @@ extern Hdr9835C *D_800F38B0;
 extern void *D_800F38B4;
 extern s32 sResourceTableCount;
 extern Bank9835C sResourceTableSlots[];
-Hdr9835C *func_800956E0(void *, s32, s32, s32, void *);
+Hdr9835C *binarySearchRecords(void *, s32, s32, s32, void *);
 void compareU16Key(void);
 
 s32 findKeyRecord(s16 arg0, Out9835C *out) {
@@ -15,7 +15,7 @@ s32 findKeyRecord(s16 arg0, Out9835C *out) {
 
     D_800F3894 = arg0;
     for (i = 0; i < sResourceTableCount; i++) {
-        h = func_800956E0(&D_800F3894, sResourceTableSlots[i].rom, sResourceTableSlots[i].size, 0x1C, compareU16Key);
+        h = binarySearchRecords(&D_800F3894, sResourceTableSlots[i].rom, sResourceTableSlots[i].size, 0x1C, compareU16Key);
         D_800F38B0 = h;
         if (h != NULL) {
             out->a = h->a;

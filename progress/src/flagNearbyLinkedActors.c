@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 f32 approxDistance(void *, void *);                  /* extern */
 
-/* Walks the actor's linked list and flags entries of type 0x3C within 2.5 units with 0x400000. */ void flagNearbyLinkedActors(void *actor) {
+/* Walks the actor's linked list and flags entries of type 0x3C within 2.5 units with 0x400000. */ void flagNearbyLinkedActors(u8 * actor, u8 * arg1) {
     void **listHead;
     void *other;
 

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK trySetActorCommandFlag();                            /* extern */
 
-/* Clears the halfword at +0xA2 of the actor's sub-object (+0x68), then tries to set the actor command flag. */ void clearActorFieldAndSetCommandFlag(void *actor) {
+/* Clears the halfword at +0xA2 of the actor's sub-object (+0x68), then tries to set the actor command flag. */ void clearActorFieldAndSetCommandFlag(void * actor, s32 arg1) {
     M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s16 *, 0xA2) = 0;
     trySetActorCommandFlag();
 }

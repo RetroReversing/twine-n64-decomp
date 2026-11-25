@@ -16,7 +16,7 @@ extern s8 gHeapActive;
 extern void *gHeapFreeList;
 extern void *gHeapAllocList;
 
-/* Walks the heap free and allocated lists, tracking the largest free block size (result unused). */ void walkHeapLists(void) {
+/* Walks the heap free and allocated lists, tracking the largest free block size (result unused). */ void walkHeapLists(s32 arg0, u32 arg1) {
     u32 blockSize;
     u32 largestFree;
     void *block;

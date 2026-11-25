@@ -1,7 +1,7 @@
 typedef struct { u8 pad0[2]; u8 width; u8 pad3[2]; } Glyph18578;
 typedef struct { u8 pad0[8]; Glyph18578 *glyphs; u8 padC[5]; s8 spacing; } Font18578;
 
-/* Returns the pixel width of text up to the first NUL, tab, newline or space, summing glyph widths plus font spacing. */ u16 getGlyphWidth(Font18578 *font, char *text) {
+/* Returns the pixel width of text up to the first NUL, tab, newline or space, summing glyph widths plus font spacing. */ s32 getGlyphWidth(Font18578 *font, char *text) {
     u16 totalWidth = 0;
     u16 index;
     u8 ch;

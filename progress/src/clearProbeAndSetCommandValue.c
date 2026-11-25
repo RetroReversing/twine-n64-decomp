@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 clearProbeState();
 
-/* Clears the probe state, then stores the command value in the actor's linked command struct (offset 0xA0). */ void clearProbeAndSetCommandValue(void *actor, s32 unused, s16 commandValue) {
+/* Clears the probe state, then stores the command value in the actor's linked command struct (offset 0xA0). */ void clearProbeAndSetCommandValue(void * actor, u16 unused, u16 commandValue) {
     clearProbeState();
     M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s16 *, 0xA0) = commandValue;
 }

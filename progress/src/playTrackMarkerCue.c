@@ -1,6 +1,6 @@
 typedef struct { s32 x; f32 y; s32 z; } Vec3s;
 s32 updateActorHeadLook(void *,Vec3s *,s32,s32); s32 absS32(s32); extern s8 gTrackCuePlayed; extern Vec3s *gTrackMarkerParents[];
-/* Plays the track cue once, at the marker or fallback position; returns nonzero when the cue is in range. */ s32 playTrackMarkerCue(void *actor,void *marker,void *fallbackPos) {
+/* Plays the track cue once, at the marker or fallback position; returns nonzero when the cue is in range. */ s8 playTrackMarkerCue(void * actor, void * marker, s32 fallbackPos) {
  Vec3s cuePos; register s32 effectResult; u16 markerMode; Vec3s *markerPos;
  if(gTrackCuePlayed!=0) goto block_6;
  {

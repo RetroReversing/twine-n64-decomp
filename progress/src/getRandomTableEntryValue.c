@@ -15,6 +15,6 @@ typedef s32 M2C_UNK32;
 s32 randomIntBelow(M2C_UNK);                         /* extern */
 extern u16 gEntryTableValue;
 
-/* Picks a random one of 13 twelve-byte table entries and returns its halfword at offset 2. */ int getRandomTableEntryValue(void) {
+/* Picks a random one of 13 twelve-byte table entries and returns its halfword at offset 2. */ s32 getRandomTableEntryValue( arg0) {
     return *(u16 *)((u8 *)&gEntryTableValue + randomIntBelow(0xD) * 0xC);
 }

@@ -17,7 +17,7 @@ extern s32 gEntryMode;
 extern u16 gEntryCount;
 extern u16 gEntryLevelLimit;
 
-/* Returns the entry status code: the current mode if it is 7 or 9, else 4/6/5 from the first matching table entry's flags (7 if no table). */ s32 getEntryStatus(void) {
+/* Returns the entry status code: the current mode if it is 7 or 9, else 4/6/5 from the first matching table entry's flags (7 if no table). */ s32 getEntryStatus(u16 arg0, void * arg1) {
     s32 temp_v0;
     s32 index;
     s32 status;

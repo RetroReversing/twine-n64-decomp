@@ -4,7 +4,7 @@ extern s32 gVoiceChannelTable;
 extern s32 sSoundVoiceFlags;
 extern s32 sSoundVoiceHandle;
 /* Walks the voice chain from the resolved sound handle and sets flag 8 on each matching voice; returns 0 if any matched, else -1. */
-s32 flagVoiceChainForStop(void) {
+s32 flagVoiceChainForStop(s32 arg0, s32 arg1) {
     s32 handle, result;
     u32 byteOffset;
     result = -1;
